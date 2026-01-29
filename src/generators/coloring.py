@@ -114,7 +114,6 @@ def _create_outline(image: Image.Image, edge_width: int = 3) -> Image.Image:
     
     # Optionally thicken lines
     if edge_width > 1:
-        from PIL import ImageFilter
         for _ in range(edge_width - 1):
             edges = edges.filter(ImageFilter.MinFilter(3))
     

@@ -11,6 +11,12 @@ from ..utils import (
     DEFAULT_FONT_SIZE, SMALL_FONT_SIZE, inches_to_pixels
 )
 
+# Layout constants for AAC boards
+AAC_IMAGE_PADDING = 40
+AAC_IMAGE_MARGIN = 20
+AAC_CIRCLE_PADDING = 15
+AAC_TEXT_BG_PADDING = 5
+
 
 def generate_aac_board(items: List[Tuple[str, str]],
                       image_folder: str = 'aac_images',
@@ -82,7 +88,7 @@ def generate_aac_board(items: List[Tuple[str, str]],
         if not image:
             # Create placeholder for AAC symbol
             image = create_placeholder_image(
-                cell_width - 40,
+                cell_width - AAC_IMAGE_PADDING,
                 cell_height - 80,
                 label[:10]
             )
@@ -91,13 +97,13 @@ def generate_aac_board(items: List[Tuple[str, str]],
         image_height = cell_height - inches_to_pixels(0.8)
         scaled_image = scale_image_to_fit(
             image.copy(),
-            cell_width - 40,
-            image_height - 40
+            cell_width - AAC_IMAGE_PADDING,
+            image_height - AAC_IMAGE_PADDING
         )
         
         # Center image in upper part of cell
         img_x = cell_x + (cell_width - scaled_image.width) // 2
-        img_y = cell_y + 20
+        img_y = cell_y + AAC_IMAGE_MARGIN
         layout.paste_image(scaled_image, img_x, img_y)
         
         # Add label below image
@@ -106,7 +112,7 @@ def generate_aac_board(items: List[Tuple[str, str]],
         text_width = bbox[2] - bbox[0]
         
         # Truncate label if too long
-        if text_width > cell_width - 20:
+        if text_width > cell_width - AAC_IMAGE_MARGIN:
             font = get_font(SMALL_FONT_SIZE, bold=True)
             display_label = label[:15]
         else:
@@ -117,13 +123,12 @@ def generate_aac_board(items: List[Tuple[str, str]],
         text_height = bbox[3] - bbox[1]
         
         text_x = cell_x + (cell_width - text_width) // 2
-        text_y = cell_y + cell_height - text_height - 15
+        text_y = cell_y + cell_height - text_height - AAC_CIRCLE_PADDING
         
         # Draw text with white background for better visibility
-        bg_padding = 5
         layout.draw.rectangle(
-            [text_x - bg_padding, text_y - bg_padding,
-             text_x + text_width + bg_padding, text_y + text_height + bg_padding],
+            [text_x - AAC_TEXT_BG_PADDING, text_y - AAC_TEXT_BG_PADDING,
+             text_x + text_width + AAC_TEXT_BG_PADDING, text_y + text_height + AAC_TEXT_BG_PADDING],
             fill=WHITE
         )
         layout.draw.text((text_x, text_y), display_label, fill=BLACK, font=font)

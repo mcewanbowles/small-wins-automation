@@ -12,6 +12,12 @@ from ..utils import (
 )
 import random
 
+# Layout constants for matching activities
+MATCHING_ROW_PADDING = 20
+MATCHING_IMAGE_PADDING = 40
+MATCHING_CIRCLE_RADIUS = 15
+MATCHING_CIRCLE_WIDTH = 3
+
 
 def generate_matching_activity(pairs: List[Tuple[str, str]],
                                left_folder: str = 'images',
@@ -70,32 +76,34 @@ def generate_matching_activity(pairs: List[Tuple[str, str]],
         left_item = left_items[idx]
         _draw_item(
             layout, left_item, left_column_x, center_y,
-            column_width, row_height - 20,
+            column_width, row_height - MATCHING_ROW_PADDING,
             left_folder, use_images
         )
         
         # Draw circle for left side
         circle_x = left_column_x + column_width + inches_to_pixels(0.2)
         layout.draw.ellipse(
-            [circle_x - 15, center_y - 15, circle_x + 15, center_y + 15],
+            [circle_x - MATCHING_CIRCLE_RADIUS, center_y - MATCHING_CIRCLE_RADIUS,
+             circle_x + MATCHING_CIRCLE_RADIUS, center_y + MATCHING_CIRCLE_RADIUS],
             outline=BLACK,
-            width=3
+            width=MATCHING_CIRCLE_WIDTH
         )
         
         # Draw right item
         right_item = right_items[idx]
         _draw_item(
             layout, right_item, right_column_x, center_y,
-            column_width, row_height - 20,
+            column_width, row_height - MATCHING_ROW_PADDING,
             right_folder, use_images
         )
         
         # Draw circle for right side
         circle_x = right_column_x - inches_to_pixels(0.2)
         layout.draw.ellipse(
-            [circle_x - 15, center_y - 15, circle_x + 15, center_y + 15],
+            [circle_x - MATCHING_CIRCLE_RADIUS, center_y - MATCHING_CIRCLE_RADIUS,
+             circle_x + MATCHING_CIRCLE_RADIUS, center_y + MATCHING_CIRCLE_RADIUS],
             outline=BLACK,
-            width=3
+            width=MATCHING_CIRCLE_WIDTH
         )
     
     # Add instruction

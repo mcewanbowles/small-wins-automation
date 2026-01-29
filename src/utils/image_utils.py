@@ -66,6 +66,8 @@ def scale_image_to_fit(image: Image.Image, max_width: int, max_height: int,
     """
     Scale an image to fit within the given dimensions.
     
+    Note: This function creates a copy of the image to avoid modifying the original.
+    
     Args:
         image: PIL Image to scale
         max_width: Maximum width in pixels
@@ -73,13 +75,16 @@ def scale_image_to_fit(image: Image.Image, max_width: int, max_height: int,
         maintain_aspect: Whether to maintain aspect ratio
         
     Returns:
-        Scaled PIL Image
+        Scaled PIL Image (new copy)
     """
+    # Create a copy to avoid modifying the original
+    scaled_image = image.copy()
+    
     if maintain_aspect:
-        image.thumbnail((max_width, max_height), Image.Resampling.LANCZOS)
-        return image
+        scaled_image.thumbnail((max_width, max_height), Image.Resampling.LANCZOS)
+        return scaled_image
     else:
-        return image.resize((max_width, max_height), Image.Resampling.LANCZOS)
+        return scaled_image.resize((max_width, max_height), Image.Resampling.LANCZOS)
 
 
 def center_image(canvas_width: int, canvas_height: int, 
@@ -105,18 +110,23 @@ def add_transparency(image: Image.Image, alpha: int = 128) -> Image.Image:
     """
     Add transparency to an image.
     
+    Note: This function creates a copy of the image to avoid modifying the original.
+    
     Args:
         image: PIL Image
         alpha: Transparency level (0-255, where 0 is fully transparent)
         
     Returns:
-        Image with transparency
+        Image with transparency (new copy)
     """
-    if image.mode != 'RGBA':
-        image = image.convert('RGBA')
+    # Create a copy to avoid modifying the original
+    result_image = image.copy()
+    
+    if result_image.mode != 'RGBA':
+        result_image = result_image.convert('RGBA')
     
     # Create a new image with adjusted alpha
-    data = image.getdata()
+    data = result_image.getdata()
     new_data = []
     for item in data:
         # Change all non-transparent pixels to have the specified alpha
@@ -125,8 +135,8 @@ def add_transparency(image: Image.Image, alpha: int = 128) -> Image.Image:
         else:
             new_data.append(item)
     
-    image.putdata(new_data)
-    return image
+    result_image.putdata(new_data)
+    return result_image
 
 
 def load_image(filename: str, folder: str = 'images') -> Optional[Image.Image]:

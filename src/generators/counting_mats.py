@@ -138,7 +138,6 @@ def generate_counting_mat_set(start: int = 1, end: int = 10,
     Returns:
         List of output filenames
     """
-    import os
     from ..utils import get_project_root
     
     output_files = []

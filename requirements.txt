@@ -1,2 +1,3 @@
+# Python dependencies for SPED TpT Activity Generator
 Pillow>=10.0.0
-reportlab>=4.0.0
+# reportlab>=4.0.0  # Reserved for future PDF export feature
