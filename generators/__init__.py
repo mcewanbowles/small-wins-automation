@@ -15,6 +15,7 @@ from .story_maps import generate_story_map, generate_story_maps_set
 from .color_questions import generate_color_question_card, generate_color_questions_set
 from .word_search import generate_word_search, generate_word_search_set
 from .storage_labels import generate_storage_label, generate_storage_labels_sheet
+from .aac_book_board import generate_aac_board, generate_aac_board_set
 
 __all__ = [
     # Counting Mats
@@ -77,4 +78,8 @@ __all__ = [
     # Storage Labels
     'generate_storage_label',
     'generate_storage_labels_sheet',
+    
+    # AAC Book Board
+    'generate_aac_board',
+    'generate_aac_board_set',
 ]

@@ -612,3 +612,63 @@ Copyright © Small Wins Studio. All rights reserved.
 ## Support
 
 For questions or support, visit [Small Wins Studio on Teachers Pay Teachers](https://www.teacherspayteachers.com/Store/Small-Wins-Studio)
+```
+
+### 15. AAC Book Board
+Generate AAC (Augmentative and Alternative Communication) book boards with core vocabulary and theme-specific fringe vocabulary.
+
+**Features:**
+- Fixed set of 15 core vocabulary icons (I, you, want, like, see, go, put, yes, no, more, all done, big, little, happy, sad)
+- Theme-specific fringe vocabulary integration
+- Optional color coding by part of speech:
+  - Pronouns: Light blue
+  - Verbs: Light green
+  - Social words: Light pink
+  - Adjectives: Light yellow
+  - Emotions: Peach
+  - Nouns: Light purple
+- Configurable grid layouts (5×6 or 6×6)
+- Optional cut-out icon pages
+- Uses modular helper architecture
+
+**Usage:**
+```python
+from generators import generate_aac_board_set
+
+# Define theme-specific fringe vocabulary
+fringe_vocab = [
+    {'image': 'bear.png', 'label': 'bear', 'category': 'noun'},
+    {'image': 'duck.png', 'label': 'duck', 'category': 'noun'},
+    {'image': 'frog.png', 'label': 'frog', 'category': 'noun'},
+    {'image': 'cat.png', 'label': 'cat', 'category': 'noun'},
+    {'image': 'dog.png', 'label': 'dog', 'category': 'noun'},
+]
+
+# Generate AAC board with core + fringe vocabulary
+output_files = generate_aac_board_set(
+    fringe_vocab=fringe_vocab,
+    theme_name='Brown_Bear',
+    grid_size=(5, 6),  # 5 rows × 6 columns = 30 icons total
+    use_color_coding=True,  # Enable part-of-speech colors
+    with_cutout_icons=True,  # Generate separate cut-out pages
+    folder_type='aac',  # Use AAC/PCS symbols
+    include_storage_label=True
+)
+
+# Output includes:
+# - Brown_Bear_AAC_Board.pdf (complete communication board)
+# - Brown_Bear_AAC_Icons_Cutouts.pdf (cut-out icons, 6 per page)
+# - Storage labels for both
+```
+
+**Grid Sizes:**
+- `(5, 6)`: 30 total icons (15 core + 15 fringe)
+- `(6, 6)`: 36 total icons (15 core + 21 fringe)
+
+**Supported Image Types:**
+- `folder_type='aac'`: AAC/PCS symbols from aac_images/
+- `folder_type='images'`: Real images from images/
+- `folder_type='Colour_images'`: Boardmaker-style colored images
+
+**Color Coding:**
+When `use_color_coding=True`, icons are colored by part of speech to aid language learning and organization.
