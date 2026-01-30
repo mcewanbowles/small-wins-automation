@@ -1,14 +1,14 @@
 """
-Sequencing Strips Generator - Task-Box Sizing Standard
+Sequencing Strips Generator - File Folder Activity Sizing
 
-Generates sequencing cards following the task-box sizing standard for 
-classroom organization. Each sequence step is a separate task-box card
-(4 cards per page in 2×2 grid with shared borders).
+Generates full-width sequencing strips for US file folder activities.
+Each sequence is displayed horizontally as a full-width strip with
+all steps shown in order from left to right.
 
 Features:
-- Task-box compatible sizing (5.25" × 4" per card)  
-- 4 cards per page (2×2 grid) with shared borders for guillotine cutting
-- 3-step and 4-step sequences with step indicators
+- Full-width US Letter sizing (11" × 2.5-3" per strip)
+- 2-3 strips per page depending on height
+- 3-step and 4-step sequences displayed horizontally
 - Errorless version (correct order) and Mixed version (scrambled order)
 - Real image version support
 - Theme-aware design with high-contrast SPED-friendly layout
@@ -16,10 +16,13 @@ Features:
 - Copyright compliance and page numbering
 
 Requirements from specification:
-- TASK BOX SIZING STANDARD: 4 cards per page (2×2 grid), shared borders
-- Each step is a separate task-box card with "Step X of Y" indicator
+- FILE FOLDER SIZING: Full-width strips (11" wide × 2.5-3" high)
+- 2-3 strips per page
+- Each strip shows complete sequence horizontally
+- Step indicators for each step box
 - 3-step and 4-step sequences
-- Errorless version (all steps identical - implemented as correct order)
+- Errorless version (correct order)
+- Mixed version (scrambled order)
 - Real image version (if available)
 - Theme awareness (fonts, colors, icons from JSON)
 - Page elements (footer + page numbering)
@@ -61,98 +64,119 @@ from utils.fonts import get_font_manager
 from utils.storage_label_helper import create_companion_label
 import random
 
-# Task box card sizing standard (4 cards per page, 2×2 grid)
-# 5.25" × 4" at 300 DPI = 1575px × 1200px
-TASK_BOX_CARD_WIDTH = int(5.25 * DPI)  # 1575px
-TASK_BOX_CARD_HEIGHT = int(4 * DPI)  # 1200px
+# File folder strip sizing (full-width US Letter strips)
+# 11" wide × 2.75" high at 300 DPI
+STRIP_WIDTH = int(11 * DPI)  # 3300px (full US Letter width)
+STRIP_HEIGHT = int(2.75 * DPI)  # 825px (2.75 inches high)
+MARGIN_TOP = int(0.5 * DPI)  # 150px top margin
+MARGIN_BOTTOM = int(0.75 * DPI)  # 225px bottom margin for footer
 
 
-def generate_sequence_card(draw, card_rect, step_item, step_number, total_steps, 
-                           folder_type='images', with_labels=True, theme_fonts=None):
+def generate_sequence_strip(sequence_items, strip_y_position, folder_type='images', 
+                           with_labels=True, theme_fonts=None):
     """
-    Generate a single sequencing card within the given rectangle.
+    Generate a single horizontal sequencing strip showing all steps.
     
     Args:
-        draw: PIL ImageDraw object
-        card_rect: Tuple (x1, y1, x2, y2) defining card boundaries
-        step_item: Dict with 'image' and 'label' keys
-        step_number: Current step number (1-based)
-        total_steps: Total number of steps in sequence
+        sequence_items: List of step items (dict with 'image', 'label', 'step_num', 'total_steps')
+        strip_y_position: Y position where strip should be drawn
         folder_type: Image folder type ('images', 'real_images', etc.)
         with_labels: Include text label below icon
         theme_fonts: Optional dict of theme fonts
+        
+    Returns:
+        PIL.Image: Strip image
     """
-    x1, y1, x2, y2 = card_rect
-    card_width = x2 - x1
-    card_height = y2 - y1
+    # Create strip image
+    strip = Image.new('RGB', (STRIP_WIDTH, STRIP_HEIGHT), COLORS['white'])
+    draw = ImageDraw.Draw(strip)
     
-    # Draw card border (shared borders for guillotine cutting)
-    draw.rectangle([x1, y1, x2, y2], outline=COLORS['black'], width=3)
+    # Draw outer border
+    draw.rectangle([0, 0, STRIP_WIDTH - 1, STRIP_HEIGHT - 1], 
+                  outline=COLORS['black'], width=4)
     
-    # Layout areas
-    step_indicator_height = 60  # "Step 1 of 3" indicator
-    icon_area_height = int(card_height * 0.65) - step_indicator_height  # 65% for icon
-    label_area_height = int(card_height * 0.35)  # 35% for label
+    num_steps = len(sequence_items)
     
-    # 1. Step indicator at top
-    step_text = f"Step {step_number} of {total_steps}"
+    # Calculate step box dimensions
+    # Divide strip width equally among steps
+    step_box_width = STRIP_WIDTH // num_steps
     
-    # Draw step indicator background
-    step_bg_rect = (x1 + 10, y1 + 10, x2 - 10, y1 + step_indicator_height)
-    draw.rectangle(step_bg_rect, fill=COLORS['light_gray'], outline=COLORS['dark_gray'], width=2)
-    
-    # Center step text (font_size parameter, not font object)
-    draw_text_centered_in_rect(draw, step_text, step_bg_rect, font_size=28, color=COLORS['black'])
-    
-    # 2. Icon area
-    icon_rect = (
-        x1 + 40,
-        y1 + step_indicator_height + 20,
-        x2 - 40,
-        y1 + step_indicator_height + icon_area_height
-    )
-    
-    # Load image
-    image_loader = get_image_loader()
-    try:
-        img = image_loader.load_image(step_item['image'], folder_type)
-        if img:
-            scaled_img, (img_x, img_y) = scale_image_to_fit(img, icon_rect, padding=10)
-            
-            # Paste image
-            if scaled_img.mode == 'RGBA':
-                draw._image.paste(scaled_img, (img_x, img_y), scaled_img)
-            else:
-                draw._image.paste(scaled_img, (img_x, img_y))
-    except:
-        # Use placeholder
-        placeholder_width = icon_rect[2] - icon_rect[0]
-        placeholder_height = icon_rect[3] - icon_rect[1]
-        placeholder = create_placeholder_image(placeholder_width, placeholder_height, 
-                                              step_item.get('label', 'Image'))
-        draw._image.paste(placeholder, (icon_rect[0], icon_rect[1]))
-    
-    # 3. Label area (if enabled)
-    if with_labels and 'label' in step_item:
-        label_y_start = y1 + step_indicator_height + icon_area_height + 10
-        label_rect = (
-            x1 + 20,
-            label_y_start,
-            x2 - 20,
-            y2 - 20
+    # Draw each step box
+    for idx, step_item in enumerate(sequence_items):
+        x_start = idx * step_box_width
+        x_end = x_start + step_box_width
+        
+        # Draw vertical divider between steps (except after last step)
+        if idx < num_steps - 1:
+            draw.line([(x_end, 0), (x_end, STRIP_HEIGHT)], 
+                     fill=COLORS['black'], width=3)
+        
+        # Layout within each step box
+        step_indicator_height = 50  # "Step 1" indicator
+        icon_area_height = int(STRIP_HEIGHT * 0.60) - step_indicator_height
+        label_area_height = int(STRIP_HEIGHT * 0.40)
+        
+        # 1. Step indicator at top
+        step_num = step_item.get('step_num', idx + 1)
+        total_steps = step_item.get('total_steps', num_steps)
+        step_text = f"Step {step_num}"
+        
+        step_bg_rect = (x_start + 10, 10, x_end - 10, step_indicator_height)
+        draw.rectangle(step_bg_rect, fill=COLORS['light_gray'], 
+                      outline=COLORS['dark_gray'], width=2)
+        draw_text_centered_in_rect(draw, step_text, step_bg_rect, 
+                                   font_size=24, color=COLORS['black'])
+        
+        # 2. Icon area
+        icon_padding = 20
+        icon_rect = (
+            x_start + icon_padding,
+            step_indicator_height + 15,
+            x_end - icon_padding,
+            step_indicator_height + icon_area_height
         )
         
-        # Use font_size parameter
-        draw_text_centered_in_rect(draw, step_item['label'], label_rect, font_size=36, color=COLORS['black'])
+        # Load and draw image
+        image_loader = get_image_loader()
+        try:
+            img = image_loader.load_image(step_item['image'], folder_type)
+            if img:
+                scaled_img, (img_x, img_y) = scale_image_to_fit(img, icon_rect, padding=5)
+                
+                if scaled_img.mode == 'RGBA':
+                    strip.paste(scaled_img, (img_x, img_y), scaled_img)
+                else:
+                    strip.paste(scaled_img, (img_x, img_y))
+        except:
+            # Use placeholder
+            placeholder_width = icon_rect[2] - icon_rect[0]
+            placeholder_height = icon_rect[3] - icon_rect[1]
+            placeholder = create_placeholder_image(placeholder_width, placeholder_height,
+                                                  step_item.get('label', 'Image'))
+            strip.paste(placeholder, (icon_rect[0], icon_rect[1]))
+        
+        # 3. Label area (if enabled)
+        if with_labels and 'label' in step_item:
+            label_y_start = step_indicator_height + icon_area_height + 5
+            label_rect = (
+                x_start + 10,
+                label_y_start,
+                x_end - 10,
+                STRIP_HEIGHT - 10
+            )
+            draw_text_centered_in_rect(draw, step_item['label'], label_rect,
+                                       font_size=28, color=COLORS['black'])
+    
+    return strip
 
 
-def generate_sequencing_cards_page(sequence_steps, page_number, total_pages, 
+def generate_sequencing_strips_page(sequences, page_number, total_pages,
                                    folder_type='images', with_labels=True, theme_fonts=None):
     """
-    Generate a page with 4 sequencing cards in 2×2 grid (task-box sizing standard).
+    Generate a page with 2-3 sequencing strips (file folder sizing).
     
     Args:
-        sequence_steps: List of up to 4 step items (dict with 'image', 'label', 'step_num', 'total_steps')
+        sequences: List of sequences, each sequence is a list of step items
         page_number: Current page number
         total_pages: Total number of pages
         folder_type: Image folder type
@@ -160,46 +184,52 @@ def generate_sequencing_cards_page(sequence_steps, page_number, total_pages,
         theme_fonts: Optional theme fonts dict
         
     Returns:
-        PIL.Image: Generated page with 4 cards
+        PIL.Image: Generated page with strips
     """
     # Create page
     page = Image.new('RGB', (int(PAGE_WIDTH), int(PAGE_HEIGHT)), COLORS['white'])
-    draw = ImageDraw.Draw(page)
     
-    # Calculate card positions (2×2 grid, shared borders)
-    # Cards share borders for guillotine cutting
-    col1_x = 0
-    col2_x = TASK_BOX_CARD_WIDTH
-    row1_y = 0
-    row2_y = TASK_BOX_CARD_HEIGHT
+    # Calculate positions for strips
+    # Available height = PAGE_HEIGHT - MARGIN_TOP - MARGIN_BOTTOM
+    available_height = PAGE_HEIGHT - MARGIN_TOP - MARGIN_BOTTOM
+    num_strips = len(sequences)
     
-    # Define all 4 card positions
-    card_positions = [
-        (col1_x, row1_y, col1_x + TASK_BOX_CARD_WIDTH, row1_y + TASK_BOX_CARD_HEIGHT),  # Top-left
-        (col2_x, row1_y, col2_x + TASK_BOX_CARD_WIDTH, row2_y + TASK_BOX_CARD_HEIGHT),  # Top-right
-        (col1_x, row2_y, col1_x + TASK_BOX_CARD_WIDTH, row2_y + TASK_BOX_CARD_HEIGHT),  # Bottom-left
-        (col2_x, row2_y, col2_x + TASK_BOX_CARD_WIDTH, row2_y + TASK_BOX_CARD_HEIGHT),  # Bottom-right
-    ]
+    # Calculate spacing
+    if num_strips == 1:
+        strip_spacing = 0
+        y_positions = [MARGIN_TOP]
+    elif num_strips == 2:
+        strip_spacing = (available_height - 2 * STRIP_HEIGHT) // 3
+        y_positions = [
+            MARGIN_TOP + strip_spacing,
+            MARGIN_TOP + strip_spacing + STRIP_HEIGHT + strip_spacing
+        ]
+    else:  # 3 strips
+        strip_spacing = (available_height - 3 * STRIP_HEIGHT) // 4
+        y_positions = [
+            MARGIN_TOP + strip_spacing,
+            MARGIN_TOP + strip_spacing + STRIP_HEIGHT + strip_spacing,
+            MARGIN_TOP + 2 * strip_spacing + 2 * STRIP_HEIGHT + strip_spacing
+        ]
     
-    # Draw each card
-    for idx, step in enumerate(sequence_steps[:4]):  # Max 4 cards per page
-        if idx < len(card_positions):
-            card_rect = card_positions[idx]
-            generate_sequence_card(
-                draw, 
-                card_rect, 
-                step, 
-                step.get('step_num', idx + 1),
-                step.get('total_steps', len(sequence_steps)),
+    # Generate and paste each strip
+    for idx, sequence_items in enumerate(sequences[:3]):  # Max 3 strips per page
+        if idx < len(y_positions):
+            strip = generate_sequence_strip(
+                sequence_items,
+                y_positions[idx],
                 folder_type=folder_type,
                 with_labels=with_labels,
                 theme_fonts=theme_fonts
             )
+            # Paste strip onto page
+            # Center horizontally
+            x_position = (int(PAGE_WIDTH) - STRIP_WIDTH) // 2
+            page.paste(strip, (x_position, int(y_positions[idx])))
     
-    # Add copyright footer
+    # Add copyright footer and page number
+    draw = ImageDraw.Draw(page)
     draw_copyright_footer(draw, PAGE_WIDTH, PAGE_HEIGHT)
-    
-    # Add page number
     draw_page_number(draw, page_number, total_pages, PAGE_WIDTH, PAGE_HEIGHT)
     
     return page
@@ -211,13 +241,13 @@ def generate_sequencing_strips_set(items, theme_name='Theme', num_steps=3,
                                    output_dir='output', include_storage_label=False,
                                    theme_fonts=None):
     """
-    Generate complete sequencing strips set with task-box sizing standard.
+    Generate complete sequencing strips set with file folder sizing.
     
     Args:
         items: List of dict with 'image' and 'label' keys
         theme_name: Theme name for file naming
         num_steps: Number of steps per sequence (3 or 4)
-        include_errorless: Generate errorless version (all steps identical)
+        include_errorless: Generate errorless version (correct order)
         include_mixed: Generate mixed/scrambled version
         include_real_images: Generate real image version
         real_image_items: Optional list of real image items
@@ -248,21 +278,23 @@ def generate_sequencing_strips_set(items, theme_name='Theme', num_steps=3,
     
     # 1. Generate standard (errorless) version - correct order
     if include_errorless:
+        # Create single strip showing sequence
+        # Each page can have multiple copies of the same sequence for cutting
+        # Let's put 3 identical strips per page
+        sequences_per_page = 3
         pages = []
-        cards_per_page = 4
         
-        # Create pages with 4 cards each
-        for i in range(0, num_steps, cards_per_page):
-            page_steps = sequence_items[i:i + cards_per_page]
-            page = generate_sequencing_cards_page(
-                page_steps,
-                page_number=i // cards_per_page + 1,
-                total_pages=(num_steps + cards_per_page - 1) // cards_per_page,
-                folder_type='images',
-                with_labels=True,
-                theme_fonts=theme_fonts
-            )
-            pages.append(page)
+        # Generate 1 page with 3 identical strips
+        page_sequences = [sequence_items.copy() for _ in range(sequences_per_page)]
+        page = generate_sequencing_strips_page(
+            page_sequences,
+            page_number=1,
+            total_pages=1,
+            folder_type='images',
+            with_labels=True,
+            theme_fonts=theme_fonts
+        )
+        pages.append(page)
         
         # Save errorless version
         filename = f'{theme_name}_Sequencing_{num_steps}Step_Errorless.pdf'
@@ -292,22 +324,22 @@ def generate_sequencing_strips_set(items, theme_name='Theme', num_steps=3,
         
         # Update step numbers to reflect scrambled order
         for idx, item in enumerate(mixed_items):
-            item['step_num'] = idx + 1
+            item['step_num'] = item.get('original_step_num', idx + 1)
         
+        # Generate 3 identical strips per page
+        sequences_per_page = 3
         pages = []
-        cards_per_page = 4
         
-        for i in range(0, num_steps, cards_per_page):
-            page_steps = mixed_items[i:i + cards_per_page]
-            page = generate_sequencing_cards_page(
-                page_steps,
-                page_number=i // cards_per_page + 1,
-                total_pages=(num_steps + cards_per_page - 1) // cards_per_page,
-                folder_type='images',
-                with_labels=True,
-                theme_fonts=theme_fonts
-            )
-            pages.append(page)
+        page_sequences = [mixed_items.copy() for _ in range(sequences_per_page)]
+        page = generate_sequencing_strips_page(
+            page_sequences,
+            page_number=1,
+            total_pages=1,
+            folder_type='images',
+            with_labels=True,
+            theme_fonts=theme_fonts
+        )
+        pages.append(page)
         
         # Save mixed version
         filename = f'{theme_name}_Sequencing_{num_steps}Step_Mixed.pdf'
@@ -338,21 +370,20 @@ def generate_sequencing_strips_set(items, theme_name='Theme', num_steps=3,
             item['step_num'] = idx + 1
             item['total_steps'] = len(real_items)
         
-        pages = []
-        cards_per_page = 4
         actual_steps = len(real_items)
+        sequences_per_page = 3
+        pages = []
         
-        for i in range(0, actual_steps, cards_per_page):
-            page_steps = real_items[i:i + cards_per_page]
-            page = generate_sequencing_cards_page(
-                page_steps,
-                page_number=i // cards_per_page + 1,
-                total_pages=(actual_steps + cards_per_page - 1) // cards_per_page,
-                folder_type='real_images',
-                with_labels=True,
-                theme_fonts=theme_fonts
-            )
-            pages.append(page)
+        page_sequences = [real_items.copy() for _ in range(sequences_per_page)]
+        page = generate_sequencing_strips_page(
+            page_sequences,
+            page_number=1,
+            total_pages=1,
+            folder_type='real_images',
+            with_labels=True,
+            theme_fonts=theme_fonts
+        )
+        pages.append(page)
         
         # Save real images version
         filename = f'{theme_name}_Sequencing_{actual_steps}Step_RealImages.pdf'
