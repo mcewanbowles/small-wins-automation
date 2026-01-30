@@ -672,3 +672,51 @@ output_files = generate_aac_board_set(
 
 **Color Coding:**
 When `use_color_coding=True`, icons are colored by part of speech to aid language learning and organization.
+
+### 16. Sequencing Strips
+Generate sequencing strips for teaching order and temporal sequences with lanyard-friendly design.
+
+**Features:**
+- Horizontal strips with 3 or 4 icon slots
+- Icons match exact size of matching cards (750×750px at 300 DPI)
+- Lanyard-friendly design with hole-punch indicator and reinforced border
+- Optional text labels under icons
+- 4 differentiation levels:
+  - Level 1: Errorless (correct order)
+  - Level 2: Mixed (scrambled order)
+  - Level 3: Cut-and-paste version
+  - Level 4: WH-version ("What happens next?")
+- Separate cut-out icon pages with optional bold outline and grab tabs
+- Storage label support
+
+**Usage:**
+```python
+from generators import generate_sequencing_strips_set
+
+sequences = [
+    {
+        'steps': [
+            {'image': 'step1.png', 'label': 'First'},
+            {'image': 'step2.png', 'label': 'Then'},
+            {'image': 'step3.png', 'label': 'Finally'}
+        ],
+        'title': 'Make a Sandwich'
+    }
+]
+
+output_files = generate_sequencing_strips_set(
+    sequences=sequences,
+    theme_name='Life_Skills',
+    level=1,  # Errorless
+    with_lanyard=True,
+    with_cutout_icons=True,
+    include_storage_label=True
+)
+# Returns: {'strips': '...pdf', 'cutouts': '...pdf', 'strips_label': '...pdf', 'cutouts_label': '...pdf'}
+```
+
+**Output files:**
+- `Theme_Sequencing_Strips_Errorless.pdf` - Strip pages with icons in order
+- `Theme_Sequencing_Icons_Cutouts.pdf` - Cut-out icon pages
+- Storage labels for organization
+
