@@ -484,11 +484,55 @@ generate_sorting_cards_set(
 # - Storage label PDF
 ```
 
-### 9. Sentence Strips (AAC)
-Generate sentence strips with AAC symbols.
+### 9. Enhanced Sentence Strips (AAC)
+
+**NEW**: Lanyard-friendly sentence strips with interchangeable cut-out icons
+
+Generate sentence strips with AAC symbols designed for practical classroom use:
+
+**Features:**
+- **Lanyard-Friendly Design**: Left margin strip with hole-punch indicator and reinforced border
+- **Interchangeable Icons**: Cut-out icons match exact size of matching cards (750px/2.5" at 300 DPI)
+- **Horizontal Strip Layout**: 2-4 icon slots with predictable left-to-right spacing
+- **Cut-Out Icon Pages**: Separate pages with bold outlines and optional grab tabs for fine motor support
+- **Same Card Style**: Uses matching card styling for visual consistency across products
+- **Page Elements**: Copyright footer and page numbering on all pages
+
 ```python
 from generators import generate_sentence_strips_set
+
+# Define sentence data
+sentence_data = [
+    {
+        'symbols': [
+            {'image': 'bear.png', 'label': 'bear', 'folder_type': 'aac'},
+            {'image': 'brown.png', 'label': 'brown', 'folder_type': 'aac'},
+            {'image': 'see.png', 'label': 'I see', 'folder_type': 'aac'}
+        ],
+        'slots': 4  # Number of icon slots in strip
+    }
+]
+
+# Generate sentence strips with cut-out icons
+output_files = generate_sentence_strips_set(
+    sentence_data=sentence_data,
+    theme_name='Brown_Bear',
+    with_lanyard=True,  # Add lanyard strip
+    with_cutout_icons=True,  # Generate cut-out icon pages
+    include_storage_label=True
+)
+
+# Output includes:
+# - Brown_Bear_Sentence_Strips.pdf (lanyard-ready strips)
+# - Brown_Bear_Sentence_Icons_Cutouts.pdf (interchangeable icons)
+# - Storage labels for both
 ```
+
+**Icon Interchangeability:**
+Icons are the exact same size (750px) as matching card icons, allowing:
+- Mix-and-match across activities
+- Reusable icon sets for multiple sentence patterns
+- Consistent visual experience for students
 
 ### 10. Yes/No Questions
 Create yes/no question cards with images.
