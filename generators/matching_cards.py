@@ -12,18 +12,21 @@ minimal clutter, consistent spacing, and 300 DPI output.
 """
 
 from PIL import Image, ImageDraw, ImageFont
-from utils.config import MARGINS, CARD_SIZES, DPI, COLORS
+from utils.config import MARGINS, CARD_SIZES, DPI, COLORS, FONT_SIZES, PAGE_WIDTH, PAGE_HEIGHT
 from utils.image_loader import get_image_loader
 from utils.image_utils import scale_image_proportional, center_image_in_box
 from utils.layout import create_card_background, add_page_border, add_footer, create_page_canvas
+from utils.grid_layout import create_grid_positions, calculate_grid_dimensions
 from utils.pdf_export import save_images_as_pdf
+from utils.fonts import get_font_manager
 import os
 
 
 def generate_matching_card(image_filename, label_text=None, card_size='large',
-                           folder_type='color', card_type='image', level=1):
+                           folder_type='color', card_type='image', level=1, 
+                           add_drop_shadow=False, label_font_size=None):
     """
-    Generate a single matching card.
+    Generate a single matching card with enhanced layout consistency.
     
     Args:
         image_filename: Filename of the image (without folder path)
@@ -32,6 +35,8 @@ def generate_matching_card(image_filename, label_text=None, card_size='large',
         folder_type: 'color', 'bw_outline', or 'aac'
         card_type: 'image' or 'text' (for Level 4)
         level: Differentiation level (1-4)
+        add_drop_shadow: If True, add subtle drop shadow to card border
+        label_font_size: Consistent font size for labels (defaults to FONT_SIZES['body'])
         
     Returns:
         PIL.Image: Generated card
@@ -39,27 +44,50 @@ def generate_matching_card(image_filename, label_text=None, card_size='large',
     # Get card dimensions
     width, height = CARD_SIZES[card_size]
     
+    # Set consistent label font size
+    if label_font_size is None:
+        label_font_size = FONT_SIZES['body']
+    
     # Create card background with border
     card = create_card_background(width, height, border=True)
     
+    # Optional: Add drop shadow effect
+    if add_drop_shadow:
+        shadow_card = Image.new('RGBA', (width + 10, height + 10), (0, 0, 0, 0))
+        draw_shadow = ImageDraw.Draw(shadow_card)
+        # Draw subtle shadow
+        for i in range(5):
+            alpha = 30 - (i * 5)
+            draw_shadow.rectangle(
+                [5 + i, 5 + i, width + 5 - i, height + 5 - i],
+                outline=(0, 0, 0, alpha)
+            )
+        # Composite shadow with card
+        shadow_card.paste(card, (0, 0), card)
+        card = shadow_card.crop((0, 0, width, height))
+    
     if card_type == 'text':
-        # Level 4: Text-only card
+        # Level 4: Text-only card with consistent font sizing
         draw = ImageDraw.Draw(card)
+        
+        # Get text content
+        text = label_text if label_text else image_filename.replace('.png', '').replace('_', ' ').title()
+        
+        # Use default font (simpler approach for better compatibility)
         try:
-            # Use default font for now (can be enhanced with custom fonts)
+            # Try to load a basic font
+            font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", size=int(label_font_size))
+        except:
+            # Fallback to default if truetype not available
             font = ImageFont.load_default()
-            
-            # Draw text in center of card
-            text = label_text if label_text else image_filename.replace('.png', '').replace('_', ' ').title()
-            bbox = draw.textbbox((0, 0), text, font=font)
-            text_width = bbox[2] - bbox[0]
-            text_height = bbox[3] - bbox[1]
-            text_x = (width - text_width) // 2
-            text_y = (height - text_height) // 2
-            draw.text((text_x, text_y), text, fill=COLORS['black'] + (255,), font=font)
-        except Exception as e:
-            # Fallback if font loading fails
-            pass
+        
+        # Draw text centered in card
+        bbox = draw.textbbox((0, 0), text, font=font)
+        text_width = bbox[2] - bbox[0]
+        text_height = bbox[3] - bbox[1]
+        text_x = (width - text_width) // 2
+        text_y = (height - text_height) // 2
+        draw.text((text_x, text_y), text, fill=COLORS['black'] + (255,), font=font)
         
         return card
     
@@ -69,29 +97,34 @@ def generate_matching_card(image_filename, label_text=None, card_size='large',
     try:
         theme_image = image_loader.load_image(image_filename, folder_type)
     except FileNotFoundError:
-        # If image not found, create a placeholder
+        # If image not found, create a consistent placeholder
         theme_image = Image.new('RGBA', (500, 500), (200, 200, 200, 255))
         draw = ImageDraw.Draw(theme_image)
         draw.rectangle([50, 50, 450, 450], outline=(100, 100, 100, 255), width=5)
-        draw.text((100, 230), f"Missing:\n{image_filename}", fill=(100, 100, 100, 255))
+        
+        # Use default font for placeholder text (simpler approach)
+        draw.text((100, 230), f"Missing:\n{image_filename}", 
+                 fill=(100, 100, 100, 255))
     
-    # Calculate image area
+    # Calculate image area with consistent margins
     image_width = width - (MARGINS['card'] * 2)
     image_height = height - (MARGINS['card'] * 2)
     
     # Scale image proportionally
     scaled_image = scale_image_proportional(theme_image, max_width=image_width, max_height=image_height)
     
-    # Center image in card
+    # Center image in card using precise calculation
     img_x = (width - scaled_image.width) // 2
     img_y = (height - scaled_image.height) // 2
     
+    # Paste with alpha channel support
     card.paste(scaled_image, (img_x, img_y), scaled_image)
     
     return card
 
 
-def generate_matching_pair(image_base_name, label_text=None, level=1, card_size='large'):
+def generate_matching_pair(image_base_name, label_text=None, level=1, card_size='large',
+                          add_drop_shadow=False, label_font_size=None):
     """
     Generate a matching pair of cards based on differentiation level.
     
@@ -100,6 +133,8 @@ def generate_matching_pair(image_base_name, label_text=None, level=1, card_size=
         label_text: Text label for the item
         level: Differentiation level (1-4)
         card_size: Card size
+        add_drop_shadow: If True, add drop shadow to cards
+        label_font_size: Consistent font size for labels
         
     Returns:
         tuple: (card_a, card_b) - Two matching cards
@@ -112,7 +147,9 @@ def generate_matching_pair(image_base_name, label_text=None, level=1, card_size=
             card_size,
             folder_type='color',
             card_type='image',
-            level=level
+            level=level,
+            add_drop_shadow=add_drop_shadow,
+            label_font_size=label_font_size
         )
         card_b = card_a.copy()  # Identical card
         
@@ -124,7 +161,9 @@ def generate_matching_pair(image_base_name, label_text=None, level=1, card_size=
             card_size,
             folder_type='bw_outline',  # Outline version
             card_type='image',
-            level=level
+            level=level,
+            add_drop_shadow=add_drop_shadow,
+            label_font_size=label_font_size
         )
         card_b = generate_matching_card(
             f"{image_base_name}.png",
@@ -132,7 +171,9 @@ def generate_matching_pair(image_base_name, label_text=None, level=1, card_size=
             card_size,
             folder_type='color',  # Color version
             card_type='image',
-            level=level
+            level=level,
+            add_drop_shadow=add_drop_shadow,
+            label_font_size=label_font_size
         )
         
     elif level == 3:
@@ -143,7 +184,9 @@ def generate_matching_pair(image_base_name, label_text=None, level=1, card_size=
             card_size,
             folder_type='aac',  # AAC symbol
             card_type='image',
-            level=level
+            level=level,
+            add_drop_shadow=add_drop_shadow,
+            label_font_size=label_font_size
         )
         card_b = generate_matching_card(
             f"{image_base_name}.png",
@@ -151,7 +194,9 @@ def generate_matching_pair(image_base_name, label_text=None, level=1, card_size=
             card_size,
             folder_type='color',  # Real image
             card_type='image',
-            level=level
+            level=level,
+            add_drop_shadow=add_drop_shadow,
+            label_font_size=label_font_size
         )
         
     elif level == 4:
@@ -162,7 +207,9 @@ def generate_matching_pair(image_base_name, label_text=None, level=1, card_size=
             card_size,
             folder_type='aac',  # AAC symbol
             card_type='image',
-            level=level
+            level=level,
+            add_drop_shadow=add_drop_shadow,
+            label_font_size=label_font_size
         )
         card_b = generate_matching_card(
             f"{image_base_name}.png",
@@ -170,7 +217,9 @@ def generate_matching_pair(image_base_name, label_text=None, level=1, card_size=
             card_size,
             folder_type='color',  # Not used for text card
             card_type='text',  # Text card
-            level=level
+            level=level,
+            add_drop_shadow=add_drop_shadow,
+            label_font_size=label_font_size
         )
     else:
         raise ValueError(f"Invalid level: {level}. Must be 1-4.")
@@ -180,9 +229,11 @@ def generate_matching_pair(image_base_name, label_text=None, level=1, card_size=
 
 def generate_matching_cards_set(items, level=1, card_size='large', 
                                  cards_per_page=6, output_dir='output', theme_name='Theme',
-                                 include_storage_label=False):
+                                 include_storage_label=False, add_drop_shadow=False,
+                                 custom_spacing=None, custom_margins=None):
     """
-    Generate a complete set of matching cards at the specified difficulty level.
+    Generate a complete set of matching cards at the specified difficulty level
+    with enhanced layout consistency.
     
     Args:
         items: List of dicts with 'image' (base name) and 'label' keys
@@ -193,12 +244,22 @@ def generate_matching_cards_set(items, level=1, card_size='large',
         output_dir: Output directory
         theme_name: Theme name for filename
         include_storage_label: If True, also generate a companion storage label PDF
+        add_drop_shadow: If True, add subtle drop shadow to card borders
+        custom_spacing: Custom spacing between cards (uses MARGINS['content'] if None)
+        custom_margins: Custom page margins dict (uses MARGINS if None)
         
     Returns:
         list: List of generated pages
     """
     # Create output directory if it doesn't exist
     os.makedirs(output_dir, exist_ok=True)
+    
+    # Use configuration margins or custom ones
+    margins = custom_margins if custom_margins else MARGINS
+    spacing = custom_spacing if custom_spacing is not None else margins['content']
+    
+    # Consistent label font size across all cards
+    label_font_size = FONT_SIZES['body']
     
     # Generate all card pairs
     all_cards = []
@@ -207,57 +268,67 @@ def generate_matching_cards_set(items, level=1, card_size='large',
             item['image'],
             item.get('label'),
             level,
-            card_size
+            card_size,
+            add_drop_shadow=add_drop_shadow,
+            label_font_size=label_font_size
         )
         all_cards.append(card_a)
         all_cards.append(card_b)
     
-    # Determine grid layout based on cards_per_page
+    # Determine optimal grid layout based on cards_per_page
     if cards_per_page == 6:
         grid_cols, grid_rows = 2, 3
     elif cards_per_page == 8:
         grid_cols, grid_rows = 2, 4
     elif cards_per_page == 9:
         grid_cols, grid_rows = 3, 3
+    elif cards_per_page == 4:
+        grid_cols, grid_rows = 2, 2
     else:
-        grid_cols, grid_rows = 2, 3
+        # Auto-calculate grid dimensions for other values
+        grid_cols, grid_rows = calculate_grid_dimensions(cards_per_page, max_cols=3)
     
-    # Arrange cards on pages
+    # Arrange cards on pages using grid layout utility
     pages = []
     card_width, card_height = CARD_SIZES[card_size]
     
     for page_start in range(0, len(all_cards), cards_per_page):
         page_cards = all_cards[page_start:page_start + cards_per_page]
         
-        # Create page
+        # Create page with proper background
         page = create_page_canvas()
         
-        # Calculate card placement
-        spacing = MARGINS['content']
+        # Calculate available space for grid (accounting for page margins and footer)
+        available_width = int(PAGE_WIDTH) - (margins['page'] * 2)
+        available_height = int(PAGE_HEIGHT) - (margins['page'] * 2) - 100  # Reserve space for footer
         
-        total_grid_width = (card_width * grid_cols) + (spacing * (grid_cols - 1))
-        total_grid_height = (card_height * grid_rows) + (spacing * (grid_rows - 1))
+        # Use grid layout utility to calculate positions
+        grid_positions = create_grid_positions(
+            cols=grid_cols,
+            rows=grid_rows,
+            cell_width=card_width,
+            cell_height=card_height,
+            spacing=spacing,
+            container_width=available_width,
+            container_height=available_height
+        )
         
-        start_x = (int(page.width) - total_grid_width) // 2
-        start_y = (int(page.height) - total_grid_height - 200) // 2
+        # Adjust positions to account for page margins
+        grid_positions = [(x + margins['page'], y + margins['page']) for x, y in grid_positions]
         
-        # Place cards on page
+        # Place cards on page using calculated grid positions
         for idx, card in enumerate(page_cards):
-            row = idx // grid_cols
-            col = idx % grid_cols
-            
-            x = start_x + (col * (card_width + spacing))
-            y = start_y + (row * (card_height + spacing))
-            
-            page.paste(card, (int(x), int(y)), card)
+            if idx < len(grid_positions):
+                x, y = grid_positions[idx]
+                page.paste(card, (int(x), int(y)), card)
         
-        # Add border and footer
+        # Add consistent border and footer
         add_page_border(page)
         add_footer(page)
         
         pages.append(page)
     
-    # Save as PDF
+    # Save as PDF with descriptive filename
     level_descriptions = {
         1: "Identical_Errorless",
         2: "Outline_to_Color",
@@ -268,6 +339,7 @@ def generate_matching_cards_set(items, level=1, card_size='large',
     save_images_as_pdf(pages, output_path, title=f"{theme_name} Matching Cards - Level {level}")
     
     print(f"✓ Generated {len(pages)} pages with {len(all_cards)} cards")
+    print(f"  Layout: {grid_cols}×{grid_rows} grid with {spacing}px spacing")
     print(f"  Output: {output_path}")
     
     # Generate storage label if requested

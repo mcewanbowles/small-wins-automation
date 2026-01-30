@@ -6,10 +6,12 @@ Automated TpT (Teachers Pay Teachers) resource generators for Small Wins Studio.
 
 - **14 Different Resource Types**: Counting Mats, Matching Cards, Bingo, Sequencing, Coloring Strips, Coloring Sheets, Find & Cover, Sorting Cards, Sentence Strips (AAC), Yes/No Questions, WH Questions, Story Maps, Color Questions, Word Search, and Storage Labels
 - **SPED Design Compliance**: Large images, high contrast, minimal clutter, predictable layouts, consistent borders and footers
+- **Enhanced Layout Engine**: Precise grid positioning, consistent spacing, and optional visual effects (drop shadows)
 - **300 DPI Output**: High-quality PDF files ready for printing
 - **Differentiation Levels**: Support for multiple difficulty levels (visual cues, progressive complexity)
 - **Theme-Agnostic**: Reusable generators that work with any theme by swapping images and text
 - **Modular Architecture**: Shared utilities for borders, fonts, scaling, centering, image loading, and PDF export
+- **Storage Label Support**: All generators can create companion organization labels
 
 ## Installation
 
@@ -85,9 +87,9 @@ pages = generate_counting_mats_set(
 )
 ```
 
-### Example 2: Generate Matching Cards (4 Differentiation Levels)
+### Example 2: Generate Matching Cards (4 Differentiation Levels with Enhanced Layout)
 
-The matching card generator now supports 4 SPED-friendly differentiation levels:
+The matching card generator now supports 4 SPED-friendly differentiation levels with precise grid layout control:
 
 ```python
 from generators import generate_matching_cards_set
@@ -99,24 +101,35 @@ items = [
     {'image': 'frog', 'label': 'Green Frog'},
 ]
 
-# Level 1: Identical errorless matching (same color image on both cards)
+# Level 1: Identical errorless matching with enhanced layout
 pages_l1 = generate_matching_cards_set(
     items=items,
     level=1,
     card_size='large',
-    cards_per_page=6,
+    cards_per_page=6,  # 2×3 grid
     output_dir='output',
-    theme_name='Brown_Bear'
+    theme_name='Brown_Bear',
+    add_drop_shadow=False,  # Optional: add subtle drop shadow
+    custom_spacing=30  # Optional: customize spacing between cards
 )
 
-# Level 2: Outline-to-color matching (outline image matches color image)
+# Level 2: Outline-to-color matching
 pages_l2 = generate_matching_cards_set(items=items, level=2, theme_name='Brown_Bear')
 
 # Level 3: AAC symbol to real image matching
 pages_l3 = generate_matching_cards_set(items=items, level=3, theme_name='Brown_Bear')
 
-# Level 4: AAC symbol to text matching
+# Level 4: AAC symbol to text matching with consistent font sizing
 pages_l4 = generate_matching_cards_set(items=items, level=4, theme_name='Brown_Bear')
+
+# Generate 3×3 grid with smaller cards
+pages_grid = generate_matching_cards_set(
+    items=items,
+    level=1,
+    card_size='standard',  # Smaller cards for denser layout
+    cards_per_page=9,  # 3×3 grid
+    theme_name='Brown_Bear'
+)
 ```
 
 **Matching Card Levels Explained:**
@@ -124,6 +137,15 @@ pages_l4 = generate_matching_cards_set(items=items, level=4, theme_name='Brown_B
 - **Level 2**: Outline-to-color matching - Match black-and-white outline to color image
 - **Level 3**: AAC symbol to real image - Match AAC/PCS symbol to real photograph/illustration
 - **Level 4**: AAC symbol to text - Match AAC/PCS symbol to written word
+
+**Enhanced Layout Features:**
+- ✓ Precise grid positioning using `utils/grid_layout.py` utility
+- ✓ Consistent spacing between cards (configurable)
+- ✓ Predictable margins around the page
+- ✓ Proportional image scaling and centering within cards
+- ✓ Optional drop shadow effects for visual polish
+- ✓ Consistent font sizes across all levels
+- ✓ Clean grid alignment (2×3, 3×3, or custom layouts)
 
 ### Example 3: Generate Bingo
 
