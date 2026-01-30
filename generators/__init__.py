@@ -22,6 +22,7 @@ from .story_sequencing import (generate_first_next_last_page, generate_story_map
                                 generate_story_summary_page, generate_cutout_icons_page,
                                 generate_story_sequencing_set)
 from .vocab_cards import generate_vocab_card, generate_vocab_cards_set
+from .puppet_characters import generate_puppet_characters_set
 
 __all__ = [
     # Counting Mats
@@ -105,4 +106,7 @@ __all__ = [
     # Vocabulary Cards
     'generate_vocab_card',
     'generate_vocab_cards_set',
+    
+    # Puppet Characters
+    'generate_puppet_characters_set',
 ]

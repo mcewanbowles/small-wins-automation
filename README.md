@@ -1,10 +1,10 @@
 # Small Wins Automation - SPED Resource Generator
 
-Automated TpT (Teachers Pay Teachers) resource generators for Small Wins Studio. This Python automation system generates 19 different printable resources for special education (SPED) following strict accessibility and design guidelines.
+Automated TpT (Teachers Pay Teachers) resource generators for Small Wins Studio. This Python automation system generates 20 different printable resources for special education (SPED) following strict accessibility and design guidelines.
 
 ## Features
 
-- **19 Different Resource Types**: Counting Mats, Matching Cards, Bingo, Sequencing, Coloring Strips, Coloring Sheets, Find & Cover, Sorting Cards, Sentence Strips (AAC), Yes/No Questions, WH Questions, Story Maps, Color Questions, Word Search, Storage Labels, AAC Book Board, Sequencing Strips, Story Sequencing, and Vocabulary Cards
+- **20 Different Resource Types**: Counting Mats, Matching Cards, Bingo, Sequencing, Coloring Strips, Coloring Sheets, Find & Cover, Sorting Cards, Sentence Strips (AAC), Yes/No Questions, WH Questions, Story Maps, Color Questions, Word Search, Storage Labels, AAC Book Board, Sequencing Strips, Story Sequencing, Vocabulary Cards, and Puppet Characters
 - **SPED Design Compliance**: Large images, high contrast, minimal clutter, predictable layouts, consistent borders and footers
 - **Enhanced Layout Engine**: Precise grid positioning, consistent spacing, and optional visual effects (drop shadows)
 - **300 DPI Output**: High-quality PDF files ready for printing
@@ -809,4 +809,54 @@ output_files = generate_vocab_cards_set(
 - `Theme_Vocabulary_Cards_Cutouts.pdf` - Cut-out cards with grab tabs
 - `Theme_Vocabulary_Cards_Lanyard.pdf` - Lanyard-friendly cards with hole-punch indicators
 - Storage labels for all versions
+
+### 19. Puppet Characters
+
+Generate various puppet resources for dramatic play and story retelling.
+
+**Features:**
+- **Stick Puppets**: Large character images (12-15cm tall) with optional grab tabs, handle strips for gluing to craft sticks, and "I am the ___" sentence strips
+- **Finger Puppets**: Small character images (5-6cm tall) with fold-over tabs, 2-3 characters per row
+- **Velcro Character Cards**: Matching card-sized characters with optional bold outlines and grab tabs, perfect for story mats and adapted books
+- **Story Mat**: Simple background page with 3-6 placement zones and optional WH prompts ("Who is here?", "Where is the ___?", "What happens next?")
+- **Lanyard Version**: Small character icons sized for lanyard use with hole-punch indicators
+
+```python
+from generators import generate_puppet_characters_set
+
+characters = [
+    {'image': 'bear.png', 'label': 'Brown Bear'},
+    {'image': 'duck.png', 'label': 'Yellow Duck'},
+    {'image': 'frog.png', 'label': 'Green Frog'}
+]
+
+output_files = generate_puppet_characters_set(
+    characters=characters,
+    theme_name='Brown_Bear',
+    include_stick_puppets=True,
+    include_finger_puppets=True,
+    include_velcro_cards=True,
+    include_story_mat=True,
+    include_lanyard=True,
+    include_storage_label=True,
+    folder_type='images'
+)
+# Returns: {
+#     'stick_puppets': '...pdf', 
+#     'finger_puppets': '...pdf', 
+#     'velcro_cards': '...pdf',
+#     'story_mat': '...pdf',
+#     'lanyard': '...pdf',
+#     'labels': '...'
+# }
+```
+
+**Output files:**
+- `Theme_Stick_Puppets.pdf` - Large stick puppets (1 per page) with handle strips
+- `Theme_Finger_Puppets.pdf` - Small finger puppets (3 per page) with fold tabs
+- `Theme_Velcro_Character_Cards.pdf` - Matching card-sized character cards (6 per page)
+- `Theme_Story_Mat.pdf` - Story mat with placement zones and WH prompts
+- `Theme_Lanyard_Characters.pdf` - Lanyard-friendly character cards (3 per page)
+- Storage labels for all versions
+
 
