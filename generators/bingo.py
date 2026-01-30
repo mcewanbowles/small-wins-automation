@@ -184,7 +184,7 @@ def generate_bingo_calling_cards(image_filenames, folder_type='color', theme_nam
 
 
 def generate_bingo_set(image_filenames, num_cards=6, grid_size=3, folder_type='color',
-                       theme_name='Theme', output_dir='output'):
+                       theme_name='Theme', output_dir='output', include_storage_label=False):
     """
     Generate a complete bingo set with multiple unique cards and calling cards.
     
@@ -195,6 +195,7 @@ def generate_bingo_set(image_filenames, num_cards=6, grid_size=3, folder_type='c
         folder_type: Image folder type
         theme_name: Theme name
         output_dir: Output directory
+        include_storage_label: If True, also generate a companion storage label PDF
         
     Returns:
         list: All generated pages
@@ -213,6 +214,35 @@ def generate_bingo_set(image_filenames, num_cards=6, grid_size=3, folder_type='c
     # Save as PDF
     output_path = f"{output_dir}/{theme_name}_Bingo_{grid_size}x{grid_size}.pdf"
     save_images_as_pdf(all_pages, output_path, title=f"{theme_name} Bingo")
+    
+    print(f"✓ Generated {num_cards} bingo cards and calling cards")
+    print(f"  Output: {output_path}")
+    
+    # Generate storage label if requested
+    if include_storage_label:
+        from utils.storage_label_helper import create_companion_label
+        import os
+        
+        # Try to get first image as icon
+        icon_path = None
+        if image_filenames:
+            first_image = image_filenames[0]
+            # Try to find the image in the images folder
+            potential_icon = f"images/{first_image}"
+            if not potential_icon.endswith('.png'):
+                potential_icon += '.png'
+            if os.path.exists(potential_icon):
+                icon_path = potential_icon
+        
+        label_path = create_companion_label(
+            main_pdf_path=output_path,
+            theme_name=theme_name,
+            activity_name="Bingo",
+            level=None,  # Bingo doesn't have levels
+            icon_path=icon_path
+        )
+        print(f"✓ Generated storage label")
+        print(f"  Label: {label_path}")
     
     return all_pages
 

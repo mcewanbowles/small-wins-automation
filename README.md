@@ -158,6 +158,51 @@ generate_counting_mats_set(..., level=1)
 generate_counting_mats_set(..., level=2)
 ```
 
+## Storage Labels
+
+Automatically generate companion storage labels for organizing resources. Storage labels feature:
+- High-contrast borders for visibility
+- Large, clear text for theme and activity names
+- Level indicators for differentiation
+- Optional icon from the first image
+
+### Quick Example
+
+```python
+from generators import generate_matching_cards_set
+
+# Generate matching cards WITH storage label
+pages = generate_matching_cards_set(
+    items=items,
+    level=1,
+    theme_name='Brown_Bear',
+    output_dir='output',
+    include_storage_label=True  # Creates X_LABEL.pdf automatically
+)
+```
+
+### Manual Label Generation
+
+```python
+from utils import generate_storage_label
+
+# Create a standalone storage label
+label_path = generate_storage_label(
+    theme_name='Brown Bear',
+    activity_name='Matching Cards',
+    level=1,
+    output_path='output/My_Label.pdf',
+    label_size='standard'  # 'small', 'standard', or 'large'
+)
+```
+
+**Naming Convention**: If the main PDF is `Theme_Activity.pdf`, the label will be `Theme_Activity_LABEL.pdf`
+
+**Supported Generators**: All generators can create storage labels by setting `include_storage_label=True`:
+- `generate_matching_cards_set(..., include_storage_label=True)`
+- `generate_counting_mats_set(..., include_storage_label=True)`
+- `generate_bingo_set(..., include_storage_label=True)`
+
 ## All 14 Generators
 
 ### 1. Counting Mats

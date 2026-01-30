@@ -16,6 +16,46 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from generators import *
 from utils.pdf_export import create_output_directory
+from utils.storage_label_helper import generate_storage_label
+
+
+def example_storage_labels():
+    """Example: Generate storage labels for organizing resources."""
+    print("=" * 60)
+    print("Generating Storage Labels...")
+    print("=" * 60)
+    
+    output_dir = create_output_directory()
+    
+    # Example 1: Basic storage label with theme and activity
+    label_path = generate_storage_label(
+        theme_name="Brown Bear",
+        activity_name="Matching Cards",
+        level=1,
+        output_path=f"{output_dir}/Brown_Bear_Matching_LABEL.pdf"
+    )
+    print(f"✓ Generated basic label: {label_path}")
+    
+    # Example 2: Label with custom size
+    label_path = generate_storage_label(
+        theme_name="Farm Animals",
+        activity_name="Counting Mats",
+        level=2,
+        label_size='large',
+        output_path=f"{output_dir}/Farm_Animals_Counting_LABEL.pdf"
+    )
+    print(f"✓ Generated large label: {label_path}")
+    
+    # Example 3: Label without level (for activities without differentiation)
+    label_path = generate_storage_label(
+        theme_name="Ocean Theme",
+        activity_name="Bingo",
+        level=None,
+        output_path=f"{output_dir}/Ocean_Bingo_LABEL.pdf"
+    )
+    print(f"✓ Generated label without level: {label_path}")
+    
+    print()
 
 
 def example_counting_mats():
@@ -35,19 +75,60 @@ def example_counting_mats():
     #     number_range=(1, 5),
     #     level=1,
     #     folder_type='color',
-    #     output_dir=output_dir
+    #     output_dir=output_dir,
+    #     include_storage_label=True  # Generate companion storage label
     # )
     
     print("Example: Uncomment code and add actual image files")
 
 
 def example_matching_cards():
-    """Example: Generate matching cards."""
+    """Example: Generate matching cards with storage labels."""
     print("Generating Matching Cards...")
     
     output_dir = create_output_directory()
     
-    # Example data
+    # Example data with storage labels
+    items = [
+        {'image': 'bear', 'label': 'Brown Bear'},
+        {'image': 'duck', 'label': 'Yellow Duck'},
+        {'image': 'frog', 'label': 'Green Frog'},
+    ]
+    
+    # Generate matching cards with automatic storage label
+    # pages = generate_matching_cards_set(
+    #     items=items,
+    #     level=1,
+    #     card_size='large',
+    #     cards_per_page=6,
+    #     output_dir=output_dir,
+    #     theme_name='Brown_Bear',
+    #     include_storage_label=True  # Automatically generates X_LABEL.pdf
+    # )
+    
+    print("Example: Uncomment code and add actual image files")
+
+
+def example_bingo():
+    """Example: Generate bingo cards with storage labels."""
+    print("Generating Bingo...")
+    
+    output_dir = create_output_directory()
+    
+    # Example with storage labels
+    # image_files = ['img1.png', 'img2.png', 'img3.png', 'img4.png', 'img5.png']
+    
+    # pages = generate_bingo_set(
+    #     image_filenames=image_files,
+    #     num_cards=6,
+    #     grid_size=3,
+    #     folder_type='color',
+    #     theme_name='Animals',
+    #     output_dir=output_dir,
+    #     include_storage_label=True  # Generate companion label for organization
+    # )
+    
+    print("Example: Uncomment code and add actual image files")
     image_label_pairs = [
         ('dog.png', 'Dog'),
         ('cat.png', 'Cat'),

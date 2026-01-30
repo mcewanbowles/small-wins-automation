@@ -179,7 +179,8 @@ def generate_matching_pair(image_base_name, label_text=None, level=1, card_size=
 
 
 def generate_matching_cards_set(items, level=1, card_size='large', 
-                                 cards_per_page=6, output_dir='output', theme_name='Theme'):
+                                 cards_per_page=6, output_dir='output', theme_name='Theme',
+                                 include_storage_label=False):
     """
     Generate a complete set of matching cards at the specified difficulty level.
     
@@ -191,6 +192,7 @@ def generate_matching_cards_set(items, level=1, card_size='large',
         cards_per_page: Number of cards per page (6, 8, or 9)
         output_dir: Output directory
         theme_name: Theme name for filename
+        include_storage_label: If True, also generate a companion storage label PDF
         
     Returns:
         list: List of generated pages
@@ -267,6 +269,29 @@ def generate_matching_cards_set(items, level=1, card_size='large',
     
     print(f"✓ Generated {len(pages)} pages with {len(all_cards)} cards")
     print(f"  Output: {output_path}")
+    
+    # Generate storage label if requested
+    if include_storage_label:
+        from utils.storage_label_helper import create_companion_label
+        
+        # Try to get first image as icon
+        icon_path = None
+        if items:
+            first_image = items[0]['image']
+            # Try to find the image in the images folder
+            potential_icon = f"images/{first_image}.png"
+            if os.path.exists(potential_icon):
+                icon_path = potential_icon
+        
+        label_path = create_companion_label(
+            main_pdf_path=output_path,
+            theme_name=theme_name,
+            activity_name="Matching Cards",
+            level=level,
+            icon_path=icon_path
+        )
+        print(f"✓ Generated storage label")
+        print(f"  Label: {label_path}")
     
     return pages
 

@@ -106,7 +106,8 @@ def generate_counting_mat(number, image_filename, theme_name, level=1,
 
 
 def generate_counting_mats_set(image_filenames, theme_name, number_range=(1, 10),
-                                level=1, folder_type='color', output_dir='output'):
+                                level=1, folder_type='color', output_dir='output',
+                                include_storage_label=False):
     """
     Generate a complete set of counting mats.
     
@@ -117,6 +118,7 @@ def generate_counting_mats_set(image_filenames, theme_name, number_range=(1, 10)
         level: Differentiation level
         folder_type: Image folder type
         output_dir: Output directory
+        include_storage_label: If True, also generate a companion storage label PDF
         
     Returns:
         list: List of generated pages
@@ -135,6 +137,35 @@ def generate_counting_mats_set(image_filenames, theme_name, number_range=(1, 10)
     # Save as multi-page PDF
     output_path = f"{output_dir}/{theme_name}_Counting_Mats_Level{level}.pdf"
     save_images_as_pdf(pages, output_path, title=f"{theme_name} Counting Mats")
+    
+    print(f"✓ Generated {len(pages)} counting mats")
+    print(f"  Output: {output_path}")
+    
+    # Generate storage label if requested
+    if include_storage_label:
+        from utils.storage_label_helper import create_companion_label
+        import os
+        
+        # Try to get first image as icon
+        icon_path = None
+        if image_filenames:
+            first_image = image_filenames[0]
+            # Try to find the image in the images folder
+            potential_icon = f"images/{first_image}"
+            if not potential_icon.endswith('.png'):
+                potential_icon += '.png'
+            if os.path.exists(potential_icon):
+                icon_path = potential_icon
+        
+        label_path = create_companion_label(
+            main_pdf_path=output_path,
+            theme_name=theme_name,
+            activity_name="Counting Mats",
+            level=level,
+            icon_path=icon_path
+        )
+        print(f"✓ Generated storage label")
+        print(f"  Label: {label_path}")
     
     return pages
 

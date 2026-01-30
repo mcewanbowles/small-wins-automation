@@ -180,6 +180,54 @@ generate_matching_cards_sheet(..., level=2)
 generate_matching_cards_sheet(..., level=3)
 ```
 
+## Storage Labels for Organization
+
+Keep your resources organized with automatic storage labels!
+
+### Quick Example
+
+```python
+from generators import generate_matching_cards_set
+
+# Add include_storage_label=True to any generator
+pages = generate_matching_cards_set(
+    items=[
+        {'image': 'bear', 'label': 'Brown Bear'},
+        {'image': 'duck', 'label': 'Yellow Duck'},
+    ],
+    level=1,
+    theme_name='Brown_Bear',
+    output_dir='output',
+    include_storage_label=True  # Creates companion label PDF
+)
+```
+
+This creates TWO files:
+- `Brown_Bear_Matching_Level1_Identical_Errorless.pdf` (main activity)
+- `Brown_Bear_Matching_Level1_Identical_Errorless_LABEL.pdf` (storage label)
+
+### Manual Storage Label
+
+```python
+from utils import generate_storage_label
+
+# Create a standalone label
+generate_storage_label(
+    theme_name='Farm Animals',
+    activity_name='Counting Mats',
+    level=2,
+    label_size='standard',  # 'small', 'standard', or 'large'
+    output_path='output/Farm_Animals_Counting_LABEL.pdf'
+)
+```
+
+**Label Features:**
+- High-contrast black border
+- Large text for theme and activity
+- Level indicator (when applicable)
+- Perfect for zip bags, envelopes, or storage boxes
+- 3 sizes: small (3x2"), standard (4x3"), large (5x4")
+
 ## Image Folder Guide
 
 | Folder | Purpose | Example Files |
