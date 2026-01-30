@@ -96,9 +96,9 @@ def scale_image_to_fit(image: Image.Image, cell_rect: Tuple[int, int, int, int],
     # Scale image
     scaled = image.resize((new_width, new_height), Image.Resampling.LANCZOS)
     
-    # Calculate centered position within cell
-    center_x = x1 + (cell_width - new_width) // 2
-    center_y = y1 + (cell_height - new_height) // 2
+    # Calculate centered position within cell - ensure integers
+    center_x = int(x1 + (cell_width - new_width) // 2)
+    center_y = int(y1 + (cell_height - new_height) // 2)
     
     return scaled, center_x, center_y
 
@@ -222,7 +222,7 @@ def draw_page_number(draw: ImageDraw.ImageDraw, page_number: int, total_pages: i
     x = page_width - margin - text_width - 10
     y = page_height - margin - text_height - 10
     
-    draw.text((x, y), text, fill=COLORS['gray'] + (255,), font=font)
+    draw.text((x, y), text, fill=COLORS['dark_gray'] + (255,), font=font)
 
 
 def draw_copyright_footer(draw: ImageDraw.ImageDraw, page_width: int, page_height: int,
@@ -256,7 +256,7 @@ def draw_copyright_footer(draw: ImageDraw.ImageDraw, page_width: int, page_heigh
     x = (page_width - text_width) // 2
     y = page_height - margin - text_height - 5
     
-    draw.text((x, y), copyright_text, fill=COLORS['gray'] + (255,), font=font)
+    draw.text((x, y), copyright_text, fill=COLORS['dark_gray'] + (255,), font=font)
 
 
 def draw_text_centered_in_rect(draw: ImageDraw.ImageDraw, text: str,

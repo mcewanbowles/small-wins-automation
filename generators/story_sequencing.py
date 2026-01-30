@@ -64,14 +64,14 @@ def generate_first_next_last_page(event_items, level=1, page_number=1, total_pag
     
     # Calculate positions (3 boxes horizontally)
     total_width = 3 * box_width + 2 * spacing
-    start_x = (PAGE_WIDTH - total_width) // 2
+    start_x = int((PAGE_WIDTH - total_width) // 2)
     start_y = MARGINS['page'] + 150
     
     # Labels
     labels = ["First", "Next", "Last"]
     font_mgr = get_font_manager()
-    title_font = font_mgr.get_font('heading', FONT_SIZES['heading'])
-    label_font = font_mgr.get_font('body', FONT_SIZES['large'])
+    title_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", FONT_SIZES['heading'])
+    label_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", FONT_SIZES['heading'])
     
     # Title
     title_text = "Story Sequence"
@@ -82,8 +82,8 @@ def generate_first_next_last_page(event_items, level=1, page_number=1, total_pag
     elif level == 3:
         title_text += " (Cut and Paste)"
     
-    draw_text_centered_in_rect(draw, (0, MARGINS['page'], PAGE_WIDTH, MARGINS['page'] + 100),
-                               title_text, title_font, COLORS['black'])
+    draw_text_centered_in_rect(draw, title_text, (0, MARGINS['page'], PAGE_WIDTH, MARGINS['page'] + 100),
+                               FONT_SIZES['heading'], COLORS['black'])
     
     # Prepare event items based on level
     if level == 1:
@@ -108,7 +108,7 @@ def generate_first_next_last_page(event_items, level=1, page_number=1, total_pag
         # Draw label above box
         label_rect = (box_x, start_y, box_x + box_width, start_y + label_height)
         draw.rectangle(label_rect, fill=COLORS['light_gray'], outline=COLORS['black'], width=3)
-        draw_text_centered_in_rect(draw, label_rect, label, label_font, COLORS['black'])
+        draw_text_centered_in_rect(draw, label, label_rect, FONT_SIZES['body'], COLORS['black'])
         
         # Draw box with card background
         box_rect = (box_x, box_y, box_x + box_width, box_y + box_height)
@@ -131,11 +131,11 @@ def generate_first_next_last_page(event_items, level=1, page_number=1, total_pag
             # Draw label below icon
             text_y = box_y + box_height - 100
             text_rect = (box_x, text_y, box_x + box_width, box_y + box_height - 20)
-            draw_text_centered_in_rect(draw, text_rect, item.get('label', ''), label_font, COLORS['black'])
+            draw_text_centered_in_rect(draw, item.get('label', ''), text_rect, FONT_SIZES['body'], COLORS['black'])
     
     # Add page elements
-    draw_page_number(draw, page_number, total_pages)
-    draw_copyright_footer(draw)
+    draw_page_number(draw, page_number, total_pages, PAGE_WIDTH, PAGE_HEIGHT)
+    draw_copyright_footer(draw, PAGE_WIDTH, PAGE_HEIGHT)
     
     return page
 
@@ -159,17 +159,16 @@ def generate_story_map(story_data, page_number=1, total_pages=1):
     
     # Fonts
     font_mgr = get_font_manager()
-    title_font = font_mgr.get_font('heading', FONT_SIZES['heading'])
-    section_font = font_mgr.get_font('heading', FONT_SIZES['large'])
-    body_font = font_mgr.get_font('body', FONT_SIZES['body'])
+    title_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", FONT_SIZES['heading'])
+    section_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", FONT_SIZES['heading'])
+    body_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", FONT_SIZES['body'])
     
     # Title
-    draw_text_centered_in_rect(draw, (0, MARGINS['page'], PAGE_WIDTH, MARGINS['page'] + 100),
-                               "Story Map", title_font, COLORS['black'])
+    draw_text_centered_in_rect(draw, "Story Map", (0, MARGINS['page'], PAGE_WIDTH, MARGINS['page'] + 100), FONT_SIZES['heading'], COLORS['black'])
     
     # Layout sections
     section_height = 350
-    section_width = (PAGE_WIDTH - 2 * MARGINS['page'] - 80) // 2
+    section_width = int((PAGE_WIDTH - 2 * MARGINS['page'] - 80) // 2)
     start_y = MARGINS['page'] + 150
     
     sections = [
@@ -185,8 +184,8 @@ def generate_story_map(story_data, page_number=1, total_pages=1):
         row = idx // 2
         col = idx % 2
         
-        x = MARGINS['page'] + col * (section_width + 80)
-        y = start_y + row * (section_height + 40)
+        x = int(MARGINS['page'] + col * (section_width + 80))
+        y = int(start_y + row * (section_height + 40))
         
         # Section box
         box_rect = (x, y, x + section_width, y + section_height)
@@ -195,10 +194,10 @@ def generate_story_map(story_data, page_number=1, total_pages=1):
         # Section title
         title_rect = (x, y, x + section_width, y + 60)
         draw.rectangle(title_rect, fill=COLORS['light_gray'], outline=COLORS['black'], width=3)
-        draw_text_centered_in_rect(draw, title_rect, section_name, section_font, COLORS['black'])
+        draw_text_centered_in_rect(draw, section_name, title_rect, FONT_SIZES['heading'], COLORS['black'])
         
         # Section content
-        content_y = y + 70
+        content_y = int(y + 70)
         if isinstance(section_content, list):
             for item in section_content[:3]:  # Limit to 3 items
                 text = item if isinstance(item, str) else item.get('label', '')
@@ -208,8 +207,8 @@ def generate_story_map(story_data, page_number=1, total_pages=1):
             draw.text((x + 20, content_y), str(section_content), font=body_font, fill=COLORS['black'])
     
     # Add page elements
-    draw_page_number(draw, page_number, total_pages)
-    draw_copyright_footer(draw)
+    draw_page_number(draw, page_number, total_pages, PAGE_WIDTH, PAGE_HEIGHT)
+    draw_copyright_footer(draw, PAGE_WIDTH, PAGE_HEIGHT)
     
     return page
 
@@ -244,12 +243,11 @@ def generate_event_ordering_page(events, layout='horizontal', page_number=1, tot
     
     # Fonts
     font_mgr = get_font_manager()
-    title_font = font_mgr.get_font('heading', FONT_SIZES['heading'])
-    prompt_font = font_mgr.get_font('body', FONT_SIZES['large'])
+    title_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", FONT_SIZES['heading'])
+    prompt_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", FONT_SIZES['heading'])
     
     # Title
-    draw_text_centered_in_rect(draw, (0, MARGINS['page'], PAGE_WIDTH, MARGINS['page'] + 80),
-                               "What Happened?", title_font, COLORS['black'])
+    draw_text_centered_in_rect(draw, "What Happened?", (0, MARGINS['page'], PAGE_WIDTH, MARGINS['page'] + 80), FONT_SIZES['heading'], COLORS['black'])
     
     # WH prompts
     if num_events == 3:
@@ -265,17 +263,17 @@ def generate_event_ordering_page(events, layout='horizontal', page_number=1, tot
         # Horizontal layout
         spacing = 80
         available_width = PAGE_WIDTH - 2 * MARGINS['page'] - (num_events - 1) * spacing
-        icon_size = min(icon_size, available_width // num_events)
+        icon_size = int(min(icon_size, available_width // num_events))
         
-        start_x = (PAGE_WIDTH - (num_events * icon_size + (num_events - 1) * spacing)) // 2
+        start_x = int((PAGE_WIDTH - (num_events * icon_size + (num_events - 1) * spacing)) // 2)
         start_y = MARGINS['page'] + 200
         
         for i, (event, prompt) in enumerate(zip(events, prompts)):
-            x = start_x + i * (icon_size + spacing)
+            x = int(start_x + i * (icon_size + spacing))
             
             # Draw prompt
             prompt_rect = (x, start_y - 100, x + icon_size, start_y - 20)
-            draw_text_centered_in_rect(draw, prompt_rect, prompt, prompt_font, COLORS['black'])
+            draw_text_centered_in_rect(draw, prompt, prompt_rect, FONT_SIZES['heading'], COLORS['black'])
             
             # Draw box
             box_rect = (x, start_y, x + icon_size, start_y + icon_size)
@@ -301,11 +299,11 @@ def generate_event_ordering_page(events, layout='horizontal', page_number=1, tot
         
         for i, (event, prompt) in enumerate(zip(events, prompts)):
             y = start_y + i * (icon_size + spacing + 100)
-            x = (PAGE_WIDTH - icon_size) // 2
+            x = int((PAGE_WIDTH - icon_size) // 2)
             
             # Draw prompt
             prompt_rect = (MARGINS['page'], y, PAGE_WIDTH - MARGINS['page'], y + 60)
-            draw_text_centered_in_rect(draw, prompt_rect, prompt, prompt_font, COLORS['black'])
+            draw_text_centered_in_rect(draw, prompt, prompt_rect, FONT_SIZES['heading'], COLORS['black'])
             
             # Draw box
             box_rect = (x, y + 70, x + icon_size, y + 70 + icon_size)
@@ -322,8 +320,8 @@ def generate_event_ordering_page(events, layout='horizontal', page_number=1, tot
             page.paste(scaled_img, (img_x, img_y), scaled_img if scaled_img.mode == 'RGBA' else None)
     
     # Add page elements
-    draw_page_number(draw, page_number, total_pages)
-    draw_copyright_footer(draw)
+    draw_page_number(draw, page_number, total_pages, PAGE_WIDTH, PAGE_HEIGHT)
+    draw_copyright_footer(draw, PAGE_WIDTH, PAGE_HEIGHT)
     
     return page
 
@@ -353,7 +351,7 @@ def generate_retell_strip(events, with_lanyard=True, card_style=None, page_numbe
     
     # Constants
     num_slots = len(events)
-    icon_size = CARD_SIZES['standard']  # 750x750px - same as matching cards
+    icon_size = CARD_SIZES['standard'][0]  # 750px - same as matching cards (width/height are equal)
     label_height = 60
     
     # Lanyard strip specifications
@@ -409,7 +407,7 @@ def generate_retell_strip(events, with_lanyard=True, card_style=None, page_numbe
     # Get image loader and fonts
     img_loader = get_image_loader()
     font_mgr = get_font_manager()
-    label_font = font_mgr.get_font('body', FONT_SIZES['body'])
+    label_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", FONT_SIZES['body'])
     
     # Draw icons
     for i, event in enumerate(events):
@@ -433,11 +431,11 @@ def generate_retell_strip(events, with_lanyard=True, card_style=None, page_numbe
         # Draw label
         label_y = icon_y + icon_size + 10
         label_rect = (icon_x, label_y, icon_x + icon_size, label_y + label_height)
-        draw_text_centered_in_rect(draw, label_rect, event.get('label', ''), label_font, COLORS['black'])
+        draw_text_centered_in_rect(draw, event.get('label', ''), label_rect, FONT_SIZES['body'], COLORS['black'])
     
     # Add page elements
-    draw_page_number(draw, page_number, total_pages)
-    draw_copyright_footer(draw)
+    draw_page_number(draw, page_number, total_pages, PAGE_WIDTH, PAGE_HEIGHT)
+    draw_copyright_footer(draw, PAGE_WIDTH, PAGE_HEIGHT)
     
     return page
 
@@ -460,12 +458,11 @@ def generate_story_summary_page(page_number=1, total_pages=1):
     
     # Fonts
     font_mgr = get_font_manager()
-    title_font = font_mgr.get_font('heading', FONT_SIZES['heading'])
-    starter_font = font_mgr.get_font('body', FONT_SIZES['large'])
+    title_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", FONT_SIZES['heading'])
+    starter_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", FONT_SIZES['heading'])
     
     # Title
-    draw_text_centered_in_rect(draw, (0, MARGINS['page'], PAGE_WIDTH, MARGINS['page'] + 100),
-                               "Story Summary", title_font, COLORS['black'])
+    draw_text_centered_in_rect(draw, "Story Summary", (0, MARGINS['page'], PAGE_WIDTH, MARGINS['page'] + 100), FONT_SIZES['heading'], COLORS['black'])
     
     # Sentence starters
     starters = [
@@ -490,13 +487,13 @@ def generate_story_summary_page(page_number=1, total_pages=1):
             line_y = y + 60 + line_num * 50
             draw.line(
                 [(MARGINS['page'] + 50, line_y), (MARGINS['page'] + 50 + line_width, line_y)],
-                fill=COLORS['gray'],
+                fill=COLORS['dark_gray'],
                 width=2
             )
     
     # Add page elements
-    draw_page_number(draw, page_number, total_pages)
-    draw_copyright_footer(draw)
+    draw_page_number(draw, page_number, total_pages, PAGE_WIDTH, PAGE_HEIGHT)
+    draw_copyright_footer(draw, PAGE_WIDTH, PAGE_HEIGHT)
     
     return page
 
@@ -520,20 +517,20 @@ def generate_cutout_icons_page(icons, page_number=1, total_pages=1, with_grab_ta
     add_page_border(page)
     
     # Constants
-    icon_size = CARD_SIZES['standard']  # 750x750px - same as matching cards
+    icon_size = CARD_SIZES['standard'][0]  # 750px - same as matching cards (width/height are equal)
     rows, cols = 2, 3
     spacing = 40
     
     # Calculate grid
     total_width = cols * icon_size + (cols - 1) * spacing
     total_height = rows * icon_size + (rows - 1) * spacing
-    start_x = (PAGE_WIDTH - total_width) // 2
-    start_y = (PAGE_HEIGHT - total_height - 150) // 2
+    start_x = int((PAGE_WIDTH - total_width) // 2)
+    start_y = int((PAGE_HEIGHT - total_height - 150) // 2)
     
     # Get image loader and font
     img_loader = get_image_loader()
     font_mgr = get_font_manager()
-    label_font = font_mgr.get_font('body', FONT_SIZES['body'])
+    label_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", FONT_SIZES['body'])
     
     # Card style with bold outline
     card_style = {'border_width': 3, 'corner_radius': 10, 'shadow': False}
@@ -577,12 +574,11 @@ def generate_cutout_icons_page(icons, page_number=1, total_pages=1, with_grab_ta
             
             # Draw scissors symbol
             scissors_text = "✂"
-            draw_text_centered_in_rect(draw, (tab_x, tab_y, tab_x + tab_width, tab_y + tab_height),
-                                      scissors_text, label_font, COLORS['black'])
+            draw_text_centered_in_rect(draw, scissors_text, (tab_x, tab_y, tab_x + tab_width, tab_y + tab_height), FONT_SIZES['body'], COLORS['black'])
     
     # Add page elements
-    draw_page_number(draw, page_number, total_pages)
-    draw_copyright_footer(draw)
+    draw_page_number(draw, page_number, total_pages, PAGE_WIDTH, PAGE_HEIGHT)
+    draw_copyright_footer(draw, PAGE_WIDTH, PAGE_HEIGHT)
     
     return page
 
@@ -663,7 +659,7 @@ def generate_story_sequencing_set(story_data, theme_name, output_dir='output',
     for i in range(total_pages):
         # Redraw page number with correct total
         draw = ImageDraw.Draw(pages[i])
-        draw_page_number(draw, i + 1, total_pages)
+        draw_page_number(draw, i + 1, total_pages, PAGE_WIDTH, PAGE_HEIGHT)
     
     # Save PDFs
     output_files = {}
