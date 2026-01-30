@@ -1,0 +1,46 @@
+
+{
+  "name": "Brown Bear",
+  "image_path": "assets/brown_bear/",
+  "font": "Arial Rounded",
+  "colors": {
+    "primary": "#F28C8C",
+    "secondary": "#8CC6F2",
+    "background": "#FFFFFF",
+    "text": "#333333"
+  },
+  "icons": {
+    "bear": "bear.png",
+    "duck": "duck.png",
+    "frog": "frog.png",
+    "cat": "cat.png",
+    "dog": "dog.png",
+    "sheep": "sheep.png",
+    "horse": "horse.png",
+    "goldfish": "goldfish.png",
+    "teacher": "teacher.png",
+    "children": "children.png"
+  },
+  "enabled_generators": [
+    "matching_cards",
+    "sorting_cards",
+    "find_cover",
+    "sentence_strips",
+    "vocabulary_cards",
+    "adapted_book",
+    "sequencing",
+    "puppets",
+    "storage_labels",
+    "real_image_matching",
+    "real_image_sorting",
+    "aac_boards",
+    "emergent_reader",
+    "folder_cover"
+  ],
+  "differentiation_levels": {
+    "1": "Identical Errorless",
+    "2": "Simple Matching",
+    "3": "Field of 6",
+    "4": "Independent"
+  }
+}
