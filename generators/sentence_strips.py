@@ -124,7 +124,8 @@ def generate_sentence_strip(symbol_word_pairs, sentence_starter=None, folder_typ
 
 
 def generate_sentence_strips_set(sentence_templates, folder_type='aac',
-                                  theme_name='Theme', output_dir='output'):
+                                  theme_name='Theme', output_dir='output',
+                                  include_storage_label=False):
     """
     Generate a set of sentence strips.
     
@@ -134,6 +135,7 @@ def generate_sentence_strips_set(sentence_templates, folder_type='aac',
         folder_type: Image folder type
         theme_name: Theme name
         output_dir: Output directory
+        include_storage_label: If True, also generate a companion storage label PDF
         
     Returns:
         list: Generated pages
@@ -170,8 +172,33 @@ def generate_sentence_strips_set(sentence_templates, folder_type='aac',
         pages.append(page)
     
     # Save PDF
+    import os
+    os.makedirs(output_dir, exist_ok=True)
     output_path = f"{output_dir}/{theme_name}_Sentence_Strips.pdf"
     save_images_as_pdf(pages, output_path, title=f"{theme_name} Sentence Strips")
+    
+    # Generate storage label if requested
+    if include_storage_label:
+        from utils.storage_label_helper import create_companion_label
+        
+        # Try to find an icon from first symbol
+        icon_path = None
+        if sentence_templates and 'symbols' in sentence_templates[0] and sentence_templates[0]['symbols']:
+            image_loader = get_image_loader()
+            first_symbol = sentence_templates[0]['symbols'][0]
+            symbol_file = first_symbol[0] if isinstance(first_symbol, tuple) else first_symbol
+            potential_icon = image_loader.get_image_path(symbol_file, folder_type)
+            if os.path.exists(potential_icon):
+                icon_path = potential_icon
+        
+        label_path = create_companion_label(
+            main_pdf_path=output_path,
+            theme_name=theme_name,
+            activity_name="Sentence Strips",
+            icon_path=icon_path
+        )
+        print(f"✓ Generated storage label")
+        print(f"  Label: {label_path}")
     
     return pages
 

@@ -61,7 +61,8 @@ def generate_coloring_sheet(image_filename, title_text=None, folder_type='bw_out
 
 
 def generate_coloring_sheets_set(image_title_pairs, folder_type='bw_outline',
-                                  theme_name='Theme', output_dir='output'):
+                                  theme_name='Theme', output_dir='output',
+                                  include_storage_label=False):
     """
     Generate a set of coloring sheets.
     
@@ -70,6 +71,7 @@ def generate_coloring_sheets_set(image_title_pairs, folder_type='bw_outline',
         folder_type: Image folder type
         theme_name: Theme name
         output_dir: Output directory
+        include_storage_label: If True, also generate a companion storage label PDF
         
     Returns:
         list: Generated pages
@@ -81,8 +83,32 @@ def generate_coloring_sheets_set(image_title_pairs, folder_type='bw_outline',
         pages.append(page)
     
     # Save PDF
+    import os
+    os.makedirs(output_dir, exist_ok=True)
     output_path = f"{output_dir}/{theme_name}_Coloring_Sheets.pdf"
     save_images_as_pdf(pages, output_path, title=f"{theme_name} Coloring Sheets")
+    
+    # Generate storage label if requested
+    if include_storage_label:
+        from utils.storage_label_helper import create_companion_label
+        
+        # Try to find an icon from first image
+        icon_path = None
+        if image_title_pairs:
+            image_loader = get_image_loader()
+            first_image = image_title_pairs[0][0] if isinstance(image_title_pairs[0], tuple) else image_title_pairs[0]
+            potential_icon = image_loader.get_image_path(first_image, folder_type)
+            if os.path.exists(potential_icon):
+                icon_path = potential_icon
+        
+        label_path = create_companion_label(
+            main_pdf_path=output_path,
+            theme_name=theme_name,
+            activity_name="Coloring Sheets",
+            icon_path=icon_path
+        )
+        print(f"✓ Generated storage label")
+        print(f"  Label: {label_path}")
     
     return pages
 

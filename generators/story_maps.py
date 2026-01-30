@@ -110,7 +110,8 @@ def generate_story_map(story_title, sections_data=None, folder_type='color', lev
 
 
 def generate_story_maps_set(stories_data, folder_type='color', level=1,
-                            theme_name='Theme', output_dir='output'):
+                            theme_name='Theme', output_dir='output',
+                            include_storage_label=False):
     """
     Generate a set of story maps.
     
@@ -120,6 +121,7 @@ def generate_story_maps_set(stories_data, folder_type='color', level=1,
         level: Differentiation level
         theme_name: Theme name
         output_dir: Output directory
+        include_storage_label: If True, also generate a companion storage label PDF
         
     Returns:
         list: Generated pages
@@ -136,8 +138,23 @@ def generate_story_maps_set(stories_data, folder_type='color', level=1,
         pages.append(page)
     
     # Save PDF
+    import os
+    os.makedirs(output_dir, exist_ok=True)
     output_path = f"{output_dir}/{theme_name}_Story_Maps_Level{level}.pdf"
     save_images_as_pdf(pages, output_path, title=f"{theme_name} Story Maps")
+    
+    # Generate storage label if requested
+    if include_storage_label:
+        from utils.storage_label_helper import create_companion_label
+        
+        label_path = create_companion_label(
+            main_pdf_path=output_path,
+            theme_name=theme_name,
+            activity_name="Story Maps",
+            level=level
+        )
+        print(f"✓ Generated storage label")
+        print(f"  Label: {label_path}")
     
     return pages
 

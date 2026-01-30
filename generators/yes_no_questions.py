@@ -96,7 +96,8 @@ def generate_yes_no_question_card(image_filename, question_text, answer,
 
 
 def generate_yes_no_questions_set(question_data, folder_type='color', level=1,
-                                   theme_name='Theme', output_dir='output'):
+                                   theme_name='Theme', output_dir='output',
+                                   include_storage_label=False):
     """
     Generate a set of yes/no questions.
     
@@ -106,6 +107,7 @@ def generate_yes_no_questions_set(question_data, folder_type='color', level=1,
         level: Differentiation level
         theme_name: Theme name
         output_dir: Output directory
+        include_storage_label: If True, also generate a companion storage label PDF
         
     Returns:
         list: Generated pages
@@ -123,8 +125,32 @@ def generate_yes_no_questions_set(question_data, folder_type='color', level=1,
         pages.append(page)
     
     # Save PDF
+    import os
+    os.makedirs(output_dir, exist_ok=True)
     output_path = f"{output_dir}/{theme_name}_Yes_No_Questions_Level{level}.pdf"
     save_images_as_pdf(pages, output_path, title=f"{theme_name} Yes/No Questions")
+    
+    # Generate storage label if requested
+    if include_storage_label:
+        from utils.storage_label_helper import create_companion_label
+        
+        # Try to find an icon from first question
+        icon_path = None
+        if question_data and 'image' in question_data[0]:
+            image_loader = get_image_loader()
+            potential_icon = image_loader.get_image_path(question_data[0]['image'], folder_type)
+            if os.path.exists(potential_icon):
+                icon_path = potential_icon
+        
+        label_path = create_companion_label(
+            main_pdf_path=output_path,
+            theme_name=theme_name,
+            activity_name="Yes/No Questions",
+            level=level,
+            icon_path=icon_path
+        )
+        print(f"✓ Generated storage label")
+        print(f"  Label: {label_path}")
     
     return pages
 

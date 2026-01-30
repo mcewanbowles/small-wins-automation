@@ -79,7 +79,8 @@ def generate_sequencing_card(image_filename, sequence_number=None, total_steps=N
 
 
 def generate_sequencing_set(image_sequence, theme_name='Sequence', card_size='large',
-                            folder_type='color', level=1, output_dir='output'):
+                            folder_type='color', level=1, output_dir='output',
+                            include_storage_label=False):
     """
     Generate a complete sequencing activity.
     
@@ -90,6 +91,7 @@ def generate_sequencing_set(image_sequence, theme_name='Sequence', card_size='la
         folder_type: Image folder type
         level: Differentiation level
         output_dir: Output directory
+        include_storage_label: If True, also generate a companion storage label PDF
         
     Returns:
         list: Generated pages
@@ -137,8 +139,32 @@ def generate_sequencing_set(image_sequence, theme_name='Sequence', card_size='la
         pages.append(page)
     
     # Save PDF
+    import os
+    os.makedirs(output_dir, exist_ok=True)
     output_path = f"{output_dir}/{theme_name}_Sequencing_Level{level}.pdf"
     save_images_as_pdf(pages, output_path, title=f"{theme_name} Sequencing")
+    
+    # Generate storage label if requested
+    if include_storage_label:
+        from utils.storage_label_helper import create_companion_label
+        
+        # Try to find an icon from first image
+        icon_path = None
+        if image_sequence:
+            image_loader = get_image_loader()
+            potential_icon = image_loader.get_image_path(image_sequence[0], folder_type)
+            if os.path.exists(potential_icon):
+                icon_path = potential_icon
+        
+        label_path = create_companion_label(
+            main_pdf_path=output_path,
+            theme_name=theme_name,
+            activity_name="Sequencing",
+            level=level,
+            icon_path=icon_path
+        )
+        print(f"✓ Generated storage label")
+        print(f"  Label: {label_path}")
     
     return pages
 

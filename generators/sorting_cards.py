@@ -112,7 +112,8 @@ def generate_category_header_card(category_name, card_size='large'):
 
 
 def generate_sorting_cards_set(categories_dict, card_size='standard', folder_type='color',
-                                level=1, theme_name='Theme', output_dir='output'):
+                                level=1, theme_name='Theme', output_dir='output',
+                                include_storage_label=False):
     """
     Generate a complete set of sorting cards with category headers.
     
@@ -123,6 +124,7 @@ def generate_sorting_cards_set(categories_dict, card_size='standard', folder_typ
         level: Differentiation level
         theme_name: Theme name
         output_dir: Output directory
+        include_storage_label: If True, also generate a companion storage label PDF
         
     Returns:
         list: Generated pages
@@ -178,8 +180,34 @@ def generate_sorting_cards_set(categories_dict, card_size='standard', folder_typ
         pages.append(page)
     
     # Save PDF
+    import os
+    os.makedirs(output_dir, exist_ok=True)
     output_path = f"{output_dir}/{theme_name}_Sorting_Cards_Level{level}.pdf"
     save_images_as_pdf(pages, output_path, title=f"{theme_name} Sorting Cards")
+    
+    # Generate storage label if requested
+    if include_storage_label:
+        from utils.storage_label_helper import create_companion_label
+        
+        # Try to find an icon from first category's first image
+        icon_path = None
+        for category, images in categories_dict.items():
+            if images:
+                image_loader = get_image_loader()
+                potential_icon = image_loader.get_image_path(images[0], folder_type)
+                if os.path.exists(potential_icon):
+                    icon_path = potential_icon
+                break
+        
+        label_path = create_companion_label(
+            main_pdf_path=output_path,
+            theme_name=theme_name,
+            activity_name="Sorting Cards",
+            level=level,
+            icon_path=icon_path
+        )
+        print(f"✓ Generated storage label")
+        print(f"  Label: {label_path}")
     
     return pages
 

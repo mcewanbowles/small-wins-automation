@@ -148,7 +148,7 @@ def generate_word_search(words, theme_name='Theme', grid_size=10, show_answers=F
 
 
 def generate_word_search_set(word_lists, theme_name='Theme', grid_size=10,
-                             output_dir='output'):
+                             output_dir='output', include_storage_label=False):
     """
     Generate a set of word searches.
     
@@ -157,6 +157,7 @@ def generate_word_search_set(word_lists, theme_name='Theme', grid_size=10,
         theme_name: Theme name
         grid_size: Grid size
         output_dir: Output directory
+        include_storage_label: If True, also generate a companion storage label PDF
         
     Returns:
         list: Generated pages
@@ -172,8 +173,22 @@ def generate_word_search_set(word_lists, theme_name='Theme', grid_size=10,
         pages.append(answer_page)
     
     # Save PDF
+    import os
+    os.makedirs(output_dir, exist_ok=True)
     output_path = f"{output_dir}/{theme_name}_Word_Search.pdf"
     save_images_as_pdf(pages, output_path, title=f"{theme_name} Word Search")
+    
+    # Generate storage label if requested
+    if include_storage_label:
+        from utils.storage_label_helper import create_companion_label
+        
+        label_path = create_companion_label(
+            main_pdf_path=output_path,
+            theme_name=theme_name,
+            activity_name="Word Search"
+        )
+        print(f"✓ Generated storage label")
+        print(f"  Label: {label_path}")
     
     return pages
 

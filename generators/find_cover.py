@@ -115,7 +115,8 @@ def generate_find_cover_sheet(target_images, grid_images, theme_name='Theme',
 
 
 def generate_find_cover_set(target_images, all_images, theme_name='Theme',
-                            num_sheets=3, grid_size=4, folder_type='color', output_dir='output'):
+                            num_sheets=3, grid_size=4, folder_type='color', output_dir='output',
+                            include_storage_label=False):
     """
     Generate multiple Find & Cover sheets.
     
@@ -127,6 +128,7 @@ def generate_find_cover_set(target_images, all_images, theme_name='Theme',
         grid_size: Grid size
         folder_type: Image folder type
         output_dir: Output directory
+        include_storage_label: If True, also generate a companion storage label PDF
         
     Returns:
         list: Generated pages
@@ -144,8 +146,31 @@ def generate_find_cover_set(target_images, all_images, theme_name='Theme',
         pages.append(page)
     
     # Save PDF
+    import os
+    os.makedirs(output_dir, exist_ok=True)
     output_path = f"{output_dir}/{theme_name}_Find_Cover.pdf"
     save_images_as_pdf(pages, output_path, title=f"{theme_name} Find & Cover")
+    
+    # Generate storage label if requested
+    if include_storage_label:
+        from utils.storage_label_helper import create_companion_label
+        
+        # Try to find an icon from target images
+        icon_path = None
+        if target_images:
+            image_loader = get_image_loader()
+            potential_icon = image_loader.get_image_path(target_images[0], folder_type)
+            if os.path.exists(potential_icon):
+                icon_path = potential_icon
+        
+        label_path = create_companion_label(
+            main_pdf_path=output_path,
+            theme_name=theme_name,
+            activity_name="Find & Cover",
+            icon_path=icon_path
+        )
+        print(f"✓ Generated storage label")
+        print(f"  Label: {label_path}")
     
     return pages
 
