@@ -46,19 +46,67 @@ small-wins-automation/
 │   ├── color_questions.py
 │   ├── word_search.py
 │   └── storage_labels.py
-├── utils/              # Shared utilities
+├── utils/              # Shared utilities (16 modules)
 │   ├── config.py       # SPED design rules and constants
 │   ├── fonts.py        # Font management
 │   ├── image_loader.py # Image loading from 3 folders
 │   ├── image_utils.py  # Scaling, centering, transparency
 │   ├── layout.py       # Borders, footers, spacing
-│   └── pdf_export.py   # 300 DPI PDF generation
+│   ├── pdf_export.py   # 300 DPI PDF generation
+│   ├── draw_helpers.py # Modular drawing functions (NEW)
+│   ├── grid_layout.py  # Grid calculations
+│   ├── pdf_builder.py  # High-level PDF building
+│   ├── text_renderer.py# Accessible text rendering
+│   ├── file_naming.py  # Standardized naming
+│   ├── theme_loader.py # Theme configuration
+│   ├── differentiation.py # Level management
+│   └── storage_label_helper.py # Label generation
 ├── images/             # Full-color theme images
 ├── Colour_images/      # Black-and-white outline images
 ├── aac_images/         # AAC/PCS-style symbols
 ├── examples/           # Example usage scripts
 └── output/             # Generated PDF files
 
+```
+
+## Modular Helper Architecture
+
+The matching cards generator (and future generators) use a modular helper system from `utils/draw_helpers.py` for clean, maintainable code:
+
+### Helper Functions
+
+- **`calculate_cell_rect()`** - Calculate grid cell bounding boxes with consistent spacing
+- **`scale_image_to_fit()`** - Scale images proportionally with minimal padding (5-10px)
+- **`draw_card_background()`** - Draw styled card backgrounds with borders, corner radius, and optional shadows
+- **`fit_text_to_width()`** - Auto-shrink font size to fit text within width limits
+- **`draw_page_number()`** - Add page numbers (bottom-right, inside border)
+- **`draw_copyright_footer()`** - Add copyright and branding line (bottom-center)
+- **`draw_text_centered_in_rect()`** - Center and auto-size text within rectangles
+- **`create_placeholder_image()`** - Generate consistent placeholders for missing images
+
+### Benefits
+
+- **Clean Code**: Generators focus on data preparation, not drawing details
+- **Reusable**: Same helpers work across all generators
+- **Consistent**: Same visual style across all resources
+- **Maintainable**: Changes to layout logic in one place
+- **Testable**: Helper functions can be tested independently
+
+### Example Usage
+
+```python
+from utils.draw_helpers import calculate_cell_rect, scale_image_to_fit
+
+# Calculate grid positions
+cells = calculate_cell_rect(
+    page_width=2550, page_height=3300,
+    rows=2, cols=3, padding=20, margin=50
+)
+
+# Scale and position image
+scaled_img, x, y = scale_image_to_fit(
+    image, cells[0], padding=5
+)
 ```
 
 ## Image Folders

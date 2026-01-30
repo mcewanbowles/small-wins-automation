@@ -14,3 +14,13 @@ from .file_naming import *
 from .theme_loader import get_theme_loader, ThemeLoader
 from .differentiation import get_differentiation_manager, DifferentiationManager
 from .storage_label_helper import generate_storage_label, create_companion_label
+from .draw_helpers import (
+    calculate_cell_rect,
+    scale_image_to_fit,
+    draw_card_background,
+    fit_text_to_width,
+    draw_page_number,
+    draw_copyright_footer,
+    draw_text_centered_in_rect,
+    create_placeholder_image
+)
