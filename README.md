@@ -385,10 +385,57 @@ Create full-page coloring sheets.
 from generators import generate_coloring_sheets_set
 ```
 
-### 7. Find & Cover
-Generate "find and cover" activity sheets.
+### 7. Find & Cover (Enhanced with Modular Helpers)
+Generate differentiated "Find and Cover" activity worksheets where students find and cover matching icons.
+
+**Features:**
+- Target icon display at top with instructions
+- Grid layout (default 4×4) with differentiated content
+- Uses modular helpers from `utils/draw_helpers.py`
+- Maximum image size with minimal padding (5px)
+- Page numbering and copyright footer on every page
+- Storage label support
+
+**Differentiation Levels:**
+- Level 1: **Errorless** - All icons match the target (perfect for beginners)
+- Level 2: **Mixed** - 50% match, 50% distractors (medium difficulty)
+- Level 3: **Challenging** - Field of 6 distractors with fewer matches (higher difficulty)
+- Level 4: **Cut-and-Paste** - Empty grid with circles for pasting (fine motor practice)
+
 ```python
 from generators import generate_find_cover_set
+
+# Define target items and all available items
+target_items = [
+    {'image': 'bear', 'label': 'Brown Bear'},
+    {'image': 'duck', 'label': 'Yellow Duck'}
+]
+
+all_items = [
+    {'image': 'bear', 'label': 'Brown Bear'},
+    {'image': 'duck', 'label': 'Yellow Duck'},
+    {'image': 'frog', 'label': 'Green Frog'},
+    {'image': 'cat', 'label': 'Cat'},
+    {'image': 'dog', 'label': 'Dog'}
+]
+
+# Generate all 4 levels
+for level in range(1, 5):
+    pages = generate_find_cover_set(
+        target_items=target_items,
+        all_items=all_items,
+        theme_name='Brown_Bear',
+        level=level,
+        grid_size=(4, 4),  # 4×4 grid
+        folder_type='color',
+        sheets_per_target=1,
+        include_storage_label=True,
+        card_style={'border_width': 2, 'corner_radius': 0, 'shadow': False}
+    )
+# → Brown_Bear_Find_Cover_Level1_Errorless.pdf
+# → Brown_Bear_Find_Cover_Level2_Mixed.pdf
+# → Brown_Bear_Find_Cover_Level3_Challenging.pdf
+# → Brown_Bear_Find_Cover_Level4_Cut_Paste.pdf
 ```
 
 ### 8. Sorting Cards (Enhanced with Modular Helpers)

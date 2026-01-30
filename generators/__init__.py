@@ -6,7 +6,7 @@ from .bingo import generate_bingo_card, generate_bingo_set
 from .sequencing import generate_sequencing_card, generate_sequencing_set
 from .coloring_strips import generate_coloring_strip, generate_coloring_strips_page
 from .coloring_sheets import generate_coloring_sheet, generate_coloring_sheets_set
-from .find_cover import generate_find_cover_sheet, generate_find_cover_set
+from .find_cover import generate_find_cover_worksheet, generate_find_cover_set
 from .sorting_cards import generate_sorting_card, generate_sorting_cards_set
 from .sentence_strips import generate_sentence_strip, generate_sentence_strips_set
 from .yes_no_questions import generate_yes_no_question_card, generate_yes_no_questions_set
@@ -43,7 +43,7 @@ __all__ = [
     'generate_coloring_sheets_set',
     
     # Find & Cover
-    'generate_find_cover_sheet',
+    'generate_find_cover_worksheet',
     'generate_find_cover_set',
     
     # Sorting Cards
