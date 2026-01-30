@@ -203,6 +203,78 @@ label_path = generate_storage_label(
 - `generate_counting_mats_set(..., include_storage_label=True)`
 - `generate_bingo_set(..., include_storage_label=True)`
 
+## Build Pipeline - Generate Complete Theme Packs
+
+The `build_theme_pack.py` script generates a complete theme pack with ALL generators from a single theme JSON file.
+
+### Quick Start
+
+```bash
+# Generate all resources for brown_bear theme
+python build_theme_pack.py brown_bear
+
+# Generate specific generators only
+python build_theme_pack.py brown_bear --generators matching,counting,bingo
+
+# Generate without storage labels
+python build_theme_pack.py brown_bear --no-labels
+
+# Custom output directory
+python build_theme_pack.py brown_bear --output my_output
+```
+
+### Available Generators
+
+List all available generators:
+```bash
+python build_theme_pack.py --list-generators
+```
+
+Generators include: `matching`, `counting`, `bingo`, `sequencing`, `find_cover`, `sorting`, `sentence_strips`, `yes_no`, `wh_questions`, `story_maps`, `color_questions`, `coloring_sheets`, `coloring_strips`, `word_search`
+
+### Theme JSON Format
+
+Create custom themes in `/themes/your_theme.json`:
+
+```json
+{
+  "name": "Your Theme Name",
+  "description": "Theme description",
+  "items": [
+    {
+      "image": "item1",
+      "label": "Item 1 Label",
+      "color": "red"
+    },
+    {
+      "image": "item2",
+      "label": "Item 2 Label",
+      "color": "blue"
+    }
+  ]
+}
+```
+
+Then build the complete pack:
+```bash
+python build_theme_pack.py your_theme
+```
+
+### Build Output
+
+The build pipeline creates organized output:
+```
+output/
+└── brown_bear/
+    ├── brown_bear_Matching_Level1_Identical_Errorless.pdf
+    ├── brown_bear_Matching_Level1_Identical_Errorless_LABEL.pdf
+    ├── brown_bear_Counting_Mats_Level1.pdf
+    ├── brown_bear_Counting_Mats_Level1_LABEL.pdf
+    ├── brown_bear_Bingo.pdf
+    ├── brown_bear_Bingo_LABEL.pdf
+    └── ... (all other generators)
+```
+
 ## All 14 Generators
 
 ### 1. Counting Mats
