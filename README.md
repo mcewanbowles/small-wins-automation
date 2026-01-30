@@ -391,10 +391,50 @@ Generate "find and cover" activity sheets.
 from generators import generate_find_cover_set
 ```
 
-### 8. Sorting Cards
-Create sorting cards for categorization activities.
+### 8. Sorting Cards (Enhanced with Modular Helpers)
+Create sorting mats and cut-out sorting cards for categorization activities.
+
+**Features:**
+- Sorting mats with category headers and drop zones
+- Watermarked answer keys
+- Cut-out sorting cards with 3 differentiation levels
+- Uses modular helpers from `utils/draw_helpers.py`
+- Page numbering and copyright footer
+
+**Differentiation Levels:**
+- Level 1: Real images with text labels (most support)
+- Level 2: Real images only (less visual support)
+- Level 3: Text only or AAC symbols (highest difficulty)
+
 ```python
 from generators import generate_sorting_cards_set
+
+# Define categories with items
+categories = {
+    'Animals': [
+        {'image': 'bear', 'label': 'Bear'},
+        {'image': 'duck', 'label': 'Duck'},
+        {'image': 'cat', 'label': 'Cat'}
+    ],
+    'Colors': [
+        {'image': 'bird', 'label': 'Red Bird'},
+        {'image': 'frog', 'label': 'Green Frog'}
+    ]
+}
+
+# Generate sorting mats and cards
+generate_sorting_cards_set(
+    categories=categories,
+    theme_name='Animals',
+    level=1,  # Level 1-3
+    card_size='standard',
+    cards_per_page=6,
+    include_storage_label=True
+)
+# Output:
+# - Sorting mat for each category (Animals, Colors)
+# - Pages of cut-out sorting cards
+# - Storage label PDF
 ```
 
 ### 9. Sentence Strips (AAC)

@@ -1,217 +1,501 @@
 """
-Sorting Cards Generator
+Sorting Cards Generator (Modular Architecture)
 
-Generates sorting cards for categorization activities.
-Cards can be sorted by category, attribute, or other criteria.
+Generates SPED-friendly sorting materials with differentiation levels:
+- Sorting Mats: Category headers with drop zones and answer keys
+- Sorting Cards: Cut-out cards to be sorted into categories
+
+Supports 3 differentiation levels:
+- Level 1: Real images with text labels (most support)
+- Level 2: Real images only (less visual support)
+- Level 3: Text only or AAC symbols (highest difficulty)
+
+All materials follow SPED design principles: large images, high contrast,
+minimal clutter, consistent spacing, and 300 DPI output.
+
+Uses modular helper functions from utils/draw_helpers.py for maintainable code.
 """
 
 from PIL import Image, ImageDraw
-from utils.config import MARGINS, CARD_SIZES
+from utils.config import MARGINS, CARD_SIZES, DPI, COLORS, FONT_SIZES, PAGE_WIDTH, PAGE_HEIGHT
 from utils.image_loader import get_image_loader
-from utils.image_utils import scale_image_proportional
-from utils.layout import create_card_background, create_page_canvas, add_page_border, add_footer
 from utils.pdf_export import save_images_as_pdf
+from utils.draw_helpers import (
+    calculate_cell_rect,
+    scale_image_to_fit,
+    draw_card_background,
+    draw_page_number,
+    draw_copyright_footer,
+    draw_text_centered_in_rect,
+    fit_text_to_width,
+    create_placeholder_image
+)
+from utils.storage_label_helper import create_companion_label
+from utils.fonts import get_font_manager
+import os
 
 
-def generate_sorting_card(image_filename, category=None, card_size='standard',
-                          folder_type='color', level=1):
+def generate_sorting_mat(category_name, items, level=1, card_style=None, 
+                         show_answer_key=True):
     """
-    Generate a single sorting card.
+    Generate a sorting mat with category header and drop zone.
     
     Args:
-        image_filename: Filename of the image
-        category: Category label (shown only at Level 1)
-        card_size: Card size
-        folder_type: Image folder type
-        level: Differentiation level
+        category_name: Name of the category (e.g., "Animals", "Colors")
+        items: List of items that belong to this category (for answer key)
+        level: Differentiation level (1-3)
+        card_style: Optional styling dict for borders/shadows
+        show_answer_key: Whether to show watermarked answer key
         
     Returns:
-        PIL.Image: Generated card
+        PIL.Image: Generated sorting mat page
     """
-    width, height = CARD_SIZES[card_size]
-    card = create_card_background(width, height, border=True)
+    # Create page canvas
+    page = Image.new('RGB', (PAGE_WIDTH, PAGE_HEIGHT), COLORS['white'])
+    draw = ImageDraw.Draw(page)
     
-    # Load image
-    image_loader = get_image_loader()
-    theme_image = image_loader.load_image(image_filename, folder_type)
+    # Default card style
+    if card_style is None:
+        card_style = {
+            'border_width': 3,
+            'corner_radius': 12,
+            'shadow': True,
+            'fill_color': COLORS['white']
+        }
     
-    # Calculate image area
-    if level == 1 and category:
-        image_height = int(height * 0.8)
-    else:
-        image_height = height - 40
+    # Calculate layout areas
+    margin = MARGINS['page']
+    title_height = 150
+    answer_key_height = 200 if show_answer_key else 0
+    drop_zone_y = margin + title_height + 30
+    drop_zone_height = PAGE_HEIGHT - drop_zone_y - answer_key_height - margin - 60  # 60 for footer
     
-    scaled_image = scale_image_proportional(theme_image, max_width=width-40, max_height=image_height)
+    # Title bar with category name
+    title_rect = (margin, margin, PAGE_WIDTH - margin, margin + title_height)
+    title_style = card_style.copy()
+    title_style['fill_color'] = COLORS['light_blue']
+    draw_card_background(draw, title_rect, title_style)
     
-    # Center and place image
-    img_x = (width - scaled_image.width) // 2
-    img_y = 20
-    card.paste(scaled_image, (img_x, img_y), scaled_image)
+    # Category name text
+    font_manager = get_font_manager()
+    try:
+        title_font = font_manager.get_font('heading', FONT_SIZES['title'])
+    except:
+        title_font = None
     
-    # Add category label for Level 1
-    if level == 1 and category:
-        draw = ImageDraw.Draw(card)
-        label_y = height - 100
+    draw_text_centered_in_rect(draw, category_name.upper(), title_rect, 
+                               font_size=FONT_SIZES['title'])
+    
+    # Drop zone area
+    drop_zone_rect = (margin, drop_zone_y, PAGE_WIDTH - margin, 
+                      drop_zone_y + drop_zone_height)
+    drop_zone_style = card_style.copy()
+    drop_zone_style['border_width'] = 4
+    drop_zone_style['fill_color'] = (245, 245, 250)  # Very light blue-gray
+    draw_card_background(draw, drop_zone_rect, drop_zone_style)
+    
+    # Add "Sort Here" text in drop zone
+    try:
+        drop_font = font_manager.get_font('body', FONT_SIZES['heading'])
+    except:
+        drop_font = None
+    
+    draw.text(
+        (PAGE_WIDTH // 2, drop_zone_y + 40),
+        "Sort Here ↓",
+        fill=COLORS['medium_gray'],
+        font=drop_font,
+        anchor='mt'
+    )
+    
+    # Answer key with watermarked images (if enabled)
+    if show_answer_key and items:
+        answer_key_y = drop_zone_y + drop_zone_height + 20
         
-        # Draw label area
-        draw.rectangle(
-            [10, label_y, width-10, height-10],
-            fill=(240, 240, 240, 255),
-            outline=(0, 0, 0, 255),
-            width=2
+        # Answer key background
+        answer_rect = (margin, answer_key_y, PAGE_WIDTH - margin, 
+                      answer_key_y + answer_key_height)
+        answer_style = {
+            'border_width': 2,
+            'corner_radius': 8,
+            'shadow': False,
+            'fill_color': (255, 255, 240)  # Light yellow
+        }
+        draw_card_background(draw, answer_rect, answer_style)
+        
+        # "Answer Key" label
+        draw.text(
+            (margin + 20, answer_key_y + 10),
+            "Answer Key:",
+            fill=COLORS['dark_gray'],
+            font=drop_font,
+            anchor='lt'
         )
         
-        # Draw text
-        try:
-            from PIL import ImageFont
-            font = ImageFont.load_default()
-            bbox = draw.textbbox((0, 0), category, font=font)
-            text_width = bbox[2] - bbox[0]
-            text_x = (width - text_width) // 2
-            text_y = label_y + 20
-            draw.text((text_x, text_y), category, fill=(0, 0, 0, 255), font=font)
-        except:
-            pass
+        # Draw watermarked answer images
+        image_loader = get_image_loader()
+        num_items = min(len(items), 5)  # Max 5 items in answer key
+        
+        if num_items > 0:
+            cell_width = (PAGE_WIDTH - 2 * margin - 150) // num_items
+            cell_height = answer_key_height - 50
+            
+            for i, item in enumerate(items[:num_items]):
+                try:
+                    img_filename = item.get('image', item) if isinstance(item, dict) else item
+                    if not img_filename.endswith('.png'):
+                        img_filename += '.png'
+                    
+                    answer_img = image_loader.load_image(img_filename, 'color')
+                    
+                    # Scale and watermark
+                    cell_rect = (
+                        margin + 150 + i * cell_width,
+                        answer_key_y + 40,
+                        margin + 150 + (i + 1) * cell_width - 10,
+                        answer_key_y + 40 + cell_height
+                    )
+                    
+                    scaled_img, img_x, img_y = scale_image_to_fit(
+                        answer_img, cell_rect, padding=5
+                    )
+                    
+                    # Apply watermark effect (reduce opacity)
+                    watermarked = scaled_img.copy()
+                    watermarked.putalpha(128)  # 50% transparency
+                    
+                    page.paste(watermarked, (img_x, img_y), watermarked)
+                    
+                except (FileNotFoundError, Exception) as e:
+                    # Skip missing images in answer key
+                    pass
     
-    return card
+    # Add copyright footer
+    draw_copyright_footer(draw, PAGE_WIDTH, PAGE_HEIGHT)
+    
+    return page
 
 
-def generate_category_header_card(category_name, card_size='large'):
+def generate_sorting_card(image_filename, label_text=None, card_size='standard',
+                          folder_type='color', card_type='image', level=1,
+                          card_style=None):
     """
-    Generate a category header card for sorting mats.
+    Generate a single sorting card using modular helper functions.
     
     Args:
-        category_name: Name of the category
-        card_size: Card size
+        image_filename: Filename of the image (without folder path)
+        label_text: Text label for the card
+        card_size: 'standard', 'large', 'rectangle', or 'wide'
+        folder_type: 'color', 'bw_outline', or 'aac'
+        card_type: 'image' or 'text' (for Level 3)
+        level: Differentiation level (1-3)
+        card_style: Optional dict with 'border_width', 'corner_radius', 'shadow'
         
     Returns:
-        PIL.Image: Generated header card
+        PIL.Image: Generated sorting card
     """
+    # Get card dimensions
     width, height = CARD_SIZES[card_size]
-    card = create_card_background(width, height, border=True, border_width=8)
     
+    # Create blank card
+    card = Image.new('RGBA', (width, height), COLORS['white'] + (255,))
     draw = ImageDraw.Draw(card)
     
-    # Fill with light background
-    draw.rectangle([8, 8, width-8, height-8], fill=(220, 220, 255, 255))
+    # Draw card background with optional styling
+    if card_style is None:
+        card_style = {
+            'border_width': 2,
+            'corner_radius': 10,
+            'shadow': False,
+            'fill_color': COLORS['white']
+        }
     
-    # Draw category name
+    draw_card_background(draw, (0, 0, width, height), card_style)
+    
+    if card_type == 'text':
+        # Level 3: Text-only card
+        text = label_text if label_text else image_filename.replace('.png', '').replace('_', ' ').title()
+        draw_text_centered_in_rect(draw, text, (0, 0, width, height), 
+                                   font_size=FONT_SIZES['body'])
+        return card
+    
+    # Image-based card (Levels 1-2)
+    image_loader = get_image_loader()
+    
     try:
-        from PIL import ImageFont
-        font = ImageFont.load_default()
-        bbox = draw.textbbox((0, 0), category_name, font=font)
-        text_width = bbox[2] - bbox[0]
-        text_height = bbox[3] - bbox[1]
-        text_x = (width - text_width) // 2
-        text_y = (height - text_height) // 2
-        draw.text((text_x, text_y), category_name, fill=(0, 0, 0, 255), font=font)
-    except:
-        pass
+        theme_image = image_loader.load_image(image_filename, folder_type)
+    except FileNotFoundError:
+        # Create consistent placeholder
+        theme_image = create_placeholder_image(500, 500, f"Missing:\n{image_filename}")
+    
+    # Calculate image and label areas
+    if level == 1 and label_text:
+        # Level 1: Image + label
+        label_height = 60
+        image_rect = (0, 0, width, height - label_height)
+        label_rect = (0, height - label_height, width, height)
+        
+        # Scale and position image
+        scaled_image, img_x, img_y = scale_image_to_fit(
+            theme_image, image_rect, padding=10
+        )
+        
+        # Paste image with alpha channel support
+        card.paste(scaled_image, (img_x, img_y), scaled_image)
+        
+        # Add label
+        draw_text_centered_in_rect(draw, label_text, label_rect, 
+                                   font_size=FONT_SIZES['body'])
+    else:
+        # Level 2+: Image only
+        scaled_image, img_x, img_y = scale_image_to_fit(
+            theme_image, (0, 0, width, height), padding=5
+        )
+        
+        # Paste with alpha channel support
+        card.paste(scaled_image, (img_x, img_y), scaled_image)
     
     return card
 
 
-def generate_sorting_cards_set(categories_dict, card_size='standard', folder_type='color',
-                                level=1, theme_name='Theme', output_dir='output',
-                                include_storage_label=False):
+def generate_sorting_cards_set(categories, theme_name='Theme', level=1, 
+                               card_size='standard', cards_per_page=6,
+                               output_dir='output', include_storage_label=False,
+                               card_style=None):
     """
-    Generate a complete set of sorting cards with category headers.
+    Generate a complete sorting cards set with mats and cut-out cards.
     
     Args:
-        categories_dict: Dict of {category_name: [image_filenames]}
-        card_size: Card size
-        folder_type: Image folder type
-        level: Differentiation level
-        theme_name: Theme name
-        output_dir: Output directory
-        include_storage_label: If True, also generate a companion storage label PDF
+        categories: Dict mapping category names to lists of items
+                   e.g., {'Animals': [{'image': 'bear', 'label': 'Bear'}, ...],
+                          'Colors': [...]}
+        theme_name: Name of the theme for file naming
+        level: Differentiation level (1-3)
+        card_size: Size of sorting cards
+        cards_per_page: Number of cards per page
+        output_dir: Output directory for PDFs
+        include_storage_label: Whether to generate storage label
+        card_style: Optional styling dict for borders/shadows
         
     Returns:
-        list: Generated pages
+        List[str]: Paths to generated PDF files
     """
-    all_cards = []
-    
-    # Generate header cards and sorting cards for each category
-    for category, images in categories_dict.items():
-        # Add category header
-        header = generate_category_header_card(category, 'large')
-        all_cards.append(header)
-        
-        # Add sorting cards
-        for image_file in images:
-            card = generate_sorting_card(image_file, category, card_size, folder_type, level)
-            all_cards.append(card)
-    
-    # Arrange cards on pages (9 per page in 3x3 grid)
-    pages = []
-    cards_per_page = 9
-    width, height = CARD_SIZES[card_size]
-    
-    for page_start in range(0, len(all_cards), cards_per_page):
-        page = create_page_canvas()
-        page_cards = all_cards[page_start:page_start + cards_per_page]
-        
-        grid_cols, grid_rows = 3, 3
-        spacing = MARGINS['content']
-        
-        total_width = (width * grid_cols) + (spacing * (grid_cols - 1))
-        total_height = (height * grid_rows) + (spacing * (grid_rows - 1))
-        
-        start_x = (int(page.width) - total_width) // 2
-        start_y = (int(page.height) - total_height - 200) // 2
-        
-        for idx, card in enumerate(page_cards):
-            row = idx // grid_cols
-            col = idx % grid_cols
-            
-            x = start_x + (col * (width + spacing))
-            y = start_y + (row * (height + spacing))
-            
-            # Scale card if it's a header (larger)
-            if card.size != (width, height):
-                card_to_paste = card.resize((width, height), Image.Resampling.LANCZOS)
-            else:
-                card_to_paste = card
-            
-            page.paste(card_to_paste, (int(x), int(y)), card_to_paste)
-        
-        add_page_border(page)
-        add_footer(page)
-        pages.append(page)
-    
-    # Save PDF
-    import os
     os.makedirs(output_dir, exist_ok=True)
-    output_path = f"{output_dir}/{theme_name}_Sorting_Cards_Level{level}.pdf"
-    save_images_as_pdf(pages, output_path, title=f"{theme_name} Sorting Cards")
+    
+    # Determine folder type and card type based on level
+    if level == 1:
+        folder_type = 'color'
+        card_type = 'image'
+        level_name = 'Level1_Images_With_Labels'
+    elif level == 2:
+        folder_type = 'color'
+        card_type = 'image'
+        level_name = 'Level2_Images_Only'
+    else:  # level 3
+        folder_type = 'aac'
+        card_type = 'text'
+        level_name = 'Level3_Text_Or_AAC'
+    
+    all_pages = []
+    
+    # Generate sorting mats (one per category)
+    print(f"Generating sorting mats for {len(categories)} categories...")
+    
+    for category_name, items in categories.items():
+        mat_page = generate_sorting_mat(
+            category_name=category_name,
+            items=items,
+            level=level,
+            card_style=card_style,
+            show_answer_key=True
+        )
+        all_pages.append(mat_page)
+    
+    # Generate cut-out sorting cards
+    print(f"Generating sorting cards (Level {level})...")
+    
+    current_page_cards = []
+    page_number = len(all_pages) + 1  # Continue from mats
+    
+    # Collect all items from all categories
+    all_items = []
+    for category_name, items in categories.items():
+        for item in items:
+            item_with_category = item.copy() if isinstance(item, dict) else {'image': item}
+            item_with_category['category'] = category_name
+            all_items.append(item_with_category)
+    
+    # Generate cards
+    for item in all_items:
+        # Extract image and label
+        if isinstance(item, dict):
+            img_filename = item.get('image', '')
+            label_text = item.get('label', '')
+        else:
+            img_filename = item
+            label_text = ''
+        
+        # Ensure .png extension
+        if img_filename and not img_filename.endswith('.png'):
+            img_filename += '.png'
+        
+        # Generate card
+        card = generate_sorting_card(
+            image_filename=img_filename,
+            label_text=label_text if level == 1 else None,
+            card_size=card_size,
+            folder_type=folder_type,
+            card_type=card_type,
+            level=level,
+            card_style=card_style
+        )
+        
+        current_page_cards.append(card)
+        
+        # Create page when we have enough cards
+        if len(current_page_cards) >= cards_per_page:
+            page = create_cards_page(current_page_cards, cards_per_page, 
+                                    page_number, len(all_items) // cards_per_page + 1)
+            all_pages.append(page)
+            current_page_cards = []
+            page_number += 1
+    
+    # Handle remaining cards
+    if current_page_cards:
+        page = create_cards_page(current_page_cards, cards_per_page, 
+                                page_number, page_number)
+        all_pages.append(page)
+    
+    # Save as PDF
+    output_filename = f"{theme_name}_Sorting_{level_name}.pdf"
+    output_path = os.path.join(output_dir, output_filename)
+    save_images_as_pdf(all_pages, output_path)
+    
+    print(f"✓ Generated {output_path}")
+    print(f"  - {len(categories)} sorting mats")
+    print(f"  - {len(all_items)} sorting cards")
+    print(f"  - {len(all_pages)} total pages")
     
     # Generate storage label if requested
     if include_storage_label:
-        from utils.storage_label_helper import create_companion_label
-        
-        # Try to find an icon from first category's first image
-        icon_path = None
-        for category, images in categories_dict.items():
-            if images:
+        try:
+            # Try to get first image for icon
+            first_item = all_items[0] if all_items else None
+            icon_path = None
+            
+            if first_item:
+                img_filename = first_item.get('image', '') if isinstance(first_item, dict) else first_item
+                if img_filename and not img_filename.endswith('.png'):
+                    img_filename += '.png'
+                
                 image_loader = get_image_loader()
-                potential_icon = image_loader.get_image_path(images[0], folder_type)
-                if os.path.exists(potential_icon):
-                    icon_path = potential_icon
-                break
-        
-        label_path = create_companion_label(
-            main_pdf_path=output_path,
-            theme_name=theme_name,
-            activity_name="Sorting Cards",
-            level=level,
-            icon_path=icon_path
-        )
-        print(f"✓ Generated storage label")
-        print(f"  Label: {label_path}")
+                try:
+                    icon_img = image_loader.load_image(img_filename, folder_type)
+                    icon_path = f"/tmp/sorting_icon_{theme_name}.png"
+                    icon_img.save(icon_path)
+                except:
+                    pass
+            
+            # Generate companion label
+            create_companion_label(
+                main_pdf_path=output_path,
+                theme_name=theme_name,
+                activity_name="Sorting Cards",
+                level=level,
+                icon_path=icon_path
+            )
+            
+            print(f"✓ Generated storage label: {output_path.replace('.pdf', '_LABEL.pdf')}")
+            
+        except Exception as e:
+            print(f"⚠ Warning: Could not generate storage label: {e}")
     
-    return pages
+    return [output_path]
 
 
-if __name__ == "__main__":
-    print("Sorting Cards Generator")
-    print("Use generate_sorting_card() or generate_sorting_cards_set()")
+def create_cards_page(cards, cards_per_page, page_number, total_pages):
+    """
+    Create a page with multiple sorting cards arranged in a grid.
+    
+    Args:
+        cards: List of card images
+        cards_per_page: Target number of cards per page
+        page_number: Current page number
+        total_pages: Total number of pages
+        
+    Returns:
+        PIL.Image: Page with arranged cards
+    """
+    # Create page canvas
+    page = Image.new('RGB', (PAGE_WIDTH, PAGE_HEIGHT), COLORS['white'])
+    draw = ImageDraw.Draw(page)
+    
+    # Calculate grid layout
+    if cards_per_page <= 4:
+        rows, cols = 2, 2
+    elif cards_per_page <= 6:
+        rows, cols = 2, 3
+    elif cards_per_page <= 9:
+        rows, cols = 3, 3
+    else:
+        rows, cols = 3, 4
+    
+    # Calculate cell positions
+    cells = calculate_cell_rect(
+        PAGE_WIDTH, PAGE_HEIGHT,
+        rows, cols,
+        padding=20,
+        margin=MARGINS['page'],
+        footer_height=60
+    )
+    
+    # Place cards in cells
+    for i, card in enumerate(cards[:cards_per_page]):
+        if i < len(cells):
+            x1, y1, x2, y2 = cells[i]
+            
+            # Center card in cell
+            card_x = x1 + (x2 - x1 - card.width) // 2
+            card_y = y1 + (y2 - y1 - card.height) // 2
+            
+            # Paste card (handle RGBA)
+            if card.mode == 'RGBA':
+                page.paste(card, (card_x, card_y), card)
+            else:
+                page.paste(card, (card_x, card_y))
+    
+    # Add page number
+    draw_page_number(draw, page_number, total_pages)
+    
+    # Add copyright footer
+    draw_copyright_footer(draw, PAGE_WIDTH, PAGE_HEIGHT)
+    
+    return page
+
+
+# Example usage
+if __name__ == '__main__':
+    # Example categories for sorting
+    example_categories = {
+        'Animals': [
+            {'image': 'bear', 'label': 'Bear'},
+            {'image': 'duck', 'label': 'Duck'},
+            {'image': 'frog', 'label': 'Frog'},
+            {'image': 'cat', 'label': 'Cat'}
+        ],
+        'Colors': [
+            {'image': 'bird', 'label': 'Red Bird'},
+            {'image': 'duck', 'label': 'Yellow Duck'},
+            {'image': 'frog', 'label': 'Green Frog'}
+        ]
+    }
+    
+    # Generate all three levels
+    for level in range(1, 4):
+        generate_sorting_cards_set(
+            categories=example_categories,
+            theme_name='Brown_Bear',
+            level=level,
+            cards_per_page=6,
+            include_storage_label=True
+        )
