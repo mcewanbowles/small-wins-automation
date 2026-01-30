@@ -17,6 +17,10 @@ from .word_search import generate_word_search, generate_word_search_set
 from .storage_labels import generate_storage_label, generate_storage_labels_sheet
 from .aac_book_board import generate_aac_board, generate_aac_board_set
 from .sequencing_strips import generate_sequencing_strip, generate_sequencing_strips_set
+from .story_sequencing import (generate_first_next_last_page, generate_story_map,
+                                generate_event_ordering_page, generate_retell_strip,
+                                generate_story_summary_page, generate_cutout_icons_page,
+                                generate_story_sequencing_set)
 
 __all__ = [
     # Counting Mats
@@ -87,4 +91,13 @@ __all__ = [
     # Sequencing Strips
     'generate_sequencing_strip',
     'generate_sequencing_strips_set',
+    
+    # Story Sequencing
+    'generate_first_next_last_page',
+    'generate_story_map',
+    'generate_event_ordering_page',
+    'generate_retell_strip',
+    'generate_story_summary_page',
+    'generate_cutout_icons_page',
+    'generate_story_sequencing_set',
 ]

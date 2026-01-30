@@ -1,10 +1,10 @@
 # Small Wins Automation - SPED Resource Generator
 
-Automated TpT (Teachers Pay Teachers) resource generators for Small Wins Studio. This Python automation system generates 14 different printable resources for special education (SPED) following strict accessibility and design guidelines.
+Automated TpT (Teachers Pay Teachers) resource generators for Small Wins Studio. This Python automation system generates 18 different printable resources for special education (SPED) following strict accessibility and design guidelines.
 
 ## Features
 
-- **14 Different Resource Types**: Counting Mats, Matching Cards, Bingo, Sequencing, Coloring Strips, Coloring Sheets, Find & Cover, Sorting Cards, Sentence Strips (AAC), Yes/No Questions, WH Questions, Story Maps, Color Questions, Word Search, and Storage Labels
+- **18 Different Resource Types**: Counting Mats, Matching Cards, Bingo, Sequencing, Coloring Strips, Coloring Sheets, Find & Cover, Sorting Cards, Sentence Strips (AAC), Yes/No Questions, WH Questions, Story Maps, Color Questions, Word Search, Storage Labels, AAC Book Board, Sequencing Strips, and Story Sequencing
 - **SPED Design Compliance**: Large images, high contrast, minimal clutter, predictable layouts, consistent borders and footers
 - **Enhanced Layout Engine**: Precise grid positioning, consistent spacing, and optional visual effects (drop shadows)
 - **300 DPI Output**: High-quality PDF files ready for printing
@@ -718,5 +718,50 @@ output_files = generate_sequencing_strips_set(
 **Output files:**
 - `Theme_Sequencing_Strips_Errorless.pdf` - Strip pages with icons in order
 - `Theme_Sequencing_Icons_Cutouts.pdf` - Cut-out icon pages
+- Storage labels for organization
+
+### 17. Story Sequencing
+Generate comprehensive story sequencing resources for comprehension and retelling.
+
+**Features:**
+- **First → Next → Last** (3-box layout):
+  - Level 1: Errorless (correct order)
+  - Level 2: Mixed (scrambled order)
+  - Level 3: Cut-and-paste (empty boxes with cutouts)
+- **Story Map**: One-page graphic organizer with Characters, Setting, Problem, Events, Solution
+- **Event Ordering**: 3-step and 4-step sequences with WH prompts ("What happened first/next/last")
+- **Retell Strip**: Horizontal strip with 3-4 icon slots, lanyard-friendly design
+- **Story Summary**: Page with sentence starters ("The story is about...", "First...", "Then...", "Last...")
+- **Cut-out Icons**: Matching card-sized icons (750×750px) with optional grab tabs
+- Icons match exact size of matching cards for interchangeability
+- Storage label support
+
+**Usage:**
+```python
+from generators import generate_story_sequencing_set
+
+story_data = {
+    'events': [
+        {'image': 'bear.png', 'label': 'Brown Bear'},
+        {'image': 'duck.png', 'label': 'Yellow Duck'},
+        {'image': 'frog.png', 'label': 'Green Frog'}
+    ],
+    'characters': ['Brown Bear', 'Friends'],
+    'setting': 'Forest',
+    'problem': 'Looking for friends',
+    'solution': 'Found colorful friends'
+}
+
+output_files = generate_story_sequencing_set(
+    story_data=story_data,
+    theme_name='Brown_Bear',
+    include_storage_label=True
+)
+# Returns: {'story_sequencing': '...pdf', 'cutouts': '...pdf', 'labels': '...'}
+```
+
+**Output files:**
+- `Theme_Story_Sequencing.pdf` - All sequencing pages (First/Next/Last, Story Map, Event Ordering, Retell Strip, Story Summary)
+- `Theme_Story_Icons_Cutouts.pdf` - Cut-out icon pages with grab tabs
 - Storage labels for organization
 

@@ -26,7 +26,7 @@ from utils.draw_helpers import (
     draw_text_centered_in_rect,
     create_placeholder_image
 )
-from utils.pdf_export import save_pdf
+from utils.pdf_export import save_images_as_pdf
 from utils.storage_label_helper import create_companion_label
 
 
@@ -324,7 +324,7 @@ def generate_aac_board_set(
     # Save AAC board
     board_filename = f"{theme_name}_AAC_Board.pdf"
     board_path = os.path.join(output_dir, board_filename)
-    save_pdf([board_page], board_path)
+    save_images_as_pdf([board_page], board_path)
     output_files['board'] = board_path
     print(f"✓ Saved AAC board: {board_path}")
     
@@ -353,7 +353,7 @@ def generate_aac_board_set(
         # Save cut-out icons
         cutout_filename = f"{theme_name}_AAC_Icons_Cutouts.pdf"
         cutout_path = os.path.join(output_dir, cutout_filename)
-        save_pdf(cutout_pages, cutout_path)
+        save_images_as_pdf(cutout_pages, cutout_path)
         output_files['cutouts'] = cutout_path
         print(f"✓ Saved cut-out icons: {cutout_path}")
         
