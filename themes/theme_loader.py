@@ -25,6 +25,11 @@ import os
 from pathlib import Path
 from typing import Dict, List, Optional, Any
 from PIL import Image, ImageOps
+import sys
+
+# Add parent directory to path to import utils
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from utils.color_helpers import palette_to_grayscale
 
 
 class Theme:
@@ -233,27 +238,10 @@ class Theme:
         return sentences
     
     def _apply_bw_mode(self):
-        """Convert theme to black-and-white mode."""
-        # Convert colors to grayscale equivalents
+        """Convert theme to black-and-white mode using color_helpers."""
+        # Convert colors to grayscale equivalents using standard utility
         if self.colours:
-            bw_colours = []
-            for color in self.colours:
-                # Convert hex to RGB
-                color = color.lstrip('#')
-                if len(color) == 6:
-                    r, g, b = int(color[0:2], 16), int(color[2:4], 16), int(color[4:6], 16)
-                    # Convert to grayscale using standard formula
-                    gray = int(0.299 * r + 0.587 * g + 0.114 * b)
-                    # Ensure high contrast - if too light, darken; if too dark, lighten
-                    if gray > 200:
-                        gray = max(gray - 50, 128)
-                    elif gray < 55:
-                        gray = min(gray + 50, 128)
-                    bw_hex = f"#{gray:02x}{gray:02x}{gray:02x}"
-                    bw_colours.append(bw_hex)
-                else:
-                    bw_colours.append(color)  # Keep as-is if invalid
-            self.colours = bw_colours
+            self.colours = palette_to_grayscale(self.colours)
     
     def get_icon_path(self, icon_name: str) -> Optional[Path]:
         """Get full path to an icon file."""

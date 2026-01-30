@@ -14,6 +14,13 @@ Provides modular functions for:
 from PIL import Image, ImageDraw, ImageFont
 from typing import List, Tuple, Dict, Optional
 from utils.config import COLORS, FONT_SIZES, MARGINS, DPI
+from utils.color_helpers import (
+    adjust_for_bw_mode,
+    get_background_color,
+    get_border_color,
+    image_to_grayscale,
+    enhance_for_printing
+)
 
 
 def calculate_cell_rect(page_width: int, page_height: int, rows: int, cols: int,
@@ -341,3 +348,114 @@ def create_placeholder_image(width: int, height: int, text: str = "Missing Image
     draw.text((x, y), text, fill=(100, 100, 100, 255), font=font)
     
     return img
+
+
+# Mode-aware helper functions for dual output support
+
+def load_image_for_mode(image_path: str, mode: str = 'color') -> Image.Image:
+    """
+    Load an image and convert it based on the output mode.
+    
+    Args:
+        image_path: Path to the image file
+        mode: 'color' or 'bw'
+    
+    Returns:
+        PIL.Image: Image in appropriate mode
+    """
+    img = Image.open(image_path)
+    
+    if mode == 'bw':
+        img = image_to_grayscale(image_path)
+        img = enhance_for_printing(img, mode='bw')
+    else:
+        # Slight enhancement for color printing
+        img = enhance_for_printing(img, mode='color')
+    
+    return img
+
+
+def get_color_for_mode(color: str, mode: str = 'color') -> str:
+    """
+    Get the appropriate color based on output mode.
+    
+    Args:
+        color: Hex color code
+        mode: 'color' or 'bw'
+    
+    Returns:
+        str: Color adjusted for mode
+    """
+    return adjust_for_bw_mode(color, mode)
+
+
+def draw_card_background_with_mode(draw: ImageDraw.ImageDraw,
+                                    rect: Tuple[int, int, int, int],
+                                    fill_color: str, border_color: str,
+                                    border_width: int = 3,
+                                    mode: str = 'color') -> None:
+    """
+    Draw a card background with mode-aware colors.
+    
+    In BW mode, uses white background with black border.
+    In color mode, uses theme colors.
+    
+    Args:
+        draw: ImageDraw object
+        rect: (x1, y1, x2, y2) rectangle bounds
+        fill_color: Fill color (hex)
+        border_color: Border color (hex)
+        border_width: Border thickness in pixels
+        mode: 'color' or 'bw'
+    """
+    # Adjust colors for mode
+    bg_color = get_background_color(mode, fill_color)
+    border = get_border_color(mode, border_color)
+    
+    # Convert hex to RGB
+    bg_rgb = tuple(int(bg_color.lstrip('#')[i:i+2], 16) for i in (0, 2, 4))
+    border_rgb = tuple(int(border.lstrip('#')[i:i+2], 16) for i in (0, 2, 4))
+    
+    # Draw filled rectangle
+    draw.rectangle(rect, fill=bg_rgb + (255,), outline=border_rgb + (255,), width=border_width)
+
+
+def draw_text_with_mode(draw: ImageDraw.ImageDraw, xy: Tuple[int, int],
+                        text: str, font: ImageFont.FreeTypeFont,
+                        color: str, mode: str = 'color') -> None:
+    """
+    Draw text with mode-aware color.
+    
+    Args:
+        draw: ImageDraw object
+        xy: (x, y) position
+        text: Text to draw
+        font: Font object
+        color: Text color (hex)
+        mode: 'color' or 'bw'
+    """
+    text_color = get_color_for_mode(color, mode)
+    text_rgb = tuple(int(text_color.lstrip('#')[i:i+2], 16) for i in (0, 2, 4))
+    draw.text(xy, text, fill=text_rgb + (255,), font=font)
+
+
+def get_output_filename(base_name: str, theme: str, activity: str, mode: str = 'color') -> str:
+    """
+    Generate output filename with mode suffix.
+    
+    Args:
+        base_name: Base output directory
+        theme: Theme name
+        activity: Activity name
+        mode: 'color' or 'bw'
+    
+    Returns:
+        str: Complete filename with mode suffix
+    
+    Example:
+        >>> get_output_filename('output', 'brown_bear', 'vocab_cards', 'color')
+        'output/brown_bear_vocab_cards_color.pdf'
+    """
+    mode_suffix = '_color' if mode == 'color' else '_bw'
+    return f"{base_name}/{theme}_{activity}{mode_suffix}.pdf"
+
