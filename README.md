@@ -860,3 +860,135 @@ output_files = generate_puppet_characters_set(
 - Storage labels for all versions
 
 
+
+### 20. Yes/No Cards
+
+Generate Yes/No question cards for receptive language and categorization tasks.
+
+**Features:**
+- **Task-Box Friendly**: 4 cards per page in 2×2 grid with shared borders for guillotine cutting (5.25" × 4" per card)
+- **Standard Yes/No Cards**: Question with icon and YES/NO response circles
+- **Real Image Version**: Same layout using real photographs (if available)
+- **Errorless Version**: Pre-highlighted correct answer (YES or NO)
+- **Cut-and-Paste Version**: Students cut and glue YES/NO icons onto cards
+- Large icons and clear YES/NO response areas
+- SPED-compliant high contrast design
+- Storage label support for all versions
+
+**Usage:**
+```python
+from generators import generate_yes_no_cards_set
+
+items = [
+    {'image': 'bear.png', 'label': 'bear'},
+    {'image': 'duck.png', 'label': 'duck'},
+    {'image': 'frog.png', 'label': 'frog'},
+    {'image': 'cat.png', 'label': 'cat'}
+]
+
+output_files = generate_yes_no_cards_set(
+    items=items,
+    theme_name='Brown_Bear',
+    include_standard=True,
+    include_real_images=False,  # Set True if real images available
+    include_errorless=True,
+    include_cut_paste=True,
+    include_storage_label=True,
+    folder_type='images'
+)
+# Returns: {
+#     'standard': '...pdf',
+#     'errorless_yes': '...pdf',
+#     'errorless_no': '...pdf',
+#     'cut_paste': '...pdf',
+#     'cutouts': '...pdf',
+#     'labels': '...'
+# }
+```
+
+**Output files:**
+- `Theme_Yes_No_Cards.pdf` - Standard Yes/No question cards (4 per page)
+- `Theme_Yes_No_Cards_Real_Images.pdf` - Real image version (optional)
+- `Theme_Yes_No_Cards_Errorless_Yes.pdf` - Errorless with YES pre-highlighted
+- `Theme_Yes_No_Cards_Errorless_No.pdf` - Errorless with NO pre-highlighted
+- `Theme_Yes_No_Cards_Cut_Paste.pdf` - Cut-and-paste version with empty boxes
+- `Theme_Yes_No_Cutouts.pdf` - YES/NO icons for cutting (12 icons per page)
+- Storage labels for all versions
+
+### 21. Bingo Game
+
+Generate bingo boards and calling cards for vocabulary and receptive language practice.
+
+**Features:**
+- **Multiple Board Sizes**: 3×3 (early learners), 4×4 (standard), 5×5 (advanced)
+- **Errorless Bingo**: All icons identical for beginners
+- **Real Image Bingo**: Real photographs instead of symbols (if available)
+- **Boardmaker Bingo**: Boardmaker symbols (if available)
+- **Task-Box Calling Cards**: 4 cards per page in 2×2 grid with shared borders (5.25" × 4")
+- **Multiple Calling Card Types**: Icon only, icon + word, real images
+- FREE space in center (except errorless)
+- 6 unique boards per type for classroom variety
+- SPED-compliant high contrast design
+- Storage label support for all versions
+
+**Usage:**
+```python
+from generators import generate_bingo_game_set
+
+items = [
+    {'image': 'bear.png', 'label': 'bear'},
+    {'image': 'duck.png', 'label': 'duck'},
+    {'image': 'frog.png', 'label': 'frog'},
+    {'image': 'cat.png', 'label': 'cat'},
+    {'image': 'dog.png', 'label': 'dog'},
+    {'image': 'fish.png', 'label': 'fish'},
+]
+
+output_files = generate_bingo_game_set(
+    items=items,
+    theme_name='Brown_Bear',
+    include_3x3=True,
+    include_4x4=True,
+    include_5x5=True,
+    include_errorless=True,
+    include_real_images=False,  # Set True if real images available
+    include_boardmaker=False,   # Set True if Boardmaker icons available
+    num_boards=6,  # Number of unique boards per type
+    include_calling_cards=True,
+    include_storage_label=True,
+    folder_type='images'
+)
+# Returns: {
+#     'bingo_3x3': '...pdf',
+#     'bingo_4x4': '...pdf',
+#     'bingo_5x5': '...pdf',
+#     'calling_cards_icons': '...pdf',
+#     'calling_cards_words': '...pdf',
+#     'labels': '...'
+# }
+```
+
+**Output files:**
+- `Theme_Bingo_3x3.pdf` - 3×3 bingo boards (6 unique boards)
+- `Theme_Bingo_4x4.pdf` - 4×4 bingo boards (6 unique boards)
+- `Theme_Bingo_5x5.pdf` - 5×5 bingo boards (6 unique boards)
+- `Theme_Bingo_3x3_Errorless.pdf` - 3×3 errorless boards (6 unique boards)
+- `Theme_Bingo_4x4_Errorless.pdf` - 4×4 errorless boards (6 unique boards)
+- `Theme_Bingo_5x5_Errorless.pdf` - 5×5 errorless boards (6 unique boards)
+- `Theme_Bingo_3x3_Real_Images.pdf` - 3×3 real image boards (optional)
+- `Theme_Bingo_4x4_Real_Images.pdf` - 4×4 real image boards (optional)
+- `Theme_Bingo_5x5_Real_Images.pdf` - 5×5 real image boards (optional)
+- `Theme_Bingo_Calling_Cards_Icons.pdf` - Task-box sized calling cards with icons only
+- `Theme_Bingo_Calling_Cards_Words.pdf` - Task-box sized calling cards with icons + words
+- `Theme_Bingo_Calling_Cards_Real_Images.pdf` - Task-box sized calling cards with real images (optional)
+- Storage labels for all versions
+
+## Task Box Sizing Standard
+
+The following generators use the **Task Box Sizing Standard** for easy classroom organization:
+
+- **Yes/No Cards**: 4 cards per page (2×2 grid), 5.25" × 4" per card
+- **Bingo Calling Cards**: 4 cards per page (2×2 grid), 5.25" × 4" per card
+
+All task-box sized cards share borders for fast guillotine cutting, making them perfect for task boxes, file folder games, and independent work systems.
+

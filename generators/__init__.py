@@ -23,6 +23,8 @@ from .story_sequencing import (generate_first_next_last_page, generate_story_map
                                 generate_story_sequencing_set)
 from .vocab_cards import generate_vocab_card, generate_vocab_cards_set
 from .puppet_characters import generate_puppet_characters_set
+from .yes_no_cards import generate_yes_no_cards_set
+from .bingo_game import generate_bingo_board, generate_bingo_game_set
 
 __all__ = [
     # Counting Mats
@@ -109,4 +111,11 @@ __all__ = [
     
     # Puppet Characters
     'generate_puppet_characters_set',
+    
+    # Yes/No Cards
+    'generate_yes_no_cards_set',
+    
+    # Bingo Game
+    'generate_bingo_board',
+    'generate_bingo_game_set',
 ]
