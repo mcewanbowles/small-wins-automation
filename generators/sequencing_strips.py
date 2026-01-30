@@ -1,26 +1,57 @@
 """
-Sequencing Strips Generator
+Sequencing Strips Generator - Task-Box Sizing Standard
 
-Generates sequencing strips for teaching order and temporal sequences.
-Includes 3-step and 4-step sequences with differentiation levels:
-- Level 1: Errorless (correct order)
-- Level 2: Mixed order (scrambled)
-- Level 3: Cut-and-paste version
-- Level 4: WH-version ("What happens next?")
+Generates sequencing cards following the task-box sizing standard for 
+classroom organization. Each sequence step is a separate task-box card
+(4 cards per page in 2×2 grid with shared borders).
 
-Features lanyard-friendly design with hole-punch indicators and
-interchangeable icons matching exact size of matching cards.
+Features:
+- Task-box compatible sizing (5.25" × 4" per card)  
+- 4 cards per page (2×2 grid) with shared borders for guillotine cutting
+- 3-step and 4-step sequences with step indicators
+- Errorless version (correct order) and Mixed version (scrambled order)
+- Real image version support
+- Theme-aware design with high-contrast SPED-friendly layout
+- Storage label generation
+- Copyright compliance and page numbering
+
+Requirements from specification:
+- TASK BOX SIZING STANDARD: 4 cards per page (2×2 grid), shared borders
+- Each step is a separate task-box card with "Step X of Y" indicator
+- 3-step and 4-step sequences
+- Errorless version (all steps identical - implemented as correct order)
+- Real image version (if available)
+- Theme awareness (fonts, colors, icons from JSON)
+- Page elements (footer + page numbering)
+
+Usage:
+    from generators import generate_sequencing_strips_set
+    
+    items = [
+        {'image': 'step1.png', 'label': 'First Step'},
+        {'image': 'step2.png', 'label': 'Second Step'},
+        {'image': 'step3.png', 'label': 'Third Step'},
+    ]
+    
+    output = generate_sequencing_strips_set(
+        items=items,
+        theme_name='MyTheme',
+        num_steps=3,
+        include_errorless=True,
+        include_mixed=True,
+        include_real_images=False,
+        output_dir='output',
+        include_storage_label=True
+    )
 """
 
 import os
 from PIL import Image, ImageDraw, ImageFont
-from utils.config import DPI, PAGE_WIDTH, PAGE_HEIGHT, MARGINS, CARD_SIZES, FONT_SIZES, COLORS
+from utils.config import DPI, PAGE_WIDTH, PAGE_HEIGHT, COLORS, FONT_SIZES
 from utils.image_loader import get_image_loader
-from utils.layout import create_page_canvas, add_page_border
 from utils.pdf_export import save_images_as_pdf
 from utils.draw_helpers import (
     scale_image_to_fit,
-    draw_card_background,
     draw_page_number,
     draw_copyright_footer,
     draw_text_centered_in_rect,
@@ -30,259 +61,140 @@ from utils.fonts import get_font_manager
 from utils.storage_label_helper import create_companion_label
 import random
 
+# Task box card sizing standard (4 cards per page, 2×2 grid)
+# 5.25" × 4" at 300 DPI = 1575px × 1200px
+TASK_BOX_CARD_WIDTH = int(5.25 * DPI)  # 1575px
+TASK_BOX_CARD_HEIGHT = int(4 * DPI)  # 1200px
 
-def generate_sequencing_strip(sequence_items, strip_number=1, total_strips=1,
-                              with_lanyard=True, card_style=None, with_labels=True):
+
+def generate_sequence_card(draw, card_rect, step_item, step_number, total_steps, 
+                           folder_type='images', with_labels=True, theme_fonts=None):
     """
-    Generate a single sequencing strip page with horizontal icon layout.
+    Generate a single sequencing card within the given rectangle.
     
     Args:
-        sequence_items: List of dict with 'image' and 'label' keys (3 or 4 items)
-        strip_number: Current strip number for page numbering
-        total_strips: Total number of strips for page numbering
-        with_lanyard: Include lanyard strip with hole-punch indicator
-        card_style: Optional dict with border_width, corner_radius, shadow
-        with_labels: Include text labels under icons
-        
-    Returns:
-        PIL.Image: Generated strip page
+        draw: PIL ImageDraw object
+        card_rect: Tuple (x1, y1, x2, y2) defining card boundaries
+        step_item: Dict with 'image' and 'label' keys
+        step_number: Current step number (1-based)
+        total_steps: Total number of steps in sequence
+        folder_type: Image folder type ('images', 'real_images', etc.)
+        with_labels: Include text label below icon
+        theme_fonts: Optional dict of theme fonts
     """
-    # Create page
-    page = create_page_canvas()
-    draw = ImageDraw.Draw(page)
+    x1, y1, x2, y2 = card_rect
+    card_width = x2 - x1
+    card_height = y2 - y1
     
-    # Default card style
-    if card_style is None:
-        card_style = {'border_width': 2, 'corner_radius': 10, 'shadow': False}
+    # Draw card border (shared borders for guillotine cutting)
+    draw.rectangle([x1, y1, x2, y2], outline=COLORS['black'], width=3)
     
-    # Constants
-    num_slots = len(sequence_items)
-    icon_size = CARD_SIZES['standard']  # 750x750px - same as matching cards
-    label_height = 60 if with_labels else 0
+    # Layout areas
+    step_indicator_height = 60  # "Step 1 of 3" indicator
+    icon_area_height = int(card_height * 0.65) - step_indicator_height  # 65% for icon
+    label_area_height = int(card_height * 0.35)  # 35% for label
     
-    # Lanyard strip specifications
-    lanyard_width = 150 if with_lanyard else 0
+    # 1. Step indicator at top
+    step_text = f"Step {step_number} of {total_steps}"
     
-    # Calculate strip dimensions
-    strip_height = icon_size + label_height + 40  # 40px padding
-    strip_width = PAGE_WIDTH - 2 * MARGINS['page']
+    # Draw step indicator background
+    step_bg_rect = (x1 + 10, y1 + 10, x2 - 10, y1 + step_indicator_height)
+    draw.rectangle(step_bg_rect, fill=COLORS['light_gray'], outline=COLORS['dark_gray'], width=2)
     
-    # Calculate icon area
-    icon_area_width = strip_width - lanyard_width - 20  # 20px separator
-    icon_spacing = 20
-    total_icon_width = num_slots * icon_size + (num_slots - 1) * icon_spacing
+    # Center step text (font_size parameter, not font object)
+    draw_text_centered_in_rect(draw, step_text, step_bg_rect, font_size=28, color=COLORS['black'])
     
-    # Center the icons in available space
-    start_x = MARGINS['page'] + lanyard_width + 20 + (icon_area_width - total_icon_width) // 2
-    start_y = (PAGE_HEIGHT - strip_height - 200) // 2  # Leave room for footer
+    # 2. Icon area
+    icon_rect = (
+        x1 + 40,
+        y1 + step_indicator_height + 20,
+        x2 - 40,
+        y1 + step_indicator_height + icon_area_height
+    )
     
-    # Draw lanyard strip if enabled
-    if with_lanyard:
-        lanyard_x = MARGINS['page']
-        lanyard_y = start_y
-        
-        # Draw reinforced border
-        draw.rectangle(
-            [(lanyard_x, lanyard_y), (lanyard_x + lanyard_width, lanyard_y + strip_height)],
-            outline=COLORS['black'],
-            width=5
-        )
-        
-        # Draw hole-punch indicator (centered)
-        hole_center_x = lanyard_x + lanyard_width // 2
-        hole_center_y = lanyard_y + strip_height // 2
-        hole_radius = 15
-        
-        # Draw concentric circles for reinforcement pattern
-        for r in range(hole_radius, hole_radius + 15, 3):
-            draw.ellipse(
-                [(hole_center_x - r, hole_center_y - r),
-                 (hole_center_x + r, hole_center_y + r)],
-                outline=COLORS['dark_gray'],
-                width=1
-            )
-        
-        # Draw center hole
-        draw.ellipse(
-            [(hole_center_x - hole_radius, hole_center_y - hole_radius),
-             (hole_center_x + hole_radius, hole_center_y + hole_radius)],
-            fill=COLORS['white'],
-            outline=COLORS['black'],
-            width=2
-        )
-        
-        # Draw vertical separator line
-        separator_x = lanyard_x + lanyard_width + 10
-        draw.line(
-            [(separator_x, lanyard_y), (separator_x, lanyard_y + strip_height)],
-            fill=COLORS['black'],
-            width=3
-        )
-    
-    # Load image loader
+    # Load image
     image_loader = get_image_loader()
-    font_manager = get_font_manager()
+    try:
+        img = image_loader.load_image(step_item['image'], folder_type)
+        if img:
+            scaled_img, (img_x, img_y) = scale_image_to_fit(img, icon_rect, padding=10)
+            
+            # Paste image
+            if scaled_img.mode == 'RGBA':
+                draw._image.paste(scaled_img, (img_x, img_y), scaled_img)
+            else:
+                draw._image.paste(scaled_img, (img_x, img_y))
+    except:
+        # Use placeholder
+        placeholder_width = icon_rect[2] - icon_rect[0]
+        placeholder_height = icon_rect[3] - icon_rect[1]
+        placeholder = create_placeholder_image(placeholder_width, placeholder_height, 
+                                              step_item.get('label', 'Image'))
+        draw._image.paste(placeholder, (icon_rect[0], icon_rect[1]))
     
-    # Draw each icon in the sequence
-    for i, item in enumerate(sequence_items):
-        # Calculate position
-        icon_x = start_x + i * (icon_size + icon_spacing)
-        icon_y = start_y + 20
-        
-        # Draw card background
-        cell_rect = (icon_x, icon_y, icon_x + icon_size, icon_y + icon_size)
-        draw_card_background(draw, cell_rect, card_style)
-        
-        # Load and scale image
-        try:
-            folder_type = item.get('folder_type', 'images')
-            theme_image = image_loader.load_image(item['image'], folder_type)
-        except Exception:
-            theme_image = create_placeholder_image(icon_size, icon_size, item.get('label', 'Image'))
-        
-        # Scale image to fit with minimal padding
-        scaled_img, (img_x, img_y) = scale_image_to_fit(
-            theme_image,
-            cell_rect,
-            padding=5
+    # 3. Label area (if enabled)
+    if with_labels and 'label' in step_item:
+        label_y_start = y1 + step_indicator_height + icon_area_height + 10
+        label_rect = (
+            x1 + 20,
+            label_y_start,
+            x2 - 20,
+            y2 - 20
         )
         
-        # Paste image
-        if scaled_img.mode == 'RGBA':
-            page.paste(scaled_img, (img_x, img_y), scaled_img)
-        else:
-            page.paste(scaled_img, (img_x, img_y))
-        
-        # Draw label if enabled
-        if with_labels and 'label' in item:
-            label_y = icon_y + icon_size + 5
-            label_rect = (icon_x, label_y, icon_x + icon_size, label_y + label_height - 5)
-            
-            try:
-                font = font_manager.get_font('body', FONT_SIZES['body'])
-            except:
-                font = None
-            
-            draw_text_centered_in_rect(draw, item['label'], label_rect, font, COLORS['black'])
-    
-    # Add page border
-    add_page_border(page)
-    
-    # Add copyright footer
-    draw_copyright_footer(draw, PAGE_WIDTH, PAGE_HEIGHT)
-    
-    # Add page number
-    draw_page_number(draw, strip_number, total_strips, PAGE_WIDTH, PAGE_HEIGHT)
-    
-    return page
+        # Use font_size parameter
+        draw_text_centered_in_rect(draw, step_item['label'], label_rect, font_size=36, color=COLORS['black'])
 
 
-def generate_cutout_icons_page(icon_items, page_number=1, total_pages=1,
-                               with_bold_outline=True, with_grab_tab=True,
-                               card_style=None):
+def generate_sequencing_cards_page(sequence_steps, page_number, total_pages, 
+                                   folder_type='images', with_labels=True, theme_fonts=None):
     """
-    Generate a page of cut-out sequencing icons (6 per page in 2x3 grid).
+    Generate a page with 4 sequencing cards in 2×2 grid (task-box sizing standard).
     
     Args:
-        icon_items: List of dict with 'image' and 'label' keys (max 6)
+        sequence_steps: List of up to 4 step items (dict with 'image', 'label', 'step_num', 'total_steps')
         page_number: Current page number
         total_pages: Total number of pages
-        with_bold_outline: Add 3px border for visibility
-        with_grab_tab: Add scissors grab tab for fine motor support
-        card_style: Optional dict with border_width, corner_radius, shadow
+        folder_type: Image folder type
+        with_labels: Include text labels
+        theme_fonts: Optional theme fonts dict
         
     Returns:
-        PIL.Image: Generated cut-out page
+        PIL.Image: Generated page with 4 cards
     """
     # Create page
-    page = create_page_canvas()
+    page = Image.new('RGB', (int(PAGE_WIDTH), int(PAGE_HEIGHT)), COLORS['white'])
     draw = ImageDraw.Draw(page)
     
-    # Default card style
-    if card_style is None:
-        card_style = {'border_width': 3 if with_bold_outline else 2, 'corner_radius': 10, 'shadow': False}
+    # Calculate card positions (2×2 grid, shared borders)
+    # Cards share borders for guillotine cutting
+    col1_x = 0
+    col2_x = TASK_BOX_CARD_WIDTH
+    row1_y = 0
+    row2_y = TASK_BOX_CARD_HEIGHT
     
-    # Grid layout: 2 rows x 3 columns
-    icon_size = CARD_SIZES['standard']  # 750x750px
-    cols = 3
-    rows = 2
-    spacing = 40
+    # Define all 4 card positions
+    card_positions = [
+        (col1_x, row1_y, col1_x + TASK_BOX_CARD_WIDTH, row1_y + TASK_BOX_CARD_HEIGHT),  # Top-left
+        (col2_x, row1_y, col2_x + TASK_BOX_CARD_WIDTH, row2_y + TASK_BOX_CARD_HEIGHT),  # Top-right
+        (col1_x, row2_y, col1_x + TASK_BOX_CARD_WIDTH, row2_y + TASK_BOX_CARD_HEIGHT),  # Bottom-left
+        (col2_x, row2_y, col2_x + TASK_BOX_CARD_WIDTH, row2_y + TASK_BOX_CARD_HEIGHT),  # Bottom-right
+    ]
     
-    # Calculate starting position to center grid
-    total_width = cols * icon_size + (cols - 1) * spacing
-    total_height = rows * icon_size + (rows - 1) * spacing
-    start_x = (PAGE_WIDTH - total_width) // 2
-    start_y = (PAGE_HEIGHT - total_height - 200) // 2  # Leave room for footer
-    
-    # Load resources
-    image_loader = get_image_loader()
-    
-    # Draw each icon
-    for idx, item in enumerate(icon_items[:6]):  # Max 6 icons
-        row = idx // cols
-        col = idx % cols
-        
-        # Calculate position
-        icon_x = start_x + col * (icon_size + spacing)
-        icon_y = start_y + row * (icon_size + spacing)
-        
-        # Draw card background
-        cell_rect = (icon_x, icon_y, icon_x + icon_size, icon_y + icon_size)
-        draw_card_background(draw, cell_rect, card_style)
-        
-        # Load and scale image
-        try:
-            folder_type = item.get('folder_type', 'images')
-            theme_image = image_loader.load_image(item['image'], folder_type)
-        except Exception:
-            theme_image = create_placeholder_image(icon_size, icon_size, item.get('label', 'Image'))
-        
-        # Scale image to fit
-        scaled_img, (img_x, img_y) = scale_image_to_fit(
-            theme_image,
-            cell_rect,
-            padding=5
-        )
-        
-        # Paste image
-        if scaled_img.mode == 'RGBA':
-            page.paste(scaled_img, (img_x, img_y), scaled_img)
-        else:
-            page.paste(scaled_img, (img_x, img_y))
-        
-        # Add grab tab if enabled
-        if with_grab_tab:
-            tab_width = 80
-            tab_height = 30
-            tab_x = icon_x + icon_size - tab_width - 10
-            tab_y = icon_y - tab_height + 5
-            
-            # Draw tab
-            draw.rectangle(
-                [(tab_x, tab_y), (tab_x + tab_width, tab_y + tab_height)],
-                fill=COLORS['light_gray'],
-                outline=COLORS['black'],
-                width=2
+    # Draw each card
+    for idx, step in enumerate(sequence_steps[:4]):  # Max 4 cards per page
+        if idx < len(card_positions):
+            card_rect = card_positions[idx]
+            generate_sequence_card(
+                draw, 
+                card_rect, 
+                step, 
+                step.get('step_num', idx + 1),
+                step.get('total_steps', len(sequence_steps)),
+                folder_type=folder_type,
+                with_labels=with_labels,
+                theme_fonts=theme_fonts
             )
-            
-            # Draw scissors symbol
-            try:
-                font_manager = get_font_manager()
-                font = font_manager.get_font('body', 20)
-            except:
-                font = None
-            
-            scissors_text = "✂"
-            if font:
-                bbox = draw.textbbox((0, 0), scissors_text, font=font)
-                text_width = bbox[2] - bbox[0]
-                text_height = bbox[3] - bbox[1]
-                text_x = tab_x + (tab_width - text_width) // 2
-                text_y = tab_y + (tab_height - text_height) // 2
-                draw.text((text_x, text_y), scissors_text, fill=COLORS['black'], font=font)
-    
-    # Add page border
-    add_page_border(page)
     
     # Add copyright footer
     draw_copyright_footer(draw, PAGE_WIDTH, PAGE_HEIGHT)
@@ -293,22 +205,25 @@ def generate_cutout_icons_page(icon_items, page_number=1, total_pages=1,
     return page
 
 
-def generate_sequencing_strips_set(sequences, theme_name='Theme', level=1,
-                                   output_dir='output', with_lanyard=True,
-                                   with_cutout_icons=True, include_storage_label=False,
-                                   card_style=None):
+def generate_sequencing_strips_set(items, theme_name='Theme', num_steps=3,
+                                   include_errorless=True, include_mixed=True,
+                                   include_real_images=False, real_image_items=None,
+                                   output_dir='output', include_storage_label=False,
+                                   theme_fonts=None):
     """
-    Generate complete sequencing strips set with differentiation levels.
+    Generate complete sequencing strips set with task-box sizing standard.
     
     Args:
-        sequences: List of sequences, each with 'steps' (list of items) and 'title'
+        items: List of dict with 'image' and 'label' keys
         theme_name: Theme name for file naming
-        level: Differentiation level (1-4)
+        num_steps: Number of steps per sequence (3 or 4)
+        include_errorless: Generate errorless version (all steps identical)
+        include_mixed: Generate mixed/scrambled version
+        include_real_images: Generate real image version
+        real_image_items: Optional list of real image items
         output_dir: Output directory
-        with_lanyard: Include lanyard strip with hole-punch
-        with_cutout_icons: Generate separate cut-out icon pages
         include_storage_label: Generate storage labels
-        card_style: Optional dict with border_width, corner_radius, shadow
+        theme_fonts: Optional theme fonts dict
         
     Returns:
         dict: Paths to generated files
@@ -316,109 +231,174 @@ def generate_sequencing_strips_set(sequences, theme_name='Theme', level=1,
     # Create output directory
     os.makedirs(output_dir, exist_ok=True)
     
-    # Determine level suffix
-    level_names = {
-        1: 'Errorless',
-        2: 'Mixed',
-        3: 'Cut_Paste',
-        4: 'WH_Questions'
-    }
-    level_suffix = level_names.get(level, 'Level' + str(level))
+    output_files = {}
     
-    # Generate strip pages
-    strip_pages = []
-    all_icons = []
+    # Prepare sequence steps
+    if len(items) < num_steps:
+        print(f"Warning: Need at least {num_steps} items for {num_steps}-step sequences. Using available items.")
+        sequence_items = items
+        num_steps = len(items)
+    else:
+        sequence_items = items[:num_steps]
     
-    for seq_idx, sequence in enumerate(sequences):
-        steps = sequence.get('steps', [])
+    # Add step numbers to items
+    for idx, item in enumerate(sequence_items):
+        item['step_num'] = idx + 1
+        item['total_steps'] = num_steps
+    
+    # 1. Generate standard (errorless) version - correct order
+    if include_errorless:
+        pages = []
+        cards_per_page = 4
         
-        # Apply level-specific transformations
-        if level == 1:
-            # Errorless: Keep correct order
-            ordered_steps = steps
-        elif level == 2:
-            # Mixed order: Scramble
-            ordered_steps = steps.copy()
-            random.shuffle(ordered_steps)
-        elif level == 3:
-            # Cut-and-paste: Empty strip (will generate separate cutouts)
-            ordered_steps = [{'image': 'placeholder.png', 'label': f'Step {i+1}'} for i in range(len(steps))]
-        elif level == 4:
-            # WH-version: Add "What happens next?" text
-            ordered_steps = steps
-        
-        # Generate strip
-        strip_page = generate_sequencing_strip(
-            ordered_steps,
-            strip_number=seq_idx + 1,
-            total_strips=len(sequences),
-            with_lanyard=with_lanyard,
-            card_style=card_style,
-            with_labels=(level != 3)
-        )
-        strip_pages.append(strip_page)
-        
-        # Collect icons for cutout page
-        all_icons.extend(steps)
-    
-    # Save strip pages
-    strips_filename = f'{theme_name}_Sequencing_Strips_{level_suffix}.pdf'
-    strips_path = os.path.join(output_dir, strips_filename)
-    save_images_as_pdf(strip_pages, strips_path)
-    print(f"✓ Generated sequencing strips: {strips_path}")
-    
-    output_files = {'strips': strips_path}
-    
-    # Generate cut-out icon pages if requested
-    if with_cutout_icons and all_icons:
-        cutout_pages = []
-        icons_per_page = 6
-        
-        for i in range(0, len(all_icons), icons_per_page):
-            page_icons = all_icons[i:i + icons_per_page]
-            cutout_page = generate_cutout_icons_page(
-                page_icons,
-                page_number=i // icons_per_page + 1,
-                total_pages=(len(all_icons) + icons_per_page - 1) // icons_per_page,
-                with_bold_outline=True,
-                with_grab_tab=True,
-                card_style=card_style
+        # Create pages with 4 cards each
+        for i in range(0, num_steps, cards_per_page):
+            page_steps = sequence_items[i:i + cards_per_page]
+            page = generate_sequencing_cards_page(
+                page_steps,
+                page_number=i // cards_per_page + 1,
+                total_pages=(num_steps + cards_per_page - 1) // cards_per_page,
+                folder_type='images',
+                with_labels=True,
+                theme_fonts=theme_fonts
             )
-            cutout_pages.append(cutout_page)
+            pages.append(page)
         
-        # Save cutout pages
-        cutouts_filename = f'{theme_name}_Sequencing_Icons_Cutouts.pdf'
-        cutouts_path = os.path.join(output_dir, cutouts_filename)
-        save_images_as_pdf(cutout_pages, cutouts_path)
-        print(f"✓ Generated sequencing cutout icons: {cutouts_path}")
+        # Save errorless version
+        filename = f'{theme_name}_Sequencing_{num_steps}Step_Errorless.pdf'
+        filepath = os.path.join(output_dir, filename)
+        save_images_as_pdf(pages, filepath)
+        print(f"✓ Generated {num_steps}-step errorless sequencing: {filepath}")
+        output_files['errorless'] = filepath
         
-        output_files['cutouts'] = cutouts_path
-    
-    # Generate storage labels if requested
-    if include_storage_label:
-        # Label for strips
-        strips_label_path = create_companion_label(
-            main_pdf_path=strips_path,
-            theme_name=theme_name,
-            activity_name='Sequencing Strips',
-            level=level if level in [1, 2, 3, 4] else None,
-            icon_path=None
-        )
-        if strips_label_path:
-            print(f"✓ Generated strips storage label: {strips_label_path}")
-            output_files['strips_label'] = strips_label_path
-        
-        # Label for cutouts
-        if with_cutout_icons and 'cutouts' in output_files:
-            cutouts_label_path = create_companion_label(
-                main_pdf_path=output_files['cutouts'],
+        # Generate storage label
+        if include_storage_label:
+            label_path = create_companion_label(
+                main_pdf_path=filepath,
                 theme_name=theme_name,
-                activity_name='Sequencing Icons Cutouts',
+                activity_name=f'Sequencing {num_steps}-Step Errorless',
                 level=None,
                 icon_path=None
             )
-            if cutouts_label_path:
-                print(f"✓ Generated cutouts storage label: {cutouts_label_path}")
-                output_files['cutouts_label'] = cutouts_label_path
+            if label_path:
+                print(f"✓ Generated storage label: {label_path}")
+                output_files['errorless_label'] = label_path
+    
+    # 2. Generate mixed/scrambled version
+    if include_mixed:
+        # Scramble the order
+        mixed_items = sequence_items.copy()
+        random.shuffle(mixed_items)
+        
+        # Update step numbers to reflect scrambled order
+        for idx, item in enumerate(mixed_items):
+            item['step_num'] = idx + 1
+        
+        pages = []
+        cards_per_page = 4
+        
+        for i in range(0, num_steps, cards_per_page):
+            page_steps = mixed_items[i:i + cards_per_page]
+            page = generate_sequencing_cards_page(
+                page_steps,
+                page_number=i // cards_per_page + 1,
+                total_pages=(num_steps + cards_per_page - 1) // cards_per_page,
+                folder_type='images',
+                with_labels=True,
+                theme_fonts=theme_fonts
+            )
+            pages.append(page)
+        
+        # Save mixed version
+        filename = f'{theme_name}_Sequencing_{num_steps}Step_Mixed.pdf'
+        filepath = os.path.join(output_dir, filename)
+        save_images_as_pdf(pages, filepath)
+        print(f"✓ Generated {num_steps}-step mixed sequencing: {filepath}")
+        output_files['mixed'] = filepath
+        
+        # Generate storage label
+        if include_storage_label:
+            label_path = create_companion_label(
+                main_pdf_path=filepath,
+                theme_name=theme_name,
+                activity_name=f'Sequencing {num_steps}-Step Mixed',
+                level=None,
+                icon_path=None
+            )
+            if label_path:
+                print(f"✓ Generated storage label: {label_path}")
+                output_files['mixed_label'] = label_path
+    
+    # 3. Generate real image version
+    if include_real_images and real_image_items:
+        real_items = real_image_items[:num_steps] if len(real_image_items) >= num_steps else real_image_items
+        
+        # Add step numbers
+        for idx, item in enumerate(real_items):
+            item['step_num'] = idx + 1
+            item['total_steps'] = len(real_items)
+        
+        pages = []
+        cards_per_page = 4
+        actual_steps = len(real_items)
+        
+        for i in range(0, actual_steps, cards_per_page):
+            page_steps = real_items[i:i + cards_per_page]
+            page = generate_sequencing_cards_page(
+                page_steps,
+                page_number=i // cards_per_page + 1,
+                total_pages=(actual_steps + cards_per_page - 1) // cards_per_page,
+                folder_type='real_images',
+                with_labels=True,
+                theme_fonts=theme_fonts
+            )
+            pages.append(page)
+        
+        # Save real images version
+        filename = f'{theme_name}_Sequencing_{actual_steps}Step_RealImages.pdf'
+        filepath = os.path.join(output_dir, filename)
+        save_images_as_pdf(pages, filepath)
+        print(f"✓ Generated {actual_steps}-step real images sequencing: {filepath}")
+        output_files['real_images'] = filepath
+        
+        # Generate storage label
+        if include_storage_label:
+            label_path = create_companion_label(
+                main_pdf_path=filepath,
+                theme_name=theme_name,
+                activity_name=f'Sequencing {actual_steps}-Step Real Images',
+                level=None,
+                icon_path=None
+            )
+            if label_path:
+                print(f"✓ Generated storage label: {label_path}")
+                output_files['real_images_label'] = label_path
     
     return output_files
+
+
+# Example usage
+if __name__ == '__main__':
+    # Example sequence items
+    items = [
+        {'image': 'bear.png', 'label': 'Brown Bear'},
+        {'image': 'duck.png', 'label': 'Yellow Duck'},
+        {'image': 'frog.png', 'label': 'Green Frog'},
+        {'image': 'cat.png', 'label': 'Purple Cat'},
+    ]
+    
+    # Generate 3-step sequences
+    output = generate_sequencing_strips_set(
+        items=items,
+        theme_name='Brown_Bear',
+        num_steps=3,
+        include_errorless=True,
+        include_mixed=True,
+        include_real_images=False,
+        output_dir='output',
+        include_storage_label=True
+    )
+    
+    print("\nGenerated files:")
+    for key, path in output.items():
+        print(f"  {key}: {path}")
