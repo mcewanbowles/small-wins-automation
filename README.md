@@ -85,28 +85,45 @@ pages = generate_counting_mats_set(
 )
 ```
 
-### Example 2: Generate Matching Cards
+### Example 2: Generate Matching Cards (4 Differentiation Levels)
+
+The matching card generator now supports 4 SPED-friendly differentiation levels:
 
 ```python
-from generators import generate_matching_cards_sheet
+from generators import generate_matching_cards_set
 
-# Generate matching card pairs
-image_label_pairs = [
-    ('apple.png', 'Apple'),
-    ('banana.png', 'Banana'),
-    ('orange.png', 'Orange'),
+# Define your items
+items = [
+    {'image': 'bear', 'label': 'Brown Bear'},
+    {'image': 'duck', 'label': 'Yellow Duck'},
+    {'image': 'frog', 'label': 'Green Frog'},
 ]
 
-pages = generate_matching_cards_sheet(
-    image_label_pairs=image_label_pairs,
-    cards_per_page=6,
-    card_size='standard',
-    folder_type='color',
+# Level 1: Identical errorless matching (same color image on both cards)
+pages_l1 = generate_matching_cards_set(
+    items=items,
     level=1,
+    card_size='large',
+    cards_per_page=6,
     output_dir='output',
-    theme_name='Fruits'
+    theme_name='Brown_Bear'
 )
+
+# Level 2: Outline-to-color matching (outline image matches color image)
+pages_l2 = generate_matching_cards_set(items=items, level=2, theme_name='Brown_Bear')
+
+# Level 3: AAC symbol to real image matching
+pages_l3 = generate_matching_cards_set(items=items, level=3, theme_name='Brown_Bear')
+
+# Level 4: AAC symbol to text matching
+pages_l4 = generate_matching_cards_set(items=items, level=4, theme_name='Brown_Bear')
 ```
+
+**Matching Card Levels Explained:**
+- **Level 1**: Identical errorless matching - Perfect for beginners, both cards show the same color image
+- **Level 2**: Outline-to-color matching - Match black-and-white outline to color image
+- **Level 3**: AAC symbol to real image - Match AAC/PCS symbol to real photograph/illustration
+- **Level 4**: AAC symbol to text - Match AAC/PCS symbol to written word
 
 ### Example 3: Generate Bingo
 

@@ -1,7 +1,7 @@
 """Generators package for SPED resource creation."""
 
 from .counting_mats import generate_counting_mat, generate_counting_mats_set
-from .matching_cards import generate_matching_card, generate_matching_cards_sheet
+from .matching_cards import generate_matching_card, generate_matching_pair, generate_matching_cards_set
 from .bingo import generate_bingo_card, generate_bingo_set
 from .sequencing import generate_sequencing_card, generate_sequencing_set
 from .coloring_strips import generate_coloring_strip, generate_coloring_strips_page
@@ -23,7 +23,8 @@ __all__ = [
     
     # Matching Cards
     'generate_matching_card',
-    'generate_matching_cards_sheet',
+    'generate_matching_pair',
+    'generate_matching_cards_set',
     
     # Bingo
     'generate_bingo_card',
