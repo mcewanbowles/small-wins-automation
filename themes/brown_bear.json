@@ -1,0 +1,58 @@
+{
+  "name": "Brown Bear, Brown Bear, What Do You See?",
+  "description": "Classic children's book theme featuring colorful animals",
+  "author": "Small Wins Studio",
+  "version": "1.0",
+  "items": [
+    {
+      "image": "bear",
+      "label": "Brown Bear",
+      "color": "brown"
+    },
+    {
+      "image": "duck",
+      "label": "Yellow Duck",
+      "color": "yellow"
+    },
+    {
+      "image": "frog",
+      "label": "Green Frog",
+      "color": "green"
+    },
+    {
+      "image": "cat",
+      "label": "Purple Cat",
+      "color": "purple"
+    },
+    {
+      "image": "dog",
+      "label": "Blue Dog",
+      "color": "blue"
+    },
+    {
+      "image": "bird",
+      "label": "Red Bird",
+      "color": "red"
+    },
+    {
+      "image": "sheep",
+      "label": "White Sheep",
+      "color": "white"
+    },
+    {
+      "image": "fish",
+      "label": "Orange Fish",
+      "color": "orange"
+    },
+    {
+      "image": "horse",
+      "label": "Black Horse",
+      "color": "black"
+    },
+    {
+      "image": "goldfish",
+      "label": "Goldfish",
+      "color": "gold"
+    }
+  ]
+}
