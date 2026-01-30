@@ -65,7 +65,7 @@ def add_page_border(image, border_width=None, border_color=None):
 
 def add_footer(image, footer_text=None, font_manager=None):
     """
-    Add a consistent footer to the page.
+    Add a consistent footer to the page with copyright and branding.
     
     Args:
         image: PIL Image to add footer to
@@ -83,33 +83,37 @@ def add_footer(image, footer_text=None, font_manager=None):
     draw = ImageDraw.Draw(image)
     width, height = image.size
     
-    # Calculate footer position
+    # Calculate footer position - place near bottom, inside the border
     footer_y = height - FOOTER_HEIGHT
     
-    # Draw footer background (light gray)
-    draw.rectangle(
-        [0, footer_y, width, height],
-        fill=COLORS['light_gray'] + (255,)
-    )
-    
-    # Try to load a font, fallback to default if not available
+    # Try to load a smaller font for the copyright line
     try:
-        # Use a basic font - Pillow has default fonts
-        # For production, you might want to include a TTF file
-        font = ImageFont.load_default()
-        
+        # Try to load a truetype font at footer size
+        from utils.config import FONT_SIZES
+        font_size = int(FONT_SIZES['footer'])
+        font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", size=font_size)
+    except:
+        try:
+            # Fallback to a basic truetype font
+            font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", size=12)
+        except:
+            # Ultimate fallback to default
+            font = ImageFont.load_default()
+    
+    try:
         # Get text size using textbbox
         bbox = draw.textbbox((0, 0), footer_text, font=font)
         text_width = bbox[2] - bbox[0]
         text_height = bbox[3] - bbox[1]
         
-        # Center text in footer
+        # Center text horizontally, position near bottom
         text_x = (width - text_width) // 2
         text_y = footer_y + (FOOTER_HEIGHT - text_height) // 2
         
+        # Draw copyright text in dark gray, centered
         draw.text((text_x, text_y), footer_text, fill=COLORS['dark_gray'] + (255,), font=font)
-    except Exception:
-        # If font loading fails, just skip text (image will still have gray footer bar)
+    except Exception as e:
+        # If font/text rendering fails, just skip the footer text
         pass
     
     return image

@@ -73,4 +73,4 @@ CARD_SIZES = {
 
 # Footer settings
 FOOTER_HEIGHT = 80  # Height of footer area in pixels
-FOOTER_TEXT = "© Small Wins Studio | Visit us at TeachersPayTeachers.com/Store/Small-Wins-Studio"
+FOOTER_TEXT = "© 2026 Small Wins Studio • PCS® symbols used with active PCS Maker Personal Licence — For classroom use only"

@@ -106,9 +106,11 @@ def generate_matching_card(image_filename, label_text=None, card_size='large',
         draw.text((100, 230), f"Missing:\n{image_filename}", 
                  fill=(100, 100, 100, 255))
     
-    # Calculate image area with consistent margins
-    image_width = width - (MARGINS['card'] * 2)
-    image_height = height - (MARGINS['card'] * 2)
+    # Calculate image area with minimal padding (maximize image size)
+    # Use smaller padding (10px instead of MARGINS['card']) for larger images
+    minimal_padding = 10
+    image_width = width - (minimal_padding * 2)
+    image_height = height - (minimal_padding * 2)
     
     # Scale image proportionally
     scaled_image = scale_image_proportional(theme_image, max_width=image_width, max_height=image_height)

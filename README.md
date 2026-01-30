@@ -143,9 +143,11 @@ pages_grid = generate_matching_cards_set(
 - ✓ Consistent spacing between cards (configurable)
 - ✓ Predictable margins around the page
 - ✓ Proportional image scaling and centering within cards
+- ✓ Minimal padding - images maximized within card boundaries
 - ✓ Optional drop shadow effects for visual polish
 - ✓ Consistent font sizes across all levels
 - ✓ Clean grid alignment (2×3, 3×3, or custom layouts)
+- ✓ Copyright and branding footer on every page
 
 ### Example 3: Generate Bingo
 
