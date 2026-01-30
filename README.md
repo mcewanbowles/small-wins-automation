@@ -1,10 +1,10 @@
 # Small Wins Automation - SPED Resource Generator
 
-Automated TpT (Teachers Pay Teachers) resource generators for Small Wins Studio. This Python automation system generates 18 different printable resources for special education (SPED) following strict accessibility and design guidelines.
+Automated TpT (Teachers Pay Teachers) resource generators for Small Wins Studio. This Python automation system generates 19 different printable resources for special education (SPED) following strict accessibility and design guidelines.
 
 ## Features
 
-- **18 Different Resource Types**: Counting Mats, Matching Cards, Bingo, Sequencing, Coloring Strips, Coloring Sheets, Find & Cover, Sorting Cards, Sentence Strips (AAC), Yes/No Questions, WH Questions, Story Maps, Color Questions, Word Search, Storage Labels, AAC Book Board, Sequencing Strips, and Story Sequencing
+- **19 Different Resource Types**: Counting Mats, Matching Cards, Bingo, Sequencing, Coloring Strips, Coloring Sheets, Find & Cover, Sorting Cards, Sentence Strips (AAC), Yes/No Questions, WH Questions, Story Maps, Color Questions, Word Search, Storage Labels, AAC Book Board, Sequencing Strips, Story Sequencing, and Vocabulary Cards
 - **SPED Design Compliance**: Large images, high contrast, minimal clutter, predictable layouts, consistent borders and footers
 - **Enhanced Layout Engine**: Precise grid positioning, consistent spacing, and optional visual effects (drop shadows)
 - **300 DPI Output**: High-quality PDF files ready for printing
@@ -764,4 +764,49 @@ output_files = generate_story_sequencing_set(
 - `Theme_Story_Sequencing.pdf` - All sequencing pages (First/Next/Last, Story Map, Event Ordering, Retell Strip, Story Summary)
 - `Theme_Story_Icons_Cutouts.pdf` - Cut-out icon pages with grab tabs
 - Storage labels for organization
+
+### 18. Vocabulary Cards
+Generate comprehensive vocabulary card sets with 5 different versions.
+
+**Features:**
+- **Standard Vocabulary Cards**: AAC/PCS symbols with labels in grid layout (2×2, 3×3, or 4×4)
+- **Real Image Vocabulary Cards**: Real photographs with labels (if available)
+- **Boardmaker Vocabulary Cards**: Boardmaker symbols with labels (if available)
+- **Cut-and-Paste Version**: Matching card-sized icons (750×750px) with bold outlines and grab tabs
+- **Lanyard-Friendly Version**: Smaller cards with hole-punch indicators for portable communication
+- Consistent spacing and padding across all card types
+- Icons maintain exact sizing for interchangeability
+- Storage label support for all versions
+
+**Usage:**
+```python
+from generators import generate_vocab_cards_set
+
+fringe_vocab = [
+    {'image': 'bear.png', 'label': 'bear'},
+    {'image': 'duck.png', 'label': 'duck'},
+    {'image': 'frog.png', 'label': 'frog'},
+    {'image': 'cat.png', 'label': 'cat'},
+    {'image': 'dog.png', 'label': 'dog'},
+]
+
+output_files = generate_vocab_cards_set(
+    fringe_vocab=fringe_vocab,
+    theme_name='Brown_Bear',
+    include_real_images=False,  # Set True if real images available
+    include_boardmaker=False,   # Set True if Boardmaker icons available
+    include_cutouts=True,
+    include_lanyard=True,
+    include_storage_label=True
+)
+# Returns: {'standard': '...pdf', 'cutouts': '...pdf', 'lanyard': '...pdf', 'labels': '...'}
+```
+
+**Output files:**
+- `Theme_Vocabulary_Cards.pdf` - Standard AAC/PCS vocabulary cards
+- `Theme_Vocabulary_Cards_Real_Images.pdf` - Real image version (optional)
+- `Theme_Vocabulary_Cards_Boardmaker.pdf` - Boardmaker version (optional)
+- `Theme_Vocabulary_Cards_Cutouts.pdf` - Cut-out cards with grab tabs
+- `Theme_Vocabulary_Cards_Lanyard.pdf` - Lanyard-friendly cards with hole-punch indicators
+- Storage labels for all versions
 
