@@ -1,6 +1,7 @@
 """
 I Spy / Find & Count Generator
 Creates visual discrimination and counting activities using task-box sizing standard.
+Supports dual-mode output: color and black-and-white.
 """
 
 from reportlab.lib.pagesizes import letter
@@ -16,7 +17,17 @@ from utils.draw_helpers import (
 import os
 
 
-def generate_i_spy_cards(theme_data, output_folder):
+def hex_to_grayscale_reportlab(hex_color):
+    """Convert hex color to grayscale using luminosity method."""
+    hex_color = hex_color.lstrip('#')
+    r = int(hex_color[0:2], 16) / 255.0
+    g = int(hex_color[2:4], 16) / 255.0
+    b = int(hex_color[4:6], 16) / 255.0
+    gray = 0.299 * r + 0.587 * g + 0.114 * b
+    return colors.Color(gray, gray, gray)
+
+
+def generate_i_spy_cards(theme_data, output_folder, mode='color'):
     """
     Generate I Spy and Find & Count activity cards.
     
@@ -25,10 +36,23 @@ def generate_i_spy_cards(theme_data, output_folder):
     2. Find & Count - Count specific icons and write/select number
     3. How Many? - Count and select from multiple choice
     4. Errorless Count - Only correct number option shown
+    
+    Args:
+        theme_data: Theme data dictionary
+        output_folder: Output directory path
+        mode: 'color' or 'bw' for black-and-white mode
     """
     
     theme_name = theme_data.get("theme_name", "Theme")
     theme_colors = get_theme_colors(theme_data)
+    
+    # Convert colors to grayscale in BW mode
+    if mode == 'bw':
+        theme_colors = {
+            k: hex_to_grayscale_reportlab(v) if isinstance(v, str) else colors.black
+            for k, v in theme_colors.items()
+        }
+    
     fringe_icons = theme_data.get("fringe_icons", [])
     
     if not fringe_icons or len(fringe_icons) < 3:
@@ -39,21 +63,22 @@ def generate_i_spy_cards(theme_data, output_folder):
     os.makedirs(output_folder, exist_ok=True)
     
     # Generate all card types
-    _generate_i_spy_cards(theme_data, output_folder, theme_colors)
-    _generate_find_and_count_cards(theme_data, output_folder, theme_colors)
-    _generate_how_many_cards(theme_data, output_folder, theme_colors)
-    _generate_errorless_count_cards(theme_data, output_folder, theme_colors)
+    _generate_i_spy_cards(theme_data, output_folder, theme_colors, mode)
+    _generate_find_and_count_cards(theme_data, output_folder, theme_colors, mode)
+    _generate_how_many_cards(theme_data, output_folder, theme_colors, mode)
+    _generate_errorless_count_cards(theme_data, output_folder, theme_colors, mode)
     
-    print(f"✓ I Spy / Find & Count cards generated for {theme_name}")
+    print(f"✓ I Spy / Find & Count cards generated for {theme_name} ({mode} mode)")
 
 
-def _generate_i_spy_cards(theme_data, output_folder, theme_colors):
+def _generate_i_spy_cards(theme_data, output_folder, theme_colors, mode='color'):
     """Generate I Spy cards - find all instances of target icon."""
     
     theme_name = theme_data.get("theme_name", "Theme")
     fringe_icons = theme_data.get("fringe_icons", [])
     
-    filename = os.path.join(output_folder, f"{theme_name}_I_Spy_Cards.pdf")
+    mode_suffix = f"_{mode}" if mode else ""
+    filename = os.path.join(output_folder, f"{theme_name}_I_Spy_Cards{mode_suffix}.pdf")
     c = canvas.Canvas(filename, pagesize=letter)
     width, height = letter
     
@@ -188,13 +213,14 @@ def _draw_i_spy_card(c, x, y, width, height, target_name, target_path,
     c.drawString(x + 10, y + 5, f"I found: ___ {target_name}")
 
 
-def _generate_find_and_count_cards(theme_data, output_folder, theme_colors):
+def _generate_find_and_count_cards(theme_data, output_folder, theme_colors, mode='color'):
     """Generate Find & Count cards - count and write the number."""
     
     theme_name = theme_data.get("theme_name", "Theme")
     fringe_icons = theme_data.get("fringe_icons", [])
     
-    filename = os.path.join(output_folder, f"{theme_name}_Find_Count_Cards.pdf")
+    mode_suffix = f"_{mode}" if mode else ""
+    filename = os.path.join(output_folder, f"{theme_name}_Find_Count_Cards{mode_suffix}.pdf")
     c = canvas.Canvas(filename, pagesize=letter)
     width, height = letter
     
@@ -309,13 +335,14 @@ def _draw_find_count_card(c, x, y, width, height, icon_name, count, theme_colors
     c.drawString(box_x + box_width + 10, line_y + 5, icon_name)
 
 
-def _generate_how_many_cards(theme_data, output_folder, theme_colors):
+def _generate_how_many_cards(theme_data, output_folder, theme_colors, mode='color'):
     """Generate How Many cards - multiple choice counting."""
     
     theme_name = theme_data.get("theme_name", "Theme")
     fringe_icons = theme_data.get("fringe_icons", [])
     
-    filename = os.path.join(output_folder, f"{theme_name}_How_Many_Cards.pdf")
+    mode_suffix = f"_{mode}" if mode else ""
+    filename = os.path.join(output_folder, f"{theme_name}_How_Many_Cards{mode_suffix}.pdf")
     c = canvas.Canvas(filename, pagesize=letter)
     width, height = letter
     
@@ -433,13 +460,14 @@ def _draw_how_many_card(c, x, y, width, height, icon_name, correct_count, theme_
         c.drawString(circle_x - num_width / 2, circle_y - 6, num_str)
 
 
-def _generate_errorless_count_cards(theme_data, output_folder, theme_colors):
+def _generate_errorless_count_cards(theme_data, output_folder, theme_colors, mode='color'):
     """Generate Errorless Count cards - only correct answer shown."""
     
     theme_name = theme_data.get("theme_name", "Theme")
     fringe_icons = theme_data.get("fringe_icons", [])
     
-    filename = os.path.join(output_folder, f"{theme_name}_Errorless_Count_Cards.pdf")
+    mode_suffix = f"_{mode}" if mode else ""
+    filename = os.path.join(output_folder, f"{theme_name}_Errorless_Count_Cards{mode_suffix}.pdf")
     c = canvas.Canvas(filename, pagesize=letter)
     width, height = letter
     
@@ -542,3 +570,37 @@ def _draw_errorless_count_card(c, x, y, width, height, icon_name, count, theme_c
     num_str = str(count)
     num_width = c.stringWidth(num_str, "Helvetica-Bold", 20)
     c.drawString(circle_x - num_width / 2, circle_y - 7, num_str)
+
+
+def generate_i_spy_dual_mode(theme_data, output_folder):
+    """
+    Generate I Spy / Find & Count cards in both color and black-and-white modes.
+    
+    Args:
+        theme_data: Theme data dictionary
+        output_folder: Output directory path
+    
+    Returns:
+        dict: Paths to generated PDFs {'color': [...], 'bw': [...]}
+    """
+    color_files = []
+    bw_files = []
+    
+    # Generate color version
+    print("=== Generating COLOR version ===")
+    generate_i_spy_cards(theme_data, output_folder, mode='color')
+    
+    # Generate black-and-white version
+    print("=== Generating BLACK-AND-WHITE version ===")
+    generate_i_spy_cards(theme_data, output_folder, mode='bw')
+    
+    theme_name = theme_data.get("theme_name", "Theme")
+    
+    # Collect generated file paths
+    card_types = ["I_Spy_Cards", "Find_Count_Cards", "How_Many_Cards", "Errorless_Count_Cards"]
+    
+    for card_type in card_types:
+        color_files.append(os.path.join(output_folder, f"{theme_name}_{card_type}_color.pdf"))
+        bw_files.append(os.path.join(output_folder, f"{theme_name}_{card_type}_bw.pdf"))
+    
+    return {'color': color_files, 'bw': bw_files}
