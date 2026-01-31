@@ -18,9 +18,10 @@ from utils.draw_helpers import (
     create_canvas, draw_task_box_grid, get_theme_fonts,
     get_theme_colors, add_footer, draw_storage_label
 )
+from utils.color_helpers import adjust_for_bw_mode, image_to_grayscale
 
 
-def generate_label_cards(theme_data, output_dir, card_type="cut_paste"):
+def generate_label_cards(theme_data, output_dir, card_type="cut_paste", mode="color"):
     """
     Generate label the picture cards.
     
@@ -28,6 +29,7 @@ def generate_label_cards(theme_data, output_dir, card_type="cut_paste"):
         theme_data: Dictionary with theme configuration
         output_dir: Directory to save generated PDFs
         card_type: Type of card ('cut_paste', 'drag_drop', 'write_label', 'errorless')
+        mode: Output mode - 'color' or 'bw' (black-and-white)
     """
     output_path = Path(output_dir)
     output_path.mkdir(parents=True, exist_ok=True)
@@ -59,13 +61,13 @@ def generate_label_cards(theme_data, output_dir, card_type="cut_paste"):
         
         # Create card based on type
         if card_type == "cut_paste":
-            card = create_cut_paste_card(word, icon_path, card_width, card_height, fonts, colors)
+            card = create_cut_paste_card(word, icon_path, card_width, card_height, fonts, colors, mode)
         elif card_type == "drag_drop":
-            card = create_drag_drop_card(word, icon_path, card_width, card_height, fonts, colors)
+            card = create_drag_drop_card(word, icon_path, card_width, card_height, fonts, colors, mode)
         elif card_type == "write_label":
-            card = create_write_label_card(word, icon_path, card_width, card_height, fonts, colors)
+            card = create_write_label_card(word, icon_path, card_width, card_height, fonts, colors, mode)
         elif card_type == "errorless":
-            card = create_errorless_card(word, icon_path, card_width, card_height, fonts, colors)
+            card = create_errorless_card(word, icon_path, card_width, card_height, fonts, colors, mode)
         else:
             continue
         
@@ -91,8 +93,10 @@ def generate_label_cards(theme_data, output_dir, card_type="cut_paste"):
         "errorless": "Errorless Labeling"
     }
     
+    mode_suffix = f"_{mode}" if mode else ""
+    
     if pages:
-        filename = f"{theme_name.replace(' ', '_')}_Label_Picture_{card_type}.pdf"
+        filename = f"{theme_name.replace(' ', '_')}_Label_Picture_{card_type}{mode_suffix}.pdf"
         filepath = output_path / filename
         pages[0].save(
             filepath,
@@ -101,22 +105,16 @@ def generate_label_cards(theme_data, output_dir, card_type="cut_paste"):
             resolution=300.0
         )
         print(f"Generated: {filepath}")
-        
-        # Generate storage label
-        label_title = card_type_names.get(card_type, "Label Cards")
-        label_path = output_path / f"{theme_name.replace(' ', '_')}_Label_{card_type}_storage_label.pdf"
-        storage_label = draw_storage_label(theme_name, label_title, fonts, colors)
-        storage_label.save(label_path, resolution=300.0)
-        print(f"Generated storage label: {label_path}")
+        return str(filepath)
 
 
-def create_cut_paste_card(word, icon_path, width, height, fonts, colors):
+def create_cut_paste_card(word, icon_path, width, height, fonts, colors, mode="color"):
     """Create a cut-and-paste labeling card."""
     card = Image.new('RGB', (width, height), 'white')
     draw = ImageDraw.Draw(card)
     
-    # Draw border
-    border_color = colors.get('primary', '#333333')
+    # Draw border - adjust color for mode
+    border_color = adjust_for_bw_mode(colors.get('primary', '#333333'), mode)
     draw.rectangle([0, 0, width-1, height-1], outline=border_color, width=4)
     
     # Title area (10% of height)
@@ -177,12 +175,12 @@ def create_cut_paste_card(word, icon_path, width, height, fonts, colors):
     return card
 
 
-def create_drag_drop_card(word, icon_path, width, height, fonts, colors):
+def create_drag_drop_card(word, icon_path, width, height, fonts, colors, mode="color"):
     """Create a drag-and-drop labeling card with multiple choice options."""
     card = Image.new('RGB', (width, height), 'white')
     draw = ImageDraw.Draw(card)
     
-    border_color = colors.get('primary', '#333333')
+    border_color = adjust_for_bw_mode(colors.get('primary', '#333333'), mode)
     draw.rectangle([0, 0, width-1, height-1], outline=border_color, width=4)
     
     # Title
@@ -249,12 +247,12 @@ def create_drag_drop_card(word, icon_path, width, height, fonts, colors):
     return card
 
 
-def create_write_label_card(word, icon_path, width, height, fonts, colors):
+def create_write_label_card(word, icon_path, width, height, fonts, colors, mode="color"):
     """Create a write-the-label card with writing lines."""
     card = Image.new('RGB', (width, height), 'white')
     draw = ImageDraw.Draw(card)
     
-    border_color = colors.get('primary', '#333333')
+    border_color = adjust_for_bw_mode(colors.get('primary', '#333333'), mode)
     draw.rectangle([0, 0, width-1, height-1], outline=border_color, width=4)
     
     # Title
@@ -303,12 +301,12 @@ def create_write_label_card(word, icon_path, width, height, fonts, colors):
     return card
 
 
-def create_errorless_card(word, icon_path, width, height, fonts, colors):
+def create_errorless_card(word, icon_path, width, height, fonts, colors, mode="color"):
     """Create an errorless labeling card with only the correct answer."""
     card = Image.new('RGB', (width, height), 'white')
     draw = ImageDraw.Draw(card)
     
-    border_color = colors.get('primary', '#333333')
+    border_color = adjust_for_bw_mode(colors.get('primary', '#333333'), mode)
     draw.rectangle([0, 0, width-1, height-1], outline=border_color, width=4)
     
     # Title
@@ -347,9 +345,10 @@ def create_errorless_card(word, icon_path, width, height, fonts, colors):
     box_left = (width - box_width) // 2
     box_top = choice_area_top + 20
     
-    # Draw the answer box
+    # Draw the answer box - adjust fill for BW mode
+    box_fill = '#FFFFFF' if mode == 'bw' else '#F0F0F0'
     draw.rectangle([box_left, box_top, box_left + box_width, box_top + box_height],
-                  outline=border_color, width=3, fill='#F0F0F0')
+                  outline=border_color, width=3, fill=box_fill)
     
     # Draw the word
     draw.text(
@@ -408,12 +407,44 @@ def draw_dashed_line(draw, x1, y1, x2, y2, color, width=1, dash_length=10):
         pos += dash_length * 2  # Skip gap
 
 
-def generate_all_label_cards(theme_data, output_dir):
+def generate_all_label_cards(theme_data, output_dir, mode="color"):
     """Generate all types of label the picture cards."""
     card_types = ["cut_paste", "drag_drop", "write_label", "errorless"]
     
+    generated_files = []
     for card_type in card_types:
-        generate_label_cards(theme_data, output_dir, card_type)
+        filepath = generate_label_cards(theme_data, output_dir, card_type, mode)
+        if filepath:
+            generated_files.append(filepath)
+    
+    return generated_files
+
+
+def generate_label_cards_dual_mode(theme_data, output_dir):
+    """
+    Generate label the picture cards in both color and black-and-white modes.
+    
+    Args:
+        theme_data: Dictionary with theme configuration
+        output_dir: Directory to save generated PDFs
+    
+    Returns:
+        Dictionary with 'color' and 'bw' lists of generated file paths
+    """
+    print("Generating Label the Picture cards - DUAL MODE")
+    
+    # Generate color version
+    print("\n=== COLOR version ===")
+    color_files = generate_all_label_cards(theme_data, output_dir, mode="color")
+    
+    # Generate black-and-white version
+    print("\n=== BLACK-AND-WHITE version ===")
+    bw_files = generate_all_label_cards(theme_data, output_dir, mode="bw")
+    
+    return {
+        'color': color_files,
+        'bw': bw_files
+    }
 
 
 if __name__ == "__main__":
