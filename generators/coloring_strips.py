@@ -13,7 +13,7 @@ from utils.layout import create_page_canvas, add_page_border, add_footer
 from utils.pdf_export import save_images_as_pdf
 
 
-def generate_coloring_strip(image_filename, label_text=None, folder_type='bw_outline'):
+def generate_coloring_strip(image_filename, label_text=None, folder_type='bw_outline', mode='color'):
     """
     Generate a single coloring strip (2" x 8.5" strip).
     
@@ -21,6 +21,7 @@ def generate_coloring_strip(image_filename, label_text=None, folder_type='bw_out
         image_filename: Filename of outline image
         label_text: Optional text label
         folder_type: Should be 'bw_outline' for coloring
+        mode: 'color' or 'bw' for output mode
         
     Returns:
         PIL.Image: Generated strip
@@ -81,7 +82,7 @@ def generate_coloring_strip(image_filename, label_text=None, folder_type='bw_out
 
 def generate_coloring_strips_page(image_label_pairs, folder_type='bw_outline',
                                    theme_name='Theme', output_dir='output',
-                                   include_storage_label=False):
+                                   include_storage_label=False, mode='color'):
     """
     Generate pages of coloring strips (5 strips per page).
     
@@ -91,6 +92,7 @@ def generate_coloring_strips_page(image_label_pairs, folder_type='bw_outline',
         theme_name: Theme name
         output_dir: Output directory
         include_storage_label: If True, also generate a companion storage label PDF
+        mode: 'color' or 'bw' for output mode
         
     Returns:
         list: Generated pages
@@ -99,13 +101,13 @@ def generate_coloring_strips_page(image_label_pairs, folder_type='bw_outline',
     pages = []
     
     for page_start in range(0, len(image_label_pairs), strips_per_page):
-        page = create_page_canvas()
+        page = create_page_canvas(mode=mode)
         page_items = image_label_pairs[page_start:page_start + strips_per_page]
         
         # Generate strips
         strips = []
         for image_file, label in page_items:
-            strip = generate_coloring_strip(image_file, label, folder_type)
+            strip = generate_coloring_strip(image_file, label, folder_type, mode=mode)
             strips.append(strip)
         
         # Place strips on page with spacing
@@ -120,17 +122,18 @@ def generate_coloring_strips_page(image_label_pairs, folder_type='bw_outline',
             page.paste(strip, (int(x), int(y)), strip)
         
         add_page_border(page)
-        add_footer(page)
+        add_footer(page, mode=mode)
         pages.append(page)
     
     # Save PDF
     import os
     os.makedirs(output_dir, exist_ok=True)
-    output_path = f"{output_dir}/{theme_name}_Coloring_Strips.pdf"
+    mode_suffix = f"_{mode}" if mode else ""
+    output_path = f"{output_dir}/{theme_name}_Coloring_Strips{mode_suffix}.pdf"
     save_images_as_pdf(pages, output_path, title=f"{theme_name} Coloring Strips")
     
-    # Generate storage label if requested
-    if include_storage_label:
+    # Generate storage label if requested (only for color mode)
+    if include_storage_label and mode == 'color':
         from utils.storage_label_helper import create_companion_label
         
         # Try to find an icon from first image
@@ -154,6 +157,57 @@ def generate_coloring_strips_page(image_label_pairs, folder_type='bw_outline',
     return pages
 
 
+def generate_coloring_strips_dual_mode(image_label_pairs, folder_type='bw_outline',
+                                       theme_name='Theme', output_dir='output',
+                                       include_storage_label=False):
+    """
+    Generate coloring strips in both color and black-and-white modes.
+    
+    Args:
+        image_label_pairs: List of tuples (image_filename, label_text)
+        folder_type: Image folder type
+        theme_name: Theme name
+        output_dir: Output directory
+        include_storage_label: If True, generate storage label (color mode only)
+        
+    Returns:
+        dict: Paths to generated PDFs {'color': path, 'bw': path}
+    """
+    import os
+    
+    # Generate color version
+    generate_coloring_strips_page(
+        image_label_pairs=image_label_pairs,
+        folder_type=folder_type,
+        theme_name=theme_name,
+        output_dir=output_dir,
+        include_storage_label=include_storage_label,
+        mode='color'
+    )
+    color_path = f"{output_dir}/{theme_name}_Coloring_Strips_color.pdf"
+    
+    # Generate BW version
+    generate_coloring_strips_page(
+        image_label_pairs=image_label_pairs,
+        folder_type=folder_type,
+        theme_name=theme_name,
+        output_dir=output_dir,
+        include_storage_label=False,  # No label for BW
+        mode='bw'
+    )
+    bw_path = f"{output_dir}/{theme_name}_Coloring_Strips_bw.pdf"
+    
+    print(f"\n✓ Generated Coloring Strips (dual-mode)")
+    print(f"  Color: {color_path}")
+    print(f"  B&W:   {bw_path}")
+    
+    return {
+        'color': color_path,
+        'bw': bw_path
+    }
+
+
 if __name__ == "__main__":
     print("Coloring Strips Generator")
     print("Use generate_coloring_strip() or generate_coloring_strips_page()")
+    print("Use generate_coloring_strips_dual_mode() for both color and BW output")
