@@ -25,11 +25,13 @@ from utils.draw_helpers import (
     create_placeholder_image
 )
 from utils.fonts import get_font_manager
+from utils.color_helpers import image_to_grayscale
+from utils.layout import create_page_canvas, add_footer
 import os
 
 
 def generate_sentence_strip(symbol_data, strip_slots=4, with_lanyard_strip=True, 
-                            card_style=None):
+                            card_style=None, mode="color"):
     """
     Generate a horizontal sentence strip with AAC symbols.
     
@@ -38,6 +40,7 @@ def generate_sentence_strip(symbol_data, strip_slots=4, with_lanyard_strip=True,
         strip_slots: Number of icon slots in the strip (2-4)
         with_lanyard_strip: If True, add left margin lanyard strip with hole punch
         card_style: Optional dict with 'border_width', 'corner_radius', 'shadow'
+        mode: "color" or "bw" for dual-mode output
         
     Returns:
         PIL.Image: Generated sentence strip
@@ -131,6 +134,9 @@ def generate_sentence_strip(symbol_data, strip_slots=4, with_lanyard_strip=True,
             # Load image
             try:
                 symbol_image = image_loader.load_image(image_file, folder_type)
+                # Convert to grayscale if BW mode
+                if mode == "bw":
+                    symbol_image = image_to_grayscale(symbol_image)
             except FileNotFoundError:
                 symbol_image = create_placeholder_image(500, 500, f"Missing:\n{image_file}")
             
@@ -165,7 +171,7 @@ def generate_sentence_strip(symbol_data, strip_slots=4, with_lanyard_strip=True,
 
 
 def generate_cutout_icons(symbol_data, icons_per_page=6, with_bold_outline=True,
-                          with_grab_tab=True, card_style=None):
+                          with_grab_tab=True, card_style=None, mode="color"):
     """
     Generate cut-out icon pages matching exact size of matching cards.
     
@@ -175,6 +181,7 @@ def generate_cutout_icons(symbol_data, icons_per_page=6, with_bold_outline=True,
         with_bold_outline: Add bold outline for visibility
         with_grab_tab: Add small tab for fine motor support
         card_style: Optional dict with 'border_width', 'corner_radius', 'shadow'
+        mode: "color" or "bw" for dual-mode output
         
     Returns:
         list: Generated pages with cut-out icons
@@ -274,6 +281,9 @@ def generate_cutout_icons(symbol_data, icons_per_page=6, with_bold_outline=True,
             
             try:
                 symbol_image = image_loader.load_image(image_file, folder_type)
+                # Convert to grayscale if BW mode
+                if mode == "bw":
+                    symbol_image = image_to_grayscale(symbol_image)
             except FileNotFoundError:
                 symbol_image = create_placeholder_image(500, 500, f"Missing:\n{image_file}")
             
@@ -301,7 +311,7 @@ def generate_cutout_icons(symbol_data, icons_per_page=6, with_bold_outline=True,
 def generate_sentence_strips_set(sentence_data, icons_data=None, theme_name='Theme',
                                  output_dir='output', include_storage_label=False,
                                  with_lanyard=True, with_cutout_icons=True,
-                                 card_style=None):
+                                 card_style=None, mode="color"):
     """
     Generate complete sentence strips set with lanyard-friendly strips and cut-out icons.
     
@@ -316,6 +326,7 @@ def generate_sentence_strips_set(sentence_data, icons_data=None, theme_name='The
         with_lanyard: Add lanyard strip to sentence strips
         with_cutout_icons: Generate cut-out icon pages
         card_style: Optional card styling dict
+        mode: "color" or "bw" for dual-mode output
         
     Returns:
         dict: Paths to generated PDFs
@@ -343,7 +354,8 @@ def generate_sentence_strips_set(sentence_data, icons_data=None, theme_name='The
                 symbols,
                 strip_slots=slots,
                 with_lanyard_strip=with_lanyard,
-                card_style=card_style
+                card_style=card_style,
+                mode=mode
             )
             strips.append(strip)
         
@@ -370,7 +382,8 @@ def generate_sentence_strips_set(sentence_data, icons_data=None, theme_name='The
         strip_pages.append(page)
     
     # Save sentence strips PDF
-    strips_path = f"{output_dir}/{theme_name}_Sentence_Strips.pdf"
+    mode_suffix = f"_{mode}" if mode else ""
+    strips_path = f"{output_dir}/{theme_name}_Sentence_Strips{mode_suffix}.pdf"
     save_images_as_pdf(strip_pages, strips_path, title=f"{theme_name} Sentence Strips")
     output_files['strips'] = strips_path
     print(f"✓ Generated sentence strips: {strips_path}")
@@ -394,16 +407,17 @@ def generate_sentence_strips_set(sentence_data, icons_data=None, theme_name='The
                 icons_per_page=6,
                 with_bold_outline=True,
                 with_grab_tab=True,
-                card_style=card_style
+                card_style=card_style,
+                mode=mode
             )
             
-            icons_path = f"{output_dir}/{theme_name}_Sentence_Icons_Cutouts.pdf"
+            icons_path = f"{output_dir}/{theme_name}_Sentence_Icons_Cutouts{mode_suffix}.pdf"
             save_images_as_pdf(icon_pages, icons_path, title=f"{theme_name} Sentence Icons")
             output_files['icons'] = icons_path
             print(f"✓ Generated cut-out icons: {icons_path}")
     
-    # Generate storage labels if requested
-    if include_storage_label:
+    # Generate storage labels if requested (only for color mode)
+    if include_storage_label and mode == "color":
         from utils.storage_label_helper import create_companion_label
         
         # Try to find an icon from first symbol
@@ -439,6 +453,62 @@ def generate_sentence_strips_set(sentence_data, icons_data=None, theme_name='The
             print(f"✓ Generated storage label: {icons_label_path}")
     
     return output_files
+
+
+def generate_sentence_strips_dual_mode(sentence_data, icons_data=None, theme_name='Theme',
+                                       output_dir='output', include_storage_label=False,
+                                       with_lanyard=True, with_cutout_icons=True,
+                                       card_style=None):
+    """
+    Generate sentence strips in both color and black-and-white modes.
+    
+    Wrapper function that calls generate_sentence_strips_set() twice to create
+    both color and BW versions automatically.
+    
+    Args:
+        sentence_data: List of dicts with sentence configurations
+        icons_data: Optional list of all icons to generate as cut-outs
+        theme_name: Theme name for output files
+        output_dir: Output directory
+        include_storage_label: Generate companion storage labels (color only)
+        with_lanyard: Add lanyard strip to sentence strips
+        with_cutout_icons: Generate cut-out icon pages
+        card_style: Optional card styling dict
+        
+    Returns:
+        dict: {'color': {...}, 'bw': {...}} with paths to generated PDFs
+    """
+    results = {}
+    
+    # Generate color version
+    print("Generating COLOR version...")
+    results['color'] = generate_sentence_strips_set(
+        sentence_data=sentence_data,
+        icons_data=icons_data,
+        theme_name=theme_name,
+        output_dir=output_dir,
+        include_storage_label=include_storage_label,
+        with_lanyard=with_lanyard,
+        with_cutout_icons=with_cutout_icons,
+        card_style=card_style,
+        mode="color"
+    )
+    
+    # Generate black-and-white version
+    print("\nGenerating BLACK-AND-WHITE version...")
+    results['bw'] = generate_sentence_strips_set(
+        sentence_data=sentence_data,
+        icons_data=icons_data,
+        theme_name=theme_name,
+        output_dir=output_dir,
+        include_storage_label=False,  # Storage labels only for color
+        with_lanyard=with_lanyard,
+        with_cutout_icons=with_cutout_icons,
+        card_style=card_style,
+        mode="bw"
+    )
+    
+    return results
 
 
 if __name__ == "__main__":
