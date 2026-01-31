@@ -11,10 +11,11 @@ from utils.image_loader import get_image_loader
 from utils.image_utils import scale_image_proportional
 from utils.layout import create_page_canvas, add_page_border, add_footer, add_title_to_page
 from utils.pdf_export import save_images_as_pdf
+from utils.color_helpers import image_to_grayscale
 
 
 def generate_yes_no_question_card(image_filename, question_text, answer,
-                                   folder_type='color', level=1):
+                                   folder_type='color', level=1, mode='color'):
     """
     Generate a yes/no question card.
     
@@ -24,11 +25,12 @@ def generate_yes_no_question_card(image_filename, question_text, answer,
         answer: True for Yes, False for No
         folder_type: Image folder type
         level: Differentiation level (1=answer shown, 2=no answer)
+        mode: Output mode ('color' or 'bw')
         
     Returns:
         PIL.Image: Generated card
     """
-    page = create_page_canvas()
+    page = create_page_canvas(mode=mode)
     
     # Add question as title
     add_title_to_page(page, question_text)
@@ -36,6 +38,10 @@ def generate_yes_no_question_card(image_filename, question_text, answer,
     # Load and display image
     image_loader = get_image_loader()
     theme_image = image_loader.load_image(image_filename, folder_type)
+    
+    # Convert to grayscale if in BW mode
+    if mode == 'bw':
+        theme_image = image_to_grayscale(theme_image)
     
     available_width = PAGE_WIDTH - (MARGINS['page'] * 2)
     available_height = PAGE_HEIGHT - 600
@@ -89,15 +95,15 @@ def generate_yes_no_question_card(image_filename, question_text, answer,
     except:
         pass
     
-    add_page_border(page)
-    add_footer(page)
+    add_page_border(page, mode=mode)
+    add_footer(page, mode=mode)
     
     return page
 
 
 def generate_yes_no_questions_set(question_data, folder_type='color', level=1,
                                    theme_name='Theme', output_dir='output',
-                                   include_storage_label=False):
+                                   include_storage_label=False, mode='color'):
     """
     Generate a set of yes/no questions.
     
@@ -108,9 +114,10 @@ def generate_yes_no_questions_set(question_data, folder_type='color', level=1,
         theme_name: Theme name
         output_dir: Output directory
         include_storage_label: If True, also generate a companion storage label PDF
+        mode: Output mode ('color' or 'bw')
         
     Returns:
-        list: Generated pages
+        str: Path to generated PDF
     """
     pages = []
     
@@ -120,18 +127,20 @@ def generate_yes_no_questions_set(question_data, folder_type='color', level=1,
             item['question'],
             item['answer'],
             folder_type,
-            level
+            level,
+            mode
         )
         pages.append(page)
     
     # Save PDF
     import os
     os.makedirs(output_dir, exist_ok=True)
-    output_path = f"{output_dir}/{theme_name}_Yes_No_Questions_Level{level}.pdf"
+    mode_suffix = f"_{mode}" if mode else ""
+    output_path = f"{output_dir}/{theme_name}_Yes_No_Questions_Level{level}{mode_suffix}.pdf"
     save_images_as_pdf(pages, output_path, title=f"{theme_name} Yes/No Questions")
     
-    # Generate storage label if requested
-    if include_storage_label:
+    # Generate storage label if requested (only for color mode)
+    if include_storage_label and mode == 'color':
         from utils.storage_label_helper import create_companion_label
         
         # Try to find an icon from first question
@@ -152,7 +161,51 @@ def generate_yes_no_questions_set(question_data, folder_type='color', level=1,
         print(f"✓ Generated storage label")
         print(f"  Label: {label_path}")
     
-    return pages
+    return output_path
+
+
+def generate_yes_no_questions_dual_mode(question_data, folder_type='color', level=1,
+                                        theme_name='Theme', output_dir='output',
+                                        include_storage_label=False):
+    """
+    Generate yes/no questions in both color and black-and-white modes.
+    
+    Args:
+        question_data: List of dicts with 'image', 'question', 'answer' keys
+        folder_type: Image folder type
+        level: Differentiation level
+        theme_name: Theme name
+        output_dir: Output directory
+        include_storage_label: If True, generate storage label for color version
+        
+    Returns:
+        dict: Paths to generated PDFs {'color': path, 'bw': path}
+    """
+    paths = {}
+    
+    # Generate color version
+    paths['color'] = generate_yes_no_questions_set(
+        question_data=question_data,
+        folder_type=folder_type,
+        level=level,
+        theme_name=theme_name,
+        output_dir=output_dir,
+        include_storage_label=include_storage_label,
+        mode='color'
+    )
+    
+    # Generate black-and-white version
+    paths['bw'] = generate_yes_no_questions_set(
+        question_data=question_data,
+        folder_type=folder_type,
+        level=level,
+        theme_name=theme_name,
+        output_dir=output_dir,
+        include_storage_label=False,  # No label for BW version
+        mode='bw'
+    )
+    
+    return paths
 
 
 if __name__ == "__main__":
