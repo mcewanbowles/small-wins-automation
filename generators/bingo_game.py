@@ -11,29 +11,32 @@ Features:
 - Task-box compatible calling cards (5.25" × 4")
 - FREE space in center (except errorless)
 - SPED-compliant high contrast design
+- Dual-mode output (color + black-and-white)
 """
 
 import os
 import random
-from PIL import Image, ImageDraw, ImageFont
-from utils.config import DPI, PAGE_WIDTH, PAGE_HEIGHT, MARGINS, COLORS, FONT_SIZES, FOOTER_TEXT
+from PIL import Image, ImageDraw
+from utils.config import DPI, PAGE_WIDTH, PAGE_HEIGHT, MARGINS, COLORS
+from utils.layout import create_page_canvas, add_footer
+from utils.grid_layout import create_grid_positions
+from utils.image_utils import scale_image_proportional, center_image_in_box
+from utils.color_helpers import image_to_grayscale
+from utils.fonts import FontManager
 from utils.image_loader import load_image
 from utils.pdf_export import save_images_as_pdf
-from utils.draw_helpers import (
-    scale_image_to_fit,
-    draw_page_number,
-    draw_copyright_footer,
-    create_placeholder_image
-)
 from utils.storage_label_helper import create_companion_label
 
 # Task box card sizing standard (4 cards per page, 2×2 grid)
 TASK_BOX_CARD_WIDTH = int(5.25 * DPI)  # 1575px
 TASK_BOX_CARD_HEIGHT = int(4 * DPI)  # 1200px
 
+# Initialize font manager
+font_manager = FontManager()
+
 
 def generate_bingo_board(items, grid_size=(4, 4), board_type='standard', 
-                         folder_type='images', board_num=1):
+                         folder_type='images', board_num=1, mode='color'):
     """
     Generate a single bingo board.
     
@@ -43,6 +46,7 @@ def generate_bingo_board(items, grid_size=(4, 4), board_type='standard',
         board_type: 'standard', 'errorless', 'real_images', 'boardmaker'
         folder_type: Image folder type
         board_num: Board number for randomization seed
+        mode: 'color' or 'bw' for output mode
     
     Returns:
         PIL Image object
@@ -50,8 +54,8 @@ def generate_bingo_board(items, grid_size=(4, 4), board_type='standard',
     rows, cols = grid_size
     total_cells = rows * cols
     
-    # Create page
-    page = Image.new('RGB', (PAGE_WIDTH, PAGE_HEIGHT), COLORS['white'])
+    # Create page using modern layout utility
+    page = create_page_canvas(mode=mode)
     draw = ImageDraw.Draw(page)
     
     # Title
@@ -63,10 +67,7 @@ def generate_bingo_board(items, grid_size=(4, 4), board_type='standard',
     elif board_type == 'boardmaker':
         title += " - Boardmaker"
     
-    try:
-        title_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 48)
-    except:
-        title_font = ImageFont.load_default()
+    title_font = font_manager.get_font('title', 48)
     
     bbox = draw.textbbox((0, 0), title, font=title_font)
     title_width = bbox[2] - bbox[0]
@@ -128,10 +129,7 @@ def generate_bingo_board(items, grid_size=(4, 4), board_type='standard',
             # Check if FREE space
             if free_space and (row, col) == free_space:
                 # Draw FREE space
-                try:
-                    free_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 36)
-                except:
-                    free_font = ImageFont.load_default()
+                free_font = font_manager.get_font('title', 36)
                 
                 free_text = "FREE"
                 bbox = draw.textbbox((0, 0), free_text, font=free_font)
@@ -144,47 +142,57 @@ def generate_bingo_board(items, grid_size=(4, 4), board_type='standard',
                 # Draw icon
                 if item_idx < len(selected_items):
                     item = selected_items[item_idx]
-                    icon_rect = (x1 + 10, y1 + 10, x2 - 10, y2 - 10)
+                    
+                    # Calculate icon area with padding
+                    icon_width = cell_size - 20
+                    icon_height = cell_size - 20
                     
                     try:
                         img = load_image(item['image'], folder_type=folder_type)
                         if img:
-                            scaled_coords = scale_image_to_fit(img, icon_rect, padding=5)
-                            if scaled_coords:
-                                paste_x, paste_y, paste_width, paste_height = scaled_coords
-                                resized_img = img.resize((paste_width, paste_height), Image.Resampling.LANCZOS)
-                                # Convert RGBA to RGB if needed
-                                if resized_img.mode == 'RGBA':
-                                    bg = Image.new('RGB', resized_img.size, COLORS['white'])
-                                    bg.paste(resized_img, mask=resized_img.split()[3])
-                                    resized_img = bg
-                                page.paste(resized_img, (paste_x, paste_y))
+                            # Convert to grayscale if BW mode
+                            if mode == 'bw':
+                                img = image_to_grayscale(img)
+                            
+                            # Scale image proportionally
+                            scaled_img = scale_image_proportional(img, icon_width, icon_height)
+                            
+                            # Center image in cell
+                            positioned_img = center_image_in_box(scaled_img, cell_size, cell_size)
+                            
+                            # Convert RGBA to RGB if needed
+                            if positioned_img.mode == 'RGBA':
+                                bg = Image.new('RGB', positioned_img.size, COLORS['white'])
+                                bg.paste(positioned_img, mask=positioned_img.split()[3])
+                                positioned_img = bg
+                            
+                            # Paste image onto page
+                            page.paste(positioned_img, (x1 + (cell_size - positioned_img.width) // 2, 
+                                                       y1 + (cell_size - positioned_img.height) // 2))
                     except:
-                        # Use placeholder
-                        placeholder = create_placeholder_image(icon_rect[2] - icon_rect[0], 
-                                                              icon_rect[3] - icon_rect[1], 
-                                                              "No Image")
-                        page.paste(placeholder, (icon_rect[0], icon_rect[1]))
+                        pass  # Skip if image fails to load
                     
                     item_idx += 1
     
-    # Add footer and page number
-    draw_copyright_footer(draw, PAGE_WIDTH, PAGE_HEIGHT)
-    draw_page_number(draw, 1, 1, PAGE_WIDTH, PAGE_HEIGHT)
+    # Add footer using modern layout utility
+    add_footer(page, "Bingo Game", page_num=1, mode=mode)
     
     return page
 
 
-def generate_calling_card(draw, card_rect, item, card_type='icon_only', folder_type='images'):
+def generate_calling_card(page, draw, card_rect, item, card_type='icon_only', 
+                         folder_type='images', mode='color'):
     """
     Generate a single calling card within the given rectangle (task-box sized).
     
     Args:
+        page: PIL Image object (page canvas)
         draw: PIL ImageDraw object
         card_rect: Tuple (x1, y1, x2, y2) defining card boundaries
         item: Dict with 'image' and 'label' keys
         card_type: 'icon_only', 'icon_word', or 'real_image'
         folder_type: Image folder type
+        mode: 'color' or 'bw' for output mode
     """
     x1, y1, x2, y2 = card_rect
     card_width = x2 - x1
@@ -196,37 +204,37 @@ def generate_calling_card(draw, card_rect, item, card_type='icon_only', folder_t
     if card_type == 'icon_word':
         # Split card: top 70% icon, bottom 30% word
         icon_height = int(card_height * 0.70)
-        icon_rect = (x1 + 20, y1 + 20, x2 - 20, y1 + icon_height - 10)
+        icon_area_width = card_width - 40
+        icon_area_height = icon_height - 30
         
         # Draw icon
         try:
             img = load_image(item['image'], folder_type=folder_type)
             if img:
-                scaled_coords = scale_image_to_fit(img, icon_rect, padding=10)
-                if scaled_coords:
-                    paste_x, paste_y, paste_width, paste_height = scaled_coords
-                    resized_img = img.resize((paste_width, paste_height), Image.Resampling.LANCZOS)
-                    # Convert RGBA to RGB if needed
-                    if resized_img.mode == 'RGBA':
-                        bg = Image.new('RGB', resized_img.size, COLORS['white'])
-                        bg.paste(resized_img, mask=resized_img.split()[3])
-                        resized_img = bg
-                    # Paste onto the page
-                    temp_page = Image.new('RGB', (PAGE_WIDTH, PAGE_HEIGHT), COLORS['white'])
-                    temp_page.paste(resized_img, (paste_x, paste_y))
-                    draw._image.paste(temp_page.crop((paste_x, paste_y, paste_x + paste_width, paste_y + paste_height)), (paste_x, paste_y))
+                # Convert to grayscale if BW mode
+                if mode == 'bw':
+                    img = image_to_grayscale(img)
+                
+                # Scale image proportionally
+                scaled_img = scale_image_proportional(img, icon_area_width, icon_area_height)
+                
+                # Center image in icon area
+                icon_x = x1 + (card_width - scaled_img.width) // 2
+                icon_y = y1 + 20 + (icon_area_height - scaled_img.height) // 2
+                
+                # Convert RGBA to RGB if needed
+                if scaled_img.mode == 'RGBA':
+                    bg = Image.new('RGB', scaled_img.size, COLORS['white'])
+                    bg.paste(scaled_img, mask=scaled_img.split()[3])
+                    scaled_img = bg
+                
+                page.paste(scaled_img, (icon_x, icon_y))
         except:
-            placeholder = create_placeholder_image(icon_rect[2] - icon_rect[0], 
-                                                  icon_rect[3] - icon_rect[1], 
-                                                  "No Image")
-            draw._image.paste(placeholder, (icon_rect[0], icon_rect[1]))
+            pass  # Skip if image fails to load
         
         # Draw word
         word_y_start = y1 + icon_height
-        try:
-            word_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 40)
-        except:
-            word_font = ImageFont.load_default()
+        word_font = font_manager.get_font('body', 40)
         
         bbox = draw.textbbox((0, 0), item['label'], font=word_font)
         text_w = bbox[2] - bbox[0]
@@ -236,32 +244,36 @@ def generate_calling_card(draw, card_rect, item, card_type='icon_only', folder_t
         draw.text((text_x, text_y), item['label'], fill=COLORS['black'], font=word_font)
     else:
         # Icon only (full card)
-        icon_rect = (x1 + 20, y1 + 20, x2 - 20, y2 - 20)
+        icon_area_width = card_width - 40
+        icon_area_height = card_height - 40
         
         try:
             img = load_image(item['image'], folder_type=folder_type)
             if img:
-                scaled_coords = scale_image_to_fit(img, icon_rect, padding=10)
-                if scaled_coords:
-                    paste_x, paste_y, paste_width, paste_height = scaled_coords
-                    resized_img = img.resize((paste_width, paste_height), Image.Resampling.LANCZOS)
-                    # Convert RGBA to RGB if needed
-                    if resized_img.mode == 'RGBA':
-                        bg = Image.new('RGB', resized_img.size, COLORS['white'])
-                        bg.paste(resized_img, mask=resized_img.split()[3])
-                        resized_img = bg
-                    temp_page = Image.new('RGB', (PAGE_WIDTH, PAGE_HEIGHT), COLORS['white'])
-                    temp_page.paste(resized_img, (paste_x, paste_y))
-                    draw._image.paste(temp_page.crop((paste_x, paste_y, paste_x + paste_width, paste_y + paste_height)), (paste_x, paste_y))
+                # Convert to grayscale if BW mode
+                if mode == 'bw':
+                    img = image_to_grayscale(img)
+                
+                # Scale image proportionally
+                scaled_img = scale_image_proportional(img, icon_area_width, icon_area_height)
+                
+                # Center image in card
+                icon_x = x1 + (card_width - scaled_img.width) // 2
+                icon_y = y1 + (card_height - scaled_img.height) // 2
+                
+                # Convert RGBA to RGB if needed
+                if scaled_img.mode == 'RGBA':
+                    bg = Image.new('RGB', scaled_img.size, COLORS['white'])
+                    bg.paste(scaled_img, mask=scaled_img.split()[3])
+                    scaled_img = bg
+                
+                page.paste(scaled_img, (icon_x, icon_y))
         except:
-            placeholder = create_placeholder_image(icon_rect[2] - icon_rect[0], 
-                                                  icon_rect[3] - icon_rect[1], 
-                                                  "No Image")
-            draw._image.paste(placeholder, (icon_rect[0], icon_rect[1]))
+            pass  # Skip if image fails to load
 
 
 def generate_calling_cards_page(items, start_idx, card_type='icon_only', folder_type='images',
-                                page_num=1, total_pages=1):
+                                page_num=1, total_pages=1, mode='color'):
     """
     Generate a page with 4 calling cards in 2×2 grid (task-box standard).
     
@@ -272,40 +284,30 @@ def generate_calling_cards_page(items, start_idx, card_type='icon_only', folder_
         folder_type: Image folder type
         page_num: Current page number
         total_pages: Total number of pages
+        mode: 'color' or 'bw' for output mode
     
     Returns:
         PIL Image object
     """
-    # Create page
-    page = Image.new('RGB', (PAGE_WIDTH, PAGE_HEIGHT), COLORS['white'])
+    # Create page using modern layout utility
+    page = create_page_canvas(mode=mode)
     draw = ImageDraw.Draw(page)
     
-    # Calculate card positions for 2×2 grid
-    margin = MARGINS['page']
-    available_width = PAGE_WIDTH - 2 * margin
-    available_height = PAGE_HEIGHT - 2 * margin - MARGINS['page']
-    
-    card_width = available_width // 2
-    card_height = available_height // 2
+    # Use grid layout utility for 2×2 positioning
+    card_positions = create_grid_positions(2, 2)
     
     # Generate 4 calling cards
-    for row in range(2):
-        for col in range(2):
-            idx = start_idx + row * 2 + col
-            if idx >= len(items):
-                break
-            
-            x1 = margin + col * card_width
-            y1 = margin + row * card_height
-            x2 = x1 + card_width
-            y2 = y1 + card_height
-            
-            card_rect = (x1, y1, x2, y2)
-            generate_calling_card(draw, card_rect, items[idx], card_type, folder_type)
+    for idx, (x, y) in enumerate(card_positions):
+        item_idx = start_idx + idx
+        if item_idx >= len(items):
+            break
+        
+        # Calculate card rectangle from grid position
+        card_rect = (x, y, x + TASK_BOX_CARD_WIDTH, y + TASK_BOX_CARD_HEIGHT)
+        generate_calling_card(page, draw, card_rect, items[item_idx], card_type, folder_type, mode)
     
-    # Add footer and page number
-    draw_copyright_footer(draw, PAGE_WIDTH, PAGE_HEIGHT)
-    draw_page_number(draw, page_num, total_pages, PAGE_WIDTH, PAGE_HEIGHT)
+    # Add footer using modern layout utility
+    add_footer(page, "Bingo Calling Cards", page_num=page_num, mode=mode)
     
     return page
 
@@ -315,7 +317,7 @@ def generate_bingo_game_set(items, theme_name, output_dir='output',
                             include_errorless=True, include_real_images=False,
                             include_boardmaker=False, num_boards=6,
                             include_calling_cards=True, include_storage_label=True,
-                            folder_type='images'):
+                            folder_type='images', mode='color'):
     """
     Generate complete set of bingo boards and calling cards.
     
@@ -333,12 +335,16 @@ def generate_bingo_game_set(items, theme_name, output_dir='output',
         include_calling_cards: Generate calling cards
         include_storage_label: Generate storage labels
         folder_type: Default folder type for images
+        mode: 'color' or 'bw' for output mode
     
     Returns:
         Dict with paths to generated files
     """
     os.makedirs(output_dir, exist_ok=True)
     output_files = {}
+    
+    # Add mode suffix to filenames
+    mode_suffix = f"_{mode}" if mode else ""
     
     # Generate different board sizes
     board_configs = []
@@ -353,10 +359,10 @@ def generate_bingo_game_set(items, theme_name, output_dir='output',
         # Standard boards
         boards = []
         for i in range(num_boards):
-            board = generate_bingo_board(items, grid_size, 'standard', folder_type, i + 1)
+            board = generate_bingo_board(items, grid_size, 'standard', folder_type, i + 1, mode)
             boards.append(board)
         
-        output_path = os.path.join(output_dir, f"{theme_name}_Bingo_{size_name}.pdf")
+        output_path = os.path.join(output_dir, f"{theme_name}_Bingo_{size_name}{mode_suffix}.pdf")
         save_images_as_pdf(boards, output_path)
         output_files[f'bingo_{size_name}'] = output_path
         
@@ -368,10 +374,10 @@ def generate_bingo_game_set(items, theme_name, output_dir='output',
         if include_errorless:
             boards = []
             for i in range(num_boards):
-                board = generate_bingo_board(items, grid_size, 'errorless', folder_type, i + 1)
+                board = generate_bingo_board(items, grid_size, 'errorless', folder_type, i + 1, mode)
                 boards.append(board)
             
-            output_path = os.path.join(output_dir, f"{theme_name}_Bingo_{size_name}_Errorless.pdf")
+            output_path = os.path.join(output_dir, f"{theme_name}_Bingo_{size_name}_Errorless{mode_suffix}.pdf")
             save_images_as_pdf(boards, output_path)
             output_files[f'bingo_{size_name}_errorless'] = output_path
             
@@ -383,10 +389,10 @@ def generate_bingo_game_set(items, theme_name, output_dir='output',
         if include_real_images:
             boards = []
             for i in range(num_boards):
-                board = generate_bingo_board(items, grid_size, 'real_images', 'real_images', i + 1)
+                board = generate_bingo_board(items, grid_size, 'real_images', 'real_images', i + 1, mode)
                 boards.append(board)
             
-            output_path = os.path.join(output_dir, f"{theme_name}_Bingo_{size_name}_Real_Images.pdf")
+            output_path = os.path.join(output_dir, f"{theme_name}_Bingo_{size_name}_Real_Images{mode_suffix}.pdf")
             save_images_as_pdf(boards, output_path)
             output_files[f'bingo_{size_name}_real'] = output_path
             
@@ -398,10 +404,10 @@ def generate_bingo_game_set(items, theme_name, output_dir='output',
         if include_boardmaker:
             boards = []
             for i in range(num_boards):
-                board = generate_bingo_board(items, grid_size, 'boardmaker', 'boardmaker', i + 1)
+                board = generate_bingo_board(items, grid_size, 'boardmaker', 'boardmaker', i + 1, mode)
                 boards.append(board)
             
-            output_path = os.path.join(output_dir, f"{theme_name}_Bingo_{size_name}_Boardmaker.pdf")
+            output_path = os.path.join(output_dir, f"{theme_name}_Bingo_{size_name}_Boardmaker{mode_suffix}.pdf")
             save_images_as_pdf(boards, output_path)
             output_files[f'bingo_{size_name}_boardmaker'] = output_path
             
@@ -419,10 +425,10 @@ def generate_bingo_game_set(items, theme_name, output_dir='output',
         for page_num in range(num_pages):
             start_idx = page_num * cards_per_page
             page = generate_calling_cards_page(items, start_idx, 'icon_only', folder_type,
-                                             page_num + 1, num_pages)
+                                             page_num + 1, num_pages, mode)
             pages.append(page)
         
-        output_path = os.path.join(output_dir, f"{theme_name}_Bingo_Calling_Cards_Icons.pdf")
+        output_path = os.path.join(output_dir, f"{theme_name}_Bingo_Calling_Cards_Icons{mode_suffix}.pdf")
         save_images_as_pdf(pages, output_path)
         output_files['calling_cards_icons'] = output_path
         
@@ -435,10 +441,10 @@ def generate_bingo_game_set(items, theme_name, output_dir='output',
         for page_num in range(num_pages):
             start_idx = page_num * cards_per_page
             page = generate_calling_cards_page(items, start_idx, 'icon_word', folder_type,
-                                             page_num + 1, num_pages)
+                                             page_num + 1, num_pages, mode)
             pages.append(page)
         
-        output_path = os.path.join(output_dir, f"{theme_name}_Bingo_Calling_Cards_Words.pdf")
+        output_path = os.path.join(output_dir, f"{theme_name}_Bingo_Calling_Cards_Words{mode_suffix}.pdf")
         save_images_as_pdf(pages, output_path)
         output_files['calling_cards_words'] = output_path
         
@@ -452,10 +458,10 @@ def generate_bingo_game_set(items, theme_name, output_dir='output',
             for page_num in range(num_pages):
                 start_idx = page_num * cards_per_page
                 page = generate_calling_cards_page(items, start_idx, 'icon_only', 'real_images',
-                                                 page_num + 1, num_pages)
+                                                 page_num + 1, num_pages, mode)
                 pages.append(page)
             
-            output_path = os.path.join(output_dir, f"{theme_name}_Bingo_Calling_Cards_Real_Images.pdf")
+            output_path = os.path.join(output_dir, f"{theme_name}_Bingo_Calling_Cards_Real_Images{mode_suffix}.pdf")
             save_images_as_pdf(pages, output_path)
             output_files['calling_cards_real'] = output_path
             
@@ -464,3 +470,29 @@ def generate_bingo_game_set(items, theme_name, output_dir='output',
                 output_files['calling_cards_real_label'] = label_path
     
     return output_files
+
+
+def generate_bingo_game_dual_mode(items, theme_name, output_dir='output', **kwargs):
+    """
+    Generate complete set of bingo boards and calling cards in both color and BW modes.
+    
+    Args:
+        items: List of dicts with 'image' and 'label' keys
+        theme_name: Name of theme for file naming
+        output_dir: Output directory path
+        **kwargs: Additional arguments passed to generate_bingo_game_set
+    
+    Returns:
+        Dict with 'color' and 'bw' keys, each containing file paths
+    """
+    output_paths = {'color': {}, 'bw': {}}
+    
+    # Generate color version
+    color_files = generate_bingo_game_set(items, theme_name, output_dir, mode='color', **kwargs)
+    output_paths['color'] = color_files
+    
+    # Generate black-and-white version
+    bw_files = generate_bingo_game_set(items, theme_name, output_dir, mode='bw', **kwargs)
+    output_paths['bw'] = bw_files
+    
+    return output_paths
