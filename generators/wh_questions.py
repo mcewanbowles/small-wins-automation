@@ -11,10 +11,11 @@ from utils.image_loader import get_image_loader
 from utils.image_utils import scale_image_proportional
 from utils.layout import create_page_canvas, add_page_border, add_footer, add_title_to_page
 from utils.pdf_export import save_images_as_pdf
+from utils.color_helpers import image_to_grayscale
 
 
 def generate_wh_question_card(image_filename, question_text, choices, correct_answer,
-                               folder_type='color', level=1):
+                               folder_type='color', level=1, mode='color'):
     """
     Generate a WH question card.
     
@@ -25,11 +26,12 @@ def generate_wh_question_card(image_filename, question_text, choices, correct_an
         correct_answer: Index of correct answer (0-based)
         folder_type: Image folder type
         level: Differentiation level (1=answer shown, 2=no answer)
+        mode: Output mode ('color' or 'bw')
         
     Returns:
         PIL.Image: Generated card
     """
-    page = create_page_canvas()
+    page = create_page_canvas(mode=mode)
     
     # Add question as title
     add_title_to_page(page, question_text)
@@ -37,6 +39,10 @@ def generate_wh_question_card(image_filename, question_text, choices, correct_an
     # Load and display image
     image_loader = get_image_loader()
     theme_image = image_loader.load_image(image_filename, folder_type)
+    
+    # Convert to grayscale if BW mode
+    if mode == 'bw':
+        theme_image = image_to_grayscale(theme_image)
     
     available_width = PAGE_WIDTH - (MARGINS['page'] * 2)
     scaled_image = scale_image_proportional(theme_image, max_width=available_width, max_height=1000)
@@ -80,14 +86,14 @@ def generate_wh_question_card(image_filename, question_text, choices, correct_an
             pass
     
     add_page_border(page)
-    add_footer(page)
+    add_footer(page, mode=mode)
     
     return page
 
 
 def generate_wh_questions_set(question_data, folder_type='color', level=1,
                                theme_name='Theme', output_dir='output',
-                               include_storage_label=False):
+                               include_storage_label=False, mode='color'):
     """
     Generate a set of WH questions.
     
@@ -98,6 +104,7 @@ def generate_wh_questions_set(question_data, folder_type='color', level=1,
         theme_name: Theme name
         output_dir: Output directory
         include_storage_label: If True, also generate a companion storage label PDF
+        mode: Output mode ('color' or 'bw')
         
     Returns:
         list: Generated pages
@@ -111,18 +118,20 @@ def generate_wh_questions_set(question_data, folder_type='color', level=1,
             item['choices'],
             item['answer'],
             folder_type,
-            level
+            level,
+            mode
         )
         pages.append(page)
     
     # Save PDF
     import os
     os.makedirs(output_dir, exist_ok=True)
-    output_path = f"{output_dir}/{theme_name}_WH_Questions_Level{level}.pdf"
+    mode_suffix = f"_{mode}" if mode else ""
+    output_path = f"{output_dir}/{theme_name}_WH_Questions_Level{level}{mode_suffix}.pdf"
     save_images_as_pdf(pages, output_path, title=f"{theme_name} WH Questions")
     
-    # Generate storage label if requested
-    if include_storage_label:
+    # Generate storage label if requested (color version only)
+    if include_storage_label and mode == 'color':
         from utils.storage_label_helper import create_companion_label
         
         # Try to find an icon from first question
@@ -146,6 +155,55 @@ def generate_wh_questions_set(question_data, folder_type='color', level=1,
     return pages
 
 
+def generate_wh_questions_dual_mode(question_data, folder_type='color', level=1,
+                                     theme_name='Theme', output_dir='output',
+                                     include_storage_label=False):
+    """
+    Generate WH questions in both color and black-and-white modes.
+    
+    Args:
+        question_data: List of dicts with 'image', 'question', 'choices', 'answer' keys
+        folder_type: Image folder type
+        level: Differentiation level
+        theme_name: Theme name
+        output_dir: Output directory
+        include_storage_label: If True, also generate a companion storage label PDF
+        
+    Returns:
+        dict: Paths to generated PDFs {'color': path, 'bw': path}
+    """
+    import os
+    
+    # Generate color version
+    generate_wh_questions_set(
+        question_data,
+        folder_type=folder_type,
+        level=level,
+        theme_name=theme_name,
+        output_dir=output_dir,
+        include_storage_label=include_storage_label,
+        mode='color'
+    )
+    color_path = f"{output_dir}/{theme_name}_WH_Questions_Level{level}_color.pdf"
+    
+    # Generate BW version
+    generate_wh_questions_set(
+        question_data,
+        folder_type=folder_type,
+        level=level,
+        theme_name=theme_name,
+        output_dir=output_dir,
+        include_storage_label=False,  # Only generate label for color version
+        mode='bw'
+    )
+    bw_path = f"{output_dir}/{theme_name}_WH_Questions_Level{level}_bw.pdf"
+    
+    return {
+        'color': color_path,
+        'bw': bw_path
+    }
+
+
 if __name__ == "__main__":
     print("WH Questions Generator")
-    print("Use generate_wh_question_card() or generate_wh_questions_set()")
+    print("Use generate_wh_question_card(), generate_wh_questions_set(), or generate_wh_questions_dual_mode()")
