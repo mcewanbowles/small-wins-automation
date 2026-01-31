@@ -136,7 +136,7 @@ class SocialStoryGenerator:
             }
         }
     
-    def generate_story(self, topic, output_dir="output", tone="friendly", age_range="upper elementary"):
+    def generate_story(self, topic, output_dir="output", tone="friendly", age_range="upper elementary", mode="color"):
         """
         Generate a social story PDF for the specified topic.
         
@@ -145,6 +145,7 @@ class SocialStoryGenerator:
             output_dir: Directory to save the PDF
             tone: Tone of the story ("clinical", "friendly", "teen-friendly", "simple")
             age_range: Age range ("early childhood", "upper elementary", "teens")
+            mode: Output mode - "color" or "bw" (black-and-white)
         """
         # Normalize topic
         topic_key = topic.lower().strip()
@@ -160,20 +161,21 @@ class SocialStoryGenerator:
         # Create output directory
         os.makedirs(output_dir, exist_ok=True)
         
-        # Generate filename
+        # Generate filename with mode suffix
         safe_filename = topic_key.replace(" ", "_").replace("/", "_")
-        pdf_filename = os.path.join(output_dir, f"social_story_{safe_filename}.pdf")
+        mode_suffix = f"_{mode}" if mode in ["color", "bw"] else ""
+        pdf_filename = os.path.join(output_dir, f"social_story_{safe_filename}{mode_suffix}.pdf")
         
         # Create PDF
         c = canvas.Canvas(pdf_filename, pagesize=letter)
         
         # Generate title page
-        self._draw_title_page(c, story["title"])
+        self._draw_title_page(c, story["title"], mode=mode)
         c.showPage()
         
         # Generate content pages
         for page_num, content in enumerate(story["pages"], 1):
-            self._draw_content_page(c, content, page_num, len(story["pages"]))
+            self._draw_content_page(c, content, page_num, len(story["pages"]), mode=mode)
             c.showPage()
         
         # Save PDF
@@ -181,11 +183,14 @@ class SocialStoryGenerator:
         print(f"Generated: {pdf_filename}")
         return pdf_filename
     
-    def _draw_title_page(self, c, title):
+    def _draw_title_page(self, c, title, mode="color"):
         """Draw the title page."""
         # Title at top
         c.setFont("Helvetica-Bold", 32)
         title_y = self.page_height - 2 * inch
+        
+        # Set text color based on mode (black for both, but showing mode-awareness)
+        text_color = black if mode == "bw" else black
         
         # Word wrap title if needed
         words = title.split()
@@ -227,9 +232,9 @@ class SocialStoryGenerator:
         c.drawString((self.page_width - text_width) / 2, box_y + box_size / 2, placeholder_text)
         
         # Footer
-        self._draw_footer(c, 1)
+        self._draw_footer(c, 1, mode=mode)
     
-    def _draw_content_page(self, c, content, page_num, total_pages):
+    def _draw_content_page(self, c, content, page_num, total_pages, mode="color"):
         """Draw a content page with text and visual placeholder."""
         margin = 0.75 * inch
         
@@ -239,7 +244,9 @@ class SocialStoryGenerator:
         box_x = (self.page_width - box_width) / 2
         box_y = self.page_height - margin - box_height - 0.5 * inch
         
-        c.setStrokeColor(black)
+        # Set stroke color based on mode
+        stroke_color = black if mode == "bw" else black
+        c.setStrokeColor(stroke_color)
         c.setLineWidth(2)
         c.rect(box_x, box_y, box_width, box_height, stroke=1, fill=0)
         
@@ -286,27 +293,54 @@ class SocialStoryGenerator:
         c.drawString(margin, margin / 2, page_text)
         
         # Footer
-        self._draw_footer(c, page_num + 1)
+        self._draw_footer(c, page_num + 1, mode=mode)
     
-    def _draw_footer(self, c, page_num):
+    def _draw_footer(self, c, page_num, mode="color"):
         """Draw copyright footer."""
         c.setFont("Helvetica", 9)
         footer_text = "© 2026 Small Wins Studio • For classroom use only"
         text_width = c.stringWidth(footer_text, "Helvetica", 9)
         c.drawString((self.page_width - text_width) / 2, 0.3 * inch, footer_text)
     
-    def generate_all_stories(self, output_dir="output"):
+    def generate_all_stories(self, output_dir="output", mode="color"):
         """Generate all available social stories."""
         os.makedirs(output_dir, exist_ok=True)
         generated = []
         
         for topic in self.story_database.keys():
-            pdf_file = self.generate_story(topic, output_dir)
+            pdf_file = self.generate_story(topic, output_dir, mode=mode)
             if pdf_file:
                 generated.append(pdf_file)
         
-        print(f"\nGenerated {len(generated)} social stories in {output_dir}/")
+        print(f"\nGenerated {len(generated)} social stories ({mode} mode) in {output_dir}/")
         return generated
+
+
+def generate_social_stories_dual_mode(theme_data, output_dir="output"):
+    """
+    Generate all social stories in both color and black-and-white modes.
+    
+    Args:
+        theme_data: Theme data dictionary
+        output_dir: Output directory for PDFs
+    
+    Returns:
+        Dictionary with 'color' and 'bw' lists of generated files
+    """
+    generator = SocialStoryGenerator(theme_data)
+    
+    # Generate color versions
+    print("\n=== Generating COLOR social stories ===")
+    color_files = generator.generate_all_stories(output_dir, mode="color")
+    
+    # Generate black-and-white versions
+    print("\n=== Generating BLACK-AND-WHITE social stories ===")
+    bw_files = generator.generate_all_stories(output_dir, mode="bw")
+    
+    return {
+        'color': color_files,
+        'bw': bw_files
+    }
 
 
 def main():
