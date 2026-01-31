@@ -23,15 +23,17 @@ from utils.draw_helpers import (
     draw_icon_placeholder,
     draw_storage_label
 )
+from utils.color_helpers import adjust_for_bw_mode
 
 
-def generate_uno_cards(theme_name, output_dir):
+def generate_uno_cards(theme_name, output_dir, mode="color"):
     """
     Generate UNO deck with color suits and action cards.
     
     Args:
         theme_name: Name of the theme
         output_dir: Output directory for PDFs
+        mode: Output mode - 'color' or 'bw' (black-and-white)
     """
     theme = load_theme(theme_name)
     fringe_icons = theme.get("fringe_icons", [])[:4]  # Use first 4 icons for suits
@@ -53,7 +55,8 @@ def generate_uno_cards(theme_name, output_dir):
     card_width = 5.25 * inch
     card_height = 4 * inch
     
-    filename = f"{theme_name}_uno_deck.pdf"
+    mode_suffix = f"_{mode}" if mode else ""
+    filename = f"{theme_name}_uno_deck{mode_suffix}.pdf"
     filepath = os.path.join(output_dir, filename)
     c = canvas.Canvas(filepath, pagesize=letter)
     
@@ -74,7 +77,7 @@ def generate_uno_cards(theme_name, output_dir):
                 cards_on_page.append(card_data)
                 
                 if len(cards_on_page) == 4:
-                    draw_uno_page(c, cards_on_page, page_num, theme)
+                    draw_uno_page(c, cards_on_page, page_num, theme, mode)
                     cards_on_page = []
                     c.showPage()
                     page_num += 1
@@ -92,7 +95,7 @@ def generate_uno_cards(theme_name, output_dir):
                 cards_on_page.append(card_data)
                 
                 if len(cards_on_page) == 4:
-                    draw_uno_page(c, cards_on_page, page_num, theme)
+                    draw_uno_page(c, cards_on_page, page_num, theme, mode)
                     cards_on_page = []
                     c.showPage()
                     page_num += 1
@@ -109,7 +112,7 @@ def generate_uno_cards(theme_name, output_dir):
             cards_on_page.append(card_data)
             
             if len(cards_on_page) == 4:
-                draw_uno_page(c, cards_on_page, page_num, theme)
+                draw_uno_page(c, cards_on_page, page_num, theme, mode)
                 cards_on_page = []
                 c.showPage()
                 page_num += 1
@@ -119,17 +122,14 @@ def generate_uno_cards(theme_name, output_dir):
         # Fill with blank cards if needed
         while len(cards_on_page) < 4:
             cards_on_page.append(None)
-        draw_uno_page(c, cards_on_page, page_num, theme)
+        draw_uno_page(c, cards_on_page, page_num, theme, mode)
     
     c.save()
     print(f"✓ Generated UNO deck: {filename}")
-    
-    # Generate storage label
-    label_file = f"{theme_name}_uno_deck_label.pdf"
-    draw_storage_label(theme_name, "UNO Deck", os.path.join(output_dir, label_file))
+    return filepath
 
 
-def draw_uno_page(c, cards, page_num, theme):
+def draw_uno_page(c, cards, page_num, theme, mode="color"):
     """Draw a page of 4 UNO cards in task-box grid."""
     page_width, page_height = letter
     card_width = 5.25 * inch
@@ -148,20 +148,34 @@ def draw_uno_page(c, cards, page_num, theme):
     
     for i, (card_data, (x, y)) in enumerate(zip(cards, positions)):
         if card_data is not None:
-            draw_uno_card(c, card_data, x, y, card_width, card_height)
+            draw_uno_card(c, card_data, x, y, card_width, card_height, mode)
     
     # Draw footer
     draw_footer(c, page_num, "UNO Deck")
 
 
-def draw_uno_card(c, card_data, x, y, width, height):
+def draw_uno_card(c, card_data, x, y, width, height, mode="color"):
     """Draw a single UNO card."""
-    # Card background based on color
+    # Card background based on color - convert to grayscale in BW mode
     if card_data["type"] == "wild":
         # Rainbow gradient effect for wild cards
         c.setFillColor(colors.white)
     else:
-        c.setFillColor(card_data["color_hex"])
+        # Adjust color for mode
+        original_color = card_data["color_hex"]
+        if mode == "bw":
+            # Convert to grayscale
+            import colorsys
+            # Extract RGB values
+            if hasattr(original_color, 'rgb'):
+                r, g, b = original_color.rgb()
+            else:
+                r, g, b = 0.5, 0.5, 0.5  # Default gray
+            # Convert to grayscale using luminosity method
+            gray_value = 0.299 * r + 0.587 * g + 0.114 * b
+            c.setFillColor(colors.Color(gray_value, gray_value, gray_value))
+        else:
+            c.setFillColor(original_color)
     
     # Draw colored border
     border_width = 0.3 * inch
@@ -217,13 +231,14 @@ def draw_uno_card(c, card_data, x, y, width, height):
                    bar_width, bar_height, fill=1, stroke=0)
 
 
-def generate_memory_game(theme_name, output_dir):
+def generate_memory_game(theme_name, output_dir, mode="color"):
     """
     Generate Memory game cards with paired icons.
     
     Args:
         theme_name: Name of the theme
         output_dir: Output directory for PDFs
+        mode: Output mode - 'color' or 'bw' (black-and-white)
     """
     theme = load_theme(theme_name)
     fringe_icons = theme.get("fringe_icons", [])
@@ -237,7 +252,8 @@ def generate_memory_game(theme_name, output_dir):
     card_width = 5.25 * inch
     card_height = 4 * inch
     
-    filename = f"{theme_name}_memory_game.pdf"
+    mode_suffix = f"_{mode}" if mode else ""
+    filename = f"{theme_name}_memory_game{mode_suffix}.pdf"
     filepath = os.path.join(output_dir, filename)
     c = canvas.Canvas(filepath, pagesize=letter)
     
@@ -251,7 +267,7 @@ def generate_memory_game(theme_name, output_dir):
             cards_on_page.append(icon_name)
             
             if len(cards_on_page) == 4:
-                draw_memory_page(c, cards_on_page, page_num, theme)
+                draw_memory_page(c, cards_on_page, page_num, theme, mode)
                 cards_on_page = []
                 c.showPage()
                 page_num += 1
@@ -261,21 +277,19 @@ def generate_memory_game(theme_name, output_dir):
         # Fill with blank cards if needed
         while len(cards_on_page) < 4:
             cards_on_page.append(None)
-        draw_memory_page(c, cards_on_page, page_num, theme)
+        draw_memory_page(c, cards_on_page, page_num, theme, mode)
     
     c.save()
     print(f"✓ Generated Memory game: {filename}")
     
-    # Generate storage label
-    label_file = f"{theme_name}_memory_game_label.pdf"
-    draw_storage_label(theme_name, "Memory Game", os.path.join(output_dir, label_file))
-    
     # Generate card backs
-    backs_file = f"{theme_name}_memory_backs.pdf"
-    generate_memory_backs(theme_name, os.path.join(output_dir, backs_file), num_pairs * 2)
+    backs_file = f"{theme_name}_memory_backs{mode_suffix}.pdf"
+    generate_memory_backs(theme_name, os.path.join(output_dir, backs_file), num_pairs * 2, mode)
+    
+    return [filepath, os.path.join(output_dir, backs_file)]
 
 
-def draw_memory_page(c, cards, page_num, theme):
+def draw_memory_page(c, cards, page_num, theme, mode="color"):
     """Draw a page of 4 memory game cards in task-box grid."""
     page_width, page_height = letter
     card_width = 5.25 * inch
@@ -294,20 +308,29 @@ def draw_memory_page(c, cards, page_num, theme):
     
     for i, (icon_name, (x, y)) in enumerate(zip(cards, positions)):
         if icon_name is not None:
-            draw_memory_card(c, icon_name, x, y, card_width, card_height, theme)
+            draw_memory_card(c, icon_name, x, y, card_width, card_height, theme, mode)
     
     # Draw footer
     draw_footer(c, page_num, "Memory Game - Fronts")
 
 
-def draw_memory_card(c, icon_name, x, y, width, height, theme):
+def draw_memory_card(c, icon_name, x, y, width, height, theme, mode="color"):
     """Draw a single memory game card front."""
     # Card background
     c.setFillColor(colors.white)
     c.rect(x, y, width, height, fill=1, stroke=0)
     
-    # Draw border
-    c.setStrokeColor(theme.get("primary_color", colors.HexColor("#1D3557")))
+    # Draw border - adjust color for mode
+    primary_color = theme.get("primary_color", colors.HexColor("#1D3557"))
+    if mode == "bw":
+        # Convert to grayscale
+        if hasattr(primary_color, 'rgb'):
+            r, g, b = primary_color.rgb()
+            gray_value = 0.299 * r + 0.587 * g + 0.114 * b
+            primary_color = colors.Color(gray_value, gray_value, gray_value)
+        else:
+            primary_color = colors.black
+    c.setStrokeColor(primary_color)
     c.setLineWidth(2)
     c.rect(x + 0.1 * inch, y + 0.1 * inch, 
            width - 0.2 * inch, height - 0.2 * inch, 
@@ -329,7 +352,7 @@ def draw_memory_card(c, icon_name, x, y, width, height, theme):
                  icon_name)
 
 
-def generate_memory_backs(theme_name, filepath, num_cards):
+def generate_memory_backs(theme_name, filepath, num_cards, mode="color"):
     """Generate card backs for memory game."""
     theme = load_theme(theme_name)
     
@@ -359,7 +382,16 @@ def generate_memory_backs(theme_name, filepath, num_cards):
                 break
             
             # Draw card back with theme pattern
-            c.setFillColor(theme.get("primary_color", colors.HexColor("#1D3557")))
+            primary_color = theme.get("primary_color", colors.HexColor("#1D3557"))
+            if mode == "bw":
+                # Convert to grayscale
+                if hasattr(primary_color, 'rgb'):
+                    r, g, b = primary_color.rgb()
+                    gray_value = 0.299 * r + 0.587 * g + 0.114 * b
+                    primary_color = colors.Color(gray_value, gray_value, gray_value)
+                else:
+                    primary_color = colors.black
+            c.setFillColor(primary_color)
             c.rect(x, y, card_width, card_height, fill=1, stroke=0)
             
             # White border
@@ -416,6 +448,37 @@ def main(theme_name="brown_bear", output_dir="output"):
     print(f"✓ All UNO & Memory game cards generated successfully!")
     print(f"Output directory: {output_dir}")
     print(f"{'='*60}\n")
+
+
+def generate_uno_memory_dual_mode(theme_name, output_dir):
+    """
+    Generate UNO and Memory game cards in both color and black-and-white modes.
+    
+    Args:
+        theme_name: Name of the theme to use
+        output_dir: Directory to save generated PDFs
+    
+    Returns:
+        Dictionary with 'color' and 'bw' lists of generated file paths
+    """
+    os.makedirs(output_dir, exist_ok=True)
+    
+    print("Generating UNO & Memory Game cards - DUAL MODE")
+    
+    # Generate color version
+    print("\n=== COLOR version ===")
+    uno_color = generate_uno_cards(theme_name, output_dir, mode="color")
+    memory_color = generate_memory_game(theme_name, output_dir, mode="color")
+    
+    # Generate black-and-white version
+    print("\n=== BLACK-AND-WHITE version ===")
+    uno_bw = generate_uno_cards(theme_name, output_dir, mode="bw")
+    memory_bw = generate_memory_game(theme_name, output_dir, mode="bw")
+    
+    return {
+        'color': [uno_color] + memory_color,
+        'bw': [uno_bw] + memory_bw
+    }
 
 
 if __name__ == "__main__":
