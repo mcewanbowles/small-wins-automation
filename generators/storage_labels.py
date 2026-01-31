@@ -11,9 +11,10 @@ from utils.image_loader import get_image_loader
 from utils.image_utils import scale_image_proportional
 from utils.layout import create_page_canvas, add_page_border, add_footer
 from utils.pdf_export import save_images_as_pdf
+from utils.color_helpers import image_to_grayscale
 
 
-def generate_storage_label(image_filename, label_text, label_size='medium', folder_type='color'):
+def generate_storage_label(image_filename, label_text, label_size='medium', folder_type='color', mode='color'):
     """
     Generate a single storage label.
     
@@ -22,6 +23,7 @@ def generate_storage_label(image_filename, label_text, label_size='medium', fold
         label_text: Text for the label
         label_size: 'small' (2x3"), 'medium' (3x4"), or 'large' (4x5")
         folder_type: Image folder type
+        mode: 'color' or 'bw' for output mode
         
     Returns:
         PIL.Image: Generated label
@@ -48,6 +50,10 @@ def generate_storage_label(image_filename, label_text, label_size='medium', fold
     # Load and scale image
     image_loader = get_image_loader()
     theme_image = image_loader.load_image(image_filename, folder_type)
+    
+    # Convert to grayscale if BW mode
+    if mode == 'bw':
+        theme_image = image_to_grayscale(theme_image)
     
     # Reserve space for text at bottom
     text_area_height = 100
@@ -90,7 +96,7 @@ def generate_storage_label(image_filename, label_text, label_size='medium', fold
 
 
 def generate_storage_labels_sheet(label_data, label_size='medium', folder_type='color',
-                                   theme_name='Theme', output_dir='output'):
+                                   theme_name='Theme', output_dir='output', mode='color'):
     """
     Generate sheets of storage labels.
     
@@ -100,6 +106,7 @@ def generate_storage_labels_sheet(label_data, label_size='medium', folder_type='
         folder_type: Image folder type
         theme_name: Theme name
         output_dir: Output directory
+        mode: 'color' or 'bw' for output mode
         
     Returns:
         list: Generated pages
@@ -120,12 +127,12 @@ def generate_storage_labels_sheet(label_data, label_size='medium', folder_type='
     # Generate labels
     all_labels = []
     for image_file, text in label_data:
-        label = generate_storage_label(image_file, text, label_size, folder_type)
+        label = generate_storage_label(image_file, text, label_size, folder_type, mode)
         all_labels.append(label)
     
     # Arrange on pages
     for page_start in range(0, len(all_labels), labels_per_page):
-        page = create_page_canvas()
+        page = create_page_canvas(mode=mode)
         page_labels = all_labels[page_start:page_start + labels_per_page]
         
         label_width, label_height = all_labels[0].size
@@ -147,16 +154,50 @@ def generate_storage_labels_sheet(label_data, label_size='medium', folder_type='
             page.paste(label, (int(x), int(y)), label)
         
         add_page_border(page)
-        add_footer(page)
+        add_footer(page, mode=mode)
         pages.append(page)
     
-    # Save PDF
-    output_path = f"{output_dir}/{theme_name}_Storage_Labels.pdf"
+    # Save PDF with mode suffix
+    mode_suffix = f"_{mode}" if mode else ""
+    output_path = f"{output_dir}/{theme_name}_Storage_Labels{mode_suffix}.pdf"
     save_images_as_pdf(pages, output_path, title=f"{theme_name} Storage Labels")
     
     return pages
 
 
+def generate_storage_labels_dual_mode(label_data, label_size='medium', folder_type='color',
+                                       theme_name='Theme', output_dir='output'):
+    """
+    Generate storage labels in both color and BW modes.
+    
+    Args:
+        label_data: List of tuples (image_filename, label_text)
+        label_size: Size of labels
+        folder_type: Image folder type
+        theme_name: Theme name
+        output_dir: Output directory
+        
+    Returns:
+        dict: Paths to generated PDFs {'color': path, 'bw': path}
+    """
+    paths = {}
+    
+    # Generate color version
+    generate_storage_labels_sheet(
+        label_data, label_size, folder_type, theme_name, output_dir, mode='color'
+    )
+    paths['color'] = f"{output_dir}/{theme_name}_Storage_Labels_color.pdf"
+    
+    # Generate BW version
+    generate_storage_labels_sheet(
+        label_data, label_size, folder_type, theme_name, output_dir, mode='bw'
+    )
+    paths['bw'] = f"{output_dir}/{theme_name}_Storage_Labels_bw.pdf"
+    
+    return paths
+
+
 if __name__ == "__main__":
     print("Storage Labels Generator")
     print("Use generate_storage_label() or generate_storage_labels_sheet()")
+    print("Use generate_storage_labels_dual_mode() for both color and BW versions")
