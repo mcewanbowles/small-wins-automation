@@ -62,6 +62,7 @@ from utils.draw_helpers import (
 )
 from utils.fonts import get_font_manager
 from utils.storage_label_helper import create_companion_label
+from utils.color_helpers import hex_to_grayscale, image_to_grayscale
 import random
 
 # File folder strip sizing (full-width US Letter strips)
@@ -73,27 +74,33 @@ MARGIN_BOTTOM = int(0.75 * DPI)  # 225px bottom margin for footer
 
 
 def generate_sequence_strip(sequence_items, strip_y_position, folder_type='images', 
-                           with_labels=True, theme_fonts=None):
+                           with_labels=True, theme_fonts=None, mode='color'):
     """
     Generate a single horizontal sequencing strip showing all steps.
     
     Args:
         sequence_items: List of step items (dict with 'image', 'label', 'step_num', 'total_steps')
         strip_y_position: Y position where strip should be drawn
-        folder_type: Image folder type ('images', 'real_images', etc.)
+        folder_type: Image folder type ('images', 'real_images', etc.')
         with_labels: Include text label below icon
         theme_fonts: Optional dict of theme fonts
+        mode: Output mode - 'color' or 'bw' (black-and-white)
         
     Returns:
         PIL.Image: Strip image
     """
+    # Determine colors based on mode
+    bg_color = COLORS['white'] if mode == 'color' else '#FFFFFF'
+    border_color = COLORS['black'] if mode == 'color' else '#000000'
+    text_color = COLORS['black'] if mode == 'color' else '#000000'
+    
     # Create strip image
-    strip = Image.new('RGB', (STRIP_WIDTH, STRIP_HEIGHT), COLORS['white'])
+    strip = Image.new('RGB', (STRIP_WIDTH, STRIP_HEIGHT), bg_color)
     draw = ImageDraw.Draw(strip)
     
     # Draw outer border
     draw.rectangle([0, 0, STRIP_WIDTH - 1, STRIP_HEIGHT - 1], 
-                  outline=COLORS['black'], width=4)
+                  outline=border_color, width=4)
     
     num_steps = len(sequence_items)
     
@@ -121,11 +128,15 @@ def generate_sequence_strip(sequence_items, strip_y_position, folder_type='image
         total_steps = step_item.get('total_steps', num_steps)
         step_text = f"Step {step_num}"
         
+        # Mode-aware colors for step indicator
+        step_bg_color = COLORS['light_gray'] if mode == 'color' else '#F0F0F0'
+        step_border_color = COLORS['dark_gray'] if mode == 'color' else '#808080'
+        
         step_bg_rect = (x_start + 10, 10, x_end - 10, step_indicator_height)
-        draw.rectangle(step_bg_rect, fill=COLORS['light_gray'], 
-                      outline=COLORS['dark_gray'], width=2)
+        draw.rectangle(step_bg_rect, fill=step_bg_color, 
+                      outline=step_border_color, width=2)
         draw_text_centered_in_rect(draw, step_text, step_bg_rect, 
-                                   font_size=24, color=COLORS['black'])
+                                   font_size=24, color=text_color)
         
         # 2. Icon area
         icon_padding = 20
@@ -141,6 +152,10 @@ def generate_sequence_strip(sequence_items, strip_y_position, folder_type='image
         try:
             img = image_loader.load_image(step_item['image'], folder_type)
             if img:
+                # Convert to grayscale if in BW mode
+                if mode == 'bw':
+                    img = image_to_grayscale(img)
+                
                 scaled_img, (img_x, img_y) = scale_image_to_fit(img, icon_rect, padding=5)
                 
                 if scaled_img.mode == 'RGBA':
@@ -165,13 +180,13 @@ def generate_sequence_strip(sequence_items, strip_y_position, folder_type='image
                 STRIP_HEIGHT - 10
             )
             draw_text_centered_in_rect(draw, step_item['label'], label_rect,
-                                       font_size=28, color=COLORS['black'])
+                                       font_size=28, color=text_color)
     
     return strip
 
 
 def generate_sequencing_strips_page(sequences, page_number, total_pages,
-                                   folder_type='images', with_labels=True, theme_fonts=None):
+                                   folder_type='images', with_labels=True, theme_fonts=None, mode='color'):
     """
     Generate a page with 2-3 sequencing strips (file folder sizing).
     
@@ -182,12 +197,16 @@ def generate_sequencing_strips_page(sequences, page_number, total_pages,
         folder_type: Image folder type
         with_labels: Include text labels
         theme_fonts: Optional theme fonts dict
+        mode: Output mode - 'color' or 'bw'
         
     Returns:
         PIL.Image: Generated page with strips
     """
+    # Mode-aware background color
+    bg_color = COLORS['white'] if mode == 'color' else '#FFFFFF'
+    
     # Create page
-    page = Image.new('RGB', (int(PAGE_WIDTH), int(PAGE_HEIGHT)), COLORS['white'])
+    page = Image.new('RGB', (int(PAGE_WIDTH), int(PAGE_HEIGHT)), bg_color)
     
     # Calculate positions for strips
     # Available height = PAGE_HEIGHT - MARGIN_TOP - MARGIN_BOTTOM
@@ -220,7 +239,8 @@ def generate_sequencing_strips_page(sequences, page_number, total_pages,
                 y_positions[idx],
                 folder_type=folder_type,
                 with_labels=with_labels,
-                theme_fonts=theme_fonts
+                theme_fonts=theme_fonts,
+                mode=mode
             )
             # Paste strip onto page
             # Center horizontally
@@ -239,7 +259,7 @@ def generate_sequencing_strips_set(items, theme_name='Theme', num_steps=3,
                                    include_errorless=True, include_mixed=True,
                                    include_real_images=False, real_image_items=None,
                                    output_dir='output', include_storage_label=False,
-                                   theme_fonts=None):
+                                   theme_fonts=None, mode='color'):
     """
     Generate complete sequencing strips set with file folder sizing.
     
@@ -254,9 +274,10 @@ def generate_sequencing_strips_set(items, theme_name='Theme', num_steps=3,
         output_dir: Output directory
         include_storage_label: Generate storage labels
         theme_fonts: Optional theme fonts dict
+        mode: Output mode - 'color' or 'bw' (default: 'color')
         
     Returns:
-        dict: Paths to generated files
+        dict: Paths to generated files (includes both color and bw files if mode used for dual generation)
     """
     # Create output directory
     os.makedirs(output_dir, exist_ok=True)
@@ -292,16 +313,18 @@ def generate_sequencing_strips_set(items, theme_name='Theme', num_steps=3,
             total_pages=1,
             folder_type='images',
             with_labels=True,
-            theme_fonts=theme_fonts
+            theme_fonts=theme_fonts,
+            mode=mode
         )
         pages.append(page)
         
-        # Save errorless version
-        filename = f'{theme_name}_Sequencing_{num_steps}Step_Errorless.pdf'
+        # Save errorless version with mode suffix
+        mode_suffix = '_color' if mode == 'color' else '_bw'
+        filename = f'{theme_name}_Sequencing_{num_steps}Step_Errorless{mode_suffix}.pdf'
         filepath = os.path.join(output_dir, filename)
         save_images_as_pdf(pages, filepath)
-        print(f"✓ Generated {num_steps}-step errorless sequencing: {filepath}")
-        output_files['errorless'] = filepath
+        print(f"✓ Generated {num_steps}-step errorless sequencing ({mode}): {filepath}")
+        output_files[f'errorless_{mode}'] = filepath
         
         # Generate storage label
         if include_storage_label:
@@ -337,16 +360,18 @@ def generate_sequencing_strips_set(items, theme_name='Theme', num_steps=3,
             total_pages=1,
             folder_type='images',
             with_labels=True,
-            theme_fonts=theme_fonts
+            theme_fonts=theme_fonts,
+            mode=mode
         )
         pages.append(page)
         
-        # Save mixed version
-        filename = f'{theme_name}_Sequencing_{num_steps}Step_Mixed.pdf'
+        # Save mixed version with mode suffix
+        mode_suffix = '_color' if mode == 'color' else '_bw'
+        filename = f'{theme_name}_Sequencing_{num_steps}Step_Mixed{mode_suffix}.pdf'
         filepath = os.path.join(output_dir, filename)
         save_images_as_pdf(pages, filepath)
-        print(f"✓ Generated {num_steps}-step mixed sequencing: {filepath}")
-        output_files['mixed'] = filepath
+        print(f"✓ Generated {num_steps}-step mixed sequencing ({mode}): {filepath}")
+        output_files[f'mixed_{mode}'] = filepath
         
         # Generate storage label
         if include_storage_label:
@@ -381,16 +406,18 @@ def generate_sequencing_strips_set(items, theme_name='Theme', num_steps=3,
             total_pages=1,
             folder_type='real_images',
             with_labels=True,
-            theme_fonts=theme_fonts
+            theme_fonts=theme_fonts,
+            mode=mode
         )
         pages.append(page)
         
-        # Save real images version
-        filename = f'{theme_name}_Sequencing_{actual_steps}Step_RealImages.pdf'
+        # Save real images version with mode suffix
+        mode_suffix = '_color' if mode == 'color' else '_bw'
+        filename = f'{theme_name}_Sequencing_{actual_steps}Step_RealImages{mode_suffix}.pdf'
         filepath = os.path.join(output_dir, filename)
         save_images_as_pdf(pages, filepath)
-        print(f"✓ Generated {actual_steps}-step real images sequencing: {filepath}")
-        output_files['real_images'] = filepath
+        print(f"✓ Generated {actual_steps}-step real images sequencing ({mode}): {filepath}")
+        output_files[f'real_images_{mode}'] = filepath
         
         # Generate storage label
         if include_storage_label:
@@ -408,6 +435,71 @@ def generate_sequencing_strips_set(items, theme_name='Theme', num_steps=3,
     return output_files
 
 
+def generate_sequencing_strips_dual_mode(items, theme_name='Theme', num_steps=3,
+                                         include_errorless=True, include_mixed=True,
+                                         include_real_images=False, real_image_items=None,
+                                         output_dir='output', include_storage_label=False,
+                                         theme_fonts=None):
+    """
+    Generate sequencing strips in both color and black-and-white modes.
+    
+    This is a convenience wrapper that calls generate_sequencing_strips_set twice
+    to automatically produce both color and BW versions.
+    
+    Args:
+        items: List of dict with 'image' and 'label' keys
+        theme_name: Theme name for file naming
+        num_steps: Number of steps per sequence (3 or 4)
+        include_errorless: Generate errorless version (correct order)
+        include_mixed: Generate mixed/scrambled version
+        include_real_images: Generate real image version
+        real_image_items: Optional list of real image items
+        output_dir: Output directory
+        include_storage_label: Generate storage labels
+        theme_fonts: Optional theme fonts dict
+        
+    Returns:
+        dict: Combined paths to all generated files (color and BW)
+    """
+    output_files = {}
+    
+    # Generate color version
+    print("\n=== Generating COLOR version ===")
+    color_files = generate_sequencing_strips_set(
+        items=items,
+        theme_name=theme_name,
+        num_steps=num_steps,
+        include_errorless=include_errorless,
+        include_mixed=include_mixed,
+        include_real_images=include_real_images,
+        real_image_items=real_image_items,
+        output_dir=output_dir,
+        include_storage_label=include_storage_label,
+        theme_fonts=theme_fonts,
+        mode='color'
+    )
+    output_files.update(color_files)
+    
+    # Generate black-and-white version
+    print("\n=== Generating BLACK-AND-WHITE version ===")
+    bw_files = generate_sequencing_strips_set(
+        items=items,
+        theme_name=theme_name,
+        num_steps=num_steps,
+        include_errorless=include_errorless,
+        include_mixed=include_mixed,
+        include_real_images=include_real_images,
+        real_image_items=real_image_items,
+        output_dir=output_dir,
+        include_storage_label=include_storage_label,
+        theme_fonts=theme_fonts,
+        mode='bw'
+    )
+    output_files.update(bw_files)
+    
+    return output_files
+
+
 # Example usage
 if __name__ == '__main__':
     # Example sequence items
@@ -418,8 +510,8 @@ if __name__ == '__main__':
         {'image': 'cat.png', 'label': 'Purple Cat'},
     ]
     
-    # Generate 3-step sequences
-    output = generate_sequencing_strips_set(
+    # Generate 3-step sequences in both color and BW modes
+    output = generate_sequencing_strips_dual_mode(
         items=items,
         theme_name='Brown_Bear',
         num_steps=3,
