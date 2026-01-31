@@ -29,6 +29,7 @@ from utils.draw_helpers import (
     create_placeholder_image
 )
 from utils.storage_label_helper import create_companion_label
+from utils.color_helpers import adjust_for_bw_mode, image_to_grayscale
 
 # Task box card sizing standard (4 cards per page, 2×2 grid)
 # 5.25" × 4" at 300 DPI = 1575px × 1200px
@@ -36,7 +37,7 @@ TASK_BOX_CARD_WIDTH = int(5.25 * DPI)  # 1575px
 TASK_BOX_CARD_HEIGHT = int(4 * DPI)  # 1200px
 
 
-def generate_identify_icon_card(draw, card_rect, item, choices, errorless=False, folder_type='images'):
+def generate_identify_icon_card(draw, card_rect, item, choices, errorless=False, folder_type='images', mode='color'):
     """
     Generate an "Identify the Icon" clip card.
     
@@ -47,13 +48,15 @@ def generate_identify_icon_card(draw, card_rect, item, choices, errorless=False,
         choices: List of 3 label strings (including correct answer)
         errorless: If True, only show correct answer
         folder_type: Image folder type ('images', 'real_images', etc.)
+        mode: 'color' or 'bw' for output mode
     """
     x1, y1, x2, y2 = card_rect
     card_width = x2 - x1
     card_height = y2 - y1
     
-    # Draw card border
-    draw.rectangle([x1, y1, x2, y2], outline=COLORS['black'], width=3)
+    # Draw card border (mode-aware)
+    border_color = adjust_for_bw_mode(COLORS['black'], mode)
+    draw.rectangle([x1, y1, x2, y2], outline=border_color, width=3)
     
     # Layout: 50% icon, 20% question, 30% answer choices
     icon_area_height = int(card_height * 0.50)
@@ -71,6 +74,10 @@ def generate_identify_icon_card(draw, card_rect, item, choices, errorless=False,
     try:
         img = load_image(item['image'], folder_type=folder_type)
         if img:
+            # Convert to grayscale if BW mode
+            if mode == 'bw':
+                img = image_to_grayscale(img)
+            
             scaled_coords = scale_image_to_fit(img, icon_rect, padding=15)
             if scaled_coords:
                 paste_x, paste_y, paste_width, paste_height = scaled_coords
@@ -98,7 +105,8 @@ def generate_identify_icon_card(draw, card_rect, item, choices, errorless=False,
     bbox = draw.textbbox((0, 0), question_text, font=font_question)
     text_width = bbox[2] - bbox[0]
     text_x = x1 + (card_width - text_width) // 2
-    draw.text((text_x, question_y), question_text, fill=COLORS['black'], font=font_question)
+    text_color = adjust_for_bw_mode(COLORS['black'], mode)
+    draw.text((text_x, question_y), question_text, fill=text_color, font=font_question)
     
     # 3. Answer choices area (bottom 30%)
     choices_y_start = y1 + icon_area_height + question_area_height
@@ -120,15 +128,16 @@ def generate_identify_icon_card(draw, card_rect, item, choices, errorless=False,
         choice_x = x1 + 40 + (i * choice_width)
         choice_y = choices_y_start + 20
         
-        # Draw circle for clip placement
+        # Draw circle for clip placement (mode-aware)
         circle_radius = 25
         circle_center_x = choice_x + choice_width // 2
         circle_center_y = choice_y
         
+        circle_color = adjust_for_bw_mode(COLORS['black'], mode)
         draw.ellipse(
             [circle_center_x - circle_radius, circle_center_y - circle_radius,
              circle_center_x + circle_radius, circle_center_y + circle_radius],
-            outline=COLORS['black'], width=3
+            outline=circle_color, width=3
         )
         
         # Draw choice text below circle
@@ -136,10 +145,11 @@ def generate_identify_icon_card(draw, card_rect, item, choices, errorless=False,
         text_width = bbox[2] - bbox[0]
         text_x = circle_center_x - text_width // 2
         text_y = circle_center_y + circle_radius + 10
-        draw.text((text_x, text_y), choice, fill=COLORS['black'], font=font_choice)
+        text_color = adjust_for_bw_mode(COLORS['black'], mode)
+        draw.text((text_x, text_y), choice, fill=text_color, font=font_choice)
 
 
-def generate_color_clip_card(draw, card_rect, item, color_name, color_choices, errorless=False, folder_type='images'):
+def generate_color_clip_card(draw, card_rect, item, color_name, color_choices, errorless=False, folder_type='images', mode='color'):
     """
     Generate a "Color Clip Card" where students identify the color.
     
@@ -151,13 +161,15 @@ def generate_color_clip_card(draw, card_rect, item, color_name, color_choices, e
         color_choices: List of 3 color name strings (including correct)
         errorless: If True, only show correct answer
         folder_type: Image folder type
+        mode: 'color' or 'bw' for output mode
     """
     x1, y1, x2, y2 = card_rect
     card_width = x2 - x1
     card_height = y2 - y1
     
-    # Draw card border
-    draw.rectangle([x1, y1, x2, y2], outline=COLORS['black'], width=3)
+    # Draw card border (mode-aware)
+    border_color = adjust_for_bw_mode(COLORS['black'], mode)
+    draw.rectangle([x1, y1, x2, y2], outline=border_color, width=3)
     
     # Layout
     icon_area_height = int(card_height * 0.50)
@@ -175,6 +187,10 @@ def generate_color_clip_card(draw, card_rect, item, color_name, color_choices, e
     try:
         img = load_image(item['image'], folder_type=folder_type)
         if img:
+            # Convert to grayscale if BW mode
+            if mode == 'bw':
+                img = image_to_grayscale(img)
+            
             scaled_coords = scale_image_to_fit(img, icon_rect, padding=15)
             if scaled_coords:
                 paste_x, paste_y, paste_width, paste_height = scaled_coords
@@ -202,7 +218,8 @@ def generate_color_clip_card(draw, card_rect, item, color_name, color_choices, e
     bbox = draw.textbbox((0, 0), question_text, font=font_question)
     text_width = bbox[2] - bbox[0]
     text_x = x1 + (card_width - text_width) // 2
-    draw.text((text_x, question_y), question_text, fill=COLORS['black'], font=font_question)
+    text_color = adjust_for_bw_mode(COLORS['black'], mode)
+    draw.text((text_x, question_y), question_text, fill=text_color, font=font_question)
     
     # 3. Answer choices
     choices_y_start = y1 + icon_area_height + question_area_height
@@ -223,15 +240,16 @@ def generate_color_clip_card(draw, card_rect, item, color_name, color_choices, e
         choice_x = x1 + 40 + (i * choice_width)
         choice_y = choices_y_start + 20
         
-        # Draw circle
+        # Draw circle (mode-aware)
         circle_radius = 25
         circle_center_x = choice_x + choice_width // 2
         circle_center_y = choice_y
         
+        circle_color = adjust_for_bw_mode(COLORS['black'], mode)
         draw.ellipse(
             [circle_center_x - circle_radius, circle_center_y - circle_radius,
              circle_center_x + circle_radius, circle_center_y + circle_radius],
-            outline=COLORS['black'], width=3
+            outline=circle_color, width=3
         )
         
         # Draw choice text
@@ -239,10 +257,11 @@ def generate_color_clip_card(draw, card_rect, item, color_name, color_choices, e
         text_width = bbox[2] - bbox[0]
         text_x = circle_center_x - text_width // 2
         text_y = circle_center_y + circle_radius + 10
-        draw.text((text_x, text_y), choice, fill=COLORS['black'], font=font_choice)
+        text_color = adjust_for_bw_mode(COLORS['black'], mode)
+        draw.text((text_x, text_y), choice, fill=text_color, font=font_choice)
 
 
-def generate_count_clip_card(draw, card_rect, item, count, count_choices, errorless=False, folder_type='images'):
+def generate_count_clip_card(draw, card_rect, item, count, count_choices, errorless=False, folder_type='images', mode='color'):
     """
     Generate a "Count & Clip" card with multiple icons to count.
     
@@ -254,13 +273,15 @@ def generate_count_clip_card(draw, card_rect, item, count, count_choices, errorl
         count_choices: List of 3 number strings (including correct)
         errorless: If True, only show correct answer
         folder_type: Image folder type
+        mode: 'color' or 'bw' for output mode
     """
     x1, y1, x2, y2 = card_rect
     card_width = x2 - x1
     card_height = y2 - y1
     
-    # Draw card border
-    draw.rectangle([x1, y1, x2, y2], outline=COLORS['black'], width=3)
+    # Draw card border (mode-aware)
+    border_color = adjust_for_bw_mode(COLORS['black'], mode)
+    draw.rectangle([x1, y1, x2, y2], outline=border_color, width=3)
     
     # Layout
     icons_area_height = int(card_height * 0.60)
@@ -278,6 +299,10 @@ def generate_count_clip_card(draw, card_rect, item, count, count_choices, errorl
     try:
         img = load_image(item['image'], folder_type=folder_type)
         if img:
+            # Convert to grayscale if BW mode
+            if mode == 'bw':
+                img = image_to_grayscale(img)
+            
             # Calculate grid for icons
             cols = min(4, count)
             rows = (count + cols - 1) // cols
@@ -302,13 +327,14 @@ def generate_count_clip_card(draw, card_rect, item, count, count_choices, errorl
                 draw._image.paste(resized_img, (icon_x, icon_y))
     except:
         # Draw placeholder boxes
+        placeholder_color = adjust_for_bw_mode(COLORS['gray'], mode)
         draw.rectangle([icons_rect[0], icons_rect[1], icons_rect[2], icons_rect[3]], 
-                      outline=COLORS['gray'], width=2)
+                      outline=placeholder_color, width=2)
         try:
             font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 24)
         except:
             font = ImageFont.load_default()
-        draw.text((icons_rect[0] + 20, icons_rect[1] + 20), f"{count} icons", fill=COLORS['gray'], font=font)
+        draw.text((icons_rect[0] + 20, icons_rect[1] + 20), f"{count} icons", fill=placeholder_color, font=font)
     
     # 2. Question area
     question_y = y1 + icons_area_height + 10
@@ -322,7 +348,8 @@ def generate_count_clip_card(draw, card_rect, item, count, count_choices, errorl
     bbox = draw.textbbox((0, 0), question_text, font=font_question)
     text_width = bbox[2] - bbox[0]
     text_x = x1 + (card_width - text_width) // 2
-    draw.text((text_x, question_y), question_text, fill=COLORS['black'], font=font_question)
+    text_color = adjust_for_bw_mode(COLORS['black'], mode)
+    draw.text((text_x, question_y), question_text, fill=text_color, font=font_question)
     
     # 3. Answer choices
     choices_y_start = y1 + icons_area_height + question_area_height
@@ -343,15 +370,16 @@ def generate_count_clip_card(draw, card_rect, item, count, count_choices, errorl
         choice_x = x1 + 40 + (i * choice_width)
         choice_y = choices_y_start + 20
         
-        # Draw circle
+        # Draw circle (mode-aware)
         circle_radius = 30
         circle_center_x = choice_x + choice_width // 2
         circle_center_y = choice_y
         
+        circle_color = adjust_for_bw_mode(COLORS['black'], mode)
         draw.ellipse(
             [circle_center_x - circle_radius, circle_center_y - circle_radius,
              circle_center_x + circle_radius, circle_center_y + circle_radius],
-            outline=COLORS['black'], width=3
+            outline=circle_color, width=3
         )
         
         # Draw number inside circle
@@ -360,10 +388,11 @@ def generate_count_clip_card(draw, card_rect, item, count, count_choices, errorl
         text_height = bbox[3] - bbox[1]
         text_x = circle_center_x - text_width // 2
         text_y = circle_center_y - text_height // 2
-        draw.text((text_x, text_y), choice, fill=COLORS['black'], font=font_choice)
+        text_color = adjust_for_bw_mode(COLORS['black'], mode)
+        draw.text((text_x, text_y), choice, fill=text_color, font=font_choice)
 
 
-def generate_clip_cards_page(theme_data, card_type='identify', items=None, errorless=False, folder_type='images'):
+def generate_clip_cards_page(theme_data, card_type='identify', items=None, errorless=False, folder_type='images', mode='color'):
     """
     Generate a page with 4 clip cards in task-box sizing (2×2 grid).
     
@@ -373,6 +402,7 @@ def generate_clip_cards_page(theme_data, card_type='identify', items=None, error
         items: List of items to use (if None, uses first 4 from theme)
         errorless: If True, only show correct answers
         folder_type: Image folder type
+        mode: 'color' or 'bw' for output mode
     
     Returns:
         PIL Image of the page
@@ -410,7 +440,7 @@ def generate_clip_cards_page(theme_data, card_type='identify', items=None, error
             wrong_choices = random.sample(all_labels, min(2, len(all_labels)))
             choices = [item['label']] + wrong_choices
             random.shuffle(choices)
-            generate_identify_icon_card(draw, card_rect, item, choices, errorless, folder_type)
+            generate_identify_icon_card(draw, card_rect, item, choices, errorless, folder_type, mode)
         
         elif card_type == 'color':
             # Use color_words from theme
@@ -420,7 +450,7 @@ def generate_clip_cards_page(theme_data, card_type='identify', items=None, error
                 wrong_colors = random.sample([c for c in color_words if c != correct_color], min(2, len(color_words) - 1))
                 color_choices = [correct_color] + wrong_colors
                 random.shuffle(color_choices)
-                generate_color_clip_card(draw, card_rect, item, correct_color, color_choices, errorless, folder_type)
+                generate_color_clip_card(draw, card_rect, item, correct_color, color_choices, errorless, folder_type, mode)
         
         elif card_type == 'count':
             # Generate counting card
@@ -432,7 +462,7 @@ def generate_clip_cards_page(theme_data, card_type='identify', items=None, error
                     wrong_counts.append(str(wrong))
             count_choices = [str(count)] + wrong_counts
             random.shuffle(count_choices)
-            generate_count_clip_card(draw, card_rect, item, count, count_choices, errorless, folder_type)
+            generate_count_clip_card(draw, card_rect, item, count, count_choices, errorless, folder_type, mode)
         
         elif card_type == 'emotion':
             # Use emotion_words from theme if available
@@ -442,24 +472,28 @@ def generate_clip_cards_page(theme_data, card_type='identify', items=None, error
                 wrong_emotions = random.sample([e for e in emotion_words if e != correct_emotion], min(2, len(emotion_words) - 1))
                 emotion_choices = [correct_emotion] + wrong_emotions
                 random.shuffle(emotion_choices)
-                generate_identify_icon_card(draw, card_rect, item, emotion_choices, errorless, folder_type)
+                generate_identify_icon_card(draw, card_rect, item, emotion_choices, errorless, folder_type, mode)
     
     return page
 
 
-def generate_clip_cards(theme_data, output_dir):
+def generate_clip_cards(theme_data, output_dir, mode='color'):
     """
     Generate all clip card variations for a theme.
     
     Args:
         theme_data: Dictionary containing theme configuration
         output_dir: Directory to save output PDFs
+        mode: 'color' or 'bw' for output mode
     
     Returns:
         List of generated PDF file paths
     """
     generated_files = []
     theme_name = theme_data.get('name', 'Theme')
+    
+    # Add mode suffix to filenames
+    mode_suffix = f"_{mode}" if mode in ['color', 'bw'] else ""
     
     # Create output directory if it doesn't exist
     os.makedirs(output_dir, exist_ok=True)
@@ -476,7 +510,7 @@ def generate_clip_cards(theme_data, output_dir):
     pages = []
     for i in range(0, len(fringe_icons), 4):
         batch = fringe_icons[i:i+4]
-        page = generate_clip_cards_page(theme_data, 'identify', batch, errorless=False, folder_type='images')
+        page = generate_clip_cards_page(theme_data, 'identify', batch, errorless=False, folder_type='images', mode=mode)
         pages.append(page)
     
     if pages:
@@ -486,9 +520,9 @@ def generate_clip_cards(theme_data, output_dir):
             draw_copyright_footer(draw, FOOTER_TEXT)
             draw_page_number(draw, idx + 1, len(pages))
         
-        filename = f"{theme_name}_Clip_Cards_Identify_Icon.pdf"
+        filename = f"{theme_name}_Clip_Cards_Identify_Icon{mode_suffix}.pdf"
         filepath = os.path.join(output_dir, filename)
-        save_images_as_pdf(pages, filepath, f"{theme_name} - Identify Icon Clip Cards")
+        save_images_as_pdf(pages, filepath, f"{theme_name} - Identify Icon Clip Cards ({mode})")
         generated_files.append(filepath)
         print(f"Generated: {filename}")
     
@@ -497,7 +531,7 @@ def generate_clip_cards(theme_data, output_dir):
         pages = []
         for i in range(0, min(len(fringe_icons), 8), 4):
             batch = fringe_icons[i:i+4]
-            page = generate_clip_cards_page(theme_data, 'color', batch, errorless=False, folder_type='images')
+            page = generate_clip_cards_page(theme_data, 'color', batch, errorless=False, folder_type='images', mode=mode)
             pages.append(page)
         
         if pages:
@@ -506,9 +540,9 @@ def generate_clip_cards(theme_data, output_dir):
                 draw_copyright_footer(draw, FOOTER_TEXT)
                 draw_page_number(draw, idx + 1, len(pages))
             
-            filename = f"{theme_name}_Clip_Cards_Color.pdf"
+            filename = f"{theme_name}_Clip_Cards_Color{mode_suffix}.pdf"
             filepath = os.path.join(output_dir, filename)
-            save_images_as_pdf(pages, filepath, f"{theme_name} - Color Clip Cards")
+            save_images_as_pdf(pages, filepath, f"{theme_name} - Color Clip Cards ({mode})")
             generated_files.append(filepath)
             print(f"Generated: {filename}")
     
@@ -516,7 +550,7 @@ def generate_clip_cards(theme_data, output_dir):
     pages = []
     for i in range(0, min(len(fringe_icons), 8), 4):
         batch = fringe_icons[i:i+4]
-        page = generate_clip_cards_page(theme_data, 'count', batch, errorless=False, folder_type='images')
+        page = generate_clip_cards_page(theme_data, 'count', batch, errorless=False, folder_type='images', mode=mode)
         pages.append(page)
     
     if pages:
@@ -525,9 +559,9 @@ def generate_clip_cards(theme_data, output_dir):
             draw_copyright_footer(draw, FOOTER_TEXT)
             draw_page_number(draw, idx + 1, len(pages))
         
-        filename = f"{theme_name}_Clip_Cards_Count.pdf"
+        filename = f"{theme_name}_Clip_Cards_Count{mode_suffix}.pdf"
         filepath = os.path.join(output_dir, filename)
-        save_images_as_pdf(pages, filepath, f"{theme_name} - Count & Clip Cards")
+        save_images_as_pdf(pages, filepath, f"{theme_name} - Count & Clip Cards ({mode})")
         generated_files.append(filepath)
         print(f"Generated: {filename}")
     
@@ -535,7 +569,7 @@ def generate_clip_cards(theme_data, output_dir):
     pages = []
     for i in range(0, min(len(fringe_icons), 8), 4):
         batch = fringe_icons[i:i+4]
-        page = generate_clip_cards_page(theme_data, 'identify', batch, errorless=True, folder_type='images')
+        page = generate_clip_cards_page(theme_data, 'identify', batch, errorless=True, folder_type='images', mode=mode)
         pages.append(page)
     
     if pages:
@@ -544,9 +578,9 @@ def generate_clip_cards(theme_data, output_dir):
             draw_copyright_footer(draw, FOOTER_TEXT)
             draw_page_number(draw, idx + 1, len(pages))
         
-        filename = f"{theme_name}_Clip_Cards_Errorless.pdf"
+        filename = f"{theme_name}_Clip_Cards_Errorless{mode_suffix}.pdf"
         filepath = os.path.join(output_dir, filename)
-        save_images_as_pdf(pages, filepath, f"{theme_name} - Errorless Clip Cards")
+        save_images_as_pdf(pages, filepath, f"{theme_name} - Errorless Clip Cards ({mode})")
         generated_files.append(filepath)
         print(f"Generated: {filename}")
     
@@ -555,7 +589,7 @@ def generate_clip_cards(theme_data, output_dir):
         pages = []
         for i in range(0, min(len(real_images), 8), 4):
             batch = real_images[i:i+4]
-            page = generate_clip_cards_page(theme_data, 'identify', batch, errorless=False, folder_type='real_images')
+            page = generate_clip_cards_page(theme_data, 'identify', batch, errorless=False, folder_type='real_images', mode=mode)
             pages.append(page)
         
         if pages:
@@ -564,23 +598,62 @@ def generate_clip_cards(theme_data, output_dir):
                 draw_copyright_footer(draw, FOOTER_TEXT)
                 draw_page_number(draw, idx + 1, len(pages))
             
-            filename = f"{theme_name}_Clip_Cards_Real_Images.pdf"
+            filename = f"{theme_name}_Clip_Cards_Real_Images{mode_suffix}.pdf"
             filepath = os.path.join(output_dir, filename)
-            save_images_as_pdf(pages, filepath, f"{theme_name} - Real Image Clip Cards")
+            save_images_as_pdf(pages, filepath, f"{theme_name} - Real Image Clip Cards ({mode})")
             generated_files.append(filepath)
             print(f"Generated: {filename}")
     
-    # Generate storage label
-    label_path = create_companion_label(
-        theme_data,
-        "Clip Cards",
-        "Multiple choice clip cards for identification, counting, and color recognition",
-        output_dir
-    )
-    if label_path:
-        generated_files.append(label_path)
+    # Generate storage label (only once, not mode-specific)
+    if mode == 'color':
+        label_path = create_companion_label(
+            theme_data,
+            "Clip Cards",
+            "Multiple choice clip cards for identification, counting, and color recognition",
+            output_dir
+        )
+        if label_path:
+            generated_files.append(label_path)
     
     return generated_files
+
+
+def generate_clip_cards_dual_mode(theme_data, output_dir):
+    """
+    Generate clip cards in both color and black-and-white modes.
+    
+    Args:
+        theme_data: Dictionary containing theme configuration
+        output_dir: Directory to save output PDFs
+    
+    Returns:
+        Dictionary with 'color' and 'bw' keys containing lists of file paths
+    """
+    print(f"\n{'='*60}")
+    print(f"Generating Clip Cards (Dual-Mode)")
+    print(f"Theme: {theme_data.get('name', 'Unknown')}")
+    print(f"{'='*60}\n")
+    
+    results = {
+        'color': [],
+        'bw': []
+    }
+    
+    # Generate color version
+    print("=== COLOR version ===")
+    results['color'] = generate_clip_cards(theme_data, output_dir, mode='color')
+    
+    # Generate black-and-white version
+    print("\n=== BLACK-AND-WHITE version ===")
+    results['bw'] = generate_clip_cards(theme_data, output_dir, mode='bw')
+    
+    print(f"\n{'='*60}")
+    print(f"Clip Cards Generation Complete")
+    print(f"Color PDFs: {len(results['color'])}")
+    print(f"BW PDFs: {len(results['bw'])}")
+    print(f"{'='*60}\n")
+    
+    return results
 
 
 if __name__ == "__main__":
