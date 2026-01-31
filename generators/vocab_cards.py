@@ -14,7 +14,7 @@ minimal clutter, consistent spacing, and 300 DPI output.
 Uses modular helper functions from utils/draw_helpers.py for clean, maintainable code.
 """
 
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont, ImageEnhance
 from utils.config import MARGINS, CARD_SIZES, DPI, COLORS, FONT_SIZES, PAGE_WIDTH, PAGE_HEIGHT
 from utils.image_loader import get_image_loader
 from utils.pdf_export import save_images_as_pdf
@@ -31,7 +31,37 @@ import os
 import math
 
 
-def generate_vocab_card(vocab_item, folder_type='aac', with_label=True, card_size='standard', card_style=None):
+def hex_to_grayscale(hex_color):
+    """Convert hex color to grayscale using luminosity method."""
+    # Remove '#' if present
+    hex_color = hex_color.lstrip('#')
+    
+    # Convert hex to RGB
+    r = int(hex_color[0:2], 16)
+    g = int(hex_color[2:4], 16)
+    b = int(hex_color[4:6], 16)
+    
+    # Luminosity method: 0.299*R + 0.587*G + 0.114*B
+    gray = int(0.299 * r + 0.587 * g + 0.114 * b)
+    
+    # Convert back to hex
+    return f'#{gray:02x}{gray:02x}{gray:02x}'
+
+
+def image_to_grayscale(image):
+    """Convert PIL image to grayscale with contrast enhancement."""
+    # Convert to grayscale
+    gray_image = image.convert('L')
+    
+    # Enhance contrast for better printing
+    enhancer = ImageEnhance.Contrast(gray_image)
+    enhanced = enhancer.enhance(1.2)
+    
+    # Convert back to RGBA for transparency support
+    return enhanced.convert('RGBA')
+
+
+def generate_vocab_card(vocab_item, folder_type='aac', with_label=True, card_size='standard', card_style=None, mode='color'):
     """
     Generate a single vocabulary card.
     
@@ -41,6 +71,7 @@ def generate_vocab_card(vocab_item, folder_type='aac', with_label=True, card_siz
         with_label: Include text label under icon
         card_size: 'standard', 'large', etc.
         card_style: Optional dict with 'border_width', 'corner_radius', 'shadow'
+        mode: 'color' or 'bw' for output mode
         
     Returns:
         PIL.Image: Generated vocabulary card
@@ -61,6 +92,12 @@ def generate_vocab_card(vocab_item, folder_type='aac', with_label=True, card_siz
             'fill_color': COLORS['white']
         }
     
+    # Adjust colors for BW mode
+    if mode == 'bw':
+        card_style['fill_color'] = COLORS['white']
+        # Make borders black for high contrast
+        border_color = COLORS['black']
+    
     draw_card_background(draw, (0, 0, width, height), card_style)
     
     # Load image
@@ -73,6 +110,10 @@ def generate_vocab_card(vocab_item, folder_type='aac', with_label=True, card_siz
     except FileNotFoundError:
         # Create placeholder
         theme_image = create_placeholder_image(500, 500, f"Missing:\n{image_filename}")
+    
+    # Convert to grayscale for BW mode
+    if mode == 'bw':
+        theme_image = image_to_grayscale(theme_image)
     
     # Calculate areas for image and label
     label_height = 60 if with_label else 0
@@ -97,7 +138,7 @@ def generate_vocab_card(vocab_item, folder_type='aac', with_label=True, card_siz
 
 
 def generate_vocab_grid_page(vocab_items, folder_type='aac', with_labels=True, 
-                             cards_per_row=3, card_size='standard', page_num=1, total_pages=1):
+                             cards_per_row=3, card_size='standard', page_num=1, total_pages=1, mode='color'):
     """
     Generate a page with vocabulary cards in a grid layout.
     
@@ -109,6 +150,7 @@ def generate_vocab_grid_page(vocab_items, folder_type='aac', with_labels=True,
         card_size: Size of each card
         page_num: Current page number
         total_pages: Total number of pages
+        mode: 'color' or 'bw' for output mode
         
     Returns:
         PIL.Image: Page with grid of vocabulary cards
@@ -139,8 +181,8 @@ def generate_vocab_grid_page(vocab_items, folder_type='aac', with_labels=True,
         x = int(start_x + col * (card_width + spacing))
         y = int(start_y + row * (card_height + spacing))
         
-        # Generate card
-        card = generate_vocab_card(vocab_item, folder_type, with_labels, card_size)
+        # Generate card with mode
+        card = generate_vocab_card(vocab_item, folder_type, with_labels, card_size, mode=mode)
         
         # Paste onto page
         page.paste(card, (x, y))
@@ -153,7 +195,7 @@ def generate_vocab_grid_page(vocab_items, folder_type='aac', with_labels=True,
 
 
 def generate_cutout_vocab_page(vocab_items, folder_type='aac', page_num=1, total_pages=1, 
-                                with_grab_tabs=True, bold_outline=True):
+                                with_grab_tabs=True, bold_outline=True, mode='color'):
     """
     Generate a page of cut-out vocabulary cards.
     
@@ -164,6 +206,7 @@ def generate_cutout_vocab_page(vocab_items, folder_type='aac', page_num=1, total
         total_pages: Total number of pages
         with_grab_tabs: Include grab tabs for fine motor support
         bold_outline: Include bold border for visibility
+        mode: 'color' or 'bw' for output mode
         
     Returns:
         PIL.Image: Page with cut-out cards in 2×3 grid
@@ -202,9 +245,9 @@ def generate_cutout_vocab_page(vocab_items, folder_type='aac', page_num=1, total
         x = int(start_x + col * (card_width + spacing))
         y = int(start_y + row * (card_height + spacing))
         
-        # Generate card
+        # Generate card with mode
         card = generate_vocab_card(vocab_item, folder_type, with_label=True, 
-                                   card_size='standard', card_style=card_style)
+                                   card_size='standard', card_style=card_style, mode=mode)
         
         # Add grab tab if requested
         if with_grab_tabs:
@@ -246,7 +289,7 @@ def generate_cutout_vocab_page(vocab_items, folder_type='aac', page_num=1, total
     return page
 
 
-def generate_lanyard_vocab_page(vocab_items, folder_type='aac', page_num=1, total_pages=1):
+def generate_lanyard_vocab_page(vocab_items, folder_type='aac', page_num=1, total_pages=1, mode='color'):
     """
     Generate lanyard-friendly vocabulary cards with hole-punch indicators.
     
@@ -255,6 +298,7 @@ def generate_lanyard_vocab_page(vocab_items, folder_type='aac', page_num=1, tota
         folder_type: 'aac', 'images', or 'colour_images'
         page_num: Current page number
         total_pages: Total number of pages
+        mode: 'color' or 'bw' for output mode
         
     Returns:
         PIL.Image: Page with lanyard-friendly cards
@@ -329,6 +373,10 @@ def generate_lanyard_vocab_page(vocab_items, folder_type='aac', page_num=1, tota
         except FileNotFoundError:
             theme_image = create_placeholder_image(400, 400, f"Missing:\n{image_filename}")
         
+        # Convert to grayscale for BW mode
+        if mode == 'bw':
+            theme_image = image_to_grayscale(theme_image)
+        
         # Scale image
         label_height = 60
         image_area = (0, 0, lanyard_width, lanyard_height - label_height)
@@ -364,7 +412,7 @@ def generate_lanyard_vocab_page(vocab_items, folder_type='aac', page_num=1, tota
 def generate_vocab_cards_set(fringe_vocab, theme_name, output_dir='output',
                              include_real_images=False, include_boardmaker=False,
                              include_cutouts=True, include_lanyard=True,
-                             include_storage_label=True, cards_per_row=3):
+                             include_storage_label=True, cards_per_row=3, mode='color'):
     """
     Generate complete set of vocabulary cards with all versions.
     
@@ -378,12 +426,16 @@ def generate_vocab_cards_set(fringe_vocab, theme_name, output_dir='output',
         include_lanyard: Generate lanyard-friendly version
         include_storage_label: Generate storage labels
         cards_per_row: Number of cards per row (2, 3, or 4)
+        mode: 'color' or 'bw' for output mode
         
     Returns:
         Dict with paths to generated files
     """
     os.makedirs(output_dir, exist_ok=True)
     output_files = {}
+    
+    # Add mode suffix to filenames
+    mode_suffix = f"_{mode}" if mode else ""
     
     # Determine grid size based on number of items
     num_items = len(fringe_vocab)
@@ -410,11 +462,12 @@ def generate_vocab_cards_set(fringe_vocab, theme_name, output_dir='output',
             cards_per_row=cards_per_row,
             card_size='standard',
             page_num=page_num,
-            total_pages=total_pages
+            total_pages=total_pages,
+            mode=mode
         )
         standard_pages.append(page)
     
-    standard_path = os.path.join(output_dir, f"{theme_name}_Vocabulary_Cards.pdf")
+    standard_path = os.path.join(output_dir, f"{theme_name}_Vocabulary_Cards{mode_suffix}.pdf")
     save_images_as_pdf(standard_pages, standard_path)
     output_files['standard'] = standard_path
     
@@ -443,11 +496,12 @@ def generate_vocab_cards_set(fringe_vocab, theme_name, output_dir='output',
                 cards_per_row=cards_per_row,
                 card_size='standard',
                 page_num=page_num,
-                total_pages=total_pages
+                total_pages=total_pages,
+                mode=mode
             )
             real_pages.append(page)
         
-        real_path = os.path.join(output_dir, f"{theme_name}_Vocabulary_Cards_Real_Images.pdf")
+        real_path = os.path.join(output_dir, f"{theme_name}_Vocabulary_Cards_Real_Images{mode_suffix}.pdf")
         save_images_as_pdf(real_pages, real_path)
         output_files['real_images'] = real_path
         
@@ -474,11 +528,12 @@ def generate_vocab_cards_set(fringe_vocab, theme_name, output_dir='output',
                 cards_per_row=cards_per_row,
                 card_size='standard',
                 page_num=page_num,
-                total_pages=total_pages
+                total_pages=total_pages,
+                mode=mode
             )
             bm_pages.append(page)
         
-        bm_path = os.path.join(output_dir, f"{theme_name}_Vocabulary_Cards_Boardmaker.pdf")
+        bm_path = os.path.join(output_dir, f"{theme_name}_Vocabulary_Cards_Boardmaker{mode_suffix}.pdf")
         save_images_as_pdf(bm_pages, bm_path)
         output_files['boardmaker'] = bm_path
         
@@ -506,11 +561,12 @@ def generate_vocab_cards_set(fringe_vocab, theme_name, output_dir='output',
                 page_num=page_num,
                 total_pages=total_pages,
                 with_grab_tabs=True,
-                bold_outline=True
+                bold_outline=True,
+                mode=mode
             )
             cutout_pages.append(page)
         
-        cutout_path = os.path.join(output_dir, f"{theme_name}_Vocabulary_Cards_Cutouts.pdf")
+        cutout_path = os.path.join(output_dir, f"{theme_name}_Vocabulary_Cards_Cutouts{mode_suffix}.pdf")
         save_images_as_pdf(cutout_pages, cutout_path)
         output_files['cutouts'] = cutout_path
         
@@ -536,11 +592,12 @@ def generate_vocab_cards_set(fringe_vocab, theme_name, output_dir='output',
                 page_items,
                 folder_type='aac',
                 page_num=page_num,
-                total_pages=total_pages
+                total_pages=total_pages,
+                mode=mode
             )
             lanyard_pages.append(page)
         
-        lanyard_path = os.path.join(output_dir, f"{theme_name}_Vocabulary_Cards_Lanyard.pdf")
+        lanyard_path = os.path.join(output_dir, f"{theme_name}_Vocabulary_Cards_Lanyard{mode_suffix}.pdf")
         save_images_as_pdf(lanyard_pages, lanyard_path)
         output_files['lanyard'] = lanyard_path
         
@@ -553,6 +610,51 @@ def generate_vocab_cards_set(fringe_vocab, theme_name, output_dir='output',
             output_files['lanyard_label'] = label_path
     
     return output_files
+
+
+def generate_vocab_cards_dual_mode(fringe_vocab, theme_name, output_dir='output',
+                                   include_real_images=False, include_boardmaker=False,
+                                   include_cutouts=True, include_lanyard=True,
+                                   include_storage_label=True, cards_per_row=3):
+    """
+    Generate vocabulary cards in both color and black-and-white modes.
+    
+    Args:
+        fringe_vocab: List of vocab item dicts with 'image' and 'label'
+        theme_name: Name of the theme (for file naming)
+        output_dir: Directory for output files
+        include_real_images: Generate real image version if available
+        include_boardmaker: Generate Boardmaker version if available
+        include_cutouts: Generate cut-and-paste version
+        include_lanyard: Generate lanyard-friendly version
+        include_storage_label: Generate storage labels
+        cards_per_row: Number of cards per row (2, 3, or 4)
+        
+    Returns:
+        Dict with paths to both color and BW files
+    """
+    # Generate color version
+    color_files = generate_vocab_cards_set(
+        fringe_vocab, theme_name, output_dir,
+        include_real_images, include_boardmaker,
+        include_cutouts, include_lanyard,
+        include_storage_label, cards_per_row,
+        mode='color'
+    )
+    
+    # Generate black-and-white version
+    bw_files = generate_vocab_cards_set(
+        fringe_vocab, theme_name, output_dir,
+        include_real_images, include_boardmaker,
+        include_cutouts, include_lanyard,
+        include_storage_label, cards_per_row,
+        mode='bw'
+    )
+    
+    return {
+        'color': color_files,
+        'bw': bw_files
+    }
 
 
 # For backward compatibility and testing
