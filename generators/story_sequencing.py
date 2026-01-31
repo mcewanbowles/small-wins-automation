@@ -18,7 +18,7 @@ import random
 from PIL import Image, ImageDraw, ImageFont
 from utils.config import DPI, PAGE_WIDTH, PAGE_HEIGHT, MARGINS, CARD_SIZES, FONT_SIZES, COLORS
 from utils.image_loader import get_image_loader
-from utils.layout import create_page_canvas, add_page_border
+from utils.layout import create_page_canvas, add_page_border, add_footer
 from utils.pdf_export import save_images_as_pdf
 from utils.draw_helpers import (
     scale_image_to_fit,
@@ -28,12 +28,14 @@ from utils.draw_helpers import (
     draw_text_centered_in_rect,
     create_placeholder_image
 )
+from utils.image_utils import scale_image_proportional, center_image_in_box
+from utils.color_helpers import image_to_grayscale
 from utils.fonts import get_font_manager
 from utils.storage_label_helper import create_companion_label
 
 
 def generate_first_next_last_page(event_items, level=1, page_number=1, total_pages=1,
-                                   card_style=None):
+                                   card_style=None, mode='color'):
     """
     Generate a First → Next → Last page with 3-box layout.
     
@@ -43,12 +45,13 @@ def generate_first_next_last_page(event_items, level=1, page_number=1, total_pag
         page_number: Current page number
         total_pages: Total pages for numbering
         card_style: Optional dict with border_width, corner_radius, shadow
+        mode: 'color' or 'bw' for black-and-white output
         
     Returns:
         PIL.Image: Generated page
     """
     # Create page
-    page = create_page_canvas()
+    page = create_page_canvas(mode=mode)
     draw = ImageDraw.Draw(page)
     add_page_border(page)
     
@@ -121,12 +124,25 @@ def generate_first_next_last_page(event_items, level=1, page_number=1, total_pag
             
             try:
                 icon_img = img_loader.load_image(item['image'], folder_type=folder_type)
+                # Convert to grayscale for BW mode
+                if mode == 'bw' and icon_img.mode != 'L':
+                    icon_img = icon_img.convert('L').convert('RGB')
             except:
                 icon_img = create_placeholder_image(600, 600, item.get('label', 'Image'))
             
-            # Scale and center icon in box
-            scaled_img, img_x, img_y = scale_image_to_fit(icon_img, box_rect, padding=50)
-            page.paste(scaled_img, (img_x, img_y), scaled_img if scaled_img.mode == 'RGBA' else None)
+            # Scale and center icon in box using modern utilities
+            box_w = box_rect[2] - box_rect[0]
+            box_h = box_rect[3] - box_rect[1]
+            scaled_img = scale_image_proportional(icon_img, max_width=box_w-100, max_height=box_h-200)
+            centered_img = center_image_in_box(scaled_img, box_w, box_h-100)
+            
+            # Paste image
+            img_x = box_rect[0]
+            img_y = box_rect[1]
+            if centered_img.mode == 'RGBA':
+                page.paste(centered_img, (img_x, img_y), centered_img)
+            else:
+                page.paste(centered_img, (img_x, img_y))
             
             # Draw label below icon
             text_y = box_y + box_height - 100
@@ -134,13 +150,12 @@ def generate_first_next_last_page(event_items, level=1, page_number=1, total_pag
             draw_text_centered_in_rect(draw, item.get('label', ''), text_rect, FONT_SIZES['body'], COLORS['black'])
     
     # Add page elements
-    draw_page_number(draw, page_number, total_pages, PAGE_WIDTH, PAGE_HEIGHT)
-    draw_copyright_footer(draw, PAGE_WIDTH, PAGE_HEIGHT)
+    add_footer(page, "Story Sequencing", page_num=page_number, mode=mode)
     
     return page
 
 
-def generate_story_map(story_data, page_number=1, total_pages=1):
+def generate_story_map(story_data, page_number=1, total_pages=1, mode='color'):
     """
     Generate a one-page story map graphic organizer.
     
@@ -148,12 +163,13 @@ def generate_story_map(story_data, page_number=1, total_pages=1):
         story_data: Dict with 'characters', 'setting', 'problem', 'events', 'solution'
         page_number: Current page number
         total_pages: Total pages for numbering
+        mode: 'color' or 'bw' for black-and-white output
         
     Returns:
         PIL.Image: Generated page
     """
     # Create page
-    page = create_page_canvas()
+    page = create_page_canvas(mode=mode)
     draw = ImageDraw.Draw(page)
     add_page_border(page)
     
@@ -207,14 +223,13 @@ def generate_story_map(story_data, page_number=1, total_pages=1):
             draw.text((x + 20, content_y), str(section_content), font=body_font, fill=COLORS['black'])
     
     # Add page elements
-    draw_page_number(draw, page_number, total_pages, PAGE_WIDTH, PAGE_HEIGHT)
-    draw_copyright_footer(draw, PAGE_WIDTH, PAGE_HEIGHT)
+    add_footer(page, "Story Map", page_num=page_number, mode=mode)
     
     return page
 
 
 def generate_event_ordering_page(events, layout='horizontal', page_number=1, total_pages=1,
-                                 card_style=None):
+                                 card_style=None, mode='color'):
     """
     Generate event ordering page with WH prompts.
     
@@ -224,12 +239,13 @@ def generate_event_ordering_page(events, layout='horizontal', page_number=1, tot
         page_number: Current page number
         total_pages: Total pages for numbering
         card_style: Optional dict with border_width, corner_radius, shadow
+        mode: 'color' or 'bw' for black-and-white output
         
     Returns:
         PIL.Image: Generated page
     """
     # Create page
-    page = create_page_canvas()
+    page = create_page_canvas(mode=mode)
     draw = ImageDraw.Draw(page)
     add_page_border(page)
     
@@ -283,11 +299,21 @@ def generate_event_ordering_page(events, layout='horizontal', page_number=1, tot
             folder_type = event.get('folder_type', 'images')
             try:
                 icon_img = img_loader.load_image(event['image'], folder_type=folder_type)
+                # Convert to grayscale for BW mode
+                if mode == 'bw' and icon_img.mode != 'L':
+                    icon_img = icon_img.convert('L').convert('RGB')
             except:
                 icon_img = create_placeholder_image(icon_size, icon_size, event.get('label', 'Event'))
             
-            scaled_img, img_x, img_y = scale_image_to_fit(icon_img, box_rect, padding=30)
-            page.paste(scaled_img, (img_x, img_y), scaled_img if scaled_img.mode == 'RGBA' else None)
+            # Scale and center using modern utilities
+            scaled_img = scale_image_proportional(icon_img, max_width=icon_size-60, max_height=icon_size-60)
+            centered_img = center_image_in_box(scaled_img, icon_size, icon_size)
+            
+            # Paste image
+            if centered_img.mode == 'RGBA':
+                page.paste(centered_img, (x, start_y), centered_img)
+            else:
+                page.paste(centered_img, (x, start_y))
             
             # Draw label
             label_y = start_y + icon_size + 20
@@ -313,20 +339,29 @@ def generate_event_ordering_page(events, layout='horizontal', page_number=1, tot
             folder_type = event.get('folder_type', 'images')
             try:
                 icon_img = img_loader.load_image(event['image'], folder_type=folder_type)
+                # Convert to grayscale for BW mode
+                if mode == 'bw' and icon_img.mode != 'L':
+                    icon_img = icon_img.convert('L').convert('RGB')
             except:
                 icon_img = create_placeholder_image(icon_size, icon_size, event.get('label', 'Event'))
             
-            scaled_img, img_x, img_y = scale_image_to_fit(icon_img, box_rect, padding=30)
-            page.paste(scaled_img, (img_x, img_y), scaled_img if scaled_img.mode == 'RGBA' else None)
+            # Scale and center using modern utilities
+            scaled_img = scale_image_proportional(icon_img, max_width=icon_size-60, max_height=icon_size-60)
+            centered_img = center_image_in_box(scaled_img, icon_size, icon_size)
+            
+            # Paste image
+            if centered_img.mode == 'RGBA':
+                page.paste(centered_img, (x, y + 70), centered_img)
+            else:
+                page.paste(centered_img, (x, y + 70))
     
     # Add page elements
-    draw_page_number(draw, page_number, total_pages, PAGE_WIDTH, PAGE_HEIGHT)
-    draw_copyright_footer(draw, PAGE_WIDTH, PAGE_HEIGHT)
+    add_footer(page, "Event Ordering", page_num=page_number, mode=mode)
     
     return page
 
 
-def generate_retell_strip(events, with_lanyard=True, card_style=None, page_number=1, total_pages=1):
+def generate_retell_strip(events, with_lanyard=True, card_style=None, page_number=1, total_pages=1, mode='color'):
     """
     Generate retell strip with lanyard-friendly design.
     
@@ -336,13 +371,15 @@ def generate_retell_strip(events, with_lanyard=True, card_style=None, page_numbe
         card_style: Optional dict with border_width, corner_radius, shadow
         page_number: Current page number
         total_pages: Total pages for numbering
+        mode: 'color' or 'bw' for black-and-white output
         
     Returns:
         PIL.Image: Generated page
     """
     # Create page
-    page = create_page_canvas()
+    page = create_page_canvas(mode=mode)
     draw = ImageDraw.Draw(page)
+    add_page_border(page)
     add_page_border(page)
     
     # Default card style
@@ -422,11 +459,21 @@ def generate_retell_strip(events, with_lanyard=True, card_style=None, page_numbe
         folder_type = event.get('folder_type', 'images')
         try:
             icon_img = img_loader.load_image(event['image'], folder_type=folder_type)
+            # Convert to grayscale for BW mode
+            if mode == 'bw' and icon_img.mode != 'L':
+                icon_img = icon_img.convert('L').convert('RGB')
         except:
             icon_img = create_placeholder_image(icon_size, icon_size, event.get('label', 'Event'))
         
-        scaled_img, img_x, img_y = scale_image_to_fit(icon_img, card_rect, padding=5)
-        page.paste(scaled_img, (img_x, img_y), scaled_img if scaled_img.mode == 'RGBA' else None)
+        # Scale and center using modern utilities
+        scaled_img = scale_image_proportional(icon_img, max_width=icon_size-10, max_height=icon_size-10)
+        centered_img = center_image_in_box(scaled_img, icon_size, icon_size)
+        
+        # Paste image
+        if centered_img.mode == 'RGBA':
+            page.paste(centered_img, (icon_x, icon_y), centered_img)
+        else:
+            page.paste(centered_img, (icon_x, icon_y))
         
         # Draw label
         label_y = icon_y + icon_size + 10
@@ -434,26 +481,27 @@ def generate_retell_strip(events, with_lanyard=True, card_style=None, page_numbe
         draw_text_centered_in_rect(draw, event.get('label', ''), label_rect, FONT_SIZES['body'], COLORS['black'])
     
     # Add page elements
-    draw_page_number(draw, page_number, total_pages, PAGE_WIDTH, PAGE_HEIGHT)
-    draw_copyright_footer(draw, PAGE_WIDTH, PAGE_HEIGHT)
+    add_footer(page, "Retell Strip", page_num=page_number, mode=mode)
     
     return page
 
 
-def generate_story_summary_page(page_number=1, total_pages=1):
+def generate_story_summary_page(page_number=1, total_pages=1, mode='color'):
     """
     Generate story summary page with sentence starters and writing lines.
     
     Args:
         page_number: Current page number
         total_pages: Total pages for numbering
+        mode: 'color' or 'bw' for black-and-white output
         
     Returns:
         PIL.Image: Generated page
     """
     # Create page
-    page = create_page_canvas()
+    page = create_page_canvas(mode=mode)
     draw = ImageDraw.Draw(page)
+    add_page_border(page)
     add_page_border(page)
     
     # Fonts
@@ -492,13 +540,12 @@ def generate_story_summary_page(page_number=1, total_pages=1):
             )
     
     # Add page elements
-    draw_page_number(draw, page_number, total_pages, PAGE_WIDTH, PAGE_HEIGHT)
-    draw_copyright_footer(draw, PAGE_WIDTH, PAGE_HEIGHT)
+    add_footer(page, "Story Summary", page_num=page_number, mode=mode)
     
     return page
 
 
-def generate_cutout_icons_page(icons, page_number=1, total_pages=1, with_grab_tabs=True):
+def generate_cutout_icons_page(icons, page_number=1, total_pages=1, with_grab_tabs=True, mode='color'):
     """
     Generate a page of cut-out icons in 2x3 grid.
     
@@ -507,13 +554,15 @@ def generate_cutout_icons_page(icons, page_number=1, total_pages=1, with_grab_ta
         page_number: Current page number
         total_pages: Total pages for numbering
         with_grab_tabs: Add scissors grab tabs for fine motor support
+        mode: 'color' or 'bw' for black-and-white output
         
     Returns:
         PIL.Image: Generated page
     """
     # Create page
-    page = create_page_canvas()
+    page = create_page_canvas(mode=mode)
     draw = ImageDraw.Draw(page)
+    add_page_border(page)
     add_page_border(page)
     
     # Constants
@@ -551,11 +600,21 @@ def generate_cutout_icons_page(icons, page_number=1, total_pages=1, with_grab_ta
         folder_type = icon.get('folder_type', 'images')
         try:
             icon_img = img_loader.load_image(icon['image'], folder_type=folder_type)
+            # Convert to grayscale for BW mode
+            if mode == 'bw' and icon_img.mode != 'L':
+                icon_img = icon_img.convert('L').convert('RGB')
         except:
             icon_img = create_placeholder_image(icon_size, icon_size, icon.get('label', 'Icon'))
         
-        scaled_img, img_x, img_y = scale_image_to_fit(icon_img, card_rect, padding=5)
-        page.paste(scaled_img, (img_x, img_y), scaled_img if scaled_img.mode == 'RGBA' else None)
+        # Scale and center using modern utilities
+        scaled_img = scale_image_proportional(icon_img, max_width=icon_size-10, max_height=icon_size-10)
+        centered_img = center_image_in_box(scaled_img, icon_size, icon_size)
+        
+        # Paste image
+        if centered_img.mode == 'RGBA':
+            page.paste(centered_img, (x, y), centered_img)
+        else:
+            page.paste(centered_img, (x, y))
         
         # Draw grab tab if enabled
         if with_grab_tabs:
@@ -577,14 +636,13 @@ def generate_cutout_icons_page(icons, page_number=1, total_pages=1, with_grab_ta
             draw_text_centered_in_rect(draw, scissors_text, (tab_x, tab_y, tab_x + tab_width, tab_y + tab_height), FONT_SIZES['body'], COLORS['black'])
     
     # Add page elements
-    draw_page_number(draw, page_number, total_pages, PAGE_WIDTH, PAGE_HEIGHT)
-    draw_copyright_footer(draw, PAGE_WIDTH, PAGE_HEIGHT)
+    add_footer(page, "Icon Cutouts", page_num=page_number, mode=mode)
     
     return page
 
 
 def generate_story_sequencing_set(story_data, theme_name, output_dir='output',
-                                  include_storage_label=True):
+                                  include_storage_label=True, mode='color'):
     """
     Generate complete story sequencing resource set.
     
@@ -598,6 +656,7 @@ def generate_story_sequencing_set(story_data, theme_name, output_dir='output',
         theme_name: Theme name for file naming
         output_dir: Output directory path
         include_storage_label: Generate storage labels
+        mode: 'color' or 'bw' for black-and-white output
         
     Returns:
         Dict with paths to generated PDFs
@@ -617,30 +676,30 @@ def generate_story_sequencing_set(story_data, theme_name, output_dir='output',
     # 1. First → Next → Last pages (3 levels)
     for level in range(1, 4):
         fnl_page = generate_first_next_last_page(events, level=level, 
-                                                 page_number=len(pages)+1, total_pages=99)
+                                                 page_number=len(pages)+1, total_pages=99, mode=mode)
         pages.append(fnl_page)
         page_types.append(f'first_next_last_level{level}')
     
     # 2. Story Map
-    story_map_page = generate_story_map(story_data, page_number=len(pages)+1, total_pages=99)
+    story_map_page = generate_story_map(story_data, page_number=len(pages)+1, total_pages=99, mode=mode)
     pages.append(story_map_page)
     page_types.append('story_map')
     
     # 3. Event Ordering (horizontal and vertical)
     for layout in ['horizontal', 'vertical']:
         event_page = generate_event_ordering_page(events[:4], layout=layout,
-                                                   page_number=len(pages)+1, total_pages=99)
+                                                   page_number=len(pages)+1, total_pages=99, mode=mode)
         pages.append(event_page)
         page_types.append(f'event_ordering_{layout}')
     
     # 4. Retell Strip
     retell_page = generate_retell_strip(events[:4], with_lanyard=True,
-                                       page_number=len(pages)+1, total_pages=99)
+                                       page_number=len(pages)+1, total_pages=99, mode=mode)
     pages.append(retell_page)
     page_types.append('retell_strip')
     
     # 5. Story Summary
-    summary_page = generate_story_summary_page(page_number=len(pages)+1, total_pages=99)
+    summary_page = generate_story_summary_page(page_number=len(pages)+1, total_pages=99, mode=mode)
     pages.append(summary_page)
     page_types.append('story_summary')
     
@@ -651,28 +710,22 @@ def generate_story_sequencing_set(story_data, theme_name, output_dir='output',
         cutout_page = generate_cutout_icons_page(all_icons[i:i+6],
                                                  page_number=len(cutout_pages)+1,
                                                  total_pages=(len(all_icons) + 5) // 6,
-                                                 with_grab_tabs=True)
+                                                 with_grab_tabs=True, mode=mode)
         cutout_pages.append(cutout_page)
-    
-    # Update page numbers
-    total_pages = len(pages)
-    for i in range(total_pages):
-        # Redraw page number with correct total
-        draw = ImageDraw.Draw(pages[i])
-        draw_page_number(draw, i + 1, total_pages, PAGE_WIDTH, PAGE_HEIGHT)
     
     # Save PDFs
     output_files = {}
+    mode_suffix = f"_{mode}" if mode else ""
     
     # Main story sequencing pages
-    main_pdf_path = os.path.join(output_dir, f"{theme_name}_Story_Sequencing.pdf")
+    main_pdf_path = os.path.join(output_dir, f"{theme_name}_Story_Sequencing{mode_suffix}.pdf")
     save_images_as_pdf(pages, main_pdf_path)
     output_files['story_sequencing'] = main_pdf_path
     print(f"Generated: {main_pdf_path}")
     
     # Cut-out icons
     if cutout_pages:
-        cutout_pdf_path = os.path.join(output_dir, f"{theme_name}_Story_Icons_Cutouts.pdf")
+        cutout_pdf_path = os.path.join(output_dir, f"{theme_name}_Story_Icons_Cutouts{mode_suffix}.pdf")
         save_images_as_pdf(cutout_pages, cutout_pdf_path)
         output_files['cutouts'] = cutout_pdf_path
         print(f"Generated: {cutout_pdf_path}")
@@ -701,3 +754,53 @@ def generate_story_sequencing_set(story_data, theme_name, output_dir='output',
                 print(f"Generated: {cutouts_label_path}")
     
     return output_files
+
+
+def generate_story_sequencing_dual_mode(story_data, theme_name, output_dir='output',
+                                       include_storage_label=True):
+    """
+    Generate complete story sequencing resource set in both color and black-and-white modes.
+    
+    Args:
+        story_data: Dict with:
+            - 'events': List of event dicts (3-4 items)
+            - 'characters': List for story map
+            - 'setting': List/str for story map
+            - 'problem': str for story map
+            - 'solution': str for story map
+        theme_name: Theme name for file naming
+        output_dir: Output directory path
+        include_storage_label: Generate storage labels
+        
+    Returns:
+        Dict with paths to generated PDFs in both modes:
+        {
+            'color': {...},  # Output from color mode
+            'bw': {...}      # Output from black-and-white mode
+        }
+    """
+    output_paths = {}
+    
+    # Generate color version
+    print("\n=== Generating COLOR version ===")
+    color_paths = generate_story_sequencing_set(
+        story_data=story_data,
+        theme_name=theme_name,
+        output_dir=output_dir,
+        include_storage_label=include_storage_label,
+        mode='color'
+    )
+    output_paths['color'] = color_paths
+    
+    # Generate black-and-white version
+    print("\n=== Generating BLACK-AND-WHITE version ===")
+    bw_paths = generate_story_sequencing_set(
+        story_data=story_data,
+        theme_name=theme_name,
+        output_dir=output_dir,
+        include_storage_label=include_storage_label,
+        mode='bw'
+    )
+    output_paths['bw'] = bw_paths
+    
+    return output_paths
