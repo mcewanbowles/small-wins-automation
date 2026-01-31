@@ -3,6 +3,8 @@ Counting Mats Generator
 
 Generates counting mats for numbers 1-10 (or customizable range) with visual
 representations. Supports differentiation levels and SPED design principles.
+
+DUAL-MODE SUPPORT: Generates both color and black-and-white versions.
 """
 
 from PIL import Image, ImageDraw
@@ -17,10 +19,11 @@ from utils.layout import (
     calculate_centered_position, add_title_to_page
 )
 from utils.pdf_export import save_image_as_pdf, save_images_as_pdf
+from utils.color_helpers import image_to_grayscale
 
 
 def generate_counting_mat(number, image_filename, theme_name, level=1, 
-                          folder_type='color', output_dir='output'):
+                          folder_type='color', output_dir='output', mode='color'):
     """
     Generate a single counting mat for a specific number.
     
@@ -31,12 +34,13 @@ def generate_counting_mat(number, image_filename, theme_name, level=1,
         level: Differentiation level (1, 2, or 3)
         folder_type: 'color', 'bw_outline', or 'aac'
         output_dir: Directory to save output PDF
+        mode: 'color' or 'bw' for output mode
         
     Returns:
         PIL.Image: Generated counting mat page
     """
-    # Create page canvas
-    page = create_page_canvas()
+    # Create page canvas with mode support
+    page = create_page_canvas(mode=mode)
     
     # Add title
     title_text = f"Count to {number}"
@@ -45,6 +49,10 @@ def generate_counting_mat(number, image_filename, theme_name, level=1,
     # Load image
     image_loader = get_image_loader()
     theme_image = image_loader.load_image(image_filename, folder_type)
+    
+    # Convert to grayscale if in BW mode
+    if mode == 'bw':
+        theme_image = image_to_grayscale(theme_image)
     
     # Determine layout based on number
     if number <= 5:
@@ -100,14 +108,14 @@ def generate_counting_mat(number, image_filename, theme_name, level=1,
     
     # Add border and footer
     add_page_border(page)
-    add_footer(page)
+    add_footer(page, f"{theme_name} Counting Mats", mode=mode)
     
     return page
 
 
 def generate_counting_mats_set(image_filenames, theme_name, number_range=(1, 10),
                                 level=1, folder_type='color', output_dir='output',
-                                include_storage_label=False):
+                                include_storage_label=False, mode='color'):
     """
     Generate a complete set of counting mats.
     
@@ -119,9 +127,10 @@ def generate_counting_mats_set(image_filenames, theme_name, number_range=(1, 10)
         folder_type: Image folder type
         output_dir: Output directory
         include_storage_label: If True, also generate a companion storage label PDF
+        mode: 'color' or 'bw' for output mode
         
     Returns:
-        list: List of generated pages
+        str: Path to generated PDF
     """
     pages = []
     start_num, end_num = number_range
@@ -131,18 +140,19 @@ def generate_counting_mats_set(image_filenames, theme_name, number_range=(1, 10)
         img_idx = (num - start_num) % len(image_filenames)
         image_file = image_filenames[img_idx]
         
-        page = generate_counting_mat(num, image_file, theme_name, level, folder_type, output_dir)
+        page = generate_counting_mat(num, image_file, theme_name, level, folder_type, output_dir, mode=mode)
         pages.append(page)
     
-    # Save as multi-page PDF
-    output_path = f"{output_dir}/{theme_name}_Counting_Mats_Level{level}.pdf"
+    # Save as multi-page PDF with mode suffix
+    mode_suffix = f"_{mode}" if mode else ""
+    output_path = f"{output_dir}/{theme_name}_Counting_Mats_Level{level}{mode_suffix}.pdf"
     save_images_as_pdf(pages, output_path, title=f"{theme_name} Counting Mats")
     
-    print(f"✓ Generated {len(pages)} counting mats")
+    print(f"✓ Generated {len(pages)} counting mats ({mode} mode)")
     print(f"  Output: {output_path}")
     
-    # Generate storage label if requested
-    if include_storage_label:
+    # Generate storage label if requested (color mode only)
+    if include_storage_label and mode == 'color':
         from utils.storage_label_helper import create_companion_label
         import os
         
@@ -167,10 +177,63 @@ def generate_counting_mats_set(image_filenames, theme_name, number_range=(1, 10)
         print(f"✓ Generated storage label")
         print(f"  Label: {label_path}")
     
-    return pages
+    return output_path
+
+
+def generate_counting_mats_dual_mode(image_filenames, theme_name, number_range=(1, 10),
+                                      level=1, folder_type='color', output_dir='output',
+                                      include_storage_label=False):
+    """
+    Generate counting mats in both color and black-and-white modes.
+    
+    Args:
+        image_filenames: List of image filenames (one per number)
+        theme_name: Name of the theme
+        number_range: Tuple of (start, end) numbers
+        level: Differentiation level
+        folder_type: Image folder type
+        output_dir: Output directory
+        include_storage_label: If True, also generate a companion storage label PDF
+        
+    Returns:
+        dict: Dictionary with 'color' and 'bw' keys containing paths to generated PDFs
+    """
+    paths = {}
+    
+    # Generate color version
+    print("\n=== Generating COLOR version ===")
+    paths['color'] = generate_counting_mats_set(
+        image_filenames=image_filenames,
+        theme_name=theme_name,
+        number_range=number_range,
+        level=level,
+        folder_type=folder_type,
+        output_dir=output_dir,
+        include_storage_label=include_storage_label,
+        mode='color'
+    )
+    
+    # Generate black-and-white version
+    print("\n=== Generating BLACK-AND-WHITE version ===")
+    paths['bw'] = generate_counting_mats_set(
+        image_filenames=image_filenames,
+        theme_name=theme_name,
+        number_range=number_range,
+        level=level,
+        folder_type=folder_type,
+        output_dir=output_dir,
+        include_storage_label=False,  # Storage labels only for color version
+        mode='bw'
+    )
+    
+    print("\n✅ Dual-mode generation complete!")
+    print(f"   Color: {paths['color']}")
+    print(f"   B&W:   {paths['bw']}")
+    
+    return paths
 
 
 if __name__ == "__main__":
     # Example usage
     print("Counting Mats Generator")
-    print("Use generate_counting_mat() or generate_counting_mats_set() in your code")
+    print("Use generate_counting_mat(), generate_counting_mats_set(), or generate_counting_mats_dual_mode() in your code")
