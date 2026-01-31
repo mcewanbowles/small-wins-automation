@@ -12,7 +12,7 @@ from utils.pdf_export import save_images_as_pdf
 import random
 
 
-def generate_word_search(words, theme_name='Theme', grid_size=10, show_answers=False):
+def generate_word_search(words, theme_name='Theme', grid_size=10, show_answers=False, mode='color'):
     """
     Generate a word search puzzle.
     
@@ -21,11 +21,12 @@ def generate_word_search(words, theme_name='Theme', grid_size=10, show_answers=F
         theme_name: Theme name
         grid_size: Size of grid (8, 10, or 12)
         show_answers: Whether to highlight answers
+        mode: 'color' or 'bw' for output mode
         
     Returns:
         PIL.Image: Generated word search
     """
-    page = create_page_canvas()
+    page = create_page_canvas(mode=mode)
     
     # Add title
     add_title_to_page(page, f"{theme_name} Word Search")
@@ -142,13 +143,13 @@ def generate_word_search(words, theme_name='Theme', grid_size=10, show_answers=F
         pass
     
     add_page_border(page)
-    add_footer(page)
+    add_footer(page, f"{theme_name} Word Search", mode=mode)
     
     return page
 
 
 def generate_word_search_set(word_lists, theme_name='Theme', grid_size=10,
-                             output_dir='output', include_storage_label=False):
+                             output_dir='output', include_storage_label=False, mode='color'):
     """
     Generate a set of word searches.
     
@@ -158,28 +159,30 @@ def generate_word_search_set(word_lists, theme_name='Theme', grid_size=10,
         grid_size: Grid size
         output_dir: Output directory
         include_storage_label: If True, also generate a companion storage label PDF
+        mode: 'color' or 'bw' for output mode
         
     Returns:
-        list: Generated pages
+        str: Path to generated PDF
     """
     pages = []
     
     for words in word_lists:
-        page = generate_word_search(words, theme_name, grid_size, show_answers=False)
+        page = generate_word_search(words, theme_name, grid_size, show_answers=False, mode=mode)
         pages.append(page)
         
         # Optionally add answer key
-        answer_page = generate_word_search(words, f"{theme_name} (Answer Key)", grid_size, show_answers=True)
+        answer_page = generate_word_search(words, f"{theme_name} (Answer Key)", grid_size, show_answers=True, mode=mode)
         pages.append(answer_page)
     
     # Save PDF
     import os
     os.makedirs(output_dir, exist_ok=True)
-    output_path = f"{output_dir}/{theme_name}_Word_Search.pdf"
+    mode_suffix = f"_{mode}" if mode else ""
+    output_path = f"{output_dir}/{theme_name}_Word_Search{mode_suffix}.pdf"
     save_images_as_pdf(pages, output_path, title=f"{theme_name} Word Search")
     
-    # Generate storage label if requested
-    if include_storage_label:
+    # Generate storage label if requested (only for color version)
+    if include_storage_label and mode == 'color':
         from utils.storage_label_helper import create_companion_label
         
         label_path = create_companion_label(
@@ -190,7 +193,38 @@ def generate_word_search_set(word_lists, theme_name='Theme', grid_size=10,
         print(f"✓ Generated storage label")
         print(f"  Label: {label_path}")
     
-    return pages
+    return output_path
+
+
+def generate_word_search_dual_mode(word_lists, theme_name='Theme', grid_size=10,
+                                   output_dir='output', include_storage_label=False):
+    """
+    Generate word search puzzles in both color and BW modes.
+    
+    Args:
+        word_lists: List of word lists (one puzzle per list)
+        theme_name: Theme name
+        grid_size: Grid size (8, 10, or 12)
+        output_dir: Output directory
+        include_storage_label: If True, generate storage label for color version
+        
+    Returns:
+        dict: {'color': path_to_color_pdf, 'bw': path_to_bw_pdf}
+    """
+    color_path = generate_word_search_set(
+        word_lists, theme_name, grid_size, output_dir,
+        include_storage_label=include_storage_label, mode='color'
+    )
+    
+    bw_path = generate_word_search_set(
+        word_lists, theme_name, grid_size, output_dir,
+        include_storage_label=False, mode='bw'
+    )
+    
+    return {
+        'color': color_path,
+        'bw': bw_path
+    }
 
 
 if __name__ == "__main__":
