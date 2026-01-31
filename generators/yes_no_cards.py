@@ -12,6 +12,7 @@ Features:
 - Standard, Real Image, Errorless, and Cut-and-Paste versions
 - Large icons and clear YES/NO response areas
 - SPED-compliant high contrast design
+- Dual-mode output (color + black-and-white)
 """
 
 import os
@@ -19,12 +20,11 @@ from PIL import Image, ImageDraw, ImageFont
 from utils.config import DPI, PAGE_WIDTH, PAGE_HEIGHT, MARGINS, COLORS, FONT_SIZES, FOOTER_TEXT
 from utils.image_loader import load_image
 from utils.pdf_export import save_images_as_pdf
-from utils.draw_helpers import (
-    scale_image_to_fit,
-    draw_page_number,
-    draw_copyright_footer,
-    create_placeholder_image
-)
+from utils.layout import create_page_canvas, add_footer
+from utils.grid_layout import create_grid_positions
+from utils.image_utils import scale_image_proportional, center_image_in_box
+from utils.color_helpers import hex_to_grayscale, image_to_grayscale
+from utils.fonts import get_font_manager
 from utils.storage_label_helper import create_companion_label
 
 # Task box card sizing standard (4 cards per page, 2×2 grid)
@@ -33,72 +33,73 @@ TASK_BOX_CARD_WIDTH = int(5.25 * DPI)  # 1575px
 TASK_BOX_CARD_HEIGHT = int(4 * DPI)  # 1200px
 
 
-def generate_yes_no_card(draw, card_rect, item, card_type='standard', folder_type='images', mode='color'):
+def generate_yes_no_card(page, card_rect, item, card_type='standard', folder_type='images', mode='color'):
     """
-    Generate a single Yes/No card within the given rectangle.
+    Generate a single Yes/No card within the given rectangle using modern utilities.
     
     Args:
-        draw: PIL ImageDraw object
+        page: PIL Image object (page canvas)
         card_rect: Tuple (x1, y1, x2, y2) defining card boundaries
         item: Dict with 'image' and 'label' keys
         card_type: 'standard', 'errorless_yes', 'errorless_no', or 'cut_paste'
         folder_type: Image folder type ('images', 'real_images', etc.)
         mode: 'color' or 'bw' for dual-mode output
     """
+    draw = ImageDraw.Draw(page)
     x1, y1, x2, y2 = card_rect
     card_width = x2 - x1
     card_height = y2 - y1
     
-    # Draw card border
-    draw.rectangle([x1, y1, x2, y2], outline=COLORS['black'], width=3)
+    # Draw card border - high contrast SPED standard
+    border_color = COLORS['black']
+    draw.rectangle([x1, y1, x2, y2], outline=border_color, width=3)
     
-    # Layout areas
+    # Layout areas - SPED-optimized proportions
     icon_area_height = int(card_height * 0.45)  # 45% for icon
     question_area_height = int(card_height * 0.25)  # 25% for question
     response_area_height = int(card_height * 0.30)  # 30% for YES/NO
     
-    # 1. Icon area (top 45%)
-    icon_rect = (
-        x1 + 20,
-        y1 + 20,
-        x2 - 20,
-        y1 + icon_area_height - 10
-    )
+    padding = 20
+    
+    # 1. Icon area (top 45%) - using modern image utilities
+    icon_box_width = card_width - (padding * 2)
+    icon_box_height = icon_area_height - (padding * 2)
     
     try:
         img = load_image(item['image'], folder_type=folder_type)
         if img:
-            # Convert to grayscale if BW mode
-            if mode == 'bw' and img.mode != 'L':
-                img = img.convert('L').convert('RGB')
+            # Convert to grayscale if BW mode using color_helpers
+            if mode == 'bw':
+                img = image_to_grayscale(img)
             
-            scaled_coords = scale_image_to_fit(img, icon_rect, padding=10)
-            if scaled_coords:
-                paste_x, paste_y, paste_width, paste_height = scaled_coords
-                resized_img = img.resize((paste_width, paste_height), Image.Resampling.LANCZOS)
-                # Convert RGBA to RGB if needed
-                if resized_img.mode == 'RGBA':
-                    bg = Image.new('RGB', resized_img.size, COLORS['white'])
-                    bg.paste(resized_img, mask=resized_img.split()[3])
-                    resized_img = bg
-                # Paste onto the page
-                temp_page = Image.new('RGB', (PAGE_WIDTH, PAGE_HEIGHT), COLORS['white'])
-                temp_page.paste(resized_img, (paste_x, paste_y))
-                # Copy the pasted area to actual draw context
-                draw._image.paste(temp_page.crop((paste_x, paste_y, paste_x + paste_width, paste_y + paste_height)), (paste_x, paste_y))
-    except:
-        # Use placeholder
-        placeholder = create_placeholder_image(icon_rect[2] - icon_rect[0], icon_rect[3] - icon_rect[1], "No Image")
-        draw._image.paste(placeholder, (icon_rect[0], icon_rect[1]))
+            # Scale proportionally using image_utils
+            scaled_img = scale_image_proportional(img, max_width=icon_box_width, max_height=icon_box_height)
+            
+            # Center in box
+            centered_img = center_image_in_box(scaled_img, icon_box_width, icon_box_height, COLORS['white'] + (255,))
+            
+            # Convert RGBA to RGB for pasting
+            if centered_img.mode == 'RGBA':
+                bg = Image.new('RGB', centered_img.size, COLORS['white'])
+                bg.paste(centered_img, mask=centered_img.split()[3] if len(centered_img.split()) == 4 else None)
+                centered_img = bg
+            
+            # Paste onto page
+            page.paste(centered_img, (x1 + padding, y1 + padding))
+    except Exception as e:
+        # Fallback: draw placeholder text
+        draw.text((x1 + card_width // 2, y1 + icon_area_height // 2), 
+                 "No Image", fill=COLORS['black'], anchor="mm")
     
-    # 2. Question area (middle 25%)
+    # 2. Question area (middle 25%) - using font manager
     question_y_start = y1 + icon_area_height
     question_text = f"Is this a {item['label']}?"
     
+    font_mgr = get_font_manager()
     try:
-        font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 32)
+        font = font_mgr.get_font('body', 32, bold=True)
     except:
-        font = ImageFont.load_default()
+        font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 32)
     
     # Center question text
     bbox = draw.textbbox((0, 0), question_text, font=font)
@@ -112,7 +113,7 @@ def generate_yes_no_card(draw, card_rect, item, card_type='standard', folder_typ
     response_y_start = y1 + icon_area_height + question_area_height
     
     if card_type == 'cut_paste':
-        # Draw two empty boxes for gluing YES/NO
+        # Draw two empty boxes for gluing YES/NO - SPED standard dashed boxes
         box_width = int(card_width * 0.35)
         box_height = int(response_area_height * 0.7)
         box_y = response_y_start + (response_area_height - box_height) // 2
@@ -127,29 +128,24 @@ def generate_yes_no_card(draw, card_rect, item, card_type='standard', folder_typ
         draw.rectangle([no_box_x, box_y, no_box_x + box_width, box_y + box_height],
                       outline=COLORS['black'], width=2)
     else:
-        # Draw YES and NO circles/buttons
+        # Draw YES and NO circles/buttons with SPED-compliant spacing
         circle_radius = int(response_area_height * 0.35)
         circle_y = response_y_start + response_area_height // 2
         
+        # Errorless highlighting - use light gray fills in both modes
+        yes_fill = COLORS['light_gray'] if card_type == 'errorless_yes' else COLORS['white']
+        no_fill = COLORS['light_gray'] if card_type == 'errorless_no' else COLORS['white']
+        
         # YES circle (left)
         yes_circle_x = x1 + int(card_width * 0.25)
-        # Use white for BW mode or light_gray for errorless in color mode
-        if mode == 'bw':
-            yes_fill = COLORS['light_gray'] if card_type == 'errorless_yes' else COLORS['white']
-            no_fill = COLORS['light_gray'] if card_type == 'errorless_no' else COLORS['white']
-        else:
-            yes_fill = COLORS['light_gray'] if card_type == 'errorless_yes' else COLORS['white']
-            no_fill = COLORS['light_gray'] if card_type == 'errorless_no' else COLORS['white']
-        
-        # YES
         draw.ellipse([yes_circle_x - circle_radius, circle_y - circle_radius,
                      yes_circle_x + circle_radius, circle_y + circle_radius],
                     fill=yes_fill, outline=COLORS['black'], width=3)
         
         try:
-            btn_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 36)
+            btn_font = font_mgr.get_font('body', 36, bold=True)
         except:
-            btn_font = ImageFont.load_default()
+            btn_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 36)
         
         yes_bbox = draw.textbbox((0, 0), "YES", font=btn_font)
         yes_text_w = yes_bbox[2] - yes_bbox[0]
@@ -173,7 +169,7 @@ def generate_yes_no_card(draw, card_rect, item, card_type='standard', folder_typ
 def generate_yes_no_cards_page(items, start_idx, card_type='standard', folder_type='images',
                                 page_num=1, total_pages=1, mode='color'):
     """
-    Generate a page with 4 Yes/No cards in 2×2 grid.
+    Generate a page with 4 Yes/No cards in 2×2 grid using modern layout utilities.
     
     Args:
         items: List of item dicts
@@ -187,79 +183,119 @@ def generate_yes_no_cards_page(items, start_idx, card_type='standard', folder_ty
     Returns:
         PIL Image object
     """
-    # Create page
-    page = Image.new('RGB', (PAGE_WIDTH, PAGE_HEIGHT), COLORS['white'])
-    draw = ImageDraw.Draw(page)
+    # Create page using layout utilities
+    page = create_page_canvas(PAGE_WIDTH, PAGE_HEIGHT, COLORS['background'])
     
-    # Calculate card positions for 2×2 grid
-    # Cards share borders (guillotine cutting)
+    # Convert RGBA to RGB for PDF compatibility
+    if page.mode == 'RGBA':
+        rgb_page = Image.new('RGB', page.size, COLORS['white'])
+        rgb_page.paste(page, mask=page.split()[3] if len(page.split()) == 4 else None)
+        page = rgb_page
+    
+    # Calculate card positions for 2×2 grid using grid_layout utilities
     margin = MARGINS['page']
     available_width = PAGE_WIDTH - 2 * margin
-    available_height = PAGE_HEIGHT - 2 * margin - MARGINS['page']  # Extra space for footer
+    available_height = PAGE_HEIGHT - 2 * margin - 100  # Space for footer
     
-    # Two cards horizontally, two vertically
+    # Two cards horizontally, two vertically (shared borders for guillotine cutting)
     card_width = available_width // 2
     card_height = available_height // 2
     
-    # Generate 4 cards
-    for row in range(2):
-        for col in range(2):
-            idx = start_idx + row * 2 + col
-            if idx >= len(items):
-                break
-            
-            x1 = margin + col * card_width
-            y1 = margin + row * card_height
-            x2 = x1 + card_width
-            y2 = y1 + card_height
-            
-            card_rect = (x1, y1, x2, y2)
-            generate_yes_no_card(draw, card_rect, items[idx], card_type, folder_type, mode)
+    # Calculate grid positions
+    positions = create_grid_positions(
+        cols=2, 
+        rows=2, 
+        cell_width=card_width, 
+        cell_height=card_height, 
+        spacing=0,  # Shared borders - no spacing
+        container_width=PAGE_WIDTH, 
+        container_height=PAGE_HEIGHT - 100  # Leave room for footer
+    )
     
-    # Add footer and page number
-    draw_copyright_footer(draw, PAGE_WIDTH, PAGE_HEIGHT)
-    draw_page_number(draw, page_num, total_pages, PAGE_WIDTH, PAGE_HEIGHT)
+    # Generate 4 cards at calculated positions
+    for idx, (x, y) in enumerate(positions[:4]):  # Max 4 cards per page
+        item_idx = start_idx + idx
+        if item_idx >= len(items):
+            break
+        
+        card_rect = (x, y, x + card_width, y + card_height)
+        generate_yes_no_card(page, card_rect, items[item_idx], card_type, folder_type, mode)
+    
+    # Add footer using layout utilities
+    page = add_footer(page, FOOTER_TEXT)
+    
+    # Add page number if multiple pages
+    if total_pages > 1:
+        draw = ImageDraw.Draw(page)
+        font_mgr = get_font_manager()
+        try:
+            page_font = font_mgr.get_font('body', 14)
+        except:
+            page_font = ImageFont.load_default()
+        
+        page_text = f"Page {page_num} of {total_pages}"
+        bbox = draw.textbbox((0, 0), page_text, font=page_font)
+        text_width = bbox[2] - bbox[0]
+        draw.text((PAGE_WIDTH - text_width - 50, PAGE_HEIGHT - 50), 
+                 page_text, fill=COLORS['black'], font=page_font)
     
     return page
 
 
-def generate_cutout_yes_no_icons(output_dir, theme_name):
+def generate_cutout_yes_no_icons(output_dir, theme_name, mode='color'):
     """
-    Generate a page of YES and NO icons for cut-and-paste activities.
+    Generate a page of YES and NO icons for cut-and-paste activities using modern utilities.
+    
+    Args:
+        output_dir: Output directory path
+        theme_name: Theme name for file naming
+        mode: 'color' or 'bw' for dual-mode output
     
     Returns:
         Path to generated PDF
     """
-    page = Image.new('RGB', (PAGE_WIDTH, PAGE_HEIGHT), COLORS['white'])
+    # Create page using layout utilities
+    page = create_page_canvas(PAGE_WIDTH, PAGE_HEIGHT, COLORS['background'])
+    
+    # Convert to RGB
+    if page.mode == 'RGBA':
+        rgb_page = Image.new('RGB', page.size, COLORS['white'])
+        rgb_page.paste(page, mask=page.split()[3] if len(page.split()) == 4 else None)
+        page = rgb_page
+    
     draw = ImageDraw.Draw(page)
     
-    # Create multiple YES and NO icons (6 of each)
-    icon_size = 400  # Reasonable size for cutting
-    spacing = 40
+    # Create multiple YES and NO icons (6 of each) using grid layout
+    icon_size = 400  # SPED-compliant size for cutting
     
+    # Use grid_layout to position icons
+    positions = create_grid_positions(
+        cols=3,
+        rows=4,
+        cell_width=icon_size,
+        cell_height=icon_size,
+        spacing=40,
+        container_width=PAGE_WIDTH,
+        container_height=PAGE_HEIGHT - 150  # Leave room for footer
+    )
+    
+    font_mgr = get_font_manager()
     try:
-        font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 48)
+        font = font_mgr.get_font('body', 48, bold=True)
     except:
-        font = ImageFont.load_default()
+        font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 48)
     
-    # Calculate grid
-    icons_per_row = 3
-    total_icons = 12  # 6 YES + 6 NO
-    
-    start_x = (PAGE_WIDTH - (icons_per_row * icon_size + (icons_per_row - 1) * spacing)) // 2
-    start_y = 150
-    
-    for i in range(total_icons):
-        row = i // icons_per_row
-        col = i % icons_per_row
-        
-        x = start_x + col * (icon_size + spacing)
-        y = start_y + row * (icon_size + spacing)
+    # Draw 12 icons (6 YES, 6 NO)
+    for i in range(12):
+        if i >= len(positions):
+            break
+            
+        x, y = positions[i]
         
         # Determine YES or NO
         text = "YES" if i < 6 else "NO"
         
-        # Draw circle with text
+        # Draw circle with text - SPED standard high contrast
         center_x = x + icon_size // 2
         center_y = y + icon_size // 2
         radius = icon_size // 2 - 10
@@ -268,23 +304,24 @@ def generate_cutout_yes_no_icons(output_dir, theme_name):
                      center_x + radius, center_y + radius],
                     fill=COLORS['white'], outline=COLORS['black'], width=4)
         
-        # Draw text
+        # Draw text centered
         bbox = draw.textbbox((0, 0), text, font=font)
         text_w = bbox[2] - bbox[0]
         text_h = bbox[3] - bbox[1]
         draw.text((center_x - text_w // 2, center_y - text_h // 2),
                  text, fill=COLORS['black'], font=font)
         
-        # Draw cut lines
+        # Draw dashed cut lines for guillotine cutting
+        line_color = COLORS['dark_gray']
         draw.rectangle([x, y, x + icon_size, y + icon_size],
-                      outline=COLORS['dark_gray'], width=1)
+                      outline=line_color, width=1)
     
-    # Add footer and page number
-    draw_copyright_footer(draw, PAGE_WIDTH, PAGE_HEIGHT)
-    draw_page_number(draw, 1, 1, PAGE_WIDTH, PAGE_HEIGHT)
+    # Add footer using layout utilities
+    page = add_footer(page, FOOTER_TEXT)
     
-    # Save
-    output_path = os.path.join(output_dir, f"{theme_name}_Yes_No_Cutouts.pdf")
+    # Save with mode suffix
+    mode_suffix = f"_{mode}"
+    output_path = os.path.join(output_dir, f"{theme_name}_Yes_No_Cutouts{mode_suffix}.pdf")
     save_images_as_pdf([page], output_path)
     
     return output_path
@@ -409,8 +446,8 @@ def generate_yes_no_cards_set(items, theme_name, output_dir='output',
             label_path = create_companion_label(output_path, theme_name, "Yes/No Cards (Cut & Paste)")
             output_files['cut_paste_label'] = label_path
         
-        # Generate YES/NO cutouts
-        cutouts_path = generate_cutout_yes_no_icons(output_dir, theme_name)
+        # Generate YES/NO cutouts with mode parameter
+        cutouts_path = generate_cutout_yes_no_icons(output_dir, theme_name, mode)
         output_files['cutouts'] = cutouts_path
         
         if include_storage_label:
