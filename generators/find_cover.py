@@ -17,7 +17,7 @@ from utils.config import (
     COLORS, CARD_SIZES
 )
 from utils.image_loader import get_image_loader
-from utils.layout import create_page_canvas, add_page_border
+from utils.layout import create_page_canvas, add_page_border, add_footer
 from utils.pdf_export import save_images_as_pdf
 from utils.draw_helpers import (
     calculate_cell_rect,
@@ -29,6 +29,7 @@ from utils.draw_helpers import (
     create_placeholder_image
 )
 from utils.fonts import get_font_manager
+from utils.color_helpers import image_to_grayscale
 import random
 
 
@@ -42,7 +43,8 @@ def generate_find_cover_worksheet(
     folder_type='color',
     page_number=1,
     total_pages=1,
-    card_style=None
+    card_style=None,
+    mode='color'
 ):
     """
     Generate a single Find & Cover worksheet.
@@ -58,11 +60,12 @@ def generate_find_cover_worksheet(
         page_number: Current page number
         total_pages: Total number of pages
         card_style: Optional card styling dict
+        mode: Output mode - 'color' or 'bw'
         
     Returns:
         PIL.Image: Generated worksheet
     """
-    page = create_page_canvas()
+    page = create_page_canvas(mode=mode)
     draw = ImageDraw.Draw(page)
     image_loader = get_image_loader()
     font_manager = get_font_manager()
@@ -91,6 +94,8 @@ def generate_find_cover_worksheet(
     # Load and display target image
     try:
         target_img = image_loader.load_image(target_image, folder_type)
+        if mode == 'bw':
+            target_img = image_to_grayscale(target_img)
         scaled_target, (tx, ty) = scale_image_to_fit(
             target_img, target_rect, padding=10
         )
@@ -200,6 +205,8 @@ def generate_find_cover_worksheet(
             if img_filename and level != 4:
                 try:
                     cell_img = image_loader.load_image(img_filename, folder_type)
+                    if mode == 'bw':
+                        cell_img = image_to_grayscale(cell_img)
                     scaled_img, (cx, cy) = scale_image_to_fit(
                         cell_img, cell_rect, padding=5
                     )
@@ -215,11 +222,8 @@ def generate_find_cover_worksheet(
     # Add page border
     add_page_border(page)
     
-    # Add page number
-    draw_page_number(draw, page_number, total_pages)
-    
-    # Add copyright footer
-    draw_copyright_footer(draw)
+    # Add footer
+    add_footer(page, f"{theme_name} - Find & Cover", page_num=page_number, mode=mode)
     
     return page
 
@@ -234,7 +238,8 @@ def generate_find_cover_set(
     output_dir='output',
     sheets_per_target=1,
     include_storage_label=False,
-    card_style=None
+    card_style=None,
+    mode='color'
 ):
     """
     Generate a set of Find & Cover worksheets.
@@ -250,6 +255,7 @@ def generate_find_cover_set(
         sheets_per_target: Number of sheets to generate per target
         include_storage_label: If True, generate companion storage label
         card_style: Optional styling dict for cards
+        mode: Output mode - 'color' or 'bw'
         
     Returns:
         list: Generated worksheet pages
@@ -281,14 +287,16 @@ def generate_find_cover_set(
                 folder_type=folder_type,
                 page_number=len(pages) + 1,
                 total_pages=len(target_items) * sheets_per_target,
-                card_style=card_style
+                card_style=card_style,
+                mode=mode
             )
             pages.append(page)
     
     # Save PDF
     os.makedirs(output_dir, exist_ok=True)
     level_name = level_names.get(level, f"Level{level}")
-    output_filename = f"{theme_name}_Find_Cover_{level_name}.pdf"
+    mode_suffix = f"_{mode}" if mode else ""
+    output_filename = f"{theme_name}_Find_Cover_{level_name}{mode_suffix}.pdf"
     output_path = os.path.join(output_dir, output_filename)
     
     save_images_as_pdf(
@@ -303,7 +311,7 @@ def generate_find_cover_set(
     print(f"  Output: {output_path}")
     
     # Generate storage label if requested
-    if include_storage_label:
+    if include_storage_label and mode == 'color':  # Only for color version
         from utils.storage_label_helper import create_companion_label
         
         # Try to find icon from first target
@@ -329,6 +337,81 @@ def generate_find_cover_set(
         print(f"✓ Generated storage label: {label_path}")
     
     return pages
+
+
+def generate_find_cover_dual_mode(
+    target_items,
+    all_items,
+    theme_name='Theme',
+    level=1,
+    grid_size=(4, 4),
+    folder_type='color',
+    output_dir='output',
+    sheets_per_target=1,
+    include_storage_label=False,
+    card_style=None
+):
+    """
+    Generate both color and BW versions of Find & Cover worksheets.
+    
+    Args:
+        target_items: List of dicts with 'image' and 'label' keys for target items
+        all_items: List of all available items (includes targets + distractors)
+        theme_name: Theme name for PDF naming
+        level: Differentiation level (1-4)
+        grid_size: Tuple (rows, cols) for grid layout
+        folder_type: Image folder type ('color', 'outline', 'aac')
+        output_dir: Output directory path
+        sheets_per_target: Number of sheets to generate per target
+        include_storage_label: If True, generate companion storage label (color version only)
+        card_style: Optional styling dict for cards
+        
+    Returns:
+        dict: Paths to generated PDFs {'color': path, 'bw': path}
+    """
+    results = {}
+    
+    # Generate color version
+    color_pages = generate_find_cover_set(
+        target_items=target_items,
+        all_items=all_items,
+        theme_name=theme_name,
+        level=level,
+        grid_size=grid_size,
+        folder_type=folder_type,
+        output_dir=output_dir,
+        sheets_per_target=sheets_per_target,
+        include_storage_label=include_storage_label,
+        card_style=card_style,
+        mode='color'
+    )
+    
+    level_names = {
+        1: "Level1_Errorless",
+        2: "Level2_Mixed",
+        3: "Level3_Challenging",
+        4: "Level4_Cut_Paste"
+    }
+    level_name = level_names.get(level, f"Level{level}")
+    results['color'] = os.path.join(output_dir, f"{theme_name}_Find_Cover_{level_name}_color.pdf")
+    
+    # Generate BW version
+    bw_pages = generate_find_cover_set(
+        target_items=target_items,
+        all_items=all_items,
+        theme_name=theme_name,
+        level=level,
+        grid_size=grid_size,
+        folder_type=folder_type,
+        output_dir=output_dir,
+        sheets_per_target=sheets_per_target,
+        include_storage_label=False,  # No storage label for BW
+        card_style=card_style,
+        mode='bw'
+    )
+    results['bw'] = os.path.join(output_dir, f"{theme_name}_Find_Cover_{level_name}_bw.pdf")
+    
+    return results
 
 
 if __name__ == "__main__":
