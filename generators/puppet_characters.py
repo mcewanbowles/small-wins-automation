@@ -18,18 +18,19 @@ from utils.config import DPI, PAGE_WIDTH, PAGE_HEIGHT, MARGINS, COLORS, CARD_SIZ
 from utils.image_loader import load_image
 from utils.pdf_export import save_images_as_pdf
 from utils.storage_label_helper import create_companion_label
+from utils.layout import create_page_canvas, add_footer
+from utils.image_utils import scale_image_proportional, center_image_in_box
+from utils.color_helpers import image_to_grayscale
+from utils.fonts import get_font
 from utils.draw_helpers import (
-    scale_image_to_fit,
     draw_card_background,
-    draw_page_number,
-    draw_copyright_footer,
     draw_text_centered_in_rect,
     create_placeholder_image
 )
 
 
 def generate_stick_puppet(character_data, folder_type='images', with_grab_tab=True,
-                          with_handle_strip=True, with_sentence_strip=False):
+                          with_handle_strip=True, with_sentence_strip=False, mode='color'):
     """
     Generate a large stick puppet (12-15cm tall).
     
@@ -39,12 +40,13 @@ def generate_stick_puppet(character_data, folder_type='images', with_grab_tab=Tr
         with_grab_tab: Include grab tab at bottom
         with_handle_strip: Include handle strip for craft stick
         with_sentence_strip: Include "I am the ___" sentence strip
+        mode: 'color' or 'bw' for output mode
     
     Returns:
         PIL Image of stick puppet page
     """
-    # Page setup
-    page = Image.new('RGB', (int(PAGE_WIDTH), int(PAGE_HEIGHT)), 'white')
+    # Page setup using modern layout utility
+    page = create_page_canvas(mode=mode)
     draw = ImageDraw.Draw(page)
     
     # Puppet dimensions (12-15cm = 1417-1772px at 300 DPI, use 1500px tall)
@@ -57,28 +59,31 @@ def generate_stick_puppet(character_data, folder_type='images', with_grab_tab=Tr
     
     try:
         char_img = load_image(img_path, folder_type)
+        # Convert to grayscale if BW mode
+        if mode == 'bw':
+            char_img = image_to_grayscale(char_img)
     except:
         char_img = create_placeholder_image(500, 500, label)
     
-    # Scale image to fit puppet height while maintaining aspect ratio
-    aspect_ratio = char_img.width / char_img.height
-    puppet_width = int(puppet_height * aspect_ratio)
+    # Scale image proportionally and center
+    scaled_img = scale_image_proportional(char_img, None, puppet_height)
     
     # Ensure puppet fits on page width
     max_width = int(PAGE_WIDTH - 2 * MARGINS['page'])
-    if puppet_width > max_width:
-        puppet_width = max_width
-        puppet_height = int(puppet_width / aspect_ratio)
+    if scaled_img.width > max_width:
+        scaled_img = scale_image_proportional(char_img, max_width, None)
     
-    char_img = char_img.resize((puppet_width, puppet_height), Image.Resampling.LANCZOS)
-    
-    # Center puppet horizontally
-    puppet_x = int((PAGE_WIDTH - puppet_width) / 2)
+    # Center puppet horizontally and vertically in the allocated space
+    centered_img = center_image_in_box(scaled_img, int(PAGE_WIDTH), puppet_height)
+    puppet_x = int((PAGE_WIDTH - scaled_img.width) / 2)
     
     # Paste character image
-    page.paste(char_img, (puppet_x, puppet_y_start), char_img if char_img.mode == 'RGBA' else None)
+    if char_img.mode == 'RGBA':
+        page.paste(centered_img, (puppet_x, puppet_y_start), centered_img)
+    else:
+        page.paste(centered_img, (puppet_x, puppet_y_start))
     
-    current_y = puppet_y_start + puppet_height + 20
+    current_y = puppet_y_start + scaled_img.height + 20
     
     # Add grab tab at bottom (if requested)
     if with_grab_tab:
@@ -94,7 +99,7 @@ def generate_stick_puppet(character_data, folder_type='images', with_grab_tab=Tr
         )
         
         # Draw scissors symbol
-        font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 24)
+        font = get_font('body', 24)
         draw.text((tab_x + tab_width//2, current_y + tab_height//2), '✂', 
                   fill='black', font=font, anchor='mm')
         
@@ -115,7 +120,7 @@ def generate_stick_puppet(character_data, folder_type='images', with_grab_tab=Tr
         )
         
         # Add text "Glue to stick"
-        font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 16)
+        font = get_font('body', 16)
         draw.text((strip_x + strip_width//2, current_y + strip_height//2), 
                   'Glue\nto\nstick', fill='black', font=font, anchor='mm', align='center')
         
@@ -124,7 +129,7 @@ def generate_stick_puppet(character_data, folder_type='images', with_grab_tab=Tr
     # Add sentence strip (if requested)
     if with_sentence_strip:
         sentence = f"I am the {label}"
-        font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', 32)
+        font = get_font('heading', 32)
         
         # Calculate text size
         bbox = draw.textbbox((0, 0), sentence, font=font)
@@ -150,7 +155,7 @@ def generate_stick_puppet(character_data, folder_type='images', with_grab_tab=Tr
     return page
 
 
-def generate_finger_puppet(character_data, folder_type='images', with_fold_tab=True):
+def generate_finger_puppet(character_data, folder_type='images', with_fold_tab=True, mode='color'):
     """
     Generate a small finger puppet (5-6cm tall).
     
@@ -158,6 +163,7 @@ def generate_finger_puppet(character_data, folder_type='images', with_fold_tab=T
         character_data: Dict with 'image' and 'label' keys
         folder_type: 'images', 'aac', or 'Colour_images'
         with_fold_tab: Include fold-over tab for finger
+        mode: 'color' or 'bw' for output mode
     
     Returns:
         PIL Image of finger puppet
@@ -171,13 +177,15 @@ def generate_finger_puppet(character_data, folder_type='images', with_fold_tab=T
     
     try:
         char_img = load_image(img_path, folder_type)
+        # Convert to grayscale if BW mode
+        if mode == 'bw':
+            char_img = image_to_grayscale(char_img)
     except:
         char_img = create_placeholder_image(300, 300, label)
     
-    # Scale image
-    aspect_ratio = char_img.width / char_img.height
-    puppet_width = int(puppet_height * aspect_ratio)
-    char_img = char_img.resize((puppet_width, puppet_height), Image.Resampling.LANCZOS)
+    # Scale image proportionally
+    scaled_img = scale_image_proportional(char_img, None, puppet_height)
+    puppet_width = scaled_img.width
     
     # Create puppet image with space for tab
     tab_height = 100 if with_fold_tab else 0
@@ -187,7 +195,10 @@ def generate_finger_puppet(character_data, folder_type='images', with_fold_tab=T
     draw = ImageDraw.Draw(puppet_img)
     
     # Paste character
-    puppet_img.paste(char_img, (10, 10), char_img if char_img.mode == 'RGBA' else None)
+    if scaled_img.mode == 'RGBA':
+        puppet_img.paste(scaled_img, (10, 10), scaled_img)
+    else:
+        puppet_img.paste(scaled_img, (10, 10))
     
     # Draw border around character
     draw.rectangle([(10, 10), (10 + puppet_width, 10 + puppet_height)], 
@@ -200,7 +211,7 @@ def generate_finger_puppet(character_data, folder_type='images', with_fold_tab=T
                        outline='black', fill='white', width=2)
         
         # Add "Fold here" text
-        font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 14)
+        font = get_font('body', 14)
         draw.text((10 + puppet_width//2, tab_y + tab_height//2), 
                   'Fold here', fill='black', font=font, anchor='mm')
     
@@ -208,7 +219,7 @@ def generate_finger_puppet(character_data, folder_type='images', with_fold_tab=T
 
 
 def generate_velcro_character_card(character_data, folder_type='images', 
-                                   with_bold_outline=True, with_grab_tab=True):
+                                   with_bold_outline=True, with_grab_tab=True, mode='color'):
     """
     Generate a velcro character card (matching card size).
     
@@ -217,6 +228,7 @@ def generate_velcro_character_card(character_data, folder_type='images',
         folder_type: 'images', 'aac', or 'Colour_images'
         with_bold_outline: Add bold outline for visibility
         with_grab_tab: Include grab tab
+        mode: 'color' or 'bw' for output mode
     
     Returns:
         PIL Image of character card
@@ -230,6 +242,9 @@ def generate_velcro_character_card(character_data, folder_type='images',
     
     try:
         char_img = load_image(img_path, folder_type)
+        # Convert to grayscale if BW mode
+        if mode == 'bw':
+            char_img = image_to_grayscale(char_img)
     except:
         char_img = create_placeholder_image(card_size, card_size, label)
     
@@ -242,9 +257,17 @@ def generate_velcro_character_card(character_data, folder_type='images',
     card = Image.new('RGB', (card_width, card_height), 'white')
     draw = ImageDraw.Draw(card)
     
-    # Scale and paste character image
-    scaled_img, pos_x, pos_y = scale_image_to_fit(char_img, (5, 5, card_size + 5, card_size + 5), padding=5)
-    card.paste(scaled_img, (int(pos_x), int(pos_y)), scaled_img if scaled_img.mode == 'RGBA' else None)
+    # Scale and center image in card
+    scaled_img = scale_image_proportional(char_img, card_size - 10, card_size - 10)
+    centered_img = center_image_in_box(scaled_img, card_size, card_size)
+    
+    # Paste scaled image
+    img_x = 5 + (card_size - scaled_img.width) // 2
+    img_y = 5 + (card_size - scaled_img.height) // 2
+    if scaled_img.mode == 'RGBA':
+        card.paste(centered_img, (img_x, img_y), centered_img)
+    else:
+        card.paste(centered_img, (img_x, img_y))
     
     # Draw border
     border_width = 3 if with_bold_outline else 1
@@ -252,7 +275,7 @@ def generate_velcro_character_card(character_data, folder_type='images',
                    outline='black', width=border_width)
     
     # Add label
-    font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', 24)
+    font = get_font('heading', 24)
     label_y = card_size + 15
     draw.text((card_width//2, label_y + 20), label, fill='black', font=font, anchor='mm')
     
@@ -264,28 +287,29 @@ def generate_velcro_character_card(character_data, folder_type='images',
         draw.rectangle([(tab_x, tab_y), (tab_x + 80, tab_y + 30)],
                        outline='black', width=2)
         
-        font_small = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 20)
+        font_small = get_font('body', 20)
         draw.text((tab_x + 40, tab_y + 15), '✂', fill='black', font=font_small, anchor='mm')
     
     return card
 
 
-def generate_story_mat(num_zones=4, with_wh_prompts=True):
+def generate_story_mat(num_zones=4, with_wh_prompts=True, mode='color'):
     """
     Generate a story mat with placement zones.
     
     Args:
         num_zones: Number of placement zones (3-6)
         with_wh_prompts: Include WH question prompts
+        mode: 'color' or 'bw' for output mode
     
     Returns:
         PIL Image of story mat page
     """
-    page = Image.new('RGB', (int(PAGE_WIDTH), int(PAGE_HEIGHT)), 'white')
+    page = create_page_canvas(mode=mode)
     draw = ImageDraw.Draw(page)
     
     # Title
-    font_title = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', 48)
+    font_title = get_font('heading', 48)
     draw.text((PAGE_WIDTH//2, 150), 'Story Mat', fill='black', font=font_title, anchor='mm')
     
     # Calculate zone layout
@@ -299,8 +323,8 @@ def generate_story_mat(num_zones=4, with_wh_prompts=True):
     start_x = int((PAGE_WIDTH - (2 * zone_width + spacing)) / 2)
     start_y = 400
     
-    font_label = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', 28)
-    font_prompt = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 20)
+    font_label = get_font('heading', 28)
+    font_prompt = get_font('body', 20)
     
     prompts = [
         "Who is here?",
@@ -334,13 +358,14 @@ def generate_story_mat(num_zones=4, with_wh_prompts=True):
     return page
 
 
-def generate_lanyard_character(character_data, folder_type='images'):
+def generate_lanyard_character(character_data, folder_type='images', mode='color'):
     """
     Generate a small lanyard-friendly character icon.
     
     Args:
         character_data: Dict with 'image' and 'label' keys
         folder_type: 'images', 'aac', or 'Colour_images'
+        mode: 'color' or 'bw' for output mode
     
     Returns:
         PIL Image of lanyard character card
@@ -355,6 +380,9 @@ def generate_lanyard_character(character_data, folder_type='images'):
     
     try:
         char_img = load_image(img_path, folder_type)
+        # Convert to grayscale if BW mode
+        if mode == 'bw':
+            char_img = image_to_grayscale(char_img)
     except:
         char_img = create_placeholder_image(card_size, card_size, label)
     
@@ -388,23 +416,26 @@ def generate_lanyard_character(character_data, folder_type='images'):
     draw.line([(lanyard_strip_width, 0), (lanyard_strip_width, card_height)],
               fill='black', width=3)
     
-    # Scale and paste character image
+    # Scale and center image in card
     img_x = lanyard_strip_width + 10
     img_y = 10
-    scaled_img, pos_x, pos_y = scale_image_to_fit(
-        char_img, 
-        (img_x, img_y, img_x + card_size, img_y + card_size), 
-        padding=5
-    )
-    card.paste(scaled_img, (int(pos_x), int(pos_y)), 
-               scaled_img if scaled_img.mode == 'RGBA' else None)
+    scaled_img = scale_image_proportional(char_img, card_size - 10, card_size - 10)
+    centered_img = center_image_in_box(scaled_img, card_size, card_size)
+    
+    # Paste scaled image
+    paste_x = img_x + (card_size - scaled_img.width) // 2
+    paste_y = img_y + (card_size - scaled_img.height) // 2
+    if scaled_img.mode == 'RGBA':
+        card.paste(centered_img, (paste_x, paste_y), centered_img)
+    else:
+        card.paste(centered_img, (paste_x, paste_y))
     
     # Draw border around image
     draw.rectangle([(img_x, img_y), (img_x + card_size, img_y + card_size)],
                    outline='black', width=2)
     
     # Add label
-    font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', 20)
+    font = get_font('heading', 20)
     label_y = img_y + card_size + 20
     draw.text((img_x + card_size//2, label_y), label, fill='black', font=font, anchor='mm')
     
@@ -418,7 +449,8 @@ def generate_puppet_characters_set(characters, theme_name, output_dir='output',
                                    include_story_mat=False,
                                    include_lanyard=True,
                                    include_storage_label=True,
-                                   folder_type='images'):
+                                   folder_type='images',
+                                   mode='color'):
     """
     Generate complete puppet characters set.
     
@@ -433,6 +465,7 @@ def generate_puppet_characters_set(characters, theme_name, output_dir='output',
         include_lanyard: Generate lanyard character cards
         include_storage_label: Generate storage labels
         folder_type: Image folder type
+        mode: 'color' or 'bw' for output mode
     
     Returns:
         Dict with paths to all generated files
@@ -440,26 +473,27 @@ def generate_puppet_characters_set(characters, theme_name, output_dir='output',
     os.makedirs(output_dir, exist_ok=True)
     output_files = {}
     
+    # Determine file suffix based on mode
+    mode_suffix = f"_{mode}" if mode != 'color' else ""
+    
     # Generate stick puppets
     if include_stick_puppets:
         stick_pages = []
         for char in characters:
-            page = generate_stick_puppet(char, folder_type=folder_type)
+            page = generate_stick_puppet(char, folder_type=folder_type, mode=mode)
             
-            # Add page number and copyright
-            draw = ImageDraw.Draw(page)
-            draw_page_number(draw, len(stick_pages) + 1, len(characters), 
-                            PAGE_WIDTH, PAGE_HEIGHT)
-            draw_copyright_footer(draw, PAGE_WIDTH, PAGE_HEIGHT)
+            # Add footer with page number
+            add_footer(page, f"Stick Puppets - {char.get('label', 'Character')}", 
+                      page_num=len(stick_pages) + 1, total_pages=len(characters), mode=mode)
             
             stick_pages.append(page)
         
-        stick_path = os.path.join(output_dir, f'{theme_name}_Stick_Puppets.pdf')
+        stick_path = os.path.join(output_dir, f'{theme_name}_Stick_Puppets{mode_suffix}.pdf')
         save_images_as_pdf(stick_pages, stick_path)
         output_files['stick_puppets'] = stick_path
         
         # Storage label
-        if include_storage_label:
+        if include_storage_label and mode == 'color':
             label_path = create_companion_label(
                 stick_path, theme_name, "Stick Puppets", output_dir=output_dir
             )
@@ -472,12 +506,12 @@ def generate_puppet_characters_set(characters, theme_name, output_dir='output',
         
         page_puppets = []
         for i, char in enumerate(characters):
-            puppet_img = generate_finger_puppet(char, folder_type=folder_type)
+            puppet_img = generate_finger_puppet(char, folder_type=folder_type, mode=mode)
             page_puppets.append(puppet_img)
             
             if len(page_puppets) == puppets_per_page or i == len(characters) - 1:
                 # Create page
-                page = Image.new('RGB', (int(PAGE_WIDTH), int(PAGE_HEIGHT)), 'white')
+                page = create_page_canvas(mode=mode)
                 
                 # Arrange puppets in row
                 spacing = 50
@@ -490,22 +524,21 @@ def generate_puppet_characters_set(characters, theme_name, output_dir='output',
                     page.paste(puppet, (x_pos, y_pos))
                     x_pos += puppet.width + spacing
                 
-                # Add page elements
-                draw = ImageDraw.Draw(page)
-                draw_page_number(draw, len(finger_pages) + 1, 
-                                (len(characters) + puppets_per_page - 1) // puppets_per_page,
-                                PAGE_WIDTH, PAGE_HEIGHT)
-                draw_copyright_footer(draw, PAGE_WIDTH, PAGE_HEIGHT)
+                # Add footer
+                add_footer(page, "Finger Puppets", 
+                          page_num=len(finger_pages) + 1,
+                          total_pages=(len(characters) + puppets_per_page - 1) // puppets_per_page,
+                          mode=mode)
                 
                 finger_pages.append(page)
                 page_puppets = []
         
-        finger_path = os.path.join(output_dir, f'{theme_name}_Finger_Puppets.pdf')
+        finger_path = os.path.join(output_dir, f'{theme_name}_Finger_Puppets{mode_suffix}.pdf')
         save_images_as_pdf(finger_pages, finger_path)
         output_files['finger_puppets'] = finger_path
         
         # Storage label
-        if include_storage_label:
+        if include_storage_label and mode == 'color':
             label_path = create_companion_label(
                 finger_path, theme_name, "Finger Puppets", output_dir=output_dir
             )
@@ -518,12 +551,12 @@ def generate_puppet_characters_set(characters, theme_name, output_dir='output',
         
         page_cards = []
         for i, char in enumerate(characters):
-            card_img = generate_velcro_character_card(char, folder_type=folder_type)
+            card_img = generate_velcro_character_card(char, folder_type=folder_type, mode=mode)
             page_cards.append(card_img)
             
             if len(page_cards) == cards_per_page or i == len(characters) - 1:
                 # Create page with 2×3 grid
-                page = Image.new('RGB', (int(PAGE_WIDTH), int(PAGE_HEIGHT)), 'white')
+                page = create_page_canvas(mode=mode)
                 
                 rows = 2
                 cols = 3
@@ -545,22 +578,21 @@ def generate_puppet_characters_set(characters, theme_name, output_dir='output',
                     y = start_y + row * (card_height + spacing)
                     page.paste(card, (x, y))
                 
-                # Add page elements
-                draw = ImageDraw.Draw(page)
-                draw_page_number(draw, len(velcro_pages) + 1,
-                                (len(characters) + cards_per_page - 1) // cards_per_page,
-                                PAGE_WIDTH, PAGE_HEIGHT)
-                draw_copyright_footer(draw, PAGE_WIDTH, PAGE_HEIGHT)
+                # Add footer
+                add_footer(page, "Velcro Character Cards",
+                          page_num=len(velcro_pages) + 1,
+                          total_pages=(len(characters) + cards_per_page - 1) // cards_per_page,
+                          mode=mode)
                 
                 velcro_pages.append(page)
                 page_cards = []
         
-        velcro_path = os.path.join(output_dir, f'{theme_name}_Velcro_Character_Cards.pdf')
+        velcro_path = os.path.join(output_dir, f'{theme_name}_Velcro_Character_Cards{mode_suffix}.pdf')
         save_images_as_pdf(velcro_pages, velcro_path)
         output_files['velcro_cards'] = velcro_path
         
         # Storage label
-        if include_storage_label:
+        if include_storage_label and mode == 'color':
             label_path = create_companion_label(
                 velcro_path, theme_name, "Velcro Character Cards", output_dir=output_dir
             )
@@ -569,19 +601,17 @@ def generate_puppet_characters_set(characters, theme_name, output_dir='output',
     # Generate story mat
     if include_story_mat:
         num_zones = min(len(characters), 6)
-        mat_page = generate_story_mat(num_zones=num_zones, with_wh_prompts=True)
+        mat_page = generate_story_mat(num_zones=num_zones, with_wh_prompts=True, mode=mode)
         
-        # Add page elements
-        draw = ImageDraw.Draw(mat_page)
-        draw_page_number(draw, 1, 1, PAGE_WIDTH, PAGE_HEIGHT)
-        draw_copyright_footer(draw, PAGE_WIDTH, PAGE_HEIGHT)
+        # Add footer
+        add_footer(mat_page, "Story Mat", page_num=1, total_pages=1, mode=mode)
         
-        mat_path = os.path.join(output_dir, f'{theme_name}_Story_Mat.pdf')
+        mat_path = os.path.join(output_dir, f'{theme_name}_Story_Mat{mode_suffix}.pdf')
         save_images_as_pdf([mat_page], mat_path)
         output_files['story_mat'] = mat_path
         
         # Storage label
-        if include_storage_label:
+        if include_storage_label and mode == 'color':
             label_path = create_companion_label(
                 mat_path, theme_name, "Story Mat", output_dir=output_dir
             )
@@ -594,12 +624,12 @@ def generate_puppet_characters_set(characters, theme_name, output_dir='output',
         
         page_cards = []
         for i, char in enumerate(characters):
-            card_img = generate_lanyard_character(char, folder_type=folder_type)
+            card_img = generate_lanyard_character(char, folder_type=folder_type, mode=mode)
             page_cards.append(card_img)
             
             if len(page_cards) == cards_per_page or i == len(characters) - 1:
                 # Create page
-                page = Image.new('RGB', (int(PAGE_WIDTH), int(PAGE_HEIGHT)), 'white')
+                page = create_page_canvas(mode=mode)
                 
                 # Arrange cards vertically
                 spacing = 100
@@ -612,22 +642,21 @@ def generate_puppet_characters_set(characters, theme_name, output_dir='output',
                     page.paste(card, (x_pos, y_pos))
                     y_pos += card.height + spacing
                 
-                # Add page elements
-                draw = ImageDraw.Draw(page)
-                draw_page_number(draw, len(lanyard_pages) + 1,
-                                (len(characters) + cards_per_page - 1) // cards_per_page,
-                                PAGE_WIDTH, PAGE_HEIGHT)
-                draw_copyright_footer(draw, PAGE_WIDTH, PAGE_HEIGHT)
+                # Add footer
+                add_footer(page, "Lanyard Characters",
+                          page_num=len(lanyard_pages) + 1,
+                          total_pages=(len(characters) + cards_per_page - 1) // cards_per_page,
+                          mode=mode)
                 
                 lanyard_pages.append(page)
                 page_cards = []
         
-        lanyard_path = os.path.join(output_dir, f'{theme_name}_Lanyard_Characters.pdf')
+        lanyard_path = os.path.join(output_dir, f'{theme_name}_Lanyard_Characters{mode_suffix}.pdf')
         save_images_as_pdf(lanyard_pages, lanyard_path)
         output_files['lanyard'] = lanyard_path
         
         # Storage label
-        if include_storage_label:
+        if include_storage_label and mode == 'color':
             label_path = create_companion_label(
                 lanyard_path, theme_name, "Lanyard Characters", output_dir=output_dir
             )
@@ -636,5 +665,62 @@ def generate_puppet_characters_set(characters, theme_name, output_dir='output',
     return output_files
 
 
-# Export main function
-__all__ = ['generate_puppet_characters_set']
+def generate_puppet_characters_dual_mode(characters, theme_name, output_dir='output',
+                                         include_stick_puppets=True,
+                                         include_finger_puppets=True,
+                                         include_velcro_cards=True,
+                                         include_story_mat=False,
+                                         include_lanyard=True,
+                                         include_storage_label=True,
+                                         folder_type='images'):
+    """
+    Generate complete puppet characters set in BOTH color and black-and-white modes.
+    
+    Args:
+        characters: List of character dicts with 'image' and 'label'
+        theme_name: Name of the theme for file naming
+        output_dir: Output directory path
+        include_stick_puppets: Generate stick puppet pages
+        include_finger_puppets: Generate finger puppet pages
+        include_velcro_cards: Generate velcro character cards
+        include_story_mat: Generate story mat page
+        include_lanyard: Generate lanyard character cards
+        include_storage_label: Generate storage labels
+        folder_type: Image folder type
+    
+    Returns:
+        Dict with 'color' and 'bw' keys, each containing paths to generated files
+    """
+    results = {}
+    
+    # Generate color version
+    results['color'] = generate_puppet_characters_set(
+        characters, theme_name, output_dir,
+        include_stick_puppets=include_stick_puppets,
+        include_finger_puppets=include_finger_puppets,
+        include_velcro_cards=include_velcro_cards,
+        include_story_mat=include_story_mat,
+        include_lanyard=include_lanyard,
+        include_storage_label=include_storage_label,
+        folder_type=folder_type,
+        mode='color'
+    )
+    
+    # Generate black-and-white version
+    results['bw'] = generate_puppet_characters_set(
+        characters, theme_name, output_dir,
+        include_stick_puppets=include_stick_puppets,
+        include_finger_puppets=include_finger_puppets,
+        include_velcro_cards=include_velcro_cards,
+        include_story_mat=include_story_mat,
+        include_lanyard=include_lanyard,
+        include_storage_label=False,  # Only generate labels for color version
+        folder_type=folder_type,
+        mode='bw'
+    )
+    
+    return results
+
+
+# Export main functions
+__all__ = ['generate_puppet_characters_set', 'generate_puppet_characters_dual_mode']
