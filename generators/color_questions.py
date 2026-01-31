@@ -29,7 +29,7 @@ COLORS = {
 
 
 def generate_color_question_card(image_filename, question_text, correct_color,
-                                  color_choices=None, folder_type='color', level=1):
+                                  color_choices=None, folder_type='color', level=1, mode='color'):
     """
     Generate a color identification question card.
     
@@ -40,6 +40,7 @@ def generate_color_question_card(image_filename, question_text, correct_color,
         color_choices: List of color names to show (default: red, blue, yellow, green)
         folder_type: Image folder type
         level: Differentiation level (1=answer shown, 2=no answer)
+        mode: Output mode ('color' or 'bw')
         
     Returns:
         PIL.Image: Generated card
@@ -47,7 +48,7 @@ def generate_color_question_card(image_filename, question_text, correct_color,
     if color_choices is None:
         color_choices = ['red', 'blue', 'yellow', 'green']
     
-    page = create_page_canvas()
+    page = create_page_canvas(mode=mode)
     
     # Add question as title
     add_title_to_page(page, question_text)
@@ -114,14 +115,14 @@ def generate_color_question_card(image_filename, question_text, correct_color,
             pass
     
     add_page_border(page)
-    add_footer(page)
+    add_footer(page, mode=mode)
     
     return page
 
 
 def generate_color_questions_set(question_data, folder_type='color', level=1,
                                   theme_name='Theme', output_dir='output',
-                                  include_storage_label=False):
+                                  include_storage_label=False, mode='color'):
     """
     Generate a set of color questions.
     
@@ -132,9 +133,10 @@ def generate_color_questions_set(question_data, folder_type='color', level=1,
         theme_name: Theme name
         output_dir: Output directory
         include_storage_label: If True, also generate a companion storage label PDF
+        mode: Output mode ('color' or 'bw')
         
     Returns:
-        list: Generated pages
+        str: Path to generated PDF
     """
     pages = []
     
@@ -145,18 +147,20 @@ def generate_color_questions_set(question_data, folder_type='color', level=1,
             item['color'],
             item.get('choices'),
             folder_type,
-            level
+            level,
+            mode
         )
         pages.append(page)
     
     # Save PDF
     import os
     os.makedirs(output_dir, exist_ok=True)
-    output_path = f"{output_dir}/{theme_name}_Color_Questions_Level{level}.pdf"
+    mode_suffix = f"_{mode}" if mode else ""
+    output_path = f"{output_dir}/{theme_name}_Color_Questions_Level{level}{mode_suffix}.pdf"
     save_images_as_pdf(pages, output_path, title=f"{theme_name} Color Questions")
     
-    # Generate storage label if requested
-    if include_storage_label:
+    # Generate storage label if requested (only for color mode)
+    if include_storage_label and mode == 'color':
         from utils.storage_label_helper import create_companion_label
         
         # Try to find an icon from first question
@@ -177,7 +181,55 @@ def generate_color_questions_set(question_data, folder_type='color', level=1,
         print(f"✓ Generated storage label")
         print(f"  Label: {label_path}")
     
-    return pages
+    return output_path
+
+
+def generate_color_questions_dual_mode(question_data, folder_type='color', level=1,
+                                        theme_name='Theme', output_dir='output',
+                                        include_storage_label=False):
+    """
+    Generate color questions in both color and black-and-white modes.
+    
+    Args:
+        question_data: List of dicts with 'image', 'question', 'color', 'choices' keys
+        folder_type: Image folder type
+        level: Differentiation level
+        theme_name: Theme name
+        output_dir: Output directory
+        include_storage_label: If True, also generate a companion storage label PDF (color only)
+        
+    Returns:
+        dict: Paths to generated PDFs {'color': path, 'bw': path}
+    """
+    import os
+    os.makedirs(output_dir, exist_ok=True)
+    
+    # Generate color version
+    color_path = generate_color_questions_set(
+        question_data,
+        folder_type,
+        level,
+        theme_name,
+        output_dir,
+        include_storage_label,
+        mode='color'
+    )
+    
+    # Generate BW version
+    bw_path = generate_color_questions_set(
+        question_data,
+        folder_type,
+        level,
+        theme_name,
+        output_dir,
+        include_storage_label=False,  # No label for BW
+        mode='bw'
+    )
+    
+    return {
+        'color': color_path,
+        'bw': bw_path
+    }
 
 
 if __name__ == "__main__":
