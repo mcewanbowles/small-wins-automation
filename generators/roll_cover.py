@@ -1,6 +1,7 @@
 """
 Roll & Cover Game Generator
 Generates dice-based numeracy games in task-box sizing format.
+Supports dual-mode output (color and black-and-white).
 """
 
 from reportlab.lib.pagesizes import letter
@@ -10,9 +11,30 @@ from reportlab.lib.colors import HexColor
 import os
 
 
-def create_roll_cover_games(theme_data, output_dir):
+def hex_to_grayscale_reportlab(hex_color):
+    """Convert hex color to grayscale using luminosity method"""
+    if isinstance(hex_color, str):
+        hex_color = hex_color.lstrip('#')
+        r = int(hex_color[0:2], 16) / 255.0
+        g = int(hex_color[2:4], 16) / 255.0
+        b = int(hex_color[4:6], 16) / 255.0
+    else:
+        # Already a HexColor object
+        r, g, b = hex_color.red, hex_color.green, hex_color.blue
+    
+    # Luminosity method: 0.299R + 0.587G + 0.114B
+    gray = 0.299 * r + 0.587 * g + 0.114 * b
+    return HexColor(int(gray * 255) << 16 | int(gray * 255) << 8 | int(gray * 255))
+
+
+def create_roll_cover_games(theme_data, output_dir, mode='color'):
     """
     Generate Roll & Cover game boards with task-box sizing.
+    
+    Args:
+        theme_data: Dictionary containing theme information
+        output_dir: Directory to save generated PDFs
+        mode: 'color' or 'bw' for black-and-white output
     
     Game Types:
     1. Roll & Cover (numbers 1-6)
@@ -25,22 +47,27 @@ def create_roll_cover_games(theme_data, output_dir):
     theme_name = theme_data.get('name', 'Theme')
     primary_color = HexColor(theme_data.get('primary_colour', '#4A90E2'))
     
+    # Convert to grayscale if in BW mode
+    if mode == 'bw':
+        primary_color = hex_to_grayscale_reportlab(primary_color)
+    
     # Task-box dimensions (4 per page, 2x2 grid)
     card_width = 5.25 * inch
     card_height = 4 * inch
     
     # Generate different game types
-    _create_basic_roll_cover(output_dir, theme_name, primary_color, card_width, card_height)
-    _create_double_dice_roll_cover(output_dir, theme_name, primary_color, card_width, card_height)
-    _create_icon_roll_cover(output_dir, theme_name, primary_color, card_width, card_height, theme_data)
-    _create_storage_labels(output_dir, theme_name, primary_color)
+    _create_basic_roll_cover(output_dir, theme_name, primary_color, card_width, card_height, mode)
+    _create_double_dice_roll_cover(output_dir, theme_name, primary_color, card_width, card_height, mode)
+    _create_icon_roll_cover(output_dir, theme_name, primary_color, card_width, card_height, theme_data, mode)
+    _create_storage_labels(output_dir, theme_name, primary_color, mode)
     
-    print(f"Roll & Cover games generated in {output_dir}")
+    print(f"Roll & Cover games ({mode}) generated in {output_dir}")
 
 
-def _create_basic_roll_cover(output_dir, theme_name, primary_color, card_width, card_height):
+def _create_basic_roll_cover(output_dir, theme_name, primary_color, card_width, card_height, mode='color'):
     """Create Roll & Cover boards for numbers 1-6"""
-    pdf_path = os.path.join(output_dir, f"{theme_name}_Roll_Cover_1-6.pdf")
+    mode_suffix = f"_{mode}" if mode else ""
+    pdf_path = os.path.join(output_dir, f"{theme_name}_Roll_Cover_1-6{mode_suffix}.pdf")
     c = canvas.Canvas(pdf_path, pagesize=letter)
     page_width, page_height = letter
     
@@ -112,9 +139,10 @@ def _create_basic_roll_cover(output_dir, theme_name, primary_color, card_width, 
     c.save()
 
 
-def _create_double_dice_roll_cover(output_dir, theme_name, primary_color, card_width, card_height):
+def _create_double_dice_roll_cover(output_dir, theme_name, primary_color, card_width, card_height, mode='color'):
     """Create Roll & Cover boards for numbers 2-12 (using two dice)"""
-    pdf_path = os.path.join(output_dir, f"{theme_name}_Roll_Cover_2-12.pdf")
+    mode_suffix = f"_{mode}" if mode else ""
+    pdf_path = os.path.join(output_dir, f"{theme_name}_Roll_Cover_2-12{mode_suffix}.pdf")
     c = canvas.Canvas(pdf_path, pagesize=letter)
     page_width, page_height = letter
     
@@ -207,9 +235,10 @@ def _create_double_dice_roll_cover(output_dir, theme_name, primary_color, card_w
     c.save()
 
 
-def _create_icon_roll_cover(output_dir, theme_name, primary_color, card_width, card_height, theme_data):
+def _create_icon_roll_cover(output_dir, theme_name, primary_color, card_width, card_height, theme_data, mode='color'):
     """Create Roll & Cover with icon counting"""
-    pdf_path = os.path.join(output_dir, f"{theme_name}_Roll_Count_Cover.pdf")
+    mode_suffix = f"_{mode}" if mode else ""
+    pdf_path = os.path.join(output_dir, f"{theme_name}_Roll_Count_Cover{mode_suffix}.pdf")
     c = canvas.Canvas(pdf_path, pagesize=letter)
     page_width, page_height = letter
     
@@ -316,9 +345,10 @@ def _draw_dice_dots(c, center_x, center_y, number, dot_size=4):
             c.circle(center_x + dx, center_y + dy, dot_size/2, fill=1)
 
 
-def _create_storage_labels(output_dir, theme_name, primary_color):
+def _create_storage_labels(output_dir, theme_name, primary_color, mode='color'):
     """Create storage labels for Roll & Cover games"""
-    pdf_path = os.path.join(output_dir, f"{theme_name}_Roll_Cover_Storage_Labels.pdf")
+    mode_suffix = f"_{mode}" if mode else ""
+    pdf_path = os.path.join(output_dir, f"{theme_name}_Roll_Cover_Storage_Labels{mode_suffix}.pdf")
     c = canvas.Canvas(pdf_path, pagesize=letter)
     page_width, page_height = letter
     
@@ -359,6 +389,45 @@ def _create_storage_labels(output_dir, theme_name, primary_color):
         c.drawCentredString(x + label_width/2, y + label_height/2 - 20, theme_name)
     
     c.save()
+
+
+def generate_roll_cover_dual_mode(theme_data, output_dir):
+    """
+    Generate Roll & Cover games in both color and black-and-white modes.
+    
+    Args:
+        theme_data: Dictionary containing theme information
+        output_dir: Directory to save generated PDFs
+    
+    Returns:
+        Dictionary with paths to generated PDFs:
+        {
+            'color': [list of color PDF paths],
+            'bw': [list of BW PDF paths]
+        }
+    """
+    paths = {'color': [], 'bw': []}
+    
+    # Generate color version
+    create_roll_cover_games(theme_data, output_dir, mode='color')
+    theme_name = theme_data.get('name', 'Theme')
+    paths['color'] = [
+        os.path.join(output_dir, f"{theme_name}_Roll_Cover_1-6_color.pdf"),
+        os.path.join(output_dir, f"{theme_name}_Roll_Cover_2-12_color.pdf"),
+        os.path.join(output_dir, f"{theme_name}_Roll_Count_Cover_color.pdf"),
+        os.path.join(output_dir, f"{theme_name}_Roll_Cover_Storage_Labels_color.pdf")
+    ]
+    
+    # Generate black-and-white version
+    create_roll_cover_games(theme_data, output_dir, mode='bw')
+    paths['bw'] = [
+        os.path.join(output_dir, f"{theme_name}_Roll_Cover_1-6_bw.pdf"),
+        os.path.join(output_dir, f"{theme_name}_Roll_Cover_2-12_bw.pdf"),
+        os.path.join(output_dir, f"{theme_name}_Roll_Count_Cover_bw.pdf"),
+        os.path.join(output_dir, f"{theme_name}_Roll_Cover_Storage_Labels_bw.pdf")
+    ]
+    
+    return paths
 
 
 # Example usage
