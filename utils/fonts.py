@@ -78,3 +78,43 @@ def get_font_manager():
     if _font_manager is None:
         _font_manager = FontManager()
     return _font_manager
+
+
+# Module-level convenience functions
+def get_font(weight='normal', size=24):
+    """
+    Get a font name and size for use in PDF generation.
+    
+    Args:
+        weight: 'normal' or 'bold'
+        size: Font size in points
+        
+    Returns:
+        tuple: (font_name, font_size)
+    """
+    return get_font_manager().get_font(weight, size)
+
+
+def get_title_font():
+    """Get font for titles."""
+    return get_font_manager().get_title_font()
+
+
+def get_heading_font():
+    """Get font for headings."""
+    return get_font_manager().get_heading_font()
+
+
+def get_body_font():
+    """Get font for body text."""
+    return get_font_manager().get_body_font()
+
+
+def get_small_font():
+    """Get font for small text."""
+    return get_font_manager().get_small_font()
+
+
+def get_footer_font():
+    """Get font for footer text."""
+    return get_font_manager().get_footer_font()
