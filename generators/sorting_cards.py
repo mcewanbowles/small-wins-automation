@@ -32,11 +32,13 @@ from utils.draw_helpers import (
 )
 from utils.storage_label_helper import create_companion_label
 from utils.fonts import get_font_manager
+from utils.color_helpers import image_to_grayscale
+from utils.layout import create_page_canvas, add_footer
 import os
 
 
 def generate_sorting_mat(category_name, items, level=1, card_style=None, 
-                         show_answer_key=True):
+                         show_answer_key=True, mode='color'):
     """
     Generate a sorting mat with category header and drop zone.
     
@@ -46,6 +48,7 @@ def generate_sorting_mat(category_name, items, level=1, card_style=None,
         level: Differentiation level (1-3)
         card_style: Optional styling dict for borders/shadows
         show_answer_key: Whether to show watermarked answer key
+        mode: 'color' or 'bw' for output mode
         
     Returns:
         PIL.Image: Generated sorting mat page
@@ -178,7 +181,7 @@ def generate_sorting_mat(category_name, items, level=1, card_style=None,
 
 def generate_sorting_card(image_filename, label_text=None, card_size='standard',
                           folder_type='color', card_type='image', level=1,
-                          card_style=None):
+                          card_style=None, mode='color'):
     """
     Generate a single sorting card using modular helper functions.
     
@@ -190,6 +193,7 @@ def generate_sorting_card(image_filename, label_text=None, card_size='standard',
         card_type: 'image' or 'text' (for Level 3)
         level: Differentiation level (1-3)
         card_style: Optional dict with 'border_width', 'corner_radius', 'shadow'
+        mode: 'color' or 'bw' for output mode
         
     Returns:
         PIL.Image: Generated sorting card
@@ -224,6 +228,9 @@ def generate_sorting_card(image_filename, label_text=None, card_size='standard',
     
     try:
         theme_image = image_loader.load_image(image_filename, folder_type)
+        # Convert to grayscale if in BW mode
+        if mode == 'bw':
+            theme_image = image_to_grayscale(theme_image)
     except FileNotFoundError:
         # Create consistent placeholder
         theme_image = create_placeholder_image(500, 500, f"Missing:\n{image_filename}")
@@ -261,7 +268,7 @@ def generate_sorting_card(image_filename, label_text=None, card_size='standard',
 def generate_sorting_cards_set(categories, theme_name='Theme', level=1, 
                                card_size='standard', cards_per_page=6,
                                output_dir='output', include_storage_label=False,
-                               card_style=None):
+                               card_style=None, mode='color'):
     """
     Generate a complete sorting cards set with mats and cut-out cards.
     
@@ -276,6 +283,7 @@ def generate_sorting_cards_set(categories, theme_name='Theme', level=1,
         output_dir: Output directory for PDFs
         include_storage_label: Whether to generate storage label
         card_style: Optional styling dict for borders/shadows
+        mode: 'color' or 'bw' for output mode
         
     Returns:
         List[str]: Paths to generated PDF files
@@ -307,7 +315,8 @@ def generate_sorting_cards_set(categories, theme_name='Theme', level=1,
             items=items,
             level=level,
             card_style=card_style,
-            show_answer_key=True
+            show_answer_key=True,
+            mode=mode
         )
         all_pages.append(mat_page)
     
@@ -347,7 +356,8 @@ def generate_sorting_cards_set(categories, theme_name='Theme', level=1,
             folder_type=folder_type,
             card_type=card_type,
             level=level,
-            card_style=card_style
+            card_style=card_style,
+            mode=mode
         )
         
         current_page_cards.append(card)
@@ -367,7 +377,8 @@ def generate_sorting_cards_set(categories, theme_name='Theme', level=1,
         all_pages.append(page)
     
     # Save as PDF
-    output_filename = f"{theme_name}_Sorting_{level_name}.pdf"
+    mode_suffix = f"_{mode}" if mode else ""
+    output_filename = f"{theme_name}_Sorting_{level_name}{mode_suffix}.pdf"
     output_path = os.path.join(output_dir, output_filename)
     save_images_as_pdf(all_pages, output_path)
     
@@ -376,8 +387,8 @@ def generate_sorting_cards_set(categories, theme_name='Theme', level=1,
     print(f"  - {len(all_items)} sorting cards")
     print(f"  - {len(all_pages)} total pages")
     
-    # Generate storage label if requested
-    if include_storage_label:
+    # Generate storage label if requested (color mode only)
+    if include_storage_label and mode == 'color':
         try:
             # Try to get first image for icon
             first_item = all_items[0] if all_items else None
@@ -471,6 +482,59 @@ def create_cards_page(cards, cards_per_page, page_number, total_pages):
     draw_copyright_footer(draw, PAGE_WIDTH, PAGE_HEIGHT)
     
     return page
+
+
+def generate_sorting_cards_dual_mode(categories, theme_name='Theme', level=1, 
+                                     card_size='standard', cards_per_page=6,
+                                     output_dir='output', include_storage_label=False,
+                                     card_style=None):
+    """
+    Generate sorting cards in both color and black-and-white modes.
+    
+    Args:
+        categories: Dict mapping category names to lists of items
+        theme_name: Name of the theme for file naming
+        level: Differentiation level (1-3)
+        card_size: Size of sorting cards
+        cards_per_page: Number of cards per page
+        output_dir: Output directory for PDFs
+        include_storage_label: Whether to generate storage label (color mode only)
+        card_style: Optional styling dict for borders/shadows
+        
+    Returns:
+        dict: Paths to generated PDFs {'color': path, 'bw': path}
+    """
+    paths = {}
+    
+    # Generate color version
+    color_paths = generate_sorting_cards_set(
+        categories=categories,
+        theme_name=theme_name,
+        level=level,
+        card_size=card_size,
+        cards_per_page=cards_per_page,
+        output_dir=output_dir,
+        include_storage_label=include_storage_label,
+        card_style=card_style,
+        mode='color'
+    )
+    paths['color'] = color_paths[0] if color_paths else None
+    
+    # Generate black-and-white version
+    bw_paths = generate_sorting_cards_set(
+        categories=categories,
+        theme_name=theme_name,
+        level=level,
+        card_size=card_size,
+        cards_per_page=cards_per_page,
+        output_dir=output_dir,
+        include_storage_label=False,  # No storage label for BW
+        card_style=card_style,
+        mode='bw'
+    )
+    paths['bw'] = bw_paths[0] if bw_paths else None
+    
+    return paths
 
 
 # Example usage
