@@ -41,13 +41,14 @@ class Theme:
         theme_id: Theme identifier (CSV row key)
         icons: List of icon filenames or paths
         real_images: List of real image filenames or paths
+        coloring_images: List of coloring image filenames or paths
         colours: List of hex color codes
         fonts: Dictionary with 'heading' and 'body' font names
         vocab: List of vocabulary words
         sequencing: List of sequencing step lists
         adapted_book: List of adapted book sentences
         storage_label_images: List of storage label image paths
-        paths: Dictionary of resolved file paths
+        paths: Dictionary of resolved file paths with fallback folders
         metadata: Raw CSV row data
         mode: Output mode ('color' or 'bw')
     """
@@ -72,6 +73,7 @@ class Theme:
         # Load and process data
         self.icons = self._load_icons()
         self.real_images = self._load_real_images()
+        self.coloring_images = self._load_coloring_images()
         self.colours = self._parse_colours(row_data.get('colour_palette', ''))
         self.fonts = self._parse_fonts(row_data)
         self.vocab = self._parse_list(row_data.get('key_vocab', ''))
@@ -84,67 +86,164 @@ class Theme:
             self._apply_bw_mode()
     
     def _resolve_paths(self, row_data: Dict[str, str], csv_dir: Path) -> Dict[str, Path]:
-        """Resolve all file paths from CSV data."""
+        """Resolve all file paths from CSV data with new /assets/ structure."""
         paths = {}
         
-        # Icon folder
+        # Get repository root (parent of themes folder)
+        repo_root = csv_dir.parent
+        assets_root = repo_root / 'assets'
+        
+        # Theme-specific paths (new structure)
+        theme_assets = assets_root / 'themes' / self.theme_id
+        
+        # Icon folders (fallback chain)
+        paths['icon_folders'] = []
+        
+        # 1. Theme-specific icons
+        theme_icons = theme_assets / 'icons'
+        if theme_icons.exists():
+            paths['icon_folders'].append(theme_icons)
+        
+        # 2. Global AAC core icons
+        global_aac_core = assets_root / 'global' / 'aac_core'
+        if global_aac_core.exists():
+            paths['icon_folders'].append(global_aac_core)
+        
+        # 3. Global AAC core with text
+        global_aac_core_text = assets_root / 'global' / 'aac_core_text'
+        if global_aac_core_text.exists():
+            paths['icon_folders'].append(global_aac_core_text)
+        
+        # 4. Global AAC board icons
+        global_aac_board = assets_root / 'global' / 'aac_board'
+        if global_aac_board.exists():
+            paths['icon_folders'].append(global_aac_board)
+        
+        # 5. Legacy icon folder from CSV (if specified)
         icon_folder = row_data.get('icon_folder', '')
         if icon_folder:
-            paths['icons'] = (csv_dir / icon_folder).resolve()
-        else:
-            paths['icons'] = None
+            legacy_icons = (csv_dir / icon_folder).resolve()
+            if legacy_icons.exists() and legacy_icons not in paths['icon_folders']:
+                paths['icon_folders'].append(legacy_icons)
         
-        # Real images folder
+        # Real images folders (fallback chain)
+        paths['real_image_folders'] = []
+        
+        # 1. Theme-specific real images
+        theme_real = theme_assets / 'real_images'
+        if theme_real.exists():
+            paths['real_image_folders'].append(theme_real)
+        
+        # 2. Legacy real images folder from CSV (if specified)
         real_folder = row_data.get('real_images_folder', '')
         if real_folder:
-            paths['real_images'] = (csv_dir / real_folder).resolve()
-        else:
-            paths['real_images'] = None
+            legacy_real = (csv_dir / real_folder).resolve()
+            if legacy_real.exists() and legacy_real not in paths['real_image_folders']:
+                paths['real_image_folders'].append(legacy_real)
         
-        # Storage label images folder
+        # Coloring images folders (fallback chain)
+        paths['coloring_folders'] = []
+        
+        # 1. Theme-specific coloring images
+        theme_coloring = theme_assets / 'colouring'
+        if theme_coloring.exists():
+            paths['coloring_folders'].append(theme_coloring)
+        
+        # 2. Global coloring images
+        global_colors = assets_root / 'global' / 'colours'
+        if global_colors.exists():
+            paths['coloring_folders'].append(global_colors)
+        
+        # Storage label folders (fallback chain)
+        paths['storage_label_folders'] = []
+        
+        # 1. Theme-specific storage labels
+        theme_storage = theme_assets / 'storage_labels'
+        if theme_storage.exists():
+            paths['storage_label_folders'].append(theme_storage)
+        
+        # 2. Use theme icons as fallback
+        if paths['icon_folders']:
+            paths['storage_label_folders'].extend(paths['icon_folders'])
+        
+        # 3. Legacy storage folder from CSV (if specified)
         storage_folder = row_data.get('storage_label_images', '')
         if storage_folder:
-            paths['storage_labels'] = (csv_dir / storage_folder).resolve()
-        else:
-            paths['storage_labels'] = None
+            legacy_storage = (csv_dir / storage_folder).resolve()
+            if legacy_storage.exists() and legacy_storage not in paths['storage_label_folders']:
+                paths['storage_label_folders'].append(legacy_storage)
+        
+        # Black & white generics folder
+        paths['bw_generic'] = assets_root / 'global' / 'generic_bw'
+        if not paths['bw_generic'].exists():
+            paths['bw_generic'] = None
+        
+        # Backward compatibility: keep single 'icons' path for legacy code
+        paths['icons'] = paths['icon_folders'][0] if paths['icon_folders'] else None
+        paths['real_images'] = paths['real_image_folders'][0] if paths['real_image_folders'] else None
+        paths['storage_labels'] = paths['storage_label_folders'][0] if paths['storage_label_folders'] else None
         
         return paths
     
     def _load_icons(self) -> List[str]:
-        """Load list of icon filenames from icon folder."""
-        if not self.paths.get('icons') or not self.paths['icons'].exists():
+        """Load list of icon filenames from all icon folders."""
+        icon_folders = self.paths.get('icon_folders', [])
+        if not icon_folders:
             return []
         
-        # Get all image files
-        icon_files = []
-        for ext in ['*.png', '*.jpg', '*.jpeg', '*.svg']:
-            icon_files.extend(self.paths['icons'].glob(ext))
+        # Get all unique icon filenames across all folders
+        icon_names = set()
+        for folder in icon_folders:
+            if folder.exists():
+                for ext in ['*.png', '*.jpg', '*.jpeg', '*.svg']:
+                    icon_names.update(f.name for f in folder.glob(ext))
         
-        return sorted([f.name for f in icon_files])
+        return sorted(list(icon_names))
     
     def _load_real_images(self) -> List[str]:
-        """Load list of real image filenames from real images folder."""
-        if not self.paths.get('real_images') or not self.paths['real_images'].exists():
+        """Load list of real image filenames from all real image folders."""
+        image_folders = self.paths.get('real_image_folders', [])
+        if not image_folders:
             return []
         
-        # Get all image files
-        image_files = []
-        for ext in ['*.png', '*.jpg', '*.jpeg']:
-            image_files.extend(self.paths['real_images'].glob(ext))
+        # Get all unique image filenames across all folders
+        image_names = set()
+        for folder in image_folders:
+            if folder.exists():
+                for ext in ['*.png', '*.jpg', '*.jpeg']:
+                    image_names.update(f.name for f in folder.glob(ext))
         
-        return sorted([f.name for f in image_files])
+        return sorted(list(image_names))
+    
+    def _load_coloring_images(self) -> List[str]:
+        """Load list of coloring image filenames from all coloring folders."""
+        coloring_folders = self.paths.get('coloring_folders', [])
+        if not coloring_folders:
+            return []
+        
+        # Get all unique coloring filenames across all folders
+        coloring_names = set()
+        for folder in coloring_folders:
+            if folder.exists():
+                for ext in ['*.png', '*.jpg', '*.jpeg']:
+                    coloring_names.update(f.name for f in folder.glob(ext))
+        
+        return sorted(list(coloring_names))
     
     def _load_storage_labels(self) -> List[str]:
-        """Load list of storage label image filenames."""
-        if not self.paths.get('storage_labels') or not self.paths['storage_labels'].exists():
+        """Load list of storage label image filenames from all storage label folders."""
+        label_folders = self.paths.get('storage_label_folders', [])
+        if not label_folders:
             return []
         
-        # Get all image files
-        label_files = []
-        for ext in ['*.png', '*.jpg', '*.jpeg']:
-            label_files.extend(self.paths['storage_labels'].glob(ext))
+        # Get all unique label filenames across all folders
+        label_names = set()
+        for folder in label_folders:
+            if folder.exists():
+                for ext in ['*.png', '*.jpg', '*.jpeg']:
+                    label_names.update(f.name for f in folder.glob(ext))
         
-        return sorted([f.name for f in label_files])
+        return sorted(list(label_names))
     
     def _parse_colours(self, colour_str: str) -> List[str]:
         """Parse comma-separated hex color values."""
@@ -244,22 +343,68 @@ class Theme:
             self.colours = palette_to_grayscale(self.colours)
     
     def get_icon_path(self, icon_name: str) -> Optional[Path]:
-        """Get full path to an icon file."""
-        if not self.paths.get('icons'):
-            return None
-        return self.paths['icons'] / icon_name
+        """
+        Get full path to an icon file with fallback logic.
+        Searches through all icon folders in priority order.
+        """
+        icon_folders = self.paths.get('icon_folders', [])
+        
+        for folder in icon_folders:
+            if folder.exists():
+                icon_path = folder / icon_name
+                if icon_path.exists():
+                    return icon_path
+        
+        # Not found in any folder
+        return None
     
     def get_real_image_path(self, image_name: str) -> Optional[Path]:
-        """Get full path to a real image file."""
-        if not self.paths.get('real_images'):
-            return None
-        return self.paths['real_images'] / image_name
+        """
+        Get full path to a real image file with fallback logic.
+        Searches through all real image folders in priority order.
+        """
+        image_folders = self.paths.get('real_image_folders', [])
+        
+        for folder in image_folders:
+            if folder.exists():
+                image_path = folder / image_name
+                if image_path.exists():
+                    return image_path
+        
+        # Not found in any folder
+        return None
+    
+    def get_coloring_image_path(self, image_name: str) -> Optional[Path]:
+        """
+        Get full path to a coloring image file with fallback logic.
+        Searches through all coloring folders in priority order.
+        """
+        coloring_folders = self.paths.get('coloring_folders', [])
+        
+        for folder in coloring_folders:
+            if folder.exists():
+                image_path = folder / image_name
+                if image_path.exists():
+                    return image_path
+        
+        # Not found in any folder
+        return None
     
     def get_storage_label_path(self, label_name: str) -> Optional[Path]:
-        """Get full path to a storage label image."""
-        if not self.paths.get('storage_labels'):
-            return None
-        return self.paths['storage_labels'] / label_name
+        """
+        Get full path to a storage label image with fallback logic.
+        Searches through all storage label folders in priority order.
+        """
+        label_folders = self.paths.get('storage_label_folders', [])
+        
+        for folder in label_folders:
+            if folder.exists():
+                label_path = folder / label_name
+                if label_path.exists():
+                    return label_path
+        
+        # Not found in any folder
+        return None
     
     def to_dict(self) -> Dict[str, Any]:
         """Convert theme to dictionary for JSON serialization."""
@@ -269,13 +414,14 @@ class Theme:
             'mode': self.mode,
             'icons': self.icons,
             'real_images': self.real_images,
+            'coloring_images': self.coloring_images,
             'colours': self.colours,
             'fonts': self.fonts,
             'vocab': self.vocab,
             'sequencing': self.sequencing,
             'adapted_book': self.adapted_book,
             'storage_label_images': self.storage_label_images,
-            'paths': {k: str(v) for k, v in self.paths.items() if v},
+            'paths': {k: str(v) if not isinstance(v, list) else [str(p) for p in v] for k, v in self.paths.items() if v},
             'metadata': self.metadata
         }
 
@@ -362,21 +508,21 @@ class ThemeCSVLoader:
             ValueError: If validation fails
         """
         errors = []
+        warnings = []
         
-        # Check for icon folder if icons are expected
-        if theme.paths.get('icons'):
-            if not theme.paths['icons'].exists():
-                errors.append(f"Icon folder does not exist: {theme.paths['icons']}")
+        # Check for icon folders (warn if none exist)
+        icon_folders = theme.paths.get('icon_folders', [])
+        if not icon_folders or not any(f.exists() for f in icon_folders):
+            warnings.append("No icon folders found")
         
-        # Check for real images folder if specified
-        if theme.paths.get('real_images'):
-            if not theme.paths['real_images'].exists():
-                errors.append(f"Real images folder does not exist: {theme.paths['real_images']}")
+        # Check for real images folders (warn if none exist)
+        image_folders = theme.paths.get('real_image_folders', [])
+        if not image_folders or not any(f.exists() for f in image_folders):
+            warnings.append("No real image folders found")
         
-        # Warn about optional missing fields but don't fail
-        if not theme.vocab:
-            # Just a warning, not an error
-            pass
+        # Warnings are OK, errors would fail
+        if warnings and False:  # Disable warnings for now
+            print(f"Theme '{theme.name}' warnings: " + "; ".join(warnings))
         
         if errors:
             raise ValueError(f"Theme validation failed for '{theme.name}': " + "; ".join(errors))
