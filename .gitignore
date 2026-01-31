@@ -1,3 +1,4 @@
+# Python
 __pycache__/
 *.py[cod]
 *$py.class
@@ -30,3 +31,24 @@ outputs/*.png
 *~
 .vscode/
 .idea/
+
+# Virtual Environment
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Output files
+output/
+*.pdf
+temp/
+
+# OS
+.DS_Store
+Thumbs.db
