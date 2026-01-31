@@ -15,7 +15,7 @@ copyright footers, and page numbering.
 from PIL import Image, ImageDraw, ImageFont
 import os
 from utils.config import DPI, PAGE_WIDTH, PAGE_HEIGHT, MARGINS, COLORS, CARD_SIZES
-from utils.image_loader import load_image
+from utils.image_loader import get_image_loader
 from utils.pdf_export import save_images_as_pdf
 from utils.storage_label_helper import create_companion_label
 from utils.layout import create_page_canvas, add_footer
@@ -58,7 +58,7 @@ def generate_stick_puppet(character_data, folder_type='images', with_grab_tab=Tr
     label = character_data.get('label', 'Character')
     
     try:
-        char_img = load_image(img_path, folder_type)
+        char_img = get_image_loader().load_image(img_path, folder_type)
         # Convert to grayscale if BW mode
         if mode == 'bw':
             char_img = image_to_grayscale(char_img)
@@ -176,7 +176,7 @@ def generate_finger_puppet(character_data, folder_type='images', with_fold_tab=T
     label = character_data.get('label', 'Character')
     
     try:
-        char_img = load_image(img_path, folder_type)
+        char_img = get_image_loader().load_image(img_path, folder_type)
         # Convert to grayscale if BW mode
         if mode == 'bw':
             char_img = image_to_grayscale(char_img)
@@ -241,7 +241,7 @@ def generate_velcro_character_card(character_data, folder_type='images',
     label = character_data.get('label', 'Character')
     
     try:
-        char_img = load_image(img_path, folder_type)
+        char_img = get_image_loader().load_image(img_path, folder_type)
         # Convert to grayscale if BW mode
         if mode == 'bw':
             char_img = image_to_grayscale(char_img)
@@ -379,7 +379,7 @@ def generate_lanyard_character(character_data, folder_type='images', mode='color
     label = character_data.get('label', 'Character')
     
     try:
-        char_img = load_image(img_path, folder_type)
+        char_img = get_image_loader().load_image(img_path, folder_type)
         # Convert to grayscale if BW mode
         if mode == 'bw':
             char_img = image_to_grayscale(char_img)

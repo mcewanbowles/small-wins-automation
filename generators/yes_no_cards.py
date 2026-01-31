@@ -18,7 +18,7 @@ Features:
 import os
 from PIL import Image, ImageDraw, ImageFont
 from utils.config import DPI, PAGE_WIDTH, PAGE_HEIGHT, MARGINS, COLORS, FONT_SIZES, FOOTER_TEXT
-from utils.image_loader import load_image
+from utils.image_loader import get_image_loader
 from utils.pdf_export import save_images_as_pdf
 from utils.layout import create_page_canvas, add_footer
 from utils.grid_layout import create_grid_positions
@@ -66,7 +66,7 @@ def generate_yes_no_card(page, card_rect, item, card_type='standard', folder_typ
     icon_box_height = icon_area_height - (padding * 2)
     
     try:
-        img = load_image(item['image'], folder_type=folder_type)
+        img = get_image_loader().load_image(item['image'], folder_type=folder_type)
         if img:
             # Convert to grayscale if BW mode using color_helpers
             if mode == 'bw':

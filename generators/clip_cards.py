@@ -20,7 +20,7 @@ import os
 import random
 from PIL import Image, ImageDraw, ImageFont
 from utils.config import DPI, PAGE_WIDTH, PAGE_HEIGHT, MARGINS, COLORS, FONT_SIZES, FOOTER_TEXT
-from utils.image_loader import load_image
+from utils.image_loader import get_image_loader
 from utils.pdf_export import save_images_as_pdf
 from utils.draw_helpers import (
     scale_image_to_fit,
@@ -72,7 +72,7 @@ def generate_identify_icon_card(draw, card_rect, item, choices, errorless=False,
     )
     
     try:
-        img = load_image(item['image'], folder_type=folder_type)
+        img = get_image_loader().load_image(item['image'], folder_type=folder_type)
         if img:
             # Convert to grayscale if BW mode
             if mode == 'bw':
@@ -185,7 +185,7 @@ def generate_color_clip_card(draw, card_rect, item, color_name, color_choices, e
     )
     
     try:
-        img = load_image(item['image'], folder_type=folder_type)
+        img = get_image_loader().load_image(item['image'], folder_type=folder_type)
         if img:
             # Convert to grayscale if BW mode
             if mode == 'bw':
@@ -297,7 +297,7 @@ def generate_count_clip_card(draw, card_rect, item, count, count_choices, errorl
     )
     
     try:
-        img = load_image(item['image'], folder_type=folder_type)
+        img = get_image_loader().load_image(item['image'], folder_type=folder_type)
         if img:
             # Convert to grayscale if BW mode
             if mode == 'bw':

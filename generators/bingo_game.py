@@ -23,7 +23,7 @@ from utils.grid_layout import create_grid_positions
 from utils.image_utils import scale_image_proportional, center_image_in_box
 from utils.color_helpers import image_to_grayscale
 from utils.fonts import FontManager
-from utils.image_loader import load_image
+from utils.image_loader import get_image_loader
 from utils.pdf_export import save_images_as_pdf
 from utils.storage_label_helper import create_companion_label
 
@@ -148,7 +148,7 @@ def generate_bingo_board(items, grid_size=(4, 4), board_type='standard',
                     icon_height = cell_size - 20
                     
                     try:
-                        img = load_image(item['image'], folder_type=folder_type)
+                        img = get_image_loader().load_image(item['image'], folder_type=folder_type)
                         if img:
                             # Convert to grayscale if BW mode
                             if mode == 'bw':
@@ -209,7 +209,7 @@ def generate_calling_card(page, draw, card_rect, item, card_type='icon_only',
         
         # Draw icon
         try:
-            img = load_image(item['image'], folder_type=folder_type)
+            img = get_image_loader().load_image(item['image'], folder_type=folder_type)
             if img:
                 # Convert to grayscale if BW mode
                 if mode == 'bw':
@@ -248,7 +248,7 @@ def generate_calling_card(page, draw, card_rect, item, card_type='icon_only',
         icon_area_height = card_height - 40
         
         try:
-            img = load_image(item['image'], folder_type=folder_type)
+            img = get_image_loader().load_image(item['image'], folder_type=folder_type)
             if img:
                 # Convert to grayscale if BW mode
                 if mode == 'bw':
