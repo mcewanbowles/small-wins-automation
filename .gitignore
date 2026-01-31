@@ -19,6 +19,18 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+.pytest_cache/
+.coverage
+htmlcov/
+*.log
+outputs/*.pdf
+outputs/*.png
+.DS_Store
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
 
 # Virtual Environment
 venv/
