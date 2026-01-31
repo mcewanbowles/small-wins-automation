@@ -11,10 +11,11 @@ from utils.image_loader import get_image_loader
 from utils.image_utils import scale_image_proportional
 from utils.layout import create_card_background, create_page_canvas, add_page_border, add_footer
 from utils.pdf_export import save_images_as_pdf
+from utils.color_helpers import image_to_grayscale
 
 
 def generate_sequencing_card(image_filename, sequence_number=None, total_steps=None,
-                             card_size='large', folder_type='color', level=1):
+                             card_size='large', folder_type='color', level=1, mode='color'):
     """
     Generate a single sequencing card.
     
@@ -25,6 +26,7 @@ def generate_sequencing_card(image_filename, sequence_number=None, total_steps=N
         card_size: Card size
         folder_type: Image folder type
         level: Differentiation level (1=numbers shown, 2=no numbers, 3=more complex)
+        mode: 'color' or 'bw' for black-and-white output
         
     Returns:
         PIL.Image: Generated card
@@ -35,6 +37,10 @@ def generate_sequencing_card(image_filename, sequence_number=None, total_steps=N
     # Load image
     image_loader = get_image_loader()
     theme_image = image_loader.load_image(image_filename, folder_type)
+    
+    # Convert to grayscale if BW mode
+    if mode == 'bw':
+        theme_image = image_to_grayscale(theme_image)
     
     # Scale image
     image_height = height - 100 if level == 1 else height - 40
@@ -80,7 +86,7 @@ def generate_sequencing_card(image_filename, sequence_number=None, total_steps=N
 
 def generate_sequencing_set(image_sequence, theme_name='Sequence', card_size='large',
                             folder_type='color', level=1, output_dir='output',
-                            include_storage_label=False):
+                            include_storage_label=False, mode='color'):
     """
     Generate a complete sequencing activity.
     
@@ -92,6 +98,7 @@ def generate_sequencing_set(image_sequence, theme_name='Sequence', card_size='la
         level: Differentiation level
         output_dir: Output directory
         include_storage_label: If True, also generate a companion storage label PDF
+        mode: 'color' or 'bw' for black-and-white output
         
     Returns:
         list: Generated pages
@@ -102,7 +109,7 @@ def generate_sequencing_set(image_sequence, theme_name='Sequence', card_size='la
     # Generate each card
     for idx, image_file in enumerate(image_sequence):
         card = generate_sequencing_card(
-            image_file, idx + 1, total_steps, card_size, folder_type, level
+            image_file, idx + 1, total_steps, card_size, folder_type, level, mode=mode
         )
         cards.append(card)
     
@@ -112,7 +119,7 @@ def generate_sequencing_set(image_sequence, theme_name='Sequence', card_size='la
     width, height = CARD_SIZES[card_size]
     
     for page_start in range(0, len(cards), cards_per_page):
-        page = create_page_canvas()
+        page = create_page_canvas(mode=mode)
         page_cards = cards[page_start:page_start + cards_per_page]
         
         # 2x2 grid
@@ -134,18 +141,19 @@ def generate_sequencing_set(image_sequence, theme_name='Sequence', card_size='la
             
             page.paste(card, (int(x), int(y)), card)
         
-        add_page_border(page)
-        add_footer(page)
+        add_page_border(page, mode=mode)
+        add_footer(page, mode=mode)
         pages.append(page)
     
     # Save PDF
     import os
     os.makedirs(output_dir, exist_ok=True)
-    output_path = f"{output_dir}/{theme_name}_Sequencing_Level{level}.pdf"
+    mode_suffix = f"_{mode}" if mode else ""
+    output_path = f"{output_dir}/{theme_name}_Sequencing_Level{level}{mode_suffix}.pdf"
     save_images_as_pdf(pages, output_path, title=f"{theme_name} Sequencing")
     
-    # Generate storage label if requested
-    if include_storage_label:
+    # Generate storage label if requested (only for color mode)
+    if include_storage_label and mode == 'color':
         from utils.storage_label_helper import create_companion_label
         
         # Try to find an icon from first image
@@ -167,6 +175,56 @@ def generate_sequencing_set(image_sequence, theme_name='Sequence', card_size='la
         print(f"  Label: {label_path}")
     
     return pages
+
+
+def generate_sequencing_set_dual_mode(image_sequence, theme_name='Sequence', card_size='large',
+                                      folder_type='color', level=1, output_dir='output',
+                                      include_storage_label=False):
+    """
+    Generate a complete sequencing activity in both color and black-and-white modes.
+    
+    Args:
+        image_sequence: List of image filenames in order
+        theme_name: Theme name
+        card_size: Card size
+        folder_type: Image folder type
+        level: Differentiation level
+        output_dir: Output directory
+        include_storage_label: If True, also generate a companion storage label PDF for color version
+        
+    Returns:
+        dict: Paths to generated PDFs {'color': path, 'bw': path}
+    """
+    import os
+    
+    # Generate color version
+    generate_sequencing_set(
+        image_sequence=image_sequence,
+        theme_name=theme_name,
+        card_size=card_size,
+        folder_type=folder_type,
+        level=level,
+        output_dir=output_dir,
+        include_storage_label=include_storage_label,
+        mode='color'
+    )
+    
+    # Generate BW version
+    generate_sequencing_set(
+        image_sequence=image_sequence,
+        theme_name=theme_name,
+        card_size=card_size,
+        folder_type=folder_type,
+        level=level,
+        output_dir=output_dir,
+        include_storage_label=False,  # No label for BW version
+        mode='bw'
+    )
+    
+    return {
+        'color': f"{output_dir}/{theme_name}_Sequencing_Level{level}_color.pdf",
+        'bw': f"{output_dir}/{theme_name}_Sequencing_Level{level}_bw.pdf"
+    }
 
 
 if __name__ == "__main__":
