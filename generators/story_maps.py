@@ -11,9 +11,10 @@ from utils.image_loader import get_image_loader
 from utils.image_utils import scale_image_proportional
 from utils.layout import create_page_canvas, add_page_border, add_footer, add_title_to_page
 from utils.pdf_export import save_images_as_pdf
+from utils.color_helpers import image_to_grayscale
 
 
-def generate_story_map(story_title, sections_data=None, folder_type='color', level=1):
+def generate_story_map(story_title, sections_data=None, folder_type='color', level=1, mode='color'):
     """
     Generate a story map organizer.
     
@@ -23,11 +24,12 @@ def generate_story_map(story_title, sections_data=None, folder_type='color', lev
                       Each containing image filenames or None
         folder_type: Image folder type
         level: Differentiation level (1=with images, 2=blank for writing)
+        mode: Output mode ('color' or 'bw')
         
     Returns:
         PIL.Image: Generated story map
     """
-    page = create_page_canvas()
+    page = create_page_canvas(mode=mode)
     
     # Add title
     add_title_to_page(page, f"Story Map: {story_title}")
@@ -88,6 +90,10 @@ def generate_story_map(story_title, sections_data=None, folder_type='color', lev
                     image_file = sections_data[section_key]
                     theme_image = image_loader.load_image(image_file, folder_type)
                     
+                    # Convert to grayscale if BW mode
+                    if mode == 'bw':
+                        theme_image = image_to_grayscale(theme_image)
+                    
                     # Scale image to fit in section
                     image_area_height = section_height - label_height - 20
                     scaled_image = scale_image_proportional(
@@ -104,14 +110,14 @@ def generate_story_map(story_title, sections_data=None, folder_type='color', lev
                     pass
     
     add_page_border(page)
-    add_footer(page)
+    add_footer(page, mode=mode)
     
     return page
 
 
 def generate_story_maps_set(stories_data, folder_type='color', level=1,
                             theme_name='Theme', output_dir='output',
-                            include_storage_label=False):
+                            include_storage_label=False, mode='color'):
     """
     Generate a set of story maps.
     
@@ -122,6 +128,7 @@ def generate_story_maps_set(stories_data, folder_type='color', level=1,
         theme_name: Theme name
         output_dir: Output directory
         include_storage_label: If True, also generate a companion storage label PDF
+        mode: Output mode ('color' or 'bw')
         
     Returns:
         list: Generated pages
@@ -133,18 +140,20 @@ def generate_story_maps_set(stories_data, folder_type='color', level=1,
             story['title'],
             story.get('sections'),
             folder_type,
-            level
+            level,
+            mode
         )
         pages.append(page)
     
     # Save PDF
     import os
     os.makedirs(output_dir, exist_ok=True)
-    output_path = f"{output_dir}/{theme_name}_Story_Maps_Level{level}.pdf"
+    mode_suffix = f"_{mode}" if mode else ""
+    output_path = f"{output_dir}/{theme_name}_Story_Maps_Level{level}{mode_suffix}.pdf"
     save_images_as_pdf(pages, output_path, title=f"{theme_name} Story Maps")
     
-    # Generate storage label if requested
-    if include_storage_label:
+    # Generate storage label if requested (color version only)
+    if include_storage_label and mode == 'color':
         from utils.storage_label_helper import create_companion_label
         
         label_path = create_companion_label(
@@ -156,7 +165,51 @@ def generate_story_maps_set(stories_data, folder_type='color', level=1,
         print(f"✓ Generated storage label")
         print(f"  Label: {label_path}")
     
-    return pages
+    return output_path
+
+
+def generate_story_maps_dual_mode(stories_data, folder_type='color', level=1,
+                                  theme_name='Theme', output_dir='output',
+                                  include_storage_label=False):
+    """
+    Generate story maps in both color and black-and-white modes.
+    
+    Args:
+        stories_data: List of dicts with 'title' and optional 'sections' keys
+        folder_type: Image folder type
+        level: Differentiation level
+        theme_name: Theme name
+        output_dir: Output directory
+        include_storage_label: If True, also generate a companion storage label PDF
+        
+    Returns:
+        dict: Paths to generated PDFs {'color': path, 'bw': path}
+    """
+    paths = {}
+    
+    # Generate color version
+    paths['color'] = generate_story_maps_set(
+        stories_data,
+        folder_type,
+        level,
+        theme_name,
+        output_dir,
+        include_storage_label,
+        mode='color'
+    )
+    
+    # Generate black-and-white version
+    paths['bw'] = generate_story_maps_set(
+        stories_data,
+        folder_type,
+        level,
+        theme_name,
+        output_dir,
+        include_storage_label=False,  # Only generate label for color version
+        mode='bw'
+    )
+    
+    return paths
 
 
 if __name__ == "__main__":
