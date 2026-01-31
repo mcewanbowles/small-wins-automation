@@ -33,7 +33,7 @@ TASK_BOX_CARD_WIDTH = int(5.25 * DPI)  # 1575px
 TASK_BOX_CARD_HEIGHT = int(4 * DPI)  # 1200px
 
 
-def generate_yes_no_card(draw, card_rect, item, card_type='standard', folder_type='images'):
+def generate_yes_no_card(draw, card_rect, item, card_type='standard', folder_type='images', mode='color'):
     """
     Generate a single Yes/No card within the given rectangle.
     
@@ -43,6 +43,7 @@ def generate_yes_no_card(draw, card_rect, item, card_type='standard', folder_typ
         item: Dict with 'image' and 'label' keys
         card_type: 'standard', 'errorless_yes', 'errorless_no', or 'cut_paste'
         folder_type: Image folder type ('images', 'real_images', etc.)
+        mode: 'color' or 'bw' for dual-mode output
     """
     x1, y1, x2, y2 = card_rect
     card_width = x2 - x1
@@ -67,6 +68,10 @@ def generate_yes_no_card(draw, card_rect, item, card_type='standard', folder_typ
     try:
         img = load_image(item['image'], folder_type=folder_type)
         if img:
+            # Convert to grayscale if BW mode
+            if mode == 'bw' and img.mode != 'L':
+                img = img.convert('L').convert('RGB')
+            
             scaled_coords = scale_image_to_fit(img, icon_rect, padding=10)
             if scaled_coords:
                 paste_x, paste_y, paste_width, paste_height = scaled_coords
@@ -128,8 +133,13 @@ def generate_yes_no_card(draw, card_rect, item, card_type='standard', folder_typ
         
         # YES circle (left)
         yes_circle_x = x1 + int(card_width * 0.25)
-        yes_fill = COLORS['light_gray'] if card_type == 'errorless_yes' else COLORS['white']
-        no_fill = COLORS['light_gray'] if card_type == 'errorless_no' else COLORS['white']
+        # Use white for BW mode or light_gray for errorless in color mode
+        if mode == 'bw':
+            yes_fill = COLORS['light_gray'] if card_type == 'errorless_yes' else COLORS['white']
+            no_fill = COLORS['light_gray'] if card_type == 'errorless_no' else COLORS['white']
+        else:
+            yes_fill = COLORS['light_gray'] if card_type == 'errorless_yes' else COLORS['white']
+            no_fill = COLORS['light_gray'] if card_type == 'errorless_no' else COLORS['white']
         
         # YES
         draw.ellipse([yes_circle_x - circle_radius, circle_y - circle_radius,
@@ -161,7 +171,7 @@ def generate_yes_no_card(draw, card_rect, item, card_type='standard', folder_typ
 
 
 def generate_yes_no_cards_page(items, start_idx, card_type='standard', folder_type='images',
-                                page_num=1, total_pages=1):
+                                page_num=1, total_pages=1, mode='color'):
     """
     Generate a page with 4 Yes/No cards in 2×2 grid.
     
@@ -172,6 +182,7 @@ def generate_yes_no_cards_page(items, start_idx, card_type='standard', folder_ty
         folder_type: Image folder type
         page_num: Current page number
         total_pages: Total number of pages
+        mode: 'color' or 'bw' for dual-mode output
     
     Returns:
         PIL Image object
@@ -203,7 +214,7 @@ def generate_yes_no_cards_page(items, start_idx, card_type='standard', folder_ty
             y2 = y1 + card_height
             
             card_rect = (x1, y1, x2, y2)
-            generate_yes_no_card(draw, card_rect, items[idx], card_type, folder_type)
+            generate_yes_no_card(draw, card_rect, items[idx], card_type, folder_type, mode)
     
     # Add footer and page number
     draw_copyright_footer(draw, PAGE_WIDTH, PAGE_HEIGHT)
@@ -282,7 +293,7 @@ def generate_cutout_yes_no_icons(output_dir, theme_name):
 def generate_yes_no_cards_set(items, theme_name, output_dir='output',
                                include_standard=True, include_real_images=False,
                                include_errorless=True, include_cut_paste=True,
-                               include_storage_label=True, folder_type='images'):
+                               include_storage_label=True, folder_type='images', mode='color'):
     """
     Generate complete set of Yes/No cards.
     
@@ -296,6 +307,7 @@ def generate_yes_no_cards_set(items, theme_name, output_dir='output',
         include_cut_paste: Generate cut-and-paste version
         include_storage_label: Generate storage labels
         folder_type: Default folder type for images
+        mode: 'color' or 'bw' for dual-mode output
     
     Returns:
         Dict with paths to generated files
@@ -313,10 +325,11 @@ def generate_yes_no_cards_set(items, theme_name, output_dir='output',
         for page_num in range(num_pages):
             start_idx = page_num * cards_per_page
             page = generate_yes_no_cards_page(items, start_idx, 'standard', folder_type,
-                                             page_num + 1, num_pages)
+                                             page_num + 1, num_pages, mode)
             pages.append(page)
         
-        output_path = os.path.join(output_dir, f"{theme_name}_Yes_No_Cards.pdf")
+        mode_suffix = f"_{mode}" if mode else ""
+        output_path = os.path.join(output_dir, f"{theme_name}_Yes_No_Cards{mode_suffix}.pdf")
         save_images_as_pdf(pages, output_path)
         output_files['standard'] = output_path
         
@@ -330,10 +343,11 @@ def generate_yes_no_cards_set(items, theme_name, output_dir='output',
         for page_num in range(num_pages):
             start_idx = page_num * cards_per_page
             page = generate_yes_no_cards_page(items, start_idx, 'standard', 'real_images',
-                                             page_num + 1, num_pages)
+                                             page_num + 1, num_pages, mode)
             pages.append(page)
         
-        output_path = os.path.join(output_dir, f"{theme_name}_Yes_No_Cards_Real_Images.pdf")
+        mode_suffix = f"_{mode}" if mode else ""
+        output_path = os.path.join(output_dir, f"{theme_name}_Yes_No_Cards_Real_Images{mode_suffix}.pdf")
         save_images_as_pdf(pages, output_path)
         output_files['real_images'] = output_path
         
@@ -348,10 +362,11 @@ def generate_yes_no_cards_set(items, theme_name, output_dir='output',
         for page_num in range(num_pages):
             start_idx = page_num * cards_per_page
             page = generate_yes_no_cards_page(items, start_idx, 'errorless_yes', folder_type,
-                                             page_num + 1, num_pages)
+                                             page_num + 1, num_pages, mode)
             pages.append(page)
         
-        output_path = os.path.join(output_dir, f"{theme_name}_Yes_No_Cards_Errorless_Yes.pdf")
+        mode_suffix = f"_{mode}" if mode else ""
+        output_path = os.path.join(output_dir, f"{theme_name}_Yes_No_Cards_Errorless_Yes{mode_suffix}.pdf")
         save_images_as_pdf(pages, output_path)
         output_files['errorless_yes'] = output_path
         
@@ -364,10 +379,11 @@ def generate_yes_no_cards_set(items, theme_name, output_dir='output',
         for page_num in range(num_pages):
             start_idx = page_num * cards_per_page
             page = generate_yes_no_cards_page(items, start_idx, 'errorless_no', folder_type,
-                                             page_num + 1, num_pages)
+                                             page_num + 1, num_pages, mode)
             pages.append(page)
         
-        output_path = os.path.join(output_dir, f"{theme_name}_Yes_No_Cards_Errorless_No.pdf")
+        mode_suffix = f"_{mode}" if mode else ""
+        output_path = os.path.join(output_dir, f"{theme_name}_Yes_No_Cards_Errorless_No{mode_suffix}.pdf")
         save_images_as_pdf(pages, output_path)
         output_files['errorless_no'] = output_path
         
@@ -381,10 +397,11 @@ def generate_yes_no_cards_set(items, theme_name, output_dir='output',
         for page_num in range(num_pages):
             start_idx = page_num * cards_per_page
             page = generate_yes_no_cards_page(items, start_idx, 'cut_paste', folder_type,
-                                             page_num + 1, num_pages)
+                                             page_num + 1, num_pages, mode)
             pages.append(page)
         
-        output_path = os.path.join(output_dir, f"{theme_name}_Yes_No_Cards_Cut_Paste.pdf")
+        mode_suffix = f"_{mode}" if mode else ""
+        output_path = os.path.join(output_dir, f"{theme_name}_Yes_No_Cards_Cut_Paste{mode_suffix}.pdf")
         save_images_as_pdf(pages, output_path)
         output_files['cut_paste'] = output_path
         
@@ -401,3 +418,48 @@ def generate_yes_no_cards_set(items, theme_name, output_dir='output',
             output_files['cutouts_label'] = label_path
     
     return output_files
+
+
+def generate_yes_no_cards_dual_mode(items, theme_name, output_dir='output',
+                                     include_standard=True, include_real_images=False,
+                                     include_errorless=True, include_cut_paste=True,
+                                     include_storage_label=True, folder_type='images'):
+    """
+    Generate complete set of Yes/No cards in BOTH color and black-and-white modes.
+    
+    This is a convenience wrapper that calls generate_yes_no_cards_set() twice:
+    once for color mode and once for BW mode.
+    
+    Args:
+        items: List of dicts with 'image' and 'label' keys
+        theme_name: Name of theme for file naming
+        output_dir: Output directory path
+        include_standard: Generate standard Yes/No cards
+        include_real_images: Generate real image version
+        include_errorless: Generate errorless versions
+        include_cut_paste: Generate cut-and-paste version
+        include_storage_label: Generate storage labels
+        folder_type: Default folder type for images
+    
+    Returns:
+        Dict with 'color' and 'bw' keys, each containing paths to generated files
+    """
+    results = {}
+    
+    # Generate color version
+    results['color'] = generate_yes_no_cards_set(
+        items, theme_name, output_dir,
+        include_standard, include_real_images,
+        include_errorless, include_cut_paste,
+        include_storage_label, folder_type, mode='color'
+    )
+    
+    # Generate black-and-white version
+    results['bw'] = generate_yes_no_cards_set(
+        items, theme_name, output_dir,
+        include_standard, include_real_images,
+        include_errorless, include_cut_paste,
+        include_storage_label, folder_type, mode='bw'
+    )
+    
+    return results
