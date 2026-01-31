@@ -28,6 +28,7 @@ from utils.draw_helpers import (
 )
 from utils.pdf_export import save_images_as_pdf
 from utils.storage_label_helper import create_companion_label
+from utils.color_helpers import image_to_grayscale
 
 
 # Core vocabulary set (fixed icons used in most AAC boards)
@@ -56,7 +57,8 @@ def generate_aac_board(
     grid_size: Tuple[int, int] = (5, 6),
     use_color_coding: bool = True,
     folder_type: str = 'aac',
-    card_style: Optional[Dict] = None
+    card_style: Optional[Dict] = None,
+    mode: str = 'color'
 ) -> Image.Image:
     """
     Generate a single AAC communication board page.
@@ -68,6 +70,7 @@ def generate_aac_board(
         use_color_coding: Whether to use color coding by part of speech
         folder_type: Image folder ('aac', 'images', 'Colour_images')
         card_style: Optional styling dict for cards
+        mode: Output mode - 'color' or 'bw' for black-and-white
         
     Returns:
         PIL Image of the AAC board page
@@ -145,6 +148,9 @@ def generate_aac_board(
                     int(y2 - y1 - 60),
                     icon_data['label']
                 )
+            # Convert to grayscale if mode is 'bw'
+            elif mode == 'bw':
+                icon_image = image_to_grayscale(icon_image)
         except:
             icon_image = create_placeholder_image(
                 int(x2 - x1 - 20),
@@ -180,7 +186,8 @@ def generate_aac_cutout_icons(
     fringe_vocab: List[Dict],
     theme_name: str = 'AAC_Board',
     folder_type: str = 'aac',
-    card_style: Optional[Dict] = None
+    card_style: Optional[Dict] = None,
+    mode: str = 'color'
 ) -> List[Image.Image]:
     """
     Generate cut-out icon pages for AAC board.
@@ -190,6 +197,7 @@ def generate_aac_cutout_icons(
         theme_name: Theme name
         folder_type: Image folder type
         card_style: Optional card styling
+        mode: Output mode - 'color' or 'bw' for black-and-white
         
     Returns:
         List of PIL Images (one page per 6 icons)
@@ -254,6 +262,9 @@ def generate_aac_cutout_icons(
                         int(y2 - y1 - 20),
                         icon_data['label']
                     )
+                # Convert to grayscale if mode is 'bw'
+                elif mode == 'bw':
+                    icon_image = image_to_grayscale(icon_image)
             except:
                 icon_image = create_placeholder_image(
                     int(x2 - x1 - 20),
@@ -286,7 +297,8 @@ def generate_aac_board_set(
     with_cutout_icons: bool = False,
     folder_type: str = 'aac',
     include_storage_label: bool = False,
-    card_style: Optional[Dict] = None
+    card_style: Optional[Dict] = None,
+    mode: str = 'color'
 ) -> Dict[str, str]:
     """
     Generate complete AAC board set with optional cut-out icons.
@@ -301,6 +313,7 @@ def generate_aac_board_set(
         folder_type: Image folder type ('aac', 'images', 'Colour_images')
         include_storage_label: Generate storage labels
         card_style: Optional card styling dictionary
+        mode: Output mode - 'color' or 'bw' for black-and-white
         
     Returns:
         Dictionary with paths to generated files
@@ -318,11 +331,13 @@ def generate_aac_board_set(
         grid_size=grid_size,
         use_color_coding=use_color_coding,
         folder_type=folder_type,
-        card_style=card_style
+        card_style=card_style,
+        mode=mode
     )
     
     # Save AAC board
-    board_filename = f"{theme_name}_AAC_Board.pdf"
+    mode_suffix = f"_{mode}" if mode else ""
+    board_filename = f"{theme_name}_AAC_Board{mode_suffix}.pdf"
     board_path = os.path.join(output_dir, board_filename)
     save_images_as_pdf([board_page], board_path)
     output_files['board'] = board_path
@@ -347,11 +362,12 @@ def generate_aac_board_set(
             fringe_vocab=fringe_vocab,
             theme_name=theme_name,
             folder_type=folder_type,
-            card_style=card_style
+            card_style=card_style,
+            mode=mode
         )
         
         # Save cut-out icons
-        cutout_filename = f"{theme_name}_AAC_Icons_Cutouts.pdf"
+        cutout_filename = f"{theme_name}_AAC_Icons_Cutouts{mode_suffix}.pdf"
         cutout_path = os.path.join(output_dir, cutout_filename)
         save_images_as_pdf(cutout_pages, cutout_path)
         output_files['cutouts'] = cutout_path
@@ -371,6 +387,84 @@ def generate_aac_board_set(
     
     print(f"\n✅ AAC board generation complete!")
     return output_files
+
+
+def generate_aac_board_set_dual_mode(
+    fringe_vocab: List[Dict],
+    theme_name: str = 'AAC_Board',
+    output_dir: str = 'output',
+    grid_size: Tuple[int, int] = (5, 6),
+    use_color_coding: bool = True,
+    with_cutout_icons: bool = False,
+    folder_type: str = 'aac',
+    include_storage_label: bool = False,
+    card_style: Optional[Dict] = None
+) -> Dict[str, Dict[str, str]]:
+    """
+    Generate AAC board set in both color and black-and-white modes.
+    
+    This is a convenience wrapper that generates both color and BW versions
+    by calling generate_aac_board_set() twice with different mode parameters.
+    
+    Args:
+        fringe_vocab: List of theme-specific vocabulary items
+        theme_name: Theme name for output files
+        output_dir: Output directory path
+        grid_size: Grid dimensions (rows, cols)
+        use_color_coding: Enable color coding by part of speech
+        with_cutout_icons: Generate separate cut-out icon pages
+        folder_type: Image folder type ('aac', 'images', 'Colour_images')
+        include_storage_label: Generate storage labels (color version only)
+        card_style: Optional card styling dictionary
+        
+    Returns:
+        Dictionary with 'color' and 'bw' keys, each containing file paths
+    """
+    results = {}
+    
+    # Generate color version
+    print("=" * 60)
+    print("GENERATING COLOR VERSION")
+    print("=" * 60)
+    color_files = generate_aac_board_set(
+        fringe_vocab=fringe_vocab,
+        theme_name=theme_name,
+        output_dir=output_dir,
+        grid_size=grid_size,
+        use_color_coding=use_color_coding,
+        with_cutout_icons=with_cutout_icons,
+        folder_type=folder_type,
+        include_storage_label=include_storage_label,
+        card_style=card_style,
+        mode='color'
+    )
+    results['color'] = color_files
+    
+    # Generate black-and-white version
+    print("\n" + "=" * 60)
+    print("GENERATING BLACK-AND-WHITE VERSION")
+    print("=" * 60)
+    bw_files = generate_aac_board_set(
+        fringe_vocab=fringe_vocab,
+        theme_name=theme_name,
+        output_dir=output_dir,
+        grid_size=grid_size,
+        use_color_coding=use_color_coding,
+        with_cutout_icons=with_cutout_icons,
+        folder_type=folder_type,
+        include_storage_label=False,  # Only generate labels for color version
+        card_style=card_style,
+        mode='bw'
+    )
+    results['bw'] = bw_files
+    
+    print("\n" + "=" * 60)
+    print("✅ DUAL-MODE GENERATION COMPLETE")
+    print("=" * 60)
+    print(f"Color files: {len(color_files)} file(s)")
+    print(f"BW files: {len(bw_files)} file(s)")
+    
+    return results
 
 
 if __name__ == '__main__':
