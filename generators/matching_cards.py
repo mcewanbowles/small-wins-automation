@@ -1,5 +1,5 @@
 """
-Matching Cards Generator (Refactored with Modular Helpers)
+Matching Cards Generator (Modernized with Dual-Mode Support)
 
 Generates SPED-friendly matching card pairs with 4 differentiation levels:
 - Level 1: Identical errorless matching (same image on both cards)
@@ -10,14 +10,16 @@ Generates SPED-friendly matching card pairs with 4 differentiation levels:
 All cards follow SPED design principles: large images, high contrast,
 minimal clutter, consistent spacing, and 300 DPI output.
 
-Refactored to use modular helper functions from utils/draw_helpers.py
-for clean, maintainable code.
+Supports dual-mode output (color + black-and-white).
 """
 
 from PIL import Image, ImageDraw
 from utils.config import MARGINS, CARD_SIZES, DPI, COLORS, FONT_SIZES, PAGE_WIDTH, PAGE_HEIGHT
 from utils.image_loader import get_image_loader
 from utils.pdf_export import save_images_as_pdf
+from utils.layout import create_page_canvas, add_footer
+from utils.image_utils import scale_image_proportional, center_image_in_box
+from utils.color_helpers import image_to_grayscale
 from utils.draw_helpers import (
     calculate_cell_rect,
     scale_image_to_fit,
@@ -28,14 +30,15 @@ from utils.draw_helpers import (
     create_placeholder_image
 )
 from utils.storage_label_helper import create_companion_label
+from utils.fonts import FontManager
 import os
 
 
 def generate_matching_card(image_filename, label_text=None, card_size='large',
                            folder_type='color', card_type='image', level=1,
-                           card_style=None):
+                           card_style=None, mode='color'):
     """
-    Generate a single matching card using modular helper functions.
+    Generate a single matching card using modern layout utilities.
     
     Args:
         image_filename: Filename of the image (without folder path)
@@ -45,6 +48,7 @@ def generate_matching_card(image_filename, label_text=None, card_size='large',
         card_type: 'image' or 'text' (for Level 4)
         level: Differentiation level (1-4)
         card_style: Optional dict with 'border_width', 'corner_radius', 'shadow'
+        mode: 'color' or 'bw' for dual-mode support
         
     Returns:
         PIL.Image: Generated card
@@ -82,22 +86,24 @@ def generate_matching_card(image_filename, label_text=None, card_size='large',
         # Create consistent placeholder
         theme_image = create_placeholder_image(500, 500, f"Missing:\n{image_filename}")
     
-    # Scale and position image using helper function
-    # Use minimal padding (5px) for maximum image size
-    scaled_image, img_x, img_y = scale_image_to_fit(
-        theme_image,
-        (0, 0, width, height),
-        padding=5
-    )
+    # Convert to grayscale if in BW mode
+    if mode == 'bw':
+        theme_image = image_to_grayscale(theme_image)
+    
+    # Scale and position image using modern utilities
+    target_width = width - 10
+    target_height = height - 10
+    scaled_image = scale_image_proportional(theme_image, target_width, target_height)
+    centered_image = center_image_in_box(scaled_image, width, height)
     
     # Paste with alpha channel support
-    card.paste(scaled_image, (img_x, img_y), scaled_image)
+    card.paste(centered_image, (0, 0), centered_image if centered_image.mode == 'RGBA' else None)
     
     return card
 
 
 def generate_matching_pair(image_base_name, label_text=None, level=1, card_size='large',
-                           card_style=None):
+                           card_style=None, mode='color'):
     """
     Generate a matching pair of cards based on differentiation level.
     
@@ -107,6 +113,7 @@ def generate_matching_pair(image_base_name, label_text=None, level=1, card_size=
         level: Differentiation level (1-4)
         card_size: Card size
         card_style: Optional dict with card styling options
+        mode: 'color' or 'bw' for dual-mode support
         
     Returns:
         tuple: (card_a, card_b) - Two matching cards
@@ -115,7 +122,8 @@ def generate_matching_pair(image_base_name, label_text=None, level=1, card_size=
         # Level 1: Identical errorless matching
         card_a = generate_matching_card(
             f"{image_base_name}.png", label_text, card_size,
-            folder_type='color', card_type='image', level=level, card_style=card_style
+            folder_type='color', card_type='image', level=level, 
+            card_style=card_style, mode=mode
         )
         card_b = card_a.copy()
         
@@ -123,33 +131,39 @@ def generate_matching_pair(image_base_name, label_text=None, level=1, card_size=
         # Level 2: Outline-to-color matching
         card_a = generate_matching_card(
             f"{image_base_name}.png", label_text, card_size,
-            folder_type='bw_outline', card_type='image', level=level, card_style=card_style
+            folder_type='bw_outline', card_type='image', level=level, 
+            card_style=card_style, mode=mode
         )
         card_b = generate_matching_card(
             f"{image_base_name}.png", label_text, card_size,
-            folder_type='color', card_type='image', level=level, card_style=card_style
+            folder_type='color', card_type='image', level=level, 
+            card_style=card_style, mode=mode
         )
         
     elif level == 3:
         # Level 3: AAC symbol to real image matching
         card_a = generate_matching_card(
             f"{image_base_name}.png", label_text, card_size,
-            folder_type='aac', card_type='image', level=level, card_style=card_style
+            folder_type='aac', card_type='image', level=level, 
+            card_style=card_style, mode=mode
         )
         card_b = generate_matching_card(
             f"{image_base_name}.png", label_text, card_size,
-            folder_type='color', card_type='image', level=level, card_style=card_style
+            folder_type='color', card_type='image', level=level, 
+            card_style=card_style, mode=mode
         )
         
     elif level == 4:
         # Level 4: AAC symbol to text matching
         card_a = generate_matching_card(
             f"{image_base_name}.png", label_text, card_size,
-            folder_type='aac', card_type='image', level=level, card_style=card_style
+            folder_type='aac', card_type='image', level=level, 
+            card_style=card_style, mode=mode
         )
         card_b = generate_matching_card(
             f"{image_base_name}.png", label_text, card_size,
-            folder_type='color', card_type='text', level=level, card_style=card_style
+            folder_type='color', card_type='text', level=level, 
+            card_style=card_style, mode=mode
         )
     else:
         raise ValueError(f"Invalid level: {level}. Must be 1-4.")
@@ -160,9 +174,9 @@ def generate_matching_pair(image_base_name, label_text=None, level=1, card_size=
 def generate_matching_cards_set(items, level=1, card_size='large', 
                                  cards_per_page=6, output_dir='output', theme_name='Theme',
                                  include_storage_label=False, card_style=None,
-                                 custom_spacing=20, custom_margin=50):
+                                 custom_spacing=20, custom_margin=50, mode='color'):
     """
-    Generate a complete set of matching cards using modular helper functions.
+    Generate a complete set of matching cards using modern layout utilities.
     
     Args:
         items: List of dicts with 'image' (base name) and 'label' keys
@@ -175,9 +189,10 @@ def generate_matching_cards_set(items, level=1, card_size='large',
         card_style: Optional dict with 'border_width', 'corner_radius', 'shadow'
         custom_spacing: Space between cards in pixels
         custom_margin: Page margin in pixels
+        mode: 'color' or 'bw' for dual-mode support
         
     Returns:
-        List[str]: Paths to generated PDF files
+        str: Path to generated PDF file
     """
     # Determine grid layout
     if cards_per_page == 6:
@@ -206,17 +221,18 @@ def generate_matching_cards_set(items, level=1, card_size='large',
         label = item.get('label', image_name.replace('_', ' ').title())
         
         card_a, card_b = generate_matching_pair(
-            image_name, label, level, card_size, card_style
+            image_name, label, level, card_size, card_style, mode
         )
         all_cards.extend([card_a, card_b])
     
-    # Create pages with grid layout
+    # Create pages with modern layout
     pages = []
     total_pages = (len(all_cards) + cards_per_page - 1) // cards_per_page
+    font_manager = FontManager()
     
     for page_idx in range(total_pages):
-        # Create page canvas
-        page = Image.new('RGB', (PAGE_WIDTH, PAGE_HEIGHT), COLORS['white'])
+        # Create page canvas using modern utility
+        page = create_page_canvas(mode=mode)
         draw = ImageDraw.Draw(page)
         
         # Calculate cell positions using helper
@@ -243,21 +259,24 @@ def generate_matching_cards_set(items, level=1, card_size='large',
                 cell_height = y2 - y1
                 card_resized = card.resize((cell_width, cell_height), Image.Resampling.LANCZOS)
                 
+                # Convert RGBA to RGB for pasting
+                if card_resized.mode == 'RGBA':
+                    card_rgb = Image.new('RGB', card_resized.size, COLORS['white'])
+                    card_rgb.paste(card_resized, (0, 0), card_resized)
+                    card_resized = card_rgb
+                
                 # Paste card
-                page.paste(card_resized, (x1, y1), card_resized if card_resized.mode == 'RGBA' else None)
+                page.paste(card_resized, (x1, y1))
         
-        # Add page number
-        draw_page_number(draw, page_idx + 1, total_pages, PAGE_WIDTH, PAGE_HEIGHT, custom_margin)
-        
-        # Add copyright footer
-        draw_copyright_footer(draw, PAGE_WIDTH, PAGE_HEIGHT, custom_margin)
+        # Add modern footer
+        add_footer(page, "Matching Cards", page_idx + 1, mode=mode)
         
         pages.append(page)
     
     # Create output directory
     os.makedirs(output_dir, exist_ok=True)
     
-    # Generate filename
+    # Generate filename with mode suffix
     level_names = {
         1: 'Level1_Identical_Errorless',
         2: 'Level2_Outline_to_Color',
@@ -265,18 +284,17 @@ def generate_matching_cards_set(items, level=1, card_size='large',
         4: 'Level4_AAC_to_Text'
     }
     level_name = level_names.get(level, f'Level{level}')
-    filename = f"{theme_name}_Matching_{level_name}.pdf"
+    mode_suffix = '_color' if mode == 'color' else '_bw'
+    filename = f"{theme_name}_Matching_{level_name}{mode_suffix}.pdf"
     output_path = os.path.join(output_dir, filename)
     
     # Save PDF
     save_images_as_pdf(pages, output_path)
     print(f"✓ Generated {len(pages)} pages with {len(all_cards)} cards: {output_path}")
-    print(f"  Grid: {rows}×{cols}, Spacing: {custom_spacing}px, Margin: {custom_margin}px")
+    print(f"  Grid: {rows}×{cols}, Spacing: {custom_spacing}px, Margin: {custom_margin}px, Mode: {mode}")
     
-    result_paths = [output_path]
-    
-    # Generate storage label if requested
-    if include_storage_label:
+    # Generate storage label only for color version
+    if include_storage_label and mode == 'color':
         try:
             # Try to get first image for icon
             first_item = items[0] if items else None
@@ -299,9 +317,80 @@ def generate_matching_cards_set(items, level=1, card_size='large',
                 level=level,
                 icon=icon_path
             )
-            result_paths.append(label_path)
             print(f"✓ Generated storage label: {label_path}")
         except Exception as e:
             print(f"⚠ Could not generate storage label: {e}")
     
-    return result_paths
+    return output_path
+
+
+def generate_matching_cards_dual_mode(items, level=1, card_size='large',
+                                       cards_per_page=6, output_dir='output', theme_name='Theme',
+                                       include_storage_label=False, card_style=None,
+                                       custom_spacing=20, custom_margin=50):
+    """
+    Generate matching cards in both color and black-and-white modes.
+    
+    This is a wrapper function that calls generate_matching_cards_set() twice
+    to produce both color and BW versions with a single function call.
+    
+    Args:
+        items: List of dicts with 'image' (base name) and 'label' keys
+        level: Differentiation level (1-4)
+        card_size: Size of cards
+        cards_per_page: Number of cards per page (6, 8, or 9)
+        output_dir: Output directory
+        theme_name: Theme name for filename
+        include_storage_label: If True, also generate companion storage label PDF
+        card_style: Optional dict with card styling options
+        custom_spacing: Space between cards in pixels
+        custom_margin: Page margin in pixels
+        
+    Returns:
+        dict: {'color': color_pdf_path, 'bw': bw_pdf_path}
+    """
+    print(f"\n🎨 Generating Matching Cards (Dual-Mode) - Level {level}...")
+    print(f"   Theme: {theme_name}")
+    print(f"   Items: {len(items)}")
+    print(f"   Cards per page: {cards_per_page}")
+    
+    # Generate color version
+    print("\n=== COLOR version ===")
+    color_path = generate_matching_cards_set(
+        items=items,
+        level=level,
+        card_size=card_size,
+        cards_per_page=cards_per_page,
+        output_dir=output_dir,
+        theme_name=theme_name,
+        include_storage_label=include_storage_label,
+        card_style=card_style,
+        custom_spacing=custom_spacing,
+        custom_margin=custom_margin,
+        mode='color'
+    )
+    
+    # Generate black-and-white version
+    print("\n=== BLACK-AND-WHITE version ===")
+    bw_path = generate_matching_cards_set(
+        items=items,
+        level=level,
+        card_size=card_size,
+        cards_per_page=cards_per_page,
+        output_dir=output_dir,
+        theme_name=theme_name,
+        include_storage_label=False,  # Only generate label for color version
+        card_style=card_style,
+        custom_spacing=custom_spacing,
+        custom_margin=custom_margin,
+        mode='bw'
+    )
+    
+    print(f"\n✅ Dual-mode generation complete!")
+    print(f"   Color PDF: {color_path}")
+    print(f"   BW PDF: {bw_path}")
+    
+    return {
+        'color': color_path,
+        'bw': bw_path
+    }
