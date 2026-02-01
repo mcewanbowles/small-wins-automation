@@ -99,8 +99,8 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
     # Rounded corners with 0.1-0.15" radius
     c.roundRect(border_margin, border_margin, content_width, content_height, 10, stroke=1, fill=0)
     
-    # 2.2 Accent Stripe: 0.5" height at top, warm orange for Matching, inside border with rounded corners
-    accent_height = 0.5 * inch
+    # 2.2 Accent Stripe: 0.6" height at top, warm orange for Matching, inside border with rounded corners
+    accent_height = 0.6 * inch  # Increased from 0.5" to 0.6"
     accent_x = border_margin + 5  # Slightly inside border
     accent_y = height - border_margin - accent_height - 5
     accent_width = content_width - 10
@@ -108,23 +108,39 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
     c.setFillColorRGB(*hex_to_rgb(WARM_ORANGE))
     c.roundRect(accent_x, accent_y, accent_width, accent_height, 8, stroke=0, fill=1)
     
-    # 2.3 Title + Subtitle: Centered on the accent stripe
-    # Title: "Matching Activity – Level X" (22-24 pt, navy)
+    # 2.3 Title + Subtitle: Centered vertically within the accent stripe
+    # Title: "Matching Activity" (24 pt, navy) - Level removed per requirements
     c.setFillColorRGB(*hex_to_rgb('#001F3F'))  # Navy color
     c.setFont("Helvetica-Bold", 24)
-    title_text = f"Matching Activity – Level {level}"
+    title_text = "Matching Activity"  # Removed "– Level X" as it's in footer
     title_width = c.stringWidth(title_text, "Helvetica-Bold", 24)
     title_x = width / 2 - title_width / 2
-    title_y = accent_y + accent_height / 2 + 0.15 * inch  # Centered vertically on stripe
-    c.drawString(title_x, title_y, title_text)
     
-    # Subtitle: "Brown Bear" (16-18 pt, dark grey)
-    subtitle_y = title_y - 0.28 * inch
+    # Subtitle: "Brown Bear" (18 pt, dark grey)
     c.setFont("Helvetica", 18)
-    c.setFillColorRGB(0.3, 0.3, 0.3)  # Dark grey
     subtitle_text = theme_name
     subtitle_width = c.stringWidth(subtitle_text, "Helvetica", 18)
     subtitle_x = width / 2 - subtitle_width / 2
+    
+    # Calculate total height of both text lines with spacing
+    title_height = 24  # approximate font height
+    subtitle_height = 18
+    text_spacing = 6  # spacing between title and subtitle
+    total_text_height = title_height + text_spacing + subtitle_height
+    
+    # Center both lines vertically within the stripe
+    stripe_center_y = accent_y + accent_height / 2
+    title_y = stripe_center_y + (total_text_height / 2) - title_height + 6
+    subtitle_y = title_y - text_spacing - subtitle_height + 3
+    
+    # Draw title
+    c.setFillColorRGB(*hex_to_rgb('#001F3F'))
+    c.setFont("Helvetica-Bold", 24)
+    c.drawString(title_x, title_y, title_text)
+    
+    # Draw subtitle
+    c.setFillColorRGB(0.3, 0.3, 0.3)  # Dark grey
+    c.setFont("Helvetica", 18)
     c.drawString(subtitle_x, subtitle_y, subtitle_text)
     
     # 0.35" padding below accent stripe
@@ -137,13 +153,19 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
     
     # Draw target image with soft shadow and border
     if target_img:
-        # Draw soft shadow (10-15% opacity) - offset slightly
-        shadow_offset = 3
-        shadow_opacity = 0.12  # 12% opacity
+        # Draw soft shadow (10-15% opacity) with larger offset and blur simulation
+        shadow_offset = 8  # Increased from 3 to 8px (6-10px range)
+        shadow_opacity = 0.12  # 12% opacity (10-15% range)
+        
+        # Simulate blur by drawing multiple shadow layers with decreasing opacity
         c.setFillColorRGB(0, 0, 0)
-        c.setFillAlpha(shadow_opacity)
-        c.roundRect(target_x + shadow_offset, target_y - shadow_offset, 
-                   target_size, target_size, 8.64, stroke=0, fill=1)  # 0.12" radius = 8.64 pts
+        blur_layers = 3
+        for i in range(blur_layers):
+            layer_opacity = shadow_opacity * (1 - i / (blur_layers * 2))
+            c.setFillAlpha(layer_opacity)
+            offset = shadow_offset + i
+            c.roundRect(target_x + offset, target_y - offset, 
+                       target_size, target_size, 8.64, stroke=0, fill=1)
         c.setFillAlpha(1.0)  # Reset opacity
         
         # Save target image temporarily
@@ -167,8 +189,8 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
     # Start below target with 0.35" padding (as specified in requirements)
     rows_start_y = target_y - 0.35 * inch
     
-    # Left column (image boxes) and right column (velcro boxes) - centered
-    column_gap = 0.8 * inch
+    # Left column (image boxes) and right column (velcro boxes) - centered with increased spacing
+    column_gap = 1.2 * inch  # Increased from 0.8" to 1.2" for better horizontal spacing
     left_col_x = width / 2 - box_size - column_gap / 2
     right_col_x = width / 2 + column_gap / 2
     
@@ -348,8 +370,8 @@ def create_cutout_page_constitution(c, images, names, start_idx, page_num, total
             c.setLineWidth(1)
             c.roundRect(icon_x, icon_y, icon_size, icon_size, corner_radius, stroke=1, fill=0)
             
-            # Center icon in box
-            padding = icon_size * 0.1
+            # Icons should touch edges - minimal padding
+            padding = icon_size * 0.02  # Reduced from 0.1 to 0.02 for icons to touch edges
             actual_icon_size = icon_size - 2 * padding
             centered_x = icon_x + padding
             centered_y = icon_y + padding
@@ -415,11 +437,11 @@ def create_storage_label_page_constitution(c, names, page_num, total_pages, pack
     subtitle_x = width / 2 - subtitle_width / 2
     c.drawString(subtitle_x, subtitle_y, subtitle_text)
     
-    # Product info
+    # Product info - Updated to match requirements
     info_y = height - 2.5 * inch
     c.setFont("Helvetica-Bold", 16)
     c.setFillColorRGB(0, 0, 0)
-    c.drawCentredString(width/2, info_y, f"{theme_name} Matching Cards")
+    c.drawCentredString(width/2, info_y, "Brown Bear Matching Cards")  # Updated to "Brown Bear Matching Cards"
     
     info_y -= 0.4 * inch
     c.setFont("Helvetica", 14)
