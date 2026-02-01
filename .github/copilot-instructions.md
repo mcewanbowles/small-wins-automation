@@ -5,7 +5,7 @@
 This repository contains automated TpT (Teachers Pay Teachers) resource generators for Small Wins Studio. The system generates educational materials with multiple activity types based on themed content, specifically designed for AAC (Augmentative and Alternative Communication) and special education resources.
 
 **Key Features:**
-- Theme-based resource generation (e.g., Brown Bear, Brown Bear)
+- Theme-based resource generation (e.g., "Brown Bear, Brown Bear, What Do You See?")
 - Multiple activity types (matching, sorting, sequencing, wh-sentences, etc.)
 - Dual output modes: color and black & white (BW) PDFs
 - Automatic storage label generation for each activity
@@ -155,8 +155,8 @@ Themes are defined in JSON files under `/themes/` directory. Each theme must inc
 
 The system supports multiple activity types:
 
-- **Find/Cover:** Grid-based activities with errorless, mixed, and field-of-6 levels
-- **Matching:** Errorless, identical, and field-of-6 matching activities
+- **Find/Cover:** Grid-based activities with errorless, mixed, and field-of-6 (six-option selection) levels
+- **Matching:** Errorless, identical, and field-of-6 (six-option selection) matching activities
 - **Sorting:** Category-based sorting (animals, people, other)
 - **WH Sentences:** Question-based sentence activities with size scaling
 - **Colouring:** Black & white images for coloring activities
