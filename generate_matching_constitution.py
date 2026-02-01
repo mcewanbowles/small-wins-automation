@@ -305,11 +305,11 @@ def create_cutout_page_constitution(c, images, names, start_idx, page_num, total
     title_y = accent_y + accent_height / 2 + 0.15 * inch
     c.drawString(title_x, title_y, title_text)
     
-    # Subtitle centered on stripe
+    # Subtitle centered on stripe (cutout page)
     subtitle_y = title_y - 0.28 * inch
     c.setFont("Helvetica", 18)
     c.setFillColorRGB(0.3, 0.3, 0.3)  # Dark grey
-    subtitle_text = f"{theme_name} Pack ({pack_code})"
+    subtitle_text = theme_name
     subtitle_width = c.stringWidth(subtitle_text, "Helvetica", 18)
     subtitle_x = width / 2 - subtitle_width / 2
     c.drawString(subtitle_x, subtitle_y, subtitle_text)
@@ -408,11 +408,11 @@ def create_storage_label_page_constitution(c, names, page_num, total_pages, pack
     title_y = accent_y + accent_height / 2 + 0.15 * inch
     c.drawString(title_x, title_y, title_text)
     
-    # Subtitle centered on stripe
+    # Subtitle centered on stripe (storage labels)
     subtitle_y = title_y - 0.28 * inch
     c.setFont("Helvetica", 18)
     c.setFillColorRGB(0.3, 0.3, 0.3)  # Dark grey
-    subtitle_text = f"{theme_name} Pack ({pack_code})"
+    subtitle_text = theme_name
     subtitle_width = c.stringWidth(subtitle_text, "Helvetica", 18)
     subtitle_x = width / 2 - subtitle_width / 2
     c.drawString(subtitle_x, subtitle_y, subtitle_text)
