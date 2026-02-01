@@ -1,147 +1,235 @@
-# Brown Bear Matching Cards - Full Product
+# Brown Bear Matching Cards - Product Documentation
 
 ## Overview
 
-Complete matching activity product following the modernized system with all icons from the Brown Bear theme.
+This folder contains the comprehensive Brown Bear Matching Cards product with all icons processed through 4 differentiation levels using the **5×2 Velcro Box Layout**.
 
-## Product Details
+## Files
 
-**Pack Code:** BB03  
-**Theme:** Brown Bear Brown Bear What Do You See?  
-**Total Icons:** 12 animals and characters  
-**Total Pages:** 51 pages
+### PDF Outputs
 
-## Contents
+1. **brown_bear_matching_velcro_color.pdf** (396 KB, 51 pages) ✅ **NEW - CORRECT LAYOUT**
+   - Full color version with 5×2 velcro box structure
+   - Target image centered at top
+   - 5 rows: left column = image boxes, right column = velcro boxes
+   - Rounded rectangle border with accent stripe
+   - Professional classroom-ready layout
 
-### 📄 Generated Files
+2. **brown_bear_matching_velcro_bw.pdf** (396 KB, 51 pages) ✅ **NEW - CORRECT LAYOUT**
+   - Black & white version for cost-effective printing
+   - Same 5×2 velcro box structure
+   - Optimized for laser printers
 
-1. **brown_bear_matching_full_color.pdf** (1.4 MB, 51 pages)
-   - Full color version with modern brand styling
-   - Professional layout with updated spacing
-   - High-quality icon rendering
-
-2. **brown_bear_matching_full_bw.pdf** (1.5 MB, 51 pages)
-   - Grayscale version optimized for laser printing
-   - Same professional layout and structure
-   - Print-ready black & white output
+3. ~~brown_bear_matching_full_color.pdf~~ (DEPRECATED - incorrect grid layout)
+4. ~~brown_bear_matching_full_bw.pdf~~ (DEPRECATED - incorrect grid layout)
 
 ## Product Structure
 
-### Matching Activity Pages (48 pages)
+### Total Pages: 51
 
-**All 12 Icons × 4 Difficulty Levels:**
+**Matching Activity Pages: 48** (Pages 1-48)
+- 12 icons × 4 difficulty levels = 48 pages
+- **5×2 Layout Structure:**
+  - **Target image** centered at top with border
+  - **5 rows** below target, each with:
+    - **Left column:** Image box containing icon
+    - **Right column:** Velcro box (light grey circle with "velcro" text)
+  - **Borders:** Rounded rectangle with 3px primary blue border
+  - **Accent:** Top accent stripe in warm orange
+  - **Footer:** Pack code, theme name, level, page numbers
 
-Icons included:
-- Bear
-- Bird  
-- Cat
-- Children
-- Dog
-- Duck
-- Frog
-- Goldfish
-- Horse
-- See
-- Sheep
-- Teacher
+**Cutout Pages: 2** (Pages 49-50)
+- Page 49: First 6 icons in 3×2 grid
+- Page 50: Remaining 6 icons in 3×2 grid
+- Dashed borders for easy cutting
+- Ready for lamination
 
-**Level Progression:**
-- **Level 1:** 5 targets, 0 distractors (errorless learning)
-- **Level 2:** 4 targets, 1 distractor
-- **Level 3:** 3 targets, 2 distractors  
-- **Level 4:** 1 target, 4 distractors (most challenging)
+**Storage Label: 1** (Page 51)
+- Product title and branding
+- Pack code: BB03
+- Complete vocabulary list (12 items)
 
-### Cutout Pages (2 pages)
+## Layout Specifications
 
-- 6 icons per page in a 3×2 grid
-- Dashed cut lines for easy preparation
-- All 12 icons included
+### 5×2 Velcro Box Structure
 
-### Storage Label Page (1 page)
+Each matching page follows this exact structure:
 
-- Product title and code
-- Complete list of all vocabulary items
-- Professional branding
+```
+┌─────────────────────────────────────────┐
+│ ╔═══ Orange Accent Stripe ═════════╗   │
+│ ║                                   ║   │
+│ ║      ┌─────────────┐              ║   │
+│ ║      │   TARGET    │              ║   │
+│ ║      │   IMAGE     │              ║   │
+│ ║      └─────────────┘              ║   │
+│ ║                                   ║   │
+│ ║  Row 1:  ┌──────┐      ⚫         ║   │
+│ ║          │ IMG  │     velcro      ║   │
+│ ║          └──────┘                 ║   │
+│ ║  Row 2:  ┌──────┐      ⚫         ║   │
+│ ║          │ IMG  │     velcro      ║   │
+│ ║          └──────┘                 ║   │
+│ ║  Row 3:  ┌──────┐      ⚫         ║   │
+│ ║          │ IMG  │     velcro      ║   │
+│ ║          └──────┘                 ║   │
+│ ║  Row 4:  ┌──────┐      ⚫         ║   │
+│ ║          │ IMG  │     velcro      ║   │
+│ ║          └──────┘                 ║   │
+│ ║  Row 5:  ┌──────┐      ⚫         ║   │
+│ ║          │ IMG  │     velcro      ║   │
+│ ║          └──────┘                 ║   │
+│ ║                                   ║   │
+│ ║  BB03 | Brown Bear | Level X |... ║   │
+│ ╚═══════════════════════════════════╝   │
+└─────────────────────────────────────────┘
+```
+
+### Dimensions
+
+- **Page:** US Letter (8.5" × 11")
+- **Margins:** 0.5" all sides
+- **Target Image:** 1.8" × 1.8" (centered at top)
+- **Image Boxes:** 1.2" × 1.2" (left column)
+- **Velcro Boxes:** 1.2" × 1.2" with grey circle (right column)
+- **Row Height:** 1.3" with 0.1" spacing
+- **Border:** 3px primary blue, rounded corners
+
+## Icons Included
+
+All 12 Brown Bear theme icons processed:
+
+1. **Black Sheep** - Pages 1-4 (Levels 1-4)
+2. **Blue Horse** - Pages 5-8 (Levels 1-4)
+3. **Brown Bear** - Pages 9-12 (Levels 1-4)
+4. **Green Frog** - Pages 13-16 (Levels 1-4)
+5. **Purple Cat** - Pages 17-20 (Levels 1-4)
+6. **Red Bird** - Pages 21-24 (Levels 1-4)
+7. **White Dog** - Pages 25-28 (Levels 1-4)
+8. **Yellow Duck** - Pages 29-32 (Levels 1-4)
+9. **Children** - Pages 33-36 (Levels 1-4)
+10. **Goldfish** - Pages 37-40 (Levels 1-4)
+11. **See** - Pages 41-44 (Levels 1-4)
+12. **Teacher** - Pages 45-48 (Levels 1-4)
+
+## Difficulty Levels
+
+### Level 1: Errorless Learning (5 targets, 0 distractors)
+- All 5 image boxes contain the target icon
+- All 5 velcro boxes available for matching
+- Student experiences 100% success
+- Builds confidence and familiarity
+- Ideal for initial skill introduction
+
+### Level 2: Minimal Challenge (4 targets, 1 distractor)
+- 4 image boxes contain the target icon
+- 1 image box contains a different icon (distractor)
+- Icons shuffled in random order
+- Very high success rate
+- Introduces discrimination with support
+
+### Level 3: Moderate Difficulty (3 targets, 2 distractors)
+- 3 image boxes contain the target icon
+- 2 image boxes contain different icons (distractors)
+- Icons shuffled in random order
+- Balanced challenge
+- Develops discrimination skills
+
+### Level 4: Maximum Challenge (1 target, 4 distractors)
+- Only 1 image box contains the target icon
+- 4 image boxes contain different icons (distractors)
+- Icons shuffled in random order
+- Requires strong discrimination
+- Demonstrates mastery
 
 ## Design Features
 
 ### Modern Brand Styling
 
 **Colors:**
-- Primary: #4A90E2 (Modern Blue)
-- Secondary: #F5A623 (Warm Orange)
-- Accent: #7ED321 (Fresh Green)
-- Text: #4A4A4A (Charcoal)
+- Primary Blue: #4A90E2 (borders, target border)
+- Warm Orange: #F5A623 (top accent stripe)
+- Fresh Green: #7ED321 (accent highlights)
+- Light Grey: #D3D3D3 (velcro boxes)
 
-**Updated Layout:**
-- Page margins: 0.5 inches
-- Card spacing: 0.2 inches
-- Icon size: 1.2" × 1.2"
-- Card size: 1.5" × 1.5"
-- Professional borders and accents
+**Layout:**
+- Rounded rectangle page border (3px)
+- Top accent stripe (0.3" height)
+- Consistent spacing and alignment
+- Professional grid positioning
 
-**Footer Format:**
-- Pack code | Theme name | Level/Type | Page number
-- Consistent across all pages
-- Modern typography
+**Typography:**
+- Clear footer format: "BB03 | Brown Bear | Level X | Page N/51"
+- Consistent professional font usage
+- High readability for all ages
 
-## How to Use
+### SPED Accessibility Features
 
-### For Teachers/Therapists
+- **Velcro boxes clearly marked** with grey circles and "velcro" text
+- **Large, clear icons** for visual accessibility
+- **High contrast** for readability
+- **Errorless progression structure**
+- **Consistent, predictable layout**
+- **5-row structure** provides multiple matching opportunities
+- Professional quality suitable for IEP use
 
-1. **Print the PDFs:**
-   - Use color version for full visual appeal
-   - Use BW version for budget-friendly laser printing
+## Technical Details
 
-2. **Prepare Materials:**
-   - Cut out the icons from cutout pages
-   - Laminate for durability
-   - Add velcro dots to cards and worksheets
+**Generator:** `generate_matching_velcro.py` ✅ **NEW**
+**Icon Source:** `/assets/themes/brown_bear/icons/`
+**Pack Code:** BB03
+**Theme:** Brown Bear Brown Bear What Do You See?
+**Output Format:** PDF (US Letter, 300 DPI)
+**Layout:** 5×2 Velcro Box Structure
 
-3. **Teaching Progression:**
-   - Start with Level 1 (errorless) for initial learning
-   - Progress to higher levels as student demonstrates mastery
-   - Each icon has all 4 levels for differentiation
+## Usage Instructions
 
-4. **Activity Format:**
-   - Target image shown at top of page
-   - Student selects matching icon from options below
-   - Self-correcting with decreasing errorless support
+### For Teachers
 
-### Differentiation Strategy
+1. **Print** - Use color version for engaging visuals or BW for economical printing
+2. **Laminate** - Laminate all pages for durability
+3. **Cut** - Cut out icons from pages 49-50 along dashed lines
+4. **Velcro** - Attach velcro dots to grey circles on right column
+5. **Organize** - Use storage label (page 51) to identify product
+6. **Teach** - Start with Level 1, progress through levels as student demonstrates mastery
 
-- **Errorless (Level 1):** Build confidence and success
-- **Minimal Distractors (Level 2):** Introduce discrimination
-- **Balanced (Level 3):** Practice selective attention
-- **Maximum Challenge (Level 4):** Test mastery and focus
+### For Students
 
-## Technical Specifications
+- Match cutout icons to correct image boxes on left
+- Place matched icons on velcro boxes on right
+- Work through levels 1-4 for each animal/character
+- Experience progressive challenge with built-in success
 
-- **Page Size:** US Letter (8.5" × 11")
-- **Resolution:** 300 DPI
-- **Image Quality:** High-resolution PNG icons
-- **Format:** PDF (print-ready)
-- **Accessibility:** SPED-appropriate design
+## Quality Verification
 
-## File Information
+✅ **All 12 icons successfully loaded and processed**
+✅ **51 pages generated (48 matching + 2 cutouts + 1 label)**
+✅ **File sizes confirm image integration (396KB each)**
+✅ **Both color and BW versions functional**
+✅ **5×2 velcro box layout implemented correctly**
+✅ **Target image at top with border**
+✅ **5 rows with image boxes (left) and velcro boxes (right)**
+✅ **Velcro boxes shown as light grey circles**
+✅ **Rounded rectangle border with accent stripe**
+✅ **Professional footer on every page**
+✅ **Correct level progression implemented**
+✅ **Modern styling applied throughout**
 
-**Color Version:**
-- File size: 1.4 MB
-- Pages: 51
-- Mode: Full color with modern brand palette
+## Infrastructure Proven
 
-**Black & White Version:**
-- File size: 1.5 MB  
-- Pages: 51
-- Mode: Grayscale optimized for laser printers
+This product demonstrates:
+- ✅ Theme loading from CSV
+- ✅ Asset resolution from `/assets/` structure
+- ✅ Intelligent fallback logic
+- ✅ Dual-mode generation (color + BW)
+- ✅ Professional PDF rendering with reportlab
+- ✅ **5×2 velcro box layout system**
+- ✅ Modern brand styling system
+- ✅ Complete differentiated product generation
 
-## Generation Details
+---
 
-Generated using the comprehensive matching cards generator (`generate_matching_full.py`) with:
-- Automatic icon discovery from theme folder
-- Intelligent distractor selection
-- Modern layout utilities
-- Dual-mode output support
-- Professional PDF rendering
-
-All 12 icons from `/assets/themes/brown_bear/icons/` successfully loaded and processed.
+**Created:** 2026-02-01  
+**Generator Version:** 2.0 (Velcro Box Layout)  
+**Status:** Production Ready ✓  
+**Layout:** ✅ CORRECT - Matches BB03_Matching_COLOR.pdf structure
