@@ -164,8 +164,8 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
     corner_radius = 8.64  # 0.12" = 8.64 pts
     
     # Calculate starting position for 5 rows
-    # Start below target with appropriate spacing
-    rows_start_y = target_y - 0.35 * inch  # 0.35" spacing below target
+    # Start below target with 0.35" padding (as specified in requirements)
+    rows_start_y = target_y - 0.35 * inch
     
     # Left column (image boxes) and right column (velcro boxes) - centered
     column_gap = 0.8 * inch
