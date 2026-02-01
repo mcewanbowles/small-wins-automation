@@ -99,8 +99,8 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
     # Rounded corners with 0.1-0.15" radius
     c.roundRect(border_margin, border_margin, content_width, content_height, 10, stroke=1, fill=0)
     
-    # 2.2 Accent Stripe: 0.6" height at top, warm orange for Matching, inside border with rounded corners
-    accent_height = 0.6 * inch  # Increased from 0.5" to 0.6"
+    # 2.2 Accent Stripe: 0.85" height (increased significantly), warm orange, inside border with rounded corners
+    accent_height = 0.85 * inch  # Increased from 0.6" to 0.85" for better text fit
     accent_x = border_margin + 5  # Slightly inside border
     accent_y = height - border_margin - accent_height - 5
     accent_width = content_width - 10
@@ -109,10 +109,10 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
     c.roundRect(accent_x, accent_y, accent_width, accent_height, 8, stroke=0, fill=1)
     
     # 2.3 Title + Subtitle: Centered vertically within the accent stripe
-    # Title: "Matching Activity" (24 pt, navy) - Level removed per requirements
+    # Title: "Matching Activity" (24 pt, navy)
     c.setFillColorRGB(*hex_to_rgb('#001F3F'))  # Navy color
     c.setFont("Helvetica-Bold", 24)
-    title_text = "Matching Activity"  # Removed "– Level X" as it's in footer
+    title_text = "Matching Activity"
     title_width = c.stringWidth(title_text, "Helvetica-Bold", 24)
     title_x = width / 2 - title_width / 2
     
@@ -122,16 +122,17 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
     subtitle_width = c.stringWidth(subtitle_text, "Helvetica", 18)
     subtitle_x = width / 2 - subtitle_width / 2
     
-    # Calculate total height of both text lines with spacing
-    title_height = 24  # approximate font height
-    subtitle_height = 18
-    text_spacing = 6  # spacing between title and subtitle
-    total_text_height = title_height + text_spacing + subtitle_height
+    # Calculate vertical centering within stripe - improved calculation
+    title_font_height = 24
+    subtitle_font_height = 18
+    line_spacing = 8  # spacing between title and subtitle
+    total_text_height = title_font_height + line_spacing + subtitle_font_height
     
     # Center both lines vertically within the stripe
     stripe_center_y = accent_y + accent_height / 2
-    title_y = stripe_center_y + (total_text_height / 2) - title_height + 6
-    subtitle_y = title_y - text_spacing - subtitle_height + 3
+    # Position title above center, subtitle below
+    title_y = stripe_center_y + (line_spacing / 2) + (subtitle_font_height / 2)
+    subtitle_y = stripe_center_y - (line_spacing / 2) - (subtitle_font_height * 0.7)
     
     # Draw title
     c.setFillColorRGB(*hex_to_rgb('#001F3F'))
@@ -143,54 +144,63 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
     c.setFont("Helvetica", 18)
     c.drawString(subtitle_x, subtitle_y, subtitle_text)
     
-    # 0.35" padding below accent stripe
-    content_top = accent_y - 0.35 * inch
+    # 0.3" padding below accent stripe (adjusted for larger stripe)
+    content_top = accent_y - 0.3 * inch
     
-    # Target Image: 1.4" × 1.4", centered, thin outline, rounded corners 0.12", soft shadow
-    target_size = 1.4 * inch
+    # Target Image: 1.5" × 1.5" (increased from 1.4"), NO shadow, clean inner stroke
+    target_size = 1.5 * inch  # Increased size
     target_x = width / 2 - target_size / 2
     target_y = content_top - target_size
     
-    # Draw target image with soft shadow and border
+    # Draw target image with clean inner stroke (NO shadow)
     if target_img:
-        # Draw soft shadow (10-15% opacity) with larger offset and blur simulation
-        shadow_offset = 8  # Increased from 3 to 8px (6-10px range)
-        shadow_opacity = 0.12  # 12% opacity (10-15% range)
-        
-        # Simulate blur by drawing multiple shadow layers with decreasing opacity
-        c.setFillColorRGB(0, 0, 0)
-        blur_layers = 3
-        for i in range(blur_layers):
-            layer_opacity = shadow_opacity * (1 - i / (blur_layers * 2))
-            c.setFillAlpha(layer_opacity)
-            offset = shadow_offset + i
-            c.roundRect(target_x + offset, target_y - offset, 
-                       target_size, target_size, 8.64, stroke=0, fill=1)
-        c.setFillAlpha(1.0)  # Reset opacity
-        
-        # Save target image temporarily
+        # Save target image temporarily with minimal padding (increase visible size)
         temp_target = "/tmp/temp_target.png"
         target_img.save(temp_target, 'PNG')
-        c.drawImage(temp_target, target_x, target_y, width=target_size, height=target_size, 
+        
+        # Draw image with minimal internal padding
+        image_padding = target_size * 0.03  # Reduced from default to show more of image
+        c.drawImage(temp_target, 
+                   target_x + image_padding, 
+                   target_y + image_padding, 
+                   width=target_size - 2 * image_padding, 
+                   height=target_size - 2 * image_padding, 
                    preserveAspectRatio=True, mask='auto')
         
-        # Draw thin border around target with rounded corners (0.12" = 8.64 pts)
+        # Draw outer border with rounded corners (0.12" = 8.64 pts)
         c.setStrokeColorRGB(0.5, 0.5, 0.5)
-        c.setLineWidth(1)  # Thin outline
+        c.setLineWidth(1)
         c.roundRect(target_x, target_y, target_size, target_size, 8.64, stroke=1, fill=0)
+        
+        # Add clean inner stroke (2-3px, slightly darker)
+        c.setStrokeColorRGB(0.35, 0.35, 0.35)  # Darker than border
+        c.setLineWidth(2.5)  # 2-3px inner stroke
+        inner_offset = 4  # Offset for inner stroke
+        c.roundRect(target_x + inner_offset, target_y + inner_offset, 
+                   target_size - 2 * inner_offset, target_size - 2 * inner_offset, 
+                   6, stroke=1, fill=0)
+        
+        # Optional: Very soft inner glow (5-8% opacity)
+        c.setFillColorRGB(1, 1, 1)  # White glow
+        c.setFillAlpha(0.06)  # 6% opacity
+        glow_offset = 8
+        c.roundRect(target_x + glow_offset, target_y + glow_offset,
+                   target_size - 2 * glow_offset, target_size - 2 * glow_offset,
+                   4, stroke=0, fill=1)
+        c.setFillAlpha(1.0)  # Reset opacity
     
     # 5-row layout below target
-    # Activity Boxes: 1.0" × 1.0" with 0.25" vertical spacing, rounded corners 0.12"
-    box_size = 1.0 * inch
-    box_spacing = 0.25 * inch  # Updated vertical spacing
+    # Activity Boxes: 1.1" × 1.1" (increased from 1.0"), increased vertical spacing, rounded corners 0.12"
+    box_size = 1.1 * inch  # Increased from 1.0" to 1.1"
+    box_spacing = 0.3 * inch  # Increased from 0.25" to 0.3" for less crowding
     corner_radius = 8.64  # 0.12" = 8.64 pts
     
     # Calculate starting position for 5 rows
-    # Start below target with 0.35" padding (as specified in requirements)
-    rows_start_y = target_y - 0.35 * inch
+    # Start below target with 0.3" padding
+    rows_start_y = target_y - 0.3 * inch
     
-    # Left column (image boxes) and right column (velcro boxes) - centered with increased spacing
-    column_gap = 1.2 * inch  # Increased from 0.8" to 1.2" for better horizontal spacing
+    # Left column (image boxes) and right column (velcro boxes) - increased spacing for balance
+    column_gap = 1.4 * inch  # Increased from 1.2" to 1.4" for better balance
     left_col_x = width / 2 - box_size - column_gap / 2
     right_col_x = width / 2 + column_gap / 2
     
@@ -207,9 +217,9 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
         c.setLineWidth(1)
         c.roundRect(img_box_x, img_box_y, box_size, box_size, corner_radius, stroke=1, fill=0)
         
-        # Level 1 Watermark Logic (Section 8): 20-30% opacity watermark of target
+        # Level 1 Watermark Logic: 20-30% opacity watermark of target, 70-80% of box size
         if level == 1 and target_img:
-            # Create watermark at 25% opacity
+            # Create watermark at 25% opacity (within 20-30% range)
             temp_watermark = f"/tmp/watermark_{row}.png"
             watermark_img = target_img.copy()
             # Reduce opacity by converting to RGBA and adjusting alpha
@@ -219,24 +229,27 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
             watermark_img.putalpha(alpha)
             watermark_img.save(temp_watermark, 'PNG')
             
-            # Draw watermark centered in box
-            watermark_size = box_size * 0.7
+            # Draw watermark centered in box at 75% of box size (within 70-80% range)
+            watermark_size = box_size * 0.75
             watermark_x = img_box_x + (box_size - watermark_size) / 2
             watermark_y = img_box_y + (box_size - watermark_size) / 2
-            c.drawImage(temp_watermark, watermark_x, watermark_y, width=watermark_size, height=watermark_size, preserveAspectRatio=True, mask='auto')
+            c.drawImage(temp_watermark, watermark_x, watermark_y, 
+                       width=watermark_size, height=watermark_size, 
+                       preserveAspectRatio=True, mask='auto')
         
-        # Place icon in image box (centered)
+        # Place icon in image box (centered) with increased size (15-20% larger)
         if row < len(images):
             img = images[row]
-            # Center icon in box with padding
-            icon_size = box_size * 0.75
+            # Increase icon size from 75% to 88% of box (approximately 17% increase)
+            icon_size = box_size * 0.88  # Increased from 0.75 to 0.88
             icon_x = img_box_x + (box_size - icon_size) / 2
             icon_y = img_box_y + (box_size - icon_size) / 2
             
             # Save icon temporarily
             temp_icon = f"/tmp/temp_icon_{row}.png"
             img.save(temp_icon, 'PNG')
-            c.drawImage(temp_icon, icon_x, icon_y, width=icon_size, height=icon_size, preserveAspectRatio=True, mask='auto')
+            c.drawImage(temp_icon, icon_x, icon_y, width=icon_size, height=icon_size, 
+                       preserveAspectRatio=True, mask='auto')
         
         # Right column: Velcro dot (Section 4 & 6)
         # Velcro Dot: centered in matching box with rounded corners 0.12"
@@ -316,23 +329,14 @@ def create_cutout_page_constitution(c, images, names, start_idx, page_num, total
     c.setFillColorRGB(*hex_to_rgb(WARM_ORANGE))
     c.roundRect(accent_x, accent_y, accent_width, accent_height, 8, stroke=0, fill=1)
     
-    # Title: "Cutout Matching Pieces" centered on stripe
+    # Title: "Cutout Matching Pieces – Brown Bear" centered on stripe
     c.setFillColorRGB(*hex_to_rgb('#001F3F'))  # Navy
     c.setFont("Helvetica-Bold", 24)
-    title_text = "Cutout Matching Pieces"
+    title_text = "Cutout Matching Pieces – Brown Bear"  # Updated title
     title_width = c.stringWidth(title_text, "Helvetica-Bold", 24)
     title_x = width / 2 - title_width / 2
-    title_y = accent_y + accent_height / 2 + 0.15 * inch
+    title_y = accent_y + accent_height / 2 + 0.05 * inch  # Centered on stripe
     c.drawString(title_x, title_y, title_text)
-    
-    # Subtitle centered on stripe (cutout page)
-    subtitle_y = title_y - 0.28 * inch
-    c.setFont("Helvetica", 18)
-    c.setFillColorRGB(0.3, 0.3, 0.3)  # Dark grey
-    subtitle_text = theme_name
-    subtitle_width = c.stringWidth(subtitle_text, "Helvetica", 18)
-    subtitle_x = width / 2 - subtitle_width / 2
-    c.drawString(subtitle_x, subtitle_y, subtitle_text)
     
     # 5-icon strips that touch (Section 9)
     # Max icon size: 1.5" × 1.5"
