@@ -1,0 +1,114 @@
+@copilot Please integrate the new Storage Label Generator into the studio pipeline.  
+This PR must ONLY add integration hooks — no redesign, no refactoring, no packaging changes.
+
+===========================================================
+GOAL
+===========================================================
+Every activity generator must automatically produce storage labels (color + BW) using:
+
+    from generators.storage_labels import generate_storage_labels
+
+The integration must be clean, modular, and consistent across all generators.
+
+===========================================================
+SCOPE OF THIS PR
+===========================================================
+This PR must update ONLY the following:
+
+1. The master generator (`generate_all.py`)
+2. Each activity generator’s return structure
+3. Add a shared helper for calling storage labels
+
+Do NOT:
+- Modify the storage label generator itself
+- Modify the packaging system
+- Modify theme loader or dual‑mode infrastructure
+- Change output folder structure
+
+===========================================================
+REQUIRED CHANGES
+===========================================================
+
+-----------------------------------------------------------
+1. MASTER GENERATOR INTEGRATION
+-----------------------------------------------------------
+Update `generate_all.py` so that after each activity PDF is generated, it calls:
+
+    label_paths = generate_storage_labels(theme, activity_name)
+
+Store the returned paths in the activity’s output dictionary.
+
+Example structure:
+
+{
+  "activity_name": {
+      "color_pdf": "...",
+      "bw_pdf": "...",
+      "storage_labels": {
+          "color": "...",
+          "bw": "..."
+      }
+  }
+}
+
+-----------------------------------------------------------
+2. UPDATE EACH ACTIVITY GENERATOR
+-----------------------------------------------------------
+Each generator must:
+
+- Import the storage label generator
+- Add a call to generate storage labels
+- Include the returned paths in its output dictionary
+
+Example:
+
+from generators.storage_labels import generate_storage_labels
+
+def generate(activity inputs...):
+    ...
+    color_pdf = ...
+    bw_pdf = ...
+    labels = generate_storage_labels(theme, "Sequencing Strips")
+
+    return {
+        "color_pdf": color_pdf,
+        "bw_pdf": bw_pdf,
+        "storage_labels": labels
+    }
+
+-----------------------------------------------------------
+3. ADD A SHARED HELPER (OPTIONAL BUT RECOMMENDED)
+-----------------------------------------------------------
+Create a small helper in `utils/generator_helpers.py`:
+
+def attach_storage_labels(theme, activity_name, output_dict):
+    labels = generate_storage_labels(theme, activity_name)
+    output_dict["storage_labels"] = labels
+    return output_dict
+
+This keeps all generators consistent and reduces duplication.
+
+-----------------------------------------------------------
+4. ENSURE OUTPUT DIRECTORY STRUCTURE REMAINS CONSISTENT
+-----------------------------------------------------------
+All storage labels must continue to save into:
+
+    /output/{theme}/{activity}/
+
+Do NOT change folder structure.
+
+===========================================================
+VALIDATION
+===========================================================
+After integration, each activity generator must produce:
+
+- color PDF
+- BW PDF
+- storage_labels/color PDF
+- storage_labels/bw PDF
+
+All paths must be returned to the master generator.
+
+===========================================================
+END OF PR
+===========================================================
