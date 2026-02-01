@@ -2,22 +2,24 @@
 
 ## Overview
 
-This folder contains the comprehensive Brown Bear Matching Cards product with all icons processed through 4 differentiation levels using the **5×2 Velcro Box Layout**.
+This folder contains the comprehensive Brown Bear Matching Cards product with all icons processed through 4 differentiation levels using the **5×2 Velcro Box Layout** matching BB03 specifications.
 
 ## Files
 
 ### PDF Outputs
 
-1. **brown_bear_matching_velcro_color.pdf** (396 KB, 51 pages) ✅ **NEW - CORRECT LAYOUT**
+1. **brown_bear_matching_velcro_color.pdf** (407 KB, 51 pages) ✅ **UPDATED - REFINED LAYOUT**
    - Full color version with 5×2 velcro box structure
+   - Page titles above accent stripe
    - Target image centered at top
-   - 5 rows: left column = image boxes, right column = velcro boxes
+   - 5 rows: left column = image boxes, right column = velcro boxes (small circles)
    - Rounded rectangle border with accent stripe
+   - 2-line copyright footer with PCS license info
    - Professional classroom-ready layout
 
-2. **brown_bear_matching_velcro_bw.pdf** (396 KB, 51 pages) ✅ **NEW - CORRECT LAYOUT**
+2. **brown_bear_matching_velcro_bw.pdf** (407 KB, 51 pages) ✅ **UPDATED - REFINED LAYOUT**
    - Black & white version for cost-effective printing
-   - Same 5×2 velcro box structure
+   - Same 5×2 velcro box structure with all refinements
    - Optimized for laser printers
 
 3. ~~brown_bear_matching_full_color.pdf~~ (DEPRECATED - incorrect grid layout)
@@ -30,24 +32,31 @@ This folder contains the comprehensive Brown Bear Matching Cards product with al
 **Matching Activity Pages: 48** (Pages 1-48)
 - 12 icons × 4 difficulty levels = 48 pages
 - **5×2 Layout Structure:**
-  - **Target image** centered at top with border
+  - **Page Titles (top-left, above accent stripe):**
+    - Title: "Matching Activity – Level X"
+    - Subtitle: "Brown Bear Pack (BB03)"
+  - **Target image** centered at top with border (1.8" × 1.8")
   - **5 rows** below target, each with:
-    - **Left column:** Image box containing icon
-    - **Right column:** Velcro box (light grey circle with "velcro" text)
+    - **Left column:** Image box containing icon (1.2" × 1.2")
+    - **Right column:** Velcro box with **small circle** (27% of box width, light grey #E6E6E6)
   - **Borders:** Rounded rectangle with 3px primary blue border
-  - **Accent:** Top accent stripe in warm orange
-  - **Footer:** Pack code, theme name, level, page numbers
+  - **Accent:** Top accent stripe (0.3") in warm orange
+  - **2-Line Footer:**
+    - Line 1: BB03 | Brown Bear | Level X | Page N/51
+    - Line 2: © 2025 Small Wins Studio • PCS® symbols used with active PCS Maker Personal License
 
 **Cutout Pages: 2** (Pages 49-50)
 - Page 49: First 6 icons in 3×2 grid
 - Page 50: Remaining 6 icons in 3×2 grid
 - Dashed borders for easy cutting
 - Ready for lamination
+- 2-line copyright footer
 
 **Storage Label: 1** (Page 51)
 - Product title and branding
 - Pack code: BB03
 - Complete vocabulary list (12 items)
+- 2-line copyright footer
 
 ## Layout Specifications
 
@@ -57,6 +66,8 @@ Each matching page follows this exact structure:
 
 ```
 ┌─────────────────────────────────────────┐
+│ Matching Activity – Level X             │  ← Page title
+│ Brown Bear Pack (BB03)                  │  ← Subtitle
 │ ╔═══ Orange Accent Stripe ═════════╗   │
 │ ║                                   ║   │
 │ ║      ┌─────────────┐              ║   │
@@ -64,23 +75,24 @@ Each matching page follows this exact structure:
 │ ║      │   IMAGE     │              ║   │
 │ ║      └─────────────┘              ║   │
 │ ║                                   ║   │
-│ ║  Row 1:  ┌──────┐      ⚫         ║   │
+│ ║  Row 1:  ┌──────┐      ◯          ║   │  ← Small velcro circle
 │ ║          │ IMG  │     velcro      ║   │
 │ ║          └──────┘                 ║   │
-│ ║  Row 2:  ┌──────┐      ⚫         ║   │
+│ ║  Row 2:  ┌──────┐      ◯          ║   │
 │ ║          │ IMG  │     velcro      ║   │
 │ ║          └──────┘                 ║   │
-│ ║  Row 3:  ┌──────┐      ⚫         ║   │
+│ ║  Row 3:  ┌──────┐      ◯          ║   │
 │ ║          │ IMG  │     velcro      ║   │
 │ ║          └──────┘                 ║   │
-│ ║  Row 4:  ┌──────┐      ⚫         ║   │
+│ ║  Row 4:  ┌──────┐      ◯          ║   │
 │ ║          │ IMG  │     velcro      ║   │
 │ ║          └──────┘                 ║   │
-│ ║  Row 5:  ┌──────┐      ⚫         ║   │
+│ ║  Row 5:  ┌──────┐      ◯          ║   │
 │ ║          │ IMG  │     velcro      ║   │
 │ ║          └──────┘                 ║   │
 │ ║                                   ║   │
-│ ║  BB03 | Brown Bear | Level X |... ║   │
+│ ║  BB03 | Brown Bear | Level X |... ║   │  ← Footer line 1
+│ ║  © 2025 Small Wins Studio • PCS®  ║   │  ← Footer line 2
 │ ╚═══════════════════════════════════╝   │
 └─────────────────────────────────────────┘
 ```
@@ -91,9 +103,11 @@ Each matching page follows this exact structure:
 - **Margins:** 0.5" all sides
 - **Target Image:** 1.8" × 1.8" (centered at top)
 - **Image Boxes:** 1.2" × 1.2" (left column)
-- **Velcro Boxes:** 1.2" × 1.2" with grey circle (right column)
+- **Velcro Circles:** Small circles (27% of box width, ~0.32") centered in right column
+- **Velcro Color:** Light grey (#E6E6E6) with thin outline
 - **Row Height:** 1.3" with 0.1" spacing
 - **Border:** 3px primary blue, rounded corners
+- **Page Titles:** Above accent stripe (top-left)
 
 ## Icons Included
 

@@ -72,13 +72,14 @@ def create_matching_page_velcro(c, target_img, target_name, images, names, level
     Create a single matching page with 5×2 velcro box layout.
     
     Layout:
+    - Page title at top-left above accent stripe
     - Target image centered at top
     - 5 rows below with 2 columns each:
       - Left: Image box with icon
-      - Right: Velcro box (light grey circle)
+      - Right: Velcro box (small circle, 25-30% of box width)
     - Rounded rectangle border
     - Top accent stripe
-    - Footer with pack code, theme name, level, page number
+    - 2-line footer with pack code, theme name, level, page number and copyright
     """
     width, height = letter
     
@@ -86,6 +87,16 @@ def create_matching_page_velcro(c, target_img, target_name, images, names, level
     margin = 0.5 * inch
     content_width = width - 2 * margin
     content_height = height - 2 * margin
+    
+    # Page titles (above accent stripe)
+    title_y = height - margin + 0.15 * inch
+    c.setFont("Helvetica-Bold", 14)
+    c.setFillColorRGB(0, 0, 0)
+    c.drawString(margin + 0.1*inch, title_y, f"Matching Activity – Level {level}")
+    
+    c.setFont("Helvetica", 10)
+    c.setFillColorRGB(0.3, 0.3, 0.3)
+    c.drawString(margin + 0.1*inch, title_y - 0.2*inch, f"{theme_name} Pack ({pack_code})")
     
     # Draw rounded rectangle border (3px primary blue)
     c.setStrokeColorRGB(*[x/255 for x in hex_to_rgb(PRIMARY_BLUE)])
@@ -155,33 +166,45 @@ def create_matching_page_velcro(c, target_img, target_name, images, names, level
             img.save(temp_icon, 'PNG')
             c.drawImage(temp_icon, icon_x, icon_y, width=icon_size, height=icon_size, preserveAspectRatio=True, mask='auto')
         
-        # Right column: Velcro box (light grey circle)
+        # Right column: Velcro box (small circle centered in box)
         velcro_box_x = right_column_x
         velcro_box_y = row_y - velcro_box_height
         
-        # Draw velcro circle (light grey)
-        circle_radius = velcro_box_height / 2.5
+        # Draw velcro circle (small, 25-30% of box width, centered)
+        # Using 27% for optimal visibility
+        circle_diameter = velcro_box_width * 0.27
+        circle_radius = circle_diameter / 2
         circle_x = velcro_box_x + velcro_box_width / 2
         circle_y = velcro_box_y + velcro_box_height / 2
         
-        c.setFillColorRGB(*[x/255 for x in hex_to_rgb(LIGHT_GREY)])
-        c.setStrokeColorRGB(0, 0, 0)
-        c.setLineWidth(1)
+        # Light grey fill (#E6E6E6) with thin medium grey outline
+        c.setFillColorRGB(*[x/255 for x in hex_to_rgb('#E6E6E6')])
+        c.setStrokeColorRGB(0.5, 0.5, 0.5)
+        c.setLineWidth(1.5)
         c.circle(circle_x, circle_y, circle_radius, stroke=1, fill=1)
         
-        # Add "velcro" text in circle
-        c.setFillColorRGB(0.3, 0.3, 0.3)
-        c.setFont("Helvetica", 8)
-        text_width = c.stringWidth("velcro", "Helvetica", 8)
-        c.drawString(circle_x - text_width/2, circle_y - 3, "velcro")
+        # Optional tiny "velcro" text in circle (6-7pt)
+        c.setFillColorRGB(0.4, 0.4, 0.4)
+        c.setFont("Helvetica", 6)
+        text_width = c.stringWidth("velcro", "Helvetica", 6)
+        c.drawString(circle_x - text_width/2, circle_y - 2, "velcro")
     
-    # Footer
-    footer_y = margin + 0.2 * inch
+    # 2-line footer with copyright
+    footer_y_line1 = margin + 0.35 * inch
+    footer_y_line2 = margin + 0.15 * inch
+    
+    # Line 1: Pack code, theme, level, page number
     c.setFillColorRGB(0, 0, 0)
-    c.setFont("Helvetica-Bold", 10)
-    footer_text = f"{pack_code} | {theme_name} | Level {level} | Page {page_num}/{total_pages}"
-    footer_width = c.stringWidth(footer_text, "Helvetica-Bold", 10)
-    c.drawString((width - footer_width) / 2, footer_y, footer_text)
+    c.setFont("Helvetica-Bold", 9)
+    footer_line1 = f"{pack_code} | {theme_name} | Level {level} | Page {page_num}/{total_pages}"
+    footer_width1 = c.stringWidth(footer_line1, "Helvetica-Bold", 9)
+    c.drawString((width - footer_width1) / 2, footer_y_line1, footer_line1)
+    
+    # Line 2: Copyright and license
+    c.setFont("Helvetica", 8)
+    footer_line2 = "© 2025 Small Wins Studio • PCS® symbols used with active PCS Maker Personal License"
+    footer_width2 = c.stringWidth(footer_line2, "Helvetica", 8)
+    c.drawString((width - footer_width2) / 2, footer_y_line2, footer_line2)
     
     c.showPage()
 
@@ -237,11 +260,20 @@ def create_cutout_page(c, images, names, page_num, total_pages, pack_code="BB03"
             
             idx += 1
     
-    # Footer
+    # 2-line footer with copyright
+    footer_y_line1 = 0.5 * inch + 0.2 * inch
+    footer_y_line2 = 0.5 * inch
+    
+    # Line 1: Pack code, theme, cutouts, page number
     c.setFillColorRGB(0, 0, 0)
-    c.setFont("Helvetica", 10)
-    footer = f"{pack_code} | {theme_name} | Cutouts | Page {page_num}/{total_pages}"
-    c.drawCentredString(width/2, 0.5*inch, footer)
+    c.setFont("Helvetica-Bold", 9)
+    footer_line1 = f"{pack_code} | {theme_name} | Cutouts | Page {page_num}/{total_pages}"
+    c.drawCentredString(width/2, footer_y_line1, footer_line1)
+    
+    # Line 2: Copyright and license
+    c.setFont("Helvetica", 8)
+    footer_line2 = "© 2025 Small Wins Studio • PCS® symbols used with active PCS Maker Personal License"
+    c.drawCentredString(width/2, footer_y_line2, footer_line2)
     
     c.showPage()
 
@@ -277,10 +309,19 @@ def create_storage_label_page(c, names, page_num, total_pages, pack_code="BB03",
         y = y_start - row * 0.3*inch
         c.drawCentredString(x, y, f"• {name}")
     
-    # Footer
-    c.setFont("Helvetica", 10)
-    footer = f"{pack_code} | {theme_name} | Storage Label | Page {page_num}/{total_pages}"
-    c.drawCentredString(width/2, 0.5*inch, footer)
+    # 2-line footer with copyright
+    footer_y_line1 = 0.5 * inch + 0.2 * inch
+    footer_y_line2 = 0.5 * inch
+    
+    # Line 1: Pack code, theme, storage label, page number
+    c.setFont("Helvetica-Bold", 9)
+    footer_line1 = f"{pack_code} | {theme_name} | Storage Label | Page {page_num}/{total_pages}"
+    c.drawCentredString(width/2, footer_y_line1, footer_line1)
+    
+    # Line 2: Copyright and license
+    c.setFont("Helvetica", 8)
+    footer_line2 = "© 2025 Small Wins Studio • PCS® symbols used with active PCS Maker Personal License"
+    c.drawCentredString(width/2, footer_y_line2, footer_line2)
     
     c.showPage()
 
