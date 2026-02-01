@@ -73,14 +73,16 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
     """
     Create a matching page following Design Constitution standards.
     
-    Design Constitution Requirements:
+    Design Constitution Requirements (Updated):
     - Border: 3px stroke, 0.25" margin from edge
-    - Accent stripe: 0.35" height, warm orange for Matching
-    - Title + Subtitle: Sitting ON the accent stripe, aligned left
-    - Activity boxes: 1.0" × 1.0", rounded corners 0.1-0.15"
-    - Target image: 1.8" × 1.8", centered
-    - Velcro dot: 0.3-0.4" diameter, light grey #E6E6E6
+    - Accent stripe: 0.5" height, warm orange for Matching, inside border with rounded corners
+    - Title: "Matching Activity – Level X" (navy), centered on stripe
+    - Subtitle: "Brown Bear" (dark grey), centered on stripe
+    - Activity boxes: 1.0" × 1.0", rounded corners 0.12"
+    - Target image: 1.4" × 1.4", thin outline, rounded corners 0.12", soft shadow (10-15% opacity)
+    - Velcro dot: centered, light grey #E6E6E6
     - Level 1 watermark: 20-30% opacity of target in matching boxes
+    - Vertical spacing: 0.25", centered block, 0.25" bottom padding
     - Footer: 2 lines with correct typography
     """
     width, height = letter
@@ -97,55 +99,77 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
     # Rounded corners with 0.1-0.15" radius
     c.roundRect(border_margin, border_margin, content_width, content_height, 10, stroke=1, fill=0)
     
-    # 2.2 Accent Stripe: 0.35" height at top, warm orange for Matching
-    accent_height = 0.35 * inch
+    # 2.2 Accent Stripe: 0.5" height at top, warm orange for Matching, inside border with rounded corners
+    accent_height = 0.5 * inch
+    accent_x = border_margin + 5  # Slightly inside border
+    accent_y = height - border_margin - accent_height - 5
+    accent_width = content_width - 10
+    
     c.setFillColorRGB(*hex_to_rgb(WARM_ORANGE))
-    c.rect(border_margin, height - border_margin - accent_height, content_width, accent_height, stroke=0, fill=1)
+    c.roundRect(accent_x, accent_y, accent_width, accent_height, 8, stroke=0, fill=1)
     
-    # 2.3 Title + Subtitle: Sitting ON the accent stripe, aligned left
-    # Title: "Matching – Level X" (22-24 pt)
-    title_x = border_margin + 0.1 * inch
-    title_y = height - border_margin - accent_height / 2 + 0.1 * inch  # Centered on stripe
+    # 2.3 Title + Subtitle: Centered on the accent stripe
+    # Title: "Matching Activity – Level X" (22-24 pt, navy)
+    c.setFillColorRGB(*hex_to_rgb('#001F3F'))  # Navy color
+    c.setFont("Helvetica-Bold", 24)
+    title_text = f"Matching Activity – Level {level}"
+    title_width = c.stringWidth(title_text, "Helvetica-Bold", 24)
+    title_x = width / 2 - title_width / 2
+    title_y = accent_y + accent_height / 2 + 0.15 * inch  # Centered vertically on stripe
+    c.drawString(title_x, title_y, title_text)
     
-    c.setFillColorRGB(0, 0, 0)
-    c.setFont("Helvetica-Bold", 22)
-    c.drawString(title_x, title_y, f"Matching – Level {level}")
+    # Subtitle: "Brown Bear" (16-18 pt, dark grey)
+    subtitle_y = title_y - 0.28 * inch
+    c.setFont("Helvetica", 18)
+    c.setFillColorRGB(0.3, 0.3, 0.3)  # Dark grey
+    subtitle_text = theme_name
+    subtitle_width = c.stringWidth(subtitle_text, "Helvetica", 18)
+    subtitle_x = width / 2 - subtitle_width / 2
+    c.drawString(subtitle_x, subtitle_y, subtitle_text)
     
-    # Subtitle: "[Theme Name] Pack ([Pack Code])" (16-18 pt)
-    subtitle_y = title_y - 0.25 * inch
-    c.setFont("Helvetica", 16)
-    c.setFillColorRGB(0.2, 0.2, 0.2)
-    c.drawString(title_x, subtitle_y, f"{theme_name} Pack ({pack_code})")
+    # 0.35" padding below accent stripe
+    content_top = accent_y - 0.35 * inch
     
-    # 0.5" top margin before content (Section 6)
-    content_top = height - border_margin - accent_height - 0.5 * inch
-    
-    # Target Image: 1.8" × 1.8", centered (Section 6)
-    target_size = 1.8 * inch
+    # Target Image: 1.4" × 1.4", centered, thin outline, rounded corners 0.12", soft shadow
+    target_size = 1.4 * inch
     target_x = width / 2 - target_size / 2
-    target_y = content_top - target_size - 0.2 * inch
+    target_y = content_top - target_size
     
-    # Draw target image with border
+    # Draw target image with soft shadow and border
     if target_img:
+        # Draw soft shadow (10-15% opacity) - offset slightly
+        shadow_offset = 3
+        shadow_opacity = 0.12  # 12% opacity
+        c.setFillColorRGB(0, 0, 0)
+        c.setFillAlpha(shadow_opacity)
+        c.roundRect(target_x + shadow_offset, target_y - shadow_offset, 
+                   target_size, target_size, 8.64, stroke=0, fill=1)  # 0.12" radius = 8.64 pts
+        c.setFillAlpha(1.0)  # Reset opacity
+        
         # Save target image temporarily
         temp_target = "/tmp/temp_target.png"
         target_img.save(temp_target, 'PNG')
-        c.drawImage(temp_target, target_x, target_y, width=target_size, height=target_size, preserveAspectRatio=True, mask='auto')
+        c.drawImage(temp_target, target_x, target_y, width=target_size, height=target_size, 
+                   preserveAspectRatio=True, mask='auto')
         
-        # Draw border around target
-        c.setStrokeColorRGB(*hex_to_rgb(PRIMARY_BLUE))
-        c.setLineWidth(2)
-        c.rect(target_x, target_y, target_size, target_size, stroke=1, fill=0)
+        # Draw thin border around target with rounded corners (0.12" = 8.64 pts)
+        c.setStrokeColorRGB(0.5, 0.5, 0.5)
+        c.setLineWidth(1)  # Thin outline
+        c.roundRect(target_x, target_y, target_size, target_size, 8.64, stroke=1, fill=0)
     
     # 5-row layout below target
-    # Activity Boxes: 1.0" × 1.0" with 0.15" vertical spacing (Section 6)
+    # Activity Boxes: 1.0" × 1.0" with 0.25" vertical spacing, rounded corners 0.12"
     box_size = 1.0 * inch
-    box_spacing = 0.15 * inch
+    box_spacing = 0.25 * inch  # Updated vertical spacing
+    corner_radius = 8.64  # 0.12" = 8.64 pts
     
-    # Calculate starting position for 5 rows
-    rows_start_y = target_y - 0.3 * inch
+    # Calculate starting position for 5 rows with 0.25" bottom padding
+    # Center the block of 5 boxes vertically in the remaining space
+    total_box_height = 5 * box_size + 4 * box_spacing
+    available_height = target_y - border_margin - 0.25 * inch  # 0.25" bottom padding
+    rows_start_y = border_margin + 0.25 * inch + total_box_height  # Start from bottom up
     
-    # Left column (image boxes) and right column (velcro boxes)
+    # Left column (image boxes) and right column (velcro boxes) - centered
     column_gap = 0.8 * inch
     left_col_x = width / 2 - box_size - column_gap / 2
     right_col_x = width / 2 + column_gap / 2
@@ -154,14 +178,14 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
     for row in range(5):
         row_y = rows_start_y - row * (box_size + box_spacing)
         
-        # Left column: Image box with rounded corners (0.1-0.15" radius)
+        # Left column: Image box with rounded corners (0.12")
         img_box_x = left_col_x
         img_box_y = row_y - box_size
         
         # Draw image box with rounded corners
         c.setStrokeColorRGB(0, 0, 0)
         c.setLineWidth(1)
-        c.roundRect(img_box_x, img_box_y, box_size, box_size, 8, stroke=1, fill=0)
+        c.roundRect(img_box_x, img_box_y, box_size, box_size, corner_radius, stroke=1, fill=0)
         
         # Level 1 Watermark Logic (Section 8): 20-30% opacity watermark of target
         if level == 1 and target_img:
@@ -195,7 +219,7 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
             c.drawImage(temp_icon, icon_x, icon_y, width=icon_size, height=icon_size, preserveAspectRatio=True, mask='auto')
         
         # Right column: Velcro dot (Section 4 & 6)
-        # Velcro Dot: 0.3-0.4" diameter, centered in matching box
+        # Velcro Dot: centered in matching box with rounded corners 0.12"
         velcro_diameter = 0.35 * inch  # Middle of range
         velcro_radius = velcro_diameter / 2
         velcro_center_x = right_col_x + box_size / 2
@@ -213,10 +237,10 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
         text_width = c.stringWidth("velcro", "Helvetica", 6)
         c.drawString(velcro_center_x - text_width/2, velcro_center_y - 2, "velcro")
         
-        # Draw box outline around velcro area
+        # Draw box outline around velcro area with rounded corners (0.12")
         c.setStrokeColorRGB(0.7, 0.7, 0.7)
         c.setLineWidth(0.5)
-        c.roundRect(right_col_x, img_box_y, box_size, box_size, 8, stroke=1, fill=0)
+        c.roundRect(right_col_x, img_box_y, box_size, box_size, corner_radius, stroke=1, fill=0)
     
     # 2.4 Footer (Two Lines) - Section 2.4
     # Line 1: [Pack Code] | [Theme Name] | Level X | Page N/Total (10-11 pt)
@@ -249,6 +273,8 @@ def create_cutout_page_constitution(c, images, names, start_idx, page_num, total
     - Strips must touch (no gaps) for guillotine cutting
     - Max icon size: 1.5" × 1.5"
     - 4×5 or 5×5 strips per page
+    - Rounded corners: 0.12"
+    - Accent stripe: 0.5" tall, inside border with rounded corners
     """
     width, height = letter
     
@@ -261,28 +287,38 @@ def create_cutout_page_constitution(c, images, names, start_idx, page_num, total
     c.setLineWidth(3)
     c.roundRect(border_margin, border_margin, content_width, content_height, 10, stroke=1, fill=0)
     
-    # Accent stripe
-    accent_height = 0.35 * inch
+    # Accent stripe: 0.5" height, inside border with rounded corners
+    accent_height = 0.5 * inch
+    accent_x = border_margin + 5
+    accent_y = height - border_margin - accent_height - 5
+    accent_width = content_width - 10
+    
     c.setFillColorRGB(*hex_to_rgb(WARM_ORANGE))
-    c.rect(border_margin, height - border_margin - accent_height, content_width, accent_height, stroke=0, fill=1)
+    c.roundRect(accent_x, accent_y, accent_width, accent_height, 8, stroke=0, fill=1)
     
-    # Title: "Cutout Matching Pieces" sitting on stripe
-    title_x = border_margin + 0.1 * inch
-    title_y = height - border_margin - accent_height / 2 + 0.1 * inch
-    c.setFillColorRGB(0, 0, 0)
-    c.setFont("Helvetica-Bold", 22)
-    c.drawString(title_x, title_y, "Cutout Matching Pieces")
+    # Title: "Cutout Matching Pieces" centered on stripe
+    c.setFillColorRGB(*hex_to_rgb('#001F3F'))  # Navy
+    c.setFont("Helvetica-Bold", 24)
+    title_text = "Cutout Matching Pieces"
+    title_width = c.stringWidth(title_text, "Helvetica-Bold", 24)
+    title_x = width / 2 - title_width / 2
+    title_y = accent_y + accent_height / 2 + 0.15 * inch
+    c.drawString(title_x, title_y, title_text)
     
-    # Subtitle
-    subtitle_y = title_y - 0.25 * inch
-    c.setFont("Helvetica", 16)
-    c.setFillColorRGB(0.2, 0.2, 0.2)
-    c.drawString(title_x, subtitle_y, f"{theme_name} Pack ({pack_code})")
+    # Subtitle centered on stripe
+    subtitle_y = title_y - 0.28 * inch
+    c.setFont("Helvetica", 18)
+    c.setFillColorRGB(0.3, 0.3, 0.3)  # Dark grey
+    subtitle_text = f"{theme_name} Pack ({pack_code})"
+    subtitle_width = c.stringWidth(subtitle_text, "Helvetica", 18)
+    subtitle_x = width / 2 - subtitle_width / 2
+    c.drawString(subtitle_x, subtitle_y, subtitle_text)
     
     # 5-icon strips that touch (Section 9)
     # Max icon size: 1.5" × 1.5"
     icon_size = 1.5 * inch
     icons_per_strip = 5
+    corner_radius = 8.64  # 0.12" = 8.64 pts
     
     # Calculate strip dimensions
     strip_width = icons_per_strip * icon_size
@@ -293,7 +329,7 @@ def create_cutout_page_constitution(c, images, names, start_idx, page_num, total
     
     # Center strips on page
     start_x = (width - strip_width) / 2
-    content_top = height - border_margin - accent_height - 0.5 * inch
+    content_top = accent_y - 0.35 * inch
     start_y = content_top - 0.5 * inch
     
     # Draw 4 strips (touching, no gaps)
@@ -309,10 +345,10 @@ def create_cutout_page_constitution(c, images, names, start_idx, page_num, total
             icon_x = start_x + i * icon_size
             icon_y = strip_y - strip_height
             
-            # Draw box with rounded corners
+            # Draw box with rounded corners (0.12")
             c.setStrokeColorRGB(0.5, 0.5, 0.5)
             c.setLineWidth(1)
-            c.roundRect(icon_x, icon_y, icon_size, icon_size, 8, stroke=1, fill=0)
+            c.roundRect(icon_x, icon_y, icon_size, icon_size, corner_radius, stroke=1, fill=0)
             
             # Center icon in box
             padding = icon_size * 0.1
@@ -354,23 +390,32 @@ def create_storage_label_page_constitution(c, names, page_num, total_pages, pack
     c.setLineWidth(3)
     c.roundRect(border_margin, border_margin, content_width, content_height, 10, stroke=1, fill=0)
     
-    # Accent stripe
-    accent_height = 0.35 * inch
+    # Accent stripe: 0.5" height, inside border with rounded corners
+    accent_height = 0.5 * inch
+    accent_x = border_margin + 5
+    accent_y = height - border_margin - accent_height - 5
+    accent_width = content_width - 10
+    
     c.setFillColorRGB(*hex_to_rgb(WARM_ORANGE))
-    c.rect(border_margin, height - border_margin - accent_height, content_width, accent_height, stroke=0, fill=1)
+    c.roundRect(accent_x, accent_y, accent_width, accent_height, 8, stroke=0, fill=1)
     
-    # Title: "Storage Labels – Matching Pack"
-    title_x = border_margin + 0.1 * inch
-    title_y = height - border_margin - accent_height / 2 + 0.1 * inch
-    c.setFillColorRGB(0, 0, 0)
-    c.setFont("Helvetica-Bold", 22)
-    c.drawString(title_x, title_y, "Storage Labels – Matching Pack")
+    # Title: "Storage Labels – Matching Pack" centered on stripe
+    c.setFillColorRGB(*hex_to_rgb('#001F3F'))  # Navy
+    c.setFont("Helvetica-Bold", 24)
+    title_text = "Storage Labels – Matching Pack"
+    title_width = c.stringWidth(title_text, "Helvetica-Bold", 24)
+    title_x = width / 2 - title_width / 2
+    title_y = accent_y + accent_height / 2 + 0.15 * inch
+    c.drawString(title_x, title_y, title_text)
     
-    # Subtitle
-    subtitle_y = title_y - 0.25 * inch
-    c.setFont("Helvetica", 16)
-    c.setFillColorRGB(0.2, 0.2, 0.2)
-    c.drawString(title_x, subtitle_y, f"{theme_name} Pack ({pack_code})")
+    # Subtitle centered on stripe
+    subtitle_y = title_y - 0.28 * inch
+    c.setFont("Helvetica", 18)
+    c.setFillColorRGB(0.3, 0.3, 0.3)  # Dark grey
+    subtitle_text = f"{theme_name} Pack ({pack_code})"
+    subtitle_width = c.stringWidth(subtitle_text, "Helvetica", 18)
+    subtitle_x = width / 2 - subtitle_width / 2
+    c.drawString(subtitle_x, subtitle_y, subtitle_text)
     
     # Product info
     info_y = height - 2.5 * inch
