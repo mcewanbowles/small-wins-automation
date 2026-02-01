@@ -163,11 +163,9 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
     box_spacing = 0.25 * inch  # Updated vertical spacing
     corner_radius = 8.64  # 0.12" = 8.64 pts
     
-    # Calculate starting position for 5 rows with 0.25" bottom padding
-    # Center the block of 5 boxes vertically in the remaining space
-    total_box_height = 5 * box_size + 4 * box_spacing
-    available_height = target_y - border_margin - 0.25 * inch  # 0.25" bottom padding
-    rows_start_y = border_margin + 0.25 * inch + total_box_height  # Start from bottom up
+    # Calculate starting position for 5 rows
+    # Start below target with appropriate spacing
+    rows_start_y = target_y - 0.35 * inch  # 0.35" spacing below target
     
     # Left column (image boxes) and right column (velcro boxes) - centered
     column_gap = 0.8 * inch
