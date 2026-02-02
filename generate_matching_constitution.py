@@ -71,26 +71,25 @@ def hex_to_rgb(hex_color):
 
 def create_matching_page_constitution(c, target_img, target_name, images, names, level, page_num, total_pages, pack_code="BB03", theme_name="Brown Bear", mode='color'):
     """
-    Create a matching page following Design Constitution standards.
+    Create a matching page following Matching Product Specification.
     
-    Design Constitution Requirements (Section 2):
-    - Border: 3px stroke, 0.25" margin from edge
-    - Accent stripe: 0.35" height, warm orange for Matching (grayscale in BW mode)
-    - Title + Subtitle: Sitting ON the accent stripe, aligned LEFT
-    - Activity boxes: 1.0" × 1.0", rounded corners 0.1-0.15"
-    - Target image: 1.8" × 1.8", centered
-    - Velcro dot: 0.3-0.4" diameter, light grey #E6E6E6
-    - Level 1 watermark: 20-30% opacity of target in matching boxes
-    - Vertical spacing: 0.15"
-    - Footer: 2 lines with correct typography
+    Matching Product Specification Requirements:
+    - 5 rows × 2 columns layout
+    - Large matching boxes: 1.4"–1.6" (using 1.5")
+    - Small target icon at top
+    - Image fills 90–95% of box (using 92%)
+    - Velcro boxes same size as image boxes
+    - Level 1 watermark logic
+    - Levels 2-4 distractor logic
+    - BW mode: grayscale (no orange)
     """
     width, height = letter
     
     # Import color utilities for BW mode support
     from utils.color_helpers import hex_to_grayscale, enhance_for_printing
     
-    # Global Page Structure (Section 2)
-    # 2.1 Border: 0.25" margin from edge
+    # Global Page Structure
+    # Border: 0.25" margin from edge
     border_margin = 0.25 * inch
     content_width = width - 2 * border_margin
     content_height = height - 2 * border_margin
@@ -131,15 +130,15 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
     subtitle_text = f"{theme_name} Pack ({pack_code})"
     c.drawString(title_x, subtitle_y, subtitle_text)
     
-    # 0.5" top margin before content (Section 6)
+    # 0.5" top margin before content
     content_top = accent_y - 0.5 * inch
     
-    # Target Image: 1.8" × 1.8" per Design Constitution Section 6
-    target_size = 1.8 * inch
+    # Small Target Image at top per Matching Product Specification
+    target_size = 1.0 * inch  # Small target icon
     target_x = width / 2 - target_size / 2
     target_y = content_top - target_size
     
-    # Draw target image with border (no shadow per Constitution)
+    # Draw target image with border
     if target_img:
         # Convert to grayscale in BW mode
         if mode == 'bw':
@@ -156,17 +155,18 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
         c.setLineWidth(2)
         c.rect(target_x, target_y, target_size, target_size, stroke=1, fill=0)
     
-    # 5-row layout below target
-    # Activity Boxes: 1.0" × 1.0" with 0.15" vertical spacing per Design Constitution Section 6
-    box_size = 1.0 * inch
+    # 5-row layout below target per Matching Product Specification
+    # Large matching boxes: 1.4"–1.6" (using 1.5")
+    box_size = 1.5 * inch
     box_spacing = 0.15 * inch
-    corner_radius = 10  # 0.1-0.15" radius per Constitution
+    corner_radius = 10  # 0.1-0.15" radius
     
     # Calculate starting position for 5 rows
-    rows_start_y = target_y - 0.2 * inch
+    rows_start_y = target_y - 0.3 * inch
     
     # Left column (image boxes) and right column (velcro boxes) - centered
-    column_gap = 0.8 * inch
+    # Velcro boxes same size as image boxes per spec
+    column_gap = 0.5 * inch  # Reduced gap since boxes are larger
     left_col_x = width / 2 - box_size - column_gap / 2
     right_col_x = width / 2 + column_gap / 2
     
@@ -183,7 +183,7 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
         c.setLineWidth(1)
         c.roundRect(img_box_x, img_box_y, box_size, box_size, corner_radius, stroke=1, fill=0)
         
-        # Level 1 Watermark Logic (Section 8): 20-30% opacity watermark of target
+        # Level 1 Watermark Logic: 20-30% opacity watermark of target
         if level == 1 and target_img:
             # Create watermark at 25% opacity
             temp_watermark = f"/tmp/watermark_{row}.png"
@@ -203,7 +203,7 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
                        width=watermark_size, height=watermark_size, 
                        preserveAspectRatio=True, mask='auto')
         
-        # Place icon in image box (centered)
+        # Place icon in image box - image fills 90-95% of box per spec
         if row < len(images):
             img = images[row]
             
@@ -211,8 +211,8 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
             if mode == 'bw':
                 img = enhance_for_printing(img, mode='bw')
             
-            # Center icon in box with padding
-            icon_size = box_size * 0.75
+            # Image fills 92% of box (center of 90-95% range)
+            icon_size = box_size * 0.92
             icon_x = img_box_x + (box_size - icon_size) / 2
             icon_y = img_box_y + (box_size - icon_size) / 2
             
@@ -222,29 +222,32 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
             c.drawImage(temp_icon, icon_x, icon_y, width=icon_size, height=icon_size, 
                        preserveAspectRatio=True, mask='auto')
         
-        # Right column: Velcro dot (Section 4 & 6)
-        # Velcro Dot: 0.3-0.4" diameter per Design Constitution
-        velcro_diameter = 0.35 * inch  # Middle of 0.3-0.4" range
-        velcro_radius = velcro_diameter / 2
-        velcro_center_x = right_col_x + box_size / 2
-        velcro_center_y = img_box_y + box_size / 2
+        # Right column: Velcro box - same size as image box per spec
+        velcro_box_x = right_col_x
+        velcro_box_y = img_box_y
         
-        # Light grey fill (#E6E6E6) with thin outline (1-2px medium grey)
+        # Draw velcro box outline (same size as image box)
+        c.setStrokeColorRGB(0.7, 0.7, 0.7)
+        c.setLineWidth(1)
+        c.roundRect(velcro_box_x, velcro_box_y, box_size, box_size, corner_radius, stroke=1, fill=0)
+        
+        # Draw velcro indicator (small circle in center)
+        velcro_diameter = 0.5 * inch
+        velcro_radius = velcro_diameter / 2
+        velcro_center_x = velcro_box_x + box_size / 2
+        velcro_center_y = velcro_box_y + box_size / 2
+        
+        # Light grey fill (#E6E6E6) with thin outline
         c.setFillColorRGB(*hex_to_rgb(LIGHT_GREY_VELCRO))
         c.setStrokeColorRGB(0.5, 0.5, 0.5)
         c.setLineWidth(1.5)
         c.circle(velcro_center_x, velcro_center_y, velcro_radius, stroke=1, fill=1)
         
-        # Optional tiny "velcro" text (6-7 pt)
+        # Optional tiny "velcro" text
         c.setFillColorRGB(0.4, 0.4, 0.4)
         c.setFont("Helvetica", 6)
         text_width = c.stringWidth("velcro", "Helvetica", 6)
         c.drawString(velcro_center_x - text_width/2, velcro_center_y - 2, "velcro")
-        
-        # Draw box outline around velcro area
-        c.setStrokeColorRGB(0.7, 0.7, 0.7)
-        c.setLineWidth(0.5)
-        c.roundRect(right_col_x, img_box_y, box_size, box_size, corner_radius, stroke=1, fill=0)
     
     # 2.4 Footer (Two Lines) - Section 2.4
     # Line 1: [Pack Code] | [Theme Name] | Level X | Page N/Total (10-11 pt)
@@ -268,17 +271,15 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
 
 def create_cutout_page_constitution(c, images, names, start_idx, page_num, total_pages, pack_code="BB03", theme_name="Brown Bear"):
     """
-    Create cutout page following Design Constitution Section 9.
+    Create cutout page following Matching Product Specification.
     
-    Requirements:
-    - Title: "Cutout Matching Pieces"
-    - Subtitle: "[Theme] Pack ([Pack Code])"
+    Requirements per spec:
+    - 60pt icons
+    - 180pt box
+    - 15pt spacing
+    - 3pt border
     - 5-icon strips
-    - Strips must touch (no gaps) for guillotine cutting
-    - Max icon size: 1.5" × 1.5"
-    - 4×5 or 5×5 strips per page
-    - Rounded corners: 0.12"
-    - Accent stripe: 0.5" tall, inside border with rounded corners
+    - Strips must touch for guillotine cutting
     """
     width, height = letter
     
@@ -307,33 +308,40 @@ def create_cutout_page_constitution(c, images, names, start_idx, page_num, total
     c.setFont("Helvetica-Bold", 22)
     c.drawString(title_x, title_y, "Cutout Matching Pieces")
     
-    # Subtitle: "Brown Bear Pack (BB03)" per Design Constitution Section 9
+    # Subtitle: "Brown Bear Pack (BB03)"
     subtitle_y = title_y - 0.22 * inch
     c.setFont("Helvetica", 16)
     c.setFillColorRGB(0.2, 0.2, 0.2)  # Dark grey
     c.drawString(title_x, subtitle_y, f"{theme_name} Pack ({pack_code})")
     
-    # 5-icon strips that touch (Section 9)
-    # Max icon size: 1.5" × 1.5"
-    icon_size = 1.5 * inch
+    # Cutout specifications per Matching Product Spec
+    box_size_pts = 180  # 180pt box
+    icon_size_pts = 60  # 60pt icons
+    spacing_pts = 15    # 15pt spacing
+    border_pts = 3      # 3pt border
     icons_per_strip = 5
-    corner_radius = 8.64  # 0.12" = 8.64 pts
     
     # Calculate strip dimensions
-    strip_width = icons_per_strip * icon_size
-    strip_height = icon_size
+    strip_width_pts = icons_per_strip * box_size_pts
+    strip_height_pts = box_size_pts
+    
+    # Convert to inches for reportlab
+    box_size = box_size_pts / 72.0 * inch
+    icon_size = icon_size_pts / 72.0 * inch
+    spacing = spacing_pts / 72.0 * inch
     
     # 4 strips per page (4×5 layout = 20 icons per page)
     num_strips = 4
     
     # Center strips on page
+    strip_width = icons_per_strip * box_size
     start_x = (width - strip_width) / 2
     content_top = accent_y - 0.35 * inch
     start_y = content_top - 0.5 * inch
     
-    # Draw 4 strips (touching, no gaps)
+    # Draw 4 strips (touching, no gaps between strips)
     for strip in range(num_strips):
-        strip_y = start_y - strip * strip_height  # No gap between strips
+        strip_y = start_y - strip * box_size  # No gap between strips
         
         # Draw 5 icons in this strip
         for i in range(icons_per_strip):
@@ -341,24 +349,25 @@ def create_cutout_page_constitution(c, images, names, start_idx, page_num, total
             if idx >= len(images):
                 break
             
-            icon_x = start_x + i * icon_size
-            icon_y = strip_y - strip_height
+            box_x = start_x + i * box_size
+            box_y = strip_y - box_size
             
-            # Draw box with rounded corners (0.12")
-            c.setStrokeColorRGB(0.5, 0.5, 0.5)
-            c.setLineWidth(1)
-            c.roundRect(icon_x, icon_y, icon_size, icon_size, corner_radius, stroke=1, fill=0)
+            # Draw box with 3pt border
+            c.setStrokeColorRGB(0, 0, 0)
+            c.setLineWidth(border_pts)
+            c.rect(box_x, box_y, box_size, box_size, stroke=1, fill=0)
             
-            # Icons should touch edges - minimal padding
-            padding = icon_size * 0.02  # Reduced from 0.1 to 0.02 for icons to touch edges
-            actual_icon_size = icon_size - 2 * padding
-            centered_x = icon_x + padding
-            centered_y = icon_y + padding
+            # Draw icon (60pt) centered in 180pt box
+            # Center the 60pt icon in the 180pt box
+            icon_padding = (box_size - icon_size) / 2
+            icon_x = box_x + icon_padding
+            icon_y = box_y + icon_padding
             
             # Draw icon
             temp_icon = f"/tmp/cutout_{idx}.png"
             images[idx].save(temp_icon, 'PNG')
-            c.drawImage(temp_icon, centered_x, centered_y, width=actual_icon_size, height=actual_icon_size, preserveAspectRatio=True, mask='auto')
+            c.drawImage(temp_icon, icon_x, icon_y, width=icon_size, height=icon_size, 
+                       preserveAspectRatio=True, mask='auto')
     
     # Footer
     footer_y_line1 = border_margin + 0.3 * inch
