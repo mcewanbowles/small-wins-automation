@@ -156,7 +156,6 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
     subtitle_width = c.stringWidth(subtitle_text, "Helvetica", 18)
     subtitle_x = width / 2 - subtitle_width / 2
     c.drawString(subtitle_x, subtitle_y, subtitle_text)
-        if mode == 'bw':
     
     # Draw Target Box with Navy border, soft shadow, rounded corners
     if target_img:
@@ -493,18 +492,13 @@ def create_storage_label_page_constitution(c, names, page_num, total_pages, pack
         y = vocab_y - row * 0.3 * inch
         c.drawCentredString(x, y, name)
     
-    # Footer
-    footer_y_line1 = border_margin + 0.3 * inch
+    # Footer - Single line per Product Spec
+    footer_y = border_margin + 0.3 * inch
     c.setFillColorRGB(0, 0, 0)
-    c.setFont("Helvetica-Bold", 10)
-    footer_line1 = f"{pack_code} | {theme_name} | Storage Labels | Page {page_num}/{total_pages}"
-    c.drawCentredString(width/2, footer_y_line1, footer_line1)
-    
-    footer_y_line2 = border_margin + 0.1 * inch
-    c.setFillColorRGB(*hex_to_rgb(LIGHT_GREY_FOOTER))
     c.setFont("Helvetica", 9)
-    footer_line2 = "© 2025 Small Wins Studio • PCS® symbols used with active PCS Maker Personal License"
-    c.drawCentredString(width/2, footer_y_line2, footer_line2)
+    footer_text = f"{pack_code} | {theme_name} | Storage Labels | Page {page_num}/{total_pages} © 2025 Small Wins Studio. PCS® symbols used with active PCS Maker Personal License."
+    footer_width = c.stringWidth(footer_text, "Helvetica", 9)
+    c.drawString((width - footer_width) / 2, footer_y, footer_text)
     
     c.showPage()
 
