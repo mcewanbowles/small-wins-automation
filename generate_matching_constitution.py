@@ -31,6 +31,7 @@ except:
 sys.path.insert(0, str(Path(__file__).parent))
 
 # Matching Product Specification Colors
+LIGHT_BLUE_BORDER = '#A0C4E8'  # Light blue border for pages
 NAVY_BORDER = '#1E3A5F'  # Navy border for target and matching boxes
 PURPLE_BORDER = '#6B5BE2'  # Purple border for velcro boxes
 LIGHT_GREY_FILL = '#E8E8E8'  # Light grey fill for velcro boxes
@@ -121,14 +122,14 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
     content_width = width - 2 * border_margin
     content_height = height - 2 * border_margin
     
-    # Draw rounded rectangle border (3px stroke)
-    c.setStrokeColorRGB(*hex_to_rgb(NAVY_BORDER))
+    # Draw rounded rectangle border (3px stroke) - LIGHT BLUE per spec
+    c.setStrokeColorRGB(*hex_to_rgb(LIGHT_BLUE_BORDER))
     c.setLineWidth(3)
     c.roundRect(border_margin, border_margin, content_width, content_height, 10, stroke=1, fill=0)
     
-    # Accent Stripe - must NOT touch page border (add margin), increased height
-    accent_margin = 0.15 * inch  # Margin from border (maintained)
-    accent_height = 1.0 * inch  # Further increased so title sits fully inside
+    # Accent Stripe - moved higher (less padding from border), increased height
+    accent_margin = 0.08 * inch  # Reduced from 0.15" to move stripe higher
+    accent_height = 1.0 * inch  # Height for title and subtitle
     accent_x = border_margin + accent_margin
     accent_y = height - border_margin - accent_height - accent_margin - 0.1 * inch
     accent_width = content_width - 2 * accent_margin
@@ -143,19 +144,19 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
     # Draw accent stripe with rounded corners
     c.roundRect(accent_x, accent_y, accent_width, accent_height, 8, stroke=0, fill=1)
     
-    # Title and Subtitle - BOTH INSIDE accent stripe, CENTERED per spec
+    # Title and Subtitle - BOTH INSIDE accent stripe, CENTERED per spec, LARGER FONTS
     # Title: "Match the Pictures"
     c.setFillColorRGB(*hex_to_rgb('#001F3F'))  # Navy
-    c.setFont(TITLE_FONT, 28)  # Comic Sans or Helvetica-Bold, larger size
+    c.setFont(TITLE_FONT, 36)  # Increased from 28pt to 36pt
     title_text = "Match the Pictures"
-    title_y = accent_y + accent_height / 2 + 16  # Upper half of stripe, adjusted for larger font
+    title_y = accent_y + accent_height / 2 + 20  # Upper half of stripe, adjusted for larger font
     c.drawCentredString(width / 2, title_y, title_text)
     
     # Subtitle: "Brown Bear" - ALSO INSIDE stripe, below title
-    c.setFont(BODY_FONT, 20)  # Comic Sans or Helvetica, larger size
+    c.setFont(BODY_FONT, 28)  # Increased from 20pt to 28pt
     c.setFillColorRGB(0.2, 0.2, 0.2)  # Dark grey
     subtitle_text = "Brown Bear"
-    subtitle_y_in_stripe = title_y - 28  # Below title, still inside stripe, adjusted spacing
+    subtitle_y_in_stripe = title_y - 36  # Below title, still inside stripe, adjusted spacing for larger fonts
     c.drawCentredString(width / 2, subtitle_y_in_stripe, subtitle_text)
     
     # Instruction line "Match the [icon_name]" - BELOW stripe, ABOVE target box per spec
@@ -314,7 +315,7 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
     c.showPage()
 
 
-def create_cutout_page_constitution(c, images, names, start_idx, page_num, total_pages, pack_code="BB03", theme_name="Brown Bear", mode='color'):
+def create_cutout_page_constitution(c, images, names, start_idx, page_num, total_pages, pack_code="BB03", theme_name="Brown Bear", level=None, mode='color'):
     """
     Create cutout page following Matching Product Specification.
     
@@ -324,24 +325,24 @@ def create_cutout_page_constitution(c, images, names, start_idx, page_num, total
     - Spacing 15pt
     - Border 3pt
     - 4 columns × 5 rows = 20 boxes
-    - Title: "Cutout Matching Pieces – {Theme}"
+    - Title: "Cutout Matching Pieces – {Theme} – Level X" (if level specified)
     """
     width, height = letter
     
     # Import color utilities for BW mode
     from utils.color_helpers import hex_to_grayscale
     
-    # Border
+    # Border - Light blue
     border_margin = 0.25 * inch
     content_width = width - 2 * border_margin
     content_height = height - 2 * border_margin
     
-    c.setStrokeColorRGB(*hex_to_rgb(NAVY_BORDER))
+    c.setStrokeColorRGB(*hex_to_rgb(LIGHT_BLUE_BORDER))
     c.setLineWidth(3)
     c.roundRect(border_margin, border_margin, content_width, content_height, 10, stroke=1, fill=0)
     
-    # Accent stripe: increased height, doesn't touch border
-    accent_margin = 0.15 * inch
+    # Accent stripe: moved higher
+    accent_margin = 0.08 * inch
     accent_height = 0.6 * inch
     accent_x = border_margin + accent_margin
     accent_y = height - border_margin - accent_height - accent_margin - 0.1 * inch
@@ -356,10 +357,13 @@ def create_cutout_page_constitution(c, images, names, start_idx, page_num, total
     
     c.roundRect(accent_x, accent_y, accent_width, accent_height, 8, stroke=0, fill=1)
     
-    # Title: "Cutout Matching Pieces – [Theme]" - CENTERED
+    # Title: "Cutout Matching Pieces – [Theme] – Level X" - CENTERED
     c.setFillColorRGB(*hex_to_rgb('#001F3F'))  # Navy
     c.setFont("Helvetica-Bold", 24)
-    title_text = f"Cutout Matching Pieces – {theme_name}"
+    if level:
+        title_text = f"Cutout Matching Pieces – {theme_name} – Level {level}"
+    else:
+        title_text = f"Cutout Matching Pieces – {theme_name}"
     title_width = c.stringWidth(title_text, "Helvetica-Bold", 24)
     title_x = width / 2 - title_width / 2
     title_y = accent_y + accent_height / 2
@@ -441,24 +445,24 @@ def create_cutout_page_constitution(c, images, names, start_idx, page_num, total
     c.showPage()
 
 
-def create_storage_label_page_constitution(c, names, page_num, total_pages, pack_code="BB03", theme_name="Brown Bear", mode='color'):
+def create_storage_label_page_constitution(c, names, page_num, total_pages, pack_code="BB03", theme_name="Brown Bear", level=None, mode='color'):
     """Create storage label page following Matching Product Specification."""
     width, height = letter
     
     # Import color utilities for BW mode
     from utils.color_helpers import hex_to_grayscale
     
-    # Border
+    # Border - Light blue
     border_margin = 0.25 * inch
     content_width = width - 2 * border_margin
     content_height = height - 2 * border_margin
     
-    c.setStrokeColorRGB(*hex_to_rgb(NAVY_BORDER))
+    c.setStrokeColorRGB(*hex_to_rgb(LIGHT_BLUE_BORDER))
     c.setLineWidth(3)
     c.roundRect(border_margin, border_margin, content_width, content_height, 10, stroke=1, fill=0)
     
-    # Accent stripe: increased height, doesn't touch border
-    accent_margin = 0.15 * inch
+    # Accent stripe: moved higher
+    accent_margin = 0.08 * inch
     accent_height = 0.6 * inch
     accent_x = border_margin + accent_margin
     accent_y = height - border_margin - accent_height - accent_margin - 0.1 * inch
@@ -473,10 +477,13 @@ def create_storage_label_page_constitution(c, names, page_num, total_pages, pack
     
     c.roundRect(accent_x, accent_y, accent_width, accent_height, 8, stroke=0, fill=1)
     
-    # Title: "Storage Labels – Matching Pack" - CENTERED
+    # Title: "Storage Labels – Matching Pack – Level X" - CENTERED
     c.setFillColorRGB(*hex_to_rgb('#001F3F'))  # Navy
     c.setFont("Helvetica-Bold", 24)
-    title_text = "Storage Labels – Matching Pack"
+    if level:
+        title_text = f"Storage Labels – Matching Pack – Level {level}"
+    else:
+        title_text = "Storage Labels – Matching Pack"
     title_width = c.stringWidth(title_text, "Helvetica-Bold", 24)
     title_x = width / 2 - title_width / 2
     title_y = accent_y + accent_height / 2
@@ -486,7 +493,10 @@ def create_storage_label_page_constitution(c, names, page_num, total_pages, pack
     info_y = height - 2.5 * inch
     c.setFont("Helvetica-Bold", 16)
     c.setFillColorRGB(0, 0, 0)
-    c.drawCentredString(width/2, info_y, "Brown Bear Matching Cards")  # Updated to "Brown Bear Matching Cards"
+    if level:
+        c.drawCentredString(width/2, info_y, f"Brown Bear Matching Cards – Level {level}")
+    else:
+        c.drawCentredString(width/2, info_y, "Brown Bear Matching Cards")
     
     info_y -= 0.4 * inch
     c.setFont("Helvetica", 14)
@@ -556,28 +566,27 @@ def generate_matching_product_constitution(theme_name="Brown Bear", pack_code="B
     # Create PDF
     c = canvas.Canvas(output_path, pagesize=letter)
     
-    # Calculate total pages
+    # Calculate total pages - REORGANIZED BY LEVEL
     num_icons = len(icons)
-    # Section 7.1: Matching levels 1-4 for each icon
-    matching_pages = num_icons * 4
-    # Section 9: Cutout pages (20 icons per page in 4×5 layout)
-    cutout_pages = (num_icons + 19) // 20  # Ceiling division
-    # Section 10: Storage label page
-    storage_pages = 1
-    total_pages = matching_pages + cutout_pages + storage_pages
+    # Each level has: 12 matching pages + 1 cutout + 1 storage = 14 pages per level
+    pages_per_level = num_icons + 1 + 1  # matching + cutout + storage
+    total_pages = pages_per_level * 4  # 4 levels
     
-    print(f"Total pages: {total_pages} ({matching_pages} matching + {cutout_pages} cutout + {storage_pages} storage)")
+    print(f"Total pages: {total_pages} (4 levels × {pages_per_level} pages/level)")
     
     page_num = 1
     
-    # Generate matching pages for each icon at all 4 levels
-    for icon_idx, (target_img, target_name) in enumerate(zip(icons, names)):
-        # Get all other icons for distractors
-        other_icons = [img for i, img in enumerate(icons) if i != icon_idx]
-        other_names = [name for i, name in enumerate(names) if i != icon_idx]
+    # REORGANIZED: Generate by level first, then by icon within each level
+    # This allows each level to be sold separately with its own cutouts and storage labels
+    for level in range(1, 5):
+        print(f"\n=== LEVEL {level} ===")
         
-        # Generate 4 levels (Section 7.1)
-        for level in range(1, 5):
+        # Generate all matching pages for this level (all 12 icons)
+        for icon_idx, (target_img, target_name) in enumerate(zip(icons, names)):
+            # Get all other icons for distractors
+            other_icons = [img for i, img in enumerate(icons) if i != icon_idx]
+            other_names = [name for i, name in enumerate(names) if i != icon_idx]
+            
             # Determine targets and distractors based on level
             if level == 1:
                 # Level 1: 5 targets, 0 distractors
@@ -615,18 +624,16 @@ def generate_matching_product_constitution(theme_name="Brown Bear", pack_code="B
             
             page_num += 1
             print(f"  Generated: {target_name} - Level {level} (Page {page_num-1}/{total_pages})")
-    
-    # Generate cutout pages (4×5 grid = 20 icons per page)
-    icons_per_page = 20
-    for cutout_page_idx in range(cutout_pages):
-        start_idx = cutout_page_idx * icons_per_page
-        create_cutout_page_constitution(c, icons, names, start_idx, page_num, total_pages, pack_code, theme_name, mode)
+        
+        # Generate cutout page for this level
+        create_cutout_page_constitution(c, icons, names, 0, page_num, total_pages, pack_code, theme_name, level, mode)
         page_num += 1
-        print(f"  Generated: Cutout page {cutout_page_idx + 1} (Page {page_num-1}/{total_pages})")
-    
-    # Generate storage label page
-    create_storage_label_page_constitution(c, names, page_num, total_pages, pack_code, theme_name, mode)
-    print(f"  Generated: Storage Labels (Page {page_num}/{total_pages})")
+        print(f"  Generated: Cutout page - Level {level} (Page {page_num-1}/{total_pages})")
+        
+        # Generate storage label page for this level
+        create_storage_label_page_constitution(c, names, page_num, total_pages, pack_code, theme_name, level, mode)
+        page_num += 1
+        print(f"  Generated: Storage Labels - Level {level} (Page {page_num-1}/{total_pages})")
     
     # Save PDF
     c.save()
