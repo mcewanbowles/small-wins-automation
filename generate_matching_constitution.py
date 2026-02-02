@@ -129,33 +129,34 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
     # Draw accent stripe with rounded corners
     c.roundRect(accent_x, accent_y, accent_width, accent_height, 8, stroke=0, fill=1)
     
-    # Title - CENTERED per Product Spec
+    # Title and Subtitle - BOTH INSIDE accent stripe, CENTERED per spec
+    # Title: "Match the Pictures"
     c.setFillColorRGB(*hex_to_rgb('#001F3F'))  # Navy
-    c.setFont("Helvetica-Bold", 24)
-    title_text = f"Matching – Level {level}"
-    title_width = c.stringWidth(title_text, "Helvetica-Bold", 24)
-    title_x = width / 2 - title_width / 2
-    title_y = accent_y + accent_height / 2 + 0.1 * inch
-    c.drawString(title_x, title_y, title_text)
+    c.setFont("Helvetica-Bold", 22)
+    title_text = "Match the Pictures"
+    title_y = accent_y + accent_height / 2 + 12  # Upper half of stripe
+    c.drawCentredString(width / 2, title_y, title_text)
     
-    # Subtitle "Match the [Icon]" - ABOVE target box per Product Spec
-    c.setFont("Helvetica", 18)
+    # Subtitle: "Brown Bear" - ALSO INSIDE stripe, below title
+    c.setFont("Helvetica", 16)
     c.setFillColorRGB(0.2, 0.2, 0.2)  # Dark grey
-    subtitle_text = f"Match the {target_name}"
+    subtitle_text = "Brown Bear"
+    subtitle_y_in_stripe = title_y - 22  # Below title, still inside stripe
+    c.drawCentredString(width / 2, subtitle_y_in_stripe, subtitle_text)
     
-    # Position subtitle above target box (will be calculated after target position)
-    content_top = accent_y - 0.4 * inch
+    # Instruction line "Match the [icon_name]" - BELOW stripe, ABOVE target box per spec
+    instruction_text = f"Match the {target_name}"
+    instruction_y = accent_y - 20  # Below the stripe
+    c.setFont("Helvetica", 14)
+    c.drawCentredString(width / 2, instruction_y, instruction_text)
+    
+    # Position for content below instruction line
+    content_top = instruction_y - 0.2 * inch
     
     # Target Box - centered horizontally, navy border, soft shadow
     target_size = 0.9 * inch  # 0.8"-1.0" range
     target_x = width / 2 - target_size / 2
-    subtitle_y = content_top - 0.3 * inch  # Subtitle above target
-    target_y = subtitle_y - 0.25 * inch - target_size  # Target below subtitle
-    
-    # Draw subtitle ABOVE target box (CENTERED)
-    subtitle_width = c.stringWidth(subtitle_text, "Helvetica", 18)
-    subtitle_x = width / 2 - subtitle_width / 2
-    c.drawString(subtitle_x, subtitle_y, subtitle_text)
+    target_y = content_top - 0.2 * inch - target_size  # Below instruction line
     
     # Draw Target Box with Navy border, soft shadow, rounded corners
     if target_img:
@@ -182,9 +183,9 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
         c.drawImage(temp_target, target_x, target_y, width=target_size, height=target_size, 
                    preserveAspectRatio=True, mask='auto')
         
-        # Draw Navy border around target (slightly thicker than matching boxes)
+        # Draw Navy border around target (slightly thicker than matching boxes per spec)
         c.setStrokeColorRGB(*hex_to_rgb(NAVY_BORDER))
-        c.setLineWidth(3)  # Thicker than matching boxes
+        c.setLineWidth(4)  # 4px, thicker than matching boxes (3.5px)
         c.roundRect(target_x, target_y, target_size, target_size, 8.64, stroke=1, fill=0)
     
     # 5-row layout below target - Matching boxes 1.4"–1.6" (using 1.5")
@@ -208,9 +209,9 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
         img_box_x = left_col_x
         img_box_y = row_y - box_size
         
-        # Draw matching box with Navy border (2-3px)
+        # Draw matching box with Navy border (3-4px per spec)
         c.setStrokeColorRGB(*hex_to_rgb(NAVY_BORDER))
-        c.setLineWidth(2.5)  # 2-3px border
+        c.setLineWidth(3.5)  # 3-4px border per spec
         c.roundRect(img_box_x, img_box_y, box_size, box_size, corner_radius, stroke=1, fill=0)
         
         # Add decorative corner details (thicker stroke on opposite corners)
@@ -243,15 +244,15 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
                        width=watermark_size, height=watermark_size, 
                        preserveAspectRatio=True, mask='auto')
         
-        # Place icon in matching box - fills 90-95% (using 92%)
+        # Place icon in matching box - fills 95-100% (using 97% per spec)
         if row < len(images):
             display_img = images[row].copy()
             
             if mode == 'bw':
                 display_img = enhance_for_printing(display_img, mode='bw')
             
-            # Image fills 92% of box
-            icon_size = box_size * 0.92
+            # Image fills 97% of box (95-100% range per spec)
+            icon_size = box_size * 0.97
             icon_x = img_box_x + (box_size - icon_size) / 2
             icon_y = img_box_y + (box_size - icon_size) / 2
             
@@ -266,10 +267,10 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
         velcro_box_x = right_col_x
         velcro_box_y = img_box_y
         
-        # Draw velcro box with light grey fill and purple border per Product Spec
+        # Draw velcro box with light grey fill and purple border (3-4px per spec)
         c.setFillColorRGB(*hex_to_rgb(LIGHT_GREY_FILL))
         c.setStrokeColorRGB(*hex_to_rgb(PURPLE_BORDER))
-        c.setLineWidth(2)
+        c.setLineWidth(3.5)  # 3-4px border per spec
         c.roundRect(velcro_box_x, velcro_box_y, box_size, box_size, corner_radius, stroke=1, fill=1)
         
         # Draw velcro dot (0.3" diameter, centered)
@@ -290,13 +291,21 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
         text_width = c.stringWidth("velcro", "Helvetica", 6)
         c.drawString(velcro_center_x - text_width/2, velcro_center_y - 2, "velcro")
     
-    # Footer - Single line per Product Spec (8-10pt, centered, 0.3" from bottom)
+    # Footer - TWO lines per Product Spec (8-9pt, centered, 0.3" from bottom)
+    # Line 1: "Matching – Level X | BB03"
+    # Line 2: "© 2025 Small Wins Studio. PCS® symbols used with active PCS Maker Personal License." (light grey)
     footer_y = border_margin + 0.3 * inch
-    c.setFillColorRGB(0, 0, 0)
+    
+    # Line 2 (lower line) in light grey #999999
     c.setFont("Helvetica", 9)
-    footer_text = f"{pack_code} | {theme_name} | Matching Level {level} | Page {page_num}/{total_pages} © 2025 Small Wins Studio. PCS® symbols used with active PCS Maker Personal License."
-    footer_width = c.stringWidth(footer_text, "Helvetica", 9)
-    c.drawString((width - footer_width) / 2, footer_y, footer_text)
+    c.setFillColorRGB(*hex_to_rgb('#999999'))
+    footer_line2 = "© 2025 Small Wins Studio. PCS® symbols used with active PCS Maker Personal License."
+    c.drawCentredString(width / 2, footer_y, footer_line2)
+    
+    # Line 1 (upper line) in dark grey/black
+    c.setFillColorRGB(0, 0, 0)
+    footer_line1 = f"Matching – Level {level} | {pack_code}"
+    c.drawCentredString(width / 2, footer_y + 12, footer_line1)
     
     c.showPage()
 
@@ -411,13 +420,19 @@ def create_cutout_page_constitution(c, images, names, start_idx, page_num, total
             
             idx += 1
     
-    # Footer - Single line
+    # Footer - TWO lines per Product Spec
     footer_y = border_margin + 0.3 * inch
-    c.setFillColorRGB(0, 0, 0)
+    
+    # Line 2 (lower line) in light grey
     c.setFont("Helvetica", 9)
-    footer_text = f"{pack_code} | {theme_name} | Cutouts | Page {page_num}/{total_pages} © 2025 Small Wins Studio. PCS® symbols used with active PCS Maker Personal License."
-    footer_width = c.stringWidth(footer_text, "Helvetica", 9)
-    c.drawString((width - footer_width) / 2, footer_y, footer_text)
+    c.setFillColorRGB(*hex_to_rgb('#999999'))
+    footer_line2 = "© 2025 Small Wins Studio. PCS® symbols used with active PCS Maker Personal License."
+    c.drawCentredString(width / 2, footer_y, footer_line2)
+    
+    # Line 1 (upper line)
+    c.setFillColorRGB(0, 0, 0)
+    footer_line1 = f"Cutouts | {pack_code}"
+    c.drawCentredString(width / 2, footer_y + 12, footer_line1)
     
     c.showPage()
 
@@ -492,13 +507,19 @@ def create_storage_label_page_constitution(c, names, page_num, total_pages, pack
         y = vocab_y - row * 0.3 * inch
         c.drawCentredString(x, y, name)
     
-    # Footer - Single line per Product Spec
+    # Footer - TWO lines per Product Spec
     footer_y = border_margin + 0.3 * inch
-    c.setFillColorRGB(0, 0, 0)
+    
+    # Line 2 (lower line) in light grey
     c.setFont("Helvetica", 9)
-    footer_text = f"{pack_code} | {theme_name} | Storage Labels | Page {page_num}/{total_pages} © 2025 Small Wins Studio. PCS® symbols used with active PCS Maker Personal License."
-    footer_width = c.stringWidth(footer_text, "Helvetica", 9)
-    c.drawString((width - footer_width) / 2, footer_y, footer_text)
+    c.setFillColorRGB(*hex_to_rgb('#999999'))
+    footer_line2 = "© 2025 Small Wins Studio. PCS® symbols used with active PCS Maker Personal License."
+    c.drawCentredString(width / 2, footer_y, footer_line2)
+    
+    # Line 1 (upper line)
+    c.setFillColorRGB(0, 0, 0)
+    footer_line1 = f"Storage Labels | {pack_code}"
+    c.drawCentredString(width / 2, footer_y + 12, footer_line1)
     
     c.showPage()
 
