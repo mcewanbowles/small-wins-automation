@@ -140,13 +140,16 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
     
     # Draw target image with border
     if target_img:
+        # Create a copy to avoid modifying the original
+        display_target = target_img.copy()
+        
         # Convert to grayscale in BW mode
         if mode == 'bw':
-            target_img = enhance_for_printing(target_img, mode='bw')
+            display_target = enhance_for_printing(display_target, mode='bw')
         
         # Save target image temporarily
         temp_target = "/tmp/temp_target.png"
-        target_img.save(temp_target, 'PNG')
+        display_target.save(temp_target, 'PNG')
         c.drawImage(temp_target, target_x, target_y, width=target_size, height=target_size, 
                    preserveAspectRatio=True, mask='auto')
         
@@ -205,11 +208,12 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
         
         # Place icon in image box - image fills 90-95% of box per spec
         if row < len(images):
-            img = images[row]
+            # Create a copy to avoid modifying the original
+            display_img = images[row].copy()
             
             # Convert to grayscale in BW mode
             if mode == 'bw':
-                img = enhance_for_printing(img, mode='bw')
+                display_img = enhance_for_printing(display_img, mode='bw')
             
             # Image fills 92% of box (center of 90-95% range)
             icon_size = box_size * 0.92
@@ -218,7 +222,7 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
             
             # Save icon temporarily
             temp_icon = f"/tmp/temp_icon_{row}.png"
-            img.save(temp_icon, 'PNG')
+            display_img.save(temp_icon, 'PNG')
             c.drawImage(temp_icon, icon_x, icon_y, width=icon_size, height=icon_size, 
                        preserveAspectRatio=True, mask='auto')
         
