@@ -147,8 +147,9 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
         if mode == 'bw':
             display_target = enhance_for_printing(display_target, mode='bw')
         
-        # Save target image temporarily
-        temp_target = "/tmp/temp_target.png"
+        # Save target image temporarily with unique filename
+        import time
+        temp_target = f"/tmp/temp_target_{page_num}_{int(time.time()*1000000)}.png"
         display_target.save(temp_target, 'PNG')
         c.drawImage(temp_target, target_x, target_y, width=target_size, height=target_size, 
                    preserveAspectRatio=True, mask='auto')
@@ -189,7 +190,8 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
         # Level 1 Watermark Logic: 20-30% opacity watermark of target
         if level == 1 and target_img:
             # Create watermark at 25% opacity
-            temp_watermark = f"/tmp/watermark_{row}.png"
+            import time
+            temp_watermark = f"/tmp/watermark_{page_num}_{row}_{int(time.time()*1000000)}.png"
             watermark_img = target_img.copy()
             # Reduce opacity by converting to RGBA and adjusting alpha
             watermark_img = watermark_img.convert('RGBA')
@@ -220,8 +222,9 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
             icon_x = img_box_x + (box_size - icon_size) / 2
             icon_y = img_box_y + (box_size - icon_size) / 2
             
-            # Save icon temporarily
-            temp_icon = f"/tmp/temp_icon_{row}.png"
+            # Save icon temporarily with unique filename
+            import time
+            temp_icon = f"/tmp/temp_icon_{page_num}_{row}_{int(time.time()*1000000)}.png"
             display_img.save(temp_icon, 'PNG')
             c.drawImage(temp_icon, icon_x, icon_y, width=icon_size, height=icon_size, 
                        preserveAspectRatio=True, mask='auto')
