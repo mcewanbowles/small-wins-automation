@@ -145,10 +145,10 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
     c.roundRect(accent_x, accent_y, accent_width, accent_height, 8, stroke=0, fill=1)
     
     # Title and Subtitle - BOTH INSIDE accent stripe, CENTERED per spec, LARGER FONTS
-    # Title: "Match the Pictures"
+    # Title: "Matching"
     c.setFillColorRGB(*hex_to_rgb('#001F3F'))  # Navy
     c.setFont(TITLE_FONT, 36)  # Increased from 28pt to 36pt
-    title_text = "Match the Pictures"
+    title_text = "Matching"
     # Moved down for better centering - position based on center of stripe
     title_y = accent_y + accent_height / 2 + 10  # Adjusted down from +20 to +10
     c.drawCentredString(width / 2, title_y, title_text)
@@ -357,16 +357,25 @@ def create_cutout_page_constitution(c, images, names, icons_on_page, page_number
     
     # Title with page number
     c.setFillColorRGB(*hex_to_rgb('#001F3F'))  # Navy
+    # Title: "Cut Out Matching Pieces"
     try:
         c.setFont("Comic-Sans-MS-Bold", 28)
     except:
         c.setFont("Helvetica-Bold", 28)
     
-    title_text = f"Cutout Matching Pieces – {theme_name} – Level {level} ({page_number} of 2)"
-    title_width = c.stringWidth(title_text, "Helvetica-Bold", 28)
-    title_x = width / 2 - title_width / 2
+    title_text = "Cut Out Matching Pieces"
     title_y = accent_y + accent_height / 2 + 10
-    c.drawString(title_x, title_y, title_text)
+    c.drawCentredString(width / 2, title_y, title_text)
+    
+    # Subtitle: "Brown Bear" (no level info)
+    try:
+        c.setFont("Comic-Sans-MS", 20)
+    except:
+        c.setFont("Helvetica", 20)
+    c.setFillColorRGB(0.2, 0.2, 0.2)  # Dark grey
+    subtitle_text = theme_name
+    subtitle_y = title_y - 32
+    c.drawCentredString(width / 2, subtitle_y, subtitle_text)
     
     # Box size matches activity boxes (1.28" from user requirements)
     box_size = 1.28 * inch
@@ -567,10 +576,10 @@ def create_storage_label_page_constitution(c, images, names, page_num, total_pag
         else:
             text_y -= 0.16 * inch
         
-        # Icon image (centered)
+        # Icon image (centered) - moved down to avoid cutting off text
         icon_size = 0.6 * inch
         icon_x = box_x + (box_width - icon_size) / 2
-        icon_y = box_y + 0.45 * inch
+        icon_y = box_y + 0.35 * inch  # Moved down from 0.45" to 0.35"
         
         # Save and draw icon
         import hashlib
@@ -587,10 +596,10 @@ def create_storage_label_page_constitution(c, images, names, page_num, total_pag
         c.drawImage(temp_icon, icon_x, icon_y, width=icon_size, height=icon_size,
                    preserveAspectRatio=True, mask='auto')
         
-        # Icon name (centered below icon)
+        # Icon name (centered below icon) - adjusted position
         c.setFont("Helvetica", 10)
         c.setFillColorRGB(0, 0, 0)
-        name_y = icon_y - 0.15 * inch
+        name_y = icon_y - 0.18 * inch  # Moved down from -0.15" to -0.18"
         c.drawCentredString(box_x + box_width / 2, name_y, names[idx])
     
     # Footer
