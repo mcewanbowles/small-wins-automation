@@ -1,142 +1,148 @@
 # MATCHING PRODUCT SPECIFICATION
-Small Wins Studio — Product‑Specific Rules
-
+Small Wins Studio — Product‑Specific Rules  
 This file defines the exact layout, proportions, logic, and behaviour required for all MATCHING activities.  
 These rules override the global Design Constitution where conflicts occur.
 
 ---
 
-## 1. PAGE STRUCTURE
+# 1. PAGE STRUCTURE
 - Portrait orientation.
 - 5 ROWS × 2 COLUMNS layout.
-- Target image at top, small and centered.
-- Matching boxes are large and dominate the page.
-- Velcro boxes are same size as matching boxes.
-
-Spacing:
-- Top margin before title: 0.5"
-- Space between title and subtitle: 0.2"
-- Space between subtitle and target icon: 0.3"
-- Space between target icon and first row: 0.5"
-- Vertical spacing between rows: 0.1"–0.15"
-- Horizontal spacing between columns: 1.0"–1.3"
+- Matching boxes slightly smaller for vertical fit (approx. 1.4"–1.6").
+- Icons must be as large as possible inside the box (90–95% fill).
+- Columns spaced 1.0"–1.3" apart.
+- Title and subtitle must be centered.
+- Subtitle “Match the ___” must appear ABOVE the target box.
+- Accent stripe must NOT touch page border and must have increased height.
+- Footer must NOT be overlapped by boxes (minimum 0.3" bottom margin).
 
 ---
 
-## 2. TARGET IMAGE
-- Purpose: visual reference only.
-- Size: approx. 0.8"–1.0" square.
-- Placed inside a rounded rectangle with thin border.
-- Centered horizontally above grid.
-- Never larger than matching boxes.
+# 2. TARGET BOX (REFERENCE IMAGE)
+- May be rectangular or square.
+- Navy border (#1E3A5F).
+- Soft shadow (5–8% opacity).
+- Rounded corners (0.12").
+- Slightly thicker border than matching boxes.
+- Centered horizontally above the grid.
+- Target icon size: approx. 0.8"–1.0".
+- Target icon sits inside the bordered box with minimal padding.
 
 ---
 
-## 3. MATCHING BOXES
-- Size: approx. 1.4"–1.6" square.
-- Rounded corners: 0.12"
-- Border: 2–3 px navy.
+# 3. MATCHING BOXES (LEFT COLUMN)
+- Box size: approx. 1.4"–1.6" square.
+- Rounded corners: 0.12".
+- Border colour: Navy (#1E3A5F) OR theme accent colour.
+- Decorative corner detail required:
+  - Slightly thicker stroke on two opposite corners OR
+  - Small corner embellishment matching original Husky design.
+- Border width: 2–3 px.
 - Image fills 90–95% of box.
-- Padding: 3–6 px max.
-- Always centered and crisp.
-
-Grid:
-- 5 rows × 2 columns.
-- Left column = image boxes.
-- Right column = velcro boxes.
+- Minimal padding (3–6 px).
+- Image must be centered and crisp.
+- No text labels inside boxes.
 
 ---
 
-## 4. VELCRO BOXES
-- Same size as image boxes.
-- Light grey fill.
-- Purple border.
-- Centered velcro dot:
-  - Diameter: ~0.3"
-  - Fill: #CCCCCC
-  - Outline: #999999
-  - Optional label: “velcro” in 8pt font
+# 4. VELCRO BOXES (RIGHT COLUMN)
+- Same size as matching boxes.
+- Light grey fill (#E8E8E8).
+- Purple border (#6B5BE2).
+- Rounded corners (0.12").
+- Velcro dot:
+  - Diameter approx. 0.3".
+  - Fill: #CCCCCC.
+  - Outline: #999999.
+  - Centered.
+- No oversized velcro circles.
 
 ---
 
-## 5. LEVEL LOGIC
-### Level 1 — Errorless
+# 5. LEVEL LOGIC
+## Level 1 — Errorless
 - 5 targets, 0 distractors.
 - All 5 pictures match the target.
-- Watermark behind each picture box:
-  - Opacity: 20–30%
-  - Scale: 70–80% of box
-  - Centered behind velcro dot
+- Watermark required behind each picture box:
+  - Opacity: 20–30%.
+  - Scale: 70–80% of box.
+  - Centered behind velcro dot.
 - Student places 5 pieces.
 
-### Level 2 — Easy
+## Level 2 — Easy
 - 4 targets, 1 distractor.
 - Student places 4 pieces.
 - No watermark.
 
-### Level 3 — Medium
+## Level 3 — Medium
 - 3 targets, 2 distractors.
 - Student places 3 pieces.
 - No watermark.
 
-### Level 4 — Hard
+## Level 4 — Hard
 - 1 target, 4 distractors.
 - Student places 1 piece.
 - No watermark.
 
 ---
 
-## 6. ICON SELECTION
+# 6. ICON SELECTION RULES
 - Load all 12 icons from `/assets/{theme}/icons/`.
 - Each icon must appear at least once across the 4 levels.
-- Do not repeat a single icon (e.g., sheep) across all rows.
-- Distractors chosen from remaining icons.
-- Shuffle rows for each page.
-
-Special override:
-- If icon name is “see”, replace with “eyes” for display.
+- No repeating the same icon across all rows.
+- No placeholder icons.
+- No empty boxes.
+- Distractors must be varied.
+- “See” must be renamed to “Eyes”.
 
 ---
 
-## 7. CUTOUT PAGE
+# 7. CUTOUT PAGE
 - 4 columns × 5 rows = 20 boxes.
 - Box size matches activity boxes (1.4"–1.6").
-- Boxes touch or have minimal spacing (0–0.1").
-- Each icon appears at least once.
-- Images fill 90–95% of box.
-- Title: “Cutout Matching Pieces – {Theme}”
-
-Fixes applied:
-- Icon size increased to 60pt for 12 images.
-- Blue box height increased to 180pt.
-- Spacing between icons increased to 15pt.
-- Border thickness increased to 3pt.
+- Icons must be 60pt minimum.
+- Blue cutout box height: 180pt.
+- Spacing between icons: 15pt.
+- Border thickness: 3pt.
+- All icons must appear at least once.
+- Title: “Cutout Matching Pieces – {Theme}”.
 
 ---
 
-## 8. BLACK & WHITE VERSION
-- Accent stripe must convert to grayscale.
-- No orange or theme colors.
+# 8. ACCENT STRIPE
+- Must NOT touch page border.
+- Must have increased height to visually separate title block.
+- Must remain behind title + subtitle.
+- Must convert cleanly to grayscale in BW version.
+
+---
+
+# 9. BLACK & WHITE VERSION
+- Must be grayscale only.
+- No orange or theme colours.
+- Borders must remain visible.
 - Icons must remain visible (no black-on-black).
-- Borders remain visible in grayscale.
+- Accent stripe must convert to grayscale.
 
 ---
 
-## 9. FOOTER
+# 10. FOOTER
 - Single line.
 - 8–10 pt font.
 - Centered.
-- Within 0.3" of bottom margin.
+- Must sit within 0.3" of bottom margin.
+- Must never be overlapped by matching boxes.
 
 Format:
 `{PACK_CODE} | {THEME} | Matching Level {X} | Page {Y}/{TOTAL} @ 2025 Small Wins Studio. PCS® symbols used with active PCS Maker Personal License.`
 
 ---
 
-## 10. OUTPUT REQUIREMENTS
+# 11. OUTPUT REQUIREMENTS
 - Generate Levels 1–4.
 - Generate cutout page.
 - Generate storage labels.
-- Export both COLOR and BW.
+- Export COLOR and BW.
 - Save to `/samples/{theme}/matching/`.
 - Overwrite existing files.
+
