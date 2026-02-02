@@ -128,7 +128,7 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
     
     # Accent Stripe - must NOT touch page border (add margin), increased height
     accent_margin = 0.15 * inch  # Margin from border (maintained)
-    accent_height = 0.75 * inch  # Increased height for larger fonts
+    accent_height = 1.0 * inch  # Further increased so title sits fully inside
     accent_x = border_margin + accent_margin
     accent_y = height - border_margin - accent_height - accent_margin - 0.1 * inch
     accent_width = content_width - 2 * accent_margin
@@ -170,7 +170,7 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
     # Target Box - centered horizontally, navy border, soft shadow, 20% smaller and nearer
     target_size = 0.72 * inch  # 20% smaller than 0.9" (0.9 * 0.8 = 0.72)
     target_x = width / 2 - target_size / 2
-    target_y = content_top - 0.12 * inch - target_size  # Nearer to instruction line (reduced from 0.2")
+    target_y = content_top - 0.08 * inch - target_size  # Moved higher, nearer to instruction (reduced from 0.12")
     
     # Draw Target Box with Navy border, soft shadow, rounded corners
     if target_img:
@@ -202,16 +202,16 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
         c.setLineWidth(4)  # 4px, thicker than matching boxes (3.5px)
         c.roundRect(target_x, target_y, target_size, target_size, 8.64, stroke=1, fill=0)
     
-    # 5-row layout below target - Matching boxes 10% smaller
-    box_size = 1.35 * inch  # 10% smaller (1.5 * 0.9 = 1.35)
-    box_spacing = 0.18 * inch  # Reduced spacing to fit boxes higher
+    # 5-row layout below target - Matching boxes reduced by another 5%
+    box_size = 1.2825 * inch  # Additional 5% reduction (1.35 * 0.95 = 1.2825)
+    box_spacing = 0.16 * inch  # Further reduced spacing to fit boxes higher
     corner_radius = 8.64  # 0.12" = 8.64 pts
     
-    # Calculate starting position for 5 rows - moved higher
-    rows_start_y = target_y - 0.25 * inch  # Reduced from 0.4" to move boxes higher
+    # Calculate starting position for 5 rows - moved even higher
+    rows_start_y = target_y - 0.2 * inch  # Further reduced to move boxes higher
     
-    # Column spacing: 1.0"–1.3" apart (using 1.15")
-    column_gap = 1.15 * inch
+    # Column spacing: increased for visual balance (1.3"-1.5")
+    column_gap = 1.45 * inch  # Increased for better visual balance
     left_col_x = width / 2 - box_size - column_gap / 2
     right_col_x = width / 2 + column_gap / 2
     
