@@ -149,14 +149,15 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
     c.setFillColorRGB(*hex_to_rgb('#001F3F'))  # Navy
     c.setFont(TITLE_FONT, 36)  # Increased from 28pt to 36pt
     title_text = "Match the Pictures"
-    title_y = accent_y + accent_height / 2 + 20  # Upper half of stripe, adjusted for larger font
+    # Moved down for better centering - position based on center of stripe
+    title_y = accent_y + accent_height / 2 + 10  # Adjusted down from +20 to +10
     c.drawCentredString(width / 2, title_y, title_text)
     
     # Subtitle: "Brown Bear" - ALSO INSIDE stripe, below title
     c.setFont(BODY_FONT, 28)  # Increased from 20pt to 28pt
     c.setFillColorRGB(0.2, 0.2, 0.2)  # Dark grey
     subtitle_text = "Brown Bear"
-    subtitle_y_in_stripe = title_y - 36  # Below title, still inside stripe, adjusted spacing for larger fonts
+    subtitle_y_in_stripe = title_y - 42  # Below title with more spacing, adjusted from -36 to -42
     c.drawCentredString(width / 2, subtitle_y_in_stripe, subtitle_text)
     
     # Instruction line "Match the [icon_name]" - BELOW stripe, ABOVE target box per spec
