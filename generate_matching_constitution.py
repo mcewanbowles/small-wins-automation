@@ -11,7 +11,21 @@ from PIL import Image, ImageDraw, ImageFont
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.units import inch
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
 import random
+
+# Try to register Comic Sans MS font (available on most systems)
+try:
+    # Register Comic Sans MS if available
+    pdfmetrics.registerFont(TTFont('Comic-Sans-MS', 'comic.ttf'))
+    pdfmetrics.registerFont(TTFont('Comic-Sans-MS-Bold', 'comicbd.ttf'))
+    TITLE_FONT = 'Comic-Sans-MS-Bold'
+    BODY_FONT = 'Comic-Sans-MS'
+except:
+    # Fallback to Helvetica if Comic Sans not available
+    TITLE_FONT = 'Helvetica-Bold'
+    BODY_FONT = 'Helvetica'
 
 # Add parent directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent))
@@ -113,8 +127,8 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
     c.roundRect(border_margin, border_margin, content_width, content_height, 10, stroke=1, fill=0)
     
     # Accent Stripe - must NOT touch page border (add margin), increased height
-    accent_margin = 0.15 * inch  # Margin from border
-    accent_height = 0.6 * inch  # Increased height for visual separation
+    accent_margin = 0.15 * inch  # Margin from border (maintained)
+    accent_height = 0.75 * inch  # Increased height for larger fonts
     accent_x = border_margin + accent_margin
     accent_y = height - border_margin - accent_height - accent_margin - 0.1 * inch
     accent_width = content_width - 2 * accent_margin
@@ -132,31 +146,31 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
     # Title and Subtitle - BOTH INSIDE accent stripe, CENTERED per spec
     # Title: "Match the Pictures"
     c.setFillColorRGB(*hex_to_rgb('#001F3F'))  # Navy
-    c.setFont("Helvetica-Bold", 22)
+    c.setFont(TITLE_FONT, 28)  # Comic Sans or Helvetica-Bold, larger size
     title_text = "Match the Pictures"
-    title_y = accent_y + accent_height / 2 + 12  # Upper half of stripe
+    title_y = accent_y + accent_height / 2 + 16  # Upper half of stripe, adjusted for larger font
     c.drawCentredString(width / 2, title_y, title_text)
     
     # Subtitle: "Brown Bear" - ALSO INSIDE stripe, below title
-    c.setFont("Helvetica", 16)
+    c.setFont(BODY_FONT, 20)  # Comic Sans or Helvetica, larger size
     c.setFillColorRGB(0.2, 0.2, 0.2)  # Dark grey
     subtitle_text = "Brown Bear"
-    subtitle_y_in_stripe = title_y - 22  # Below title, still inside stripe
+    subtitle_y_in_stripe = title_y - 28  # Below title, still inside stripe, adjusted spacing
     c.drawCentredString(width / 2, subtitle_y_in_stripe, subtitle_text)
     
     # Instruction line "Match the [icon_name]" - BELOW stripe, ABOVE target box per spec
     instruction_text = f"Match the {target_name}"
     instruction_y = accent_y - 20  # Below the stripe
-    c.setFont("Helvetica", 14)
+    c.setFont(BODY_FONT, 14)  # Comic Sans or Helvetica
     c.drawCentredString(width / 2, instruction_y, instruction_text)
     
     # Position for content below instruction line
     content_top = instruction_y - 0.2 * inch
     
-    # Target Box - centered horizontally, navy border, soft shadow
-    target_size = 0.9 * inch  # 0.8"-1.0" range
+    # Target Box - centered horizontally, navy border, soft shadow, 20% smaller and nearer
+    target_size = 0.72 * inch  # 20% smaller than 0.9" (0.9 * 0.8 = 0.72)
     target_x = width / 2 - target_size / 2
-    target_y = content_top - 0.2 * inch - target_size  # Below instruction line
+    target_y = content_top - 0.12 * inch - target_size  # Nearer to instruction line (reduced from 0.2")
     
     # Draw Target Box with Navy border, soft shadow, rounded corners
     if target_img:
@@ -188,13 +202,13 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
         c.setLineWidth(4)  # 4px, thicker than matching boxes (3.5px)
         c.roundRect(target_x, target_y, target_size, target_size, 8.64, stroke=1, fill=0)
     
-    # 5-row layout below target - Matching boxes 1.4"–1.6" (using 1.5")
-    box_size = 1.5 * inch
-    box_spacing = 0.2 * inch  # Spacing between rows
+    # 5-row layout below target - Matching boxes 10% smaller
+    box_size = 1.35 * inch  # 10% smaller (1.5 * 0.9 = 1.35)
+    box_spacing = 0.18 * inch  # Reduced spacing to fit boxes higher
     corner_radius = 8.64  # 0.12" = 8.64 pts
     
-    # Calculate starting position for 5 rows
-    rows_start_y = target_y - 0.4 * inch
+    # Calculate starting position for 5 rows - moved higher
+    rows_start_y = target_y - 0.25 * inch  # Reduced from 0.4" to move boxes higher
     
     # Column spacing: 1.0"–1.3" apart (using 1.15")
     column_gap = 1.15 * inch
@@ -205,24 +219,14 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
     for row in range(5):
         row_y = rows_start_y - row * (box_size + box_spacing)
         
-        # Left column: Matching box with navy border and decorative corners
+        # Left column: Simple matching box with navy border (ornaments removed)
         img_box_x = left_col_x
         img_box_y = row_y - box_size
         
-        # Draw matching box with Navy border (3-4px per spec)
+        # Draw matching box with Navy border (3-4px per spec) - simple, no ornaments
         c.setStrokeColorRGB(*hex_to_rgb(NAVY_BORDER))
         c.setLineWidth(3.5)  # 3-4px border per spec
         c.roundRect(img_box_x, img_box_y, box_size, box_size, corner_radius, stroke=1, fill=0)
-        
-        # Add decorative corner details (thicker stroke on opposite corners)
-        corner_size = 0.15 * inch
-        c.setLineWidth(4)  # Thicker for decorative effect
-        # Top-left corner
-        c.line(img_box_x, img_box_y + box_size, img_box_x + corner_size, img_box_y + box_size)
-        c.line(img_box_x, img_box_y + box_size, img_box_x, img_box_y + box_size - corner_size)
-        # Bottom-right corner
-        c.line(img_box_x + box_size, img_box_y, img_box_x + box_size - corner_size, img_box_y)
-        c.line(img_box_x + box_size, img_box_y, img_box_x + box_size, img_box_y + corner_size)
         
         # Level 1 Watermark Logic: 20-30% opacity, 70-80% of box
         if level == 1 and target_img:
