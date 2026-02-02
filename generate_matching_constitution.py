@@ -37,9 +37,26 @@ PURPLE_BORDER = '#6B5BE2'  # Purple border for velcro boxes
 LIGHT_GREY_FILL = '#E8E8E8'  # Light grey fill for velcro boxes
 VELCRO_DOT_FILL = '#CCCCCC'  # Velcro dot fill
 VELCRO_DOT_OUTLINE = '#999999'  # Velcro dot outline
-WARM_ORANGE = '#F5A623'  # Accent stripe color
+WARM_ORANGE = '#F5A623'  # Accent stripe color (default)
 WHITE = '#FFFFFF'
 BLACK = '#000000'
+
+# Level-Based Accent Colors for easy teacher identification
+LEVEL_COLORS = {
+    1: '#F4A259',  # Orange - Level 1 (beginner)
+    2: '#4A90E2',  # Blue - Level 2 (easy)
+    3: '#7BC47F',  # Green - Level 3 (medium)
+    4: '#9B59B6',  # Purple - Level 4 (hard)
+}
+
+
+def get_level_color(level, mode='color'):
+    """Get the accent stripe color for a specific level."""
+    from utils.color_helpers import hex_to_grayscale
+    color = LEVEL_COLORS.get(level, WARM_ORANGE)
+    if mode == 'bw':
+        return hex_to_grayscale(color)
+    return color
 
 
 def load_all_icons(icon_folder):
@@ -134,12 +151,9 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
     accent_y = height - border_margin - accent_height - accent_margin - 0.1 * inch
     accent_width = content_width - 2 * accent_margin
     
-    # Use warm orange for color mode, grayscale for BW mode
-    if mode == 'bw':
-        gray_orange = hex_to_grayscale(WARM_ORANGE)
-        c.setFillColorRGB(*hex_to_rgb(gray_orange))
-    else:
-        c.setFillColorRGB(*hex_to_rgb(WARM_ORANGE))
+    # Use level-specific color for accent stripe
+    level_color = get_level_color(level, mode)
+    c.setFillColorRGB(*hex_to_rgb(level_color))
     
     # Draw accent stripe with rounded corners
     c.roundRect(accent_x, accent_y, accent_width, accent_height, 8, stroke=0, fill=1)
@@ -149,15 +163,15 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
     c.setFillColorRGB(*hex_to_rgb('#001F3F'))  # Navy
     c.setFont(TITLE_FONT, 36)  # Increased from 28pt to 36pt
     title_text = "Matching"
-    # Moved down for better centering - position based on center of stripe
-    title_y = accent_y + accent_height / 2 + 10  # Adjusted down from +20 to +10
+    # Positioned with padding from top, not touching edges
+    title_y = accent_y + accent_height / 2 + 5  # Adjusted for better centering with padding
     c.drawCentredString(width / 2, title_y, title_text)
     
-    # Subtitle: "Brown Bear" - ALSO INSIDE stripe, below title
+    # Subtitle: "Brown Bear" - ALSO INSIDE stripe, below title, closer together
     c.setFont(BODY_FONT, 28)  # Increased from 20pt to 28pt
     c.setFillColorRGB(0.2, 0.2, 0.2)  # Dark grey
     subtitle_text = "Brown Bear"
-    subtitle_y_in_stripe = title_y - 42  # Below title with more spacing, adjusted from -36 to -42
+    subtitle_y_in_stripe = title_y - 30  # Closer to title (was -42), not touching either edge
     c.drawCentredString(width / 2, subtitle_y_in_stripe, subtitle_text)
     
     # Instruction line "Match the [icon_name]" - BELOW stripe, ABOVE target box per spec
@@ -346,12 +360,9 @@ def create_cutout_page_constitution(c, images, names, icons_on_page, page_number
     accent_y = height - border_margin - accent_height - accent_margin - 0.1 * inch
     accent_width = content_width - 2 * accent_margin
     
-    # Use warm orange for color mode, grayscale for BW mode
-    if mode == 'bw':
-        gray_orange = hex_to_grayscale(WARM_ORANGE)
-        c.setFillColorRGB(*hex_to_rgb(gray_orange))
-    else:
-        c.setFillColorRGB(*hex_to_rgb(WARM_ORANGE))
+    # Use level-specific color for accent stripe
+    level_color = get_level_color(level, mode)
+    c.setFillColorRGB(*hex_to_rgb(level_color))
     
     c.roundRect(accent_x, accent_y, accent_width, accent_height, 8, stroke=0, fill=1)
     
@@ -495,11 +506,9 @@ def create_storage_label_page_constitution(c, images, names, page_num, total_pag
     accent_y = height - border_margin - accent_height - accent_margin - 0.1 * inch
     accent_width = content_width - 2 * accent_margin
     
-    if mode == 'bw':
-        gray_orange = hex_to_grayscale(WARM_ORANGE)
-        c.setFillColorRGB(*hex_to_rgb(gray_orange))
-    else:
-        c.setFillColorRGB(*hex_to_rgb(WARM_ORANGE))
+    # Use level-specific color for accent stripe
+    level_color = get_level_color(level, mode)
+    c.setFillColorRGB(*hex_to_rgb(level_color))
     
     c.roundRect(accent_x, accent_y, accent_width, accent_height, 8, stroke=0, fill=1)
     
