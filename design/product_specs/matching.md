@@ -9,17 +9,25 @@ These rules override the global Design Constitution where conflicts occur.
 - Portrait orientation.
 - 5 ROWS × 2 COLUMNS layout.
 - Matching boxes slightly smaller for vertical fit (approx. 1.4"–1.6").
-- Icons must be as large as possible inside the box (90–95% fill).
-- Columns spaced 1.0"–1.3" apart.
-- Title and subtitle must be centered.
-- Subtitle “Match the ___” must appear ABOVE the target box.
+- Matching boxes must be resized to fit 5 rows vertically with space above footer and below target box.
+- Matching boxes may be slightly wider for balance.
+- Icons must be as large as possible inside the box (95-100% fill).
+- Columns spaced 1.3"–1.5" apart.
+- Title block must include:
+  - Title: “Match the Pictures”
+  - Subtitle: “Brown Bear”
+  - Both lines must sit inside the accent stripe.
+- Accent stripe must be taller to fit both lines.
+- Title and subtitle must be centered and within the accent stripe.
+- Instruction line (“Match the ___”) must appear BELOW the accent stripe and ABOVE the target box.
+- Footer must NOT be overlapped by boxes (minimum 0.3" bottom margin).
 - Accent stripe must NOT touch page border and must have increased height.
 - Footer must NOT be overlapped by boxes (minimum 0.3" bottom margin).
 
 ---
 
 # 2. TARGET BOX (REFERENCE IMAGE)
-- May be rectangular or square.
+- Rectangular.
 - Navy border (#1E3A5F).
 - Soft shadow (5–8% opacity).
 - Rounded corners (0.12").
@@ -34,12 +42,9 @@ These rules override the global Design Constitution where conflicts occur.
 - Box size: approx. 1.4"–1.6" square.
 - Rounded corners: 0.12".
 - Border colour: Navy (#1E3A5F) OR theme accent colour.
-- Decorative corner detail required:
-  - Slightly thicker stroke on two opposite corners OR
-  - Small corner embellishment matching original Husky design.
-- Border width: 2–3 px.
-- Image fills 90–95% of box.
-- Minimal padding (3–6 px).
+- Border width: 3-4 px.
+- Image fills 95–100% of box.
+- Minimal padding (2–4 px).
 - Image must be centered and crisp.
 - No text labels inside boxes.
 
@@ -49,6 +54,7 @@ These rules override the global Design Constitution where conflicts occur.
 - Same size as matching boxes.
 - Light grey fill (#E8E8E8).
 - Purple border (#6B5BE2).
+- Border width: 3-4 px.
 - Rounded corners (0.12").
 - Velcro dot:
   - Diameter approx. 0.3".
@@ -63,7 +69,7 @@ These rules override the global Design Constitution where conflicts occur.
 ## Level 1 — Errorless
 - 5 targets, 0 distractors.
 - All 5 pictures match the target.
-- Watermark required behind each picture box:
+- Watermark image matching the target required in each picture box:
   - Opacity: 20–30%.
   - Scale: 70–80% of box.
   - Centered behind velcro dot.
@@ -88,7 +94,7 @@ These rules override the global Design Constitution where conflicts occur.
 
 # 6. ICON SELECTION RULES
 - Load all 12 icons from `/assets/{theme}/icons/`.
-- Each icon must appear at least once across the 4 levels.
+- Each icon must appear at lease once in each and every one of the 4 levels.
 - No repeating the same icon across all rows.
 - No placeholder icons.
 - No empty boxes.
@@ -104,7 +110,8 @@ These rules override the global Design Constitution where conflicts occur.
 - Blue cutout box height: 180pt.
 - Spacing between icons: 15pt.
 - Border thickness: 3pt.
-- All icons must appear at least once.
+- All icons should have vertical row of 5 icons.
+- Icons can be touching so guillotine friendly for teachers.
 - Title: “Cutout Matching Pieces – {Theme}”.
 
 ---
@@ -127,14 +134,14 @@ These rules override the global Design Constitution where conflicts occur.
 ---
 
 # 10. FOOTER
-- Single line.
-- 8–10 pt font.
+-Two-line layout:
+  - Line 1: “Matching – Level X | BB03”
+  - Line 2: “© 2025 Small Wins Studio. PCS® symbols used with active PCS Maker Personal License.”
+- Font: 8–9 pt.
+- Line 2 in light grey (#999999).
 - Centered.
 - Must sit within 0.3" of bottom margin.
 - Must never be overlapped by matching boxes.
-
-Format:
-`{PACK_CODE} | {THEME} | Matching Level {X} | Page {Y}/{TOTAL} @ 2025 Small Wins Studio. PCS® symbols used with active PCS Maker Personal License.`
 
 ---
 
