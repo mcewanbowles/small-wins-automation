@@ -316,17 +316,14 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
     c.showPage()
 
 
-def create_cutout_page_constitution(c, images, names, start_idx, page_num, total_pages, pack_code="BB03", theme_name="Brown Bear", level=None, mode='color'):
+def create_cutout_page_constitution(c, images, names, icons_on_page, page_number, page_num, total_pages, pack_code="BB03", theme_name="Brown Bear", level=None, mode='color'):
     """
-    Create cutout page following Matching Product Specification.
-    
-    Requirements per spec:
-    - Box size matches activity boxes (1.4"–1.6", using 1.5")
-    - Icons 60pt minimum
-    - Spacing 15pt
-    - Border 3pt
-    - 4 columns × 5 rows = 20 boxes
-    - Title: "Cutout Matching Pieces – {Theme} – Level X" (if level specified)
+    Create cutout page following updated requirements:
+    - 5 copies of each icon (60 total per level)
+    - 2 pages per level (30 pieces per page)
+    - Box size matches activity boxes (1.28")
+    - 6 columns × 5 rows = 30 boxes per page
+    - Title includes page number (1 of 2, 2 of 2)
     """
     width, height = letter
     
@@ -344,7 +341,7 @@ def create_cutout_page_constitution(c, images, names, start_idx, page_num, total
     
     # Accent stripe: moved higher
     accent_margin = 0.08 * inch
-    accent_height = 0.6 * inch
+    accent_height = 1.0 * inch  # Larger stripe for title
     accent_x = border_margin + accent_margin
     accent_y = height - border_margin - accent_height - accent_margin - 0.1 * inch
     accent_width = content_width - 2 * accent_margin
@@ -358,29 +355,28 @@ def create_cutout_page_constitution(c, images, names, start_idx, page_num, total
     
     c.roundRect(accent_x, accent_y, accent_width, accent_height, 8, stroke=0, fill=1)
     
-    # Title: "Cutout Matching Pieces – [Theme] – Level X" - CENTERED
+    # Title with page number
     c.setFillColorRGB(*hex_to_rgb('#001F3F'))  # Navy
-    c.setFont("Helvetica-Bold", 24)
-    if level:
-        title_text = f"Cutout Matching Pieces – {theme_name} – Level {level}"
-    else:
-        title_text = f"Cutout Matching Pieces – {theme_name}"
-    title_width = c.stringWidth(title_text, "Helvetica-Bold", 24)
+    try:
+        c.setFont("Comic-Sans-MS-Bold", 28)
+    except:
+        c.setFont("Helvetica-Bold", 28)
+    
+    title_text = f"Cutout Matching Pieces – {theme_name} – Level {level} ({page_number} of 2)"
+    title_width = c.stringWidth(title_text, "Helvetica-Bold", 28)
     title_x = width / 2 - title_width / 2
-    title_y = accent_y + accent_height / 2
+    title_y = accent_y + accent_height / 2 + 10
     c.drawString(title_x, title_y, title_text)
     
-    # Cutout specifications per Matching Product Spec
-    # Box size matches activity boxes (1.4"-1.6", using 1.5")
-    box_size = 1.5 * inch
-    icon_size_pts = 60  # 60pt minimum
-    icon_size = icon_size_pts / 72.0 * inch
-    spacing_pts = 15  # 15pt spacing
-    spacing = spacing_pts / 72.0 * inch
+    # Box size matches activity boxes (1.28" from user requirements)
+    box_size = 1.28 * inch
+    # Icon fills most of box (97% fill)
+    icon_size = box_size * 0.97
+    spacing = 0.05 * inch  # Minimal spacing for tight cutting
     border_pts = 3  # 3pt border
     
-    # 4 columns × 5 rows = 20 boxes
-    cols = 4
+    # 6 columns × 5 rows = 30 boxes (5 copies of 6 icons)
+    cols = 6
     rows = 5
     
     # Calculate grid dimensions
@@ -392,42 +388,44 @@ def create_cutout_page_constitution(c, images, names, start_idx, page_num, total
     content_top = accent_y - 0.4 * inch
     start_y = content_top - 0.3 * inch
     
-    # Draw 4×5 grid
-    idx = start_idx
-    for row in range(rows):
-        for col in range(cols):
-            if idx >= len(images):
-                break
-            
+    # Draw 6×5 grid - each icon appears 5 times in a column
+    icon_idx = 0
+    for col in range(cols):
+        if icon_idx >= len(icons_on_page):
+            break
+        img = icons_on_page[icon_idx]
+        
+        # Draw 5 copies of this icon in this column
+        for row in range(rows):
             box_x = start_x + col * (box_size + spacing)
             box_y = start_y - row * (box_size + spacing) - box_size
             
-            # Draw box with 3pt border per spec
+            # Draw box with 3pt border
             c.setStrokeColorRGB(*hex_to_rgb(NAVY_BORDER))
             c.setLineWidth(border_pts)
             c.roundRect(box_x, box_y, box_size, box_size, 8.64, stroke=1, fill=0)
             
-            # Draw icon (60pt minimum, centered in box)
+            # Draw icon (fills 97% of box, centered)
             icon_padding = (box_size - icon_size) / 2
             icon_x = box_x + icon_padding
             icon_y = box_y + icon_padding
             
             # Save and draw icon
             import hashlib
-            img_copy = images[idx].copy()
+            img_copy = img.copy()
             if mode == 'bw':
                 from utils.color_helpers import enhance_for_printing
                 img_copy = enhance_for_printing(img_copy, mode='bw')
             
             img_hash = hashlib.md5(img_copy.tobytes()).hexdigest()[:12]
-            temp_icon = f"/tmp/cutout_{img_hash}_{mode}.png"
+            temp_icon = f"/tmp/cutout_{img_hash}_{mode}_{col}_{row}.png"
             if not os.path.exists(temp_icon):
                 img_copy.save(temp_icon, 'PNG')
             
             c.drawImage(temp_icon, icon_x, icon_y, width=icon_size, height=icon_size,
                        preserveAspectRatio=True, mask='auto')
-            
-            idx += 1
+        
+        icon_idx += 1
     
     # Footer - TWO lines per Product Spec
     footer_y = border_margin + 0.3 * inch
@@ -440,7 +438,10 @@ def create_cutout_page_constitution(c, images, names, start_idx, page_num, total
     
     # Line 1 (upper line)
     c.setFillColorRGB(0, 0, 0)
-    footer_line1 = f"Cutouts | {pack_code}"
+    if level:
+        footer_line1 = f"Matching – Level {level} | {pack_code}"
+    else:
+        footer_line1 = f"Cutouts | {pack_code}"
     c.drawCentredString(width / 2, footer_y + 12, footer_line1)
     
     c.showPage()
@@ -569,8 +570,8 @@ def generate_matching_product_constitution(theme_name="Brown Bear", pack_code="B
     
     # Calculate total pages - REORGANIZED BY LEVEL
     num_icons = len(icons)
-    # Each level has: 12 matching pages + 1 cutout + 1 storage = 14 pages per level
-    pages_per_level = num_icons + 1 + 1  # matching + cutout + storage
+    # Each level has: 12 matching pages + 2 cutout pages + 1 storage = 15 pages per level
+    pages_per_level = num_icons + 2 + 1  # matching + 2 cutouts + storage
     total_pages = pages_per_level * 4  # 4 levels
     
     print(f"Total pages: {total_pages} (4 levels × {pages_per_level} pages/level)")
@@ -626,10 +627,18 @@ def generate_matching_product_constitution(theme_name="Brown Bear", pack_code="B
             page_num += 1
             print(f"  Generated: {target_name} - Level {level} (Page {page_num-1}/{total_pages})")
         
-        # Generate cutout page for this level
-        create_cutout_page_constitution(c, icons, names, 0, page_num, total_pages, pack_code, theme_name, level, mode)
+        # Generate 2 cutout pages for this level (60 pieces total: 5 of each of 12 icons)
+        # Page 1: First 6 icons (30 pieces)
+        page1_icons = icons[:6]
+        create_cutout_page_constitution(c, icons, names, page1_icons, 1, page_num, total_pages, pack_code, theme_name, level, mode)
         page_num += 1
-        print(f"  Generated: Cutout page - Level {level} (Page {page_num-1}/{total_pages})")
+        print(f"  Generated: Cutout page 1 - Level {level} (Page {page_num-1}/{total_pages})")
+        
+        # Page 2: Next 6 icons (30 pieces)
+        page2_icons = icons[6:12]
+        create_cutout_page_constitution(c, icons, names, page2_icons, 2, page_num, total_pages, pack_code, theme_name, level, mode)
+        page_num += 1
+        print(f"  Generated: Cutout page 2 - Level {level} (Page {page_num-1}/{total_pages})")
         
         # Generate storage label page for this level
         create_storage_label_page_constitution(c, names, page_num, total_pages, pack_code, theme_name, level, mode)
