@@ -87,6 +87,13 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
     
     # Import color utilities for BW mode support
     from utils.color_helpers import hex_to_grayscale, enhance_for_printing
+    import hashlib
+    
+    # Create hash-based temp filenames to reuse same file for same icon
+    def get_temp_filename(img, prefix, suffix=""):
+        # Use image data hash for consistent filename per unique icon
+        img_hash = hashlib.md5(img.tobytes()).hexdigest()[:12]
+        return f"/tmp/{prefix}_{img_hash}_{mode}_{suffix}.png"
     
     # Global Page Structure
     # Border: 0.25" margin from edge
@@ -147,10 +154,11 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
         if mode == 'bw':
             display_target = enhance_for_printing(display_target, mode='bw')
         
-        # Save target image temporarily with unique filename
-        import time
-        temp_target = f"/tmp/temp_target_{page_num}_{int(time.time()*1000000)}.png"
-        display_target.save(temp_target, 'PNG')
+        # Save target image with hash-based filename (reuses same file for same icon)
+        temp_target = get_temp_filename(display_target, "target")
+        if not os.path.exists(temp_target):
+            display_target.save(temp_target, 'PNG')
+        
         c.drawImage(temp_target, target_x, target_y, width=target_size, height=target_size, 
                    preserveAspectRatio=True, mask='auto')
         
@@ -190,15 +198,16 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
         # Level 1 Watermark Logic: 20-30% opacity watermark of target
         if level == 1 and target_img:
             # Create watermark at 25% opacity
-            import time
-            temp_watermark = f"/tmp/watermark_{page_num}_{row}_{int(time.time()*1000000)}.png"
             watermark_img = target_img.copy()
-            # Reduce opacity by converting to RGBA and adjusting alpha
             watermark_img = watermark_img.convert('RGBA')
             alpha = watermark_img.split()[3]
             alpha = alpha.point(lambda p: int(p * 0.25))  # 25% opacity
             watermark_img.putalpha(alpha)
-            watermark_img.save(temp_watermark, 'PNG')
+            
+            # Save with hash-based filename
+            temp_watermark = get_temp_filename(watermark_img, "watermark")
+            if not os.path.exists(temp_watermark):
+                watermark_img.save(temp_watermark, 'PNG')
             
             # Draw watermark centered in box at 75% of box size
             watermark_size = box_size * 0.75
@@ -222,10 +231,11 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
             icon_x = img_box_x + (box_size - icon_size) / 2
             icon_y = img_box_y + (box_size - icon_size) / 2
             
-            # Save icon temporarily with unique filename
-            import time
-            temp_icon = f"/tmp/temp_icon_{page_num}_{row}_{int(time.time()*1000000)}.png"
-            display_img.save(temp_icon, 'PNG')
+            # Save with hash-based filename (reuses same file for same icon)
+            temp_icon = get_temp_filename(display_img, "icon")
+            if not os.path.exists(temp_icon):
+                display_img.save(temp_icon, 'PNG')
+            
             c.drawImage(temp_icon, icon_x, icon_y, width=icon_size, height=icon_size, 
                        preserveAspectRatio=True, mask='auto')
         
