@@ -35,6 +35,13 @@ except ImportError:
 class IEPProgressMonitoringGenerator:
     """Generator for IEP Progress Monitoring Toolkit materials."""
     
+    # Spacing constants for consistent layout
+    LINE_SPACING_CONTENT = 15
+    LINE_SPACING_NOTES = 18
+    SECTION_SPACING = 10
+    HEADING_SPACING = 20
+    FIELD_SPACING = 25
+    
     def __init__(self, config_path: str):
         """
         Initialize the generator with a configuration file.
@@ -147,9 +154,9 @@ class IEPProgressMonitoringGenerator:
             if y_pos < self.margins['bottom'] + 50:
                 break  # Prevent footer overlap
             c.drawString(self.margins['left'], y_pos, line)
-            y_pos -= 15
+            y_pos -= self.LINE_SPACING_CONTENT
         
-        y_pos -= 10  # Extra space after section
+        y_pos -= self.SECTION_SPACING  # Extra space after section
         return y_pos
     
     def _draw_reference_table(self, c: canvas.Canvas, y_pos: float, table_data: Dict):
@@ -759,7 +766,7 @@ class IEPProgressMonitoringGenerator:
                     try:
                         if len(str(cell.value)) > max_length:
                             max_length = len(str(cell.value))
-                    except:
+                    except Exception:
                         pass
                 adjusted_width = min(max_length + 2, 30)
                 ws.column_dimensions[column_letter].width = adjusted_width
