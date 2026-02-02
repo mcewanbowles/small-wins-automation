@@ -447,14 +447,30 @@ def create_cutout_page_constitution(c, images, names, icons_on_page, page_number
     c.showPage()
 
 
-def create_storage_label_page_constitution(c, names, page_num, total_pages, pack_code="BB03", theme_name="Brown Bear", level=None, mode='color'):
-    """Create storage label page following Matching Product Specification."""
+def create_storage_label_page_constitution(c, images, names, page_num, total_pages, pack_code="BB03", theme_name="Brown Bear", level=None, mode='color'):
+    """
+    Create storage label page with professional rectangular boxes.
+    
+    Each box contains:
+    - Title: "Matching"
+    - Subtitle: "Brown Bear BB03"
+    - Level info
+    - Icon image
+    - Icon name
+    
+    Professional, classy design with pale blue color scheme.
+    """
     width, height = letter
     
-    # Import color utilities for BW mode
+    # Import color utilities
     from utils.color_helpers import hex_to_grayscale
     
-    # Border - Light blue
+    # Define pale blue color scheme
+    PALE_BLUE = '#E3F2FD'  # Very light blue background
+    MEDIUM_BLUE = '#90CAF9'  # Medium blue for accents
+    DARK_BLUE = '#1976D2'  # Dark blue for text
+    
+    # Page border - Light blue
     border_margin = 0.25 * inch
     content_width = width - 2 * border_margin
     content_height = height - 2 * border_margin
@@ -463,14 +479,13 @@ def create_storage_label_page_constitution(c, names, page_num, total_pages, pack
     c.setLineWidth(3)
     c.roundRect(border_margin, border_margin, content_width, content_height, 10, stroke=1, fill=0)
     
-    # Accent stripe: moved higher
+    # Accent stripe at top
     accent_margin = 0.08 * inch
-    accent_height = 0.6 * inch
+    accent_height = 1.0 * inch
     accent_x = border_margin + accent_margin
     accent_y = height - border_margin - accent_height - accent_margin - 0.1 * inch
     accent_width = content_width - 2 * accent_margin
     
-    # Use warm orange for color mode, grayscale for BW mode
     if mode == 'bw':
         gray_orange = hex_to_grayscale(WARM_ORANGE)
         c.setFillColorRGB(*hex_to_rgb(gray_orange))
@@ -479,51 +494,106 @@ def create_storage_label_page_constitution(c, names, page_num, total_pages, pack
     
     c.roundRect(accent_x, accent_y, accent_width, accent_height, 8, stroke=0, fill=1)
     
-    # Title: "Storage Labels – Matching Pack – Level X" - CENTERED
-    c.setFillColorRGB(*hex_to_rgb('#001F3F'))  # Navy
-    c.setFont("Helvetica-Bold", 24)
-    if level:
-        title_text = f"Storage Labels – Matching Pack – Level {level}"
-    else:
-        title_text = "Storage Labels – Matching Pack"
-    title_width = c.stringWidth(title_text, "Helvetica-Bold", 24)
-    title_x = width / 2 - title_width / 2
-    title_y = accent_y + accent_height / 2
-    c.drawString(title_x, title_y, title_text)
+    # Page title
+    c.setFillColorRGB(*hex_to_rgb('#001F3F'))
+    try:
+        c.setFont("Comic-Sans-MS-Bold", 36)
+    except:
+        c.setFont("Helvetica-Bold", 36)
     
-    # Product info - Updated to match requirements
-    info_y = height - 2.5 * inch
-    c.setFont("Helvetica-Bold", 16)
-    c.setFillColorRGB(0, 0, 0)
-    if level:
-        c.drawCentredString(width/2, info_y, f"Brown Bear Matching Cards – Level {level}")
-    else:
-        c.drawCentredString(width/2, info_y, "Brown Bear Matching Cards")
+    title_text = "Storage Labels"
+    title_y = accent_y + accent_height / 2 + 10
+    c.drawCentredString(width / 2, title_y, title_text)
     
-    info_y -= 0.4 * inch
-    c.setFont("Helvetica", 14)
-    c.setFillColorRGB(*hex_to_rgb(WARM_ORANGE))
-    c.drawCentredString(width/2, info_y, f"Pack Code: {pack_code}")
+    # Subtitle
+    try:
+        c.setFont("Comic-Sans-MS", 28)
+    except:
+        c.setFont("Helvetica", 28)
+    subtitle_text = f"{theme_name} – Level {level}" if level else theme_name
+    subtitle_y = title_y - 42
+    c.drawCentredString(width / 2, subtitle_y, subtitle_text)
     
-    # Clean 3-column vocabulary table (Section 10)
-    vocab_y = info_y - 0.8 * inch
-    c.setFont("Helvetica-Bold", 12)
-    c.setFillColorRGB(0, 0, 0)
-    c.drawCentredString(width/2, vocab_y, "Vocabulary:")
+    # Storage label boxes - 3 columns × 4 rows = 12 boxes
+    cols = 3
+    rows = 4
     
-    # 3-column layout
-    vocab_y -= 0.4 * inch
-    c.setFont("Helvetica", 11)
-    col_width = content_width / 3
+    box_width = 2.2 * inch
+    box_height = 1.5 * inch
+    h_spacing = 0.3 * inch
+    v_spacing = 0.25 * inch
     
-    for i, name in enumerate(names):
-        col = i % 3
-        row = i // 3
-        x = border_margin + col * col_width + col_width / 2
-        y = vocab_y - row * 0.3 * inch
-        c.drawCentredString(x, y, name)
+    # Calculate grid position
+    grid_width = cols * box_width + (cols - 1) * h_spacing
+    grid_height = rows * box_height + (rows - 1) * v_spacing
+    start_x = (width - grid_width) / 2
+    start_y = accent_y - 0.5 * inch - grid_height
     
-    # Footer - TWO lines per Product Spec
+    # Draw boxes
+    for idx in range(min(len(images), 12)):
+        row = idx // cols
+        col = idx % cols
+        
+        box_x = start_x + col * (box_width + h_spacing)
+        box_y = start_y + (rows - 1 - row) * (box_height + v_spacing)
+        
+        # Draw box with pale blue background
+        if mode == 'bw':
+            # Use light gray for BW
+            c.setFillColorRGB(0.95, 0.95, 0.95)
+        else:
+            c.setFillColorRGB(*hex_to_rgb(PALE_BLUE))
+        
+        c.setStrokeColorRGB(*hex_to_rgb(MEDIUM_BLUE))
+        c.setLineWidth(2)
+        c.roundRect(box_x, box_y, box_width, box_height, 6, stroke=1, fill=1)
+        
+        # Title: "Matching"
+        c.setFillColorRGB(*hex_to_rgb(DARK_BLUE))
+        c.setFont("Helvetica-Bold", 11)
+        text_y = box_y + box_height - 0.2 * inch
+        c.drawCentredString(box_x + box_width / 2, text_y, "Matching")
+        
+        # Subtitle: "Brown Bear BB03"
+        c.setFont("Helvetica", 9)
+        text_y -= 0.18 * inch
+        c.drawCentredString(box_x + box_width / 2, text_y, f"{theme_name} {pack_code}")
+        
+        # Level info
+        if level:
+            c.setFont("Helvetica-Bold", 9)
+            text_y -= 0.16 * inch
+            c.drawCentredString(box_x + box_width / 2, text_y, f"Level {level}")
+        else:
+            text_y -= 0.16 * inch
+        
+        # Icon image (centered)
+        icon_size = 0.6 * inch
+        icon_x = box_x + (box_width - icon_size) / 2
+        icon_y = box_y + 0.45 * inch
+        
+        # Save and draw icon
+        import hashlib
+        img_copy = images[idx].copy()
+        if mode == 'bw':
+            from utils.color_helpers import enhance_for_printing
+            img_copy = enhance_for_printing(img_copy, mode='bw')
+        
+        img_hash = hashlib.md5(img_copy.tobytes()).hexdigest()[:12]
+        temp_icon = f"/tmp/storage_{img_hash}_{mode}_{idx}.png"
+        if not os.path.exists(temp_icon):
+            img_copy.save(temp_icon, 'PNG')
+        
+        c.drawImage(temp_icon, icon_x, icon_y, width=icon_size, height=icon_size,
+                   preserveAspectRatio=True, mask='auto')
+        
+        # Icon name (centered below icon)
+        c.setFont("Helvetica", 10)
+        c.setFillColorRGB(0, 0, 0)
+        name_y = icon_y - 0.15 * inch
+        c.drawCentredString(box_x + box_width / 2, name_y, names[idx])
+    
+    # Footer
     footer_y = border_margin + 0.3 * inch
     
     # Line 2 (lower line) in light grey
@@ -534,7 +604,10 @@ def create_storage_label_page_constitution(c, names, page_num, total_pages, pack
     
     # Line 1 (upper line)
     c.setFillColorRGB(0, 0, 0)
-    footer_line1 = f"Storage Labels | {pack_code}"
+    if level:
+        footer_line1 = f"Matching – Level {level} | {pack_code}"
+    else:
+        footer_line1 = f"Storage Labels | {pack_code}"
     c.drawCentredString(width / 2, footer_y + 12, footer_line1)
     
     c.showPage()
@@ -641,7 +714,7 @@ def generate_matching_product_constitution(theme_name="Brown Bear", pack_code="B
         print(f"  Generated: Cutout page 2 - Level {level} (Page {page_num-1}/{total_pages})")
         
         # Generate storage label page for this level
-        create_storage_label_page_constitution(c, names, page_num, total_pages, pack_code, theme_name, level, mode)
+        create_storage_label_page_constitution(c, icons, names, page_num, total_pages, pack_code, theme_name, level, mode)
         page_num += 1
         print(f"  Generated: Storage Labels - Level {level} (Page {page_num-1}/{total_pages})")
     
