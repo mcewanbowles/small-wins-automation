@@ -374,9 +374,9 @@ def generate_storage_labels(c, icons, level, page_num, mode='color'):
         temp_label = get_temp_filename(display_img, f"label{idx}", mode, name)
         display_img.save(temp_label, 'PNG')
         
-        icon_size = 0.35 * inch  # Reduced for better layout
+        icon_size = 0.91 * inch  # 100% bigger (doubled from 0.455")
         icon_x = label_x + (label_width - icon_size) / 2
-        icon_y = label_y + 0.3*inch  # Moved down for better spacing
+        icon_y = label_y + 0.6*inch  # Centered between title and name
         c.drawImage(temp_label, icon_x, icon_y, icon_size, icon_size, mask='auto')
         
         # Icon name at bottom (moved down for better spacing)
