@@ -374,16 +374,16 @@ def generate_storage_labels(c, icons, level, page_num, mode='color'):
         temp_label = get_temp_filename(display_img, f"label{idx}", mode, name)
         display_img.save(temp_label, 'PNG')
         
-        icon_size = 0.8 * inch
+        icon_size = 0.35 * inch  # Reduced for better layout
         icon_x = label_x + (label_width - icon_size) / 2
-        icon_y = label_y + 0.5*inch
+        icon_y = label_y + 0.3*inch  # Moved down for better spacing
         c.drawImage(temp_label, icon_x, icon_y, icon_size, icon_size, mask='auto')
         
-        # Icon name at bottom
+        # Icon name at bottom (moved down for better spacing)
         c.setFont(FONT_BODY, 10)
         c.setFillColor(HexColor('#000000'))
         bottom_name_width = c.stringWidth(name, FONT_BODY, 10)
-        c.drawString(label_x + (label_width - bottom_name_width) / 2, label_y + 0.2*inch, name)
+        c.drawString(label_x + (label_width - bottom_name_width) / 2, label_y + 0.1*inch, name)
     
     # Instructions
     c.setFont(FONT_BODY, 11)
