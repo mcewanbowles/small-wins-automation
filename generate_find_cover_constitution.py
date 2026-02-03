@@ -5,11 +5,10 @@ Small Wins Studio
 Generates Find and Cover activity sheets using the design system from the Matching product.
 Uses Brown Bear theme icons with level-based color coding and professional design standards.
 
-OUTPUT STRUCTURE (15 pages per PDF):
-- Pages 1-4: Level 1 (Target + 1 distractor) - Easiest
-- Pages 5-8: Level 2 (Target + 2 distractors) - Intermediate  
-- Pages 9-12: Level 3 (Target + 3 distractors) - Advanced
-- Pages 13-15: Storage Labels (one per level)
+OUTPUT STRUCTURE (39 pages per PDF):
+- Pages 1-13: Level 1 (12 activities + storage labels)
+- Pages 14-26: Level 2 (12 activities + storage labels)
+- Pages 27-39: Level 3 (12 activities + storage labels)
 
 Features:
 - 3 difficulty levels with color-coded accent stripes
@@ -327,13 +326,15 @@ def generate_storage_labels(c, icons, level, page_num, mode='color'):
     skill_width = c.stringWidth(skill_text, FONT_BODY, 12)
     c.drawString((PAGE_WIDTH - skill_width) / 2, stripe_y + 0.2*inch, skill_text)
     
-    # 2×2 grid of folder labels (4 icons)
-    label_width = 2.6 * inch
-    label_height = 1.9 * inch
-    spacing_x = 0.3 * inch
-    spacing_y = 0.25 * inch
+    # 3×4 grid of folder labels (12 icons)
+    cols = 3
+    rows = 4
+    label_width = 2.3 * inch
+    label_height = 1.5 * inch
+    spacing_x = 0.2 * inch
+    spacing_y = 0.2 * inch
     
-    total_width = (label_width * 2) + spacing_x
+    total_width = (label_width * cols) + (spacing_x * (cols - 1))
     start_x = (PAGE_WIDTH - total_width) / 2
     start_y = PAGE_HEIGHT - 3.5*inch
     
@@ -341,10 +342,10 @@ def generate_storage_labels(c, icons, level, page_num, mode='color'):
     med_blue = HexColor('#90CAF9') if mode == 'color' else HexColor('#CCCCCC')
     dark_blue = HexColor('#1976D2') if mode == 'color' else HexColor('#000000')
     
-    # Use first 4 icons
-    for idx, (name, img, _) in enumerate(icons[:4]):
-        row = idx // 2
-        col = idx % 2
+    # Use all 12 icons
+    for idx, (name, img, _) in enumerate(icons):
+        row = idx // cols
+        col = idx % cols
         
         label_x = start_x + col * (label_width + spacing_x)
         label_y = start_y - row * (label_height + spacing_y)
@@ -395,16 +396,16 @@ def generate_storage_labels(c, icons, level, page_num, mode='color'):
     draw_footer(c, level, page_num, mode)
 
 def generate_find_cover_pdf(output_dir="/home/runner/work/small-wins-automation/small-wins-automation/samples/brown_bear/find_cover", mode='color'):
-    """Generate complete Find and Cover PDF for all 3 levels (15 pages total)."""
+    """Generate complete Find and Cover PDF for all 3 levels (39 pages total)."""
     os.makedirs(output_dir, exist_ok=True)
     
     # Load icons
     icons = load_brown_bear_icons()
     print(f"Loaded {len(icons)} Brown Bear icons")
     
-    # Use first 4 icons for the activities
-    activity_icons = icons[:4]
-    print(f"Using 4 icons for activities: {', '.join([name for name, _, _ in activity_icons])}")
+    # Use ALL 12 icons for the activities
+    activity_icons = icons  # Changed from icons[:4] to use all icons
+    print(f"Using {len(activity_icons)} icons for activities: {', '.join([name for name, _, _ in activity_icons])}")
     
     # Create PDF
     filename = f"brown_bear_find_cover_{mode}.pdf"
@@ -414,12 +415,12 @@ def generate_find_cover_pdf(output_dir="/home/runner/work/small-wins-automation/
     page_num = 0
     
     # Generate pages organized by level (3 levels)
-    # Each level has: 4 activity pages + 1 storage labels page = 5 pages per level
+    # Each level has: 12 activity pages + 1 storage labels page = 13 pages per level
     for level in [1, 2, 3]:
         level_names = {1: "Level 1 (1 vs 1)", 2: "Level 2 (1 vs 2)", 3: "Level 3 (1 vs 3)"}
         print(f"\nGenerating {level_names[level]}...")
         
-        # Generate activity pages for all 4 icons (4 pages per level)
+        # Generate activity pages for all 12 icons (12 pages per level)
         for target_icon in activity_icons:
             page_num += 1
             target_name = target_icon[0]
@@ -445,7 +446,7 @@ if __name__ == "__main__":
     print("Small Wins Studio")
     print("=" * 60)
     print("\nGenerating Find and Cover activity sheets...")
-    print("Theme: Brown Bear (4 icons for activities)")
+    print("Theme: Brown Bear (12 icons for activities)")
     print("Levels: 1-3 (color-coded)")
     print("Output: COLOR and BW versions")
     print()
