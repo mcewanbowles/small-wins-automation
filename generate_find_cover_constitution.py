@@ -335,7 +335,7 @@ def generate_storage_labels(c, icons, level, page_num, mode='color'):
     
     total_width = (label_width * 2) + spacing_x
     start_x = (PAGE_WIDTH - total_width) / 2
-    start_y = PAGE_HEIGHT - 2.2*inch
+    start_y = PAGE_HEIGHT - 3.5*inch
     
     pale_blue = HexColor('#E3F2FD') if mode == 'color' else HexColor('#F0F0F0')
     med_blue = HexColor('#90CAF9') if mode == 'color' else HexColor('#CCCCCC')
