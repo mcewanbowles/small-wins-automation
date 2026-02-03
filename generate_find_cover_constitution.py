@@ -158,14 +158,14 @@ def load_brown_bear_icons():
     icons_dir = "/home/runner/work/small-wins-automation/small-wins-automation/assets/themes/brown_bear/icons"
     
     icon_files = {
-        "Black Sheep": "black_sheep.png",
-        "Blue Horse": "blue_horse.png",
-        "Brown Bear": "brown_bear.png",
-        "Green Frog": "green_frog.png",
-        "Purple Cat": "purple_cat.png",
-        "Red Bird": "red_bird.png",
-        "White Dog": "white_dog.png",
-        "Yellow Duck": "yellow_duck.png",
+        "Black Sheep": "Black sheep.png",
+        "Blue Horse": "Blue horse.png",
+        "Brown Bear": "Brown bear.png",
+        "Green Frog": "Green frog.png",
+        "Purple Cat": "Purple cat.png",
+        "Red Bird": "Red bird.png",
+        "White Dog": "White dog.png",
+        "Yellow Duck": "Yellow duck.png",
         "Children": "children.png",
         "Goldfish": "goldfish.png",
         "Eyes": "see.png",  # Renamed from "See"
