@@ -1,208 +1,102 @@
-# Find and Cover Product - Brown Bear Theme
+# Find and Cover - Brown Bear Theme
 
-## Overview
+## Product Overview
 
-The **Find and Cover** activity is a visual scanning and discrimination exercise where students find and cover matching images in a 4×4 grid. This product uses the same professional design system as the Matching product.
+**Find and Cover** is a visual scanning and discrimination activity designed for special education students. Students identify a target icon and find all matching instances in a 4×4 grid, covering them with chips, counters, or mini erasers.
 
-## Product Features
+### Product Details
+- **39 Pages Total**
+- **3 Difficulty Levels** (Progressive challenge)
+- **12 Activities per Level** (One for each Brown Bear icon)
+- **Storage Labels Included** (One page per level)
+- **Both Color and B&W Versions**
 
-### Design Elements
+---
 
-- **Light blue page borders** (#A0C4E8) for consistent branding
-- **Level-based color coding** for easy classroom organization:
-  - Level 1: Orange #F4A259 (Beginner)
-  - Level 2: Blue #4A90E2 (Intermediate)  
-  - Level 3: Green #7BC47F (Advanced)
-- **Comic Sans MS fonts** for readability
-- **Professional storage labels** with pale blue design
-- **Both COLOR and BW versions** for printing flexibility
+## What's Included
 
-### Structure (15 Pages)
+### Activity Pages (36 pages)
+Each activity page includes:
+- **Target Icon Display:** Shows the icon to find
+- **4×4 Grid:** 16 cells with various icons
+- **Color-Coded Levels:**
+  - Level 1 (Orange): Beginner - 1 vs 1 (target + 1 distractor)
+  - Level 2 (Blue): Intermediate - 1 vs 2 (target + 2 distractors)
+  - Level 3 (Green): Advanced - 1 vs 3 (target + 3 distractors)
 
-**Level 1 - Beginner (Pages 1-4):**
-- Target + 1 distractor only
-- Target appears 10 times, distractor 6 times
-- 2-choice visual scanning (1 vs 1)
-- Easiest difficulty - builds confidence!
+### Storage Labels (3 pages)
+- **12 Labels per Page** (3×4 grid)
+- **One Set per Level** for easy organization
+- **Professional Design** with icons and names
+- **Cut and Attach** to folders for storage
 
-**Level 2 - Intermediate (Pages 5-8):**
-- Target + 2 distractors
-- Target appears 8 times, each distractor 4 times
-- 3-choice visual scanning (1 vs 2)
-- Moderate challenge
+---
 
-**Level 3 - Advanced (Pages 9-12):**
-- Target + 3 distractors (all 4 images)
-- Target appears 6 times, distractors share remaining 10
-- 4-choice visual scanning (1 vs 3)
-- Maximum challenge!
+## Icons Included
 
-**Storage Labels (Pages 13-15):**
-- One page per level
-- Folder-style labels (2×2 grid with 4 icons)
-- Professional pale blue background
-- Includes pack code BB03
-- Teacher provides chips/counters
+All 12 Brown Bear, Brown Bear, What Do You See? characters:
 
-## Icons Used
+1. **Black Sheep** 7. **White Dog**
+2. **Blue Horse** 8. **Yellow Duck**
+3. **Brown Bear** 9. **Children**
+4. **Green Frog** 10. **Goldfish**
+5. **Purple Cat** 11. **Eyes** (See)
+6. **Red Bird** 12. **Teacher**
 
-Four Brown Bear theme icons:
-1. **Children** - Group of children
-2. **Goldfish** - Swimming goldfish
-3. **Eyes** - Pair of eyes (renamed from "See")
-4. **Teacher** - Teacher figure
+---
 
-## Grid System
-
-- **4×4 grid** = 16 cells per page
-- **Steel blue gridlines** inside (#5B7AA0)
-- **Navy border** around entire grid (#1E3A5F)
-- **Randomized placement** on each page
-- **Varying target/distractor ratios** by level
-
-## How to Use
-
-### For Teachers:
-
-1. **Print** the appropriate level for your student
-2. **Laminate** for durability
-3. Student sees **target** in box at top of page
-4. Student **finds** all matching images in 4×4 grid
-5. Student **covers** with chips, counters, or mini erasers
-6. Student **counts** covered items to self-check
-
-### Materials Needed:
-
-- Printed and laminated activity sheets
-- Chips, counters, mini erasers, or bingo daubers for covering
-- Storage folders labeled with provided labels
-
-## Skills Practiced
-
-- ✅ **Visual scanning** - Searching systematically
-- ✅ **Visual discrimination** - Distinguishing similar images
-- ✅ **Attention to detail** - Finding all instances
-- ✅ **Focus & concentration** - Completing the task
-- ✅ **Counting** - Self-checking answers
-
-## Perfect For
-
-- Special education classrooms
-- Autism programs
-- Speech therapy
-- Early childhood education
-- Work task boxes
-- Independent work stations
-
-## Generation
-
-### To Generate PDFs:
+## How to Generate
 
 ```bash
 python generate_find_cover_constitution.py
 ```
 
-### Outputs:
+### Outputs
+- **Color PDF:** `brown_bear_find_cover_color.pdf` (39 pages)
+- **B&W PDF:** `brown_bear_find_cover_bw.pdf` (39 pages)
+- **Location:** `/samples/brown_bear/find_cover/`
 
-- `brown_bear_find_cover_color.pdf` - 2.8MB, 15 pages
-- `brown_bear_find_cover_bw.pdf` - 1.0MB, 15 pages
+---
 
-### Output Location:
+## Configuration Files
 
-```
-/samples/brown_bear/find_cover/
-```
+### Main Product Config
+`/config/find_cover_config.json` - All measurements, sizes, colors, and layout parameters
 
-## Technical Details
+### Theme-Specific Config
+`/config/brown_bear_find_cover.json` - Icon names, paths, metadata, and pack code (BB03)
 
-### Generator:
+### Design Specification
+`/docs/find_cover_design_spec.md` - Complete design documentation
 
-**File:** `generate_find_cover_constitution.py`  
-**Size:** 17.6KB  
-**Dependencies:** reportlab, pillow  
+---
 
-### Page Dimensions:
+## Creating New Themes
 
-- Letter size (8.5" × 11")
-- 0.25" outer margins
-- 1.0" accent stripe height
+1. **Prepare 12 Icons** (PNG, transparent background, 300 DPI)
+2. **Create Theme Config** (Copy brown_bear_find_cover.json)
+3. **Update Generator** (Point to new config)
+4. **Generate PDFs** (Run generator → 39 pages created)
 
-### Box Specifications:
+---
 
-- Target box: 0.9" square
-- Grid cells: ~1.65" square (calculated to fit)
-- Storage label boxes: 2.6" × 1.9"
+## Design Philosophy
 
-### Colors:
+- **SPED-Friendly:** Clean, predictable layouts with high contrast
+- **Progressive Difficulty:** Builds from errorless learning to mastery
+- **Professional Quality:** 300 DPI, color-coded, lamination-ready
 
-**Color Mode:**
-- Page border: #A0C4E8 (light blue)
-- Navy: #1E3A5F (boxes)
-- Steel blue: #5B7AA0 (gridlines)
-- Level 1 stripe: #F4A259 (orange)
-- Level 2 stripe: #4A90E2 (blue)
-- Level 3 stripe: #7BC47F (green)
-- Storage labels: #E3F2FD background, #90CAF9 borders
-
-**BW Mode:**
-- All colors converted to appropriate grayscale values
-- Maintains contrast and readability
-
-## Customization
-
-### To Create for Another Theme:
-
-1. Update the `load_brown_bear_icons()` function
-2. Change the icons directory path
-3. Update icon filenames
-4. Update subtitle text
-5. Update pack code if needed
-6. Run the generator
-
-### Example:
-
-```python
-def load_polar_bear_icons():
-    icons_dir = "/path/to/polar_bear/icons"
-    icon_files = {
-        "Polar Bear": "polar_bear.png",
-        "Seal": "seal.png",
-        "Walrus": "walrus.png",
-        "Penguin": "penguin.png"
-    }
-    # ... rest of loading logic
-```
-
-## File Structure
-
-```
-samples/brown_bear/find_cover/
-├── brown_bear_find_cover_color.pdf  (2.8MB, 15 pages)
-└── brown_bear_find_cover_bw.pdf     (1.0MB, 15 pages)
-```
-
-## Copyright
-
-© 2025 Small Wins Studio  
-PCS® symbols used with active PCS Maker Personal License
-
-## Related Products
-
-- **Matching Product** - Same design system, different activity
-- See `README_MATCHING_SYSTEM.md` for details
-
-## Support
-
-For questions or issues with generation:
-1. Check that all icon files exist in the correct directory
-2. Verify reportlab and pillow are installed
-3. Check console output for specific error messages
-4. Ensure output directory is writable
+---
 
 ## Version History
 
-- **v1.0** (Feb 2026) - Initial release
-  - 3 difficulty levels
-  - 15-page structure
-  - Matching design system
-  - Brown Bear theme
+- **v2.2** - Optimized storage labels (icon size: 0.455", positioned lower)
+- **v2.0** - Expanded to all 12 Brown Bear icons
+- **v1.0** - Initial design
+
+---
+
+## Credits
+
+**Product:** Find and Cover | **Studio:** Small Wins Studio | **Year:** 2025  
+**Icons:** PCS® symbols used with active PCS Maker Personal License
