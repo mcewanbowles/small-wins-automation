@@ -7,9 +7,9 @@
 ### Product Structure
 - **39 Pages Total**
 - **3 Difficulty Levels** (13 pages each)
-  - Level 1: Beginner (Orange accent stripe)
-  - Level 2: Intermediate (Blue accent stripe)
-  - Level 3: Advanced (Green accent stripe)
+  - Level 1 (Orange accent stripe)
+  - Level 2 (Blue accent stripe)
+  - Level 3 (Green accent stripe)
 - **12 Activities per Level** (one for each icon)
 - **1 Storage Labels Page per Level**
 
@@ -39,9 +39,9 @@
 - **Width:** Full page width (within borders)
 
 ### Colors by Level
-- **Level 1:** Orange #F4A259 (Beginner - warm, friendly)
-- **Level 2:** Blue #4A90E2 (Intermediate - calm, progressive)
-- **Level 3:** Green #7BC47F (Advanced - growth, mastery)
+- **Level 1:** Orange #F4A259 (warm, friendly)
+- **Level 2:** Blue #4A90E2 (calm, progressive)
+- **Level 3:** Green #7BC47F (growth, mastery)
 
 ### Typography
 - **Title Font:** Comic Sans MS (friendly, educational)
@@ -314,7 +314,7 @@ For BW versions, all colors convert to appropriate grayscale values maintaining 
 
 ### SPED-Friendly Features
 - Clean, predictable structure
-- Errorless learning option (Level 1 with minimal distractors)
+- Progressive difficulty levels (Level 1 with minimal distractors for scaffolding)
 - Progressive difficulty levels
 - Realistic, recognizable icons
 - Transparent backgrounds don't interfere with recognition

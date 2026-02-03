@@ -51,9 +51,9 @@ See `/docs/how_to_create_matching_product.md` for detailed instructions.
 
 ### Level Difficulty System:
 - **Level 1 (Orange):** Errorless - 5 targets, 0 distractors, watermarks
-- **Level 2 (Blue):** Easy - 4 targets, 1 distractor
-- **Level 3 (Green):** Medium - 3 targets, 2 distractors
-- **Level 4 (Purple):** Hard - 1 target, 4 distractors
+- **Level 2 (Blue):** 4 targets, 1 distractor
+- **Level 3 (Green):** 3 targets, 2 distractors
+- **Level 4 (Purple):** 1 target, 4 distractors
 
 ## Design Features
 

@@ -45,10 +45,10 @@ This design system defines the visual standards for all Small Wins Studio Matchi
 Each difficulty level has a distinct color for quick visual identification:
 
 ```
-Level 1 (Errorless)  : #F4A259  [Orange]  - Warm, beginner-friendly
-Level 2 (Easy)       : #4A90E2  [Blue]    - Calm, encouraging
+Level 1  : #F4A259  [Orange]  - Warm, warm, scaffolded
+Level 2       : #4A90E2  [Blue]    - Calm, encouraging
 Level 3 (Medium)     : #7BC47F  [Green]   - Growth, progress
-Level 4 (Hard)       : #9B59B6  [Purple]  - Mastery, achievement
+Level 4       : #9B59B6  [Purple]  - Mastery, achievement
 ```
 
 ### Standard Interface Colors

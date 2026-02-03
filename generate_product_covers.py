@@ -61,15 +61,13 @@ def create_product_cover(product_name, level, pdf_path, output_path):
     # Extract product type
     if 'matching' in product_name.lower():
         product_type = 'Matching'
-        level_names = {1: 'Beginner', 2: 'Easy', 3: 'Medium', 4: 'Hard'}
     elif 'find' in product_name.lower() and 'cover' in product_name.lower():
         product_type = 'Find and Cover'
-        level_names = {1: 'Beginner', 2: 'Intermediate', 3: 'Advanced'}
     else:
         product_type = product_name.replace('_', ' ').title()
-        level_names = {1: 'Level 1', 2: 'Level 2', 3: 'Level 3', 4: 'Level 4'}
     
-    level_name = level_names.get(level, f'Level {level}')
+    # Simple level naming - just "Level X" without descriptions
+    level_name = f'Level {level}'
     level_color = LEVEL_COLORS.get(level, COLORS['turquoise'])
     
     # Create canvas
@@ -107,7 +105,7 @@ def create_product_cover(product_name, level, pdf_path, output_path):
     
     c.setFillColor(COLORS['cream'])
     c.setFont('Helvetica-Bold', 24)
-    c.drawCentredString(width/2, badge_y + 0.15*inch, f'LEVEL {level} - {level_name.upper()}')
+    c.drawCentredString(width/2, badge_y + 0.15*inch, level_name.upper())
     
     # Extract and place preview image from PDF
     preview_y = badge_y - 0.5*inch
@@ -148,12 +146,23 @@ def create_product_cover(product_name, level, pdf_path, output_path):
     c.setFillColor(COLORS['navy'])
     c.setFont('Helvetica', 14)
     
-    features = [
-        '✓ Errorless Learning Activities',
-        '✓ File Folder Format',
-        '✓ Complete with Storage Labels',
-        '✓ Level-Appropriate Difficulty'
-    ]
+    # Determine if this is Level 1 Matching for errorless mention
+    is_level1_matching = (level == 1 and 'matching' in product_name.lower())
+    
+    if is_level1_matching:
+        features = [
+            '✓ Errorless Learning Format',
+            '✓ File Folder Activities',
+            '✓ Complete with Storage Labels',
+            '✓ Research-Based Visual Discrimination'
+        ]
+    else:
+        features = [
+            '✓ Research-Based Visual Discrimination',
+            '✓ File Folder Activities',
+            '✓ Complete with Storage Labels',
+            '✓ Level-Appropriate Difficulty'
+        ]
     
     for i, feature in enumerate(features):
         c.drawCentredString(width/2, features_y - (i * 0.3*inch), feature)

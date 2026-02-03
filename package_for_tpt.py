@@ -250,7 +250,7 @@ def create_cover_pdf(product_name, thumbnail_path):
         c.setFillColorRGB(*COLORS['navy'])
         c.setFont("Helvetica", COVER_SPECS['subtitle_fontsize'])
         subtitle_y = thumb_y - 0.5*inch
-        c.drawCentredString(width / 2, subtitle_y, "Errorless File Folder Activities")
+        c.drawCentredString(width / 2, subtitle_y, "Engaging File Folder Activities")
         
         # Gold footer with star
         c.setFillColorRGB(*COLORS['gold'])

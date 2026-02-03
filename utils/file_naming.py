@@ -127,16 +127,10 @@ def get_level_description(level):
         level: Level number (1-4)
         
     Returns:
-        str: Level description
+        str: Level description (now just returns "Level X")
     """
-    descriptions = {
-        1: 'Beginner',
-        2: 'Intermediate',
-        3: 'Advanced',
-        4: 'Expert'
-    }
-    
-    return descriptions.get(level, 'Unknown')
+    # Simplified - just return "Level X" without descriptions
+    return f'Level {level}'
 
 
 def generate_batch_filenames(theme_name, resource_type, count, start_index=1):

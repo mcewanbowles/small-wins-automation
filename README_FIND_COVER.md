@@ -20,9 +20,9 @@ Each activity page includes:
 - **Target Icon Display:** Shows the icon to find
 - **4×4 Grid:** 16 cells with various icons
 - **Color-Coded Levels:**
-  - Level 1 (Orange): Beginner - 1 vs 1 (target + 1 distractor)
-  - Level 2 (Blue): Intermediate - 1 vs 2 (target + 2 distractors)
-  - Level 3 (Green): Advanced - 1 vs 3 (target + 3 distractors)
+  - Level 1 (Orange): 1 vs 1 (target + 1 distractor)
+  - Level 2 (Blue): 1 vs 2 (target + 2 distractors)
+  - Level 3 (Green): 1 vs 3 (target + 3 distractors)
 
 ### Storage Labels (3 pages)
 - **12 Labels per Page** (3×4 grid)
