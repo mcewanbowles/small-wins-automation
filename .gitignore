@@ -47,6 +47,7 @@ ENV/
 # Output files
 output/
 *.pdf
+!samples/**/*.pdf
 temp/
 
 # OS
