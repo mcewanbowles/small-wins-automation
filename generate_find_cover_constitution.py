@@ -24,12 +24,15 @@ from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import inch
 from reportlab.lib.colors import HexColor
+from reportlab.lib import colors
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from PIL import Image
+from PyPDF2 import PdfReader, PdfWriter
 import os
 import hashlib
 import time
+import io
 
 # Try to register Comic Sans MS font, fallback to Helvetica
 try:
@@ -440,6 +443,88 @@ def generate_find_cover_pdf(output_dir="/home/runner/work/small-wins-automation/
     
     return output_path
 
+
+def add_preview_watermark(input_pdf_path, output_pdf_path):
+    """Add diagonal PREVIEW watermark to PDF."""
+    # Read the input PDF
+    reader = PdfReader(input_pdf_path)
+    writer = PdfWriter()
+    
+    # Create watermark
+    packet = io.BytesIO()
+    can = canvas.Canvas(packet, pagesize=letter)
+    
+    # Set watermark properties
+    can.setFont("Helvetica-Bold", 140)
+    can.setFillColor(colors.gray, alpha=0.3)
+    
+    # Save canvas state
+    can.saveState()
+    
+    # Rotate and position text
+    page_width, page_height = letter
+    can.translate(page_width/2, page_height/2)
+    can.rotate(45)
+    can.drawCentredString(0, 0, "PREVIEW")
+    
+    can.restoreState()
+    can.save()
+    
+    # Move to the beginning of the StringIO buffer
+    packet.seek(0)
+    watermark_pdf = PdfReader(packet)
+    watermark_page = watermark_pdf.pages[0]
+    
+    # Add watermark to each page
+    for page_num in range(len(reader.pages)):
+        page = reader.pages[page_num]
+        page.merge_page(watermark_page)
+        writer.add_page(page)
+    
+    # Write output
+    with open(output_pdf_path, 'wb') as output_file:
+        writer.write(output_file)
+    
+    print(f"  ✓ Created preview PDF: {os.path.basename(output_pdf_path)}")
+    return output_pdf_path
+
+
+def split_pdf_by_level(full_pdf_path, output_dir, mode):
+    """Split a full Find & Cover PDF into separate PDFs for each level."""
+    reader = PdfReader(full_pdf_path)
+    total_pages = len(reader.pages)
+    
+    # Find & Cover structure: Each level has 13 pages (12 activities + 1 storage)
+    pages_per_level = 13
+    num_levels = 3
+    
+    level_pdfs = []
+    
+    for level in range(1, num_levels + 1):
+        # Calculate page range for this level
+        start_page = (level - 1) * pages_per_level
+        end_page = start_page + pages_per_level
+        
+        # Create new PDF for this level
+        writer = PdfWriter()
+        
+        for page_num in range(start_page, min(end_page, total_pages)):
+            writer.add_page(reader.pages[page_num])
+        
+        # Determine output filename
+        level_filename = f"brown_bear_find_cover_level{level}_{mode}.pdf"
+        level_path = os.path.join(output_dir, level_filename)
+        
+        # Write level PDF
+        with open(level_path, 'wb') as output_file:
+            writer.write(output_file)
+        
+        print(f"  ✓ Level {level} {mode.upper()}: {level_filename} ({pages_per_level} pages)")
+        level_pdfs.append(level_path)
+    
+    return level_pdfs
+
+
 if __name__ == "__main__":
     print("=" * 60)
     print("Find and Cover Generator - Constitution Design System")
@@ -448,28 +533,55 @@ if __name__ == "__main__":
     print("\nGenerating Find and Cover activity sheets...")
     print("Theme: Brown Bear (12 icons for activities)")
     print("Levels: 1-3 (color-coded)")
-    print("Output: COLOR and BW versions")
+    print("Output: Full PDFs + Separate level PDFs + Preview versions")
     print()
     
-    # Generate both COLOR and BW versions
+    output_dir = "/home/runner/work/small-wins-automation/small-wins-automation/samples/brown_bear/find_cover"
+    
+    # Generate full COLOR PDF
+    print("[1/4] Generating full COLOR PDF...")
     color_path = generate_find_cover_pdf(mode='color')
+    
+    # Generate full BW PDF
+    print("\n[2/4] Generating full BW PDF...")
     bw_path = generate_find_cover_pdf(mode='bw')
+    
+    # Split color PDF by level
+    print("\n[3/4] Creating separate COLOR PDFs for each level...")
+    color_level_pdfs = split_pdf_by_level(color_path, output_dir, "color")
+    
+    # Split BW PDF by level
+    print("\n[4/4] Creating separate BW PDFs for each level...")
+    bw_level_pdfs = split_pdf_by_level(bw_path, output_dir, "bw")
+    
+    # Create preview versions (color only)
+    print("\n[BONUS] Creating PREVIEW versions with watermark...")
+    preview_pdfs = []
+    for level_num, color_level_pdf in enumerate(color_level_pdfs, 1):
+        preview_filename = f"brown_bear_find_cover_level{level_num}_preview.pdf"
+        preview_path = os.path.join(output_dir, preview_filename)
+        add_preview_watermark(color_level_pdf, preview_path)
+        preview_pdfs.append(preview_path)
     
     print("\n" + "=" * 60)
     print("✓ GENERATION COMPLETE!")
     print("=" * 60)
-    print(f"\nFiles created:")
-    print(f"  1. {color_path}")
-    print(f"  2. {bw_path}")
-    print("\nEach PDF contains 15 pages:")
-    print("  Level 1 (1 vs 1): Pages 1-4 (Target 10x, 1 distractor 6x)")
-    print("  Level 2 (1 vs 2): Pages 5-8 (Target 8x, 2 distractors 4x each)")
-    print("  Level 3 (1 vs 3): Pages 9-12 (Target 6x, 3 distractors share remaining)")
-    print("  Storage Labels: Pages 13-15 (one per level)")
+    print(f"\nFull PDFs:")
+    print(f"  • {os.path.basename(color_path)} (39 pages)")
+    print(f"  • {os.path.basename(bw_path)} (39 pages)")
+    print(f"\nLevel PDFs (13 pages each):")
+    for level in range(1, 4):
+        print(f"  Level {level}:")
+        print(f"    • brown_bear_find_cover_level{level}_color.pdf")
+        print(f"    • brown_bear_find_cover_level{level}_bw.pdf")
+        print(f"    • brown_bear_find_cover_level{level}_preview.pdf (with watermark)")
     print("\nSkills Practiced:")
     print("  • Visual scanning & discrimination")
     print("  • Attention to detail")
     print("  • Focus & concentration")
     print("  • Counting")
+    print("\nFeatures:")
+    print("  • Separate level PDFs for flexible sales")
+    print("  • Preview watermarks prevent illegal duplication")
     print("\nReady for classroom use!")
     print("Teacher provides chips/counters for covering matching icons.")
