@@ -308,7 +308,7 @@ def generate_storage_labels(c, icons, level, page_num, mode='color'):
     # Title
     c.setFont(FONT_TITLE, 36)
     c.setFillColor(HexColor('#FFFFFF'))
-    stripe_y = PAGE_HEIGHT - 0.08*inch - 1.0*inch
+    stripe_y = PAGE_HEIGHT - 0.35*inch - 1.0*inch
     
     level_names = {1: "Level 1", 2: "Level 2", 3: "Level 3"}
     level_skills = {
@@ -335,7 +335,7 @@ def generate_storage_labels(c, icons, level, page_num, mode='color'):
     
     total_width = (label_width * 2) + spacing_x
     start_x = (PAGE_WIDTH - total_width) / 2
-    start_y = PAGE_HEIGHT - 3.0*inch
+    start_y = PAGE_HEIGHT - 2.2*inch
     
     pale_blue = HexColor('#E3F2FD') if mode == 'color' else HexColor('#F0F0F0')
     med_blue = HexColor('#90CAF9') if mode == 'color' else HexColor('#CCCCCC')
@@ -387,7 +387,7 @@ def generate_storage_labels(c, icons, level, page_num, mode='color'):
     # Instructions
     c.setFont(FONT_BODY, 11)
     c.setFillColor(HexColor('#666666'))
-    instr_y = start_y - 2 * (label_height + spacing_y) - 0.4*inch
+    instr_y = PAGE_HEIGHT - 9.5*inch
     instr_text = "Cut out labels and attach to folders. Teacher provides chips/counters for covering."
     instr_width = c.stringWidth(instr_text, FONT_BODY, 11)
     c.drawString((PAGE_WIDTH - instr_width) / 2, instr_y, instr_text)
@@ -414,6 +414,7 @@ def generate_find_cover_pdf(output_dir="/home/runner/work/small-wins-automation/
     page_num = 0
     
     # Generate pages organized by level (3 levels)
+    # Each level has: 4 activity pages + 1 storage labels page = 5 pages per level
     for level in [1, 2, 3]:
         level_names = {1: "Level 1 (1 vs 1)", 2: "Level 2 (1 vs 2)", 3: "Level 3 (1 vs 3)"}
         print(f"\nGenerating {level_names[level]}...")
@@ -425,9 +426,8 @@ def generate_find_cover_pdf(output_dir="/home/runner/work/small-wins-automation/
             print(f"  Page {page_num}: Find the {target_name}")
             generate_find_cover_page(c, target_icon, icons, level, page_num, mode)
             c.showPage()
-    
-    # Generate storage labels for all 3 levels (3 pages)
-    for level in [1, 2, 3]:
+        
+        # Generate storage labels for this level (1 page)
         page_num += 1
         print(f"  Page {page_num}: Storage labels - Level {level}")
         generate_storage_labels(c, activity_icons, level, page_num, mode)
