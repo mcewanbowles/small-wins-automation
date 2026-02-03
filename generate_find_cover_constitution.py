@@ -259,7 +259,7 @@ def generate_find_cover_page(c, target_icon, all_icons, level, page_num, mode='c
     random.shuffle(cell_icons)
     
     # Calculate grid layout
-    grid_start_y = PAGE_HEIGHT - 5.1*inch
+    grid_start_y = PAGE_HEIGHT - 4.6*inch
     available_width = PAGE_WIDTH * 0.85
     cell_size = available_width / grid_size
     grid_width = cell_size * grid_size
