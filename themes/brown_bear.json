@@ -1,100 +1,58 @@
 {
-  "theme_id": "brown_bear",
-  "theme_name": "Brown Bear, Brown Bear",
-  "year": 2026,
-
-  "fonts": {
-    "primary": "Arial Rounded MT Bold",
-    "secondary": "Arial"
-  },
-
-  "colours": {
-    "primary": "#F28CC8",
-    "secondary": "#8C06F2",
-    "accent": "#F4B400"
-  },
-
-  "core_icons": [
-    "I", "you", "it",
-    "want", "like", "see", "need", "go", "put", "make", "get",
-    "yes", "no", "more", "all done",
-    "big", "little", "happy", "sad"
-  ],
-
-  "wh_words": ["what", "who", "where"],
-  "colour_words": ["red", "blue", "yellow", "green", "orange", "purple"],
-  "emotion_words": ["happy", "sad", "tired", "angry", "scared", "excited"],
-  "location_words": ["in", "on", "under", "next to", "behind", "front"],
-
-  "fringe_icons": {
-    "teacher": "teacher.png",
-    "children": "children.png",
-    "bear": "bear.png",
-    "bird": "bird.png",
-    "dog": "dog.png",
-    "cat": "cat.png",
-    "frog": "frog.png",
-    "fish": "fish.png",
-    "horse": "horse.png",
-    "duck": "duck.png",
-    "sheep": "sheep.png"
-  },
-
-  "real_image_icons": {
-    "bear": "bear_real.png",
-    "bird": "bird_real.png"
-  },
-
-  "boardmaker_icons": {
-    "bear": "bear_bm.png",
-    "bird": "bird_bm.png"
-  },
-
-  "distractors": [
-    "goldfish",
-    "extra_children",
-    "random_animal"
-  ],
-
-  "find_cover": {
-    "grid_size": "4x4",
-    "levels": ["errorless", "mixed", "field_of_6", "cut_paste"],
-    "see_icon": "eye.png"
-  },
-
-  "matching": {
-    "levels": ["errorless", "identical", "field_of_6"]
-  },
-
-  "sorting": {
-    "categories": ["animals", "people", "other"]
-  },
-
-  "wh_sentences": {
-    "enable_size_scaling": true
-  },
-
-  "colouring": {
-    "colouring_images": {
-      "bear": "bear_bw.png",
-      "bird": "bird_bw.png",
-      "frog": "frog_bw.png"
+  "name": "Brown Bear, Brown Bear, What Do You See?",
+  "description": "Classic children's book theme featuring colorful animals",
+  "author": "Small Wins Studio",
+  "version": "1.0",
+  "items": [
+    {
+      "image": "bear",
+      "label": "Brown Bear",
+      "color": "brown"
+    },
+    {
+      "image": "duck",
+      "label": "Yellow Duck",
+      "color": "yellow"
+    },
+    {
+      "image": "frog",
+      "label": "Green Frog",
+      "color": "green"
+    },
+    {
+      "image": "cat",
+      "label": "Purple Cat",
+      "color": "purple"
+    },
+    {
+      "image": "dog",
+      "label": "Blue Dog",
+      "color": "blue"
+    },
+    {
+      "image": "bird",
+      "label": "Red Bird",
+      "color": "red"
+    },
+    {
+      "image": "sheep",
+      "label": "White Sheep",
+      "color": "white"
+    },
+    {
+      "image": "fish",
+      "label": "Orange Fish",
+      "color": "orange"
+    },
+    {
+      "image": "horse",
+      "label": "Black Horse",
+      "color": "black"
+    },
+    {
+      "image": "goldfish",
+      "label": "Goldfish",
+      "color": "gold"
     }
-  },
-
-  "sequencing": {
-    "three_step": [
-      ["bear_walk1.png", "bear_walk2.png", "bear_walk3.png"]
-    ],
-    "four_step": []
-  },
-
-  "book_adaptation": {
-    "sentence_frame": "I see a ___",
-    "pages": [
-      { "noun": "bear", "icon": "bear.png" },
-      { "noun": "bird", "icon": "bird.png" },
-      { "noun": "frog", "icon": "frog.png" }
-    ]
-  }
+  ]
 }
