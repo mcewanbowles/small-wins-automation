@@ -298,11 +298,6 @@ def generate_find_cover_page(c, target_icon, all_icons, level, page_num, mode='c
             icon_y = y + padding
             c.drawImage(temp_cell, icon_x, icon_y, icon_size, icon_size, mask='auto')
     
-    # Draw navy border around entire grid
-    c.setStrokeColor(COLOR_NAVY if mode == 'color' else hex_to_grayscale(COLOR_NAVY))
-    c.setLineWidth(4)
-    c.rect(grid_start_x, grid_start_y - (grid_size * cell_size), grid_width, grid_size * cell_size, fill=0, stroke=1)
-    
     draw_footer(c, level, page_num, mode)
 
 def generate_storage_labels(c, icons, level, page_num, mode='color'):
