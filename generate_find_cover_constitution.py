@@ -105,7 +105,7 @@ def draw_page_border(c, mode='color'):
 def draw_accent_stripe(c, level, mode='color'):
     """Draw accent stripe at top of page."""
     stripe_height = 1.0 * inch
-    stripe_y = PAGE_HEIGHT - 0.08*inch - stripe_height
+    stripe_y = PAGE_HEIGHT - 0.35*inch - stripe_height
     
     accent_color = get_level_color(level, mode)
     
@@ -116,7 +116,7 @@ def draw_accent_stripe(c, level, mode='color'):
 def draw_title_subtitle(c, level, mode='color'):
     """Draw title and subtitle centered in accent stripe."""
     stripe_height = 1.0 * inch
-    stripe_y = PAGE_HEIGHT - 0.08*inch - stripe_height
+    stripe_y = PAGE_HEIGHT - 0.35*inch - stripe_height
     accent_y = stripe_y
     accent_height = stripe_height
     
@@ -197,7 +197,7 @@ def generate_find_cover_page(c, target_icon, all_icons, level, page_num, mode='c
     draw_title_subtitle(c, level, mode)
     
     # Instruction line
-    instruction_y = PAGE_HEIGHT - 1.25*inch
+    instruction_y = PAGE_HEIGHT - 1.52*inch
     c.setFont(FONT_BODY, 14)
     c.setFillColor(HexColor('#000000'))
     instruction_text = f"Find the {target_name}"
@@ -207,7 +207,7 @@ def generate_find_cover_page(c, target_icon, all_icons, level, page_num, mode='c
     # Target box
     target_size = 0.9 * inch
     target_x = (PAGE_WIDTH - target_size) / 2
-    target_y = PAGE_HEIGHT - 2.3*inch
+    target_y = PAGE_HEIGHT - 2.57*inch
     
     # Draw target box with navy border
     c.setStrokeColor(COLOR_NAVY if mode == 'color' else hex_to_grayscale(COLOR_NAVY))
@@ -259,7 +259,7 @@ def generate_find_cover_page(c, target_icon, all_icons, level, page_num, mode='c
     random.shuffle(cell_icons)
     
     # Calculate grid layout
-    grid_start_y = PAGE_HEIGHT - 3.5*inch
+    grid_start_y = PAGE_HEIGHT - 5.1*inch
     available_width = PAGE_WIDTH * 0.85
     cell_size = available_width / grid_size
     grid_width = cell_size * grid_size
