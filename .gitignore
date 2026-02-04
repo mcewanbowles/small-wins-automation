@@ -1,0 +1,74 @@
+# ============================================
+# Generated Outputs (DO NOT COMMIT)
+# ============================================
+# These directories contain generated PDFs, PNGs, ZIPs
+# that should only exist locally during export runs.
+# Generated files go to exports/ and are NOT committed.
+
+# Primary export folder for all generated outputs
+exports/
+
+# Legacy/alternative output folders (also excluded)
+TPT_Products/
+Covers/
+Thumbnails/
+outputs/
+dist/
+
+# ============================================
+# Build Artifacts
+# ============================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# ============================================
+# IDE / Editor
+# ============================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ============================================
+# Environment
+# ============================================
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# ============================================
+# Testing
+# ============================================
+.coverage
+.pytest_cache/
+htmlcov/
+.tox/
+
+# ============================================
+# Logs
+# ============================================
+*.log
+logs/
