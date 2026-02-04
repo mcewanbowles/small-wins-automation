@@ -1,0 +1,77 @@
+{
+  "theme": {
+    "name": "Brown Bear",
+    "code": "BB03",
+    "description": "Brown Bear, Brown Bear, What Do You See? themed matching activity"
+  },
+  "icons": [
+    {
+      "filename": "black_sheep.png",
+      "display_name": "Black Sheep",
+      "description": "A black sheep from the story"
+    },
+    {
+      "filename": "blue_horse.png",
+      "display_name": "Blue Horse",
+      "description": "A blue horse from the story"
+    },
+    {
+      "filename": "brown_bear.png",
+      "display_name": "Brown Bear",
+      "description": "The main brown bear character"
+    },
+    {
+      "filename": "green_frog.png",
+      "display_name": "Green Frog",
+      "description": "A green frog from the story"
+    },
+    {
+      "filename": "purple_cat.png",
+      "display_name": "Purple Cat",
+      "description": "A purple cat from the story"
+    },
+    {
+      "filename": "red_bird.png",
+      "display_name": "Red Bird",
+      "description": "A red bird from the story"
+    },
+    {
+      "filename": "white_dog.png",
+      "display_name": "White Dog",
+      "description": "A white dog from the story"
+    },
+    {
+      "filename": "yellow_duck.png",
+      "display_name": "Yellow Duck",
+      "description": "A yellow duck from the story"
+    },
+    {
+      "filename": "children.png",
+      "display_name": "Children",
+      "description": "Children from the story"
+    },
+    {
+      "filename":="goldfish.png",
+      "display_name": "Goldfish",
+      "description": "A goldfish from the story"
+    },
+    {
+      "filename": "eyes.png",
+      "display_name": "Eyes",
+      "description": "Eyes (what do you see?)"
+    },
+    {
+      "filename": "teacher.png",
+      "display_name": "Teacher",
+      "description": "A teacher from the story"
+    }
+  ],
+  "paths": {
+    "icons_dir": "/assets/themes/brown_bear/icons/",
+    "output_dir": "/samples/brown_bear/matching/"
+  },
+  "output": {
+    "color_filename": "brown_bear_matching_color.pdf",
+    "bw_filename": "brown_bear_matching_bw.pdf"
+  }
+}

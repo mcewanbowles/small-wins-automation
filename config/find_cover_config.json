@@ -1,0 +1,175 @@
+{
+  "product": {
+    "name": "Find and Cover",
+    "type": "visual_scanning",
+    "total_pages": 39,
+    "levels": 3,
+    "activities_per_level": 12,
+    "pack_code_format": "[THEME][NUMBER]"
+  },
+  
+  "page": {
+    "size": {
+      "width": 8.5,
+      "height": 11,
+      "unit": "inches"
+    },
+    "dpi": 300,
+    "orientation": "portrait",
+    "border": {
+      "color": "#A0C4E8",
+      "width": 3,
+      "corner_radius": 0.25,
+      "margin": 0.25
+    }
+  },
+  
+  "accent_stripe": {
+    "y_position": 0.35,
+    "height": 0.8,
+    "colors": {
+      "level_1": "#F4A259",
+      "level_2": "#4A90E2",
+      "level_3": "#7BC47F"
+    },
+    "title": {
+      "text": "Find and Cover",
+      "font": "Comic Sans MS",
+      "size": 36,
+      "color": "#FFFFFF",
+      "y_offset": 5
+    },
+    "subtitle": {
+      "font": "Comic Sans MS",
+      "size": 28,
+      "color": "#FFFFFF",
+      "y_offset": 30
+    }
+  },
+  
+  "activity_page": {
+    "instruction": {
+      "y_position": 1.52,
+      "font": "Comic Sans MS",
+      "size": 24,
+      "color": "#2B4C7E",
+      "template": "Find the {icon_name}"
+    },
+    "target_box": {
+      "y_position": 2.57,
+      "width": 1.8,
+      "height": 1.8,
+      "border_color": "#2B4C7E",
+      "border_width": 3,
+      "corner_radius": 0.1,
+      "icon_padding": 8
+    },
+    "grid": {
+      "y_position": 4.6,
+      "size": 4,
+      "gridline_color": "#5B7AA0",
+      "gridline_width": 2,
+      "icon_padding": 8,
+      "distribution": {
+        "level_1": {
+          "target_count": 10,
+          "distractor_1_count": 6
+        },
+        "level_2": {
+          "target_count": 8,
+          "distractor_1_count": 4,
+          "distractor_2_count": 4
+        },
+        "level_3": {
+          "target_count": 6,
+          "distractors_share_remaining": 10
+        }
+      }
+    }
+  },
+  
+  "storage_labels": {
+    "grid_start_y": 3.5,
+    "columns": 3,
+    "rows": 4,
+    "label_box": {
+      "width": 1.8,
+      "height": 1.5,
+      "spacing": 0.2,
+      "background_color": "#E3F2FD",
+      "border_color": "#90CAF9",
+      "border_width": 2,
+      "corner_radius": 0.1
+    },
+    "content": {
+      "title": {
+        "text": "Find and Cover",
+        "font": "Arial",
+        "size": 10,
+        "bold": true,
+        "y_from_top": 0.3
+      },
+      "pack_info": {
+        "font": "Arial",
+        "size": 8,
+        "template": "{theme} {pack_code}"
+      },
+      "level_info": {
+        "font": "Arial",
+        "size": 8,
+        "template": "Level {level}"
+      },
+      "icon": {
+        "size": 0.455,
+        "y_from_bottom": 0.35,
+        "transparent": true,
+        "mask": "auto"
+      },
+      "icon_name": {
+        "font": "Arial",
+        "size": 11,
+        "bold": true,
+        "y_from_bottom": 0.15
+      }
+    },
+    "instruction": {
+      "y_position": 9.5,
+      "font": "Arial",
+      "size": 10,
+      "text": "Cut out labels and attach to folders. Teacher provides chips/counters for covering."
+    }
+  },
+  
+  "footer": {
+    "line_1": {
+      "font": "Arial",
+      "size": 10,
+      "template": "{pack_code} | {theme_name} | Level {level} | Page {page}/{total}"
+    },
+    "line_2": {
+      "font": "Arial",
+      "size": 9,
+      "color": "#999999",
+      "text": "© 2025 Small Wins Studio • PCS® symbols used with active PCS Maker Personal License"
+    }
+  },
+  
+  "colors": {
+    "navy": "#2B4C7E",
+    "steel_blue": "#5B7AA0",
+    "light_blue": "#A0C4E8",
+    "pale_blue": "#E3F2FD",
+    "medium_blue": "#90CAF9",
+    "level_1": "#F4A259",
+    "level_2": "#4A90E2",
+    "level_3": "#7BC47F"
+  },
+  
+  "icons": {
+    "count": 12,
+    "format": "PNG",
+    "transparent": true,
+    "min_dpi": 300,
+    "path_template": "/assets/{theme}/icons/{icon_name}.png"
+  }
+}
