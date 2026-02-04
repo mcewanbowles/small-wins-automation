@@ -81,14 +81,17 @@ def draw_page_with_branding(c, level, page_num, total_pages, card_label=""):
     c.roundRect(border_margin, border_margin,
                 width - 2*border_margin, height - 2*border_margin, 10)
     
-    # REQUIREMENT #1: Accent stripe with PADDING from border (0.5" down)
+    # REQUIREMENT #1: Accent stripe with SMALL padding from border (matching other products)
+    accent_margin = 0.08 * inch  # Small padding from border (matches matching.py)
     stripe_height = 0.35 * inch
-    stripe_y = height - border_margin - 0.5*inch - stripe_height
+    accent_x = border_margin + accent_margin
+    accent_y = height - border_margin - stripe_height - accent_margin - 0.1*inch
+    accent_width = width - 2*border_margin - 2*accent_margin
+    stripe_y = accent_y  # For compatibility with rest of code
     
-    # REQUIREMENT #5: Level-specific color
+    # REQUIREMENT #5: Level-specific color with ROUNDED EDGES
     c.setFillColor(LEVEL_COLORS[level])
-    c.rect(border_margin, stripe_y,
-           width - 2*border_margin, stripe_height, fill=1, stroke=0)
+    c.roundRect(accent_x, accent_y, accent_width, stripe_height, 8, stroke=0, fill=1)
     
     # REQUIREMENT #2: Title "Brown Bear Bingo" ONLY (no "Level")
     c.setFillColor(HexColor('#FFFFFF'))
