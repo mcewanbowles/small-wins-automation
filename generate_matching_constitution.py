@@ -93,14 +93,14 @@ def create_matching_page_spec(c, target_img, target_name, images, names, level, 
     c.roundRect(border_margin, border_margin, content_width, content_height, 8, stroke=1, fill=0)
     
     # ===== ACCENT STRIPE (Section 8) =====
-    # Use LEVEL-SPECIFIC COLOR
+    # DEEPER ACCENT STRIPE - per user request
     stripe_margin = 0.1 * inch
-    stripe_height = 0.6 * inch
+    stripe_height = 0.85 * inch  # DEEPER (was 0.6")
     stripe_x = border_margin + stripe_margin
     stripe_y = height - border_margin - stripe_margin - stripe_height
     stripe_width = content_width - 2 * stripe_margin
     
-    # Get level-specific color
+    # Get level-specific color - EACH LEVEL MUST USE CORRECT COLOR
     accent_color = LEVEL_COLORS.get(level, LEVEL_COLORS[1])
     
     if mode == 'color':
@@ -109,25 +109,26 @@ def create_matching_page_spec(c, target_img, target_name, images, names, level, 
         c.setFillColorRGB(0.7, 0.7, 0.7)  # Grayscale for BW
     c.roundRect(stripe_x, stripe_y, stripe_width, stripe_height, 6, stroke=0, fill=1)
     
-    # ===== TITLE + SUBTITLE (Better centered in accent stripe) =====
-    # IMPROVED: Move down slightly for better vertical centering
+    # ===== TITLE + SUBTITLE (CENTERED VERTICALLY AND HORIZONTALLY in accent stripe) =====
     c.setFillColorRGB(1, 1, 1)  # White text on accent
     
-    # Calculate vertical center of stripe for text positioning
+    # Calculate vertical center of stripe for PERFECT centering
     stripe_center_y = stripe_y + stripe_height / 2
     
-    c.setFont("Helvetica-Bold", 22)  # Slightly smaller for better fit
-    title_text = "Match the Pictures"
-    title_width = c.stringWidth(title_text, "Helvetica-Bold", 22)
+    # Title: "MATCHING" - centered
+    c.setFont("Helvetica-Bold", 26)  # Larger for MATCHING title
+    title_text = "MATCHING"
+    title_width = c.stringWidth(title_text, "Helvetica-Bold", 26)
     title_x = (width - title_width) / 2
-    title_y = stripe_center_y + 0.08 * inch  # Just above center
+    title_y = stripe_center_y + 0.12 * inch  # Above center
     c.drawString(title_x, title_y, title_text)
     
-    c.setFont("Helvetica", 14)  # Slightly smaller subtitle
+    # Subtitle: Theme name - centered
+    c.setFont("Helvetica", 16)
     subtitle_text = theme_name
-    subtitle_width = c.stringWidth(subtitle_text, "Helvetica", 14)
+    subtitle_width = c.stringWidth(subtitle_text, "Helvetica", 16)
     subtitle_x = (width - subtitle_width) / 2
-    subtitle_y = stripe_center_y - 0.18 * inch  # Just below center
+    subtitle_y = stripe_center_y - 0.18 * inch  # Below center
     c.drawString(subtitle_x, subtitle_y, subtitle_text)
     
     # ===== INSTRUCTION LINE (Section 1) =====
@@ -140,9 +141,9 @@ def create_matching_page_spec(c, target_img, target_name, images, names, level, 
     
     # ===== TARGET BOX (Section 2) - SMALLER =====
     # IMPROVED: Much smaller target box
-    target_box_size = 0.85 * inch  # Reduced from 1.2"
+    target_box_size = 0.75 * inch  # Reduced further to 0.75"
     target_box_x = (width - target_box_size) / 2
-    target_box_y = instruction_y - target_box_size - 0.12 * inch
+    target_box_y = instruction_y - target_box_size - 0.1 * inch
     
     # Draw soft shadow
     c.setFillColorRGB(0, 0, 0)
@@ -156,26 +157,26 @@ def create_matching_page_spec(c, target_img, target_name, images, names, level, 
     c.setLineWidth(2.5)
     c.roundRect(target_box_x, target_box_y, target_box_size, target_box_size, 6, stroke=1, fill=1)
     
-    # Draw target image
+    # Draw target image - MAX SIZE NO PADDING
     if target_img:
         temp_target = "/tmp/temp_target.png"
         target_img.save(temp_target, 'PNG')
-        icon_size = target_box_size * 0.85
+        icon_size = target_box_size * 0.95  # Max size, minimal padding
         icon_x = target_box_x + (target_box_size - icon_size) / 2
         icon_y = target_box_y + (target_box_size - icon_size) / 2
         c.drawImage(temp_target, icon_x, icon_y, width=icon_size, height=icon_size, preserveAspectRatio=True, mask='auto')
     
     # ===== MATCHING BOXES AND VELCRO BOXES (Sections 3, 4) =====
-    # IMPROVED: Smaller boxes, wider column spacing
-    box_size = 1.25 * inch  # Reduced from 1.5" to fit 5 rows better
-    column_gap = 2.0 * inch  # Increased from 1.4" for wider spacing
-    row_spacing = 0.08 * inch  # Reduced spacing between rows
+    # IMPROVED: Slightly larger boxes, wider column spacing, centered on page
+    box_size = 1.35 * inch  # Increased slightly from 1.25" per user request
+    column_gap = 1.8 * inch  # Good spacing between columns
+    row_spacing = 0.06 * inch  # Tight spacing between rows
     
     # Calculate grid dimensions
     total_grid_height = 5 * box_size + 4 * row_spacing
-    footer_height = 0.5 * inch  # Reserve space for footer
+    footer_height = 0.45 * inch  # Reserve space for footer
     grid_bottom = border_margin + footer_height
-    grid_top = target_box_y - 0.15 * inch
+    grid_top = target_box_y - 0.1 * inch
     
     # Center the grid vertically in available space
     available_height = grid_top - grid_bottom
@@ -185,7 +186,7 @@ def create_matching_page_spec(c, target_img, target_name, images, names, level, 
     
     grid_start_y = grid_bottom + (available_height - total_grid_height) / 2 + total_grid_height
     
-    # Center columns horizontally with wider spacing
+    # Center columns horizontally - CENTERED AND ALIGNED on page
     total_width = 2 * box_size + column_gap
     left_col_x = (width - total_width) / 2
     right_col_x = left_col_x + box_size + column_gap
@@ -199,12 +200,12 @@ def create_matching_page_spec(c, target_img, target_name, images, names, level, 
         c.setFillColorRGB(1, 1, 1)
         c.roundRect(left_col_x, row_y, box_size, box_size, 6, stroke=1, fill=1)
         
-        # Draw icon (95-100% fill)
+        # Draw icon - MAX SIZE NO PADDING (98% fill)
         if row < len(images):
             img = images[row]
             temp_icon = f"/tmp/temp_icon_{row}.png"
             img.save(temp_icon, 'PNG')
-            icon_size = box_size * 0.92
+            icon_size = box_size * 0.98  # MAX SIZE, no padding
             icon_x = left_col_x + (box_size - icon_size) / 2
             icon_y = row_y + (box_size - icon_size) / 2
             c.drawImage(temp_icon, icon_x, icon_y, width=icon_size, height=icon_size, preserveAspectRatio=True, mask='auto')
@@ -229,7 +230,7 @@ def create_matching_page_spec(c, target_img, target_name, images, names, level, 
             c.drawImage(temp_watermark, wm_x, wm_y, width=wm_size, height=wm_size, preserveAspectRatio=True, mask='auto')
         
         # Velcro dot - SMALLER
-        velcro_diameter = 0.2 * inch  # Reduced from 0.3"
+        velcro_diameter = 0.18 * inch  # Reduced from 0.2"
         velcro_center_x = right_col_x + box_size / 2
         velcro_center_y = row_y + box_size / 2
         c.setFillColorRGB(*hex_to_rgb(VELCRO_DOT_FILL))
