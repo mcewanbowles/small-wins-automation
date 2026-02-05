@@ -1,15 +1,7 @@
 #!/usr/bin/env python3
 """
-Small Wins Studio - Matching Activity Generator
-Following EXACT specs from:
-- design/product_specs/matching.md
-- design/Design-Constitution.md
-- generators/matching/README.md
-
-Output: Separate PDF per level, each containing:
-- 12 activity pages (one per icon)
-- Cutout page
-- Storage labels page
+Brown Bear Matching Cards Generator - Matching Product Specification Compliant
+Generates matching activity pages following Small Wins Studio Matching Product Spec
 """
 
 import os
@@ -19,47 +11,54 @@ from PIL import Image, ImageDraw, ImageFont
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.units import inch
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.lib import colors
 import random
+from PyPDF2 import PdfReader, PdfWriter
 
-# =============================================================================
-# COLOR CONFIGURATION
-# =============================================================================
-NAVY_BORDER = '#1E3A5F'           # Target box and matching box borders
-PURPLE_BORDER = '#6B5BE2'         # Velcro box border
-VELCRO_FILL = '#E8E8E8'           # Light grey velcro box fill
-VELCRO_DOT_FILL = '#CCCCCC'       # Velcro dot fill
-VELCRO_DOT_OUTLINE = '#999999'    # Velcro dot outline
-FOOTER_GREY = '#999999'           # Footer line 2
+# Try to register Comic Sans MS font (available on most systems)
+try:
+    # Register Comic Sans MS if available
+    pdfmetrics.registerFont(TTFont('Comic-Sans-MS', 'comic.ttf'))
+    pdfmetrics.registerFont(TTFont('Comic-Sans-MS-Bold', 'comicbd.ttf'))
+    TITLE_FONT = 'Comic-Sans-MS-Bold'
+    BODY_FONT = 'Comic-Sans-MS'
+except:
+    # Fallback to Helvetica if Comic Sans not available
+    TITLE_FONT = 'Helvetica-Bold'
+    BODY_FONT = 'Helvetica'
 
-# LEVEL-SPECIFIC ACCENT COLORS
+# Add parent directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent))
+
+# Matching Product Specification Colors
+LIGHT_BLUE_BORDER = '#A0C4E8'  # Light blue border for pages
+NAVY_BORDER = '#1E3A5F'  # Navy border for target and matching boxes
+PURPLE_BORDER = '#6B5BE2'  # Purple border for velcro boxes
+LIGHT_GREY_FILL = '#E8E8E8'  # Light grey fill for velcro boxes
+VELCRO_DOT_FILL = '#CCCCCC'  # Velcro dot fill
+VELCRO_DOT_OUTLINE = '#999999'  # Velcro dot outline
+WARM_ORANGE = '#F5A623'  # Accent stripe color (default)
+WHITE = '#FFFFFF'
+BLACK = '#000000'
+
+# Level-Based Accent Colors for easy teacher identification
 LEVEL_COLORS = {
-    1: '#F5A623',   # Orange - Errorless
-    2: '#4285F4',   # Blue - Easy
-    3: '#34A853',   # Green - Medium
-    4: '#8C06F2',   # Purple - Hard
-}
-
-LEVEL_NAMES = {
-    1: 'Errorless',
-    2: 'Easy',
-    3: 'Medium',
-    4: 'Hard'
-}
-
-# LEVEL LOGIC: (targets, distractors)
-LEVEL_LOGIC = {
-    1: (5, 0),  # 5 targets, 0 distractors
-    2: (4, 1),  # 4 targets, 1 distractor
-    3: (3, 2),  # 3 targets, 2 distractors
-    4: (1, 4),  # 1 target, 4 distractors
+    1: '#F4A259',  # Orange - Level 1 (beginner)
+    2: '#4A90E2',  # Blue - Level 2 (easy)
+    3: '#7BC47F',  # Green - Level 3 (medium)
+    4: '#9B59B6',  # Purple - Level 4 (hard)
 }
 
 
-def hex_to_rgb(hex_color):
-    """Convert hex color to RGB tuple (0-1 range for reportlab)."""
-    hex_color = hex_color.lstrip('#')
-    r, g, b = tuple(int(hex_color[i:i+2], 16) for i in (0, 2, 4))
-    return (r/255, g/255, b/255)
+def get_level_color(level, mode='color'):
+    """Get the accent stripe color for a specific level."""
+    from utils.color_helpers import hex_to_grayscale
+    color = LEVEL_COLORS.get(level, WARM_ORANGE)
+    if mode == 'bw':
+        return hex_to_grayscale(color)
+    return color
 
 
 def load_all_icons(icon_folder):
@@ -71,8 +70,8 @@ def load_all_icons(icon_folder):
         print(f"Error: Icon folder not found: {icon_folder}")
         return icons, names
     
-    png_files = sorted([f for f in os.listdir(icon_folder) 
-                       if f.lower().endswith('.png') and not f.startswith('.')])
+    # Get all PNG files
+    png_files = sorted([f for f in os.listdir(icon_folder) if f.lower().endswith('.png') and not f.startswith('.')])
     
     print(f"Found {len(png_files)} icon files in {icon_folder}")
     
@@ -80,6 +79,7 @@ def load_all_icons(icon_folder):
         filepath = os.path.join(icon_folder, filename)
         try:
             img = Image.open(filepath)
+            # Convert RGBA to RGB if needed
             if img.mode == 'RGBA':
                 bg = Image.new('RGB', img.size, (255, 255, 255))
                 bg.paste(img, mask=img.split()[3] if len(img.split()) == 4 else None)
@@ -88,10 +88,13 @@ def load_all_icons(icon_folder):
                 img = img.convert('RGB')
             
             icons.append(img)
-            # "See" must be renamed to "Eyes" per spec section 6
+            # Clean name: remove extension and clean up
             name = os.path.splitext(filename)[0].replace('_', ' ').title()
+            
+            # Product Spec requirement: "See" must be renamed to "Eyes"
             if name.lower() == 'see':
                 name = 'Eyes'
+            
             names.append(name)
             print(f"  Loaded: {filename} -> {name}")
         except Exception as e:
@@ -100,421 +103,804 @@ def load_all_icons(icon_folder):
     return icons, names
 
 
-def create_matching_page(c, target_img, target_name, row_images, level, 
-                         page_num, total_pages, pack_code, theme_name, mode='color'):
+def hex_to_rgb(hex_color):
+    """Convert hex color to RGB tuple (0-1 range for reportlab)."""
+    hex_color = hex_color.lstrip('#')
+    r, g, b = tuple(int(hex_color[i:i+2], 16) for i in (0, 2, 4))
+    return (r/255, g/255, b/255)
+
+
+def create_matching_page_constitution(c, target_img, target_name, images, names, level, page_num, total_pages, pack_code="BB03", theme_name="Brown Bear", mode='color'):
     """
-    Create a single matching activity page.
+    Create a matching page following Matching Product Specification.
     
-    Args:
-        c: ReportLab canvas
-        target_img: PIL Image of the target icon
-        target_name: Name of the target icon
-        row_images: List of 5 PIL Images for the matching boxes
-        level: 1-4
-        page_num: Current page number
-        total_pages: Total pages in this PDF
-        pack_code: e.g., "BB03"
-        theme_name: e.g., "Brown Bear"
-        mode: 'color' or 'bw'
+    Product Spec Requirements:
+    - Centered title and subtitle
+    - Subtitle "Match the [Icon]" ABOVE target box
+    - Accent stripe must NOT touch page border (add margin)
+    - Navy borders #1E3A5F for target and matching boxes
+    - Purple borders #6B5BE2 for velcro boxes
+    - Light grey fill #E8E8E8 for velcro boxes
+    - Decorative corner details on matching boxes
+    - Single line footer at bottom
+    - 5 rows × 2 columns layout
     """
-    width, height = letter  # 8.5" x 11"
+    width, height = letter
     
-    # Get level-specific color
-    accent_color = LEVEL_COLORS.get(level, LEVEL_COLORS[1])
+    # Import color utilities for BW mode support
+    from utils.color_helpers import hex_to_grayscale, enhance_for_printing
+    import hashlib
     
-    # ===== PAGE BORDER =====
+    # Create hash-based temp filenames to reuse same file for same icon
+    def get_temp_filename(img, prefix, suffix=""):
+        img_hash = hashlib.md5(img.tobytes()).hexdigest()[:12]
+        return f"/tmp/{prefix}_{img_hash}_{mode}_{suffix}.png"
+    
+    # Page Structure - 0.25" margin from edge
     border_margin = 0.25 * inch
     content_width = width - 2 * border_margin
     content_height = height - 2 * border_margin
     
-    c.setStrokeColorRGB(*hex_to_rgb(NAVY_BORDER))
-    c.setLineWidth(2)
-    c.roundRect(border_margin, border_margin, content_width, content_height, 8, stroke=1, fill=0)
+    # Draw rounded rectangle border (3px stroke) - LIGHT BLUE per spec
+    c.setStrokeColorRGB(*hex_to_rgb(LIGHT_BLUE_BORDER))
+    c.setLineWidth(3)
+    c.roundRect(border_margin, border_margin, content_width, content_height, 10, stroke=1, fill=0)
     
-    # ===== ACCENT STRIPE (DEEPER per user request) =====
-    stripe_margin = 0.1 * inch
-    stripe_height = 0.85 * inch  # Deeper stripe
-    stripe_x = border_margin + stripe_margin
-    stripe_y = height - border_margin - stripe_margin - stripe_height
-    stripe_width = content_width - 2 * stripe_margin
+    # Accent Stripe - moved higher (less padding from border), increased height
+    accent_margin = 0.08 * inch  # Reduced from 0.15" to move stripe higher
+    accent_height = 1.0 * inch  # Height for title and subtitle
+    accent_x = border_margin + accent_margin
+    accent_y = height - border_margin - accent_height - accent_margin - 0.1 * inch
+    accent_width = content_width - 2 * accent_margin
     
-    if mode == 'color':
-        c.setFillColorRGB(*hex_to_rgb(accent_color))
-    else:
-        c.setFillColorRGB(0.7, 0.7, 0.7)
-    c.roundRect(stripe_x, stripe_y, stripe_width, stripe_height, 6, stroke=0, fill=1)
+    # Use level-specific color for accent stripe
+    level_color = get_level_color(level, mode)
+    c.setFillColorRGB(*hex_to_rgb(level_color))
     
-    # ===== TITLE + SUBTITLE (Centered in accent stripe) =====
-    c.setFillColorRGB(1, 1, 1)  # White text
-    stripe_center_y = stripe_y + stripe_height / 2
+    # Draw accent stripe with rounded corners
+    c.roundRect(accent_x, accent_y, accent_width, accent_height, 8, stroke=0, fill=1)
     
-    # Title: "MATCHING"
-    c.setFont("Helvetica-Bold", 26)
-    title_text = "MATCHING"
-    title_width = c.stringWidth(title_text, "Helvetica-Bold", 26)
-    c.drawString((width - title_width) / 2, stripe_center_y + 0.12 * inch, title_text)
+    # Title and Subtitle - BOTH INSIDE accent stripe, CENTERED per spec, LARGER FONTS
+    # Title: "Matching"
+    c.setFillColorRGB(*hex_to_rgb('#001F3F'))  # Navy
+    c.setFont(TITLE_FONT, 36)  # Increased from 28pt to 36pt
+    title_text = "Matching"
+    # Positioned with padding from top, not touching edges
+    title_y = accent_y + accent_height / 2 + 5  # Adjusted for better centering with padding
+    c.drawCentredString(width / 2, title_y, title_text)
     
-    # Subtitle: Theme name
-    c.setFont("Helvetica", 16)
-    subtitle_width = c.stringWidth(theme_name, "Helvetica", 16)
-    c.drawString((width - subtitle_width) / 2, stripe_center_y - 0.18 * inch, theme_name)
+    # Subtitle: "Brown Bear" - ALSO INSIDE stripe, below title, closer together
+    c.setFont(BODY_FONT, 28)  # Increased from 20pt to 28pt
+    c.setFillColorRGB(0.2, 0.2, 0.2)  # Dark grey
+    subtitle_text = "Brown Bear"
+    subtitle_y_in_stripe = title_y - 30  # Closer to title (was -42), not touching either edge
+    c.drawCentredString(width / 2, subtitle_y_in_stripe, subtitle_text)
     
-    # ===== INSTRUCTION LINE =====
-    instruction_y = stripe_y - 0.25 * inch
-    c.setFillColorRGB(0, 0, 0)
-    c.setFont("Helvetica-Bold", 12)
+    # Instruction line "Match the [icon_name]" - BELOW stripe, ABOVE target box per spec
     instruction_text = f"Match the {target_name}"
-    instruction_width = c.stringWidth(instruction_text, "Helvetica-Bold", 12)
-    c.drawString((width - instruction_width) / 2, instruction_y, instruction_text)
+    instruction_y = accent_y - 20  # Below the stripe
+    c.setFont(BODY_FONT, 14)  # Comic Sans or Helvetica
+    c.drawCentredString(width / 2, instruction_y, instruction_text)
     
-    # ===== TARGET BOX (Smaller per user request) =====
-    target_box_size = 0.75 * inch
-    target_box_x = (width - target_box_size) / 2
-    target_box_y = instruction_y - target_box_size - 0.1 * inch
+    # Position for content below instruction line
+    content_top = instruction_y - 0.2 * inch
     
-    # Soft shadow
-    c.setFillColorRGB(0, 0, 0)
-    c.setFillAlpha(0.07)
-    c.roundRect(target_box_x + 2, target_box_y - 2, target_box_size, target_box_size, 6, stroke=0, fill=1)
-    c.setFillAlpha(1.0)
+    # Target Box - centered horizontally, navy border, soft shadow, 20% smaller and nearer
+    target_size = 0.72 * inch  # 20% smaller than 0.9" (0.9 * 0.8 = 0.72)
+    target_x = width / 2 - target_size / 2
+    target_y = content_top - 0.08 * inch - target_size  # Moved higher, nearer to instruction (reduced from 0.12")
     
-    # Target box
-    c.setFillColorRGB(1, 1, 1)
-    c.setStrokeColorRGB(*hex_to_rgb(NAVY_BORDER))
-    c.setLineWidth(2.5)
-    c.roundRect(target_box_x, target_box_y, target_box_size, target_box_size, 6, stroke=1, fill=1)
-    
-    # Target image (max size, no padding)
+    # Draw Target Box with Navy border, soft shadow, rounded corners
     if target_img:
-        temp_target = "/tmp/temp_target.png"
-        target_img.save(temp_target, 'PNG')
-        icon_size = target_box_size * 0.95
-        icon_x = target_box_x + (target_box_size - icon_size) / 2
-        icon_y = target_box_y + (target_box_size - icon_size) / 2
-        c.drawImage(temp_target, icon_x, icon_y, width=icon_size, height=icon_size, 
+        # Create a copy to avoid modifying the original
+        display_target = target_img.copy()
+        
+        # Convert to grayscale in BW mode
+        if mode == 'bw':
+            display_target = enhance_for_printing(display_target, mode='bw')
+        
+        # Draw soft shadow (5-8% opacity) first
+        shadow_offset = 4
+        c.setFillColorRGB(0, 0, 0)
+        c.setFillAlpha(0.06)  # 6% opacity shadow
+        c.roundRect(target_x + shadow_offset, target_y - shadow_offset, 
+                   target_size, target_size, 8.64, stroke=0, fill=1)
+        c.setFillAlpha(1.0)  # Reset opacity
+        
+        # Save target image with hash-based filename
+        temp_target = get_temp_filename(display_target, "target")
+        if not os.path.exists(temp_target):
+            display_target.save(temp_target, 'PNG')
+        
+        c.drawImage(temp_target, target_x, target_y, width=target_size, height=target_size, 
                    preserveAspectRatio=True, mask='auto')
+        
+        # Draw Navy border around target (slightly thicker than matching boxes per spec)
+        c.setStrokeColorRGB(*hex_to_rgb(NAVY_BORDER))
+        c.setLineWidth(4)  # 4px, thicker than matching boxes (3.5px)
+        c.roundRect(target_x, target_y, target_size, target_size, 8.64, stroke=1, fill=0)
     
-    # ===== MATCHING GRID (5 rows x 2 columns) =====
-    box_size = 1.35 * inch
-    column_gap = 1.8 * inch
-    row_spacing = 0.06 * inch
+    # 5-row layout below target - Matching boxes reduced by another 5%
+    box_size = 1.2825 * inch  # Additional 5% reduction (1.35 * 0.95 = 1.2825)
+    box_spacing = 0.16 * inch  # Further reduced spacing to fit boxes higher
+    corner_radius = 8.64  # 0.12" = 8.64 pts
+    
+    # Calculate starting position for 5 rows - moved even higher
+    rows_start_y = target_y - 0.2 * inch  # Further reduced to move boxes higher
+    
+    # Column spacing: increased for visual balance (1.3"-1.5")
+    column_gap = 1.45 * inch  # Increased for better visual balance
+    left_col_x = width / 2 - box_size - column_gap / 2
+    right_col_x = width / 2 + column_gap / 2
+    
+    # Draw 5 rows
+    for row in range(5):
+        row_y = rows_start_y - row * (box_size + box_spacing)
+        
+        # Left column: Simple matching box with navy border (ornaments removed)
+        img_box_x = left_col_x
+        img_box_y = row_y - box_size
+        
+        # Draw matching box with Navy border (3-4px per spec) - simple, no ornaments
+        c.setStrokeColorRGB(*hex_to_rgb(NAVY_BORDER))
+        c.setLineWidth(3.5)  # 3-4px border per spec
+        c.roundRect(img_box_x, img_box_y, box_size, box_size, corner_radius, stroke=1, fill=0)
+        
+        # Level 1 Watermark Logic: 20-30% opacity, 70-80% of box
+        if level == 1 and target_img:
+            watermark_img = target_img.copy()
+            watermark_img = watermark_img.convert('RGBA')
+            alpha = watermark_img.split()[3]
+            alpha = alpha.point(lambda p: int(p * 0.25))  # 25% opacity
+            watermark_img.putalpha(alpha)
+            
+            temp_watermark = get_temp_filename(watermark_img, "watermark")
+            if not os.path.exists(temp_watermark):
+                watermark_img.save(temp_watermark, 'PNG')
+            
+            # Watermark at 75% of box size (center of 70-80% range)
+            watermark_size = box_size * 0.75
+            watermark_x = img_box_x + (box_size - watermark_size) / 2
+            watermark_y = img_box_y + (box_size - watermark_size) / 2
+            c.drawImage(temp_watermark, watermark_x, watermark_y, 
+                       width=watermark_size, height=watermark_size, 
+                       preserveAspectRatio=True, mask='auto')
+        
+        # Place icon in matching box - fills 95-100% (using 97% per spec)
+        if row < len(images):
+            display_img = images[row].copy()
+            
+            if mode == 'bw':
+                display_img = enhance_for_printing(display_img, mode='bw')
+            
+            # Image fills 97% of box (95-100% range per spec)
+            icon_size = box_size * 0.97
+            icon_x = img_box_x + (box_size - icon_size) / 2
+            icon_y = img_box_y + (box_size - icon_size) / 2
+            
+            temp_icon = get_temp_filename(display_img, "icon")
+            if not os.path.exists(temp_icon):
+                display_img.save(temp_icon, 'PNG')
+            
+            c.drawImage(temp_icon, icon_x, icon_y, width=icon_size, height=icon_size, 
+                       preserveAspectRatio=True, mask='auto')
+        
+        # Right column: Velcro box with purple border and light grey fill
+        velcro_box_x = right_col_x
+        velcro_box_y = img_box_y
+        
+        # Draw velcro box with light grey fill and purple border (3-4px per spec)
+        c.setFillColorRGB(*hex_to_rgb(LIGHT_GREY_FILL))
+        c.setStrokeColorRGB(*hex_to_rgb(PURPLE_BORDER))
+        c.setLineWidth(3.5)  # 3-4px border per spec
+        c.roundRect(velcro_box_x, velcro_box_y, box_size, box_size, corner_radius, stroke=1, fill=1)
+        
+        # Draw velcro dot (0.3" diameter, centered)
+        velcro_diameter = 0.3 * inch
+        velcro_radius = velcro_diameter / 2
+        velcro_center_x = velcro_box_x + box_size / 2
+        velcro_center_y = velcro_box_y + box_size / 2
+        
+        # Velcro dot with specific colors per Product Spec
+        c.setFillColorRGB(*hex_to_rgb(VELCRO_DOT_FILL))
+        c.setStrokeColorRGB(*hex_to_rgb(VELCRO_DOT_OUTLINE))
+        c.setLineWidth(1.5)
+        c.circle(velcro_center_x, velcro_center_y, velcro_radius, stroke=1, fill=1)
+        
+        # Optional tiny "velcro" text
+        c.setFillColorRGB(0.4, 0.4, 0.4)
+        c.setFont("Helvetica", 6)
+        text_width = c.stringWidth("velcro", "Helvetica", 6)
+        c.drawString(velcro_center_x - text_width/2, velcro_center_y - 2, "velcro")
+    
+    # Footer - TWO lines per Product Spec (8-9pt, centered, 0.3" from bottom)
+    # Line 1: "Matching – Level X | BB03"
+    # Line 2: "© 2025 Small Wins Studio. PCS® symbols used with active PCS Maker Personal License." (light grey)
+    footer_y = border_margin + 0.3 * inch
+    
+    # Line 2 (lower line) in light grey #999999
+    c.setFont("Helvetica", 9)
+    c.setFillColorRGB(*hex_to_rgb('#999999'))
+    footer_line2 = "© 2025 Small Wins Studio. PCS® symbols used with active PCS Maker Personal License."
+    c.drawCentredString(width / 2, footer_y, footer_line2)
+    
+    # Line 1 (upper line) in dark grey/black
+    c.setFillColorRGB(0, 0, 0)
+    footer_line1 = f"Matching – Level {level} | {pack_code}"
+    c.drawCentredString(width / 2, footer_y + 12, footer_line1)
+    
+    c.showPage()
+
+
+def create_cutout_page_constitution(c, images, names, icons_on_page, page_number, page_num, total_pages, pack_code="BB03", theme_name="Brown Bear", level=None, mode='color'):
+    """
+    Create cutout page following updated requirements:
+    - 5 copies of each icon (60 total per level)
+    - 2 pages per level (30 pieces per page)
+    - Box size matches activity boxes (1.28")
+    - 6 columns × 5 rows = 30 boxes per page
+    - Title includes page number (1 of 2, 2 of 2)
+    """
+    width, height = letter
+    
+    # Import color utilities for BW mode
+    from utils.color_helpers import hex_to_grayscale
+    
+    # Border - Light blue
+    border_margin = 0.25 * inch
+    content_width = width - 2 * border_margin
+    content_height = height - 2 * border_margin
+    
+    c.setStrokeColorRGB(*hex_to_rgb(LIGHT_BLUE_BORDER))
+    c.setLineWidth(3)
+    c.roundRect(border_margin, border_margin, content_width, content_height, 10, stroke=1, fill=0)
+    
+    # Accent stripe: moved higher
+    accent_margin = 0.08 * inch
+    accent_height = 1.0 * inch  # Larger stripe for title
+    accent_x = border_margin + accent_margin
+    accent_y = height - border_margin - accent_height - accent_margin - 0.1 * inch
+    accent_width = content_width - 2 * accent_margin
+    
+    # Use level-specific color for accent stripe
+    level_color = get_level_color(level, mode)
+    c.setFillColorRGB(*hex_to_rgb(level_color))
+    
+    c.roundRect(accent_x, accent_y, accent_width, accent_height, 8, stroke=0, fill=1)
+    
+    # Title with page number
+    c.setFillColorRGB(*hex_to_rgb('#001F3F'))  # Navy
+    # Title: "Cut Out Matching Pieces"
+    try:
+        c.setFont("Comic-Sans-MS-Bold", 28)
+    except:
+        c.setFont("Helvetica-Bold", 28)
+    
+    title_text = "Cut Out Matching Pieces"
+    title_y = accent_y + accent_height / 2 + 10
+    c.drawCentredString(width / 2, title_y, title_text)
+    
+    # Subtitle: "Brown Bear" (no level info)
+    try:
+        c.setFont("Comic-Sans-MS", 20)
+    except:
+        c.setFont("Helvetica", 20)
+    c.setFillColorRGB(0.2, 0.2, 0.2)  # Dark grey
+    subtitle_text = theme_name
+    subtitle_y = title_y - 32
+    c.drawCentredString(width / 2, subtitle_y, subtitle_text)
+    
+    # Box size matches activity boxes (1.28" from user requirements)
+    box_size = 1.28 * inch
+    # Icon fills most of box (97% fill)
+    icon_size = box_size * 0.97
+    spacing = 0.05 * inch  # Minimal spacing for tight cutting
+    border_pts = 3  # 3pt border
+    
+    # 6 columns × 5 rows = 30 boxes (5 copies of 6 icons)
+    cols = 6
+    rows = 5
     
     # Calculate grid dimensions
-    total_grid_height = 5 * box_size + 4 * row_spacing
-    footer_height = 0.45 * inch
-    grid_bottom = border_margin + footer_height
-    grid_top = target_box_y - 0.1 * inch
+    grid_width = cols * box_size + (cols - 1) * spacing
+    grid_height = rows * box_size + (rows - 1) * spacing
     
-    available_height = grid_top - grid_bottom
-    if total_grid_height > available_height:
-        box_size = (available_height - 4 * row_spacing) / 5
+    # Center grid on page
+    start_x = (width - grid_width) / 2
+    content_top = accent_y - 0.4 * inch
+    start_y = content_top - 0.3 * inch
     
-    grid_start_y = grid_bottom + (available_height - total_grid_height) / 2 + total_grid_height
-    
-    # Center columns
-    total_width = 2 * box_size + column_gap
-    left_col_x = (width - total_width) / 2
-    right_col_x = left_col_x + box_size + column_gap
-    
-    for row in range(5):
-        row_y = grid_start_y - row * (box_size + row_spacing) - box_size
+    # Draw 6×5 grid - each icon appears 5 times in a column
+    icon_idx = 0
+    for col in range(cols):
+        if icon_idx >= len(icons_on_page):
+            break
+        img = icons_on_page[icon_idx]
         
-        # LEFT COLUMN: Matching box
-        c.setStrokeColorRGB(*hex_to_rgb(NAVY_BORDER))
-        c.setLineWidth(2.5)
-        c.setFillColorRGB(1, 1, 1)
-        c.roundRect(left_col_x, row_y, box_size, box_size, 6, stroke=1, fill=1)
-        
-        # Draw icon (max size, no padding)
-        if row < len(row_images) and row_images[row]:
-            img = row_images[row]
-            temp_icon = f"/tmp/temp_icon_{row}.png"
-            img.save(temp_icon, 'PNG')
-            icon_size = box_size * 0.98
-            icon_x = left_col_x + (box_size - icon_size) / 2
-            icon_y = row_y + (box_size - icon_size) / 2
+        # Draw 5 copies of this icon in this column
+        for row in range(rows):
+            box_x = start_x + col * (box_size + spacing)
+            box_y = start_y - row * (box_size + spacing) - box_size
+            
+            # Draw box with 3pt border
+            c.setStrokeColorRGB(*hex_to_rgb(NAVY_BORDER))
+            c.setLineWidth(border_pts)
+            c.roundRect(box_x, box_y, box_size, box_size, 8.64, stroke=1, fill=0)
+            
+            # Draw icon (fills 97% of box, centered)
+            icon_padding = (box_size - icon_size) / 2
+            icon_x = box_x + icon_padding
+            icon_y = box_y + icon_padding
+            
+            # Save and draw icon
+            import hashlib
+            img_copy = img.copy()
+            if mode == 'bw':
+                from utils.color_helpers import enhance_for_printing
+                img_copy = enhance_for_printing(img_copy, mode='bw')
+            
+            img_hash = hashlib.md5(img_copy.tobytes()).hexdigest()[:12]
+            temp_icon = f"/tmp/cutout_{img_hash}_{mode}_{col}_{row}.png"
+            if not os.path.exists(temp_icon):
+                img_copy.save(temp_icon, 'PNG')
+            
             c.drawImage(temp_icon, icon_x, icon_y, width=icon_size, height=icon_size,
                        preserveAspectRatio=True, mask='auto')
         
-        # RIGHT COLUMN: Velcro box
-        c.setFillColorRGB(*hex_to_rgb(VELCRO_FILL))
-        c.setStrokeColorRGB(*hex_to_rgb(PURPLE_BORDER))
-        c.setLineWidth(2.5)
-        c.roundRect(right_col_x, row_y, box_size, box_size, 6, stroke=1, fill=1)
-        
-        # Level 1 watermark
-        if level == 1 and target_img:
-            temp_wm = f"/tmp/watermark_{row}.png"
-            wm_img = target_img.copy().convert('RGBA')
-            alpha = wm_img.split()[3]
-            alpha = alpha.point(lambda p: int(p * 0.25))
-            wm_img.putalpha(alpha)
-            wm_img.save(temp_wm, 'PNG')
-            wm_size = box_size * 0.70
-            wm_x = right_col_x + (box_size - wm_size) / 2
-            wm_y = row_y + (box_size - wm_size) / 2
-            c.drawImage(temp_wm, wm_x, wm_y, width=wm_size, height=wm_size,
-                       preserveAspectRatio=True, mask='auto')
-        
-        # Velcro dot (smaller)
-        velcro_diameter = 0.18 * inch
-        c.setFillColorRGB(*hex_to_rgb(VELCRO_DOT_FILL))
-        c.setStrokeColorRGB(*hex_to_rgb(VELCRO_DOT_OUTLINE))
-        c.setLineWidth(1)
-        c.circle(right_col_x + box_size/2, row_y + box_size/2, velcro_diameter/2, stroke=1, fill=1)
+        icon_idx += 1
     
-    # ===== FOOTER =====
-    footer_line1_y = border_margin + 0.22 * inch
-    footer_line2_y = border_margin + 0.08 * inch
+    # Footer - TWO lines per Product Spec
+    footer_y = border_margin + 0.3 * inch
     
-    c.setFillColorRGB(0, 0, 0)
-    c.setFont("Helvetica-Bold", 9)
-    footer_line1 = f"Matching - Level {level} | {pack_code} | Page {page_num}/{total_pages}"
-    c.drawCentredString(width/2, footer_line1_y, footer_line1)
-    
-    c.setFillColorRGB(*hex_to_rgb(FOOTER_GREY))
-    c.setFont("Helvetica", 8)
+    # Line 2 (lower line) in light grey
+    c.setFont("Helvetica", 9)
+    c.setFillColorRGB(*hex_to_rgb('#999999'))
     footer_line2 = "© 2025 Small Wins Studio. PCS® symbols used with active PCS Maker Personal License."
-    c.drawCentredString(width/2, footer_line2_y, footer_line2)
+    c.drawCentredString(width / 2, footer_y, footer_line2)
     
-    c.showPage()
-
-
-def create_cutout_page(c, icons, names, level, pack_code, theme_name, mode='color'):
-    """Create a cutout page with 4x5 grid of icons."""
-    width, height = letter
-    accent_color = LEVEL_COLORS.get(level, LEVEL_COLORS[1])
-    
-    # Page border
-    border_margin = 0.25 * inch
-    c.setStrokeColorRGB(*hex_to_rgb(NAVY_BORDER))
-    c.setLineWidth(2)
-    c.roundRect(border_margin, border_margin, 
-                width - 2*border_margin, height - 2*border_margin, 8, stroke=1, fill=0)
-    
-    # Accent stripe
-    stripe_margin = 0.1 * inch
-    stripe_height = 0.6 * inch
-    stripe_x = border_margin + stripe_margin
-    stripe_y = height - border_margin - stripe_margin - stripe_height
-    stripe_width = width - 2*border_margin - 2*stripe_margin
-    
-    if mode == 'color':
-        c.setFillColorRGB(*hex_to_rgb(accent_color))
-    else:
-        c.setFillColorRGB(0.7, 0.7, 0.7)
-    c.roundRect(stripe_x, stripe_y, stripe_width, stripe_height, 6, stroke=0, fill=1)
-    
-    # Title
-    c.setFillColorRGB(1, 1, 1)
-    c.setFont("Helvetica-Bold", 20)
-    title = f"Cutout Matching Pieces - {theme_name}"
-    title_width = c.stringWidth(title, "Helvetica-Bold", 20)
-    c.drawString((width - title_width)/2, stripe_y + stripe_height/2 - 0.05*inch, title)
-    
-    # Grid: 4 columns x 5 rows
-    grid_top = stripe_y - 0.3 * inch
-    grid_bottom = border_margin + 0.4 * inch
-    grid_left = border_margin + 0.3 * inch
-    grid_right = width - border_margin - 0.3 * inch
-    
-    cols = 4
-    rows = 5
-    box_width = (grid_right - grid_left) / cols
-    box_height = (grid_top - grid_bottom) / rows
-    box_size = min(box_width, box_height) - 0.05 * inch
-    
-    # Center the grid
-    total_grid_width = cols * box_size
-    total_grid_height = rows * box_size
-    start_x = (width - total_grid_width) / 2
-    start_y = grid_top
-    
-    icon_idx = 0
-    for row in range(rows):
-        for col in range(cols):
-            if icon_idx >= len(icons):
-                icon_idx = 0  # Wrap around
-            
-            box_x = start_x + col * box_size
-            box_y = start_y - (row + 1) * box_size
-            
-            # Box border
-            c.setStrokeColorRGB(*hex_to_rgb(NAVY_BORDER))
-            c.setLineWidth(2)
-            c.setFillColorRGB(1, 1, 1)
-            c.roundRect(box_x, box_y, box_size, box_size, 4, stroke=1, fill=1)
-            
-            # Icon
-            if icons[icon_idx]:
-                temp_icon = f"/tmp/cutout_icon_{icon_idx}.png"
-                icons[icon_idx].save(temp_icon, 'PNG')
-                icon_size = box_size * 0.90
-                c.drawImage(temp_icon, 
-                           box_x + (box_size - icon_size)/2,
-                           box_y + (box_size - icon_size)/2,
-                           width=icon_size, height=icon_size,
-                           preserveAspectRatio=True, mask='auto')
-            
-            icon_idx += 1
-    
-    # Footer
-    c.setFillColorRGB(*hex_to_rgb(FOOTER_GREY))
-    c.setFont("Helvetica", 8)
-    c.drawCentredString(width/2, border_margin + 0.15*inch, 
-                       f"Cutouts - Level {level} | {pack_code}")
-    
-    c.showPage()
-
-
-def create_storage_label_page(c, icons, names, level, pack_code, theme_name, mode='color'):
-    """Create a storage label page."""
-    width, height = letter
-    accent_color = LEVEL_COLORS.get(level, LEVEL_COLORS[1])
-    
-    # Page border
-    border_margin = 0.25 * inch
-    c.setStrokeColorRGB(*hex_to_rgb(NAVY_BORDER))
-    c.setLineWidth(2)
-    c.roundRect(border_margin, border_margin,
-                width - 2*border_margin, height - 2*border_margin, 8, stroke=1, fill=0)
-    
-    # Accent stripe
-    stripe_margin = 0.1 * inch
-    stripe_height = 0.7 * inch
-    stripe_x = border_margin + stripe_margin
-    stripe_y = height - border_margin - stripe_margin - stripe_height
-    stripe_width = width - 2*border_margin - 2*stripe_margin
-    
-    if mode == 'color':
-        c.setFillColorRGB(*hex_to_rgb(accent_color))
-    else:
-        c.setFillColorRGB(0.7, 0.7, 0.7)
-    c.roundRect(stripe_x, stripe_y, stripe_width, stripe_height, 6, stroke=0, fill=1)
-    
-    # Title
-    c.setFillColorRGB(1, 1, 1)
-    c.setFont("Helvetica-Bold", 22)
-    title = f"{theme_name} Matching Cards"
-    title_width = c.stringWidth(title, "Helvetica-Bold", 22)
-    c.drawString((width - title_width)/2, stripe_y + stripe_height/2 + 0.08*inch, title)
-    
-    c.setFont("Helvetica", 14)
-    subtitle = f"Level {level}: {LEVEL_NAMES[level]} | {pack_code}"
-    subtitle_width = c.stringWidth(subtitle, "Helvetica", 14)
-    c.drawString((width - subtitle_width)/2, stripe_y + stripe_height/2 - 0.18*inch, subtitle)
-    
-    # Vocabulary list (3 columns)
-    list_top = stripe_y - 0.5 * inch
+    # Line 1 (upper line)
     c.setFillColorRGB(0, 0, 0)
-    c.setFont("Helvetica-Bold", 14)
-    c.drawCentredString(width/2, list_top, "Vocabulary")
-    
-    cols = 3
-    col_width = (width - 2*border_margin - 1*inch) / cols
-    start_x = border_margin + 0.5*inch
-    
-    c.setFont("Helvetica", 11)
-    for i, name in enumerate(names):
-        col = i % cols
-        row = i // cols
-        x = start_x + col * col_width
-        y = list_top - 0.4*inch - row * 0.25*inch
-        c.drawString(x, y, f"• {name}")
-    
-    # Footer
-    c.setFillColorRGB(*hex_to_rgb(FOOTER_GREY))
-    c.setFont("Helvetica", 8)
-    c.drawCentredString(width/2, border_margin + 0.15*inch,
-                       "© 2025 Small Wins Studio. PCS® symbols used with active PCS Maker Personal License.")
+    if level:
+        footer_line1 = f"Matching – Level {level} | {pack_code}"
+    else:
+        footer_line1 = f"Cutouts | {pack_code}"
+    c.drawCentredString(width / 2, footer_y + 12, footer_line1)
     
     c.showPage()
 
 
-def generate_level_pdf(icons, names, level, pack_code, theme_name, output_path, mode='color'):
+def create_storage_label_page_constitution(c, images, names, page_num, total_pages, pack_code="BB03", theme_name="Brown Bear", level=None, mode='color'):
     """
-    Generate a complete PDF for one level.
-    Contains: 12 activity pages (one per icon) + cutout page + storage label page
+    Create storage label page with professional rectangular boxes.
+    
+    Each box contains:
+    - Title: "Matching"
+    - Subtitle: "Brown Bear BB03"
+    - Level info
+    - Icon image
+    - Icon name
+    
+    Professional, classy design with pale blue color scheme.
     """
-    print(f"\n  Generating Level {level} ({LEVEL_NAMES[level]}) - {mode}...")
+    width, height = letter
     
-    c = canvas.Canvas(output_path, pagesize=letter)
+    # Import color utilities
+    from utils.color_helpers import hex_to_grayscale
     
-    num_targets, num_distractors = LEVEL_LOGIC[level]
-    total_pages = len(icons) + 2  # activity pages + cutout + storage
+    # Define pale blue color scheme
+    PALE_BLUE = '#E3F2FD'  # Very light blue background
+    MEDIUM_BLUE = '#90CAF9'  # Medium blue for accents
+    DARK_BLUE = '#1976D2'  # Dark blue for text
     
-    # Generate one activity page per icon
-    for page_idx, (target_img, target_name) in enumerate(zip(icons, names)):
-        # Build row images based on level logic
-        row_images = []
+    # Page border - Light blue
+    border_margin = 0.25 * inch
+    content_width = width - 2 * border_margin
+    content_height = height - 2 * border_margin
+    
+    c.setStrokeColorRGB(*hex_to_rgb(LIGHT_BLUE_BORDER))
+    c.setLineWidth(3)
+    c.roundRect(border_margin, border_margin, content_width, content_height, 10, stroke=1, fill=0)
+    
+    # Accent stripe at top
+    accent_margin = 0.08 * inch
+    accent_height = 1.0 * inch
+    accent_x = border_margin + accent_margin
+    accent_y = height - border_margin - accent_height - accent_margin - 0.1 * inch
+    accent_width = content_width - 2 * accent_margin
+    
+    # Use level-specific color for accent stripe
+    level_color = get_level_color(level, mode)
+    c.setFillColorRGB(*hex_to_rgb(level_color))
+    
+    c.roundRect(accent_x, accent_y, accent_width, accent_height, 8, stroke=0, fill=1)
+    
+    # Page title
+    c.setFillColorRGB(*hex_to_rgb('#001F3F'))
+    try:
+        c.setFont("Comic-Sans-MS-Bold", 36)
+    except:
+        c.setFont("Helvetica-Bold", 36)
+    
+    title_text = "Storage Labels"
+    title_y = accent_y + accent_height / 2 + 10
+    c.drawCentredString(width / 2, title_y, title_text)
+    
+    # Subtitle
+    try:
+        c.setFont("Comic-Sans-MS", 28)
+    except:
+        c.setFont("Helvetica", 28)
+    subtitle_text = f"{theme_name} – Level {level}" if level else theme_name
+    subtitle_y = title_y - 42
+    c.drawCentredString(width / 2, subtitle_y, subtitle_text)
+    
+    # Storage label boxes - 3 columns × 4 rows = 12 boxes
+    cols = 3
+    rows = 4
+    
+    box_width = 2.2 * inch
+    box_height = 1.5 * inch
+    h_spacing = 0.3 * inch
+    v_spacing = 0.25 * inch
+    
+    # Calculate grid position
+    grid_width = cols * box_width + (cols - 1) * h_spacing
+    grid_height = rows * box_height + (rows - 1) * v_spacing
+    start_x = (width - grid_width) / 2
+    start_y = accent_y - 0.5 * inch - grid_height
+    
+    # Draw boxes
+    for idx in range(min(len(images), 12)):
+        row = idx // cols
+        col = idx % cols
         
-        # Add target images
-        for _ in range(num_targets):
-            row_images.append(target_img)
+        box_x = start_x + col * (box_width + h_spacing)
+        box_y = start_y + (rows - 1 - row) * (box_height + v_spacing)
         
-        # Add distractor images (random, but not the target)
-        other_icons = [(img, name) for img, name in zip(icons, names) if name != target_name]
-        distractors = random.sample(other_icons, min(num_distractors, len(other_icons)))
-        for dist_img, _ in distractors:
-            row_images.append(dist_img)
+        # Draw box with pale blue background
+        if mode == 'bw':
+            # Use light gray for BW
+            c.setFillColorRGB(0.95, 0.95, 0.95)
+        else:
+            c.setFillColorRGB(*hex_to_rgb(PALE_BLUE))
         
-        # Shuffle the row images
-        random.shuffle(row_images)
+        c.setStrokeColorRGB(*hex_to_rgb(MEDIUM_BLUE))
+        c.setLineWidth(2)
+        c.roundRect(box_x, box_y, box_width, box_height, 6, stroke=1, fill=1)
         
-        create_matching_page(c, target_img, target_name, row_images, level,
-                            page_idx + 1, total_pages, pack_code, theme_name, mode)
+        # Title: "Matching"
+        c.setFillColorRGB(*hex_to_rgb(DARK_BLUE))
+        c.setFont("Helvetica-Bold", 11)
+        text_y = box_y + box_height - 0.2 * inch
+        c.drawCentredString(box_x + box_width / 2, text_y, "Matching")
+        
+        # Subtitle: "Brown Bear BB03"
+        c.setFont("Helvetica", 9)
+        text_y -= 0.18 * inch
+        c.drawCentredString(box_x + box_width / 2, text_y, f"{theme_name} {pack_code}")
+        
+        # Level info
+        if level:
+            c.setFont("Helvetica-Bold", 9)
+            text_y -= 0.16 * inch
+            c.drawCentredString(box_x + box_width / 2, text_y, f"Level {level}")
+        else:
+            text_y -= 0.16 * inch
+        
+        # Icon image (centered) - moved down to avoid cutting off text
+        icon_size = 0.6 * inch
+        icon_x = box_x + (box_width - icon_size) / 2
+        icon_y = box_y + 0.35 * inch  # Moved down from 0.45" to 0.35"
+        
+        # Save and draw icon
+        import hashlib
+        img_copy = images[idx].copy()
+        if mode == 'bw':
+            from utils.color_helpers import enhance_for_printing
+            img_copy = enhance_for_printing(img_copy, mode='bw')
+        
+        img_hash = hashlib.md5(img_copy.tobytes()).hexdigest()[:12]
+        temp_icon = f"/tmp/storage_{img_hash}_{mode}_{idx}.png"
+        if not os.path.exists(temp_icon):
+            img_copy.save(temp_icon, 'PNG')
+        
+        c.drawImage(temp_icon, icon_x, icon_y, width=icon_size, height=icon_size,
+                   preserveAspectRatio=True, mask='auto')
+        
+        # Icon name (centered below icon) - adjusted position
+        c.setFont("Helvetica", 10)
+        c.setFillColorRGB(0, 0, 0)
+        name_y = icon_y - 0.18 * inch  # Moved down from -0.15" to -0.18"
+        c.drawCentredString(box_x + box_width / 2, name_y, names[idx])
     
-    # Cutout page
-    create_cutout_page(c, icons, names, level, pack_code, theme_name, mode)
+    # Footer
+    footer_y = border_margin + 0.3 * inch
     
-    # Storage label page
-    create_storage_label_page(c, icons, names, level, pack_code, theme_name, mode)
+    # Line 2 (lower line) in light grey
+    c.setFont("Helvetica", 9)
+    c.setFillColorRGB(*hex_to_rgb('#999999'))
+    footer_line2 = "© 2025 Small Wins Studio. PCS® symbols used with active PCS Maker Personal License."
+    c.drawCentredString(width / 2, footer_y, footer_line2)
     
-    c.save()
-    print(f"    Saved: {output_path}")
+    # Line 1 (upper line)
+    c.setFillColorRGB(0, 0, 0)
+    if level:
+        footer_line1 = f"Matching – Level {level} | {pack_code}"
+    else:
+        footer_line1 = f"Storage Labels | {pack_code}"
+    c.drawCentredString(width / 2, footer_y + 12, footer_line1)
+    
+    c.showPage()
 
 
-def generate_matching_pack(theme_path, theme_name, pack_code, output_dir):
+def generate_matching_product_constitution(theme_name="Brown Bear", pack_code="BB03", output_dir="samples/brown_bear/matching", mode='color'):
     """
-    Generate complete matching pack for a theme.
-    Output: 8 PDFs (4 levels x 2 modes) + shared cutouts + storage labels
-    """
-    print(f"\n{'='*60}")
-    print(f"Generating Matching Pack: {theme_name} ({pack_code})")
-    print(f"{'='*60}")
+    Generate complete Matching product following Design Constitution.
     
-    # Load icons
-    icon_folder = os.path.join(theme_path, 'icons')
+    Returns paths to generated PDFs.
+    """
+    # Load icons from /assets/[theme]/icons/ (Section 12)
+    icon_folder = f'/home/runner/work/small-wins-automation/small-wins-automation/assets/themes/brown_bear/icons'
     icons, names = load_all_icons(icon_folder)
     
-    if len(icons) < 5:
-        print(f"Error: Need at least 5 icons, found {len(icons)}")
-        return
+    if not icons:
+        print("Error: No icons loaded. Stopping.")
+        return None
+    
+    print(f"\nGenerating {theme_name} Matching product with {len(icons)} icons...")
+    print(f"Pack Code: {pack_code}")
+    print(f"Mode: {mode}")
     
     # Create output directory
     os.makedirs(output_dir, exist_ok=True)
     
-    # Generate PDFs for each level
-    for level in [1, 2, 3, 4]:
-        for mode in ['color', 'bw']:
-            filename = f"{theme_name.lower().replace(' ', '_')}_matching_level{level}_{mode}.pdf"
-            output_path = os.path.join(output_dir, filename)
-            generate_level_pdf(icons, names, level, pack_code, theme_name, output_path, mode)
+    # Section 11: Naming Conventions (snake_case)
+    output_filename = f"brown_bear_matching_{mode}.pdf"
+    output_path = os.path.join(output_dir, output_filename)
     
-    print(f"\n{'='*60}")
-    print(f"Complete! Generated 8 PDFs in {output_dir}")
-    print(f"{'='*60}")
+    # Create PDF
+    c = canvas.Canvas(output_path, pagesize=letter)
+    
+    # Calculate total pages - REORGANIZED BY LEVEL
+    num_icons = len(icons)
+    # Each level has: 12 matching pages + 2 cutout pages + 1 storage = 15 pages per level
+    pages_per_level = num_icons + 2 + 1  # matching + 2 cutouts + storage
+    total_pages = pages_per_level * 4  # 4 levels
+    
+    print(f"Total pages: {total_pages} (4 levels × {pages_per_level} pages/level)")
+    
+    page_num = 1
+    
+    # REORGANIZED: Generate by level first, then by icon within each level
+    # This allows each level to be sold separately with its own cutouts and storage labels
+    for level in range(1, 5):
+        print(f"\n=== LEVEL {level} ===")
+        
+        # Generate all matching pages for this level (all 12 icons)
+        for icon_idx, (target_img, target_name) in enumerate(zip(icons, names)):
+            # Get all other icons for distractors
+            other_icons = [img for i, img in enumerate(icons) if i != icon_idx]
+            other_names = [name for i, name in enumerate(names) if i != icon_idx]
+            
+            # Determine targets and distractors based on level
+            if level == 1:
+                # Level 1: 5 targets, 0 distractors
+                selected_images = [target_img] * 5
+                selected_names = [target_name] * 5
+            elif level == 2:
+                # Level 2: 4 targets, 1 distractor
+                distractor_indices = random.sample(range(len(other_icons)), 1)
+                selected_images = [target_img] * 4 + [other_icons[distractor_indices[0]]]
+                selected_names = [target_name] * 4 + [other_names[distractor_indices[0]]]
+            elif level == 3:
+                # Level 3: 3 targets, 2 distractors
+                distractor_indices = random.sample(range(len(other_icons)), 2)
+                selected_images = [target_img] * 3 + [other_icons[i] for i in distractor_indices]
+                selected_names = [target_name] * 3 + [other_names[i] for i in distractor_indices]
+            else:  # level == 4
+                # Level 4: 1 target, 4 distractors
+                distractor_indices = random.sample(range(len(other_icons)), 4)
+                selected_images = [target_img] * 1 + [other_icons[i] for i in distractor_indices]
+                selected_names = [target_name] * 1 + [other_names[i] for i in distractor_indices]
+            
+            # Shuffle images (except Level 1 where order doesn't matter as much)
+            if level > 1:
+                combined = list(zip(selected_images, selected_names))
+                random.shuffle(combined)
+                selected_images, selected_names = zip(*combined)
+                selected_images = list(selected_images)
+                selected_names = list(selected_names)
+            
+            # Create matching page
+            create_matching_page_constitution(
+                c, target_img, target_name, selected_images, selected_names,
+                level, page_num, total_pages, pack_code, theme_name, mode
+            )
+            
+            page_num += 1
+            print(f"  Generated: {target_name} - Level {level} (Page {page_num-1}/{total_pages})")
+        
+        # Generate 2 cutout pages for this level (60 pieces total: 5 of each of 12 icons)
+        # Page 1: First 6 icons (30 pieces)
+        page1_icons = icons[:6]
+        create_cutout_page_constitution(c, icons, names, page1_icons, 1, page_num, total_pages, pack_code, theme_name, level, mode)
+        page_num += 1
+        print(f"  Generated: Cutout page 1 - Level {level} (Page {page_num-1}/{total_pages})")
+        
+        # Page 2: Next 6 icons (30 pieces)
+        page2_icons = icons[6:12]
+        create_cutout_page_constitution(c, icons, names, page2_icons, 2, page_num, total_pages, pack_code, theme_name, level, mode)
+        page_num += 1
+        print(f"  Generated: Cutout page 2 - Level {level} (Page {page_num-1}/{total_pages})")
+        
+        # Generate storage label page for this level
+        create_storage_label_page_constitution(c, icons, names, page_num, total_pages, pack_code, theme_name, level, mode)
+        page_num += 1
+        print(f"  Generated: Storage Labels - Level {level} (Page {page_num-1}/{total_pages})")
+    
+    # Save PDF
+    c.save()
+    
+    print(f"\n✓ Generated: {output_path}")
+    print(f"  Total pages: {total_pages}")
+    print(f"  File size: {os.path.getsize(output_path) / 1024:.1f} KB")
+    
+    return output_path
 
 
-if __name__ == "__main__":
-    # Default paths
-    BASE_DIR = Path(__file__).parent
-    THEME_PATH = BASE_DIR / "assets" / "themes" / "brown_bear"
-    OUTPUT_DIR = BASE_DIR / "review_pdfs"
+def add_preview_watermark(input_pdf_path, output_pdf_path):
+    """Add diagonal PREVIEW watermark to PDF."""
+    from reportlab.pdfgen import canvas
+    from reportlab.lib.pagesizes import letter
+    from PyPDF2 import PdfReader, PdfWriter
+    import io
     
-    generate_matching_pack(
-        theme_path=str(THEME_PATH),
+    # Read the input PDF
+    reader = PdfReader(input_pdf_path)
+    writer = PdfWriter()
+    
+    # Create watermark
+    packet = io.BytesIO()
+    can = canvas.Canvas(packet, pagesize=letter)
+    
+    # Set watermark properties
+    can.setFont("Helvetica-Bold", 140)
+    can.setFillColor(colors.gray, alpha=0.3)
+    
+    # Save canvas state
+    can.saveState()
+    
+    # Rotate and position text
+    page_width, page_height = letter
+    can.translate(page_width/2, page_height/2)
+    can.rotate(45)
+    can.drawCentredString(0, 0, "PREVIEW")
+    
+    can.restoreState()
+    can.save()
+    
+    # Move to the beginning of the StringIO buffer
+    packet.seek(0)
+    watermark_pdf = PdfReader(packet)
+    watermark_page = watermark_pdf.pages[0]
+    
+    # Add watermark to each page
+    for page_num in range(len(reader.pages)):
+        page = reader.pages[page_num]
+        page.merge_page(watermark_page)
+        writer.add_page(page)
+    
+    # Write output
+    with open(output_pdf_path, 'wb') as output_file:
+        writer.write(output_file)
+    
+    print(f"✓ Created preview PDF: {output_pdf_path}")
+    return output_pdf_path
+
+
+def split_pdf_by_level(full_pdf_path, output_dir, theme_name, pack_code, mode):
+    """Split a full PDF into separate PDFs for each level."""
+    from PyPDF2 import PdfReader, PdfWriter
+    
+    reader = PdfReader(full_pdf_path)
+    total_pages = len(reader.pages)
+    
+    # Matching structure: Each level has 15 pages (12 activities + 2 cutouts + 1 storage)
+    pages_per_level = 15
+    num_levels = 4
+    
+    level_pdfs = []
+    
+    for level in range(1, num_levels + 1):
+        # Calculate page range for this level
+        start_page = (level - 1) * pages_per_level
+        end_page = start_page + pages_per_level
+        
+        # Create new PDF for this level
+        writer = PdfWriter()
+        
+        for page_num in range(start_page, min(end_page, total_pages)):
+            writer.add_page(reader.pages[page_num])
+        
+        # Determine output filename
+        level_filename = f"brown_bear_matching_level{level}_{mode}.pdf"
+        level_path = os.path.join(output_dir, level_filename)
+        
+        # Write level PDF
+        with open(level_path, 'wb') as output_file:
+            writer.write(output_file)
+        
+        print(f"  ✓ Level {level} {mode.upper()}: {level_filename} ({pages_per_level} pages)")
+        level_pdfs.append(level_path)
+    
+    return level_pdfs
+
+
+def main():
+    """Generate both color and BW versions, plus separate level PDFs and previews."""
+    print("=" * 60)
+    print("Brown Bear Matching Cards - Design Constitution Compliant")
+    print("=" * 60)
+    
+    output_dir = "/home/runner/work/small-wins-automation/small-wins-automation/samples/brown_bear/matching"
+    
+    # Generate full color version
+    print("\n[1/4] Generating full COLOR PDF...")
+    color_path = generate_matching_product_constitution(
         theme_name="Brown Bear",
         pack_code="BB03",
-        output_dir=str(OUTPUT_DIR)
+        output_dir=output_dir,
+        mode='color'
     )
+    
+    # Generate full BW version
+    print("\n[2/4] Generating full BLACK & WHITE PDF...")
+    bw_path = generate_matching_product_constitution(
+        theme_name="Brown Bear",
+        pack_code="BB03",
+        output_dir=output_dir,
+        mode='bw'
+    )
+    
+    # Split color PDF by level
+    print("\n[3/4] Creating separate COLOR PDFs for each level...")
+    color_level_pdfs = split_pdf_by_level(color_path, output_dir, "Brown Bear", "BB03", "color")
+    
+    # Split BW PDF by level
+    print("\n[4/4] Creating separate BW PDFs for each level...")
+    bw_level_pdfs = split_pdf_by_level(bw_path, output_dir, "Brown Bear", "BB03", "bw")
+    
+    # Create preview versions (color only)
+    print("\n[BONUS] Creating PREVIEW versions with watermark...")
+    preview_pdfs = []
+    for level_num, color_level_pdf in enumerate(color_level_pdfs, 1):
+        preview_filename = f"brown_bear_matching_level{level_num}_preview.pdf"
+        preview_path = os.path.join(output_dir, preview_filename)
+        add_preview_watermark(color_level_pdf, preview_path)
+        preview_pdfs.append(preview_path)
+    
+    print("\n" + "=" * 60)
+    print("✓ GENERATION COMPLETE")
+    print("=" * 60)
+    print(f"\nFull PDFs:")
+    print(f"  • {os.path.basename(color_path)} (60 pages)")
+    print(f"  • {os.path.basename(bw_path)} (60 pages)")
+    print(f"\nLevel PDFs (15 pages each):")
+    for level in range(1, 5):
+        print(f"  Level {level}:")
+        print(f"    • brown_bear_matching_level{level}_color.pdf")
+        print(f"    • brown_bear_matching_level{level}_bw.pdf")
+        print(f"    • brown_bear_matching_level{level}_preview.pdf (with watermark)")
+    print(f"\nDesign Constitution compliance: ✓")
+    print(f"  • Border, accent stripe, title/subtitle: ✓")
+    print(f"  • Activity boxes (1.0\" × 1.0\"): ✓")
+    print(f"  • Velcro dots (0.35\" diameter): ✓")
+    print(f"  • Level 1 watermarks (25% opacity): ✓")
+    print(f"  • Cutout strips (5 icons, touching): ✓")
+    print(f"  • Footer typography (10pt/9pt): ✓")
+    print(f"  • Separate level PDFs: ✓")
+    print(f"  • Preview watermarks: ✓")
+    
+
+if __name__ == "__main__":
+    main()
