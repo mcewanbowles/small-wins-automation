@@ -97,11 +97,17 @@ The following scripts at the repository root should be evaluated:
 
 ## Cleanup Steps
 
-1. **Create the target folder structure** (done in this branch)
-2. **Copy active generators** from `copilot/build-python-automation-system`:
-   - `matching_cards.py` → `generators/matching/__init__.py`
-   - `find_cover.py` → `generators/find_cover/__init__.py`
-   - `aac_book_board.py` → `generators/aac/__init__.py`
+1. **Create the target folder structure**
+   - The `copilot/backup-snapshot-pr7` branch has the clean folder structure already created
+   - Folders: `generators/matching/`, `generators/find_cover/`, `generators/aac/`, `deprecated_generators/`
+
+2. **Copy active generators** from `copilot/build-python-automation-system` branch:
+   - `generators/matching_cards.py` → `generators/matching/__init__.py`
+   - `generators/find_cover.py` → `generators/find_cover/__init__.py`
+   - `generators/aac_book_board.py` → `generators/aac/__init__.py`
+   
+   **Note:** Verify these files exist on the source branch before copying. If file names differ, check for similar files (e.g., `matching.py` instead of `matching_cards.py`).
+
 3. **Move quarantined generators** to `deprecated_generators/`
 4. **Delete duplicate/backup files**
 5. **Consolidate entry points** into a single `cli.py` or `main.py`
