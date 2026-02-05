@@ -1,0 +1,98 @@
+{
+  "theme": {
+    "name": "Brown Bear",
+    "code": "BB",
+    "pack_code": "BB03",
+    "description": "Brown Bear, Brown Bear, What Do You See? themed Find and Cover activities"
+  },
+  
+  "icons": [
+    {
+      "name": "Black Sheep",
+      "filename": "Black Sheep.png",
+      "path": "/assets/brown_bear/icons/Black Sheep.png",
+      "description": "Black sheep character"
+    },
+    {
+      "name": "Blue Horse",
+      "filename": "Blue Horse.png",
+      "path": "/assets/brown_bear/icons/Blue Horse.png",
+      "description": "Blue horse character"
+    },
+    {
+      "name": "Brown Bear",
+      "filename": "Brown Bear.png",
+      "path": "/assets/brown_bear/icons/Brown Bear.png",
+      "description": "Brown bear character"
+    },
+    {
+      "name": "Green Frog",
+      "filename": "Green Frog.png",
+      "path": "/assets/brown_bear/icons/Green Frog.png",
+      "description": "Green frog character"
+    },
+    {
+      "name": "Purple Cat",
+      "filename": "Purple Cat.png",
+      "path": "/assets/brown_bear/icons/Purple Cat.png",
+      "description": "Purple cat character"
+    },
+    {
+      "name": "Red Bird",
+      "filename": "Red Bird.png",
+      "path": "/assets/brown_bear/icons/Red Bird.png",
+      "description": "Red bird character"
+    },
+    {
+      "name": "White Dog",
+      "filename": "White Dog.png",
+      "path": "/assets/brown_bear/icons/White Dog.png",
+      "description": "White dog character"
+    },
+    {
+      "name": "Yellow Duck",
+      "filename": "Yellow Duck.png",
+      "path": "/assets/brown_bear/icons/Yellow Duck.png",
+      "description": "Yellow duck character"
+    },
+    {
+      "name": "Children",
+      "filename": "Children.png",
+      "path": "/assets/brown_bear/icons/Children.png",
+      "description": "Children looking at animals"
+    },
+    {
+      "name": "Goldfish",
+      "filename": "Goldfish.png",
+      "path": "/assets/brown_bear/icons/Goldfish.png",
+      "description": "Goldfish character"
+    },
+    {
+      "name": "Eyes",
+      "filename": "See.png",
+      "path": "/assets/brown_bear/icons/See.png",
+      "description": "Eyes representing 'see'"
+    },
+    {
+      "name": "Teacher",
+      "filename": "Teacher.png",
+      "path": "/assets/brown_bear/icons/Teacher.png",
+      "description": "Teacher character"
+    }
+  ],
+  
+  "output": {
+    "directory": "/samples/brown_bear/find_cover/",
+    "color_filename": "brown_bear_find_cover_color.pdf",
+    "bw_filename": "brown_bear_find_cover_bw.pdf"
+  },
+  
+  "metadata": {
+    "total_pages": 39,
+    "levels": 3,
+    "activities_per_level": 12,
+    "storage_labels_per_level": 1,
+    "created": "2025-02-03",
+    "version": "2.2"
+  }
+}

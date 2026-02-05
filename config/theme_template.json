@@ -1,0 +1,77 @@
+{
+  "theme": {
+    "name": "Theme Name",
+    "code": "TH01",
+    "description": "Description of the theme"
+  },
+  "icons": [
+    {
+      "filename": "icon1.png",
+      "display_name": "Icon 1 Name",
+      "description": "Description of icon 1"
+    },
+    {
+      "filename": "icon2.png",
+      "display_name": "Icon 2 Name",
+      "description": "Description of icon 2"
+    },
+    {
+      "filename": "icon3.png",
+      "display_name": "Icon 3 Name",
+      "description": "Description of icon 3"
+    },
+    {
+      "filename": "icon4.png",
+      "display_name": "Icon 4 Name",
+      "description": "Description of icon 4"
+    },
+    {
+      "filename": "icon5.png",
+      "display_name": "Icon 5 Name",
+      "description": "Description of icon 5"
+    },
+    {
+      "filename": "icon6.png",
+      "display_name": "Icon 6 Name",
+      "description": "Description of icon 6"
+    },
+    {
+      "filename": "icon7.png",
+      "display_name": "Icon 7 Name",
+      "description": "Description of icon 7"
+    },
+    {
+      "filename": "icon8.png",
+      "display_name": "Icon 8 Name",
+      "description": "Description of icon 8"
+    },
+    {
+      "filename": "icon9.png",
+      "display_name": "Icon 9 Name",
+      "description": "Description of icon 9"
+    },
+    {
+      "filename": "icon10.png",
+      "display_name": "Icon 10 Name",
+      "description": "Description of icon 10"
+    },
+    {
+      "filename": "icon11.png",
+      "display_name": "Icon 11 Name",
+      "description": "Description of icon 11"
+    },
+    {
+      "filename": "icon12.png",
+      "display_name": "Icon 12 Name",
+      "description": "Description of icon 12"
+    }
+  ],
+  "paths": {
+    "icons_dir": "/assets/themes/theme_name/icons/",
+    "output_dir": "/samples/theme_name/matching/"
+  },
+  "output": {
+    "color_filename": "theme_name_matching_color.pdf",
+    "bw_filename": "theme_name_matching_bw.pdf"
+  }
+}
