@@ -1,41 +1,182 @@
 # Small Wins Studio — Master Product Specification
 
+> **DEFINITIVE SPEC** — No optional variants unless explicitly marked as "BACKLOG".
+
 This document defines the COMPLETE requirements for all TpT products. Every generator MUST produce outputs that comply with this specification.
 
 ---
 
-## 1. Product Structure Overview
+## 1. Key Definitions
 
-Every product (e.g., Matching, Find+Cover, AAC) consists of:
+| Term | Definition |
+|------|------------|
+| **Product** | ONE TpT listing = ONE final ZIP file |
+| **Level** | A specific difficulty variant (e.g., "Matching Level 2" = one product/listing/ZIP) |
+| **Artefact** | Any generated file (PDF, PNG, TXT) |
+| **Listing assets** | Preview/thumbnail/SEO text — NOT inside product PDFs |
+| **Product PDFs** | Cover, Instructions, Activity pages — ARE inside the ZIP |
 
+---
+
+## 2. Level Color Coding (UNIVERSAL)
+
+These colors are CONSISTENT across ALL products (covers, labels, page headers, accent stripes):
+
+| Level | Color | Hex Code | Name |
+|-------|-------|----------|------|
+| **L1** | 🟠 Orange | `#F4B400` | Errorless |
+| **L2** | 🔵 Blue | `#4285F4` | Distractors |
+| **L3** | 🟢 Green | `#34A853` | Picture + Text |
+| **L4** | 🟣 Purple | `#8C06F2` | Generalisation |
+
+> **IMPORTANT:** The accent stripe color instantly tells teachers which level they're using.
+
+---
+
+## 3. Product Specifications by Type
+
+### 3.1 MATCHING — 4 Levels
+
+#### Level 1: Errorless (🟠 Orange)
+- **Matching type:** Identical picture → picture
+- **Distractors:** None
+- **Logic:** No wrong answers (any placement is correct)
+- **Representation:** Single type only (icons only OR photos only)
+
+#### Level 2: Distractors (🔵 Blue)
+- **Matching type:** Picture → picture with distractors
+- **Distractors:** Start obvious, become more similar within the set
+- **Representation:** Single type only (icons only OR photos only) per page
+
+#### Level 3: Picture + Text (🟢 Green)
+- **Content:** BOTH directions included in same product:
+  - A) Picture → Word (words in target boxes)
+  - B) Word → Picture (words on cards matched to pictures)
+- **Orientations:** BOTH left/right for each direction:
+  - Version 1: Prompts/targets on RIGHT
+  - Version 2: Prompts/targets on LEFT
+- **Note:** Increased page count is intentional for L3
+- **Extra outputs:** Cutouts with text required
+
+#### Level 4: Generalisation (🟣 Purple)
+- **Matching type:** Icon ↔ Real photo (cross-representation)
+- **Distractors:** Hardest (most similar items)
+- **Additional set:** BW ↔ Colour matching (requires colouring images + real images)
+
+---
+
+### 3.2 FIND + COVER — 4 Levels
+
+Levels based on distractor load:
+
+| Level | Distractors | Layout | Description |
+|-------|-------------|--------|-------------|
+| **L1** | Lowest | Fewer items | Easy visual search |
+| **L2** | More | More items | Still fairly distinct |
+| **L3** | High | Tighter layout | Items more similar |
+| **L4** | Highest | Densest layout | Most similar items |
+
+---
+
+### 3.3 AAC — NO LEVELS
+
+- AAC is **STD only** (one product stream)
+- No differentiation levels
+- Single product per theme
+
+---
+
+## 4. Required "9 Parts" Output Per Product
+
+For EVERY product listing (e.g., `BrownBear_Matching_Level2`), generate these artefacts:
+
+### 4.1 PDFs (Inside the ZIP)
+
+| # | File | Description | Inside ZIP? |
+|---|------|-------------|-------------|
+| 1 | **Cover** | Title page with branding, level color | ✅ Yes |
+| 2 | **Instructions** | How to use this product | ✅ Yes |
+| 3 | **Activity Pages (Color)** | Main activity content | ✅ Yes |
+| 4 | **Activity Pages (B&W)** | Printer-friendly version | ✅ Yes |
+| 5 | **Storage Labels (Color)** | For organizing materials | ✅ Yes |
+| 6 | **Storage Labels (B&W)** | Printer-friendly version | ✅ Yes |
+| 7 | **Terms of Use** | Copyright and usage rights | ✅ Yes |
+| 8 | **Credits** | Font/clip art attribution | ✅ Yes |
+
+### 4.2 Listing Assets (NOT in ZIP — for TpT upload)
+
+| # | File | Format | Purpose |
+|---|------|--------|---------|
+| 9 | **Thumbnail** | PNG (1000×1000) | TpT listing main image |
+| 10 | **Preview Images** | PNG (various) | TpT listing gallery |
+| 11 | **SEO Description** | TXT | Product description for TpT |
+
+### 4.3 Final Package
+
+| # | File | Contents |
+|---|------|----------|
+| 12 | **Product ZIP** | All PDFs (items 1-8) bundled for download |
+
+---
+
+## 5. File Naming Convention
+
+### Pattern
 ```
-📦 Product (e.g., "Matching")
-├── 📁 Level 1 (Errorless) — Color-coded
-├── 📁 Level 2 (Easy)
-├── 📁 Level 3 (Medium)
-├── 📁 Level 4 (Hard)
-├── 📄 Freebie Pack (1 page from each level)
-└── 📄 Bundle Pack (all levels combined)
+{Theme}_{Product}_Level{X}_{Variant}.{ext}
+```
+
+### Examples
+```
+BrownBear_Matching_Level1_Cover.pdf
+BrownBear_Matching_Level1_Activity_Color.pdf
+BrownBear_Matching_Level1_Activity_BW.pdf
+BrownBear_Matching_Level1_Storage_Color.pdf
+BrownBear_Matching_Level1_Storage_BW.pdf
+BrownBear_Matching_Level1_Instructions.pdf
+BrownBear_Matching_Level1_TOU.pdf
+BrownBear_Matching_Level1_Credits.pdf
+BrownBear_Matching_Level1.zip
+
+BrownBear_Matching_Level1_Thumbnail.png
+BrownBear_Matching_Level1_Preview1.png
+BrownBear_Matching_Level1_SEO.txt
 ```
 
 ---
 
-## 2. Level Color Coding
+## 6. Folder Structure
 
-Each difficulty level has a designated accent stripe color:
-
-| Level | Name | Color | Hex Code | Use |
-|-------|------|-------|----------|-----|
-| Level 1 | Errorless | 🟠 Orange | `#F4B400` | Accent stripe |
-| Level 2 | Easy | 🔵 Blue | `#4285F4` | Accent stripe |
-| Level 3 | Medium | 🟢 Green | `#34A853` | Accent stripe |
-| Level 4 | Hard | 🟣 Purple | `#8C06F2` | Accent stripe |
-
-> **Note:** These colors are used for the accent stripe on activity pages. The stripe color instantly tells teachers which level they're looking at.
+```
+exports/{date}_{theme}/
+├── matching/
+│   ├── level1/
+│   │   ├── BrownBear_Matching_Level1_Cover.pdf
+│   │   ├── BrownBear_Matching_Level1_Activity_Color.pdf
+│   │   ├── BrownBear_Matching_Level1_Activity_BW.pdf
+│   │   ├── BrownBear_Matching_Level1_Storage_Color.pdf
+│   │   ├── BrownBear_Matching_Level1_Storage_BW.pdf
+│   │   ├── BrownBear_Matching_Level1_Instructions.pdf
+│   │   ├── BrownBear_Matching_Level1_TOU.pdf
+│   │   ├── BrownBear_Matching_Level1_Credits.pdf
+│   │   ├── BrownBear_Matching_Level1.zip
+│   │   ├── BrownBear_Matching_Level1_Thumbnail.png
+│   │   ├── BrownBear_Matching_Level1_Preview1.png
+│   │   └── BrownBear_Matching_Level1_SEO.txt
+│   ├── level2/
+│   ├── level3/
+│   ├── level4/
+│   ├── freebie/
+│   └── bundle/
+├── find_cover/
+│   └── (same structure)
+└── aac/
+    └── BrownBear_AAC_STD.zip (no levels)
+```
 
 ---
 
-## 2.5 Page Layout & Branding
+## 7. Page Layout & Branding
 
 ### Page Structure (Top to Bottom)
 
@@ -48,12 +189,11 @@ Each difficulty level has a designated accent stripe color:
 │ │                                                     │ │  ← Page border
 │ │  ┌─────────────────────────────────────────────┐    │ │
 │ │  │     ACCENT STRIPE (Level Color)             │    │ │  ← Rounded corners
-│ │  │     "Matching Activity"                     │    │ │  ← Title
+│ │  │     "Matching Activity — Level 1"           │    │ │  ← Title
 │ │  │     "Brown Bear Theme"                      │    │ │  ← Subtitle
 │ │  └─────────────────────────────────────────────┘    │ │
 │ │                                                     │ │
 │ │              [ACTIVITY CONTENT]                     │ │
-│ │                                                     │ │
 │ │                                                     │ │
 │ │─────────────────────────────────────────────────────│ │
 │ │  © 2025 Small Wins Studio. All rights reserved.    │ │  ← Footer inside border
@@ -72,357 +212,65 @@ Each difficulty level has a designated accent stripe color:
 | Title Font | Arial Rounded MT Bold, 18pt, Navy |
 | Subtitle Font | Arial, 12pt, Dark Grey |
 
-### Header (Above Border)
+### Branding Elements
 
 | Element | Position | Style |
 |---------|----------|-------|
-| Pack Code | Top left | Grey (#666666), 8pt |
-| Page Numbers | Top right | Grey (#666666), 8pt, "Page X/Y" |
-| "Small Wins Studio" | Centered below pack code | Grey (#999999), 10pt |
-
-### Footer (Inside Border)
-
-| Element | Position | Style |
-|---------|----------|-------|
-| Copyright | Centered at bottom | Grey (#999999), 8pt |
-| Format | `© 2025 Small Wins Studio. All rights reserved.` |
-
-### Page Border
-
-| Property | Value |
-|----------|-------|
-| Stroke Width | 2–3 px |
-| Corner Radius | 0.12" |
-| Color | Navy (#1E3A5F) |
-| Margin from page edge | 0.5" on all sides |
+| Pack Code | Above border, left | Grey (#666666), 8pt |
+| Page Numbers | Above border, right | Grey (#666666), 8pt |
+| "Small Wins Studio" | Above border, center | Grey (#999999), 10pt |
+| Copyright | Footer inside border | Grey (#999999), 8pt |
 
 ---
 
-## 3. Required Outputs Per Level
+## 8. Available Icon Types
 
-Every level MUST include all of the following:
+Each theme has THREE types of images:
 
-### 3.1 Core PDFs
-
-| Output | Format | Required |
-|--------|--------|----------|
-| Activity Pages (Color) | PDF | ✅ Yes |
-| Activity Pages (B&W) | PDF | ✅ Yes |
-| Storage Labels (Color) | PDF | ✅ Yes |
-| Storage Labels (B&W) | PDF | ✅ Yes |
-
-### 3.2 Marketing Assets
-
-| Output | Format | Purpose | Required |
-|--------|--------|---------|----------|
-| Thumbnail | PNG (1000×1000px) | TpT listing main image | ✅ Yes |
-| Preview Images | PNG (various) | TpT listing gallery | ✅ Yes |
-| Cover Page | PDF | First page of product | ✅ Yes |
-
-### 3.3 Supporting Documents
-
-| Output | Format | Contents | Required |
-|--------|--------|----------|----------|
-| Instructions | PDF | How to use this product | ✅ Yes |
-| Terms of Use (TOU) | PDF | Copyright, usage rights | ✅ Yes |
-| Credits | PDF | Font/clip art credits | ✅ Yes |
-
-### 3.4 Final Package
-
-| Output | Format | Contents | Required |
-|--------|--------|----------|----------|
-| TpT ZIP | ZIP | All PDFs for one level | ✅ Yes |
-| SEO Description | TXT | Product description for TpT | ✅ Yes |
+| Type | Folder | Use |
+|------|--------|-----|
+| **Coloured Icons** | `/assets/themes/{theme}/icons/` | Standard activities |
+| **Real Images** | `/assets/themes/{theme}/real_images/` | Generalisation (L4) |
+| **Colouring Outlines** | `/assets/themes/{theme}/colouring/` | B&W matching, colouring |
 
 ---
 
-## 4. Branding Requirements
+## 9. Freebie & Bundle Packs
 
-All products MUST include consistent branding:
+### Freebie (BACKLOG)
+- 1 sample page from each level (3-4 pages total)
+- Same packaging (cover, instructions, TOU)
+- Purpose: Drive customers to buy full product
 
-### 4.1 Page Border
-- 2–3 px rounded rectangle border on every page
-- 0.12" corner radius
-- Border sits 0.5" from page edge
-
-### 4.2 Footer (Every Page)
-```
-{PACK_CODE} | {THEME} | Level {X} | Page {Y}/{TOTAL}
-© 2025 Small Wins Studio. PCS® symbols used with active PCS Maker Personal License.
-```
-
-### 4.3 Logo
-- Small Wins Studio logo on cover page
-- Located in bottom right of cover
-
-### 4.4 Copyright Notice
-- Present in footer of every page
-- Full copyright statement in TOU document
-
----
-
-## 5. File Naming Convention
-
-All files must follow this exact pattern:
-
-```
-{theme}_{product}_{level}_{variant}_{color}.{ext}
-```
-
-### Examples:
-```
-brown_bear_matching_level1_activity_color.pdf
-brown_bear_matching_level1_activity_bw.pdf
-brown_bear_matching_level1_storage_color.pdf
-brown_bear_matching_level1_storage_bw.pdf
-brown_bear_matching_level1_cover.pdf
-brown_bear_matching_level1_instructions.pdf
-brown_bear_matching_level1_thumbnail.png
-brown_bear_matching_level1_preview_1.png
-brown_bear_matching_level1.zip
-brown_bear_matching_level1_seo.txt
-```
-
----
-
-## 6. Folder Structure
-
-Exports must be organized as:
-
-```
-exports/{date}_{theme}/
-├── matching/
-│   ├── level1/
-│   │   ├── brown_bear_matching_level1_activity_color.pdf
-│   │   ├── brown_bear_matching_level1_activity_bw.pdf
-│   │   ├── brown_bear_matching_level1_storage_color.pdf
-│   │   ├── brown_bear_matching_level1_storage_bw.pdf
-│   │   ├── brown_bear_matching_level1_cover.pdf
-│   │   ├── brown_bear_matching_level1_instructions.pdf
-│   │   ├── brown_bear_matching_level1_thumbnail.png
-│   │   ├── brown_bear_matching_level1_preview_1.png
-│   │   ├── brown_bear_matching_level1_tou.pdf
-│   │   ├── brown_bear_matching_level1_credits.pdf
-│   │   ├── brown_bear_matching_level1.zip
-│   │   └── brown_bear_matching_level1_seo.txt
-│   ├── level2/
-│   ├── level3/
-│   ├── level4/
-│   ├── freebie/
-│   └── bundle/
-├── find_cover/
-│   └── (same structure)
-└── aac/
-    └── (same structure)
-```
-
----
-
-## 7. ZIP Contents (TpT Ready)
-
-Each level's ZIP file must contain:
-
-```
-{theme}_{product}_level{X}.zip
-├── {theme}_{product}_level{X}_activity_color.pdf
-├── {theme}_{product}_level{X}_activity_bw.pdf
-├── {theme}_{product}_level{X}_storage_color.pdf
-├── {theme}_{product}_level{X}_storage_bw.pdf
-├── {theme}_{product}_level{X}_cover.pdf
-├── {theme}_{product}_level{X}_instructions.pdf
-├── Terms_of_Use.pdf
-└── Credits.pdf
-```
-
-**Note:** Thumbnails and previews are NOT included in ZIP (uploaded separately to TpT).
-
----
-
-## 8. Freebie Pack Specification
-
-Purpose: Drive customers to buy the full bundle.
-
-### Contents:
-- 1 sample page from EACH level (3–4 pages total)
-- Cover page (marked as "FREEBIE SAMPLER")
-- Instructions
-- TOU & Credits
-- Promotional page linking to full bundle
-
-### File Naming:
-```
-{theme}_{product}_freebie.zip
-{theme}_{product}_freebie_seo.txt
-```
-
-### Freebie SEO Text Should Include:
-- "Try before you buy!"
-- Link/mention of full bundle
-- What's included in the sampler
-- Grade levels & skills covered
-
----
-
-## 9. Bundle Pack Specification
-
-Purpose: All levels in one discounted package.
-
-### Contents:
-- ALL levels (1–4) combined
+### Bundle (BACKLOG)
+- All levels combined at discount
 - Single cover page for bundle
-- Combined instructions
-- TOU & Credits
-
-### File Naming:
-```
-{theme}_{product}_bundle.zip
-{theme}_{product}_bundle_seo.txt
-```
 
 ---
 
-## 10. SEO Product Description Template
+## 10. Generator Checklist
 
-Each product must have a text file with TpT-ready description:
+Before a generator is considered complete:
 
-```txt
-📚 {PRODUCT_NAME} - {THEME} Theme | Level {X}
+### Per Product/Level:
+- [ ] Cover page (level color)
+- [ ] Instructions page
+- [ ] Activity pages (Color)
+- [ ] Activity pages (B&W)
+- [ ] Storage labels (Color)
+- [ ] Storage labels (B&W)
+- [ ] TOU page
+- [ ] Credits page
+- [ ] Final ZIP created
+- [ ] Thumbnail PNG
+- [ ] Preview images
+- [ ] SEO text file
 
-Perfect for special education, autism classrooms, and speech therapy!
-
-✨ WHAT'S INCLUDED:
-• {X} activity pages (color)
-• {X} activity pages (black & white)
-• Storage labels
-• Step-by-step instructions
-• Terms of Use
-
-🎯 SKILLS TARGETED:
-• {Skill 1}
-• {Skill 2}
-• {Skill 3}
-
-📋 LEVELS AVAILABLE:
-• Level 1: Errorless (scaffolded support)
-• Level 2: Easy
-• Level 3: Medium
-• Level 4: Hard
-
-💡 PERFECT FOR:
-• Special Education
-• Autism/ASD Classrooms
-• Speech Therapy
-• Early Intervention
-• Preschool & Kindergarten
-
-🔗 SAVE WITH THE BUNDLE:
-{Link to bundle product}
-
-© 2025 Small Wins Studio
-```
-
----
-
-## 11. Generator Checklist
-
-Before a generator is considered complete, verify:
-
-### Per Level:
-- [ ] Activity pages generated (color + B&W)
-- [ ] Storage labels generated (color + B&W)
-- [ ] Cover page generated
-- [ ] Thumbnail PNG generated (1000×1000)
-- [ ] Preview images generated
-- [ ] Instructions page generated
-- [ ] TOU included
-- [ ] Credits included
-- [ ] ZIP file created
-- [ ] SEO text file created
-
-### Per Product:
-- [ ] All levels complete (1–4)
-- [ ] Freebie pack created
-- [ ] Bundle pack created
-- [ ] Level color coding applied correctly
-- [ ] Branding consistent across all outputs
-- [ ] Footer on every page
-- [ ] File naming follows convention
-
----
-
-## 12. Available Icon Types
-
-Each theme has THREE types of images available:
-
-### 12.1 Icon Types
-
-| Type | Folder | Description | Use Case |
-|------|--------|-------------|----------|
-| **Coloured Icons** | `/assets/themes/{theme}/icons/` | Boardmaker-style colored icons | Activity pages, matching |
-| **Real Images** | `/assets/themes/{theme}/real_images/` | Photographs | Real-world recognition |
-| **Colouring Outlines** | `/assets/themes/{theme}/colouring/` | Black & white line art | Coloring activities |
-
-### 12.2 Brown Bear Theme Icons Available
-
-**Coloured Icons (Boardmaker-style):**
-- Brown bear, Red bird, Yellow duck, Blue horse
-- Green frog, Purple cat, White dog, Black sheep
-- Teacher, Children, Goldfish, See (eye)
-
-**Real Images (Photos):**
-- Bear, Bird, Cat, Dog, Duck, Eyes
-- Frog, Goldfish, Horse, Sheep, Teacher
-
-**Colouring Outlines:**
-- Bear, Bird, Cat, Dog, Duck
-- Frog, Goldfish, Horse, Sheep
-
-### 12.3 Global Assets
-
-| Asset Type | Location |
-|------------|----------|
-| AAC Core Icons | `/assets/global/aac_core/` |
-| AAC Core Text | `/assets/global/aac_core_text/` |
-| Colour Swatches | `/assets/global/colours/` |
-| Branding/Logo | `/assets/branding/` |
-
----
-
-## 13. Common Documents (Reusable)
-
-These documents are the same across all products and themes:
-
-| Document | Location | Notes |
-|----------|----------|-------|
-| Terms of Use | `/assets/global/tou.pdf` | Standard TOU |
-| Credits Template | `/assets/global/credits_template.pdf` | Update per product |
-| Instructions Template | `/assets/global/instructions_template.pdf` | Customize per product |
-
----
-
-## 14. Questions To Clarify With User
-
-The following details need user input before generators can be finalized:
-
-### Level Content (What's in each level?)
-
-| Product | Level 1 | Level 2 | Level 3 | Level 4 |
-|---------|---------|---------|---------|---------|
-| Matching | Errorless (identical matches) | ? | ? | ? |
-| Find+Cover | Errorless | ? | ? | ? |
-| AAC | ? | ? | ? | ? |
-
-### Documents To Create/Update
-
-- [ ] **Terms of Use (TOU)** — Does current version need updates?
-- [ ] **Activity Instructions** — Per-product instructions for teachers
-- [ ] **Product Description (SEO)** — Separate file or combined with TOU?
-
-### Design Decisions
-
-- [ ] Confirm level colors: L1=Orange, L2=Blue, L3=?, L4=?
-- [ ] Pack code format (e.g., "BB-M-L1" for Brown Bear Matching Level 1)
-- [ ] Any other branding elements needed?
+### Branding:
+- [ ] Accent stripe uses correct level color
+- [ ] Pack code and page numbers above border
+- [ ] "Small Wins Studio" branding present
+- [ ] Copyright footer on every page
 
 ---
 
@@ -430,5 +278,6 @@ The following details need user input before generators can be finalized:
 
 | Date | Version | Changes |
 |------|---------|---------|
-| 2026-02-05 | 1.1 | Added icon types, page layout details, questions section |
-| 2026-02-05 | 1.0 | Initial comprehensive specification |
+| 2026-02-05 | 2.0 | **DEFINITIVE SPEC** — Complete rewrite with exact level definitions for Matching/Find+Cover |
+| 2026-02-05 | 1.1 | Added icon types, page layout details |
+| 2026-02-05 | 1.0 | Initial specification |
