@@ -175,7 +175,7 @@ BrownBear_Matching_Level1_Activity_Color.pdf
 BrownBear_Matching_Level1_Activity_BW.pdf
 BrownBear_Matching_Level1_Storage_Color.pdf
 BrownBear_Matching_Level1_Storage_BW.pdf
-BrownBear_Matching_Level1_Instructions.pdf
+BrownBear_Matching_Level1_QuickStart.pdf
 BrownBear_Matching_Level1_TOU.pdf
 BrownBear_Matching_Level1_Credits.pdf
 BrownBear_Matching_Level1.zip
@@ -183,6 +183,9 @@ BrownBear_Matching_Level1.zip
 BrownBear_Matching_Level1_Thumbnail.png
 BrownBear_Matching_Level1_Preview1.png
 BrownBear_Matching_Level1_SEO.txt
+
+BrownBear_Matching_Freebie.zip
+BrownBear_Matching_Freebie_SEO.txt
 ```
 
 ---
