@@ -86,30 +86,30 @@ Levels based on distractor load:
 
 ---
 
-## 4. Required "9 Parts" Output Per Product
+## 4. Required Output Per Product
 
 For EVERY product listing (e.g., `BrownBear_Matching_Level2`), generate these artefacts:
 
 ### 4.1 PDFs (Inside the ZIP)
 
-| # | File | Description | Inside ZIP? |
-|---|------|-------------|-------------|
-| 1 | **Cover** | Title page with branding, level color | ✅ Yes |
-| 2 | **Instructions** | How to use this product | ✅ Yes |
-| 3 | **Activity Pages (Color)** | Main activity content | ✅ Yes |
-| 4 | **Activity Pages (B&W)** | Printer-friendly version | ✅ Yes |
-| 5 | **Storage Labels (Color)** | For organizing materials | ✅ Yes |
-| 6 | **Storage Labels (B&W)** | Printer-friendly version | ✅ Yes |
-| 7 | **Terms of Use** | Copyright and usage rights | ✅ Yes |
-| 8 | **Credits** | Font/clip art attribution | ✅ Yes |
+| # | File | Description | Details |
+|---|------|-------------|---------|
+| 1 | **Cover** | Title page with branding, level color | SMS branding, borders |
+| 2 | **Quick Start Instructions** | How to use this product | SMS branding, borders, product-specific |
+| 3 | **Activity Pages (Color)** | Main activity content | File folder format |
+| 4 | **Activity Pages (B&W)** | Printer-friendly version | File folder format |
+| 5 | **Storage Labels (Color)** | For organizing materials | **Include icons for visual effect** |
+| 6 | **Storage Labels (B&W)** | Printer-friendly version | **Include icons for visual effect** |
+| 7 | **Terms of Use** | Copyright and usage rights | Standard SMS TOU |
+| 8 | **Credits** | Font/clip art attribution | Standard credits |
 
-### 4.2 Listing Assets (NOT in ZIP — for TpT upload)
+### 4.2 Listing Assets (NOT in ZIP — for TpT upload separately)
 
 | # | File | Format | Purpose |
 |---|------|--------|---------|
-| 9 | **Thumbnail** | PNG (1000×1000) | TpT listing main image |
-| 10 | **Preview Images** | PNG (various) | TpT listing gallery |
-| 11 | **SEO Description** | TXT | Product description for TpT |
+| 9 | **Thumbnail** | PNG (1000×1000) | TpT listing main square image |
+| 10 | **Preview Images** | PNG (various) | **Sample activity pages showing the product in action** (e.g., matching card with cards on each side) |
+| 11 | **SEO Description** | TXT | Product description for TpT copy/paste |
 
 ### 4.3 Final Package
 
@@ -119,7 +119,49 @@ For EVERY product listing (e.g., `BrownBear_Matching_Level2`), generate these ar
 
 ---
 
-## 5. File Naming Convention
+## 5. Product Formats
+
+### 5.1 File Folder Format (PRIMARY)
+- **Size:** US Letter (8.5" × 11")
+- **Use:** Standard file folder activities
+- **Default format for all products**
+
+### 5.2 Task Box Format (SECONDARY)
+- **Size:** Photo box size (to be defined)
+- **Use:** Task box activities for teachers who prefer this method
+- **Same product content, different dimensions**
+- **Different SEO text for TpT listing**
+- **BACKLOG:** Size adjustments to be tweaked later
+
+> **Note:** Each product will be offered in BOTH formats as separate TpT listings.
+
+---
+
+## 6. Freebie Pack (Per Product)
+
+Each product type gets ONE freebie to drive sales:
+
+### Contents of Freebie ZIP:
+| # | Component | Description |
+|---|-----------|-------------|
+| 1 | **Cover** | Freebie-branded cover |
+| 2 | **Quick Start Instructions** | Same as main product |
+| 3 | **Sample Activity Pages** | ONE activity page from EACH level (4 pages total) |
+| 4 | **Storage Labels** | With icons |
+| 5 | **Terms of Use** | Standard TOU |
+| 6 | **Credits** | Standard credits |
+| 7 | **"Buy the Full Product" Page** | Encourages purchase + review |
+
+### Freebie Naming:
+```
+BrownBear_Matching_Freebie.zip
+BrownBear_Matching_Freebie_Thumbnail.png
+BrownBear_Matching_Freebie_SEO.txt
+```
+
+---
+
+## 7. File Naming Convention
 
 ### Pattern
 ```
@@ -145,29 +187,33 @@ BrownBear_Matching_Level1_SEO.txt
 
 ---
 
-## 6. Folder Structure
+## 8. Folder Structure
 
 ```
 exports/{date}_{theme}/
 ├── matching/
-│   ├── level1/
-│   │   ├── BrownBear_Matching_Level1_Cover.pdf
-│   │   ├── BrownBear_Matching_Level1_Activity_Color.pdf
-│   │   ├── BrownBear_Matching_Level1_Activity_BW.pdf
-│   │   ├── BrownBear_Matching_Level1_Storage_Color.pdf
-│   │   ├── BrownBear_Matching_Level1_Storage_BW.pdf
-│   │   ├── BrownBear_Matching_Level1_Instructions.pdf
-│   │   ├── BrownBear_Matching_Level1_TOU.pdf
-│   │   ├── BrownBear_Matching_Level1_Credits.pdf
-│   │   ├── BrownBear_Matching_Level1.zip
-│   │   ├── BrownBear_Matching_Level1_Thumbnail.png
-│   │   ├── BrownBear_Matching_Level1_Preview1.png
-│   │   └── BrownBear_Matching_Level1_SEO.txt
-│   ├── level2/
-│   ├── level3/
-│   ├── level4/
-│   ├── freebie/
-│   └── bundle/
+│   ├── file_folder/           # US Letter size
+│   │   ├── level1/
+│   │   │   ├── BrownBear_Matching_Level1_Cover.pdf
+│   │   │   ├── BrownBear_Matching_Level1_Activity_Color.pdf
+│   │   │   ├── BrownBear_Matching_Level1_Activity_BW.pdf
+│   │   │   ├── BrownBear_Matching_Level1_Storage_Color.pdf
+│   │   │   ├── BrownBear_Matching_Level1_Storage_BW.pdf
+│   │   │   ├── BrownBear_Matching_Level1_QuickStart.pdf
+│   │   │   ├── BrownBear_Matching_Level1_TOU.pdf
+│   │   │   ├── BrownBear_Matching_Level1_Credits.pdf
+│   │   │   ├── BrownBear_Matching_Level1.zip
+│   │   │   ├── BrownBear_Matching_Level1_Thumbnail.png
+│   │   │   ├── BrownBear_Matching_Level1_Preview1.png
+│   │   │   └── BrownBear_Matching_Level1_SEO.txt
+│   │   ├── level2/
+│   │   ├── level3/
+│   │   ├── level4/
+│   │   └── freebie/
+│   │       ├── BrownBear_Matching_Freebie.zip
+│   │       └── BrownBear_Matching_Freebie_SEO.txt
+│   └── task_box/              # Photo box size (BACKLOG)
+│       └── (same structure, different dimensions)
 ├── find_cover/
 │   └── (same structure)
 └── aac/
@@ -176,7 +222,7 @@ exports/{date}_{theme}/
 
 ---
 
-## 7. Page Layout & Branding
+## 9. Page Layout & Branding
 
 ### Page Structure (Top to Bottom)
 
@@ -223,48 +269,40 @@ exports/{date}_{theme}/
 
 ---
 
-## 8. Available Icon Types
+## 10. Available Icon Types
 
 Each theme has THREE types of images:
 
 | Type | Folder | Use |
 |------|--------|-----|
-| **Coloured Icons** | `/assets/themes/{theme}/icons/` | Standard activities |
+| **Coloured Icons** | `/assets/themes/{theme}/icons/` | Standard activities, storage labels |
 | **Real Images** | `/assets/themes/{theme}/real_images/` | Generalisation (L4) |
 | **Colouring Outlines** | `/assets/themes/{theme}/colouring/` | B&W matching, colouring |
 
 ---
 
-## 9. Freebie & Bundle Packs
-
-### Freebie (BACKLOG)
-- 1 sample page from each level (3-4 pages total)
-- Same packaging (cover, instructions, TOU)
-- Purpose: Drive customers to buy full product
-
-### Bundle (BACKLOG)
-- All levels combined at discount
-- Single cover page for bundle
-
----
-
-## 10. Generator Checklist
+## 11. Generator Checklist
 
 Before a generator is considered complete:
 
 ### Per Product/Level:
-- [ ] Cover page (level color)
-- [ ] Instructions page
-- [ ] Activity pages (Color)
-- [ ] Activity pages (B&W)
-- [ ] Storage labels (Color)
-- [ ] Storage labels (B&W)
+- [ ] Cover page (level color, SMS branding)
+- [ ] Quick Start Instructions (SMS branding, borders)
+- [ ] Activity pages (Color) - File folder format
+- [ ] Activity pages (B&W) - File folder format
+- [ ] Storage labels (Color) **with icons**
+- [ ] Storage labels (B&W) **with icons**
 - [ ] TOU page
 - [ ] Credits page
 - [ ] Final ZIP created
-- [ ] Thumbnail PNG
-- [ ] Preview images
+- [ ] Thumbnail PNG (1000×1000)
+- [ ] Preview images (sample activity pages)
 - [ ] SEO text file
+
+### Per Product (Freebie):
+- [ ] Freebie ZIP with 1 activity page from each level
+- [ ] "Buy Full Product" promotional page
+- [ ] Freebie SEO text
 
 ### Branding:
 - [ ] Accent stripe uses correct level color
@@ -272,12 +310,17 @@ Before a generator is considered complete:
 - [ ] "Small Wins Studio" branding present
 - [ ] Copyright footer on every page
 
+### Formats (BACKLOG):
+- [ ] Task Box version (photo box size)
+- [ ] Task Box SEO text
+
 ---
 
 ## Revision History
 
 | Date | Version | Changes |
 |------|---------|---------|
+| 2026-02-05 | 2.1 | Added: Quick Start instructions, icons on storage labels, preview = sample activity, freebie spec, file folder + task box formats |
 | 2026-02-05 | 2.0 | **DEFINITIVE SPEC** — Complete rewrite with exact level definitions for Matching/Find+Cover |
 | 2026-02-05 | 1.1 | Added icon types, page layout details |
 | 2026-02-05 | 1.0 | Initial specification |
