@@ -22,14 +22,79 @@ Every product (e.g., Matching, Find+Cover, AAC) consists of:
 
 ## 2. Level Color Coding
 
-Each difficulty level has a designated color for easy identification:
+Each difficulty level has a designated accent stripe color:
 
-| Level | Name | Color Code | Use |
-|-------|------|------------|-----|
-| Level 1 | Errorless | 🟢 Green | Accent stripe, tab color |
-| Level 2 | Easy | 🔵 Blue | Accent stripe, tab color |
-| Level 3 | Medium | 🟡 Yellow/Orange | Accent stripe, tab color |
-| Level 4 | Hard | 🔴 Red/Pink | Accent stripe, tab color |
+| Level | Name | Color | Hex Code | Use |
+|-------|------|-------|----------|-----|
+| Level 1 | Errorless | 🟠 Orange | `#F4B400` | Accent stripe |
+| Level 2 | Easy | 🔵 Blue | `#4285F4` | Accent stripe |
+| Level 3 | Medium | 🟢 Green | `#34A853` | Accent stripe |
+| Level 4 | Hard | 🟣 Purple | `#8C06F2` | Accent stripe |
+
+> **Note:** These colors are used for the accent stripe on activity pages. The stripe color instantly tells teachers which level they're looking at.
+
+---
+
+## 2.5 Page Layout & Branding
+
+### Page Structure (Top to Bottom)
+
+```
+┌─────────────────────────────────────────────────────────┐
+│  PACK CODE: BB-M-L1      Page 1/12           (grey)    │  ← Above border
+│  "Small Wins Studio"                         (grey)    │  ← Above border
+├─────────────────────────────────────────────────────────┤
+│ ┌─────────────────────────────────────────────────────┐ │
+│ │                                                     │ │  ← Page border
+│ │  ┌─────────────────────────────────────────────┐    │ │
+│ │  │     ACCENT STRIPE (Level Color)             │    │ │  ← Rounded corners
+│ │  │     "Matching Activity"                     │    │ │  ← Title
+│ │  │     "Brown Bear Theme"                      │    │ │  ← Subtitle
+│ │  └─────────────────────────────────────────────┘    │ │
+│ │                                                     │ │
+│ │              [ACTIVITY CONTENT]                     │ │
+│ │                                                     │ │
+│ │                                                     │ │
+│ │─────────────────────────────────────────────────────│ │
+│ │  © 2025 Small Wins Studio. All rights reserved.    │ │  ← Footer inside border
+│ └─────────────────────────────────────────────────────┘ │
+└─────────────────────────────────────────────────────────┘
+```
+
+### Accent Stripe Details
+
+| Property | Value |
+|----------|-------|
+| Height | 0.5" – 0.6" |
+| Corner Radius | 0.12" (rounded corners) |
+| Padding from border | 0.1" – 0.15" on all sides |
+| Background | Level color (see Section 2) |
+| Title Font | Arial Rounded MT Bold, 18pt, Navy |
+| Subtitle Font | Arial, 12pt, Dark Grey |
+
+### Header (Above Border)
+
+| Element | Position | Style |
+|---------|----------|-------|
+| Pack Code | Top left | Grey (#666666), 8pt |
+| Page Numbers | Top right | Grey (#666666), 8pt, "Page X/Y" |
+| "Small Wins Studio" | Centered below pack code | Grey (#999999), 10pt |
+
+### Footer (Inside Border)
+
+| Element | Position | Style |
+|---------|----------|-------|
+| Copyright | Centered at bottom | Grey (#999999), 8pt |
+| Format | `© 2025 Small Wins Studio. All rights reserved.` |
+
+### Page Border
+
+| Property | Value |
+|----------|-------|
+| Stroke Width | 2–3 px |
+| Corner Radius | 0.12" |
+| Color | Navy (#1E3A5F) |
+| Margin from page edge | 0.5" on all sides |
 
 ---
 
@@ -285,7 +350,45 @@ Before a generator is considered complete, verify:
 
 ---
 
-## 12. Common Documents (Reusable)
+## 12. Available Icon Types
+
+Each theme has THREE types of images available:
+
+### 12.1 Icon Types
+
+| Type | Folder | Description | Use Case |
+|------|--------|-------------|----------|
+| **Coloured Icons** | `/assets/themes/{theme}/icons/` | Boardmaker-style colored icons | Activity pages, matching |
+| **Real Images** | `/assets/themes/{theme}/real_images/` | Photographs | Real-world recognition |
+| **Colouring Outlines** | `/assets/themes/{theme}/colouring/` | Black & white line art | Coloring activities |
+
+### 12.2 Brown Bear Theme Icons Available
+
+**Coloured Icons (Boardmaker-style):**
+- Brown bear, Red bird, Yellow duck, Blue horse
+- Green frog, Purple cat, White dog, Black sheep
+- Teacher, Children, Goldfish, See (eye)
+
+**Real Images (Photos):**
+- Bear, Bird, Cat, Dog, Duck, Eyes
+- Frog, Goldfish, Horse, Sheep, Teacher
+
+**Colouring Outlines:**
+- Bear, Bird, Cat, Dog, Duck
+- Frog, Goldfish, Horse, Sheep
+
+### 12.3 Global Assets
+
+| Asset Type | Location |
+|------------|----------|
+| AAC Core Icons | `/assets/global/aac_core/` |
+| AAC Core Text | `/assets/global/aac_core_text/` |
+| Colour Swatches | `/assets/global/colours/` |
+| Branding/Logo | `/assets/branding/` |
+
+---
+
+## 13. Common Documents (Reusable)
 
 These documents are the same across all products and themes:
 
@@ -297,8 +400,35 @@ These documents are the same across all products and themes:
 
 ---
 
+## 14. Questions To Clarify With User
+
+The following details need user input before generators can be finalized:
+
+### Level Content (What's in each level?)
+
+| Product | Level 1 | Level 2 | Level 3 | Level 4 |
+|---------|---------|---------|---------|---------|
+| Matching | Errorless (identical matches) | ? | ? | ? |
+| Find+Cover | Errorless | ? | ? | ? |
+| AAC | ? | ? | ? | ? |
+
+### Documents To Create/Update
+
+- [ ] **Terms of Use (TOU)** — Does current version need updates?
+- [ ] **Activity Instructions** — Per-product instructions for teachers
+- [ ] **Product Description (SEO)** — Separate file or combined with TOU?
+
+### Design Decisions
+
+- [ ] Confirm level colors: L1=Orange, L2=Blue, L3=?, L4=?
+- [ ] Pack code format (e.g., "BB-M-L1" for Brown Bear Matching Level 1)
+- [ ] Any other branding elements needed?
+
+---
+
 ## Revision History
 
 | Date | Version | Changes |
 |------|---------|---------|
+| 2026-02-05 | 1.1 | Added icon types, page layout details, questions section |
 | 2026-02-05 | 1.0 | Initial comprehensive specification |
