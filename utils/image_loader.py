@@ -46,7 +46,7 @@ class ImageLoader:
         Load an image from one of the designated folders.
         
         Args:
-            filename: Name of the image file
+            filename: Name of the image file (can be partial name for fuzzy matching)
             folder_type: 'color', 'bw_outline', or 'aac'
             
         Returns:
@@ -62,9 +62,25 @@ class ImageLoader:
         folder_path = self._get_folder_path(folder_type)
         image_path = os.path.join(folder_path, filename)
         
-        # Check if file exists
+        # Check if exact file exists
         if not os.path.exists(image_path):
-            raise FileNotFoundError(f"Image not found: {image_path}")
+            # Try fuzzy matching - look for files containing the base name
+            # This handles cases like "bear.png" matching "Brown bear.png"
+            base_name = filename.replace('.png', '').replace('.jpg', '').lower()
+            matched_file = None
+            
+            if os.path.exists(folder_path):
+                for f in os.listdir(folder_path):
+                    f_lower = f.lower()
+                    # Check if base name is in the filename (case-insensitive)
+                    if base_name in f_lower and (f_lower.endswith('.png') or f_lower.endswith('.jpg')):
+                        matched_file = f
+                        break
+            
+            if matched_file:
+                image_path = os.path.join(folder_path, matched_file)
+            else:
+                raise FileNotFoundError(f"Image not found: {image_path}")
         
         # Load image and preserve transparency
         image = Image.open(image_path)
@@ -111,6 +127,7 @@ class ImageLoader:
 
 # Global image loader instance
 _image_loader = None
+_current_base_path = None
 
 def get_image_loader(base_path='.'):
     """
@@ -122,7 +139,18 @@ def get_image_loader(base_path='.'):
     Returns:
         ImageLoader: The global image loader
     """
-    global _image_loader
-    if _image_loader is None:
+    global _image_loader, _current_base_path
+    
+    # Create new loader if path changed or doesn't exist
+    if _image_loader is None or _current_base_path != base_path:
         _image_loader = ImageLoader(base_path)
+        _current_base_path = base_path
+    
     return _image_loader
+
+
+def reset_image_loader():
+    """Reset the global image loader (useful when switching themes)."""
+    global _image_loader, _current_base_path
+    _image_loader = None
+    _current_base_path = None

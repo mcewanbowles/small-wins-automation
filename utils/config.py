@@ -49,11 +49,12 @@ COLORS = {
     'background': (255, 255, 255),
 }
 
-# Image folders
+# Image folders - these are relative to the theme's asset folder
+# e.g., assets/themes/{theme_name}/
 IMAGE_FOLDERS = {
-    'color': 'images',  # Full-color theme images
-    'bw_outline': 'Colour_images',  # Black-and-white outline images
-    'aac': 'aac_images',  # AAC/PCS-style symbols
+    'color': 'real_images',  # Full-color real photo images
+    'bw_outline': 'colouring',  # Black-and-white outline/colouring images
+    'aac': 'icons',  # AAC/PCS-style icon symbols
 }
 
 # Differentiation levels (1-4 for matching cards)

@@ -36,7 +36,7 @@ import os
 
 def generate_matching_card(image_filename, label_text=None, card_size='large',
                            folder_type='color', card_type='image', level=1,
-                           card_style=None, mode='color'):
+                           card_style=None, mode='color', theme_path=None):
     """
     Generate a single matching card using modern layout utilities.
     
@@ -49,6 +49,7 @@ def generate_matching_card(image_filename, label_text=None, card_size='large',
         level: Differentiation level (1-4)
         card_style: Optional dict with 'border_width', 'corner_radius', 'shadow'
         mode: 'color' or 'bw' for dual-mode support
+        theme_path: Path to theme assets folder (e.g., 'assets/themes/brown_bear')
         
     Returns:
         PIL.Image: Generated card
@@ -78,7 +79,9 @@ def generate_matching_card(image_filename, label_text=None, card_size='large',
         return card
     
     # Image-based card (Levels 1-3)
-    image_loader = get_image_loader()
+    # Use theme_path if provided, otherwise default to current directory
+    base_path = theme_path if theme_path else '.'
+    image_loader = get_image_loader(base_path)
     
     try:
         theme_image = image_loader.load_image(image_filename, folder_type)
@@ -103,7 +106,7 @@ def generate_matching_card(image_filename, label_text=None, card_size='large',
 
 
 def generate_matching_pair(image_base_name, label_text=None, level=1, card_size='large',
-                           card_style=None, mode='color'):
+                           card_style=None, mode='color', theme_path=None):
     """
     Generate a matching pair of cards based on differentiation level.
     
@@ -114,6 +117,7 @@ def generate_matching_pair(image_base_name, label_text=None, level=1, card_size=
         card_size: Card size
         card_style: Optional dict with card styling options
         mode: 'color' or 'bw' for dual-mode support
+        theme_path: Path to theme assets folder
         
     Returns:
         tuple: (card_a, card_b) - Two matching cards
@@ -123,7 +127,7 @@ def generate_matching_pair(image_base_name, label_text=None, level=1, card_size=
         card_a = generate_matching_card(
             f"{image_base_name}.png", label_text, card_size,
             folder_type='color', card_type='image', level=level, 
-            card_style=card_style, mode=mode
+            card_style=card_style, mode=mode, theme_path=theme_path
         )
         card_b = card_a.copy()
         
@@ -132,12 +136,12 @@ def generate_matching_pair(image_base_name, label_text=None, level=1, card_size=
         card_a = generate_matching_card(
             f"{image_base_name}.png", label_text, card_size,
             folder_type='bw_outline', card_type='image', level=level, 
-            card_style=card_style, mode=mode
+            card_style=card_style, mode=mode, theme_path=theme_path
         )
         card_b = generate_matching_card(
             f"{image_base_name}.png", label_text, card_size,
             folder_type='color', card_type='image', level=level, 
-            card_style=card_style, mode=mode
+            card_style=card_style, mode=mode, theme_path=theme_path
         )
         
     elif level == 3:
@@ -145,12 +149,12 @@ def generate_matching_pair(image_base_name, label_text=None, level=1, card_size=
         card_a = generate_matching_card(
             f"{image_base_name}.png", label_text, card_size,
             folder_type='aac', card_type='image', level=level, 
-            card_style=card_style, mode=mode
+            card_style=card_style, mode=mode, theme_path=theme_path
         )
         card_b = generate_matching_card(
             f"{image_base_name}.png", label_text, card_size,
             folder_type='color', card_type='image', level=level, 
-            card_style=card_style, mode=mode
+            card_style=card_style, mode=mode, theme_path=theme_path
         )
         
     elif level == 4:
@@ -158,12 +162,12 @@ def generate_matching_pair(image_base_name, label_text=None, level=1, card_size=
         card_a = generate_matching_card(
             f"{image_base_name}.png", label_text, card_size,
             folder_type='aac', card_type='image', level=level, 
-            card_style=card_style, mode=mode
+            card_style=card_style, mode=mode, theme_path=theme_path
         )
         card_b = generate_matching_card(
             f"{image_base_name}.png", label_text, card_size,
             folder_type='color', card_type='text', level=level, 
-            card_style=card_style, mode=mode
+            card_style=card_style, mode=mode, theme_path=theme_path
         )
     else:
         raise ValueError(f"Invalid level: {level}. Must be 1-4.")
@@ -174,7 +178,8 @@ def generate_matching_pair(image_base_name, label_text=None, level=1, card_size=
 def generate_matching_cards_set(items, level=1, card_size='large', 
                                  cards_per_page=6, output_dir='output', theme_name='Theme',
                                  include_storage_label=False, card_style=None,
-                                 custom_spacing=20, custom_margin=50, mode='color'):
+                                 custom_spacing=20, custom_margin=50, mode='color',
+                                 theme_path=None):
     """
     Generate a complete set of matching cards using modern layout utilities.
     
@@ -190,6 +195,7 @@ def generate_matching_cards_set(items, level=1, card_size='large',
         custom_spacing: Space between cards in pixels
         custom_margin: Page margin in pixels
         mode: 'color' or 'bw' for dual-mode support
+        theme_path: Path to theme assets folder (e.g., 'assets/themes/brown_bear')
         
     Returns:
         str: Path to generated PDF file
@@ -221,7 +227,7 @@ def generate_matching_cards_set(items, level=1, card_size='large',
         label = item.get('label', image_name.replace('_', ' ').title())
         
         card_a, card_b = generate_matching_pair(
-            image_name, label, level, card_size, card_style, mode
+            image_name, label, level, card_size, card_style, mode, theme_path
         )
         all_cards.extend([card_a, card_b])
     
@@ -327,7 +333,7 @@ def generate_matching_cards_set(items, level=1, card_size='large',
 def generate_matching_cards_dual_mode(items, level=1, card_size='large',
                                        cards_per_page=6, output_dir='output', theme_name='Theme',
                                        include_storage_label=False, card_style=None,
-                                       custom_spacing=20, custom_margin=50):
+                                       custom_spacing=20, custom_margin=50, theme_path=None):
     """
     Generate matching cards in both color and black-and-white modes.
     
@@ -345,6 +351,7 @@ def generate_matching_cards_dual_mode(items, level=1, card_size='large',
         card_style: Optional dict with card styling options
         custom_spacing: Space between cards in pixels
         custom_margin: Page margin in pixels
+        theme_path: Path to theme assets folder
         
     Returns:
         dict: {'color': color_pdf_path, 'bw': bw_pdf_path}
@@ -367,7 +374,8 @@ def generate_matching_cards_dual_mode(items, level=1, card_size='large',
         card_style=card_style,
         custom_spacing=custom_spacing,
         custom_margin=custom_margin,
-        mode='color'
+        mode='color',
+        theme_path=theme_path
     )
     
     # Generate black-and-white version
@@ -383,7 +391,8 @@ def generate_matching_cards_dual_mode(items, level=1, card_size='large',
         card_style=card_style,
         custom_spacing=custom_spacing,
         custom_margin=custom_margin,
-        mode='bw'
+        mode='bw',
+        theme_path=theme_path
     )
     
     print(f"\n✅ Dual-mode generation complete!")
