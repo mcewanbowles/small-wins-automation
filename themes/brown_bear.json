@@ -14,6 +14,13 @@
     "accent": "#F4B400"
   },
 
+  "level_colours": {
+    "L1": "#F4B400",
+    "L2": "#4285F4",
+    "L3": "#34A853",
+    "L4": "#8C06F2"
+  },
+
   "core_icons": [
     "I", "you", "it",
     "want", "like", "see", "need", "go", "put", "make", "get",
@@ -41,45 +48,102 @@
   },
 
   "real_image_icons": {
-    "bear": "bear_real.png",
-    "bird": "bird_real.png"
+    "bear": "bear.png",
+    "bird": "bird.png",
+    "cat": "cat.png",
+    "dog": "dog.png",
+    "duck": "duck.png",
+    "frog": "frog.png",
+    "goldfish": "goldfish.png",
+    "horse": "horse.png",
+    "sheep": "sheep.png",
+    "teacher": "teacher.png"
   },
 
-  "boardmaker_icons": {
-    "bear": "bear_bm.png",
-    "bird": "bird_bm.png"
-  },
-
-  "distractors": [
-    "goldfish",
-    "extra_children",
-    "random_animal"
-  ],
-
-  "find_cover": {
-    "grid_size": "4x4",
-    "levels": ["errorless", "mixed", "field_of_6", "cut_paste"],
-    "see_icon": "eye.png"
+  "colouring_icons": {
+    "bear": "bear.png",
+    "bird": "bird.png",
+    "cat": "cat.png",
+    "dog": "dog.png",
+    "duck": "duck.png",
+    "frog": "frog.png",
+    "goldfish": "goldfish.png",
+    "horse": "horse.png",
+    "sheep": "sheep.png"
   },
 
   "matching": {
-    "levels": ["errorless", "identical", "field_of_6"]
+    "levels": {
+      "L1": {
+        "name": "Errorless",
+        "colour": "#F4B400",
+        "type": "identical",
+        "distractors": false,
+        "representation": "single"
+      },
+      "L2": {
+        "name": "Distractors",
+        "colour": "#4285F4",
+        "type": "picture_to_picture",
+        "distractors": true,
+        "representation": "single"
+      },
+      "L3": {
+        "name": "Picture + Text",
+        "colour": "#34A853",
+        "type": "picture_text",
+        "directions": ["picture_to_word", "word_to_picture"],
+        "orientations": ["left", "right"],
+        "extra_cutouts": true
+      },
+      "L4": {
+        "name": "Generalisation",
+        "colour": "#8C06F2",
+        "type": "cross_representation",
+        "matches": ["icon_to_photo", "bw_to_colour"],
+        "distractors": "hardest"
+      }
+    }
+  },
+
+  "find_cover": {
+    "levels": {
+      "L1": {
+        "name": "Easy",
+        "colour": "#F4B400",
+        "distractors": "lowest",
+        "items_per_page": "few"
+      },
+      "L2": {
+        "name": "Medium",
+        "colour": "#4285F4",
+        "distractors": "more",
+        "items_per_page": "moderate"
+      },
+      "L3": {
+        "name": "Hard",
+        "colour": "#34A853",
+        "distractors": "high",
+        "items_per_page": "many"
+      },
+      "L4": {
+        "name": "Expert",
+        "colour": "#8C06F2",
+        "distractors": "highest",
+        "items_per_page": "dense"
+      }
+    },
+    "grid_size": "4x4",
+    "see_icon": "eye.png"
+  },
+
+  "aac": {
+    "levels": "none",
+    "type": "standard"
   },
 
   "sorting": {
     "categories": ["animals", "people", "other"]
-  },
-
-  "wh_sentences": {
-    "enable_size_scaling": true
-  },
-
-  "colouring": {
-    "colouring_images": {
-      "bear": "bear_bw.png",
-      "bird": "bird_bw.png",
-      "frog": "frog_bw.png"
-    }
   },
 
   "sequencing": {
