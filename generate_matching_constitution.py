@@ -18,11 +18,26 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 # Brand colors (Design Constitution)
 PRIMARY_BLUE = '#4A90E2'
-WARM_ORANGE = '#F5A623'  # Matching product accent stripe color
 LIGHT_GREY_VELCRO = '#E6E6E6'
 LIGHT_GREY_FOOTER = '#999999'
 WHITE = '#FFFFFF'
 BLACK = '#000000'
+
+# Level-specific accent colors (Master Product Specification)
+LEVEL_COLORS = {
+    1: '#F4B400',  # Orange - Errorless
+    2: '#4285F4',  # Blue - Distractors
+    3: '#34A853',  # Green - Moderate Challenge
+    4: '#8C06F2',  # Purple - Maximum Challenge
+}
+
+# Level names for display
+LEVEL_NAMES = {
+    1: 'Errorless',
+    2: 'Distractors',
+    3: 'Moderate',
+    4: 'Challenge',
+}
 
 
 def load_all_icons(icon_folder):
@@ -85,22 +100,25 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
     c.setLineWidth(3)
     c.roundRect(border_margin, border_margin, content_width, content_height, 10, stroke=1, fill=0)
     
-    # Accent Stripe: 0.35" height at top, warm orange for Matching
+    # Accent Stripe: 0.35" height at top, LEVEL-SPECIFIC COLOR
     accent_height = 0.35 * inch
-    c.setFillColorRGB(*hex_to_rgb(WARM_ORANGE))
+    level_color = LEVEL_COLORS.get(level, '#F4B400')  # Default to orange if unknown level
+    c.setFillColorRGB(*hex_to_rgb(level_color))
     c.rect(border_margin, height - border_margin - accent_height, content_width, accent_height, stroke=0, fill=1)
     
     # Title + Subtitle: Sitting ON the accent stripe, aligned left
     title_x = border_margin + 0.1 * inch
     title_y = height - border_margin - accent_height / 2 + 0.1 * inch
     
-    c.setFillColorRGB(0, 0, 0)
+    # Use white text for better contrast on colored backgrounds
+    c.setFillColorRGB(1, 1, 1)  # White text
     c.setFont("Helvetica-Bold", 22)
-    c.drawString(title_x, title_y, f"Matching - Level {level}")
+    level_name = LEVEL_NAMES.get(level, '')
+    c.drawString(title_x, title_y, f"Matching - Level {level}: {level_name}")
     
     subtitle_y = title_y - 0.25 * inch
     c.setFont("Helvetica", 16)
-    c.setFillColorRGB(0.2, 0.2, 0.2)
+    c.setFillColorRGB(1, 1, 1)  # White text
     c.drawString(title_x, subtitle_y, f"{theme_name} Pack ({pack_code})")
     
     # 0.5" top margin before content
@@ -219,18 +237,18 @@ def create_cutout_page_constitution(c, images, names, start_idx, page_num, total
     c.roundRect(border_margin, border_margin, content_width, content_height, 10, stroke=1, fill=0)
     
     accent_height = 0.35 * inch
-    c.setFillColorRGB(*hex_to_rgb(WARM_ORANGE))
+    c.setFillColorRGB(*hex_to_rgb(LEVEL_COLORS[1]))  # Use Level 1 orange for cutouts
     c.rect(border_margin, height - border_margin - accent_height, content_width, accent_height, stroke=0, fill=1)
     
     title_x = border_margin + 0.1 * inch
     title_y = height - border_margin - accent_height / 2 + 0.1 * inch
-    c.setFillColorRGB(0, 0, 0)
+    c.setFillColorRGB(1, 1, 1)  # White text
     c.setFont("Helvetica-Bold", 22)
     c.drawString(title_x, title_y, "Cutout Matching Pieces")
     
     subtitle_y = title_y - 0.25 * inch
     c.setFont("Helvetica", 16)
-    c.setFillColorRGB(0.2, 0.2, 0.2)
+    c.setFillColorRGB(1, 1, 1)  # White text
     c.drawString(title_x, subtitle_y, f"{theme_name} Pack ({pack_code})")
     
     icon_size = 1.5 * inch
@@ -295,18 +313,18 @@ def create_storage_label_page_constitution(c, names, page_num, total_pages, pack
     c.roundRect(border_margin, border_margin, content_width, content_height, 10, stroke=1, fill=0)
     
     accent_height = 0.35 * inch
-    c.setFillColorRGB(*hex_to_rgb(WARM_ORANGE))
+    c.setFillColorRGB(*hex_to_rgb(LEVEL_COLORS[1]))  # Use Level 1 orange for storage
     c.rect(border_margin, height - border_margin - accent_height, content_width, accent_height, stroke=0, fill=1)
     
     title_x = border_margin + 0.1 * inch
     title_y = height - border_margin - accent_height / 2 + 0.1 * inch
-    c.setFillColorRGB(0, 0, 0)
+    c.setFillColorRGB(1, 1, 1)  # White text
     c.setFont("Helvetica-Bold", 22)
     c.drawString(title_x, title_y, "Storage Labels - Matching Pack")
     
     subtitle_y = title_y - 0.25 * inch
     c.setFont("Helvetica", 16)
-    c.setFillColorRGB(0.2, 0.2, 0.2)
+    c.setFillColorRGB(1, 1, 1)  # White text
     c.drawString(title_x, subtitle_y, f"{theme_name} Pack ({pack_code})")
     
     info_y = height - 2.5 * inch
@@ -316,7 +334,7 @@ def create_storage_label_page_constitution(c, names, page_num, total_pages, pack
     
     info_y -= 0.4 * inch
     c.setFont("Helvetica", 14)
-    c.setFillColorRGB(*hex_to_rgb(WARM_ORANGE))
+    c.setFillColorRGB(*hex_to_rgb(LEVEL_COLORS[1]))  # Orange accent
     c.drawCentredString(width/2, info_y, f"Pack Code: {pack_code}")
     
     vocab_y = info_y - 0.8 * inch
