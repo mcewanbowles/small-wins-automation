@@ -1,5 +1,5 @@
 {
-  "version": "2.0",
+  "version": "2.1",
   "last_updated": "2026-02-05",
   
   "level_colours": {
@@ -33,7 +33,28 @@
     "company_name": "Small Wins Studio",
     "copyright_year": 2025,
     "copyright_text": "© 2025 Small Wins Studio. All rights reserved.",
-    "pcs_notice": "PCS® symbols used with active PCS Maker Personal License."
+    "pcs_notice": "PCS® symbols used with active PCS Maker Personal License.",
+    "logos": {
+      "with_text": {
+        "file": "assets/branding/logos/small_wins_logo_with_text.png",
+        "description": "Shooting star with 'SMALL WINS STUDIO' text",
+        "transparent": true,
+        "use_for": ["covers", "instructions", "credits"]
+      },
+      "icon_only": {
+        "file": "assets/branding/logos/small_wins_logo_icon.png",
+        "description": "Shooting star icon only (no text)",
+        "transparent": true,
+        "use_for": ["thumbnails", "watermarks", "small spaces"],
+        "status": "NEEDED - please upload"
+      }
+    },
+    "brand_colours": {
+      "teal": "#2AAEAE",
+      "navy": "#1E3A5F",
+      "gold": "#E8C547",
+      "star_gold": "#D4A84B"
+    }
   },
 
   "typography": {
