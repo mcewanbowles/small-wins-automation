@@ -92,23 +92,23 @@ For EVERY product listing (e.g., `BrownBear_Matching_Level2`), generate these ar
 
 ### 4.1 PDFs (Inside the ZIP)
 
-| # | File | Description | Details |
-|---|------|-------------|---------|
-| 1 | **Cover** | Title page with branding, level color | SMS branding, borders |
-| 2 | **Quick Start Instructions** | How to use this product | SMS branding, borders, product-specific |
-| 3 | **Activity Pages (Color)** | Main activity content | File folder format |
-| 4 | **Activity Pages (B&W)** | Printer-friendly version | File folder format |
-| 5 | **Storage Labels (Color)** | For organizing materials | **Include icons for visual effect** |
-| 6 | **Storage Labels (B&W)** | Printer-friendly version | **Include icons for visual effect** |
-| 7 | **Terms of Use** | Copyright and usage rights | Standard SMS TOU |
-| 8 | **Credits** | Font/clip art attribution | Standard credits |
+| # | File | Description | Template |
+|---|------|-------------|----------|
+| 1 | **Cover** | Title page with branding, level color | SMS branding, star icon, borders |
+| 2 | **Student Directions** | Simple visual instructions for students | `assets/global/templates/Student_Directions.md` |
+| 3 | **Support Tips (PODD/AAC)** | Quick reference for paras/support staff | `assets/global/templates/Support_Tips_PODD_AAC.md` |
+| 4 | **Activity Pages (Color)** | Main activity content | File folder format, Comic Sans MS |
+| 5 | **Activity Pages (B&W)** | Printer-friendly version | File folder format, Comic Sans MS |
+| 6 | **Storage Labels (Color)** | For organizing materials | **Include icons + Storage Note** |
+| 7 | **Storage Labels (B&W)** | Printer-friendly version | **Include icons + Storage Note** |
+| 8 | **TOU + Credits** | Combined Terms of Use and Credits | `assets/global/templates/TOU_Credits.md` |
 
 ### 4.2 Listing Assets (NOT in ZIP — for TpT upload separately)
 
 | # | File | Format | Purpose |
 |---|------|--------|---------|
 | 9 | **Thumbnail** | PNG (1000×1000) | TpT listing main square image |
-| 10 | **Preview Images** | PNG (various) | **Sample activity pages showing the product in action** (e.g., matching card with cards on each side) |
+| 10 | **Preview Images** | PNG (various) | **Sample activity pages showing the product in action** |
 | 11 | **SEO Description** | TXT | Product description for TpT copy/paste |
 
 ### 4.3 Final Package

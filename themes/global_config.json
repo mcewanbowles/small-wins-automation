@@ -41,12 +41,11 @@
         "transparent": true,
         "use_for": ["covers", "instructions", "credits"]
       },
-      "icon_only": {
-        "file": "assets/branding/logos/small_wins_logo_icon.png",
+      "star_icon": {
+        "file": "assets/branding/small_wins_logo.png/star.png",
         "description": "Shooting star icon only (no text)",
         "transparent": true,
-        "use_for": ["thumbnails", "watermarks", "small spaces"],
-        "status": "NEEDED - please upload"
+        "use_for": ["thumbnails", "watermarks", "border decoration", "small spaces"]
       }
     },
     "brand_colours": {
@@ -58,12 +57,15 @@
   },
 
   "typography": {
-    "title_font": "Arial Rounded MT Bold",
-    "body_font": "Arial",
+    "primary_font": "Comic Sans MS",
+    "title_font": "Comic Sans MS",
+    "body_font": "Comic Sans MS",
+    "fallback_fonts": ["Arial Rounded MT Bold", "Arial", "sans-serif"],
     "title_colour": "#1E3A5F",
     "subtitle_colour": "#666666",
     "body_colour": "#000000",
-    "footer_colour": "#999999"
+    "footer_colour": "#999999",
+    "font_note": "Comic Sans MS is accessible for many students with learning differences. Use consistently across all products."
   },
 
   "page_layout": {
