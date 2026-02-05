@@ -56,11 +56,12 @@ IMAGE_FOLDERS = {
     'aac': 'aac_images',  # AAC/PCS-style symbols
 }
 
-# Differentiation levels
+# Differentiation levels (1-4 for matching cards)
 DIFFERENTIATION_LEVELS = {
-    1: {'visual_cues': True, 'description': 'Level 1 with visual cues'},
-    2: {'visual_cues': False, 'description': 'Level 2 without cues'},
-    3: {'visual_cues': False, 'increased_difficulty': True, 'description': 'Level 3 with increased difficulty'},
+    1: {'visual_cues': True, 'description': 'Level 1 - Identical Errorless'},
+    2: {'visual_cues': False, 'description': 'Level 2 - Outline to Color'},
+    3: {'visual_cues': False, 'increased_difficulty': True, 'description': 'Level 3 - AAC to Image'},
+    4: {'visual_cues': False, 'increased_difficulty': True, 'advanced': True, 'description': 'Level 4 - AAC to Text'},
 }
 
 # Card sizes (common dimensions for various activities)

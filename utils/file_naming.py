@@ -130,10 +130,10 @@ def get_level_description(level):
         str: Level description
     """
     descriptions = {
-        1: 'Beginner',
-        2: 'Intermediate',
-        3: 'Advanced',
-        4: 'Expert'
+        1: 'Identical_Errorless',
+        2: 'Outline_to_Color',
+        3: 'AAC_to_Image',
+        4: 'AAC_to_Text'
     }
     
     return descriptions.get(level, 'Unknown')

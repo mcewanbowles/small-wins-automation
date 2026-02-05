@@ -27,7 +27,7 @@ class DifferentiationManager:
             dict: Level configuration
         """
         if level not in self.levels:
-            raise ValueError(f"Invalid level: {level}. Must be 1-3.")
+            raise ValueError(f"Invalid level: {level}. Must be 1-4.")
         
         return self.levels[level].copy()
     

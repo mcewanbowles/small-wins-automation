@@ -268,8 +268,8 @@ def generate_matching_cards_set(items, level=1, card_size='large',
                 # Paste card
                 page.paste(card_resized, (x1, y1))
         
-        # Add modern footer
-        add_footer(page, "Matching Cards", page_idx + 1, mode=mode)
+        # Add modern footer with copyright text
+        add_footer(page, page_num=page_idx + 1, mode=mode)
         
         pages.append(page)
     
