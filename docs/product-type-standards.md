@@ -2,6 +2,8 @@
 
 This document defines the standard structure and requirements for all Small Wins Studio product generators.
 
+> **📋 Master Specification:** See `/design/Master-Product-Specification.md` for the complete requirements including branding, level color-coding, required outputs, and TpT packaging.
+
 ## Reference Implementations
 
 The **`matching`** and **`find_cover`** generators are the reference models. All new product types MUST follow their patterns.
@@ -42,46 +44,50 @@ exports/20260205_brown_bear/find_cover/
 exports/20260205_brown_bear/aac/
 ```
 
-### 3. TpT Listing Package
+### 3. Required Outputs Per Level
 
-Each TpT listing = ONE ZIP file containing:
-- All PDF files for the product (color + B&W)
-- Terms of Use (TOU) document
-- Credits page
-- Optional: Thumbnail/preview images
+Every level must produce (see Master-Product-Specification.md for details):
 
-ZIP naming: `<theme>_<product_type>.zip`
+| Output | Color | B&W | Required |
+|--------|-------|-----|----------|
+| Activity Pages | ✅ | ✅ | Yes |
+| Storage Labels | ✅ | ✅ | Yes |
+| Cover Page | ✅ | — | Yes |
+| Thumbnail PNG | ✅ | — | Yes |
+| Preview Images | ✅ | — | Yes |
+| Instructions | ✅ | — | Yes |
+| TpT ZIP | — | — | Yes |
+| SEO Text | — | — | Yes |
 
-### 4. Required Outputs
+### 4. Level Color Coding
 
-Every generator must produce:
-| Output | Required |
-|--------|----------|
-| Color PDF(s) | ✅ Yes |
-| B&W PDF(s) | ✅ Yes |
-| Storage Labels | ✅ Yes |
-| Thumbnail | Optional |
-| Preview Image | Optional |
+| Level | Name | Color |
+|-------|------|-------|
+| Level 1 | Errorless | 🟢 Green |
+| Level 2 | Easy | 🔵 Blue |
+| Level 3 | Medium | 🟡 Yellow/Orange |
+| Level 4 | Hard | 🔴 Red/Pink |
 
-### 5. Differentiation Levels
-
-Where applicable, products should support multiple difficulty levels:
-- Level 1: Errorless (scaffolded)
-- Level 2: Easy
-- Level 3: Medium
-- Level 4: Hard
-
-### 6. Naming Conventions
+### 5. Naming Conventions
 
 File naming pattern:
 ```
-<theme>_<product_type>_<variant>_<color_mode>.pdf
+<theme>_<product_type>_<level>_<variant>_<color_mode>.pdf
 ```
 
 Examples:
-- `brown_bear_matching_level1_color.pdf`
-- `brown_bear_matching_level1_bw.pdf`
-- `brown_bear_find_cover_level2_color.pdf`
+- `brown_bear_matching_level1_activity_color.pdf`
+- `brown_bear_matching_level1_activity_bw.pdf`
+- `brown_bear_matching_level1_storage_color.pdf`
+
+### 6. Special Packs
+
+After all levels are complete, also generate:
+
+| Pack | Purpose |
+|------|---------|
+| **Freebie** | 1 page from each level (3-4 pages) to drive bundle sales |
+| **Bundle** | All levels combined at discount |
 
 ## Active Generators
 
@@ -100,20 +106,12 @@ When creating a new product type:
 3. Add README.md documenting the generator
 4. Add product-specific spec to `/design/product_specs/<product>.md`
 5. Ensure config key exists in theme JSON files
-6. Follow all standards above
-7. Test with at least one theme before merging
+6. Follow Master-Product-Specification.md
+7. Test with Brown Bear theme before merging
 
 ## Design Resources
 
+- `/design/Master-Product-Specification.md` — **Complete product requirements**
 - `/design/Design-Constitution.md` — Universal design standards
 - `/design/product_specs/` — Product-specific specifications
 - `/docs/exports-workflow.md` — Export conventions
-
-## Deprecated Generators
-
-Generators that are no longer active are moved (not deleted) to:
-```
-deprecated_generators/
-```
-
-See `/deprecated_generators/README.md` for details.
