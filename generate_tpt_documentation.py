@@ -109,34 +109,37 @@ def draw_accent_stripe(c, y, height, color=TEAL, text="", font_size=14):
         c.drawCentredString(PAGE_WIDTH/2, y + height/2 - font_size/3, text)
 
 def draw_footer(c):
-    """Draw footer with logo and copyright."""
+    """Draw footer with star logo rising above the S of Small Wins Studio."""
     footer_y = MARGIN + 5
     
-    # Logo next to Small Wins Studio
-    logo_size = 15
+    # Star logo - slightly larger so it rises above the S of "Small Wins"
+    logo_size = 16  # Larger than text height so star rises above
     footer_text = "Small Wins Studio"
     c.setFont("Helvetica", 8)
     text_width = c.stringWidth(footer_text, "Helvetica", 8)
     
-    total_width = logo_size + 5 + text_width + 20 + c.stringWidth(f"© {YEAR} All rights reserved.", "Helvetica", 7)
+    # Star positioned close to "S" as though part of the word
+    logo_gap = 1  # Very close to text (almost touching)
+    total_width = logo_size + logo_gap + text_width + 20 + c.stringWidth(f"© {YEAR} All rights reserved.", "Helvetica", 7)
     start_x = (PAGE_WIDTH - total_width) / 2
     
-    # Draw small logo in footer
+    # Draw star logo - transparent background, rising above S
     if LOGO_PATH.exists():
-        c.drawImage(str(LOGO_PATH), start_x, footer_y - 3, width=logo_size, height=logo_size,
+        # Position star so it rises above the "S" - base at footer level, top above text
+        c.drawImage(str(LOGO_PATH), start_x, footer_y - 2, width=logo_size, height=logo_size,
                    preserveAspectRatio=True, mask='auto')
     
-    # Small Wins Studio text
+    # Small Wins Studio text - positioned very close to star
     r, g, b = hex_to_rgb(NAVY)
     c.setFillColorRGB(r, g, b)
     c.setFont("Helvetica-Bold", 8)
-    c.drawString(start_x + logo_size + 5, footer_y, footer_text)
+    c.drawString(start_x + logo_size + logo_gap, footer_y, footer_text)
     
     # Copyright
     r, g, b = hex_to_rgb(LIGHT_GREY)
     c.setFillColorRGB(r, g, b)
     c.setFont("Helvetica", 7)
-    c.drawString(start_x + logo_size + 5 + text_width + 20, footer_y, f"© {YEAR} All rights reserved.")
+    c.drawString(start_x + logo_size + logo_gap + text_width + 20, footer_y, f"© {YEAR} All rights reserved.")
 
 def draw_section_header(c, y, title, color=NAVY, centered=True):
     """Draw a section header - centered."""

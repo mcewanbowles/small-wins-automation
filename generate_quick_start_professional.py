@@ -163,13 +163,45 @@ def draw_section(c, x, y, section_width, section_height, title, color, lines):
 
 
 def draw_footer(c, width, pack_code, theme_name, product_name):
-    """Draw footer with Small Wins Studio branding."""
+    """Draw footer with Small Wins Studio branding and star logo."""
     footer_y = BORDER_MARGIN + 0.15*inch
     
     c.setFillColor(TEXT_COLOR)
     c.setFont(BODY_FONT, 8)
+    
+    # Build footer text with star logo rising above the S of Small Wins
     footer_text = f"© 2025 Small Wins Studio • {pack_code} | {theme_name} {product_name}"
-    c.drawCentredString(width/2, footer_y, footer_text)
+    text_width = c.stringWidth(footer_text, BODY_FONT, 8)
+    
+    # Position text centered, but leave room for star before "Small"
+    # Star logo goes just before "Small Wins Studio" - slightly larger, rising above S
+    logo_path = Path(__file__).parent / "assets" / "branding" / "small_wins_logo.png" / "star.png"
+    
+    # Calculate text position (centered)
+    text_x = (width - text_width) / 2
+    
+    if logo_path.exists():
+        # Draw the star logo - slightly larger (14pt height) rising above the "S"
+        logo_size = 14  # Larger than text so star rises above
+        # Position star just before "Small" (after "© 2025 ")
+        prefix = "© 2025 "
+        prefix_width = c.stringWidth(prefix, BODY_FONT, 8)
+        logo_x = text_x + prefix_width - 2  # Slightly overlapping/close to text
+        logo_y = footer_y - 2  # Star base at text baseline, rises above
+        
+        # Draw logo with transparency
+        c.drawImage(str(logo_path), logo_x, logo_y, width=logo_size, height=logo_size, 
+                   preserveAspectRatio=True, mask='auto')
+        
+        # Adjust text to account for star
+        # Draw "© 2025 " first
+        c.drawString(text_x, footer_y, prefix)
+        # Then draw rest of text after logo space
+        rest_text = f"Small Wins Studio • {pack_code} | {theme_name} {product_name}"
+        c.drawString(text_x + prefix_width + logo_size - 2, footer_y, rest_text)
+    else:
+        # Fallback: no logo, just centered text
+        c.drawCentredString(width/2, footer_y, footer_text)
 
 
 def generate_matching_quick_start(output_path, theme_name="Brown Bear", pack_code="BB03"):
