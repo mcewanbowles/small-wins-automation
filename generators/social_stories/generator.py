@@ -50,6 +50,39 @@ class SocialStoryGenerator:
         self.gold = HexColor(self.config['branding']['brand_colours']['gold'])
         self.border_color = HexColor(self.config['page_layout']['border_colour'])
         
+        # Try to register Comic Sans font (accessible font for learners)
+        self._register_fonts()
+        
+    def _register_fonts(self):
+        """Try to register Comic Sans MS font if available"""
+        try:
+            # Try common Comic Sans MS paths
+            possible_paths = [
+                "/usr/share/fonts/truetype/msttcorefonts/Comic_Sans_MS.ttf",
+                "/usr/share/fonts/truetype/msttcorefonts/comic.ttf",
+                "C:\\Windows\\Fonts\\comic.ttf",
+                "C:\\Windows\\Fonts\\comicbd.ttf",
+            ]
+            
+            for path in possible_paths:
+                if os.path.exists(path):
+                    pdfmetrics.registerFont(TTFont('ComicSans', path))
+                    self.primary_font = 'ComicSans'
+                    self.primary_font_bold = 'ComicSans'
+                    print(f"✓ Comic Sans MS font registered from {path}")
+                    return
+            
+            # Fallback to Helvetica
+            self.primary_font = 'Helvetica'
+            self.primary_font_bold = 'Helvetica-Bold'
+            print("ℹ Using Helvetica (Comic Sans not found)")
+            
+        except Exception as e:
+            # Fallback to Helvetica on any error
+            self.primary_font = 'Helvetica'
+            self.primary_font_bold = 'Helvetica-Bold'
+            print(f"ℹ Using Helvetica (Comic Sans registration failed: {e})")
+    
     def _parse_story_file(self):
         """Parse the story text file to extract metadata and pages"""
         with open(self.story_path, 'r', encoding='utf-8') as f:
@@ -101,7 +134,7 @@ class SocialStoryGenerator:
         """Draw the footer with copyright info"""
         footer_text = f"{self.story_data['title']} | Page {page_num}/{total_pages} © {self.config['branding']['copyright_year']} Small Wins Studio. {self.config['branding']['pcs_notice']}"
         
-        c.setFont("Helvetica", 8)
+        c.setFont(self.primary_font, 8)
         c.setFillColor(HexColor(self.config['typography']['footer_colour']))
         
         footer_y = self.margin + 0.2 * inch
@@ -129,12 +162,12 @@ class SocialStoryGenerator:
         
         # Draw title text
         c.setFillColor(HexColor("#FFFFFF"))
-        c.setFont("Helvetica-Bold", 18)
+        c.setFont(self.primary_font_bold, 18)
         text_y = stripe_y + stripe_height / 2 - 6
         c.drawCentredString(self.page_width / 2, text_y, title)
         
         if subtitle:
-            c.setFont("Helvetica", 12)
+            c.setFont(self.primary_font, 12)
             c.drawCentredString(self.page_width / 2, text_y - 18, subtitle)
     
     def _draw_image_placeholder(self, c, x, y, width, height):
@@ -148,9 +181,9 @@ class SocialStoryGenerator:
         
         # Add centered text
         c.setFillColor(HexColor("#999999"))
-        c.setFont("Helvetica", 14)
+        c.setFont(self.primary_font, 14)
         c.drawCentredString(x + width/2, y + height/2 + 10, "[ Image Placeholder ]")
-        c.setFont("Helvetica", 10)
+        c.setFont(self.primary_font, 10)
         c.drawCentredString(x + width/2, y + height/2 - 10, "Add Boardmaker icon here")
     
     def _wrap_text(self, text, max_width, font_name, font_size):
@@ -210,13 +243,13 @@ class SocialStoryGenerator:
         phrases = [line.strip() for line in page_data['text'].split('\n') if line.strip() and not line.startswith('•')]
         
         c.setFillColor(self.navy)
-        c.setFont("Helvetica", 16)
+        c.setFont(self.primary_font, 16)
         
         current_y = text_y
         for phrase in phrases[:3]:  # Limit to 3 phrases for readability
             if phrase and not phrase.startswith('#'):
                 # Wrap text
-                wrapped_lines = self._wrap_text(phrase, content_width, "Helvetica", 16)
+                wrapped_lines = self._wrap_text(phrase, content_width, self.primary_font, 16)
                 
                 for line in wrapped_lines:
                     if current_y > content_bottom:
@@ -240,11 +273,11 @@ class SocialStoryGenerator:
         
         # Cover title
         c.setFillColor(self.navy)
-        c.setFont("Helvetica-Bold", 32)
+        c.setFont(self.primary_font_bold, 32)
         c.drawCentredString(self.page_width / 2, self.page_height - 2 * inch, self.story_data['title'])
         
         # Subtitle
-        c.setFont("Helvetica", 18)
+        c.setFont(self.primary_font, 18)
         c.setFillColor(self.teal)
         c.drawCentredString(self.page_width / 2, self.page_height - 2.5 * inch, self.story_data['subtitle'])
         
@@ -257,7 +290,7 @@ class SocialStoryGenerator:
         self._draw_image_placeholder(c, cover_img_x, cover_img_y, cover_img_width, cover_img_height)
         
         # Branding
-        c.setFont("Helvetica", 14)
+        c.setFont(self.primary_font, 14)
         c.setFillColor(self.gold)
         c.drawCentredString(self.page_width / 2, 2 * inch, "A Social Story")
         c.drawCentredString(self.page_width / 2, 1.7 * inch, "by Small Wins Studio")
