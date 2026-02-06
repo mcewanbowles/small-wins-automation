@@ -39,9 +39,9 @@ LEVEL_COLORS = {
 
 LEVEL_NAMES = {
     1: 'Errorless',
-    2: 'Mixed',
-    3: 'Challenging',
-    4: 'Cut & Paste'
+    2: 'Easy',
+    3: 'Medium',
+    4: 'Challenge'
 }
 
 def hex_to_rgb(hex_color):
@@ -177,25 +177,29 @@ def generate_find_cover_page(c, target_icon, all_icons, level, page_num, total_p
     grid_content = []
     
     if level == 1:
-        # Errorless: All match target
+        # Errorless: All match target (100% success)
         grid_content = [target_icon] * total_cells
     elif level == 2:
-        # Mixed: 50% match
+        # Easy: 50% match, 50% distractors
         num_matches = total_cells // 2
         grid_content = [target_icon] * num_matches
         distractors = [icon for icon in all_icons if icon['name'] != target_icon['name']]
         while len(grid_content) < total_cells and distractors:
             grid_content.append(random.choice(distractors))
     elif level == 3:
-        # Challenging: Fewer matches
+        # Medium: ~30% match, ~70% distractors
         num_matches = total_cells // 3
         grid_content = [target_icon] * num_matches
         distractors = [icon for icon in all_icons if icon['name'] != target_icon['name']]
         while len(grid_content) < total_cells and distractors:
             grid_content.append(random.choice(distractors))
     elif level == 4:
-        # Cut & Paste: Empty circles
-        grid_content = [None] * total_cells
+        # Challenge: Only 1-2 matches among many distractors
+        num_matches = max(1, total_cells // 8)  # Only 1-2 matches
+        grid_content = [target_icon] * num_matches
+        distractors = [icon for icon in all_icons if icon['name'] != target_icon['name']]
+        while len(grid_content) < total_cells and distractors:
+            grid_content.append(random.choice(distractors))
     
     # Fill remaining with distractors if needed
     distractors = [icon for icon in all_icons if icon['name'] != target_icon['name']]
@@ -205,9 +209,8 @@ def generate_find_cover_page(c, target_icon, all_icons, level, page_num, total_p
         else:
             grid_content.append(target_icon)
     
-    # Shuffle (except level 4)
-    if level != 4:
-        random.shuffle(grid_content)
+    # Shuffle all levels
+    random.shuffle(grid_content)
     
     # Draw grid with navy borders and rounded corners
     for row in range(grid_rows):
@@ -286,6 +289,162 @@ def generate_find_cover_pdf(output_path, level, mode='color'):
     print(f"✓ Generated: {output_path}")
     return output_path
 
+def generate_storage_labels_page(c, icons, level, mode='color', pack_code="BB-FC"):
+    """Generate a storage labels page for Find & Cover."""
+    
+    width, height = letter
+    c.setPageSize(letter)
+    
+    # Background white
+    c.setFillColorRGB(1, 1, 1)
+    c.rect(0, 0, width, height, fill=True, stroke=False)
+    
+    # Page border
+    border_margin = 0.25 * inch
+    content_width = width - 2 * border_margin
+    content_height = height - 2 * border_margin
+    
+    r, g, b = hex_to_rgb(LIGHT_BLUE_BORDER)
+    c.setStrokeColorRGB(r, g, b)
+    c.setLineWidth(3)
+    c.roundRect(border_margin, border_margin, content_width, content_height, 10, stroke=1, fill=0)
+    
+    # Accent stripe at top
+    accent_margin = 0.08 * inch
+    accent_height = 0.8 * inch
+    accent_x = border_margin + accent_margin
+    accent_y = height - border_margin - accent_height - accent_margin - 0.1 * inch
+    accent_width = content_width - 2 * accent_margin
+    
+    # Use level-specific color for accent stripe
+    level_color = LEVEL_COLORS.get(level, '#F4A259')
+    if mode == 'bw':
+        c.setFillColorRGB(0.7, 0.7, 0.7)
+    else:
+        r, g, b = hex_to_rgb(level_color)
+        c.setFillColorRGB(r, g, b)
+    
+    c.roundRect(accent_x, accent_y, accent_width, accent_height, 8, stroke=0, fill=1)
+    
+    # Page title
+    c.setFillColorRGB(*hex_to_rgb('#001F3F'))
+    c.setFont("Helvetica-Bold", 28)
+    title_y = accent_y + accent_height / 2 + 5
+    c.drawCentredString(width / 2, title_y, "Storage Labels")
+    
+    # Subtitle
+    c.setFont("Helvetica", 20)
+    subtitle_y = title_y - 30
+    c.drawCentredString(width / 2, subtitle_y, f"Find & Cover – Level {level}: {LEVEL_NAMES[level]}")
+    
+    # Storage label boxes - 3 columns × 4 rows = 12 boxes
+    cols = 3
+    rows = 4
+    
+    box_width = 2.2 * inch
+    box_height = 1.4 * inch
+    h_spacing = 0.2 * inch
+    v_spacing = 0.15 * inch
+    
+    # Calculate grid position
+    grid_width = cols * box_width + (cols - 1) * h_spacing
+    grid_height = rows * box_height + (rows - 1) * v_spacing
+    start_x = (width - grid_width) / 2
+    start_y = accent_y - 0.4 * inch - grid_height
+    
+    # Draw storage label boxes
+    for row in range(rows):
+        for col in range(cols):
+            idx = row * cols + col
+            if idx >= len(icons):
+                continue
+            
+            icon = icons[idx]
+            
+            box_x = start_x + col * (box_width + h_spacing)
+            box_y = start_y + (rows - 1 - row) * (box_height + v_spacing)
+            
+            # Box background
+            c.setFillColorRGB(0.98, 0.98, 0.98)
+            c.setStrokeColorRGB(*hex_to_rgb(NAVY_BORDER))
+            c.setLineWidth(1.5)
+            c.roundRect(box_x, box_y, box_width, box_height, 6, stroke=1, fill=1)
+            
+            # Level color strip on left
+            strip_width = 0.15 * inch
+            if mode == 'bw':
+                c.setFillColorRGB(0.5, 0.5, 0.5)
+            else:
+                c.setFillColorRGB(*hex_to_rgb(level_color))
+            c.roundRect(box_x, box_y, strip_width, box_height, 6, stroke=0, fill=1)
+            c.rect(box_x + strip_width/2, box_y, strip_width/2, box_height, stroke=0, fill=1)
+            
+            # Product name
+            c.setFillColorRGB(0, 0, 0)
+            c.setFont("Helvetica-Bold", 10)
+            c.drawString(box_x + strip_width + 5, box_y + box_height - 15, "Find & Cover")
+            
+            # Theme and pack code
+            c.setFont("Helvetica", 8)
+            c.setFillColorRGB(0.4, 0.4, 0.4)
+            c.drawString(box_x + strip_width + 5, box_y + box_height - 26, f"Brown Bear | {pack_code}")
+            
+            # Level indicator
+            c.setFont("Helvetica-Bold", 8)
+            c.drawString(box_x + strip_width + 5, box_y + box_height - 38, f"Level {level}: {LEVEL_NAMES[level]}")
+            
+            # Icon image
+            try:
+                img = Image.open(icon['path'])
+                if mode == 'bw':
+                    img = img.convert('L').convert('RGB')
+                temp_path = f'/tmp/label_icon_{idx}.png'
+                img.save(temp_path)
+                icon_size = 0.6 * inch
+                icon_x = box_x + box_width - icon_size - 10
+                icon_y = box_y + box_height - icon_size - 8
+                c.drawImage(temp_path, icon_x, icon_y, 
+                           width=icon_size, height=icon_size,
+                           preserveAspectRatio=True, mask='auto')
+            except:
+                pass
+            
+            # Icon name
+            c.setFillColorRGB(0, 0, 0)
+            c.setFont("Helvetica", 9)
+            c.drawCentredString(box_x + box_width/2, box_y + 8, icon['name'])
+    
+    # Footer
+    footer_y = border_margin + 0.3 * inch
+    c.setFont('Helvetica', 9)
+    c.setFillColorRGB(*hex_to_rgb('#999999'))
+    footer_line2 = "© 2025 Small Wins Studio. PCS® symbols used with active PCS Maker Personal License."
+    c.drawCentredString(width/2, footer_y, footer_line2)
+    
+    c.setFont('Helvetica', 10)
+    footer_line1 = f"Find & Cover – Storage Labels | {pack_code}"
+    c.drawCentredString(width/2, footer_y + 12, footer_line1)
+    
+    c.showPage()
+
+def generate_storage_labels_pdf(output_path, mode='color'):
+    """Generate storage labels PDF for all levels."""
+    
+    icons = load_brown_bear_icons()
+    if not icons:
+        print(f"No icons found, cannot generate PDF")
+        return None
+    
+    c = canvas.Canvas(str(output_path), pagesize=letter)
+    
+    # Generate storage labels for each level
+    for level in [1, 2, 3, 4]:
+        generate_storage_labels_page(c, icons, level, mode)
+    
+    c.save()
+    print(f"✓ Generated: {output_path}")
+    return output_path
+
 def main():
     """Generate all Find & Cover PDFs."""
     
@@ -315,10 +474,28 @@ def main():
             shutil.copy(samples_path, review_path)
             print(f"  Copied to: {review_path}")
     
+    # Generate storage labels
+    print("\n" + "-" * 40)
+    print("GENERATING STORAGE LABELS")
+    print("-" * 40)
+    
+    for mode in ['color', 'bw']:
+        filename = f"brown_bear_find_cover_storage_labels_{mode}.pdf"
+        
+        # Generate in samples folder
+        samples_path = samples_dir / filename
+        generate_storage_labels_pdf(samples_path, mode)
+        
+        # Copy to review folder
+        review_path = review_dir / filename
+        import shutil
+        shutil.copy(samples_path, review_path)
+        print(f"  Copied to: {review_path}")
+    
     print("\n" + "=" * 60)
     print("FIND & COVER PDFs COMPLETE!")
     print("=" * 60)
-    print(f"\nGenerated {4 * 2} PDF files (4 levels × 2 modes)")
+    print(f"\nGenerated {4 * 2 + 2} PDF files (4 levels × 2 modes + 2 storage labels)")
     print(f"  Samples: {samples_dir}")
     print(f"  Review:  {review_dir}")
 
