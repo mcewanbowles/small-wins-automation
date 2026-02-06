@@ -2,6 +2,7 @@
 """
 Generate Find & Cover Level PDFs for Brown Bear theme.
 Produces all 4 levels in both color and BW versions.
+Uses Matching Product Spec design elements.
 """
 
 import os
@@ -22,12 +23,18 @@ import random
 PAGE_WIDTH, PAGE_HEIGHT = letter
 MARGIN = 0.5 * inch
 
-# Level colors for accent strips
+# Matching Product Spec Colors
+LIGHT_BLUE_BORDER = '#A0C4E8'  # Light blue border for pages
+NAVY_BORDER = '#1E3A5F'  # Navy border for target and boxes
+WHITE = '#FFFFFF'
+BLACK = '#000000'
+
+# Level colors for accent strips (matching Matching product)
 LEVEL_COLORS = {
-    1: '#FF8C42',  # Orange
-    2: '#4A90E2',  # Blue
-    3: '#7CB342',  # Green
-    4: '#9C27B0',  # Purple
+    1: '#F4A259',  # Orange - Level 1 (beginner)
+    2: '#4A90E2',  # Blue - Level 2 (easy)
+    3: '#7BC47F',  # Green - Level 3 (medium)
+    4: '#9B59B6',  # Purple - Level 4 (hard)
 }
 
 LEVEL_NAMES = {
@@ -63,50 +70,73 @@ def load_brown_bear_icons():
     return icons
 
 def generate_find_cover_page(c, target_icon, all_icons, level, page_num, mode='color'):
-    """Generate a single Find & Cover page."""
+    """Generate a single Find & Cover page with Matching design spec."""
+    
+    width, height = letter
     
     # Page setup
     c.setPageSize(letter)
     
-    # Background
+    # Background white
+    c.setFillColorRGB(1, 1, 1)
+    c.rect(0, 0, width, height, fill=True, stroke=False)
+    
+    # Page Structure - 0.25" margin from edge (matching Matching spec)
+    border_margin = 0.25 * inch
+    content_width = width - 2 * border_margin
+    content_height = height - 2 * border_margin
+    
+    # Draw rounded rectangle border (3px stroke) - LIGHT BLUE per spec
+    r, g, b = hex_to_rgb(LIGHT_BLUE_BORDER)
+    c.setStrokeColorRGB(r, g, b)
+    c.setLineWidth(3)
+    c.roundRect(border_margin, border_margin, content_width, content_height, 10, stroke=1, fill=0)
+    
+    # Accent Stripe with level color and rounded corners
+    accent_margin = 0.08 * inch
+    accent_height = 1.0 * inch
+    accent_x = border_margin + accent_margin
+    accent_y = height - border_margin - accent_height - accent_margin - 0.1 * inch
+    accent_width = content_width - 2 * accent_margin
+    
+    # Use level-specific color for accent stripe
+    level_color = LEVEL_COLORS.get(level, '#F4A259')
     if mode == 'bw':
-        c.setFillColorRGB(1, 1, 1)
+        c.setFillColorRGB(0.7, 0.7, 0.7)
     else:
-        c.setFillColorRGB(1, 1, 1)
-    c.rect(0, 0, PAGE_WIDTH, PAGE_HEIGHT, fill=True, stroke=False)
-    
-    # Page border
-    c.setStrokeColorRGB(0.5, 0.5, 0.5)
-    c.setLineWidth(2)
-    c.rect(MARGIN/2, MARGIN/2, PAGE_WIDTH - MARGIN, PAGE_HEIGHT - MARGIN, fill=False, stroke=True)
-    
-    # Level color accent strip at top
-    level_color = LEVEL_COLORS.get(level, '#FF8C42')
-    if mode == 'color':
         r, g, b = hex_to_rgb(level_color)
         c.setFillColorRGB(r, g, b)
-    else:
-        c.setFillColorRGB(0.7, 0.7, 0.7)
-    c.rect(MARGIN/2, PAGE_HEIGHT - MARGIN/2 - 30, PAGE_WIDTH - MARGIN, 30, fill=True, stroke=False)
     
-    # Title
-    c.setFillColorRGB(0, 0, 0)
-    c.setFont('Helvetica-Bold', 24)
-    title = "Find & Cover"
-    c.drawCentredString(PAGE_WIDTH/2, PAGE_HEIGHT - MARGIN - 50, title)
+    # Draw accent stripe with rounded corners
+    c.roundRect(accent_x, accent_y, accent_width, accent_height, 8, stroke=0, fill=1)
     
-    # Level indicator
+    # Title and Subtitle inside accent stripe
+    c.setFillColorRGB(*hex_to_rgb('#001F3F'))  # Navy
+    c.setFont('Helvetica-Bold', 36)
+    title_y = accent_y + accent_height / 2 + 5
+    c.drawCentredString(width / 2, title_y, "Find & Cover")
+    
+    # Subtitle: "Brown Bear"
+    c.setFont('Helvetica', 28)
+    c.setFillColorRGB(0.2, 0.2, 0.2)
+    subtitle_y = title_y - 30
+    c.drawCentredString(width / 2, subtitle_y, "Brown Bear")
+    
+    # Level indicator below stripe
     c.setFont('Helvetica-Bold', 14)
-    c.drawCentredString(PAGE_WIDTH/2, PAGE_HEIGHT - MARGIN - 70, f"Level {level}: {LEVEL_NAMES[level]}")
+    c.setFillColorRGB(0, 0, 0)
+    c.drawCentredString(width/2, accent_y - 20, f"Level {level}: {LEVEL_NAMES[level]}")
     
-    # Target box
-    target_box_y = PAGE_HEIGHT - MARGIN - 200
+    # Target box - navy border with rounded corners
+    target_box_y = accent_y - 150
     target_box_size = 100
-    target_box_x = PAGE_WIDTH/2 - target_box_size/2
+    target_box_x = width/2 - target_box_size/2
     
-    c.setStrokeColorRGB(0, 0, 0)
-    c.setLineWidth(2)
-    c.rect(target_box_x, target_box_y, target_box_size, target_box_size, fill=False, stroke=True)
+    # Navy border for target box
+    r, g, b = hex_to_rgb(NAVY_BORDER)
+    c.setStrokeColorRGB(r, g, b)
+    c.setLineWidth(3.5)
+    c.roundRect(target_box_x, target_box_y, target_box_size, target_box_size, 8, fill=False, stroke=True)
     
     # Draw target icon
     try:
@@ -126,11 +156,12 @@ def generate_find_cover_page(c, target_icon, all_icons, level, page_num, mode='c
     
     # Label under target
     c.setFont('Helvetica', 12)
-    c.drawCentredString(PAGE_WIDTH/2, target_box_y - 20, f"Find: {target_icon['name']}")
+    c.setFillColorRGB(0, 0, 0)
+    c.drawCentredString(width/2, target_box_y - 20, f"Find: {target_icon['name']}")
     
     # Instruction
     c.setFont('Helvetica-Bold', 14)
-    c.drawCentredString(PAGE_WIDTH/2, target_box_y - 45, "Cover all matching pictures")
+    c.drawCentredString(width/2, target_box_y - 45, "Cover all matching pictures")
     
     # Grid area
     grid_start_y = target_box_y - 80
@@ -139,7 +170,7 @@ def generate_find_cover_page(c, target_icon, all_icons, level, page_num, mode='c
     cell_size = 100
     grid_width = grid_cols * cell_size
     grid_height = grid_rows * cell_size
-    grid_start_x = PAGE_WIDTH/2 - grid_width/2
+    grid_start_x = width/2 - grid_width/2
     
     # Generate grid content based on level
     total_cells = grid_rows * grid_cols
@@ -178,16 +209,17 @@ def generate_find_cover_page(c, target_icon, all_icons, level, page_num, mode='c
     if level != 4:
         random.shuffle(grid_content)
     
-    # Draw grid
+    # Draw grid with navy borders and rounded corners
     for row in range(grid_rows):
         for col in range(grid_cols):
             idx = row * grid_cols + col
             x = grid_start_x + col * cell_size
             y = grid_start_y - (row + 1) * cell_size
             
-            # Cell border
-            c.setStrokeColorRGB(0.3, 0.3, 0.3)
-            c.setLineWidth(1)
+            # Navy border for grid cells
+            r, g, b = hex_to_rgb(NAVY_BORDER)
+            c.setStrokeColorRGB(r, g, b)
+            c.setLineWidth(2)
             
             if level == 4:
                 # Draw circle for cut & paste
@@ -195,7 +227,8 @@ def generate_find_cover_page(c, target_icon, all_icons, level, page_num, mode='c
                 center_y = y + cell_size/2
                 c.circle(center_x, center_y, cell_size/2 - 5, fill=False, stroke=True)
             else:
-                c.rect(x + 2, y + 2, cell_size - 4, cell_size - 4, fill=False, stroke=True)
+                # Rounded rect for grid cells
+                c.roundRect(x + 2, y + 2, cell_size - 4, cell_size - 4, 6, fill=False, stroke=True)
                 
                 # Draw icon
                 icon = grid_content[idx]
@@ -212,10 +245,12 @@ def generate_find_cover_page(c, target_icon, all_icons, level, page_num, mode='c
                     except Exception as e:
                         pass
     
-    # Footer
+    # Footer with proper styling
+    border_margin = 0.25 * inch
     c.setFont('Helvetica', 10)
-    c.drawCentredString(PAGE_WIDTH/2, MARGIN, "© 2025 Small Wins Studio")
-    c.drawRightString(PAGE_WIDTH - MARGIN, MARGIN, f"Brown Bear Find & Cover - Level {level}")
+    c.setFillColorRGB(0.3, 0.3, 0.3)
+    c.drawCentredString(width/2, border_margin + 5, "© 2025 Small Wins Studio")
+    c.drawRightString(width - border_margin - 10, border_margin + 5, f"BB-FC Level {level}")
     
     c.showPage()
 
