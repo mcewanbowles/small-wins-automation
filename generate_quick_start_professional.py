@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
 """
 Professional Quick Start Instructions Generator
-Creates single-page Quick Start PDFs for Matching and Find & Cover
-with teal branding and level colors as tasteful accents.
+Creates comprehensive Quick Start PDFs for Matching and Find & Cover
+with teal branding, level colors as accents, and extensive guidance
+for students with complex communication and special needs.
 
-Design Brief:
+Design Brief (per TPT amendments):
 - Primary Brand Color: Teal #008B8B
 - Level Colors: Orange #FF8C42, Blue #4A90E2, Green #7CB342, Purple #9C27B0
-- Font: Comic Sans MS throughout
-- Layout: Single page, 2x2 level grid, 3-column bottom section
+- Font: Comic Sans MS throughout (centered titles)
+- Layout: Professional, uncluttered, easy to read
+- Content: Comprehensive tips for special needs, AAC support, game variations
+- Consistent spacing, alignment, and branding
 """
 
 import os
@@ -194,34 +197,38 @@ def generate_matching_quick_start(output_path, theme_name="Brown Bear", pack_cod
     # Level 1 - Top Left
     draw_level_card(c, left_x, top_y, card_width, card_height, 1,
                     "Errorless", [
-                        "5 matching pictures, 0 distractors",
-                        "All answers correct - builds confidence",
+                        "ALL 5 pictures match - 0 distractors",
+                        "100% success builds confidence",
+                        "Great for introducing new activity",
                     ])
     
     # Level 2 - Top Right  
     draw_level_card(c, right_x, top_y, card_width, card_height, 2,
                     "Easy", [
-                        "4 matching pictures, 1 distractor",
-                        "Low frustration discrimination",
+                        "4 matching + 1 distractor",
+                        "Low frustration visual discrimination",
+                        "Good for beginners, early learners",
                     ])
     
     # Level 3 - Bottom Left
     draw_level_card(c, left_x, bottom_y, card_width, card_height, 3,
                     "Medium", [
-                        "3 matching pictures, 2 distractors",
-                        "Moderate challenge, more choices",
+                        "3 matching + 2 distractors",
+                        "Moderate challenge, more scanning",
+                        "Builds visual search skills",
                     ])
     
     # Level 4 - Bottom Right
     draw_level_card(c, right_x, bottom_y, card_width, card_height, 4,
                     "Challenge", [
-                        "1 matching picture, 4 distractors",
-                        "True discrimination - find the ONE",
+                        "Only 1-2 matches + 3-4 distractors",
+                        "True discrimination task",
+                        "For students ready for challenge",
                     ])
     
-    # Tips section - full width
+    # Tips section - full width with more content
     tips_y = bottom_y - 0.1*inch
-    tips_height = 0.65*inch
+    tips_height = 0.9*inch
     tips_box_y = tips_y - tips_height
     
     c.setFillColor(SECTION_BG)
@@ -229,49 +236,55 @@ def generate_matching_quick_start(output_path, theme_name="Brown Bear", pack_cod
     
     c.setFillColor(TEAL)
     c.setFont(TITLE_FONT, SECTION_HEADER_SIZE)
-    c.drawCentredString(width/2, tips_box_y + tips_height - 0.18*inch, "💡 General Tips")
+    c.drawCentredString(width/2, tips_box_y + tips_height - 0.18*inch, "💡 Tips for Complex Learners & Special Needs")
     
     c.setFillColor(TEXT_COLOR)
-    c.setFont(BODY_FONT, BODY_SIZE)
+    c.setFont(BODY_FONT, BODY_SIZE - 1)
     tips = [
-        "Start at Level 1 until 80% accuracy • Use AAC: match, same, find • Allow 10 sec response time • Praise effort!"
+        "✓ Start at Level 1 until 80% accuracy achieved before moving up",
+        "✓ Allow 10-15 seconds processing time before prompting",
+        "✓ Use hand-over-hand guidance, then fade to pointing, then independence",
+        "✓ Accept AAC responses (device, sign, pointing) - don't require verbal speech",
     ]
-    c.drawCentredString(width/2, tips_box_y + 0.18*inch, tips[0])
+    tip_y = tips_box_y + tips_height - 0.38*inch
+    for tip in tips:
+        c.drawCentredString(width/2, tip_y, tip)
+        tip_y -= 0.14*inch
     
-    # 3-column bottom section
+    # 3-column bottom section with enhanced content
     section_width = (total_width - 2*h_gap) / 3
-    section_height = 1.7*inch
+    section_height = 1.55*inch
     section_y = tips_box_y - 0.1*inch - section_height
     
-    # Game Variations
+    # Game Variations - More activities
     draw_section(c, left_x, section_y, section_width, section_height,
                  "🎮 Game Variations", LEVEL_COLORS[2], [
                      "Memory Match: Turn",
                      "cutouts face-down,",
-                     "find matches!",
-                     "",
-                     "Speed Match: Time",
-                     "it, track progress!",
+                     "find matching pairs!",
+                     "Speed Match: Use a",
+                     "timer, track progress",
+                     "Choice: \"Show me dog\"",
                  ])
     
-    # AAC & Praise
+    # AAC & Communication - Detailed prompts
     draw_section(c, left_x + section_width + h_gap, section_y, section_width, section_height,
-                 "🎙️ AAC & Praise", LEVEL_COLORS[1], [
-                     "Model: match, same",
-                     "find, look, more",
-                     "",
-                     "Praise effort:",
-                     "'Great matching!'",
-                     "'You found it!'",
+                 "🎙️ AAC & Prompts", LEVEL_COLORS[1], [
+                     "Core Words: match,",
+                     "same, find, look, more",
+                     "Model on device first",
+                     "Praise: \"Great finding!\"",
+                     "\"You matched it!\"",
+                     "\"Good looking!\"",
                  ])
     
     # Preparation & Storage
     draw_section(c, left_x + 2*(section_width + h_gap), section_y, section_width, section_height,
                  "🔧 Prep & Storage", LEVEL_COLORS[3], [
-                     "Print: 110lb+ card",
+                     "Print: cardstock",
                      "Laminate: 3-5 mil",
-                     "Velcro: Hook→box",
-                     "        Loop→cutout",
+                     "Velcro: hook on box",
+                     "loop on cutouts",
                      "Color-code folders",
                      "by level colors",
                  ])
@@ -306,34 +319,38 @@ def generate_find_cover_quick_start(output_path, theme_name="Brown Bear", pack_c
     # Level 1 - Top Left
     draw_level_card(c, left_x, top_y, card_width, card_height, 1,
                     "Errorless", [
-                        "All icons match target",
-                        "No distractors - guaranteed success",
+                        "ALL icons match target - 100% success",
+                        "No distractors, guaranteed success",
+                        "Great for introducing activity",
                     ])
     
     # Level 2 - Top Right  
     draw_level_card(c, right_x, top_y, card_width, card_height, 2,
                     "Easy", [
-                        "50% match, 50% distractors",
+                        "50% match + 50% distractors",
                         "Mixed field, multiple correct answers",
+                        "Good for beginners, early learners",
                     ])
     
     # Level 3 - Bottom Left
     draw_level_card(c, left_x, bottom_y, card_width, card_height, 3,
                     "Challenging", [
-                        "Field of 6 distractors",
+                        "Many distractors in field of icons",
                         "Find target among many choices",
+                        "Builds visual scanning skills",
                     ])
     
     # Level 4 - Bottom Right
     draw_level_card(c, right_x, bottom_y, card_width, card_height, 4,
                     "Cut & Paste", [
                         "Fine motor + visual scanning",
-                        "Cut icons, paste on target squares",
+                        "Cut icons from strip, paste on squares",
+                        "OT-friendly activity for fine motor",
                     ])
     
-    # Tips section - full width
+    # Tips section - full width with more content
     tips_y = bottom_y - 0.1*inch
-    tips_height = 0.65*inch
+    tips_height = 0.9*inch
     tips_box_y = tips_y - tips_height
     
     c.setFillColor(SECTION_BG)
@@ -341,50 +358,57 @@ def generate_find_cover_quick_start(output_path, theme_name="Brown Bear", pack_c
     
     c.setFillColor(TEAL)
     c.setFont(TITLE_FONT, SECTION_HEADER_SIZE)
-    c.drawCentredString(width/2, tips_box_y + tips_height - 0.18*inch, "💡 General Tips")
+    c.drawCentredString(width/2, tips_box_y + tips_height - 0.18*inch, "💡 Tips for Complex Learners & Special Needs")
     
     c.setFillColor(TEXT_COLOR)
-    c.setFont(BODY_FONT, BODY_SIZE)
+    c.setFont(BODY_FONT, BODY_SIZE - 1)
     tips = [
-        "Use bingo daubers or chips to cover • Point to each icon while searching • Celebrate finding each target!"
+        "✓ Use bingo daubers, chips, or dry-erase markers to cover targets",
+        "✓ Point to each icon while searching - model the visual scanning",
+        "✓ Allow 10-15 seconds processing time before prompting",
+        "✓ Accept any communication method - pointing, device, sign language",
     ]
-    c.drawCentredString(width/2, tips_box_y + 0.18*inch, tips[0])
+    tip_y = tips_box_y + tips_height - 0.38*inch
+    for tip in tips:
+        c.drawCentredString(width/2, tip_y, tip)
+        tip_y -= 0.14*inch
     
-    # 3-column bottom section
+    # 3-column bottom section with enhanced content
     section_width = (total_width - 2*h_gap) / 3
-    section_height = 1.7*inch
+    section_height = 1.55*inch
     section_y = tips_box_y - 0.1*inch - section_height
     
-    # Game Variations
+    # Game Variations - More activities
     draw_section(c, left_x, section_y, section_width, section_height,
                  "🎮 Game Variations", LEVEL_COLORS[2], [
-                     "Race: Who covers",
-                     "all targets first?",
-                     "",
-                     "Count: How many",
-                     "targets did you find?",
+                     "Race: Who covers all",
+                     "targets first?",
+                     "Count: How many did",
+                     "you find? Count aloud!",
+                     "Point & Name: Say",
+                     "what you found!",
                  ])
     
-    # AAC & Praise
+    # AAC & Communication - Detailed prompts
     draw_section(c, left_x + section_width + h_gap, section_y, section_width, section_height,
-                 "🎙️ AAC & Praise", LEVEL_COLORS[1], [
-                     "Model: find, cover",
-                     "same, look, more",
-                     "",
-                     "Praise effort:",
-                     "'Great finding!'",
-                     "'You covered it!'",
+                 "🎙️ AAC & Prompts", LEVEL_COLORS[1], [
+                     "Core Words: find,",
+                     "cover, same, look, more",
+                     "Model on device first",
+                     "Praise: \"Great finding!\"",
+                     "\"You covered it!\"",
+                     "\"Good scanning!\"",
                  ])
     
     # Preparation & Storage
     draw_section(c, left_x + 2*(section_width + h_gap), section_y, section_width, section_height,
                  "🔧 Prep & Storage", LEVEL_COLORS[3], [
-                     "Print: 110lb+ card",
+                     "Print: cardstock",
                      "Laminate boards",
                      "Use dry-erase for",
                      "reusable covering",
                      "Store flat in folders",
-                     "by level colors",
+                     "Color-code by level",
                  ])
     
     draw_footer(c, width, pack_code, theme_name, "Find & Cover")
