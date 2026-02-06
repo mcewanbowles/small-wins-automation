@@ -69,7 +69,7 @@ def load_brown_bear_icons():
     
     return icons
 
-def generate_find_cover_page(c, target_icon, all_icons, level, page_num, mode='color'):
+def generate_find_cover_page(c, target_icon, all_icons, level, page_num, total_pages, mode='color', pack_code="BB-FC"):
     """Generate a single Find & Cover page with Matching design spec."""
     
     width, height = letter
@@ -245,12 +245,22 @@ def generate_find_cover_page(c, target_icon, all_icons, level, page_num, mode='c
                     except Exception as e:
                         pass
     
-    # Footer with proper styling
-    border_margin = 0.25 * inch
+    # Footer - TWO lines per Product Spec (both in light grey #999999)
+    # Line 1 (upper): "Find & Cover – Level X | BB-FC | Page Y/Total"
+    # Line 2 (lower): "© 2025 Small Wins Studio. PCS® symbols used with active PCS Maker Personal License."
+    footer_y = border_margin + 0.3 * inch
+    
+    # Line 2 (lower line) - Copyright in light grey #999999
+    c.setFont('Helvetica', 9)
+    c.setFillColorRGB(*hex_to_rgb('#999999'))
+    footer_line2 = "© 2025 Small Wins Studio. PCS® symbols used with active PCS Maker Personal License."
+    c.drawCentredString(width/2, footer_y, footer_line2)
+    
+    # Line 1 (upper line) - Product/Level/Page info in light grey #999999
     c.setFont('Helvetica', 10)
-    c.setFillColorRGB(0.3, 0.3, 0.3)
-    c.drawCentredString(width/2, border_margin + 5, "© 2025 Small Wins Studio")
-    c.drawRightString(width - border_margin - 10, border_margin + 5, f"BB-FC Level {level}")
+    c.setFillColorRGB(*hex_to_rgb('#999999'))
+    footer_line1 = f"Find & Cover – Level {level} | {pack_code} | Page {page_num}/{total_pages}"
+    c.drawCentredString(width/2, footer_y + 12, footer_line1)
     
     c.showPage()
 
@@ -264,10 +274,13 @@ def generate_find_cover_pdf(output_path, level, mode='color'):
     
     c = canvas.Canvas(str(output_path), pagesize=letter)
     
+    # Calculate total pages
+    total_pages = len(icons)
+    
     # Generate pages for each target
     random.seed(42)  # Reproducible randomness
     for i, target_icon in enumerate(icons):
-        generate_find_cover_page(c, target_icon, icons, level, i+1, mode)
+        generate_find_cover_page(c, target_icon, icons, level, i+1, total_pages, mode)
     
     c.save()
     print(f"✓ Generated: {output_path}")
