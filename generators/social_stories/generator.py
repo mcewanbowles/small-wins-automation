@@ -239,26 +239,28 @@ class SocialStoryGenerator:
         # Text content (bottom 40% of content area)
         text_y = image_y - 0.5 * inch
         
-        # Split text into phrases (1 phrase per page ideally, but show all for now)
-        phrases = [line.strip() for line in page_data['text'].split('\n') if line.strip() and not line.startswith('•')]
+        # Split text into lines, keeping ALL content including bullets
+        lines = [line.strip() for line in page_data['text'].split('\n') if line.strip()]
         
         c.setFillColor(self.navy)
-        c.setFont(self.primary_font, 16)
+        c.setFont(self.primary_font, 14)  # Slightly smaller for more content
         
         current_y = text_y
-        for phrase in phrases[:3]:  # Limit to 3 phrases for readability
-            if phrase and not phrase.startswith('#'):
-                # Wrap text
-                wrapped_lines = self._wrap_text(phrase, content_width, self.primary_font, 16)
+        for line in lines:  # Use ALL lines, not just first 3
+            if not line.startswith('#'):  # Skip markdown headers
+                # Wrap text to fit width
+                wrapped_lines = self._wrap_text(line, content_width, self.primary_font, 14)
                 
-                for line in wrapped_lines:
+                for wrapped_line in wrapped_lines:
                     if current_y > content_bottom:
-                        c.drawString(content_left, current_y, line)
-                        current_y -= 24
+                        c.drawString(content_left, current_y, wrapped_line)
+                        current_y -= 20  # Tighter spacing to fit more
                     else:
+                        # Text overflow - stop rendering
                         break
                 
-                current_y -= 12  # Extra space between phrases
+                # Small gap between logical lines
+                current_y -= 4
     
     def generate_pdf(self):
         """Generate the complete social story PDF"""
