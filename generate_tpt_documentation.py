@@ -48,8 +48,8 @@ def hex_to_rgb(hex_color):
     hex_color = hex_color.lstrip('#')
     return tuple(int(hex_color[i:i+2], 16) / 255.0 for i in (0, 2, 4))
 
-def draw_page_border(c, color=LIGHT_BLUE_BORDER):
-    """Draw a rounded rectangle border around the page."""
+def draw_page_border(c, color=TEAL):
+    """Draw a rounded rectangle border around the page in TEAL."""
     r, g, b = hex_to_rgb(color)
     c.setStrokeColorRGB(r, g, b)
     c.setLineWidth(2)
@@ -108,9 +108,16 @@ def draw_accent_stripe(c, y, height, color=TEAL, text="", font_size=14):
         # Center the text
         c.drawCentredString(PAGE_WIDTH/2, y + height/2 - font_size/3, text)
 
-def draw_footer(c):
-    """Draw footer with star logo rising above the S of Small Wins Studio."""
-    footer_y = MARGIN + 5
+def draw_footer(c, product_name="Brown Bear Matching", product_code="BB-MATCH", page_num=1):
+    """Draw standard footer with product info, star logo, Small Wins, copyright in light grey."""
+    footer_y = MARGIN + 8
+    
+    # Product name and page number ABOVE the footer line
+    r, g, b = hex_to_rgb(LIGHT_GREY)
+    c.setFillColorRGB(r, g, b)
+    c.setFont("Helvetica", 8)
+    product_line = f"{product_name} | {product_code} | Page {page_num}"
+    c.drawCentredString(PAGE_WIDTH / 2, footer_y + 15, product_line)
     
     # Star logo - slightly larger so it rises above the S of "Small Wins"
     logo_size = 16  # Larger than text height so star rises above
@@ -120,7 +127,8 @@ def draw_footer(c):
     
     # Star positioned close to "S" as though part of the word
     logo_gap = 1  # Very close to text (almost touching)
-    total_width = logo_size + logo_gap + text_width + 20 + c.stringWidth(f"© {YEAR} All rights reserved.", "Helvetica", 7)
+    copyright_text = f"© {YEAR} All rights reserved."
+    total_width = logo_size + logo_gap + text_width + 15 + c.stringWidth(copyright_text, "Helvetica", 7)
     start_x = (PAGE_WIDTH - total_width) / 2
     
     # Draw star logo - transparent background, rising above S
@@ -129,23 +137,21 @@ def draw_footer(c):
         c.drawImage(str(LOGO_PATH), start_x, footer_y - 2, width=logo_size, height=logo_size,
                    preserveAspectRatio=True, mask='auto')
     
-    # Small Wins Studio text - positioned very close to star
-    r, g, b = hex_to_rgb(NAVY)
+    # Small Wins Studio text - in light grey, positioned very close to star
+    r, g, b = hex_to_rgb(LIGHT_GREY)
     c.setFillColorRGB(r, g, b)
     c.setFont("Helvetica-Bold", 8)
     c.drawString(start_x + logo_size + logo_gap, footer_y, footer_text)
     
-    # Copyright
-    r, g, b = hex_to_rgb(LIGHT_GREY)
-    c.setFillColorRGB(r, g, b)
+    # Copyright - in light grey
     c.setFont("Helvetica", 7)
-    c.drawString(start_x + logo_size + logo_gap + text_width + 20, footer_y, f"© {YEAR} All rights reserved.")
+    c.drawString(start_x + logo_size + logo_gap + text_width + 15, footer_y, copyright_text)
 
 def draw_section_header(c, y, title, color=NAVY, centered=True):
-    """Draw a section header - centered."""
+    """Draw a section header - centered, larger font."""
     r, g, b = hex_to_rgb(color)
     c.setFillColorRGB(r, g, b)
-    c.setFont("Helvetica-Bold", 11)
+    c.setFont("Helvetica-Bold", 13)  # Larger font
     
     if centered:
         c.drawCentredString(PAGE_WIDTH/2, y, title)
@@ -157,40 +163,40 @@ def draw_section_header(c, y, title, color=NAVY, centered=True):
     c.setStrokeColorRGB(r, g, b)
     c.line(INNER_MARGIN, y - 3, PAGE_WIDTH - INNER_MARGIN, y - 3)
     
-    return y - 18
+    return y - 20
 
 def draw_bullet_point(c, x, y, text, indent=0, max_width=None):
-    """Draw a bullet point with proper wrapping."""
+    """Draw a bullet point with proper wrapping - larger font."""
     c.setFillColorRGB(0, 0, 0)
-    c.setFont("Helvetica", 9)
+    c.setFont("Helvetica", 11)  # Larger font
     bullet_x = x + indent
     c.drawString(bullet_x, y, "•")
     c.drawString(bullet_x + 12, y, text)
-    return y - 13
+    return y - 15  # More spacing
 
 def create_single_page(c):
-    """Create single-page Terms of Use & Credits document."""
-    draw_page_border(c)
+    """Create single-page Terms of Use & Credits document with larger fonts."""
+    draw_page_border(c)  # Now uses teal
     
     y = PAGE_HEIGHT - MARGIN - 10
     
     # Header with logo and centered title
     y = draw_header_with_logo(c, y)
     
-    y -= 10
+    y -= 15
     
     # Terms of Use Section
     y = draw_section_header(c, y, "📋 Terms of Use - Single-User License")
     
-    c.setFont("Helvetica", 9)
+    c.setFont("Helvetica", 11)  # Larger font
     c.setFillColorRGB(0, 0, 0)
     
     # YOU MAY section
-    c.setFont("Helvetica-Bold", 9)
+    c.setFont("Helvetica-Bold", 11)
     r, g, b = hex_to_rgb('#34A853')  # Green
     c.setFillColorRGB(r, g, b)
     c.drawString(INNER_MARGIN, y, "✓ YOU MAY:")
-    y -= 13
+    y -= 16
     
     c.setFillColorRGB(0, 0, 0)
     items = [
@@ -200,14 +206,14 @@ def create_single_page(c):
     for item in items:
         y = draw_bullet_point(c, INNER_MARGIN + 10, y, item)
     
-    y -= 8
+    y -= 12
     
     # YOU MAY NOT section
-    c.setFont("Helvetica-Bold", 9)
+    c.setFont("Helvetica-Bold", 11)
     r, g, b = hex_to_rgb('#EA4335')  # Red
     c.setFillColorRGB(r, g, b)
     c.drawString(INNER_MARGIN, y, "✗ YOU MAY NOT:")
-    y -= 13
+    y -= 16
     
     c.setFillColorRGB(0, 0, 0)
     items = [
@@ -217,12 +223,12 @@ def create_single_page(c):
     for item in items:
         y = draw_bullet_point(c, INNER_MARGIN + 10, y, item)
     
-    y -= 15
+    y -= 20
     
     # Book Disclaimer Section - with proper margins
     y = draw_section_header(c, y, "📚 Important Book Disclaimer")
     
-    c.setFont("Helvetica", 9)
+    c.setFont("Helvetica", 11)  # Larger font
     c.setFillColorRGB(0, 0, 0)
     
     # Calculate text width to use full margin
@@ -241,19 +247,19 @@ def create_single_page(c):
             current_line = ""
             for word in words:
                 test_line = current_line + " " + word if current_line else word
-                if c.stringWidth(test_line, "Helvetica", 9) < text_width:
+                if c.stringWidth(test_line, "Helvetica", 11) < text_width:
                     current_line = test_line
                 else:
                     c.drawString(INNER_MARGIN, y, current_line)
-                    y -= 12
+                    y -= 14
                     current_line = word
             if current_line:
                 c.drawString(INNER_MARGIN, y, current_line)
-                y -= 12
+                y -= 14
         else:
-            y -= 6
+            y -= 8
     
-    y -= 10
+    y -= 15
     
     # Credits Section (simplified - no Fonts & Icons)
     y = draw_section_header(c, y, "🎨 Credits & Acknowledgments")
@@ -264,31 +270,32 @@ def create_single_page(c):
     ]
     
     for label, text in credits:
-        c.setFont("Helvetica-Bold", 9)
+        c.setFont("Helvetica-Bold", 11)
         c.drawString(INNER_MARGIN, y, label)
-        c.setFont("Helvetica", 9)
-        c.drawString(INNER_MARGIN + 55, y, text)
-        y -= 13
+        c.setFont("Helvetica", 11)
+        c.drawString(INNER_MARGIN + 60, y, text)
+        y -= 16
     
-    y -= 15
+    y -= 20
     
-    # Combined Bundles & Feedback Section
+    # Combined Bundles & Feedback Section - REMOVED "each bundle includes..."
     y = draw_section_header(c, y, "⭐ Save with Bundles & Your Feedback Matters!")
     
-    c.setFont("Helvetica", 9)
+    c.setFont("Helvetica", 11)  # Larger font
     c.setFillColorRGB(0, 0, 0)
     
     combined_text = [
-        "Love this resource? Check out my complete themed bundles for savings! Each bundle includes",
-        "Matching activities, Find & Cover pages, Storage labels, Quick Start guides, and more.",
+        "Love this resource? Check out my complete themed bundles for savings!",
         "",
-        "As a new TPT seller, your reviews and feedback mean everything! If you found this resource",
-        f"helpful, please consider leaving a rating. Visit: {TPT_STORE_URL}"
+        "As a new TPT seller, your reviews and feedback mean everything! If you found",
+        f"this resource helpful, please consider leaving a rating.",
+        "",
+        f"Visit: {TPT_STORE_URL}"
     ]
     
     for line in combined_text:
         c.drawString(INNER_MARGIN, y, line)
-        y -= 12
+        y -= 14
     
     draw_footer(c)
     c.showPage()
