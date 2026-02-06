@@ -90,7 +90,7 @@ def load_fonts():
         fonts['footer'] = ImageFont.truetype("C:/Windows/Fonts/arial.ttf", int(11 * scale))
         fonts['copyright'] = ImageFont.truetype("C:/Windows/Fonts/arial.ttf", int(9 * scale))
         fonts['cutout_label'] = ImageFont.truetype("C:/Windows/Fonts/arialbd.ttf", int(12 * scale))
-    except:
+    except (OSError, IOError):
         # Linux fonts (fallback)
         fonts['title'] = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", int(28 * scale))
         fonts['subtitle'] = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", int(18 * scale))
@@ -183,7 +183,7 @@ def create_sequencing_page(loaded_images, level, pack_code, theme_name, page_num
                 eyes_img = Image.open(see_look_path).convert('RGBA')
             else:
                 eyes_img = loaded_images[0].copy()  # Last resort fallback
-    except:
+    except (FileNotFoundError, IOError):
         eyes_img = loaded_images[0].copy()  # Fallback
         
     eyes_img.thumbnail((int(70 * scale), int(70 * scale)), Image.Resampling.LANCZOS)
