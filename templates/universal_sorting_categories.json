@@ -1,0 +1,18 @@
+{
+  "two_way": [
+    ["Flies", "Doesn't fly"],
+    ["Swims", "Doesn't swim"],
+    ["Big", "Small"],
+    ["Same", "Different"],
+    ["Happy", "Sad"]
+  ],
+  "three_way": [
+    ["2 legs", "4 legs", "No legs"],
+    ["Beginning", "Middle", "End"]
+  ],
+  "yes_no": [
+    ["Is it green?"],
+    ["Does it swim?"],
+    ["Can it fly?"]
+  ]
+}
