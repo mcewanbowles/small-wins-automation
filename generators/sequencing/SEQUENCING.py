@@ -123,6 +123,7 @@ def load_fonts():
         fonts['subtitle'] = ImageFont.truetype("C:/Windows/Fonts/arialbd.ttf", int(18 * scale))
         fonts['prompt'] = ImageFont.truetype("C:/Windows/Fonts/arialbd.ttf", int(16 * scale))
         fonts['number'] = ImageFont.truetype("C:/Windows/Fonts/arialbd.ttf", int(24 * scale))
+        fonts['number_small'] = ImageFont.truetype("C:/Windows/Fonts/arialbd.ttf", int(20 * scale))  # Smaller for better fit
         fonts['label'] = ImageFont.truetype("C:/Windows/Fonts/arial.ttf", int(11 * scale))
         fonts['footer'] = ImageFont.truetype("C:/Windows/Fonts/arial.ttf", int(11 * scale))
         fonts['copyright'] = ImageFont.truetype("C:/Windows/Fonts/arial.ttf", int(9 * scale))
@@ -133,6 +134,7 @@ def load_fonts():
         fonts['subtitle'] = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", int(18 * scale))
         fonts['prompt'] = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", int(16 * scale))
         fonts['number'] = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", int(24 * scale))
+        fonts['number_small'] = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", int(20 * scale))  # Smaller for better fit
         fonts['label'] = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", int(11 * scale))
         fonts['footer'] = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", int(11 * scale))
         fonts['copyright'] = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", int(9 * scale))
@@ -216,9 +218,9 @@ def create_sequencing_page(loaded_images, real_images, level, pack_code, theme_n
         width=int(3 * scale)
     )
     
-    # Accent stripe: 0.5"-0.6" height, sitting inside border with padding
+    # Accent stripe: increased height for better padding around title
     level_color = get_level_color(level)
-    accent_height = int(0.55 * 72 * scale)  # 0.55 inch
+    accent_height = int(0.65 * 72 * scale)  # 0.65 inch (increased from 0.55)
     accent_padding = int(0.12 * 72 * scale)  # 0.12 inch padding from border
     draw.rounded_rectangle(
         [margin + accent_padding, margin + accent_padding, 
@@ -228,11 +230,14 @@ def create_sequencing_page(loaded_images, real_images, level, pack_code, theme_n
         outline=None
     )
     
-    # Title - centered in accent stripe
+    # Title - centered in accent stripe with proper vertical padding (15px top, 12px bottom)
     title_text = f"{theme_name} - Sequencing"
     title_bbox = draw.textbbox((0, 0), title_text, font=fonts['title'])
     title_w = title_bbox[2] - title_bbox[0]
-    draw.text(((img_width - title_w) // 2, margin + accent_padding + int(10 * scale)), title_text,
+    title_h = title_bbox[3] - title_bbox[1]
+    # Center vertically in accent stripe
+    title_y = margin + accent_padding + (accent_height - title_h) // 2
+    draw.text(((img_width - title_w) // 2, title_y), title_text,
               fill='white', font=fonts['title'])
     
     # Compact story setup section
@@ -267,145 +272,125 @@ def create_sequencing_page(loaded_images, real_images, level, pack_code, theme_n
     draw.text((text_x, setup_y + int(5 * scale)), "Brown Bear, what do you see? I see...",
               fill=hex_to_rgb(STEEL_BLUE), font=fonts['prompt'])
     
-    # Level indicator - aligned right
-    level_names = {
-        1: "Level 1 - Color Symbol Hints (Errorless)", 
-        2: "Level 2 - Real Photo Hints (Generalization)", 
-        3: "Level 3 - B&W Symbols (No Color Cues)",
-        4: "Level 4 - Text Labels Only",
-        5: "Level 5 - No Help (Independence)"
-    }
-    level_stars = {1: "⭐", 2: "⭐⭐", 3: "⭐⭐⭐", 4: "⭐⭐⭐⭐", 5: "⭐⭐⭐⭐⭐"}
-    level_text = f"{level_stars[level]} {level_names[level]}"
-    level_bbox = draw.textbbox((0, 0), level_text, font=fonts['subtitle'])
-    level_w = level_bbox[2] - level_bbox[0]
-    draw.text((img_width - level_w - int(50 * scale), setup_y + int(10 * scale)), level_text,
-              fill=hex_to_rgb(BRAND_NAVY), font=fonts['subtitle'])
+    # NOTE: Level subtitle removed per user request - level indicated by color only
     
-    # LANDSCAPE: 3 rows (4-4-3 layout) with arrows showing sequence journey
-    # This helps SPED students visualize the story progression
+    # SNAKE PATHWAY LAYOUT: Creative wiggly path showing sequence journey
+    # Boxes wind down the page in an S-curve pattern - more engaging for SPED students
     box_width = int(85 * scale)
     box_height = int(105 * scale)
-    box_spacing = int(10 * scale)
-    row_spacing = int(35 * scale)  # Space between rows for arrows
     
-    # Starting Y position for first row
-    first_row_y = setup_y + int(65 * scale)
+    # Starting Y position
+    first_box_y = setup_y + int(60 * scale)
     
-    # Define rows: [count, starting_index]
-    rows = [
-        (4, 0),   # Row 1: boxes 1-4
-        (4, 4),   # Row 2: boxes 5-8
-        (3, 8)    # Row 3: boxes 9-11
+    # Snake pathway positions - manually positioned for creative S-curve
+    # Format: (x_offset_from_left_margin, y_offset_from_first_box)
+    # Creates a flowing snake pattern down the page
+    snake_positions = [
+        # Top row: 4 boxes going right (boxes 1-4)
+        (100, 0),      # Box 1
+        (225, 0),      # Box 2
+        (350, 0),      # Box 3
+        (475, 0),      # Box 4
+        
+        # Curve down and left (boxes 5-8)
+        (450, 145),    # Box 5 (start curving back)
+        (350, 175),    # Box 6 (diagonal down-left)
+        (250, 205),    # Box 7 (continuing down-left)
+        (150, 235),    # Box 8 (continuing down-left)
+        
+        # Bottom row: 3 boxes going right (boxes 9-11)
+        (175, 380),    # Box 9
+        (300, 380),    # Box 10
+        (425, 380),    # Box 11
     ]
     
-    box_index = 0
-    for row_num, (count, start_idx) in enumerate(rows):
-        # Calculate row Y position
-        row_y = first_row_y + row_num * (box_height + row_spacing)
+    # Draw each box at its snake pathway position
+    for i, (x_offset, y_offset) in enumerate(snake_positions):
+        box_x = int(x_offset * scale)
+        box_y = first_box_y + int(y_offset * scale)
+            
+        # Box with light blue fill
+        draw.rounded_rectangle(
+            [box_x, box_y, box_x + box_width, box_y + box_height],
+            radius=int(8 * scale),
+            fill=hex_to_rgb(LIGHT_BLUE),
+            outline=hex_to_rgb(BRAND_NAVY),
+            width=int(2 * scale)
+        )
         
-        # Calculate centered X position for this row
-        row_width = count * box_width + (count - 1) * box_spacing
-        row_start_x = (img_width - row_width) // 2
+        # Number circle at top - smaller numbers, better centered
+        circle_size = int(28 * scale)
+        circle_x = box_x + (box_width - circle_size) // 2
+        circle_y = box_y - int(14 * scale)
+        draw.ellipse(
+            [circle_x, circle_y, circle_x + circle_size, circle_y + circle_size],
+            fill=hex_to_rgb(BRAND_NAVY)
+        )
         
-        # Draw boxes in this row
-        for col in range(count):
-            i = start_idx + col
-            box_x = row_start_x + col * (box_width + box_spacing)
+        # Smaller number font for better fit
+        num_text = str(i + 1)
+        num_bbox = draw.textbbox((0, 0), num_text, font=fonts['number_small'])
+        num_w = num_bbox[2] - num_bbox[0]
+        num_h = num_bbox[3] - num_bbox[1]
+        # Better centering - adjust for font baseline
+        draw.text((circle_x + (circle_size - num_w) // 2, 
+                  circle_y + (circle_size - num_h) // 2 - int(2 * scale)),
+                 num_text, fill='white', font=fonts['number_small'])
+        
+        # Content based on level
+        if level == 1:
+            # Level 1: Color PCS symbol watermark hints (errorless learning)
+            hint_img = loaded_images[i].copy()
+            hint_img = make_transparent(hint_img, opacity=0.15)
+            hint_img.thumbnail((int(65 * scale), int(65 * scale)), Image.Resampling.LANCZOS)
+            hint_x = box_x + (box_width - hint_img.width) // 2
+            hint_y = box_y + (box_height - hint_img.height) // 2
+            page.paste(hint_img, (hint_x, hint_y), hint_img)
             
-            # Box with light blue fill
-            draw.rounded_rectangle(
-                [box_x, row_y, box_x + box_width, row_y + box_height],
-                radius=int(8 * scale),
-                fill=hex_to_rgb(LIGHT_BLUE),
-                outline=hex_to_rgb(BRAND_NAVY),
-                width=int(2 * scale)
-            )
-            
-            # Number circle at top
-            circle_size = int(28 * scale)
-            circle_x = box_x + (box_width - circle_size) // 2
-            circle_y = row_y - int(14 * scale)
-            draw.ellipse(
-                [circle_x, circle_y, circle_x + circle_size, circle_y + circle_size],
-                fill=hex_to_rgb(BRAND_NAVY)
-            )
-            
-            num_text = str(i + 1)
-            num_bbox = draw.textbbox((0, 0), num_text, font=fonts['number'])
-            num_w = num_bbox[2] - num_bbox[0]
-            num_h = num_bbox[3] - num_bbox[1]
-            draw.text((circle_x + (circle_size - num_w) // 2, circle_y + (circle_size - num_h) // 2),
-                     num_text, fill='white', font=fonts['number'])
-            
-            # Content based on level
-            if level == 1:
-                # Level 1: Color PCS symbol watermark hints (errorless learning)
-                hint_img = loaded_images[i].copy()
+        elif level == 2:
+            # Level 2: Real photo watermark hints (generalization to authentic images)
+            if real_images and i < len(real_images):
+                hint_img = real_images[i].copy()
                 hint_img = make_transparent(hint_img, opacity=0.15)
                 hint_img.thumbnail((int(65 * scale), int(65 * scale)), Image.Resampling.LANCZOS)
                 hint_x = box_x + (box_width - hint_img.width) // 2
-                hint_y = row_y + (box_height - hint_img.height) // 2
+                hint_y = box_y + (box_height - hint_img.height) // 2
                 page.paste(hint_img, (hint_x, hint_y), hint_img)
-                
-            elif level == 2:
-                # Level 2: Real photo watermark hints (generalization to authentic images)
-                if real_images and i < len(real_images):
-                    hint_img = real_images[i].copy()
-                    hint_img = make_transparent(hint_img, opacity=0.15)
-                    hint_img.thumbnail((int(65 * scale), int(65 * scale)), Image.Resampling.LANCZOS)
-                    hint_x = box_x + (box_width - hint_img.width) // 2
-                    hint_y = row_y + (box_height - hint_img.height) // 2
-                    page.paste(hint_img, (hint_x, hint_y), hint_img)
-                
-            elif level == 3:
-                # Level 3: Black & white PCS symbols (remove color and realism cues)
-                bw_img = loaded_images[i].copy()
-                bw_img = convert_to_bw(bw_img)
-                bw_img.thumbnail((int(65 * scale), int(65 * scale)), Image.Resampling.LANCZOS)
-                bw_x = box_x + (box_width - bw_img.width) // 2
-                bw_y = row_y + (box_height - bw_img.height) // 2
-                page.paste(bw_img, (bw_x, bw_y), bw_img if bw_img.mode == 'RGBA' else None)
-                
-            elif level == 4:
-                # Level 4: Text labels only (literacy-based, minimal support)
-                label_text = DISPLAY_NAMES[STORY_SEQUENCE[i]]
-                label_bbox = draw.textbbox((0, 0), label_text, font=fonts['label'])
-                label_w = label_bbox[2] - label_bbox[0]
-                draw.text((box_x + (box_width - label_w) // 2, row_y + box_height - int(25 * scale)),
-                         label_text, fill=hex_to_rgb(BRAND_NAVY), font=fonts['label'])
             
-            elif level == 5:
-                # Level 5: No help - blank boxes (complete independence/assessment)
-                pass  # Intentionally blank - student works from memory
+        elif level == 3:
+            # Level 3: Black & white PCS symbols (remove color and realism cues)
+            bw_img = loaded_images[i].copy()
+            bw_img = convert_to_bw(bw_img)
+            bw_img.thumbnail((int(65 * scale), int(65 * scale)), Image.Resampling.LANCZOS)
+            bw_x = box_x + (box_width - bw_img.width) // 2
+            bw_y = box_y + (box_height - bw_img.height) // 2
+            page.paste(bw_img, (bw_x, bw_y), bw_img if bw_img.mode == 'RGBA' else None)
+            
+        elif level == 4:
+            # Level 4: Text labels only (literacy-based, minimal support)
+            label_text = DISPLAY_NAMES[STORY_SEQUENCE[i]]
+            label_bbox = draw.textbbox((0, 0), label_text, font=fonts['label'])
+            label_w = label_bbox[2] - label_bbox[0]
+            draw.text((box_x + (box_width - label_w) // 2, box_y + box_height - int(25 * scale)),
+                     label_text, fill=hex_to_rgb(BRAND_NAVY), font=fonts['label'])
         
-        # Draw arrow between rows to show sequence flow (except after last row)
-        if row_num < len(rows) - 1:
-            arrow_y = row_y + box_height + int(15 * scale)
-            arrow_size = int(12 * scale)
-            arrow_x = img_width // 2
-            
-            # Draw downward arrow (simple V shape)
-            arrow_points = [
-                (arrow_x - arrow_size, arrow_y),
-                (arrow_x, arrow_y + arrow_size),
-                (arrow_x + arrow_size, arrow_y)
-            ]
-            draw.line([arrow_points[0], arrow_points[1]], fill=hex_to_rgb(BRAND_NAVY), width=int(3 * scale))
-            draw.line([arrow_points[1], arrow_points[2]], fill=hex_to_rgb(BRAND_NAVY), width=int(3 * scale))
+        elif level == 5:
+            # Level 5: No help - blank boxes (complete independence/assessment)
+            pass  # Intentionally blank - student works from memory
     
-    # Footer - Two lines matching Design Constitution style
-    footer_y = img_height - int(55 * scale)
+    # NOTE: Arrows removed per user request - snake pathway shows flow naturally
     
-    # Line 1: Activity info
-    footer_line1 = f"Sequencing – Level {level} | {pack_code}"
+    # Footer - Two lines inside border
+    # Line 1: Product name
+    footer_y = img_height - margin - int(45 * scale)  # Inside border
+    footer_line1 = f"{theme_name} Sequencing – {pack_code}"
     footer1_bbox = draw.textbbox((0, 0), footer_line1, font=fonts['footer'])
     footer1_w = footer1_bbox[2] - footer1_bbox[0]
     draw.text(((img_width - footer1_w) // 2, footer_y), footer_line1,
               fill=hex_to_rgb(BRAND_NAVY), font=fonts['footer'])
     
-    # Line 2: Copyright
-    copyright_y = img_height - int(35 * scale)
+    # Line 2: Small Wins and copyright - inside border
+    copyright_y = img_height - margin - int(25 * scale)  # Inside border
     copyright_text = "© 2025 Small Wins Studio. All rights reserved. • PCS® symbols used with active PCS Maker Personal License."
     copyright_bbox = draw.textbbox((0, 0), copyright_text, font=fonts['copyright'])
     copyright_w = copyright_bbox[2] - copyright_bbox[0]
