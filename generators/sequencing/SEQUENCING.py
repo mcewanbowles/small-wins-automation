@@ -246,36 +246,29 @@ def create_sequencing_page(loaded_images, real_images, level, pack_code, theme_n
     # Compact story setup section
     setup_y = margin + accent_padding + accent_height + int(12 * scale)
     
-    # Red Bird image (sequence now starts with Red Bird per user request)
-    rb_img = loaded_images[0].copy()  # red_bird is now first in STORY_SEQUENCE
-    rb_img.thumbnail((int(45 * scale), int(45 * scale)), Image.Resampling.LANCZOS)
-    rb_x = int(40 * scale)
-    page.paste(rb_img, (rb_x, setup_y), rb_img if rb_img.mode == 'RGBA' else None)
-    
-    # Smaller Eyes image
+    # Brown Bear icon (single icon as requested by user)
     try:
-        look_path = Path("aac_images") / "look.png"
-        if look_path.exists():
-            eyes_img = Image.open(look_path).convert('RGBA')
+        bb_path = Path("assets/themes/brown_bear/icons/brown_bear.png")
+        if bb_path.exists():
+            bb_img = Image.open(bb_path).convert('RGBA')
         else:
-            see_look_path = Path("aac_images") / "see_look.png"
-            if see_look_path.exists():
-                eyes_img = Image.open(see_look_path).convert('RGBA')
-            else:
-                eyes_img = loaded_images[0].copy()
+            # Fallback to PCS symbols if real icon not found
+            bb_img = loaded_images[0].copy()
     except (FileNotFoundError, IOError):
-        eyes_img = loaded_images[0].copy()
-        
-    eyes_img.thumbnail((int(45 * scale), int(45 * scale)), Image.Resampling.LANCZOS)
-    eyes_x = rb_x + int(55 * scale)
-    page.paste(eyes_img, (eyes_x, setup_y), eyes_img if eyes_img.mode == 'RGBA' else None)
+        bb_img = loaded_images[0].copy()
     
-    # Compact story text (updated to Red Bird)
-    text_x = eyes_x + int(65 * scale)
-    draw.text((text_x, setup_y + int(5 * scale)), "Red Bird, what do you see? I see...",
+    bb_img.thumbnail((int(50 * scale), int(50 * scale)), Image.Resampling.LANCZOS)
+    bb_x = int(40 * scale)
+    page.paste(bb_img, (bb_x, setup_y), bb_img if bb_img.mode == 'RGBA' else None)
+    
+    # Story subtitle text (Brown Bear)
+    text_x = bb_x + int(65 * scale)
+    draw.text((text_x, setup_y + int(10 * scale)), "Brown Bear, Brown Bear,",
+              fill=hex_to_rgb(STEEL_BLUE), font=fonts['prompt'])
+    draw.text((text_x, setup_y + int(30 * scale)), "What Do You See?",
               fill=hex_to_rgb(STEEL_BLUE), font=fonts['prompt'])
     
-    # NOTE: Level subtitle removed per user request - level indicated by color only
+    # Story subtitle now shows "Brown Bear, Brown Bear, What Do You See?" above boxes
     
     # SNAKE PATHWAY LAYOUT: Creative wiggly path showing sequence journey
     # Boxes wind down the page in an S-curve pattern - more engaging for SPED students
