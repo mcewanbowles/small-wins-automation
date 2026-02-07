@@ -1,0 +1,6 @@
+# PDF Generation
+reportlab>=4.0.0
+Pillow>=10.0.0
+
+# Utilities
+python-dateutil>=2.8.0
