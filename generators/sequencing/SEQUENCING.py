@@ -3,13 +3,14 @@ BROWN BEAR SEQUENCING - Interactive Velcro Activity
 Evidence-based 5-level progression for special education students
 
 DESIGN:
-- LANDSCAPE orientation (11" × 8.5") for optimal horizontal space
-- Title with story setup (Brown Bear + Eyes images, story text)
-- 11 empty boxes in 3 rows (4-4-3 layout) with arrows showing sequence journey
-- Arrows between rows help SPED students visualize story progression
-- Separate cutout sheet with all 11 pieces (matching 3-row layout)
+- PORTRAIT orientation (8.5" × 11") per user request
+- Title centered in colored accent stripe with padding
+- 11 empty boxes in creative SNAKE PATHWAY layout (not grid)
+- S-curve wiggly path showing sequence journey down the page
+- More engaging visual for SPED students
+- Separate cutout sheet with all 11 pieces (matching snake layout)
 - Boxes same size as cutouts for velcro matching (85×105 points)
-- Design Constitution compliant: proper margins, footer, and branding
+- Design Constitution compliant: proper margins, footer within border, and branding
 
 EVIDENCE-BASED 5-LEVEL PROGRESSION (Concrete to Abstract, Maximum Support to Independence):
 - Level 1: Color PCS symbol watermarks (errorless learning) - Orange #F4B400
@@ -33,7 +34,7 @@ CUTOUT PAGES (one for each level):
 - Level 3 cutouts: Black & white symbols (for coloring)
 - Level 4 cutouts: Text labels only
 - Level 5 cutouts: Blank boxes
-- Layout: 3 rows (4-4-3) to match activity pages
+- Layout: 4-4-3 rows to optimize space in portrait orientation
 """
 
 from pathlib import Path
@@ -43,8 +44,8 @@ from reportlab.lib.utils import ImageReader
 from PIL import Image, ImageDraw, ImageFont, ImageEnhance
 import io
 
-# LANDSCAPE orientation for optimal horizontal space (11" × 8.5")
-PAGE_WIDTH, PAGE_HEIGHT = landscape(letter)
+# PORTRAIT orientation per user request (8.5" × 11")
+PAGE_WIDTH, PAGE_HEIGHT = letter
 DPI = 300
 
 # TPT Brand Colors - Updated to match Small Wins Studio branding
