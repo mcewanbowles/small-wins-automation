@@ -1,6 +1,6 @@
 """
 BROWN BEAR SEQUENCING - Interactive Velcro Activity
-Evidence-based leveling for special education students
+Evidence-based 5-level progression for special education students
 
 DESIGN:
 - LANDSCAPE orientation (11" x 8.5") for better spacing
@@ -9,17 +9,21 @@ DESIGN:
 - Separate cutout sheet with all 11 pieces
 - Boxes same size as cutouts for velcro matching
 
-EVIDENCE-BASED LEVELING (Research-backed progression):
-- Level 1: Color images with watermarks (errorless learning) - Orange #F4B400
-- Level 2: Black & white icons (remove color cues) - Blue #4285F4
-- Level 3: Text labels only (literacy-based) - Green #34A853
+EVIDENCE-BASED 5-LEVEL PROGRESSION (Concrete to Abstract, Maximum Support to Independence):
+- Level 1: Color PCS symbol watermarks (errorless learning) - Orange #F4B400
+- Level 2: Real photo watermarks (generalization to authentic images) - Blue #4285F4
+- Level 3: B&W PCS symbols (removes color & realism cues) - Green #34A853
+- Level 4: Text labels only (literacy-based) - Purple #9334E6
+- Level 5: No help - blank boxes (complete independence/assessment) - Red #EA4335
 
 PEDAGOGICAL RATIONALE:
-- Level 1: Maximum visual scaffolding, builds confidence
-- Level 2: Removes color cues, focuses on shape/form discrimination
-- Level 3: Minimal support, promotes literacy and independence
+- Level 1: Maximum visual scaffolding with familiar symbols
+- Level 2: Bridges symbols to real-world photographs for generalization
+- Level 3: Removes color and realism, focuses on shape discrimination
+- Level 4: Minimal support, promotes literacy skills
+- Level 5: Full independence, student must recall sequence from memory
 
-OUTPUT: 4 pages (3 levels + 1 cutout sheet)
+OUTPUT: 7 pages (5 levels + 1 cutout sheet + 1 storage labels)
 """
 
 from pathlib import Path
@@ -39,10 +43,11 @@ BRAND_TEAL = "#2AAEAE"  # Small Wins brand color
 BRAND_GOLD = "#E8C547"  # Small Wins brand color
 
 # Level Colors - Universal across all products
-LEVEL_1_ORANGE = "#F4B400"  # Errorless
-LEVEL_2_BLUE = "#4285F4"    # Distractors  
-LEVEL_3_GREEN = "#34A853"   # Picture + Text
-LEVEL_4_PURPLE = "#8C06F2"  # Generalisation (not used in sequencing)
+LEVEL_1_ORANGE = "#F4B400"  # Errorless - Color symbol watermarks
+LEVEL_2_BLUE = "#4285F4"    # Real photo watermarks
+LEVEL_3_GREEN = "#34A853"   # B&W symbols
+LEVEL_4_PURPLE = "#9334E6"  # Text labels only
+LEVEL_5_RED = "#EA4335"     # No help - blank boxes (independence)
 
 # Supporting colors
 LIGHT_BLUE = "#EEF4FB"
@@ -63,6 +68,21 @@ STORY_SEQUENCE = [
     "teacher",       # 10
     "children"       # 11
 ]
+
+# Real image filename mapping (for Level 2)
+REAL_IMAGE_MAPPING = {
+    "brown_bear": "bear.png",
+    "red_bird": "bird.png",
+    "yellow_duck": "duck.png",
+    "blue_horse": "horse.png",
+    "green_frog": "frog.png",
+    "purple_cat": "cat.png",
+    "white_dog": "dog.png",
+    "black_sheep": "sheep.png",
+    "goldfish": "goldfish.png",
+    "teacher": "teacher.png",
+    "children": "teacher.png"  # Use teacher image for children if no children.png exists
+}
 
 DISPLAY_NAMES = {
     "brown_bear": "Brown Bear",
@@ -122,7 +142,7 @@ def make_transparent(image, opacity=0.15):
 
 
 def convert_to_bw(image):
-    """Convert image to black and white line art style for Level 2"""
+    """Convert image to black and white line art style for Level 3"""
     # Convert to grayscale first
     if image.mode == 'RGBA':
         # Create a white background
@@ -146,13 +166,25 @@ def get_level_color(level):
     level_colors = {
         1: LEVEL_1_ORANGE,
         2: LEVEL_2_BLUE,
-        3: LEVEL_3_GREEN
+        3: LEVEL_3_GREEN,
+        4: LEVEL_4_PURPLE,
+        5: LEVEL_5_RED
     }
     return level_colors.get(level, BRAND_NAVY)
 
 
-def create_sequencing_page(loaded_images, level, pack_code, theme_name, page_num, total_pages=4):
-    """Create sequencing activity page with empty boxes - LANDSCAPE LAYOUT"""
+def create_sequencing_page(loaded_images, real_images, level, pack_code, theme_name, page_num, total_pages=7):
+    """Create sequencing activity page with empty boxes - LANDSCAPE LAYOUT
+    
+    Args:
+        loaded_images: List of PCS symbol images
+        real_images: List of real photograph images (for Level 2)
+        level: 1-5 difficulty level
+        pack_code: Product code
+        theme_name: Theme name (e.g., "Brown Bear")
+        page_num: Current page number
+        total_pages: Total pages in PDF
+    """
     
     img_width = int(PAGE_WIDTH * DPI / 72)
     img_height = int(PAGE_HEIGHT * DPI / 72)
@@ -225,11 +257,13 @@ def create_sequencing_page(loaded_images, level, pack_code, theme_name, page_num
     
     # Level indicator - aligned right
     level_names = {
-        1: "Level 1 - Color Image Hints (Errorless)", 
-        2: "Level 2 - B&W Icons (No Color Cues)", 
-        3: "Level 3 - Text Labels Only"
+        1: "Level 1 - Color Symbol Hints (Errorless)", 
+        2: "Level 2 - Real Photo Hints (Generalization)", 
+        3: "Level 3 - B&W Symbols (No Color Cues)",
+        4: "Level 4 - Text Labels Only",
+        5: "Level 5 - No Help (Independence)"
     }
-    level_stars = {1: "⭐", 2: "⭐⭐", 3: "⭐⭐⭐"}
+    level_stars = {1: "⭐", 2: "⭐⭐", 3: "⭐⭐⭐", 4: "⭐⭐⭐⭐", 5: "⭐⭐⭐⭐⭐"}
     level_text = f"{level_stars[level]} {level_names[level]}"
     level_bbox = draw.textbbox((0, 0), level_text, font=fonts['subtitle'])
     level_w = level_bbox[2] - level_bbox[0]
@@ -277,7 +311,7 @@ def create_sequencing_page(loaded_images, level, pack_code, theme_name, page_num
         
         # Content based on level
         if level == 1:
-            # Level 1: Color watermark image hints (errorless learning)
+            # Level 1: Color PCS symbol watermark hints (errorless learning)
             hint_img = loaded_images[i].copy()
             hint_img = make_transparent(hint_img, opacity=0.15)
             hint_img.thumbnail((int(65 * scale), int(65 * scale)), Image.Resampling.LANCZOS)
@@ -286,7 +320,17 @@ def create_sequencing_page(loaded_images, level, pack_code, theme_name, page_num
             page.paste(hint_img, (hint_x, hint_y), hint_img)
             
         elif level == 2:
-            # Level 2: Black & white icons (remove color as matching cue)
+            # Level 2: Real photo watermark hints (generalization to authentic images)
+            if real_images and i < len(real_images):
+                hint_img = real_images[i].copy()
+                hint_img = make_transparent(hint_img, opacity=0.15)
+                hint_img.thumbnail((int(65 * scale), int(65 * scale)), Image.Resampling.LANCZOS)
+                hint_x = box_x + (box_width - hint_img.width) // 2
+                hint_y = boxes_y + (box_height - hint_img.height) // 2
+                page.paste(hint_img, (hint_x, hint_y), hint_img)
+            
+        elif level == 3:
+            # Level 3: Black & white PCS symbols (remove color and realism cues)
             bw_img = loaded_images[i].copy()
             bw_img = convert_to_bw(bw_img)
             bw_img.thumbnail((int(65 * scale), int(65 * scale)), Image.Resampling.LANCZOS)
@@ -294,13 +338,17 @@ def create_sequencing_page(loaded_images, level, pack_code, theme_name, page_num
             bw_y = boxes_y + (box_height - bw_img.height) // 2
             page.paste(bw_img, (bw_x, bw_y), bw_img if bw_img.mode == 'RGBA' else None)
             
-        elif level == 3:
-            # Level 3: Text labels only (literacy-based, minimal support)
+        elif level == 4:
+            # Level 4: Text labels only (literacy-based, minimal support)
             label_text = DISPLAY_NAMES[STORY_SEQUENCE[i]]
             label_bbox = draw.textbbox((0, 0), label_text, font=fonts['label'])
             label_w = label_bbox[2] - label_bbox[0]
             draw.text((box_x + (box_width - label_w) // 2, boxes_y + box_height - int(25 * scale)),
                      label_text, fill=hex_to_rgb(BRAND_NAVY), font=fonts['label'])
+        
+        elif level == 5:
+            # Level 5: No help - blank boxes (complete independence/assessment)
+            pass  # Intentionally blank - student works from memory
     
     # Footer - ensure adequate space from boxes
     footer_y = img_height - int(50 * scale)
@@ -321,7 +369,7 @@ def create_sequencing_page(loaded_images, level, pack_code, theme_name, page_num
     return page
 
 
-def create_cutout_page(loaded_images, pack_code, theme_name, page_num, total_pages=4):
+def create_cutout_page(loaded_images, pack_code, theme_name, page_num, total_pages=7):
     """Create cutout pieces page - LANDSCAPE with all 11 pieces in single row"""
     
     img_width = int(PAGE_WIDTH * DPI / 72)
@@ -438,19 +486,22 @@ def add_storage_labels_sequencing(c, page_width, page_height):
     c.setFont("Helvetica-Bold", 32)
     c.drawCentredString(page_width/2, page_height - 1*inch, "Storage Labels - Sequencing")
     
-    # Updated to reflect new evidence-based leveling
+    # Updated to reflect 5-level evidence-based progression
     labels_data = [
-        ("Sequencing - Level 1", "Color Image Hints (Errorless)", LEVEL_1_ORANGE),
-        ("Sequencing - Level 2", "B&W Icons (No Color Cues)", LEVEL_2_BLUE),
-        ("Sequencing - Level 3", "Text Labels Only", LEVEL_3_GREEN)
+        ("Level 1", "Color Symbol Hints", LEVEL_1_ORANGE),
+        ("Level 2", "Real Photo Hints", LEVEL_2_BLUE),
+        ("Level 3", "B&W Symbols", LEVEL_3_GREEN),
+        ("Level 4", "Text Labels", LEVEL_4_PURPLE),
+        ("Level 5", "No Help", LEVEL_5_RED)
     ]
     
-    label_width = 5 * inch
-    label_height = 3 * inch
-    y_start = page_height - 2.5*inch
+    # Smaller labels to fit 5 in landscape
+    label_width = 4 * inch
+    label_height = 2.2 * inch
+    y_start = page_height - 2*inch
     
     for i, (title, description, color_hex) in enumerate(labels_data):
-        y_pos = y_start - (i * (label_height + 0.75*inch))
+        y_pos = y_start - (i * (label_height + 0.4*inch))
         x_pos = (page_width - label_width) / 2
         
         # Background
@@ -461,27 +512,27 @@ def add_storage_labels_sequencing(c, page_width, page_height):
         hex_color = color_hex.lstrip('#')
         rgb = tuple(int(hex_color[i:i+2], 16)/255 for i in (0, 2, 4))
         c.setFillColorRGB(*rgb)
-        c.roundRect(x_pos, y_pos + label_height - 0.9*inch, 
-                   label_width, 0.9*inch, 10, fill=1, stroke=0)
+        c.roundRect(x_pos, y_pos + label_height - 0.7*inch, 
+                   label_width, 0.7*inch, 10, fill=1, stroke=0)
         
         # Title
         c.setFillColorRGB(1, 1, 1)
-        c.setFont("Helvetica-Bold", 36)
-        c.drawCentredString(page_width/2, y_pos + label_height - 0.5*inch, title)
+        c.setFont("Helvetica-Bold", 28)
+        c.drawCentredString(page_width/2, y_pos + label_height - 0.4*inch, title)
         
         # Description
         c.setFillColorRGB(0.2, 0.2, 0.2)
-        c.setFont("Helvetica", 20)
-        c.drawCentredString(page_width/2, y_pos + 0.5*inch, description)
+        c.setFont("Helvetica", 18)
+        c.drawCentredString(page_width/2, y_pos + 0.3*inch, description)
 
 
 def generate_sequencing_pack(images_folder, pack_code="BB0ALL", theme_name="Brown Bear"):
-    """Generate complete sequencing pack - 3 levels + cutouts"""
+    """Generate complete sequencing pack - 5 levels + cutouts"""
     
     print(f"\n{'='*70}")
-    print(f"  📊 GENERATING SEQUENCING (3 LEVELS + CUTOUTS): {pack_code}")
+    print(f"  📊 GENERATING SEQUENCING (5 LEVELS + CUTOUTS): {pack_code}")
     print(f"  Theme: {theme_name}")
-    print(f"  Updated with TPT Brand Colors - Small Wins Studio")
+    print(f"  Evidence-Based Progression - Small Wins Studio")
     print(f"{'='*70}\n")
     
     images_path = Path(images_folder)
@@ -489,7 +540,7 @@ def generate_sequencing_pack(images_folder, pack_code="BB0ALL", theme_name="Brow
         print(f"❌ Error: Folder '{images_folder}' not found!")
         return False
     
-    # Load images in story order
+    # Load PCS symbol images in story order
     loaded_images = []
     missing_images = []
     
@@ -506,12 +557,43 @@ def generate_sequencing_pack(images_folder, pack_code="BB0ALL", theme_name="Brow
         loaded_images.append(img)
     
     if missing_images:
-        print(f"❌ Missing images: {', '.join(missing_images)}")
+        print(f"❌ Missing PCS symbol images: {', '.join(missing_images)}")
         return False
     
     if len(loaded_images) != 11:
-        print(f"❌ Need exactly 11 images, found {len(loaded_images)}")
+        print(f"❌ Need exactly 11 PCS images, found {len(loaded_images)}")
         return False
+    
+    # Load real photograph images for Level 2
+    real_images = []
+    real_images_path = Path("assets/themes/brown_bear/real_images")
+    
+    if real_images_path.exists():
+        print(f"📷 Loading real photographs from {real_images_path}...")
+        real_missing = []
+        
+        for char in STORY_SEQUENCE:
+            real_filename = REAL_IMAGE_MAPPING.get(char)
+            if real_filename:
+                real_file = real_images_path / real_filename
+                if real_file.exists():
+                    img = Image.open(real_file)
+                    if img.mode != 'RGBA':
+                        img = img.convert('RGBA')
+                    real_images.append(img)
+                else:
+                    real_missing.append(f"{char} -> {real_filename}")
+                    # Fallback to PCS symbol if real image missing
+                    real_images.append(loaded_images[len(real_images)])
+        
+        if real_missing:
+            print(f"⚠️  Some real images not found (using PCS fallback): {', '.join(real_missing)}")
+        else:
+            print(f"   ✅ All 11 real photographs loaded successfully\n")
+    else:
+        print(f"⚠️  Real images folder not found: {real_images_path}")
+        print(f"   Using PCS symbols for Level 2 as fallback\n")
+        real_images = loaded_images.copy()
     
     output_folder = Path("OUTPUT")
     output_folder.mkdir(exist_ok=True)
@@ -524,33 +606,43 @@ def generate_sequencing_pack(images_folder, pack_code="BB0ALL", theme_name="Brow
     print(f"📄 Creating pages...\n")
     
     saved_pages = []
-    total_pages = 4
+    total_pages = 7  # 5 levels + cutouts + storage labels
     
-    # Level 1: Image hints (Orange)
-    print(f"   Level 1: Image Hints (easiest) - {LEVEL_1_ORANGE}...")
-    page1 = create_sequencing_page(loaded_images, 1, pack_code, theme_name, 1, total_pages)
+    # Level 1: Color PCS symbol watermarks (Orange)
+    print(f"   Level 1: Color Symbol Hints - {LEVEL_1_ORANGE}...")
+    page1 = create_sequencing_page(loaded_images, real_images, 1, pack_code, theme_name, 1, total_pages)
     saved_pages.append(page1)
     
-    # Level 2: Numbers only (Blue)
-    print(f"   Level 2: Numbers Only (medium) - {LEVEL_2_BLUE}...")
-    page2 = create_sequencing_page(loaded_images, 2, pack_code, theme_name, 2, total_pages)
+    # Level 2: Real photo watermarks (Blue)
+    print(f"   Level 2: Real Photo Hints - {LEVEL_2_BLUE}...")
+    page2 = create_sequencing_page(loaded_images, real_images, 2, pack_code, theme_name, 2, total_pages)
     saved_pages.append(page2)
     
-    # Level 3: Text labels (Green)
-    print(f"   Level 3: Text Only (hardest) - {LEVEL_3_GREEN}...")
-    page3 = create_sequencing_page(loaded_images, 3, pack_code, theme_name, 3, total_pages)
+    # Level 3: B&W PCS symbols (Green)
+    print(f"   Level 3: B&W Symbols - {LEVEL_3_GREEN}...")
+    page3 = create_sequencing_page(loaded_images, real_images, 3, pack_code, theme_name, 3, total_pages)
     saved_pages.append(page3)
+    
+    # Level 4: Text labels only (Purple)
+    print(f"   Level 4: Text Labels Only - {LEVEL_4_PURPLE}...")
+    page4 = create_sequencing_page(loaded_images, real_images, 4, pack_code, theme_name, 4, total_pages)
+    saved_pages.append(page4)
+    
+    # Level 5: No help - blank boxes (Red)
+    print(f"   Level 5: No Help (Independence) - {LEVEL_5_RED}...")
+    page5 = create_sequencing_page(loaded_images, real_images, 5, pack_code, theme_name, 5, total_pages)
+    saved_pages.append(page5)
     
     # Cutout pieces (Teal)
     print(f"   Cutout Pieces - {BRAND_TEAL}...")
-    page4 = create_cutout_page(loaded_images, pack_code, theme_name, 4, total_pages)
-    saved_pages.append(page4)
+    page6 = create_cutout_page(loaded_images, pack_code, theme_name, 6, total_pages)
+    saved_pages.append(page6)
     
-    print(f"\n   ✅ 4 pages generated\n")
+    print(f"\n   ✅ 6 pages generated (5 levels + cutouts)\n")
     
     # Create PDF
     print(f"📄 Creating PDF...")
-    pdf_path = f"OUTPUT/{pack_code}_Sequencing_4Pages.pdf"
+    pdf_path = f"OUTPUT/{pack_code}_Sequencing_5Levels.pdf"
     c = canvas.Canvas(pdf_path, pagesize=landscape(letter))
     
     for page in saved_pages:
@@ -568,8 +660,9 @@ def generate_sequencing_pack(images_folder, pack_code="BB0ALL", theme_name="Brow
     print(f"   ✅ {pdf_path}\n")
     
     print(f"{'='*70}")
-    print(f"  ✨ SUCCESS! Sequencing pack generated with TPT brand colors")
+    print(f"  ✨ SUCCESS! 5-Level Sequencing pack generated")
     print(f"  © 2025 Small Wins Studio")
+    print(f"  📄 Total pages: 7 (5 levels + cutouts + storage labels)")
     print(f"{'='*70}\n")
     
     return True
