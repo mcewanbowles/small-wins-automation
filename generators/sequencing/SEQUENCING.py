@@ -3,11 +3,12 @@ BROWN BEAR SEQUENCING - Interactive Velcro Activity
 Evidence-based 5-level progression for special education students
 
 DESIGN:
-- PORTRAIT orientation (8.5" × 11") per Design Constitution
+- LANDSCAPE orientation (11" × 8.5") for optimal horizontal space
 - Title with story setup (Brown Bear + Eyes images, story text)
-- 11 empty boxes in 2 rows (6+5) for velcro pieces
+- 11 empty boxes in single row for velcro pieces
 - Separate cutout sheet with all 11 pieces
 - Boxes same size as cutouts for velcro matching
+- Design Constitution compliant: proper margins, footer, and branding
 
 EVIDENCE-BASED 5-LEVEL PROGRESSION (Concrete to Abstract, Maximum Support to Independence):
 - Level 1: Color PCS symbol watermarks (errorless learning) - Orange #F4B400
@@ -28,13 +29,13 @@ OUTPUT: 7 pages (5 levels + 1 cutout sheet + 1 storage labels)
 
 from pathlib import Path
 from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import letter
+from reportlab.lib.pagesizes import letter, landscape
 from reportlab.lib.utils import ImageReader
 from PIL import Image, ImageDraw, ImageFont, ImageEnhance
 import io
 
-# PORTRAIT orientation per Design Constitution (8.5" × 11")
-PAGE_WIDTH, PAGE_HEIGHT = letter
+# LANDSCAPE orientation for optimal horizontal space (11" × 8.5")
+PAGE_WIDTH, PAGE_HEIGHT = landscape(letter)
 DPI = 300
 
 # TPT Brand Colors - Updated to match Small Wins Studio branding
@@ -222,11 +223,11 @@ def create_sequencing_page(loaded_images, real_images, level, pack_code, theme_n
     title_text = f"{theme_name} - Sequencing"
     title_bbox = draw.textbbox((0, 0), title_text, font=fonts['title'])
     title_w = title_bbox[2] - title_bbox[0]
-    draw.text(((img_width - title_w) // 2, border_margin + accent_padding + int(10 * scale)), title_text,
+    draw.text(((img_width - title_w) // 2, margin + accent_padding + int(10 * scale)), title_text,
               fill='white', font=fonts['title'])
     
     # Compact story setup section
-    setup_y = border_margin + accent_padding + accent_height + int(12 * scale)
+    setup_y = margin + accent_padding + accent_height + int(12 * scale)
     
     # Smaller Brown Bear image
     bb_img = loaded_images[0].copy()
@@ -272,23 +273,23 @@ def create_sequencing_page(loaded_images, real_images, level, pack_code, theme_n
     draw.text((img_width - level_w - int(50 * scale), setup_y + int(10 * scale)), level_text,
               fill=hex_to_rgb(BRAND_NAVY), font=fonts['subtitle'])
     
-    # PORTRAIT: 2 rows of boxes (6 + 5 = 11 boxes)
-    box_width = int(83 * scale)  # Sized for 6 boxes across with spacing
-    box_height = int(104 * scale)
-    box_spacing = int(8 * scale)
+    # LANDSCAPE: All 11 boxes in single row (centered and aligned)
+    box_width = int(85 * scale)
+    box_height = int(105 * scale)
+    box_spacing = int(10 * scale)
     
-    # Row 1: 6 boxes
-    row1_y = setup_y + int(60 * scale)
-    row1_count = 6
-    row1_total_width = row1_count * box_width + (row1_count - 1) * box_spacing
-    row1_start_x = (img_width - row1_total_width) // 2
+    # Single row with all 11 boxes - centered
+    boxes_y = setup_y + int(65 * scale)
+    total_count = 11
+    total_width = total_count * box_width + (total_count - 1) * box_spacing
+    start_x = (img_width - total_width) // 2
     
-    for i in range(row1_count):
-        box_x = row1_start_x + i * (box_width + box_spacing)
+    for i in range(total_count):
+        box_x = start_x + i * (box_width + box_spacing)
         
         # Box with light blue fill
         draw.rounded_rectangle(
-            [box_x, row1_y, box_x + box_width, row1_y + box_height],
+            [box_x, boxes_y, box_x + box_width, boxes_y + box_height],
             radius=int(8 * scale),
             fill=hex_to_rgb(LIGHT_BLUE),
             outline=hex_to_rgb(BRAND_NAVY),
@@ -298,7 +299,7 @@ def create_sequencing_page(loaded_images, real_images, level, pack_code, theme_n
         # Number circle at top
         circle_size = int(28 * scale)
         circle_x = box_x + (box_width - circle_size) // 2
-        circle_y = row1_y - int(14 * scale)
+        circle_y = boxes_y - int(14 * scale)
         draw.ellipse(
             [circle_x, circle_y, circle_x + circle_size, circle_y + circle_size],
             fill=hex_to_rgb(BRAND_NAVY)
@@ -316,9 +317,9 @@ def create_sequencing_page(loaded_images, real_images, level, pack_code, theme_n
             # Level 1: Color PCS symbol watermark hints (errorless learning)
             hint_img = loaded_images[i].copy()
             hint_img = make_transparent(hint_img, opacity=0.15)
-            hint_img.thumbnail((int(60 * scale), int(60 * scale)), Image.Resampling.LANCZOS)
+            hint_img.thumbnail((int(65 * scale), int(65 * scale)), Image.Resampling.LANCZOS)
             hint_x = box_x + (box_width - hint_img.width) // 2
-            hint_y = row1_y + (box_height - hint_img.height) // 2
+            hint_y = boxes_y + (box_height - hint_img.height) // 2
             page.paste(hint_img, (hint_x, hint_y), hint_img)
             
         elif level == 2:
@@ -326,18 +327,18 @@ def create_sequencing_page(loaded_images, real_images, level, pack_code, theme_n
             if real_images and i < len(real_images):
                 hint_img = real_images[i].copy()
                 hint_img = make_transparent(hint_img, opacity=0.15)
-                hint_img.thumbnail((int(60 * scale), int(60 * scale)), Image.Resampling.LANCZOS)
+                hint_img.thumbnail((int(65 * scale), int(65 * scale)), Image.Resampling.LANCZOS)
                 hint_x = box_x + (box_width - hint_img.width) // 2
-                hint_y = row1_y + (box_height - hint_img.height) // 2
+                hint_y = boxes_y + (box_height - hint_img.height) // 2
                 page.paste(hint_img, (hint_x, hint_y), hint_img)
             
         elif level == 3:
             # Level 3: Black & white PCS symbols (remove color and realism cues)
             bw_img = loaded_images[i].copy()
             bw_img = convert_to_bw(bw_img)
-            bw_img.thumbnail((int(60 * scale), int(60 * scale)), Image.Resampling.LANCZOS)
+            bw_img.thumbnail((int(65 * scale), int(65 * scale)), Image.Resampling.LANCZOS)
             bw_x = box_x + (box_width - bw_img.width) // 2
-            bw_y = row1_y + (box_height - bw_img.height) // 2
+            bw_y = boxes_y + (box_height - bw_img.height) // 2
             page.paste(bw_img, (bw_x, bw_y), bw_img if bw_img.mode == 'RGBA' else None)
             
         elif level == 4:
@@ -345,88 +346,12 @@ def create_sequencing_page(loaded_images, real_images, level, pack_code, theme_n
             label_text = DISPLAY_NAMES[STORY_SEQUENCE[i]]
             label_bbox = draw.textbbox((0, 0), label_text, font=fonts['label'])
             label_w = label_bbox[2] - label_bbox[0]
-            draw.text((box_x + (box_width - label_w) // 2, row1_y + box_height - int(25 * scale)),
+            draw.text((box_x + (box_width - label_w) // 2, boxes_y + box_height - int(25 * scale)),
                      label_text, fill=hex_to_rgb(BRAND_NAVY), font=fonts['label'])
         
         elif level == 5:
             # Level 5: No help - blank boxes (complete independence/assessment)
             pass  # Intentionally blank - student works from memory
-    
-    # Row 2: 5 boxes
-    row2_y = row1_y + box_height + int(35 * scale)
-    row2_count = 5
-    row2_total_width = row2_count * box_width + (row2_count - 1) * box_spacing
-    row2_start_x = (img_width - row2_total_width) // 2
-    
-    for i in range(row2_count):
-        idx = row1_count + i  # Indexes 6-10
-        box_x = row2_start_x + i * (box_width + box_spacing)
-        
-        # Box with light blue fill
-        draw.rounded_rectangle(
-            [box_x, row2_y, box_x + box_width, row2_y + box_height],
-            radius=int(8 * scale),
-            fill=hex_to_rgb(LIGHT_BLUE),
-            outline=hex_to_rgb(BRAND_NAVY),
-            width=int(2 * scale)
-        )
-        
-        # Number circle at top
-        circle_size = int(28 * scale)
-        circle_x = box_x + (box_width - circle_size) // 2
-        circle_y = row2_y - int(14 * scale)
-        draw.ellipse(
-            [circle_x, circle_y, circle_x + circle_size, circle_y + circle_size],
-            fill=hex_to_rgb(BRAND_NAVY)
-        )
-        
-        num_text = str(idx + 1)
-        num_bbox = draw.textbbox((0, 0), num_text, font=fonts['number'])
-        num_w = num_bbox[2] - num_bbox[0]
-        num_h = num_bbox[3] - num_bbox[1]
-        draw.text((circle_x + (circle_size - num_w) // 2, circle_y + (circle_size - num_h) // 2),
-                 num_text, fill='white', font=fonts['number'])
-        
-        # Content based on level
-        if level == 1:
-            # Level 1: Color PCS symbol watermark hints
-            hint_img = loaded_images[idx].copy()
-            hint_img = make_transparent(hint_img, opacity=0.15)
-            hint_img.thumbnail((int(60 * scale), int(60 * scale)), Image.Resampling.LANCZOS)
-            hint_x = box_x + (box_width - hint_img.width) // 2
-            hint_y = row2_y + (box_height - hint_img.height) // 2
-            page.paste(hint_img, (hint_x, hint_y), hint_img)
-            
-        elif level == 2:
-            # Level 2: Real photo watermark hints
-            if real_images and idx < len(real_images):
-                hint_img = real_images[idx].copy()
-                hint_img = make_transparent(hint_img, opacity=0.15)
-                hint_img.thumbnail((int(60 * scale), int(60 * scale)), Image.Resampling.LANCZOS)
-                hint_x = box_x + (box_width - hint_img.width) // 2
-                hint_y = row2_y + (box_height - hint_img.height) // 2
-                page.paste(hint_img, (hint_x, hint_y), hint_img)
-            
-        elif level == 3:
-            # Level 3: Black & white PCS symbols
-            bw_img = loaded_images[idx].copy()
-            bw_img = convert_to_bw(bw_img)
-            bw_img.thumbnail((int(60 * scale), int(60 * scale)), Image.Resampling.LANCZOS)
-            bw_x = box_x + (box_width - bw_img.width) // 2
-            bw_y = row2_y + (box_height - bw_img.height) // 2
-            page.paste(bw_img, (bw_x, bw_y), bw_img if bw_img.mode == 'RGBA' else None)
-            
-        elif level == 4:
-            # Level 4: Text labels only
-            label_text = DISPLAY_NAMES[STORY_SEQUENCE[idx]]
-            label_bbox = draw.textbbox((0, 0), label_text, font=fonts['label'])
-            label_w = label_bbox[2] - label_bbox[0]
-            draw.text((box_x + (box_width - label_w) // 2, row2_y + box_height - int(25 * scale)),
-                     label_text, fill=hex_to_rgb(BRAND_NAVY), font=fonts['label'])
-        
-        elif level == 5:
-            # Level 5: No help - blank boxes
-            pass
     
     # Footer - Two lines matching Design Constitution style
     footer_y = img_height - int(55 * scale)
@@ -446,6 +371,7 @@ def create_sequencing_page(loaded_images, real_images, level, pack_code, theme_n
     draw.text(((img_width - copyright_w) // 2, copyright_y), copyright_text,
               fill=FOOTER_GREY, font=fonts['copyright'])
 
+
     
     return page
 
@@ -461,11 +387,11 @@ def create_cutout_page(loaded_images, pack_code, theme_name, page_num, total_pag
     scale = DPI / 72
     fonts = load_fonts()
     
-    # Border - using brand navy with proper margins (same as activity page)
-    border_margin = int(20 * scale)
-    border_radius = int(20 * scale)
+    # Margins: 0.5" per Design Constitution (same as activity pages)
+    margin = int(0.5 * 72 * scale)
+    border_radius = int(0.12 * 72 * scale)
     draw.rounded_rectangle(
-        [border_margin, border_margin, img_width - border_margin, img_height - border_margin],
+        [margin, margin, img_width - margin, img_height - margin],
         radius=border_radius,
         outline=hex_to_rgb(BRAND_NAVY),
         width=int(3 * scale)
@@ -475,8 +401,8 @@ def create_cutout_page(loaded_images, pack_code, theme_name, page_num, total_pag
     accent_height = int(45 * scale)
     accent_padding = int(15 * scale)
     draw.rounded_rectangle(
-        [border_margin + accent_padding, border_margin + accent_padding, 
-         img_width - border_margin - accent_padding, border_margin + accent_padding + accent_height],
+        [margin + accent_padding, margin + accent_padding, 
+         img_width - margin - accent_padding, margin + accent_padding + accent_height],
         radius=int(12 * scale),
         fill=hex_to_rgb(BRAND_TEAL),
         outline=None
@@ -486,11 +412,11 @@ def create_cutout_page(loaded_images, pack_code, theme_name, page_num, total_pag
     title_text = f"{theme_name} - Sequencing Cutouts"
     title_bbox = draw.textbbox((0, 0), title_text, font=fonts['title'])
     title_w = title_bbox[2] - title_bbox[0]
-    draw.text(((img_width - title_w) // 2, border_margin + accent_padding + int(10 * scale)), title_text,
+    draw.text(((img_width - title_w) // 2, margin + accent_padding + int(10 * scale)), title_text,
               fill='white', font=fonts['title'])
     
     # Instruction
-    instr_y = border_margin + accent_padding + accent_height + int(12 * scale)
+    instr_y = margin + accent_padding + accent_height + int(12 * scale)
     instr_text = "✂ Cut out these pieces. Use velcro to attach them to the sequencing boxes in story order."
     instr_bbox = draw.textbbox((0, 0), instr_text, font=fonts['label'])
     instr_w = instr_bbox[2] - instr_bbox[0]
