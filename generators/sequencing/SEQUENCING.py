@@ -5,9 +5,10 @@ Evidence-based 5-level progression for special education students
 DESIGN:
 - LANDSCAPE orientation (11" × 8.5") for optimal horizontal space
 - Title with story setup (Brown Bear + Eyes images, story text)
-- 11 empty boxes in single row for velcro pieces
-- Separate cutout sheet with all 11 pieces
-- Boxes same size as cutouts for velcro matching
+- 11 empty boxes in 3 rows (4-4-3 layout) with arrows showing sequence journey
+- Arrows between rows help SPED students visualize story progression
+- Separate cutout sheet with all 11 pieces (matching 3-row layout)
+- Boxes same size as cutouts for velcro matching (85×105 points)
 - Design Constitution compliant: proper margins, footer, and branding
 
 EVIDENCE-BASED 5-LEVEL PROGRESSION (Concrete to Abstract, Maximum Support to Independence):
@@ -273,85 +274,117 @@ def create_sequencing_page(loaded_images, real_images, level, pack_code, theme_n
     draw.text((img_width - level_w - int(50 * scale), setup_y + int(10 * scale)), level_text,
               fill=hex_to_rgb(BRAND_NAVY), font=fonts['subtitle'])
     
-    # LANDSCAPE: All 11 boxes in single row (centered and aligned)
+    # LANDSCAPE: 3 rows (4-4-3 layout) with arrows showing sequence journey
+    # This helps SPED students visualize the story progression
     box_width = int(85 * scale)
     box_height = int(105 * scale)
     box_spacing = int(10 * scale)
+    row_spacing = int(35 * scale)  # Space between rows for arrows
     
-    # Single row with all 11 boxes - centered
-    boxes_y = setup_y + int(65 * scale)
-    total_count = 11
-    total_width = total_count * box_width + (total_count - 1) * box_spacing
-    start_x = (img_width - total_width) // 2
+    # Starting Y position for first row
+    first_row_y = setup_y + int(65 * scale)
     
-    for i in range(total_count):
-        box_x = start_x + i * (box_width + box_spacing)
+    # Define rows: [count, starting_index]
+    rows = [
+        (4, 0),   # Row 1: boxes 1-4
+        (4, 4),   # Row 2: boxes 5-8
+        (3, 8)    # Row 3: boxes 9-11
+    ]
+    
+    box_index = 0
+    for row_num, (count, start_idx) in enumerate(rows):
+        # Calculate row Y position
+        row_y = first_row_y + row_num * (box_height + row_spacing)
         
-        # Box with light blue fill
-        draw.rounded_rectangle(
-            [box_x, boxes_y, box_x + box_width, boxes_y + box_height],
-            radius=int(8 * scale),
-            fill=hex_to_rgb(LIGHT_BLUE),
-            outline=hex_to_rgb(BRAND_NAVY),
-            width=int(2 * scale)
-        )
+        # Calculate centered X position for this row
+        row_width = count * box_width + (count - 1) * box_spacing
+        row_start_x = (img_width - row_width) // 2
         
-        # Number circle at top
-        circle_size = int(28 * scale)
-        circle_x = box_x + (box_width - circle_size) // 2
-        circle_y = boxes_y - int(14 * scale)
-        draw.ellipse(
-            [circle_x, circle_y, circle_x + circle_size, circle_y + circle_size],
-            fill=hex_to_rgb(BRAND_NAVY)
-        )
-        
-        num_text = str(i + 1)
-        num_bbox = draw.textbbox((0, 0), num_text, font=fonts['number'])
-        num_w = num_bbox[2] - num_bbox[0]
-        num_h = num_bbox[3] - num_bbox[1]
-        draw.text((circle_x + (circle_size - num_w) // 2, circle_y + (circle_size - num_h) // 2),
-                 num_text, fill='white', font=fonts['number'])
-        
-        # Content based on level
-        if level == 1:
-            # Level 1: Color PCS symbol watermark hints (errorless learning)
-            hint_img = loaded_images[i].copy()
-            hint_img = make_transparent(hint_img, opacity=0.15)
-            hint_img.thumbnail((int(65 * scale), int(65 * scale)), Image.Resampling.LANCZOS)
-            hint_x = box_x + (box_width - hint_img.width) // 2
-            hint_y = boxes_y + (box_height - hint_img.height) // 2
-            page.paste(hint_img, (hint_x, hint_y), hint_img)
+        # Draw boxes in this row
+        for col in range(count):
+            i = start_idx + col
+            box_x = row_start_x + col * (box_width + box_spacing)
             
-        elif level == 2:
-            # Level 2: Real photo watermark hints (generalization to authentic images)
-            if real_images and i < len(real_images):
-                hint_img = real_images[i].copy()
+            # Box with light blue fill
+            draw.rounded_rectangle(
+                [box_x, row_y, box_x + box_width, row_y + box_height],
+                radius=int(8 * scale),
+                fill=hex_to_rgb(LIGHT_BLUE),
+                outline=hex_to_rgb(BRAND_NAVY),
+                width=int(2 * scale)
+            )
+            
+            # Number circle at top
+            circle_size = int(28 * scale)
+            circle_x = box_x + (box_width - circle_size) // 2
+            circle_y = row_y - int(14 * scale)
+            draw.ellipse(
+                [circle_x, circle_y, circle_x + circle_size, circle_y + circle_size],
+                fill=hex_to_rgb(BRAND_NAVY)
+            )
+            
+            num_text = str(i + 1)
+            num_bbox = draw.textbbox((0, 0), num_text, font=fonts['number'])
+            num_w = num_bbox[2] - num_bbox[0]
+            num_h = num_bbox[3] - num_bbox[1]
+            draw.text((circle_x + (circle_size - num_w) // 2, circle_y + (circle_size - num_h) // 2),
+                     num_text, fill='white', font=fonts['number'])
+            
+            # Content based on level
+            if level == 1:
+                # Level 1: Color PCS symbol watermark hints (errorless learning)
+                hint_img = loaded_images[i].copy()
                 hint_img = make_transparent(hint_img, opacity=0.15)
                 hint_img.thumbnail((int(65 * scale), int(65 * scale)), Image.Resampling.LANCZOS)
                 hint_x = box_x + (box_width - hint_img.width) // 2
-                hint_y = boxes_y + (box_height - hint_img.height) // 2
+                hint_y = row_y + (box_height - hint_img.height) // 2
                 page.paste(hint_img, (hint_x, hint_y), hint_img)
+                
+            elif level == 2:
+                # Level 2: Real photo watermark hints (generalization to authentic images)
+                if real_images and i < len(real_images):
+                    hint_img = real_images[i].copy()
+                    hint_img = make_transparent(hint_img, opacity=0.15)
+                    hint_img.thumbnail((int(65 * scale), int(65 * scale)), Image.Resampling.LANCZOS)
+                    hint_x = box_x + (box_width - hint_img.width) // 2
+                    hint_y = row_y + (box_height - hint_img.height) // 2
+                    page.paste(hint_img, (hint_x, hint_y), hint_img)
+                
+            elif level == 3:
+                # Level 3: Black & white PCS symbols (remove color and realism cues)
+                bw_img = loaded_images[i].copy()
+                bw_img = convert_to_bw(bw_img)
+                bw_img.thumbnail((int(65 * scale), int(65 * scale)), Image.Resampling.LANCZOS)
+                bw_x = box_x + (box_width - bw_img.width) // 2
+                bw_y = row_y + (box_height - bw_img.height) // 2
+                page.paste(bw_img, (bw_x, bw_y), bw_img if bw_img.mode == 'RGBA' else None)
+                
+            elif level == 4:
+                # Level 4: Text labels only (literacy-based, minimal support)
+                label_text = DISPLAY_NAMES[STORY_SEQUENCE[i]]
+                label_bbox = draw.textbbox((0, 0), label_text, font=fonts['label'])
+                label_w = label_bbox[2] - label_bbox[0]
+                draw.text((box_x + (box_width - label_w) // 2, row_y + box_height - int(25 * scale)),
+                         label_text, fill=hex_to_rgb(BRAND_NAVY), font=fonts['label'])
             
-        elif level == 3:
-            # Level 3: Black & white PCS symbols (remove color and realism cues)
-            bw_img = loaded_images[i].copy()
-            bw_img = convert_to_bw(bw_img)
-            bw_img.thumbnail((int(65 * scale), int(65 * scale)), Image.Resampling.LANCZOS)
-            bw_x = box_x + (box_width - bw_img.width) // 2
-            bw_y = boxes_y + (box_height - bw_img.height) // 2
-            page.paste(bw_img, (bw_x, bw_y), bw_img if bw_img.mode == 'RGBA' else None)
-            
-        elif level == 4:
-            # Level 4: Text labels only (literacy-based, minimal support)
-            label_text = DISPLAY_NAMES[STORY_SEQUENCE[i]]
-            label_bbox = draw.textbbox((0, 0), label_text, font=fonts['label'])
-            label_w = label_bbox[2] - label_bbox[0]
-            draw.text((box_x + (box_width - label_w) // 2, boxes_y + box_height - int(25 * scale)),
-                     label_text, fill=hex_to_rgb(BRAND_NAVY), font=fonts['label'])
+            elif level == 5:
+                # Level 5: No help - blank boxes (complete independence/assessment)
+                pass  # Intentionally blank - student works from memory
         
-        elif level == 5:
-            # Level 5: No help - blank boxes (complete independence/assessment)
-            pass  # Intentionally blank - student works from memory
+        # Draw arrow between rows to show sequence flow (except after last row)
+        if row_num < len(rows) - 1:
+            arrow_y = row_y + box_height + int(15 * scale)
+            arrow_size = int(12 * scale)
+            arrow_x = img_width // 2
+            
+            # Draw downward arrow (simple V shape)
+            arrow_points = [
+                (arrow_x - arrow_size, arrow_y),
+                (arrow_x, arrow_y + arrow_size),
+                (arrow_x + arrow_size, arrow_y)
+            ]
+            draw.line([arrow_points[0], arrow_points[1]], fill=hex_to_rgb(BRAND_NAVY), width=int(3 * scale))
+            draw.line([arrow_points[1], arrow_points[2]], fill=hex_to_rgb(BRAND_NAVY), width=int(3 * scale))
     
     # Footer - Two lines matching Design Constitution style
     footer_y = img_height - int(55 * scale)
@@ -424,48 +457,64 @@ def create_cutout_page(loaded_images, pack_code, theme_name, page_num, total_pag
               fill=hex_to_rgb(STEEL_BLUE), font=fonts['label'])
     
     # Cutout pieces - SAME SIZE AS ACTIVITY PAGE BOXES (85x105)
+    # Use same 3-row layout (4-4-3) to match activity pages
     box_width = int(85 * scale)
     box_height = int(105 * scale)
     box_spacing = int(10 * scale)
+    row_spacing = int(20 * scale)  # Tighter spacing for cutout page
     
-    # Single row with all 11 pieces
-    pieces_y = instr_y + int(35 * scale)
-    total_count = 11
-    total_width = total_count * box_width + (total_count - 1) * box_spacing
-    start_x = (img_width - total_width) // 2
+    # Starting Y position for first row
+    first_row_y = instr_y + int(35 * scale)
     
-    for i in range(total_count):
-        box_x = start_x + i * (box_width + box_spacing)
+    # Define rows: [count, starting_index] - same as activity pages
+    rows = [
+        (4, 0),   # Row 1: pieces 1-4
+        (4, 4),   # Row 2: pieces 5-8
+        (3, 8)    # Row 3: pieces 9-11
+    ]
+    
+    for row_num, (count, start_idx) in enumerate(rows):
+        # Calculate row Y position
+        row_y = first_row_y + row_num * (box_height + row_spacing)
         
-        # Box with cutting border - using brand teal
-        draw.rounded_rectangle(
-            [box_x, pieces_y, box_x + box_width, pieces_y + box_height],
-            radius=int(8 * scale),
-            fill='white',
-            outline=hex_to_rgb(BRAND_TEAL),
-            width=int(2 * scale)
-        )
+        # Calculate centered X position for this row
+        row_width = count * box_width + (count - 1) * box_spacing
+        row_start_x = (img_width - row_width) // 2
         
-        # Image
-        char_img = loaded_images[i].copy()
-        char_img.thumbnail((int(60 * scale), int(60 * scale)), Image.Resampling.LANCZOS)
-        char_x = box_x + (box_width - char_img.width) // 2
-        char_y = pieces_y + int(12 * scale)
-        page.paste(char_img, (char_x, char_y), char_img if char_img.mode == 'RGBA' else None)
-        
-        # Label
-        label_text = DISPLAY_NAMES[STORY_SEQUENCE[i]]
-        label_bbox = draw.textbbox((0, 0), label_text, font=fonts['cutout_label'])
-        label_w = label_bbox[2] - label_bbox[0]
-        draw.text((box_x + (box_width - label_w) // 2, pieces_y + box_height - int(30 * scale)),
-                 label_text, fill=hex_to_rgb(BRAND_NAVY), font=fonts['cutout_label'])
-        
-        # Number
-        num_text = str(i + 1)
-        num_bbox = draw.textbbox((0, 0), num_text, font=fonts['label'])
-        num_w = num_bbox[2] - num_bbox[0]
-        draw.text((box_x + (box_width - num_w) // 2, pieces_y + box_height - int(15 * scale)),
-                 num_text, fill='#666666', font=fonts['label'])
+        # Draw cutout pieces in this row
+        for col in range(count):
+            i = start_idx + col
+            box_x = row_start_x + col * (box_width + box_spacing)
+            
+            # Box with cutting border - using brand teal
+            draw.rounded_rectangle(
+                [box_x, row_y, box_x + box_width, row_y + box_height],
+                radius=int(8 * scale),
+                fill='white',
+                outline=hex_to_rgb(BRAND_TEAL),
+                width=int(2 * scale)
+            )
+            
+            # Image
+            char_img = loaded_images[i].copy()
+            char_img.thumbnail((int(60 * scale), int(60 * scale)), Image.Resampling.LANCZOS)
+            char_x = box_x + (box_width - char_img.width) // 2
+            char_y = row_y + int(12 * scale)
+            page.paste(char_img, (char_x, char_y), char_img if char_img.mode == 'RGBA' else None)
+            
+            # Label
+            label_text = DISPLAY_NAMES[STORY_SEQUENCE[i]]
+            label_bbox = draw.textbbox((0, 0), label_text, font=fonts['cutout_label'])
+            label_w = label_bbox[2] - label_bbox[0]
+            draw.text((box_x + (box_width - label_w) // 2, row_y + box_height - int(30 * scale)),
+                     label_text, fill=hex_to_rgb(BRAND_NAVY), font=fonts['cutout_label'])
+            
+            # Number
+            num_text = str(i + 1)
+            num_bbox = draw.textbbox((0, 0), num_text, font=fonts['label'])
+            num_w = num_bbox[2] - num_bbox[0]
+            draw.text((box_x + (box_width - num_w) // 2, row_y + box_height - int(15 * scale)),
+                     num_text, fill='#666666', font=fonts['label'])
     
     # Footer
     footer_y = img_height - int(50 * scale)
