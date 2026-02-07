@@ -66,18 +66,19 @@ STEEL_BLUE = "#5B7AA0"
 FOOTER_GREY = "#999999"
 
 # Story sequence (11 characters in order)
+# NOTE: Starting with Red Bird per user request - Brown Bear is not in the sequence boxes
 STORY_SEQUENCE = [
-    "brown_bear",    # 1
-    "red_bird",      # 2
-    "yellow_duck",   # 3
-    "blue_horse",    # 4
-    "green_frog",    # 5
-    "purple_cat",    # 6
-    "white_dog",     # 7
-    "black_sheep",   # 8
-    "goldfish",      # 9
-    "teacher",       # 10
-    "children"       # 11
+    "red_bird",      # 1 - Story starts here: "Red Bird, what do you see?"
+    "yellow_duck",   # 2
+    "blue_horse",    # 3
+    "green_frog",    # 4
+    "purple_cat",    # 5
+    "white_dog",     # 6
+    "black_sheep",   # 7
+    "goldfish",      # 8
+    "teacher",       # 9
+    "children",      # 10
+    "brown_bear"     # 11 - Brown Bear comes last
 ]
 
 # Real image filename mapping (for Level 2)
@@ -244,11 +245,11 @@ def create_sequencing_page(loaded_images, real_images, level, pack_code, theme_n
     # Compact story setup section
     setup_y = margin + accent_padding + accent_height + int(12 * scale)
     
-    # Smaller Brown Bear image
-    bb_img = loaded_images[0].copy()
-    bb_img.thumbnail((int(45 * scale), int(45 * scale)), Image.Resampling.LANCZOS)
-    bb_x = int(40 * scale)
-    page.paste(bb_img, (bb_x, setup_y), bb_img if bb_img.mode == 'RGBA' else None)
+    # Red Bird image (sequence now starts with Red Bird per user request)
+    rb_img = loaded_images[0].copy()  # red_bird is now first in STORY_SEQUENCE
+    rb_img.thumbnail((int(45 * scale), int(45 * scale)), Image.Resampling.LANCZOS)
+    rb_x = int(40 * scale)
+    page.paste(rb_img, (rb_x, setup_y), rb_img if rb_img.mode == 'RGBA' else None)
     
     # Smaller Eyes image
     try:
@@ -265,12 +266,12 @@ def create_sequencing_page(loaded_images, real_images, level, pack_code, theme_n
         eyes_img = loaded_images[0].copy()
         
     eyes_img.thumbnail((int(45 * scale), int(45 * scale)), Image.Resampling.LANCZOS)
-    eyes_x = bb_x + int(55 * scale)
+    eyes_x = rb_x + int(55 * scale)
     page.paste(eyes_img, (eyes_x, setup_y), eyes_img if eyes_img.mode == 'RGBA' else None)
     
-    # Compact story text
+    # Compact story text (updated to Red Bird)
     text_x = eyes_x + int(65 * scale)
-    draw.text((text_x, setup_y + int(5 * scale)), "Brown Bear, what do you see? I see...",
+    draw.text((text_x, setup_y + int(5 * scale)), "Red Bird, what do you see? I see...",
               fill=hex_to_rgb(STEEL_BLUE), font=fonts['prompt'])
     
     # NOTE: Level subtitle removed per user request - level indicated by color only
@@ -806,7 +807,7 @@ def generate_sequencing_pack(images_folder, pack_code="BB0ALL", theme_name="Brow
     # Create PDF
     print(f"📄 Creating PDF...")
     pdf_path = f"OUTPUT/{pack_code}_Sequencing_5Levels.pdf"
-    c = canvas.Canvas(pdf_path, pagesize=landscape(letter))
+    c = canvas.Canvas(pdf_path, pagesize=letter)  # Portrait orientation (8.5" × 11")
     
     for page in saved_pages:
         img_buffer = io.BytesIO()
