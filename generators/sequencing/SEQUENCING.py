@@ -5,10 +5,12 @@ Evidence-based 5-level progression for special education students
 DESIGN:
 - PORTRAIT orientation (8.5" × 11") per user request
 - Title centered in colored accent stripe with padding
-- 11 empty boxes in creative SNAKE PATHWAY layout (not grid)
+- Subtitle: "Brown Bear, Brown Bear, What Do You See?"
+- Single Brown Bear icon in header
+- 10 empty boxes in creative SNAKE PATHWAY layout (not grid)
 - S-curve wiggly path showing sequence journey down the page
 - More engaging visual for SPED students
-- Separate cutout sheet with all 11 pieces (matching snake layout)
+- Separate cutout sheet with all 10 pieces (matching snake layout)
 - Boxes same size as cutouts for velcro matching (85×105 points)
 - Design Constitution compliant: proper margins, footer within border, and branding
 
@@ -65,8 +67,8 @@ LIGHT_BLUE = "#EEF4FB"
 STEEL_BLUE = "#5B7AA0"
 FOOTER_GREY = "#999999"
 
-# Story sequence (11 characters in order)
-# NOTE: Starting with Red Bird per user request - Brown Bear is not in the sequence boxes
+# Story sequence (10 characters in order)
+# NOTE: Starting with Red Bird per user request - Brown Bear removed from sequence
 STORY_SEQUENCE = [
     "red_bird",      # 1 - Story starts here: "Red Bird, what do you see?"
     "yellow_duck",   # 2
@@ -77,8 +79,7 @@ STORY_SEQUENCE = [
     "black_sheep",   # 7
     "goldfish",      # 8
     "teacher",       # 9
-    "children",      # 10
-    "brown_bear"     # 11 - Brown Bear comes last
+    "children"       # 10 - Sequence ends here (Brown Bear not in boxes)
 ]
 
 # Real image filename mapping (for Level 2)
@@ -286,7 +287,7 @@ def create_sequencing_page(loaded_images, real_images, level, pack_code, theme_n
     
     # Snake pathway positions - manually positioned for creative S-curve
     # Format: (x_offset_from_left_margin, y_offset_from_first_box)
-    # Creates a flowing snake pattern down the page
+    # Creates a flowing snake pattern down the page (10 boxes total)
     snake_positions = [
         # Top row: 4 boxes going right (boxes 1-4)
         (100, 0),      # Box 1
@@ -300,10 +301,9 @@ def create_sequencing_page(loaded_images, real_images, level, pack_code, theme_n
         (250, 205),    # Box 7 (continuing down-left)
         (150, 235),    # Box 8 (continuing down-left)
         
-        # Bottom row: 3 boxes going right (boxes 9-11)
+        # Bottom row: 2 boxes going right (boxes 9-10)
         (175, 380),    # Box 9
         (300, 380),    # Box 10
-        (425, 380),    # Box 11
     ]
     
     # Draw each box at its snake pathway position
@@ -405,7 +405,7 @@ def create_sequencing_page(loaded_images, real_images, level, pack_code, theme_n
 
 
 def create_cutout_page(loaded_images, real_images, pack_code, theme_name, level, page_num, total_pages=11):
-    """Create level-specific cutout pieces page - LANDSCAPE with 3-per-row layout (4 rows: 3-3-3-2)
+    """Create level-specific cutout pieces page - PORTRAIT with 3-per-row layout (4 rows: 4-4-2)
     
     Level-specific cutouts:
     - Level 1: Color PCS symbols (current icons)
@@ -468,7 +468,7 @@ def create_cutout_page(loaded_images, real_images, pack_code, theme_name, level,
               fill=hex_to_rgb(STEEL_BLUE), font=fonts['label'])
     
     # Cutout pieces - SAME SIZE AS ACTIVITY PAGE BOXES (85x105)
-    # Use same 3-row layout (4-4-3) to match activity pages
+    # Use 3-row layout (4-4-2) to match 10 boxes on activity pages
     box_width = int(85 * scale)
     box_height = int(105 * scale)
     box_spacing = int(10 * scale)
@@ -477,11 +477,11 @@ def create_cutout_page(loaded_images, real_images, pack_code, theme_name, level,
     # Starting Y position for first row
     first_row_y = instr_y + int(35 * scale)
     
-    # Define rows: [count, starting_index] - same as activity pages
+    # Define rows: [count, starting_index] - 10 pieces total
     rows = [
         (4, 0),   # Row 1: pieces 1-4
         (4, 4),   # Row 2: pieces 5-8
-        (3, 8)    # Row 3: pieces 9-11
+        (2, 8)    # Row 3: pieces 9-10
     ]
     
     for row_num, (count, start_idx) in enumerate(rows):
@@ -708,8 +708,8 @@ def generate_sequencing_pack(images_folder, pack_code="BB0ALL", theme_name="Brow
         print(f"❌ Missing PCS symbol images: {', '.join(missing_images)}")
         return False
     
-    if len(loaded_images) != 11:
-        print(f"❌ Need exactly 11 PCS images, found {len(loaded_images)}")
+    if len(loaded_images) != 10:
+        print(f"❌ Need exactly 10 PCS images, found {len(loaded_images)}")
         return False
     
     # Load real photograph images for Level 2
@@ -737,7 +737,7 @@ def generate_sequencing_pack(images_folder, pack_code="BB0ALL", theme_name="Brow
         if real_missing:
             print(f"⚠️  Some real images not found (using PCS fallback): {', '.join(real_missing)}")
         else:
-            print(f"   ✅ All 11 real photographs loaded successfully\n")
+            print(f"   ✅ All 10 real photographs loaded successfully\n")
     else:
         print(f"⚠️  Real images folder not found: {real_images_path}")
         print(f"   Using PCS symbols for Level 2 as fallback\n")
