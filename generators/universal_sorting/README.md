@@ -1,257 +1,85 @@
-# Universal Sorting Toolkit with AAC Edge Strips
+# Universal Sorting Mat Generator (with AAC Core Words)
 
-A professional sorting mats generator with AAC (Augmentative and Alternative Communication) core word prompts integrated around the edges.
+**Design Constitution Compliant** sorting mat generator with integrated AAC communication support.
 
 ## Overview
 
-This generator creates landscape sorting mats perfect for special education, AAC modeling, and general classroom use. Each mat includes 16 core word buttons (with icons) around the edges to facilitate communication during sorting activities.
+Generates interactive sorting mats in **PORTRAIT orientation** (US Letter 8.5" × 11") with AAC core word buttons positioned on the left and right sides. Perfect for special education, speech therapy, and AAC users.
 
 ## Features
 
-### Sorting Mat Types
+### Design Constitution Compliance
+- ✅ **US Letter PORTRAIT** orientation (8.5" × 11")
+- ✅ **0.5" margins** on all sides
+- ✅ **Rounded border** (2-3px, 0.12" corner radius) containing all content
+- ✅ **Header area ABOVE border** with pack code, page numbers, and "Small Wins Studio"
+- ✅ **Accent stripe INSIDE border** (0.55"-0.6" height, rounded corners, orange #F4B400)
+- ✅ **Title in Comic Sans MS** font, centered in accent stripe
+- ✅ **Two-line footer INSIDE border**:
+  - Line 1: Pack code | Theme | Page X/Y
+  - Line 2: © 2025 Small Wins Studio copyright with PCS® symbols attribution
+- ✅ **Small Wins Studio star logo** (28px) in footer
 
-1. **2-Way Sorting** - Binary classification
-   - Examples: Flies/Doesn't fly, Big/Small, Happy/Sad
-   - Large boxes for easy card placement
-   
-2. **3-Way Sorting** - Triple classification
-   - Examples: 2 legs/4 legs/No legs, Beginning/Middle/End
-   - Three equal columns
-   
-3. **Yes/No Sorting** - Question-based sorting
-   - Examples: Is it green? Does it swim?
-   - Encourages critical thinking
-
-### AAC Edge Strip (16 Core Words)
-
-**Top Row (8 buttons):**
+### AAC Integration (16 Core Words)
+**LEFT SIDE (8 buttons):**
 - PUT, DIFFERENT, FINISHED, AGAIN, WAIT, I THINK, SAME, HELP
 
-**Bottom Row (8 buttons):**
+**RIGHT SIDE (8 buttons):**
 - STOP, LIKE, DON'T LIKE, FUNNY, UH-OH, WHOOPS, MORE, YES
 
-Each button includes:
-- AAC icon (from assets/global/aac_core/)
-- Text label
-- Rounded border for easy pointing
+Each AAC button includes:
+- Icon from `assets/global/aac_core/` (50px size)
+- Text label below icon
+- Rounded border with navy blue outline
+- White/light gray background (color/B&W versions)
 
-### Dual-Mode Output
+### Sorting Areas
 
-- **Color PDFs** - For lamination and classroom display
-- **B&W PDFs** - For cost-effective printing and student coloring
+**Center area contains THREE sorting configurations:**
 
-## Installation
+1. **2-Way Sort**: Two categories side-by-side
+2. **3-Way Sort**: Three categories across
+3. **Yes/No Sort**: Binary decision sorting
 
-```bash
-pip install reportlab pillow
-```
+All boxes have navy blue borders (#2B4C7E) with labels.
 
 ## Usage
 
-### Default Categories
+### Command Line
 
 ```bash
 python generators/universal_sorting/universal_sorting_aac.py \
-    --out_dir "OUTPUT/sorting" \
-    --brand "Small Wins Studio"
+  --pack_code SORT01 \
+  --theme "Universal Sorting" \
+  --output_dir OUTPUT/sorting_mats \
+  --aac_dir assets/global/aac_core
 ```
 
-### Custom Categories
+### Parameters
 
-```bash
-python generators/universal_sorting/universal_sorting_aac.py \
-    --out_dir "OUTPUT/sorting" \
-    --brand "Small Wins Studio" \
-    --categories "templates/universal_sorting_categories.json"
-```
-
-### Custom AAC Directory
-
-```bash
-python generators/universal_sorting/universal_sorting_aac.py \
-    --out_dir "OUTPUT/sorting" \
-    --aac_dir "path/to/aac/images"
-```
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `--pack_code` | `SORT01` | Product code for branding |
+| `--theme` | `Universal Sorting` | Theme name in title |
+| `--output_dir` | `OUTPUT` | Output folder for PDFs |
+| `--aac_dir` | `assets/global/aac_core` | AAC icon directory |
 
 ## Output
 
-Generates 2 PDFs:
-- `universal_sorting_mats_aac_color.pdf` - Full color version
-- `universal_sorting_mats_aac_bw.pdf` - Black & white version
+- `{pack_code}_sorting_mat_color.pdf` - Full color version (~450-500 KB)
+- `{pack_code}_sorting_mat_bw.pdf` - Black & white version (~400-450 KB)
 
-Each PDF contains:
-- Instruction page
-- All 2-way sorting mats
-- All 3-way sorting mats
-- All Yes/No sorting mats
+## Changelog
 
-## Categories JSON Format
-
-```json
-{
-  "two_way": [
-    ["Category A", "Category B"],
-    ["Happy", "Sad"]
-  ],
-  "three_way": [
-    ["2 legs", "4 legs", "No legs"]
-  ],
-  "yes_no": [
-    ["Is it green?"],
-    ["Does it swim?"]
-  ]
-}
-```
-
-## Educational Applications
-
-### AAC Modeling
-
-Use the edge strip buttons to model core vocabulary:
-- **PUT** - "Let's put the bird here"
-- **I THINK** - "I think this goes in big"
-- **SAME** - "These are the same"
-- **DIFFERENT** - "This one is different"
-- **HELP** - "Can you help me?"
-- **FINISHED** - "We're finished sorting"
-- **AGAIN** - "Let's do it again"
-
-### SPED/Special Education
-
-- **Errorless Learning:** Pre-place one example in each box
-- **Visual Supports:** AAC icons support non-verbal students
-- **Scaffolding:** Gradually reduce support as skills develop
-- **Communication Practice:** Natural opportunities for AAC use
-
-### Classroom Differentiation
-
-**Level 1 (Errorless):**
-- Teacher places examples
-- Student matches identical items
-
-**Level 2 (Scaffolded):**
-- Verbal cues provided
-- Student sorts with prompts
-
-**Level 3 (Independent):**
-- Student sorts without help
-- May use AAC to explain
-
-**Level 4 (Extension):**
-- Student explains reasoning
-- "I think... because..."
-- Critical thinking skills
-
-## Customization Ideas
-
-### Theme Integration
-
-Use with any theme by adding matching picture cards:
-- Animals (zoo, farm, ocean)
-- Transportation
-- Food groups
-- Weather
-- Emotions
-- Shapes and colors
-
-### Cross-Curricular
-
-**Science:**
-- Living/Non-living
-- Solid/Liquid/Gas
-- Carnivore/Herbivore/Omnivore
-
-**Math:**
-- Odd/Even
-- Greater than 10 / Less than 10
-- 2D shapes / 3D shapes
-
-**Literacy:**
-- Letter sounds
-- Syllable sorting
-- Real words / Nonsense words
-
-**Social Studies:**
-- Past/Present/Future
-- Wants/Needs
-- Community helpers
-
-## AAC Core Words
-
-The 16 core words were selected based on:
-- High frequency in communication
-- Usefulness during sorting activities
-- AAC research and best practices
-- Applicability across contexts
-
-All words have corresponding AAC icons for:
-- Visual support
-- Non-verbal communication
-- Multi-modal learning
-
-## Tips for Success
-
-1. **Laminate for durability** - Use color PDFs
-2. **Use velcro dots** - Attach to mat and cards
-3. **Model AAC consistently** - Point as you speak
-4. **Pause for responses** - Give time to communicate
-5. **Celebrate attempts** - Encourage all communication
-6. **Start simple** - Begin with 2-way sorting
-7. **Add complexity gradually** - Move to 3-way when ready
-
-## File Structure
-
-```
-generators/universal_sorting/
-├── universal_sorting_aac.py    # Main generator
-└── README.md                   # This file
-
-templates/
-└── universal_sorting_categories.json  # Example categories
-
-OUTPUT/sorting/
-├── universal_sorting_mats_aac_color.pdf
-└── universal_sorting_mats_aac_bw.pdf
-```
-
-## Technical Details
-
-- Page Size: A4 Landscape (297mm × 210mm)
-- AAC Buttons: 18mm height, rounded corners
-- AAC Icons: 14mm size
-- Sort Boxes: 3mm bold border, 16mm corner radius
-- Font: Helvetica (standard across all products)
-- Resolution: Vector-based for crisp printing
-
-## Troubleshooting
-
-**No AAC icons showing:**
-- Check that aac_dir path is correct
-- Verify PNG files exist in assets/global/aac_core/
-- Generator will fall back to text-only if icons not found
-
-**Categories not loading:**
-- Check JSON syntax
-- Ensure file path is correct
-- Use default categories if file missing
-
-**PDF quality issues:**
-- PDFs are vector-based and scale infinitely
-- Print at 100% scale for intended size
-- Use high-quality printer settings
+### v2.0 (February 2025) - Complete Rewrite
+- **BREAKING CHANGE**: Changed from A4 landscape to US Letter portrait
+- Implemented full Design Constitution compliance
+- Added proper borders, margins, and branding
+- Repositioned AAC buttons from top/bottom to left/right sides
+- Fixed text overlap issues
+- Switched from reportlab canvas to PIL-based rendering
+- 536 lines (complete rewrite from 401 lines)
 
 ## License
 
-MIT License - Small Wins Studio
-
-## Support
-
-For issues or questions:
-- Check this README
-- Review example categories JSON
-- Examine generated PDFs
-- Test with default settings first
-
----
-
-**Created with ❤️ for teachers, therapists, and students**
+MIT License - Small Wins Studio © 2025
