@@ -20,138 +20,169 @@
             font-family: 'Comic Sans MS', 'Comic Sans', cursive;
             background: white;
             color: #333;
-            line-height: 1.6;
+            line-height: 1.8;
             padding: 0;
         }
         
         .page {
-            width: 8.5in;
-            min-height: 11in;
+            width: 7.5in;
             margin: 0 auto;
-            padding: 0.5in;
+            padding: 0.6in;
             border: 3px solid #20B2AA;
             border-radius: 0.12in;
             background: white;
             position: relative;
+            page-break-after: always;
+        }
+        
+        .page:last-child {
+            page-break-after: auto;
         }
         
         .logo {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            padding-top: 10px;
         }
         
         .logo img {
-            max-width: 300px;
+            max-width: 280px;
             height: auto;
         }
         
         .header {
             background: linear-gradient(135deg, #20B2AA 0%, #17a2a2 100%);
             color: white;
-            padding: 25px;
+            padding: 30px 25px;
             text-align: center;
-            margin: -0.5in -0.5in 30px -0.5in;
+            margin: -0.6in -0.6in 35px -0.6in;
             border-radius: 0.12in 0.12in 0 0;
         }
         
         .header h1 {
-            font-size: 32px;
-            margin-bottom: 5px;
+            font-size: 34px;
+            margin-bottom: 8px;
             font-weight: bold;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            letter-spacing: 0.5px;
         }
         
         .header .subtitle {
-            font-size: 18px;
+            font-size: 19px;
             font-weight: normal;
             opacity: 0.95;
+            margin-top: 5px;
         }
         
         .thank-you-box {
             background: #E0F7F7;
             border: 2px solid #20B2AA;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px 0;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
             text-align: center;
         }
         
         .thank-you-box h2 {
             color: #20B2AA;
-            font-size: 24px;
-            margin-bottom: 10px;
+            font-size: 26px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        .thank-you-box p {
+            font-size: 15px;
+            line-height: 1.9;
         }
         
         .section {
-            margin: 25px 0;
+            margin: 30px 0;
         }
         
         .section-title {
             color: #20B2AA;
-            font-size: 20px;
+            font-size: 22px;
             font-weight: bold;
-            margin-bottom: 15px;
-            padding-bottom: 5px;
-            border-bottom: 2px solid #20B2AA;
+            margin-bottom: 18px;
+            padding-bottom: 8px;
+            border-bottom: 3px solid #20B2AA;
             display: flex;
             align-items: center;
         }
         
         .section-title::before {
             content: "■";
-            margin-right: 10px;
+            margin-right: 12px;
             color: #20B2AA;
+            font-size: 20px;
         }
         
         .content-box {
             background: #F8FFFE;
-            border-left: 4px solid #20B2AA;
-            padding: 15px 20px;
-            margin: 10px 0;
+            border-left: 5px solid #20B2AA;
+            padding: 20px 25px;
+            margin: 15px 0;
+        }
+        
+        .content-box p {
+            font-size: 15px;
+            margin-bottom: 10px;
         }
         
         ul {
-            margin-left: 20px;
-            margin-top: 10px;
+            margin-left: 25px;
+            margin-top: 12px;
         }
         
         li {
-            margin: 8px 0;
-            line-height: 1.8;
+            margin: 12px 0;
+            line-height: 2;
+            font-size: 15px;
         }
         
         .highlight-box {
             background: #FFE5CC;
-            border: 2px dashed #FF8C42;
-            border-radius: 8px;
-            padding: 15px;
-            margin: 15px 0;
+            border: 3px dashed #FF8C42;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
         }
         
         .highlight-box h3 {
             color: #FF8C42;
-            font-size: 18px;
-            margin-bottom: 10px;
+            font-size: 20px;
+            margin-bottom: 12px;
+            font-weight: bold;
+        }
+        
+        .highlight-box p {
+            font-size: 15px;
+            line-height: 1.9;
+        }
+        
+        .highlight-box ul {
+            margin-top: 15px;
         }
         
         .copyright-notice {
             background: #2C3E50;
             color: white;
-            padding: 15px;
-            border-radius: 8px;
+            padding: 20px;
+            border-radius: 10px;
             text-align: center;
-            margin: 20px 0;
-            font-size: 14px;
+            margin: 25px 0;
+            font-size: 15px;
+            line-height: 1.8;
         }
         
         .footer {
             background: linear-gradient(135deg, #20B2AA 0%, #17a2a2 100%);
             color: white;
-            padding: 15px;
+            padding: 18px;
             text-align: center;
-            margin: 30px -0.5in -0.5in -0.5in;
+            margin: 35px -0.6in -0.6in -0.6in;
             border-radius: 0 0 0.12in 0.12in;
-            font-size: 12px;
+            font-size: 13px;
         }
         
         .credits-page {
@@ -160,19 +191,31 @@
         
         .symbol-attribution {
             background: #FFF9E6;
-            border: 2px solid #FFC107;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 20px 0;
+            border: 3px solid #FFC107;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 25px 0;
         }
         
         .symbol-attribution h3 {
             color: #F57C00;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            font-size: 19px;
+            font-weight: bold;
+        }
+        
+        .symbol-attribution p {
+            font-size: 15px;
+            line-height: 1.9;
+        }
+        
+        .symbol-attribution ul {
+            margin-top: 12px;
         }
         
         strong {
             color: #2C3E50;
+            font-weight: bold;
         }
         
         a {
@@ -186,9 +229,9 @@
         }
         
         .divider {
-            height: 3px;
+            height: 4px;
             background: linear-gradient(to right, transparent, #20B2AA, transparent);
-            margin: 30px 0;
+            margin: 35px 0;
         }
         
         @media print {
@@ -213,6 +256,10 @@
             <h1>TERMS OF USE & CREDITS</h1>
             <div class="subtitle">[YOUR PRODUCT TITLE]</div>
             <div class="subtitle">Small Wins Studio | Teachers Pay Teachers</div>
+        </div>
+
+        <div class="logo">
+            <img src="../../assets/branding/logos/small_wins_logo_with_text.png" alt="Small Wins Studio Logo">
         </div>
 
         <div class="thank-you-box">
@@ -299,6 +346,10 @@
         <div class="header">
             <h1>CREDITS & ATTRIBUTIONS</h1>
             <div class="subtitle">Small Wins Studio</div>
+        </div>
+
+        <div class="logo">
+            <img src="../../assets/branding/logos/small_wins_logo_with_text.png" alt="Small Wins Studio Logo">
         </div>
 
         <div class="section">
