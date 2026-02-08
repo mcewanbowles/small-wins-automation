@@ -246,7 +246,7 @@ def create_sequencing_page(loaded_images, real_images, level, pack_code, theme_n
     # Compact story setup section
     setup_y = margin + accent_padding + accent_height + int(12 * scale)
     
-    # Brown Bear icon (single icon as requested by user)
+    # Brown Bear icon (single icon as requested by user) - CENTERED
     try:
         bb_path = Path("assets/themes/brown_bear/icons/brown_bear.png")
         if bb_path.exists():
@@ -261,12 +261,21 @@ def create_sequencing_page(loaded_images, real_images, level, pack_code, theme_n
     bb_img = bb_img.transpose(Image.FLIP_LEFT_RIGHT)
     
     bb_img.thumbnail((int(50 * scale), int(50 * scale)), Image.Resampling.LANCZOS)
-    bb_x = int(40 * scale)
+    
+    # Story subtitle text (Brown Bear) - ALL ON ONE LINE as requested - CENTERED
+    subtitle_text = "Brown Bear, Brown Bear, What Do You See?"
+    subtitle_bbox = draw.textbbox((0, 0), subtitle_text, font=fonts['prompt'])
+    subtitle_w = subtitle_bbox[2] - subtitle_bbox[0]
+    
+    # Center the bear icon and subtitle together
+    combined_width = bb_img.width + int(15 * scale) + subtitle_w  # icon + gap + text
+    start_x = (img_width - combined_width) // 2
+    
+    bb_x = start_x
     page.paste(bb_img, (bb_x, setup_y), bb_img if bb_img.mode == 'RGBA' else None)
     
-    # Story subtitle text (Brown Bear) - ALL ON ONE LINE as requested
-    text_x = bb_x + int(65 * scale)
-    draw.text((text_x, setup_y + int(15 * scale)), "Brown Bear, Brown Bear, What Do You See?",
+    text_x = bb_x + bb_img.width + int(15 * scale)
+    draw.text((text_x, setup_y + int(15 * scale)), subtitle_text,
               fill=hex_to_rgb(STEEL_BLUE), font=fonts['prompt'])
     
     # Story subtitle now shows "Brown Bear, Brown Bear, What Do You See?" above boxes
@@ -385,30 +394,36 @@ def create_sequencing_page(loaded_images, real_images, level, pack_code, theme_n
     draw.text(((img_width - footer1_w) // 2, footer_y), footer_line1,
               fill=hex_to_rgb(BRAND_NAVY), font=fonts['footer'])
     
-    # Line 2: Small Wins Studio copyright with logo - inside border
+    # Line 2: Small Wins Studio copyright with star logo - inside border
     copyright_y = img_height - margin - int(25 * scale)  # Inside border
+    copyright_text = "© 2025 Small Wins Studio. All rights reserved. • PCS® symbols used with active PCS Maker Personal License."
     
-    # Try to load and add Small Wins Studio logo
+    # Calculate text position first
+    copyright_bbox = draw.textbbox((0, 0), copyright_text, font=fonts['copyright'])
+    copyright_w = copyright_bbox[2] - copyright_bbox[0]
+    text_start_x = (img_width - copyright_w) // 2
+    
+    # Try to load and add Small Wins Studio star logo (without text)
     try:
-        logo_path = Path("assets/branding/logos/small_wins_logo_with_text.png")
-        if logo_path.exists():
-            logo_img = Image.open(logo_path).convert('RGBA')
-            logo_height = int(20 * scale)  # Small logo
-            logo_aspect = logo_img.width / logo_img.height
-            logo_width = int(logo_height * logo_aspect)
-            logo_img = logo_img.resize((logo_width, logo_height), Image.Resampling.LANCZOS)
+        star_path = Path("assets/branding/small_wins_logo.png/star.png")
+        if star_path.exists():
+            star_img = Image.open(star_path).convert('RGBA')
+            # Star should be slightly larger than "S" in "Small wins" - umbrella the S
+            star_height = int(28 * scale)  # Slightly larger for visibility
+            star_aspect = star_img.width / star_img.height
+            star_width = int(star_height * star_aspect)
+            star_img = star_img.resize((star_width, star_height), Image.Resampling.LANCZOS)
             
-            # Position logo on left side of footer
-            logo_x = margin + int(15 * scale)
-            logo_y = copyright_y - int(2 * scale)
-            page.paste(logo_img, (logo_x, logo_y), logo_img if logo_img.mode == 'RGBA' else None)
+            # Position star just before "Small" text with small gap
+            star_logo_x = text_start_x - star_width - int(8 * scale)
+            # Vertically align star so it's slightly above the text baseline
+            star_y = copyright_y - int(6 * scale)
+            page.paste(star_img, (star_logo_x, star_y), star_img if star_img.mode == 'RGBA' else None)
     except:
         pass  # If logo not found, continue without it
     
-    copyright_text = "© 2025 Small Wins Studio. All rights reserved. • PCS® symbols used with active PCS Maker Personal License."
-    copyright_bbox = draw.textbbox((0, 0), copyright_text, font=fonts['copyright'])
-    copyright_w = copyright_bbox[2] - copyright_bbox[0]
-    draw.text(((img_width - copyright_w) // 2, copyright_y), copyright_text,
+    # Draw copyright text (centered)
+    draw.text((text_start_x, copyright_y), copyright_text,
               fill=FOOTER_GREY, font=fonts['copyright'])
 
 
@@ -630,30 +645,36 @@ def create_cutout_page(loaded_images, real_images, pack_code, theme_name, level,
     draw.text(((img_width - footer1_w) // 2, footer_y), footer_line1,
               fill=hex_to_rgb(BRAND_NAVY), font=fonts['footer'])
     
-    # Line 2: Small Wins Studio copyright with logo - inside border
+    # Line 2: Small Wins Studio copyright with star logo - inside border
     copyright_y = img_height - margin - int(35 * scale)  # Inside border
+    copyright_text = "© 2025 Small Wins Studio. All rights reserved. • PCS® symbols used with active PCS Maker Personal License."
     
-    # Try to load and add Small Wins Studio logo
+    # Calculate text position first
+    copyright_bbox = draw.textbbox((0, 0), copyright_text, font=fonts['copyright'])
+    copyright_w = copyright_bbox[2] - copyright_bbox[0]
+    text_start_x = (img_width - copyright_w) // 2
+    
+    # Try to load and add Small Wins Studio star logo (without text)
     try:
-        logo_path = Path("assets/branding/logos/small_wins_logo_with_text.png")
-        if logo_path.exists():
-            logo_img = Image.open(logo_path).convert('RGBA')
-            logo_height = int(20 * scale)  # Small logo
-            logo_aspect = logo_img.width / logo_img.height
-            logo_width = int(logo_height * logo_aspect)
-            logo_img = logo_img.resize((logo_width, logo_height), Image.Resampling.LANCZOS)
+        star_path = Path("assets/branding/small_wins_logo.png/star.png")
+        if star_path.exists():
+            star_img = Image.open(star_path).convert('RGBA')
+            # Star should be slightly larger than "S" in "Small wins" - umbrella the S
+            star_height = int(28 * scale)  # Slightly larger for visibility
+            star_aspect = star_img.width / star_img.height
+            star_width = int(star_height * star_aspect)
+            star_img = star_img.resize((star_width, star_height), Image.Resampling.LANCZOS)
             
-            # Position logo on left side of footer
-            logo_x = margin + int(15 * scale)
-            logo_y = copyright_y - int(2 * scale)
-            page.paste(logo_img, (logo_x, logo_y), logo_img if logo_img.mode == 'RGBA' else None)
+            # Position star just before "Small" text with small gap
+            star_logo_x = text_start_x - star_width - int(8 * scale)
+            # Vertically align star so it's slightly above the text baseline
+            star_y = copyright_y - int(6 * scale)
+            page.paste(star_img, (star_logo_x, star_y), star_img if star_img.mode == 'RGBA' else None)
     except:
         pass  # If logo not found, continue without it
     
-    copyright_text = "© 2025 Small Wins Studio. All rights reserved. • PCS® symbols used with active PCS Maker Personal License."
-    copyright_bbox = draw.textbbox((0, 0), copyright_text, font=fonts['copyright'])
-    copyright_w = copyright_bbox[2] - copyright_bbox[0]
-    draw.text(((img_width - copyright_w) // 2, copyright_y), copyright_text,
+    # Draw copyright text (centered)
+    draw.text((text_start_x, copyright_y), copyright_text,
               fill=FOOTER_GREY, font=fonts['copyright'])
     
     return page
