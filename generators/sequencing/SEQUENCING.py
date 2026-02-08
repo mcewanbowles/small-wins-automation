@@ -257,15 +257,16 @@ def create_sequencing_page(loaded_images, real_images, level, pack_code, theme_n
     except (FileNotFoundError, IOError):
         bb_img = loaded_images[0].copy()
     
+    # FLIP BEAR SO NOSE POINTS RIGHT (user requested)
+    bb_img = bb_img.transpose(Image.FLIP_LEFT_RIGHT)
+    
     bb_img.thumbnail((int(50 * scale), int(50 * scale)), Image.Resampling.LANCZOS)
     bb_x = int(40 * scale)
     page.paste(bb_img, (bb_x, setup_y), bb_img if bb_img.mode == 'RGBA' else None)
     
-    # Story subtitle text (Brown Bear)
+    # Story subtitle text (Brown Bear) - ALL ON ONE LINE as requested
     text_x = bb_x + int(65 * scale)
-    draw.text((text_x, setup_y + int(10 * scale)), "Brown Bear, Brown Bear,",
-              fill=hex_to_rgb(STEEL_BLUE), font=fonts['prompt'])
-    draw.text((text_x, setup_y + int(30 * scale)), "What Do You See?",
+    draw.text((text_x, setup_y + int(15 * scale)), "Brown Bear, Brown Bear, What Do You See?",
               fill=hex_to_rgb(STEEL_BLUE), font=fonts['prompt'])
     
     # Story subtitle now shows "Brown Bear, Brown Bear, What Do You See?" above boxes
@@ -375,7 +376,7 @@ def create_sequencing_page(loaded_images, real_images, level, pack_code, theme_n
     
     # NOTE: Arrows removed per user request - snake pathway shows flow naturally
     
-    # Footer - Two lines inside border
+    # Footer - Two lines inside border WITH LOGO as requested by user
     # Line 1: Product name
     footer_y = img_height - margin - int(45 * scale)  # Inside border
     footer_line1 = f"{theme_name} Sequencing – {pack_code}"
@@ -384,8 +385,26 @@ def create_sequencing_page(loaded_images, real_images, level, pack_code, theme_n
     draw.text(((img_width - footer1_w) // 2, footer_y), footer_line1,
               fill=hex_to_rgb(BRAND_NAVY), font=fonts['footer'])
     
-    # Line 2: Small Wins and copyright - inside border
+    # Line 2: Small Wins Studio copyright with logo - inside border
     copyright_y = img_height - margin - int(25 * scale)  # Inside border
+    
+    # Try to load and add Small Wins Studio logo
+    try:
+        logo_path = Path("assets/branding/logos/small_wins_logo_with_text.png")
+        if logo_path.exists():
+            logo_img = Image.open(logo_path).convert('RGBA')
+            logo_height = int(20 * scale)  # Small logo
+            logo_aspect = logo_img.width / logo_img.height
+            logo_width = int(logo_height * logo_aspect)
+            logo_img = logo_img.resize((logo_width, logo_height), Image.Resampling.LANCZOS)
+            
+            # Position logo on left side of footer
+            logo_x = margin + int(15 * scale)
+            logo_y = copyright_y - int(2 * scale)
+            page.paste(logo_img, (logo_x, logo_y), logo_img if logo_img.mode == 'RGBA' else None)
+    except:
+        pass  # If logo not found, continue without it
+    
     copyright_text = "© 2025 Small Wins Studio. All rights reserved. • PCS® symbols used with active PCS Maker Personal License."
     copyright_bbox = draw.textbbox((0, 0), copyright_text, font=fonts['copyright'])
     copyright_w = copyright_bbox[2] - copyright_bbox[0]
@@ -438,23 +457,25 @@ def create_cutout_page(loaded_images, real_images, pack_code, theme_name, level,
         outline=None
     )
     
-    # Title - level-specific
+    # Title - REMOVE "Level 1" and CENTER as requested by user
     level_names = {
-        1: "Level 1 - Color Symbol Cutouts",
-        2: "Level 2 - Real Photo Cutouts",
-        3: "Level 3 - B&W Symbol Cutouts (for Coloring)",
-        4: "Level 4 - Text Label Cutouts",
-        5: "Level 5 - Blank Cutouts"
+        1: "Color Symbol Cutouts",
+        2: "Real Photo Cutouts",
+        3: "B&W Symbol Cutouts (for Coloring)",
+        4: "Text Label Cutouts",
+        5: "Blank Cutouts"
     }
     title_text = f"{theme_name} - {level_names[level]}"
     title_bbox = draw.textbbox((0, 0), title_text, font=fonts['title'])
     title_w = title_bbox[2] - title_bbox[0]
-    draw.text(((img_width - title_w) // 2, margin + accent_padding + int(10 * scale)), title_text,
+    # Center vertically in accent stripe
+    title_y = margin + accent_padding + (accent_height - (title_bbox[3] - title_bbox[1])) // 2
+    draw.text(((img_width - title_w) // 2, title_y), title_text,
               fill='white', font=fonts['title'])
     
-    # Instruction
+    # Instruction - Updated text as requested by user
     instr_y = margin + accent_padding + accent_height + int(12 * scale)
-    instr_text = "✂ Cut out these pieces. Use velcro to attach them to the sequencing boxes in story order."
+    instr_text = "✂ Cut out these pieces for activity. Optional laminate and attach velcro for long term use."
     instr_bbox = draw.textbbox((0, 0), instr_text, font=fonts['label'])
     instr_w = instr_bbox[2] - instr_bbox[0]
     draw.text(((img_width - instr_w) // 2, instr_y), instr_text,
@@ -599,18 +620,36 @@ def create_cutout_page(loaded_images, real_images, pack_code, theme_name, level,
                 draw.text((box_x + (box_width - num_w) // 2, row_y + (box_height - num_h) // 2),
                          num_text, fill='#CCCCCC', font=fonts['number'])
     
-    # Footer - Two lines matching Design Constitution style
-    footer_y = img_height - int(55 * scale)
+    # Footer - Two lines WITHIN BORDER WITH LOGO as requested by user
+    footer_y = img_height - margin - int(55 * scale)  # Inside border
     
-    # Line 1: Activity info
-    footer_line1 = f"Sequencing Cutouts – Level {level} | {pack_code}"
+    # Line 1: Activity info (removed "Level {level}" as requested)
+    footer_line1 = f"{theme_name} Sequencing Cutouts | {pack_code}"
     footer1_bbox = draw.textbbox((0, 0), footer_line1, font=fonts['footer'])
     footer1_w = footer1_bbox[2] - footer1_bbox[0]
     draw.text(((img_width - footer1_w) // 2, footer_y), footer_line1,
               fill=hex_to_rgb(BRAND_NAVY), font=fonts['footer'])
     
-    # Line 2: Copyright
-    copyright_y = img_height - int(35 * scale)
+    # Line 2: Small Wins Studio copyright with logo - inside border
+    copyright_y = img_height - margin - int(35 * scale)  # Inside border
+    
+    # Try to load and add Small Wins Studio logo
+    try:
+        logo_path = Path("assets/branding/logos/small_wins_logo_with_text.png")
+        if logo_path.exists():
+            logo_img = Image.open(logo_path).convert('RGBA')
+            logo_height = int(20 * scale)  # Small logo
+            logo_aspect = logo_img.width / logo_img.height
+            logo_width = int(logo_height * logo_aspect)
+            logo_img = logo_img.resize((logo_width, logo_height), Image.Resampling.LANCZOS)
+            
+            # Position logo on left side of footer
+            logo_x = margin + int(15 * scale)
+            logo_y = copyright_y - int(2 * scale)
+            page.paste(logo_img, (logo_x, logo_y), logo_img if logo_img.mode == 'RGBA' else None)
+    except:
+        pass  # If logo not found, continue without it
+    
     copyright_text = "© 2025 Small Wins Studio. All rights reserved. • PCS® symbols used with active PCS Maker Personal License."
     copyright_bbox = draw.textbbox((0, 0), copyright_text, font=fonts['copyright'])
     copyright_w = copyright_bbox[2] - copyright_bbox[0]
