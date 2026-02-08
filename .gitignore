@@ -72,3 +72,7 @@ htmlcov/
 # ============================================
 *.log
 logs/
+test_output.pdf
+*.pdf
+__pycache__/
+output/
