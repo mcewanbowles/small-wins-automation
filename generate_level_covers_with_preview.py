@@ -95,9 +95,10 @@ def extract_first_page_as_image(pdf_path, output_image_path=None):
         return None
 
 
-def create_level_cover_with_preview(level, theme_name, product_type, level_pdf_path, output_path):
+def create_level_cover_with_preview(level, theme_name, product_type, level_pdf_path, output_path, pack_code="SWS-MTCH-001"):
     """
     Create a cover page for a specific level with a preview of the first page.
+    Fully compliant with Design Constitution including footer format.
     
     Args:
         level: Level number (1-4)
@@ -105,6 +106,7 @@ def create_level_cover_with_preview(level, theme_name, product_type, level_pdf_p
         product_type: Product type (e.g., "Matching")
         level_pdf_path: Path to the level PDF to extract preview from
         output_path: Path to save the cover PDF
+        pack_code: Product pack code (e.g., "SWS-MTCH-001")
         
     Returns:
         Path to generated cover PDF or None
@@ -120,6 +122,13 @@ def create_level_cover_with_preview(level, theme_name, product_type, level_pdf_p
     margin = 0.5 * inch
     content_width = width - (2 * margin)
     content_height = height - (2 * margin)
+    
+    # Get total page count for footer (cover will be page 1 of merged PDF)
+    try:
+        reader = PdfReader(level_pdf_path)
+        total_pages = len(reader.pages) + 1  # +1 for the cover page itself
+    except:
+        total_pages = 16  # Default assumption
     
     # Draw main border (rounded rectangle, 0.12" radius per Design Constitution)
     c.setStrokeColor(NAVY)
@@ -201,21 +210,26 @@ def create_level_cover_with_preview(level, theme_name, product_type, level_pdf_p
     c.drawCentredString(width/2, desc_y, 
                        f"This level provides {LEVEL_NAMES.get(level, '').lower()} practice")
     
-    # === FOOTER SECTION ===
-    footer_y = margin + 40
+    # === FOOTER SECTION (Per Design Constitution Format) ===
+    # Footer must be INSIDE the border
+    footer_y = margin + 20  # Position inside border with padding
     
-    # Small Wins Studio branding
-    c.setFillColor(NAVY)
-    c.setFont(bold_font, 11)
-    c.drawCentredString(width/2, footer_y + 20, "⭐ Small Wins Studio ⭐")
+    # Design Constitution Footer Format:
+    # {PACK_CODE} | {THEME} | Level {X} | Page {Y}/{TOTAL} @ 2025 Small Wins Studio. PCS® symbols used with active PCS Maker Personal License.
     
-    # Copyright and PCS® license
     c.setFillColor(LIGHT_GRAY)
     c.setFont(regular_font, 9)
-    c.drawCentredString(width/2, footer_y + 5, 
-                       "© 2025 Small Wins Studio. All rights reserved.")
-    c.drawCentredString(width/2, footer_y - 7,
-                       "PCS® symbols used with active PCS Maker Personal License.")
+    
+    # Footer text - Page 1 of total
+    footer_text = f"{pack_code} | {theme_name} | Level {level} | Page 1/{total_pages} © 2025 Small Wins Studio. PCS® symbols used with active PCS Maker Personal License."
+    
+    # Center the footer text
+    c.drawCentredString(width/2, footer_y, footer_text)
+    
+    # Optional: Add small branding element above footer
+    c.setFillColor(NAVY)
+    c.setFont(bold_font, 10)
+    c.drawCentredString(width/2, footer_y + 15, "⭐ Small Wins Studio ⭐")
     
     c.save()
     print(f"  ✓ Generated cover for Level {level}")
@@ -261,13 +275,14 @@ def merge_cover_into_pdf(cover_pdf_path, original_pdf_path, output_pdf_path):
         return None
 
 
-def process_all_levels(theme_name="Brown Bear", product_type="Matching"):
+def process_all_levels(theme_name="Brown Bear", product_type="Matching", pack_code="SWS-MTCH-001"):
     """
     Process all levels: create covers with previews and merge into PDFs.
     
     Args:
         theme_name: Theme name
         product_type: Product type
+        pack_code: Product pack code for footer
     """
     
     theme_slug = theme_name.lower().replace(' ', '_')
@@ -279,6 +294,7 @@ def process_all_levels(theme_name="Brown Bear", product_type="Matching"):
     print(f"Generating Level Covers with Product Previews")
     print(f"Theme: {theme_name}")
     print(f"Product: {product_type}")
+    print(f"Pack Code: {pack_code}")
     print(f"{'='*60}\n")
     
     for level in range(1, 5):
@@ -300,7 +316,8 @@ def process_all_levels(theme_name="Brown Bear", product_type="Matching"):
             theme_name=theme_name,
             product_type=product_type,
             level_pdf_path=level_pdf,
-            output_path=cover_pdf
+            output_path=cover_pdf,
+            pack_code=pack_code
         )
         
         if cover_path:
@@ -328,4 +345,8 @@ def process_all_levels(theme_name="Brown Bear", product_type="Matching"):
 
 if __name__ == '__main__':
     # Process Brown Bear Matching levels
-    process_all_levels(theme_name="Brown Bear", product_type="Matching")
+    process_all_levels(
+        theme_name="Brown Bear", 
+        product_type="Matching",
+        pack_code="SWS-MTCH-BB1"
+    )
