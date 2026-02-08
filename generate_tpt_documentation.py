@@ -235,7 +235,7 @@ def create_single_page(c):
     text_width = PAGE_WIDTH - 2*INNER_MARGIN
     
     disclaimer_lines = [
-        f"This product is designed to complement "{BOOK_TITLE}" by {BOOK_AUTHOR}. This product is NOT affiliated with, endorsed by, or sponsored by the book's publisher or authors. You will need to purchase the book separately.",
+        f"This product is designed to complement \"{BOOK_TITLE}\" by {BOOK_AUTHOR}. This product is NOT affiliated with, endorsed by, or sponsored by the book's publisher or authors. You will need to purchase the book separately.",
         "",
         "All book-related content is used under fair use for educational purposes. BoardMaker symbols are used under PCS Maker Personal License."
     ]

@@ -1,4 +1,3 @@
-successfully downloaded text file (SHA: 8bec404c34ce91826bcc9a6cab5d9390289da933)#!/usr/bin/env python3
 """
 Brown Bear Matching Cards Generator - Matching Product Specification Compliant
 Generates matching activity pages following Small Wins Studio Matching Product Spec
