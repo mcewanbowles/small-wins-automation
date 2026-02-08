@@ -2,11 +2,13 @@
 """
 Freebie Generator for Small Wins Studio TPT Products
 Generates a freebie PDF by merging:
-- Cover page
+- Cover page (with full branding and copyright)
 - Page 1 from each level (levels 1-4)
 - All cutout pages from all levels
 
-This is a "taster" product to attract customers.
+This is a "taster" product to attract customers and funnel them to the full product.
+
+Design Specification: /design/product_specs/freebie.md
 """
 
 from PyPDF2 import PdfReader, PdfWriter
@@ -14,16 +16,18 @@ from reportlab.lib.pagesizes import letter
 from reportlab.lib.units import inch
 from reportlab.pdfgen import canvas
 from reportlab.lib.colors import HexColor
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
 import os
 import tempfile
 
-# Level colors
+# Standard level colors from Design Constitution
 LEVEL_COLORS = {
-    1: HexColor('#90EE90'),  # Light Green - Errorless
-    2: HexColor('#ADD8E6'),  # Light Blue - Easy
-    3: HexColor('#FFD580'),  # Light Orange - Medium
-    4: HexColor('#FFB6C1'),  # Light Pink - Challenge
-    5: HexColor('#DDA0DD'),  # Light Purple - Real Photos
+    1: HexColor('#F4B400'),  # Orange - Errorless
+    2: HexColor('#4285F4'),  # Blue - Easy
+    3: HexColor('#34A853'),  # Green - Medium
+    4: HexColor('#8C06F2'),  # Purple - Challenge
+    5: HexColor('#DDA0DD'),  # Light Purple - Real Photos (optional)
 }
 
 LEVEL_NAMES = {
@@ -34,70 +38,181 @@ LEVEL_NAMES = {
     5: 'Real Photos',
 }
 
-TEAL = HexColor('#008B8B')
+# Brand colors from Design Constitution
+TEAL = HexColor('#2AAEAE')  # Updated to match Design Constitution
 NAVY = HexColor('#1E3A5F')
 WHITE = HexColor('#FFFFFF')
 LIGHT_GRAY = HexColor('#999999')
+LIGHT_BLUE_BG = HexColor('#F0F8FF')
+
+
+def setup_fonts():
+    """Setup Comic Sans MS with fallbacks."""
+    fonts_tried = []
+    
+    # Try to register Comic Sans MS
+    try:
+        pdfmetrics.registerFont(TTFont('ComicSans', 'comic.ttf'))
+        pdfmetrics.registerFont(TTFont('ComicSansBold', 'comicbd.ttf'))
+        return 'ComicSans', 'ComicSansBold'
+    except:
+        fonts_tried.append('Comic Sans MS (comic.ttf)')
+    
+    # Fallback to Arial Rounded MT Bold
+    try:
+        pdfmetrics.registerFont(TTFont('ArialRounded', 'ARLRDBD.TTF'))
+        return 'ArialRounded', 'ArialRounded'
+    except:
+        fonts_tried.append('Arial Rounded MT Bold')
+    
+    # Ultimate fallback to Helvetica
+    return 'Helvetica', 'Helvetica-Bold'
 
 
 def generate_freebie_cover(output_path, product_title):
-    """Generate the freebie cover page."""
+    """
+    Generate the freebie cover page with full branding and copyright.
+    Follows Design Constitution and freebie.md specifications.
+    """
     
     c = canvas.Canvas(output_path, pagesize=letter)
     width, height = letter
     
-    # Teal header
+    # Setup fonts
+    regular_font, bold_font = setup_fonts()
+    
+    # Margins per Design Constitution: 0.5" all sides
+    margin = 0.5 * inch
+    content_width = width - (2 * margin)
+    content_height = height - (2 * margin)
+    
+    # Draw main border (rounded rectangle, 0.12" radius per Design Constitution)
+    c.setStrokeColor(NAVY)
+    c.setLineWidth(3)
+    c.roundRect(margin, margin, content_width, content_height, 0.12 * inch, stroke=True, fill=False)
+    
+    # === HEADER SECTION ===
+    # Teal header banner
+    header_height = 1.0 * inch
+    header_y = height - margin - header_height
     c.setFillColor(TEAL)
-    c.rect(0, height - 100, width, 100, fill=True, stroke=False)
+    c.roundRect(margin + 10, header_y, content_width - 20, header_height, 
+                0.12 * inch, fill=True, stroke=False)
     
-    # FREEBIE badge
+    # "FREE SAMPLER" text
     c.setFillColor(WHITE)
-    c.setFont('Helvetica-Bold', 36)
-    c.drawCentredString(width/2, height - 60, "FREE SAMPLER")
+    c.setFont(bold_font, 42)
+    c.drawCentredString(width/2, header_y + 50, "FREE SAMPLER")
     
-    c.setFont('Helvetica', 18)
-    c.drawCentredString(width/2, height - 85, "Try Before You Buy!")
+    c.setFont(regular_font, 20)
+    c.drawCentredString(width/2, header_y + 20, "Try Before You Buy!")
     
-    # Title
-    y = height - 150
+    # === TITLE SECTION ===
+    y = header_y - 50
     c.setFillColor(NAVY)
-    c.setFont('Helvetica-Bold', 28)
+    c.setFont(bold_font, 28)
     c.drawCentredString(width/2, y, product_title)
     
     # Subtitle
-    y -= 30
-    c.setFont('Helvetica', 16)
-    c.drawCentredString(width/2, y, "1 Sample Activity from Each Level")
+    y -= 35
+    c.setFont(regular_font, 16)
+    c.drawCentredString(width/2, y, "Sample Activities from All 4 Differentiation Levels")
     
-    # What's included box
+    # === "WHAT'S INCLUDED" BOX ===
     y -= 60
     box_height = 200
-    c.setFillColor(HexColor('#F0F8FF'))
+    box_y = y - box_height
+    
+    # Box with rounded corners
+    c.setFillColor(LIGHT_BLUE_BG)
     c.setStrokeColor(TEAL)
     c.setLineWidth(2)
-    c.roundRect(50, y - box_height, width - 100, box_height, 10, fill=True, stroke=True)
+    c.roundRect(margin + 30, box_y, content_width - 60, box_height, 
+                0.12 * inch, fill=True, stroke=True)
     
-    # What's included title
+    # Box title
     c.setFillColor(NAVY)
-    c.setFont('Helvetica-Bold', 16)
-    c.drawCentredString(width/2, y - 25, "What's Included:")
+    c.setFont(bold_font, 18)
+    c.drawCentredString(width/2, y - 30, "What's Included in This FREE Sample:")
     
-    # List items
+    # List items with checkmarks
     items = [
-        "✓ 1 sample activity page from EACH level (4 levels)",
-        "✓ ALL matching cutouts from all levels",
-        "✓ Complete preview of differentiation levels",
-        "✓ Ready to print and use immediately",
-        "✓ Perfect introduction to the full product"
+        "✓  1 Sample Activity Page from EACH Level (4 levels total)",
+        "✓  ALL Matching Cutouts from All Levels",
+        "✓  Complete Preview of Differentiation Options",
+        "✓  Ready to Print and Use Immediately",
+        "✓  Perfect Introduction to the Full Product Bundle"
     ]
     
-    c.setFont('Helvetica', 12)
-    item_y = y - 55
+    c.setFont(regular_font, 13)
+    c.setFillColor(NAVY)
+    item_y = y - 65
     for item in items:
         c.drawCentredString(width/2, item_y, item)
-        item_y -= 22
+        item_y -= 25
     
-    # Levels preview
+    # === LEVELS PREVIEW SECTION ===
+    y = box_y - 50
+    c.setFillColor(NAVY)
+    c.setFont(bold_font, 16)
+    c.drawCentredString(width/2, y, "Preview All 4 Differentiation Levels:")
+    
+    # Level color boxes (1-4 only)
+    y -= 35
+    box_width = 110
+    box_height = 70
+    start_x = (width - (box_width * 4 + 30)) / 2
+    
+    for level in range(1, 5):
+        x = start_x + (level - 1) * (box_width + 10)
+        color = LEVEL_COLORS[level]
+        
+        # Box with level color and rounded corners
+        c.setFillColor(color)
+        c.setStrokeColor(NAVY)
+        c.setLineWidth(2)
+        c.roundRect(x, y - box_height, box_width, box_height, 
+                    0.12 * inch, fill=True, stroke=True)
+        
+        # Level number and name
+        c.setFillColor(NAVY)
+        c.setFont(bold_font, 14)
+        c.drawCentredString(x + box_width/2, y - 25, f"Level {level}")
+        c.setFont(regular_font, 11)
+        c.drawCentredString(x + box_width/2, y - 45, LEVEL_NAMES[level])
+    
+    # === CALL-TO-ACTION ===
+    y = y - box_height - 60
+    c.setFillColor(TEAL)
+    c.roundRect(width/2 - 180, y - 15, 360, 45, 
+                0.12 * inch, fill=True, stroke=False)
+    c.setFillColor(WHITE)
+    c.setFont(bold_font, 18)
+    c.drawCentredString(width/2, y + 5, "Love It? Get the Full Product Bundle!")
+    
+    # === FOOTER SECTION ===
+    footer_y = margin + 60
+    
+    # Small Wins Studio branding
+    c.setFillColor(NAVY)
+    c.setFont(bold_font, 12)
+    c.drawCentredString(width/2, footer_y + 30, "⭐ Small Wins Studio ⭐")
+    
+    # TpT Store link
+    c.setFillColor(LIGHT_GRAY)
+    c.setFont(regular_font, 11)
+    c.drawCentredString(width/2, footer_y + 15, 
+                       "teacherspayteachers.com/Store/Small-Wins-Studio")
+    
+    # Copyright and PCS® license (per Design Constitution)
+    c.setFont(regular_font, 9)
+    c.drawCentredString(width/2, footer_y, 
+                       "© 2025 Small Wins Studio. All rights reserved.")
+    c.drawCentredString(width/2, footer_y - 12,
+                       "PCS® symbols used with active PCS Maker Personal License.")
+    
+    c.save()
+    return output_path
     y = y - box_height - 40
     c.setFont('Helvetica-Bold', 14)
     c.drawCentredString(width/2, y, "Preview All 4 Levels:")
