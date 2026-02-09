@@ -29,9 +29,12 @@ This directory contains the professionally designed Terms of Use and Credits doc
 - **Typography**: Comic Sans MS for consistent branding
 - **Logo**: Small Wins Studio logo displayed on each page
 - **Layout**: Rounded borders (0.12" radius) matching Small Wins design standards
-- **Structure**: Professional compact 2-page format
+- **Accent Strip**: Rounded corners (0.12" radius), positioned inside border with 0.15" margin, height 0.55" per design constitution
+- **Structure**: Professional compact 2-page format with optimized spacing
 
 ### Page 1: Terms of Use
+- Accent strip with rounded corners inside page border
+- Centered title and subtitle within accent strip
 - Small Wins Studio logo
 - Generic title (no product-specific placeholder)
 - Thank you message
@@ -42,6 +45,7 @@ This directory contains the professionally designed Terms of Use and Credits doc
 - TPT credits information
 - Follow/support section
 - Footer with copyright, PCS license info, and page number
+- **Optimized to fit all content on single page**
 
 ### Page 2: Credits & Attributions
 - Small Wins Studio logo
