@@ -1,6 +1,10 @@
 # Terms of Use & Credits Document
 
-This directory contains the professionally designed Terms of Use and Credits document for Small Wins Studio products.
+## ⭐ OFFICIAL GENERIC TERMS OF USE FOR ALL SMALL WINS STUDIO PRODUCTS ⭐
+
+**This is the canonical, final version of the Terms of Use & Credits document to be included in ALL future Small Wins Studio products.**
+
+This directory contains the professionally designed, generic Terms of Use and Credits document for Small Wins Studio products on Teachers Pay Teachers.
 
 ## Files
 
@@ -67,6 +71,13 @@ This directory contains the professionally designed Terms of Use and Credits doc
 
 ## How to Use
 
+### 🎯 Include in Product ZIP Files
+**This is the standard TOU to include in every Small Wins Studio product download.**
+
+1. Use `Terms_of_Use_Credits.pdf` as-is - it's ready for distribution
+2. Include it in the ZIP file for each TPT product
+3. No customization needed - the document is generic and applies to all products
+
 ### Use the PDF directly
 Simply use `Terms_of_Use_Credits.pdf` - it's ready to include in your TPT product downloads.
 
@@ -99,9 +110,12 @@ The document is now generic and ready to use as-is. To further customize:
 
 ## Notes
 
+- **VERSION**: This is the FINAL GENERIC VERSION (February 2026) to be used in all future products
+- **DEPRECATED**: Previous `Terms_of_Use.pdf` has been removed and replaced with this version
 - The design follows Small Wins Studio Design Constitution standards
 - Teal color (#20B2AA) matches branding guidelines
 - Compact spacing reduces page count while maintaining readability
 - Each page has complete border and footer for professional appearance
 - Logo images are referenced from `../../assets/branding/logos/`
 - Ready to include in TPT product downloads
+- Generic design requires no per-product customization
