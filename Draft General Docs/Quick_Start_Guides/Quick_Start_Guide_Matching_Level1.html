@@ -19,7 +19,7 @@
         
         .page {
             width: 8.5in;
-            height: 11in;
+            height: 10in;
             padding: 0.08in 0.45in 0.55in 0.45in;
             box-sizing: border-box;
             border: 3px solid #20B2AA;
@@ -31,9 +31,9 @@
         .header {
             background: linear-gradient(135deg, #20B2AA 0%, #17a2a2 100%);
             color: white;
-            padding: 20px 0.48in;
-            margin: 0.03in -0.45in 14px -0.45in;
-            border-radius: 0;
+            padding: 18px 30px;
+            margin: 0.05in 0.05in 12px 0.05in;
+            border-radius: 0.12in;
             height: 0.9in;
             display: flex;
             flex-direction: row;
@@ -60,13 +60,13 @@
         
         .header h1 {
             margin: 0 0 4px 0;
-            font-size: 22px;
+            font-size: 20px;
             font-weight: bold;
             text-align: center;
         }
         
         .header .subtitle {
-            font-size: 13px;
+            font-size: 12px;
             margin-top: 2px;
             font-weight: normal;
             text-align: center;
@@ -89,28 +89,29 @@
 
         
         .content {
-            font-size: 10px;
-            line-height: 1.4;
+            font-size: 9px;
+            line-height: 1.3;
         }
         
         .two-column {
             column-count: 2;
-            column-gap: 20px;
+            column-gap: 15px;
             column-fill: balance;
         }
         
         .section {
-            margin: 10px 0;
+            margin: 8px 0;
             break-inside: avoid;
         }
         
         .section-title {
-            font-size: 12px;
+            font-size: 11px;
             font-weight: bold;
             color: #20B2AA;
-            margin: 10px 0 6px 0;
+            margin: 8px 0 5px 0;
             padding-bottom: 2px;
             border-bottom: 2px solid #20B2AA;
+            line-height: 1.2;
         }
         
         .section-title::before {
@@ -122,15 +123,15 @@
         .content-box {
             background: #f9f9f9;
             border-left: 4px solid #20B2AA;
-            padding: 6px 8px;
-            margin: 6px 0;
+            padding: 5px 7px;
+            margin: 5px 0;
             border-radius: 4px;
         }
         
         .content-box p {
             margin: 0 0 4px 0;
-            font-size: 10px;
-            line-height: 1.4;
+            font-size: 9px;
+            line-height: 1.3;
         }
         
         .content-box p:last-child {
@@ -141,7 +142,7 @@
             background: #fffbea;
             border: 2px solid #ffd700;
             padding: 6px;
-            margin: 8px 0;
+            margin: 6px 0;
             border-radius: 4px;
         }
         
@@ -153,19 +154,19 @@
             background: #e6f7ff;
             border-left: 4px solid #1890ff;
             padding: 6px 8px;
-            margin: 8px 0;
+            margin: 6px 0;
             border-radius: 4px;
         }
         
         ul, ol {
-            margin: 5px 0 5px 14px;
+            margin: 4px 0 4px 14px;
             padding: 0;
         }
         
         li {
             margin: 3px 0;
-            font-size: 10px;
-            line-height: 1.3;
+            font-size: 9px;
+            line-height: 1.2;
         }
         
         strong {
@@ -174,12 +175,30 @@
         }
         
         .page-footer {
-            color: #999;
-            padding: 8px 0px;
-            margin: 15px 0.03in -0.55in 0.03in;
+            margin: 10px 0.05in -0.55in 0.05in;
+            padding: 12px 20px;
+            border: 3px solid #20B2AA;
+            border-radius: 0.12in;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .footer-branding {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .footer-logo {
+            max-width: 60px;
+            height: auto;
+        }
+        
+        .footer-text {
             font-size: 10px;
-            line-height: 1.4;
-            text-align: center;
+            color: #20B2AA;
         }
         
         .steps {
@@ -376,7 +395,12 @@
         
         <!-- Footer -->
         <div class="page-footer">
-            © 2026 Small Wins Studio | teacherspayteachers.com/store/small-wins-studio
+            <div class="footer-branding">
+                <img src="../../assets/branding/logos/small_wins_logo_with_text.png" alt="Small Wins Studio" class="footer-logo">
+                <div class="footer-text">
+                    <strong>Small Wins Studio</strong> | teacherspayteachers.com/store/small-wins-studio
+                </div>
+            </div>
         </div>
     </div>
 </body>
