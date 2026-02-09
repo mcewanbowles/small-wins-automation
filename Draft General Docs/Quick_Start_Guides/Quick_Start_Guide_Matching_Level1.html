@@ -31,15 +31,30 @@
         .header {
             background: linear-gradient(135deg, #20B2AA 0%, #17a2a2 100%);
             color: white;
-            text-align: center;
             padding: 20px 30px;
             margin: 0.03in 0.03in 14px 0.03in;
             border-radius: 0.12in;
-            height: 0.8in;
+            height: 0.9in;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
+            flex-direction: row;
+            justify-content: space-between;
             align-items: center;
+        }
+        
+        .header-text {
+            flex: 1;
+            text-align: left;
+        }
+        
+        .header-logo {
+            flex-shrink: 0;
+            margin-left: 15px;
+        }
+        
+        .header-logo img {
+            max-width: 100px;
+            height: auto;
+            background: transparent;
         }
         
         .header h1 {
@@ -55,16 +70,7 @@
             font-weight: normal;
         }
         
-        .logo {
-            text-align: center;
-            margin: 0 auto 8px auto;
-        }
-        
-        .logo img {
-            max-width: 130px;
-            height: auto;
-            background: transparent;
-        }
+
         
         .content {
             font-size: 10px;
@@ -78,7 +84,7 @@
         }
         
         .section {
-            margin: 8px 0;
+            margin: 10px 0;
             break-inside: avoid;
         }
         
@@ -86,7 +92,7 @@
             font-size: 12px;
             font-weight: bold;
             color: #20B2AA;
-            margin: 8px 0 4px 0;
+            margin: 10px 0 6px 0;
             padding-bottom: 2px;
             border-bottom: 2px solid #20B2AA;
         }
@@ -101,7 +107,7 @@
             background: #f9f9f9;
             border-left: 4px solid #20B2AA;
             padding: 6px 8px;
-            margin: 5px 0;
+            margin: 6px 0;
             border-radius: 4px;
         }
         
@@ -119,7 +125,7 @@
             background: #fffbea;
             border: 2px solid #ffd700;
             padding: 6px;
-            margin: 6px 0;
+            margin: 8px 0;
             border-radius: 4px;
         }
         
@@ -131,12 +137,12 @@
             background: #e6f7ff;
             border-left: 4px solid #1890ff;
             padding: 6px 8px;
-            margin: 6px 0;
+            margin: 8px 0;
             border-radius: 4px;
         }
         
         ul, ol {
-            margin: 4px 0 4px 14px;
+            margin: 5px 0 5px 14px;
             padding: 0;
         }
         
@@ -196,13 +202,13 @@
     <div class="page">
         <!-- Header -->
         <div class="header">
-            <h1>QUICK START GUIDE</h1>
-            <div class="subtitle">Matching to Boards — Level 1 (Errorless)</div>
-        </div>
-        
-        <!-- Logo -->
-        <div class="logo">
-            <img src="../../assets/branding/logos/small_wins_logo_with_text.png" alt="Small Wins Studio Logo">
+            <div class="header-text">
+                <h1>QUICK START GUIDE</h1>
+                <div class="subtitle">Matching to Boards — Level 1 (Errorless)</div>
+            </div>
+            <div class="header-logo">
+                <img src="../../assets/branding/logos/small_wins_logo_with_text.png" alt="Small Wins Studio Logo">
+            </div>
         </div>
         
         <!-- Main Content -->
@@ -212,7 +218,15 @@
             <div class="section">
                 <div class="section-title" data-icon="📦">What this resource is</div>
                 <div class="content-box">
-                    <p>This set is <strong>Level 1: Errorless matching to boards</strong>. Students match and place each cut-out piece onto the same picture on the board page.</p>
+                    <p>This set is <strong>Level 1: Errorless matching to boards</strong>. Students match and place each cut-out piece onto the same picture on the board page. Great for building early matching skills <strong>while supporting AAC use!</strong></p>
+                </div>
+            </div>
+            
+            <!-- Part of a Differentiated Series -->
+            <div class="section">
+                <div class="section-title" data-icon="📚">Part of a Differentiated Series</div>
+                <div class="highlight-box">
+                    <p><strong>This is part of a multi-level Matching to Boards series!</strong> There are multiple levels available, each building on the last for differentiation and growth tracking. <strong>Save with the complete bundle!</strong></p>
                 </div>
             </div>
             
@@ -281,9 +295,9 @@
             
             <!-- Communication + AAC -->
             <div class="section">
-                <div class="section-title" data-icon="💬">Communication + AAC (simple modelling ideas)</div>
+                <div class="section-title" data-icon="💬">Communication + AAC</div>
                 <div class="info-box">
-                    <p>Even if AAC isn't built into the pages, you can model a few consistent words while matching:</p>
+                    <p><strong>🌟 AAC users: This resource is perfect for communication modeling!</strong> Model a few consistent words while matching. Consistent modeling builds vocabulary naturally:</p>
                 </div>
                 <ul>
                     <li><strong>Action words:</strong> LOOK, MATCH, PUT, MOVE</li>
@@ -337,7 +351,7 @@
             <div class="section">
                 <div class="section-title" data-icon="➡️">Next steps (when ready)</div>
                 <div class="content-box">
-                    <p>If a student can complete boards calmly with minimal prompts, they may be ready for the next level in the matching series (more challenge and differentiation).</p>
+                    <p>If a student can complete boards calmly with minimal prompts, they may be ready for the next level in the matching series. With <strong>5+ levels</strong> in the Matching to Boards series, you can track growth and differentiate for every learner. <strong>Save with the bundle!</strong></p>
                 </div>
             </div>
             
