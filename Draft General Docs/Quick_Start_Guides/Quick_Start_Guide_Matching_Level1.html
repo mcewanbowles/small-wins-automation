@@ -31,9 +31,9 @@
         .header {
             background: linear-gradient(135deg, #20B2AA 0%, #17a2a2 100%);
             color: white;
-            padding: 20px 30px;
-            margin: 0.03in 0.03in 14px 0.03in;
-            border-radius: 0.12in;
+            padding: 20px 0.48in;
+            margin: 0.03in -0.45in 14px -0.45in;
+            border-radius: 0;
             height: 0.9in;
             display: flex;
             flex-direction: row;
@@ -49,6 +49,7 @@
         .header-logo {
             flex-shrink: 0;
             margin-left: 15px;
+            position: relative;
         }
         
         .header-logo img {
@@ -68,6 +69,21 @@
             font-size: 13px;
             margin-top: 2px;
             font-weight: normal;
+            text-align: center;
+        }
+        
+        .logo-text-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            pointer-events: none;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            z-index: 10;
         }
         
 
@@ -204,10 +220,11 @@
         <div class="header">
             <div class="header-text">
                 <h1>QUICK START GUIDE</h1>
-                <div class="subtitle">Matching to Boards — Level 1 (Errorless)</div>
+                <div class="subtitle">Matching</div>
             </div>
             <div class="header-logo">
                 <img src="../../assets/branding/logos/small_wins_logo_with_text.png" alt="Small Wins Studio Logo">
+                <div class="logo-text-overlay">Small Wins</div>
             </div>
         </div>
         
