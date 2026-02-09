@@ -62,13 +62,14 @@
             color: white;
             padding: 22px 35px;
             text-align: center;
-            margin: 0.05in 0.05in 20px 0.05in;
+            margin: 0.03in 0.03in 20px 0.03in;
             border-radius: 0.12in;
             height: 0.75in;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            position: relative;
         }
         
         .header h1 {
@@ -78,6 +79,17 @@
             text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
             letter-spacing: 0.5px;
             line-height: 1.2;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .header h1 .star-logo {
+            width: 45px;
+            height: 45px;
+            position: relative;
+            top: -8px;
+            margin-left: -5px;
         }
         
         .header .subtitle {
@@ -86,6 +98,18 @@
             opacity: 0.95;
             margin-top: 3px;
             line-height: 1.2;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .header .subtitle .star-logo {
+            width: 28px;
+            height: 28px;
+            position: relative;
+            top: -5px;
+            margin-left: -3px;
+            filter: brightness(0) invert(1);
         }
         
         .thank-you-box {
@@ -194,7 +218,7 @@
             color: white;
             padding: 8px 15px;
             text-align: center;
-            margin: 15px 0.05in -0.55in 0.05in;
+            margin: 15px 0.03in -0.55in 0.03in;
             border-radius: 0 0 0.12in 0.12in;
             font-size: 10px;
             line-height: 1.4;
@@ -270,7 +294,7 @@
         <div class="page-content">
             <div class="header">
                 <h1>TERMS OF USE & CREDITS</h1>
-                <div class="subtitle">Small Wins Studio | Teachers Pay Teachers</div>
+                <div class="subtitle"><img src="../../assets/branding/small_wins_logo.png/star.png" alt="Star" class="star-logo">Small Wins Studio | Teachers Pay Teachers</div>
             </div>
 
             <div class="logo">
@@ -351,7 +375,7 @@
         <div class="page-content">
             <div class="header">
                 <h1>CREDITS & ATTRIBUTIONS</h1>
-                <div class="subtitle">Small Wins Studio</div>
+                <div class="subtitle"><img src="../../assets/branding/small_wins_logo.png/star.png" alt="Star" class="star-logo">Small Wins Studio</div>
             </div>
 
         <div class="logo">
