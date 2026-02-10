@@ -7,10 +7,21 @@ This folder contains the **Find + Cover** activity generator for Small Wins Stud
 
 ## Overview
 The Find + Cover generator creates differentiated visual discrimination activities with:
-- Multiple difficulty levels (Errorless, Mixed, Field of 6, Cut & Paste)
+- 4 levels (L1-L4) based on distractor load and grid density
 - Grid-based layouts (typically 4x4)
 - Color and B&W versions
 - Storage labels
+
+## Level Definitions (SPED Differentiation)
+
+| Level | Name | Image Type | Description |
+|-------|------|------------|-------------|
+| **L1** | Errorless | Boardmaker Icons | Fewer items, easy visual search |
+| **L2** | Distractors | Boardmaker Icons | More items, still fairly distinct |
+| **L3** | Dense Grid | Boardmaker Icons | Tighter layout, items more similar |
+| **L4** | Expert | Boardmaker Icons | Densest layout, highest challenge |
+
+> **IMPORTANT:** Always refer to levels as "Level 1", "Level 2", etc. — NOT "Easy", "Medium", "Hard"
 
 ## Configuration
 Theme-specific settings are loaded from `/themes/<theme>.json` under the `"find_cover"` key.
@@ -20,7 +31,12 @@ Example configuration:
 {
   "find_cover": {
     "grid_size": "4x4",
-    "levels": ["errorless", "mixed", "field_of_6", "cut_paste"],
+    "levels": {
+      "L1": { "name": "Errorless", "distractors": "lowest" },
+      "L2": { "name": "Distractors", "distractors": "some" },
+      "L3": { "name": "Dense Grid", "distractors": "more" },
+      "L4": { "name": "Expert", "distractors": "most" }
+    },
     "see_icon": "eye.png"
   }
 }
