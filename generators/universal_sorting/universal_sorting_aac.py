@@ -264,7 +264,7 @@ def create_sorting_mat_page(pack_code: str, theme_name: str, page_num: int, tota
     # Accent stripe INSIDE border
     accent_color = hex_to_rgb(BRAND_ORANGE) if mode == "color" else (180, 180, 180)
     accent_height = int(0.6 * 72 * scale)  # 0.6 inch
-    accent_padding = int(0.12 * 72 * scale)  # 0.12 inch padding from border
+    accent_padding = int(0.05 * 72 * scale)  # 0.05 inch padding from border (minimal)
     draw.rounded_rectangle(
         [margin + accent_padding, margin + accent_padding, 
          img_width - margin - accent_padding, margin + accent_padding + accent_height],
