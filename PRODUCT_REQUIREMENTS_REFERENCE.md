@@ -33,10 +33,11 @@
 - **Features:** Auto-updates level number and name
 
 ### 5. Freebie
-- **What:** Free sample product for customer acquisition
-- **Generator:** `generate_freebie_new.py` (root directory)
-- **Status:** ⚠️ AVAILABLE (not integrated in production/)
-- **Action needed:** Move to production/generators/
+- **What:** Free sample product for customer acquisition (cover + samples + cutouts)
+- **Generator:** `generate_freebie_new.py` (root directory, 14 KB)
+- **Status:** ✅ AVAILABLE (fully functional, ready to use)
+- **Output:** Freebie PDF with cover, page 1 from each level, all cutout pages
+- **Action:** Move to production/generators/ for organization
 
 ### 6. Description
 - **What:** TpT listing description text
@@ -47,16 +48,18 @@
 
 ### 7. Preview
 - **What:** Watermarked PDF for TpT product preview
-- **Generator:** `production/generators/generate_matching_constitution.py`
-- **Status:** ✅ WORKING
+- **Generator 1:** `production/generators/generate_matching_constitution.py` (creates watermarked previews)
+- **Generator 2:** `generate_level_covers_with_preview.py` (root directory, 11 KB, creates covers with preview)
+- **Status:** ✅ WORKING (two generators available)
 - **Output:** `samples/brown_bear/matching/brown_bear_matching_levelX_preview.pdf`
 
 ### 8. Thumbnails
 - **What:** 280×280 and 500×500 PNG images for TpT listing
-- **Generator:** ❌ NOT CREATED YET
-- **Status:** ❌ MISSING
-- **Workaround:** Screenshot covers manually
-- **Action needed:** Build thumbnail generator
+- **Utility:** `utils/image_utils.py` has `create_thumbnail()` function
+- **Generator:** ⚠️ Utility exists, need wrapper generator
+- **Status:** ⚠️ PARTIAL (thumbnail function available, need generator script)
+- **Workaround:** Screenshot covers manually OR use utility directly
+- **Action needed:** Create simple generator wrapper using image_utils.py
 
 ### 9. TpT Full Product ZIP File
 - **What:** ZIP containing items 1, 2, 3, 4 (Color PDF, B&W PDF, TOU, Quick Start)
@@ -104,10 +107,10 @@
 - Status: Does not exist yet
 - Priority: Medium (can do manually)
 
-**7. Thumbnail Generator**
-- Purpose: Create 280×280 and 500×500 PNG images
-- Status: Does not exist yet
-- Priority: Medium (can screenshot manually)
+**7. Thumbnail Generator (Wrapper)**
+- Purpose: Create 280×280 and 500×500 PNG images from covers
+- Status: Utility function exists (`utils/image_utils.py`), need wrapper script
+- Priority: Low (can use utility directly or screenshot manually)
 
 ---
 
@@ -126,14 +129,18 @@ python3 production/generators/generate_complete_products_final.py
 # Step 3: Create TpT packages with Quick Starts (4 ZIPs)
 python3 production/generators/create_tpt_packages_updated.py
 
-# Step 4: Create freebie (when needed)
+# Step 4: Create freebie
 python3 generate_freebie_new.py
 
-# Step 5: Create description (manual for now)
+# Step 5: Create level covers with preview (optional)
+python3 generate_level_covers_with_preview.py
+
+# Step 6: Create description (manual for now)
 # TODO: Build description generator
 
-# Step 6: Create thumbnails (manual for now)
-# TODO: Build thumbnail generator
+# Step 7: Create thumbnails (can use utility directly)
+# Available: utils/image_utils.py create_thumbnail()
+# TODO: Build simple wrapper generator
 ```
 
 ### Quick Run (all automated steps):
@@ -146,20 +153,20 @@ cd production/generators
 
 ## 📊 Automation Status
 
-### ✅ Working (6/9 items) - 67%
+### ✅ Working (7/9 items) - 78%
 1. Final PDF Colour ✅
 2. Final PDF B&W ✅
 3. Terms of Use ✅
 4. Quick Start ✅
-7. Preview ✅
+5. Freebie ✅ (generator available in root)
+7. Preview ✅ (two generators available)
 9. TpT ZIP ✅
 
-### ⚠️ Available (1/9 items) - 11%
-5. Freebie ⚠️ (generator exists, not integrated)
+### ⚠️ Partial (1/9 items) - 11%
+8. Thumbnails ⚠️ (utility function exists, need wrapper)
 
-### ❌ Missing (2/9 items) - 22%
+### ❌ Missing (1/9 items) - 11%
 6. Description ❌ (need to create generator)
-8. Thumbnails ❌ (need to create generator)
 
 ---
 
