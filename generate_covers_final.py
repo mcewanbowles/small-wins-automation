@@ -53,7 +53,7 @@ NAVY = "#1E3A5F"
 FONT_PRIMARY = "Helvetica-Bold"
 FONT_REGULAR = "Helvetica"
 
-def create_cover_page(level, output_path):
+def create_cover_page(level, output_path, grayscale=False):
     """
     Create cover page with updated text requirements:
     - 15 Activity Pages
@@ -62,11 +62,23 @@ def create_cover_page(level, output_path):
     - Print-Ready Cutout Pieces (optional laminate/Velcro for reuse)
     - Bonus: Storage Labels Included
     - Quick Start instructions
+    
+    Args:
+        level: Level number (1-4)
+        output_path: Path to save PDF
+        grayscale: If True, creates B&W version (no color)
     """
     # Setup
     level_info = LEVELS[level]
-    level_color = HexColor(level_info["color"])
-    navy_color = HexColor(NAVY)
+    
+    if grayscale:
+        # For B&W version, use grayscale only
+        level_color = HexColor("#808080")  # Medium gray instead of level color
+        navy_color = HexColor("#000000")  # Black instead of navy
+    else:
+        level_color = HexColor(level_info["color"])
+        navy_color = HexColor(NAVY)
+    
     pack_code = f"{PACK_CODE_BASE}{level}"
     
     # Create PDF
@@ -122,9 +134,23 @@ def create_cover_page(level, output_path):
     # Add brown bear image if available
     if os.path.exists(ICON_PATH):
         try:
-            c.drawImage(ICON_PATH, image_x, image_y, 
-                       width=image_size, height=image_size, 
-                       preserveAspectRatio=True, anchor='c')
+            if grayscale:
+                # Convert image to grayscale for B&W version
+                img = Image.open(ICON_PATH)
+                img_gray = img.convert('L')  # Convert to grayscale
+                # Save to temp file
+                import tempfile
+                with tempfile.NamedTemporaryFile(delete=False, suffix='.png') as temp_file:
+                    temp_path = temp_file.name
+                    img_gray.save(temp_path)
+                c.drawImage(temp_path, image_x, image_y, 
+                           width=image_size, height=image_size, 
+                           preserveAspectRatio=True, anchor='c')
+                os.unlink(temp_path)  # Clean up temp file
+            else:
+                c.drawImage(ICON_PATH, image_x, image_y, 
+                           width=image_size, height=image_size, 
+                           preserveAspectRatio=True, anchor='c')
         except Exception as e:
             print(f"Warning: Could not load image: {e}")
             c.setFillColor(navy_color)
@@ -190,22 +216,30 @@ def create_cover_page(level, output_path):
     print(f"✓ Created final cover: {output_path}")
 
 def generate_all_covers():
-    """Generate final covers for all 4 levels"""
+    """Generate final covers for all 4 levels - both color and B&W versions"""
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     
     print("=" * 60)
     print("FINAL COVER GENERATOR")
     print("Updated text per user requirements")
+    print("Generating COLOR and B&W versions")
     print("=" * 60)
     print()
     
     for level in [1, 2, 3, 4]:
-        output_file = f"{OUTPUT_DIR}/cover_level{level}_FINAL.pdf"
-        create_cover_page(level, output_file)
+        # Color version
+        output_file_color = f"{OUTPUT_DIR}/cover_level{level}_color_FINAL.pdf"
+        create_cover_page(level, output_file_color, grayscale=False)
+        
+        # B&W version (grayscale)
+        output_file_bw = f"{OUTPUT_DIR}/cover_level{level}_bw_FINAL.pdf"
+        create_cover_page(level, output_file_bw, grayscale=True)
     
     print()
     print("=" * 60)
     print("✓ All covers generated successfully!")
+    print("  - 4 color covers")
+    print("  - 4 B&W (grayscale) covers")
     print("=" * 60)
 
 if __name__ == "__main__":

@@ -25,11 +25,13 @@ from reportlab.lib.units import inch
 THEME = "brown_bear"
 PRODUCT = "matching"
 
-# Paths
-COVER_DIR = f"final_products/{THEME}/{PRODUCT}"
-PRODUCT_DIR = f"samples/{THEME}/{PRODUCT}"
-DOCS_DIR = "Draft General Docs/TOU_etc"
-OUTPUT_DIR = f"final_products/{THEME}/{PRODUCT}"
+# Paths (relative to repository root, since script runs from production/generators/)
+import pathlib
+BASE_DIR = pathlib.Path(__file__).parent.parent.parent
+COVER_DIR = BASE_DIR / "production" / "final_products" / THEME / PRODUCT
+PRODUCT_DIR = BASE_DIR / "samples" / THEME / PRODUCT
+DOCS_DIR = BASE_DIR / "Draft General Docs" / "TOU_etc"
+OUTPUT_DIR = BASE_DIR / "production" / "final_products" / THEME / PRODUCT
 
 # Level definitions
 LEVELS = {
@@ -95,19 +97,23 @@ def merge_complete_product(level, mode='color'):
     level_name = level_info["name"]
     
     # File paths
-    cover_pdf = f"{COVER_DIR}/cover_{level_suffix}_FINAL.pdf"
+    # Use color or B&W cover based on mode
+    if mode == 'color':
+        cover_pdf = COVER_DIR / f"cover_{level_suffix}_color_FINAL.pdf"
+    else:
+        cover_pdf = COVER_DIR / f"cover_{level_suffix}_bw_FINAL.pdf"
     
     # Find the product PDF (color or bw)
     if mode == 'color':
-        product_pdf = f"{PRODUCT_DIR}/brown_bear_matching_{level_suffix}_color.pdf"
+        product_pdf = PRODUCT_DIR / f"brown_bear_matching_{level_suffix}_color.pdf"
     else:
-        product_pdf = f"{PRODUCT_DIR}/brown_bear_matching_{level_suffix}_bw.pdf"
+        product_pdf = PRODUCT_DIR / f"brown_bear_matching_{level_suffix}_bw.pdf"
     
-    how_to_use_pdf = f"{DOCS_DIR}/How_to_Use.pdf"
+    how_to_use_pdf = DOCS_DIR / "How_to_Use.pdf"
     
     # Output file
     output_filename = f"brown_bear_matching_level{level}_{level_name}_{mode}_FINAL.pdf"
-    output_path = f"{OUTPUT_DIR}/{output_filename}"
+    output_path = OUTPUT_DIR / output_filename
     
     # Check if files exist
     if not os.path.exists(cover_pdf):
