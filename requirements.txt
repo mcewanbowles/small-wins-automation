@@ -1,0 +1,9 @@
+# TpT Automation System Dependencies
+# Image processing
+Pillow>=10.0.0
+
+# PDF generation
+reportlab>=4.0.0
+
+# Optional: For enhanced PDF features
+# pypdf2>=3.0.0
