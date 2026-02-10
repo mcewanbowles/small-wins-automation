@@ -3,7 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quick Start Guide - Matching to Boards Level 1</title>
+    <title>Quick Start Guide - Matching to Boards {{LEVEL_FULL}}</title>
+    <!-- TEMPLATE PLACEHOLDERS - Replace when generating specific product:
+         {{LEVEL}} = Level number (e.g., "1", "2", "3")
+         {{DESCRIPTION}} = Level description (e.g., "Errorless matching to boards", "Match with 2 choices")
+         {{LEVEL_FULL}} = Full level for subtitle (e.g., "Level 1 (Errorless)", "Level 2 (2 Choices)")
+         {{NUM_BOARDS}} = Number of boards (e.g., "15", "20", "25")
+    -->
     <style>
         @page {
             size: 8.5in 11in;
@@ -209,7 +215,7 @@
             </div>
             <div class="header-accent">
                 <h1>QUICK START GUIDE</h1>
-                <div class="subtitle">Matching</div>
+                <div class="subtitle">Matching to Boards — {{LEVEL_FULL}}</div>
             </div>
         </div>
         
@@ -220,7 +226,7 @@
             <div class="section">
                 <div class="section-title" data-icon="📦">What this resource is</div>
                 <div class="content-box">
-                    <p>This set is <strong>Level 1: Errorless matching to boards</strong>. Students match and place each cut-out piece onto the same picture on the board page. Great for building early matching skills <strong>while supporting AAC use!</strong></p>
+                    <p>This set is <strong>Level {{LEVEL}}: {{DESCRIPTION}}</strong>. Students match and place each cut-out piece onto the same picture on the board page. Great for building early matching skills <strong>while supporting AAC use!</strong></p>
                 </div>
             </div>
             
@@ -236,7 +242,7 @@
             <div class="section">
                 <div class="section-title" data-icon="📦">What's included</div>
                 <ul>
-                    <li>15 activity boards</li>
+                    <li>{{NUM_BOARDS}} activity boards</li>
                     <li>Cut-out matching pieces</li>
                     <li>Colour + Black & White versions</li>
                     <li><strong>Bonus:</strong> Storage labels</li>
