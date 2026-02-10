@@ -1,0 +1,64 @@
+{
+  "pages": [
+    {
+      "sentence": "I see a Red Bird.",
+      "target_word": "Red Bird",
+      "target_icon": "red_bird",
+      "distractors": ["yellow_duck", "blue_horse"]
+    },
+    {
+      "sentence": "I see a Yellow Duck.",
+      "target_word": "Yellow Duck",
+      "target_icon": "yellow_duck",
+      "distractors": ["red_bird", "green_frog"]
+    },
+    {
+      "sentence": "I see a Blue Horse.",
+      "target_word": "Blue Horse",
+      "target_icon": "blue_horse",
+      "distractors": ["yellow_duck", "purple_cat"]
+    },
+    {
+      "sentence": "I see a Green Frog.",
+      "target_word": "Green Frog",
+      "target_icon": "green_frog",
+      "distractors": ["blue_horse", "white_dog"]
+    },
+    {
+      "sentence": "I see a Purple Cat.",
+      "target_word": "Purple Cat",
+      "target_icon": "purple_cat",
+      "distractors": ["green_frog", "black_sheep"]
+    },
+    {
+      "sentence": "I see a White Dog.",
+      "target_word": "White Dog",
+      "target_icon": "white_dog",
+      "distractors": ["purple_cat", "goldfish"]
+    },
+    {
+      "sentence": "I see a Black Sheep.",
+      "target_word": "Black Sheep",
+      "target_icon": "black_sheep",
+      "distractors": ["white_dog", "teacher"]
+    },
+    {
+      "sentence": "I see a Goldfish.",
+      "target_word": "Goldfish",
+      "target_icon": "goldfish",
+      "distractors": ["black_sheep", "children"]
+    },
+    {
+      "sentence": "I see a Teacher.",
+      "target_word": "Teacher",
+      "target_icon": "teacher",
+      "distractors": ["goldfish", "children"]
+    },
+    {
+      "sentence": "I see Children.",
+      "target_word": "Children",
+      "target_icon": "children",
+      "distractors": ["teacher", "red_bird"]
+    }
+  ]
+}
