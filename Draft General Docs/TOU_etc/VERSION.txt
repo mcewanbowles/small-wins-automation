@@ -1,0 +1,64 @@
+═══════════════════════════════════════════════════════════════════
+  SMALL WINS STUDIO - OFFICIAL TERMS OF USE & CREDITS
+═══════════════════════════════════════════════════════════════════
+
+VERSION: 1.0 (Final Generic Version)
+DATE: February 2026
+STATUS: CANONICAL - Use for ALL future products
+
+═══════════════════════════════════════════════════════════════════
+
+📋 OFFICIAL DOCUMENTS:
+
+  ✅ Terms_of_Use_Credits.pdf  - FINAL PDF for distribution
+  ✅ Terms_of_Use_Credits.html - Source template
+  ✅ generate_pdf.py           - PDF regeneration script
+
+═══════════════════════════════════════════════════════════════════
+
+🎯 USAGE INSTRUCTIONS:
+
+This is the OFFICIAL, GENERIC Terms of Use & Credits document to be
+included in EVERY Small Wins Studio product distributed on Teachers
+Pay Teachers.
+
+TO USE IN PRODUCTS:
+1. Include "Terms_of_Use_Credits.pdf" in product ZIP files
+2. No customization needed - document is generic
+3. Do NOT modify without updating this canonical version
+
+TO UPDATE:
+1. Edit Terms_of_Use_Credits.html
+2. Run: python3 generate_pdf.py
+3. Commit changes to repository
+4. Update VERSION date above
+
+═══════════════════════════════════════════════════════════════════
+
+📝 CHANGE LOG:
+
+February 2026 - Version 1.0 (Final)
+  ✅ Generic template created (no product-specific placeholders)
+  ✅ 2-page compact design (Terms + Credits)
+  ✅ Centered light grey footers with page numbers
+  ✅ Small Wins Studio branding (teal borders, Comic Sans)
+  ✅ Removed star logos from accent strips
+  ✅ Removed main logo from page 2
+  ✅ Transparent logo backgrounds
+  ✅ Optimized font sizes for page 1 fit
+  ✅ Added review request for new seller support
+  ✅ Established as canonical version
+  
+DEPRECATED:
+  ❌ Terms_of_Use.pdf (removed - replaced by Terms_of_Use_Credits.pdf)
+
+═══════════════════════════════════════════════════════════════════
+
+⚠️  IMPORTANT:
+
+This is the SINGLE SOURCE OF TRUTH for Small Wins Studio Terms of
+Use. All future products should use this exact file. Any updates
+should be made to this canonical version and distributed to all
+products going forward.
+
+═══════════════════════════════════════════════════════════════════
