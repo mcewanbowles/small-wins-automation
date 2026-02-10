@@ -39,9 +39,9 @@ LEVELS = [
 BASE_DIR = Path(__file__).parent.parent.parent  # Repository root
 FINAL_PRODUCTS_DIR = BASE_DIR / "final_products" / THEME / PRODUCT
 SAMPLES_DIR = BASE_DIR / "samples" / THEME / PRODUCT
-DOCS_DIR = BASE_DIR / "Draft General Docs"
-TOU_PATH = DOCS_DIR / "TOU_etc" / "Terms_of_Use_Credits.pdf"
-QUICK_START_TEMPLATE = DOCS_DIR / "Quick_Start_Guides" / "Quick_Start_Guide_Matching_Level1.pdf"
+SUPPORT_DOCS_DIR = BASE_DIR / "production" / "support_docs"  # Official support documents location
+TOU_PATH = SUPPORT_DOCS_DIR / "Terms_of_Use_Credits.pdf"
+QUICK_START_TEMPLATE = SUPPORT_DOCS_DIR / "Quick_Start_Guide_Matching_Level1.pdf"
 OUTPUT_DIR = BASE_DIR / "production" / "generators" / "tpt_packages"
 
 
