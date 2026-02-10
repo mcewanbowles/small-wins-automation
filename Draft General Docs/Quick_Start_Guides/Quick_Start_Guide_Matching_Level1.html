@@ -226,15 +226,15 @@
             <div class="section">
                 <div class="section-title" data-icon="📦">What this resource is</div>
                 <div class="content-box">
-                    <p>This set is <strong>Level {{LEVEL}}: {{DESCRIPTION}}</strong>. Students match and place each cut-out piece onto the same picture on the board page. Great for building early matching skills <strong>while supporting AAC use!</strong></p>
+                    {{DESCRIPTION_FULL}}
                 </div>
             </div>
             
             <!-- Part of a Differentiated Series -->
-            <div class="section">
+            <div class="section" style="margin-bottom: 12px;">
                 <div class="section-title" data-icon="📚">Part of a Differentiated Series</div>
                 <div class="highlight-box">
-                    <p><strong>This is part of a multi-level Matching to Boards series!</strong> There are multiple levels available, each building on the last for differentiation and growth tracking. <strong>Save with the complete bundle!</strong></p>
+                    <p><strong>This is part of a {{NUM_LEVELS}}-level Matching to Boards series!</strong> There are {{NUM_LEVELS}} levels available, each building on the last for differentiation and growth tracking. <strong>Save with the complete bundle!</strong></p>
                 </div>
             </div>
             
@@ -247,15 +247,6 @@
                     <li>Colour + Black & White versions</li>
                     <li><strong>Bonus:</strong> Storage labels</li>
                 </ul>
-            </div>
-            
-            <!-- Prep -->
-            <div class="section">
-                <div class="section-title" data-icon="🔧">Prep (choose what suits your classroom)</div>
-                <div class="content-box">
-                    <p><strong>You'll need:</strong> printer + scissors (or paper trimmer)<br>
-                    <strong>Optional:</strong> cardstock, laminator, Velcro dots, zip bags or folders</p>
-                </div>
             </div>
             
             <!-- Set-up steps -->
@@ -271,16 +262,19 @@
                 </ol>
             </div>
             
+            <!-- Prep -->
+            <div class="section">
+                <div class="section-title" data-icon="🔧">Prep (choose what suits your classroom)</div>
+                <div class="content-box">
+                    <p><strong>You'll need:</strong> printer + scissors (or paper trimmer)<br>
+                    <strong>Optional:</strong> cardstock, laminator, Velcro dots, zip bags or folders</p>
+                </div>
+            </div>
+            
             <!-- Student routine -->
             <div class="section">
                 <div class="section-title" data-icon="👤">Student routine (independent station friendly)</div>
-                <ol class="steps">
-                    <li>Get a board and the matching pieces.</li>
-                    <li>Match each piece to the same picture on the board.</li>
-                    <li>Fill all spaces.</li>
-                    <li>Check: point to each match (same/same/same).</li>
-                    <li>Pack away pieces and return the folder.</li>
-                </ol>
+                {{STUDENT_ROUTINE}}
             </div>
             
             <!-- Teaching support -->
@@ -301,7 +295,7 @@
             <!-- Communication + AAC -->
             <div class="section">
                 <div class="section-title" data-icon="💬">Communication + AAC</div>
-                <div class="content-box">
+                <div class="content-box" style="padding: 8px 10px 12px 10px;">
                     <p><strong>🌟 AAC users: This resource is perfect for communication modeling!</strong> Model a few consistent words while matching using AAC e.g. My turn, Your turn, Same, Different, Again etc.</p>
                 </div>
             </div>
@@ -321,32 +315,19 @@
             <!-- Troubleshooting - aligns with "Part of Series" -->
             <div class="section">
                 <div class="section-title" data-icon="🔧">Troubleshooting (teacher time-savers)</div>
-                <ul>
-                    <li><strong>Pieces getting lost?</strong> Print one extra cut-out page and keep it as a backup.</li>
-                    <li><strong>Too hard right now?</strong> Use fewer pieces, cover extra spaces, or pre-place 1–2 matches.</li>
-                    <li><strong>Rushing?</strong> Add a simple "check" step before packing away.</li>
-                </ul>
+                {{TROUBLESHOOTING}}
             </div>
             
             <!-- Next steps - aligns with "What's included" -->
             <div class="section">
                 <div class="section-title" data-icon="➡️">Next steps (when ready)</div>
-                <div class="content-box">
-                    <p>If a student can complete boards calmly with minimal prompts, they may be ready for the next level in the matching series. With <strong>5+ levels</strong> in the Matching to Boards series, you can track growth and differentiate for every learner. <strong>Save with the bundle!</strong></p>
-                </div>
+                {{NEXT_STEPS}}
             </div>
             
             <!-- Quick games - MOVED to align with "Set-up steps" -->
             <div class="section">
                 <div class="section-title" data-icon="🎮">Quick games (same materials, more engagement)</div>
-                <ul>
-                    <li><strong>Mystery Pick:</strong> student pulls 1 piece from a bag and finds the match</li>
-                    <li><strong>My Turn / Your Turn:</strong> take turns placing pieces</li>
-                    <li><strong>Find It:</strong> show 2–3 pieces; student finds the one that matches the board spot</li>
-                    <li><strong>Beat Your Best:</strong> time how long it takes to finish (only if motivating)</li>
-                    <li><strong>Mix & Choose:</strong> offer 2 boards; student chooses which one to do next</li>
-                    <li><strong>Check Routine:</strong> after finishing, student points to each match while you say "same"</li>
-                </ul>
+                {{QUICK_GAMES}}
             </div>
             
         </div>
