@@ -32,9 +32,9 @@ except:
 sys.path.insert(0, str(Path(__file__).parent))
 
 # Matching Product Specification Colors
-LIGHT_BLUE_BORDER = '#A0C4E8'  # Light blue border for pages
-NAVY_BORDER = '#1E3A5F'  # Navy border for target and matching boxes
-PURPLE_BORDER = '#6B5BE2'  # Purple border for velcro boxes
+LIGHT_BLUE_BORDER = '#A0C4E8'  # Light blue border for pages (COLOR MODE)
+NAVY_BORDER = '#1E3A5F'  # Navy border for target and matching boxes (COLOR MODE)
+PURPLE_BORDER = '#6B5BE2'  # Purple border for velcro boxes (COLOR MODE)
 LIGHT_GREY_FILL = '#E8E8E8'  # Light grey fill for velcro boxes
 VELCRO_DOT_FILL = '#CCCCCC'  # Velcro dot fill
 VELCRO_DOT_OUTLINE = '#999999'  # Velcro dot outline
@@ -57,6 +57,19 @@ def get_level_color(level, mode='color'):
     color = LEVEL_COLORS.get(level, WARM_ORANGE)
     if mode == 'bw':
         return hex_to_grayscale(color)
+    return color
+
+
+def get_border_color_for_mode(color, mode='color'):
+    """
+    Get border color appropriate for the mode.
+    In BW mode, returns black for maximum contrast.
+    In color mode, returns the original color.
+    """
+    from utils.color_helpers import adjust_for_bw_mode
+    if mode == 'bw':
+        # For B&W mode, use black for all borders for maximum contrast
+        return BLACK
     return color
 
 
@@ -140,8 +153,9 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
     content_width = width - 2 * border_margin
     content_height = height - 2 * border_margin
     
-    # Draw rounded rectangle border (3px stroke) - LIGHT BLUE per spec
-    c.setStrokeColorRGB(*hex_to_rgb(LIGHT_BLUE_BORDER))
+    # Draw rounded rectangle border (3px stroke) - LIGHT BLUE in color mode, BLACK in B&W mode
+    border_color = get_border_color_for_mode(LIGHT_BLUE_BORDER, mode)
+    c.setStrokeColorRGB(*hex_to_rgb(border_color))
     c.setLineWidth(3)
     c.roundRect(border_margin, border_margin, content_width, content_height, 10, stroke=1, fill=0)
     
@@ -214,8 +228,9 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
         c.drawImage(temp_target, target_x, target_y, width=target_size, height=target_size, 
                    preserveAspectRatio=True, mask='auto')
         
-        # Draw Navy border around target (slightly thicker than matching boxes per spec)
-        c.setStrokeColorRGB(*hex_to_rgb(NAVY_BORDER))
+        # Draw Navy border around target (slightly thicker than matching boxes per spec) - BLACK in B&W mode
+        navy_color = get_border_color_for_mode(NAVY_BORDER, mode)
+        c.setStrokeColorRGB(*hex_to_rgb(navy_color))
         c.setLineWidth(4)  # 4px, thicker than matching boxes (3.5px)
         c.roundRect(target_x, target_y, target_size, target_size, 8.64, stroke=1, fill=0)
     
@@ -240,8 +255,9 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
         img_box_x = left_col_x
         img_box_y = row_y - box_size
         
-        # Draw matching box with Navy border (3-4px per spec) - simple, no ornaments
-        c.setStrokeColorRGB(*hex_to_rgb(NAVY_BORDER))
+        # Draw matching box with Navy border (3-4px per spec) - simple, no ornaments - BLACK in B&W mode
+        navy_color = get_border_color_for_mode(NAVY_BORDER, mode)
+        c.setStrokeColorRGB(*hex_to_rgb(navy_color))
         c.setLineWidth(3.5)  # 3-4px border per spec
         c.roundRect(img_box_x, img_box_y, box_size, box_size, corner_radius, stroke=1, fill=0)
         
@@ -288,9 +304,10 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
         velcro_box_x = right_col_x
         velcro_box_y = img_box_y
         
-        # Draw velcro box with light grey fill and purple border (3-4px per spec)
+        # Draw velcro box with light grey fill and purple border (3-4px per spec) - BLACK border in B&W mode
         c.setFillColorRGB(*hex_to_rgb(LIGHT_GREY_FILL))
-        c.setStrokeColorRGB(*hex_to_rgb(PURPLE_BORDER))
+        purple_color = get_border_color_for_mode(PURPLE_BORDER, mode)
+        c.setStrokeColorRGB(*hex_to_rgb(purple_color))
         c.setLineWidth(3.5)  # 3-4px border per spec
         c.roundRect(velcro_box_x, velcro_box_y, box_size, box_size, corner_radius, stroke=1, fill=1)
         
@@ -345,12 +362,13 @@ def create_cutout_page_constitution(c, images, names, icons_on_page, page_number
     # Import color utilities for BW mode
     from utils.color_helpers import hex_to_grayscale
     
-    # Border - Light blue
+    # Border - Light blue in color mode, black in B&W mode
     border_margin = 0.25 * inch
     content_width = width - 2 * border_margin
     content_height = height - 2 * border_margin
     
-    c.setStrokeColorRGB(*hex_to_rgb(LIGHT_BLUE_BORDER))
+    border_color = get_border_color_for_mode(LIGHT_BLUE_BORDER, mode)
+    c.setStrokeColorRGB(*hex_to_rgb(border_color))
     c.setLineWidth(3)
     c.roundRect(border_margin, border_margin, content_width, content_height, 10, stroke=1, fill=0)
     
@@ -421,8 +439,9 @@ def create_cutout_page_constitution(c, images, names, icons_on_page, page_number
             box_x = start_x + col * (box_size + spacing)
             box_y = start_y - row * (box_size + spacing) - box_size
             
-            # Draw box with 3pt border
-            c.setStrokeColorRGB(*hex_to_rgb(NAVY_BORDER))
+            # Draw box with 3pt border - BLACK in B&W mode
+            navy_color = get_border_color_for_mode(NAVY_BORDER, mode)
+            c.setStrokeColorRGB(*hex_to_rgb(navy_color))
             c.setLineWidth(border_pts)
             c.roundRect(box_x, box_y, box_size, box_size, 8.64, stroke=1, fill=0)
             
@@ -491,12 +510,13 @@ def create_storage_label_page_constitution(c, images, names, page_num, total_pag
     MEDIUM_BLUE = '#90CAF9'  # Medium blue for accents
     DARK_BLUE = '#1976D2'  # Dark blue for text
     
-    # Page border - Light blue
+    # Page border - Light blue in color mode, black in B&W mode
     border_margin = 0.25 * inch
     content_width = width - 2 * border_margin
     content_height = height - 2 * border_margin
     
-    c.setStrokeColorRGB(*hex_to_rgb(LIGHT_BLUE_BORDER))
+    border_color = get_border_color_for_mode(LIGHT_BLUE_BORDER, mode)
+    c.setStrokeColorRGB(*hex_to_rgb(border_color))
     c.setLineWidth(3)
     c.roundRect(border_margin, border_margin, content_width, content_height, 10, stroke=1, fill=0)
     
@@ -556,19 +576,22 @@ def create_storage_label_page_constitution(c, images, names, page_num, total_pag
         box_x = start_x + col * (box_width + h_spacing)
         box_y = start_y + (rows - 1 - row) * (box_height + v_spacing)
         
-        # Draw box with pale blue background
+        # Draw box with pale blue background (light gray in B&W)
         if mode == 'bw':
             # Use light gray for BW
             c.setFillColorRGB(0.95, 0.95, 0.95)
         else:
             c.setFillColorRGB(*hex_to_rgb(PALE_BLUE))
         
-        c.setStrokeColorRGB(*hex_to_rgb(MEDIUM_BLUE))
+        # Border color - medium blue in color mode, black in B&W mode
+        border_color = get_border_color_for_mode(MEDIUM_BLUE, mode)
+        c.setStrokeColorRGB(*hex_to_rgb(border_color))
         c.setLineWidth(2)
         c.roundRect(box_x, box_y, box_width, box_height, 6, stroke=1, fill=1)
         
-        # Title: "Matching"
-        c.setFillColorRGB(*hex_to_rgb(DARK_BLUE))
+        # Title: "Matching" - dark blue in color mode, black in B&W mode
+        text_color = get_border_color_for_mode(DARK_BLUE, mode)
+        c.setFillColorRGB(*hex_to_rgb(text_color))
         c.setFont("Helvetica-Bold", 11)
         text_y = box_y + box_height - 0.2 * inch
         c.drawCentredString(box_x + box_width / 2, text_y, "Matching")
