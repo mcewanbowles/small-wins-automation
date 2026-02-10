@@ -2,13 +2,16 @@
 """
 Create TpT-Ready ZIP Packages for Each Level Product
 
-This script packages level products with all required supporting documents:
-- Color PDF (with cover if available)
-- Black & White PDF
-- Terms of Use
-- How to Use
-- Levels of Differentiation
-- More Packs (promotional)
+This script packages level products with ONLY the required supporting documents:
+- Color PDF (with cover, 16 pages)
+- Black & White PDF (16 pages)
+- Terms of Use Credits (official version)
+- Quick Start Guide (level-specific, auto-generated)
+
+Obsolete documents (NO LONGER INCLUDED):
+- How to Use (already in PDF as page 16)
+- Levels of Differentiation (obsolete)
+- More Packs (obsolete)
 
 Usage:
     python3 create_tpt_packages.py
@@ -18,24 +21,29 @@ import os
 import zipfile
 import shutil
 from pathlib import Path
+from PyPDF2 import PdfReader, PdfWriter
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import letter
 
 # Configuration
 THEME = "brown_bear"
 PRODUCT = "matching"
-LEVELS = [1, 2, 3, 4]
+LEVELS = [
+    {"num": 1, "name": "Errorless"},
+    {"num": 2, "name": "Easy"},
+    {"num": 3, "name": "Medium"},
+    {"num": 4, "name": "Challenge"}
+]
 
 # Paths
 BASE_DIR = Path(__file__).parent
 SAMPLES_DIR = BASE_DIR / "samples" / THEME / PRODUCT
-DOCS_DIR = BASE_DIR / "Draft General Docs" / "TOU_etc"
+DOCS_DIR = Path(__file__).parent.parent.parent / "Draft General Docs"
 OUTPUT_DIR = BASE_DIR / "tpt_packages"
 
-# Required documents
+# Required documents (ONLY 2)
 REQUIRED_DOCS = {
-    "Terms_of_Use.pdf": "Terms of Use.pdf",
-    "How_to_Use.pdf": "How to Use.pdf",
-    "Levels_Differentiation.pdf": "Levels of Differentiation.pdf",
-    "More Packs.pdf": "More Packs.pdf"
+    "Terms_of_Use_Credits.pdf": "Terms of Use.pdf",  # Official TOU
 }
 
 
