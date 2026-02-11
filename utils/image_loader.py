@@ -1,156 +1,156 @@
 """
-Image loading utilities for SPED resource generation.
+Image loading utilities for TpT Automation System
 
-Handles loading images from the three designated folders:
-- /images for full-color theme images
-- /Colour_images for black-and-white outline images
-- /aac_images for AAC/PCS-style symbols
+Handles loading images from theme folders (/icons, /Colour_images, /aac_images, /real_images)
+with proper transparency preservation and error handling.
 """
 
-import os
 from PIL import Image
-from utils.config import IMAGE_FOLDERS
+from pathlib import Path
+from typing import Optional, Tuple
+import os
 
 
-class ImageLoader:
-    """Manages loading and caching of images from designated folders."""
-    
-    def __init__(self, base_path='.'):
-        """
-        Initialize the image loader.
-        
-        Args:
-            base_path: Base path where image folders are located
-        """
-        self.base_path = base_path
-        self.image_cache = {}
-    
-    def _get_folder_path(self, folder_type):
-        """
-        Get the full path to an image folder.
-        
-        Args:
-            folder_type: 'color', 'bw_outline', or 'aac'
-            
-        Returns:
-            str: Full path to the folder
-        """
-        folder_name = IMAGE_FOLDERS.get(folder_type)
-        if not folder_name:
-            raise ValueError(f"Unknown folder type: {folder_type}")
-        
-        return os.path.join(self.base_path, folder_name)
-    
-    def load_image(self, filename, folder_type='color'):
-        """
-        Load an image from one of the designated folders.
-        
-        Args:
-            filename: Name of the image file (can be partial name for fuzzy matching)
-            folder_type: 'color', 'bw_outline', or 'aac'
-            
-        Returns:
-            PIL.Image: The loaded image with transparency preserved
-        """
-        cache_key = f"{folder_type}:{filename}"
-        
-        # Return cached image if available
-        if cache_key in self.image_cache:
-            return self.image_cache[cache_key].copy()
-        
-        # Construct full path
-        folder_path = self._get_folder_path(folder_type)
-        image_path = os.path.join(folder_path, filename)
-        
-        # Check if exact file exists
-        if not os.path.exists(image_path):
-            # Try fuzzy matching - look for files containing the base name
-            # This handles cases like "bear.png" matching "Brown bear.png"
-            base_name = filename.replace('.png', '').replace('.jpg', '').lower()
-            matched_file = None
-            
-            if os.path.exists(folder_path):
-                for f in os.listdir(folder_path):
-                    f_lower = f.lower()
-                    # Check if base name is in the filename (case-insensitive)
-                    if base_name in f_lower and (f_lower.endswith('.png') or f_lower.endswith('.jpg')):
-                        matched_file = f
-                        break
-            
-            if matched_file:
-                image_path = os.path.join(folder_path, matched_file)
-            else:
-                raise FileNotFoundError(f"Image not found: {image_path}")
-        
-        # Load image and preserve transparency
-        image = Image.open(image_path)
-        
-        # Convert to RGBA to preserve transparency
-        if image.mode != 'RGBA':
-            image = image.convert('RGBA')
-        
-        # Cache the image
-        self.image_cache[cache_key] = image.copy()
-        
-        return image
-    
-    def list_images(self, folder_type='color', extensions=None):
-        """
-        List all images in a folder.
-        
-        Args:
-            folder_type: 'color', 'bw_outline', or 'aac'
-            extensions: List of file extensions to include (default: common image formats)
-            
-        Returns:
-            list: List of image filenames
-        """
-        if extensions is None:
-            extensions = ['.png', '.jpg', '.jpeg', '.gif', '.bmp']
-        
-        folder_path = self._get_folder_path(folder_type)
-        
-        if not os.path.exists(folder_path):
-            return []
-        
-        images = []
-        for filename in os.listdir(folder_path):
-            if any(filename.lower().endswith(ext) for ext in extensions):
-                images.append(filename)
-        
-        return sorted(images)
-    
-    def clear_cache(self):
-        """Clear the image cache to free memory."""
-        self.image_cache.clear()
-
-
-# Global image loader instance
-_image_loader = None
-_current_base_path = None
-
-def get_image_loader(base_path='.'):
+def load_image(image_path: Path, preserve_transparency: bool = True) -> Optional[Image.Image]:
     """
-    Get the global image loader instance.
+    Load an image with optional transparency preservation.
     
     Args:
-        base_path: Base path where image folders are located
+        image_path: Path to the image file
+        preserve_transparency: Whether to preserve alpha channel (default True)
         
     Returns:
-        ImageLoader: The global image loader
+        PIL Image object or None if loading fails
     """
-    global _image_loader, _current_base_path
-    
-    # Create new loader if path changed or doesn't exist
-    if _image_loader is None or _current_base_path != base_path:
-        _image_loader = ImageLoader(base_path)
-        _current_base_path = base_path
-    
-    return _image_loader
+    try:
+        img = Image.open(image_path)
+        
+        if preserve_transparency:
+            # Convert to RGBA to preserve transparency
+            if img.mode != 'RGBA':
+                img = img.convert('RGBA')
+        else:
+            # Convert to RGB (no transparency)
+            if img.mode != 'RGB':
+                img = img.convert('RGB')
+        
+        return img
+        
+    except FileNotFoundError:
+        print(f"Warning: Image not found: {image_path}")
+        return None
+    except Exception as e:
+        print(f"Error loading image {image_path}: {e}")
+        return None
 
 
-def reset_image_loader():
-    """Reset the global image loader (useful when switching themes)."""
-    global _image_loader, _current_base_path
-    _image_loader = None
-    _current_base_path = None
+def find_theme_image(theme_name: str, image_name: str, image_folder: str = "icons") -> Optional[Path]:
+    """
+    Find an image in a theme's image folders.
+    
+    Args:
+        theme_name: Name of the theme (e.g., "brown_bear")
+        image_name: Name of the image file (with or without extension)
+        image_folder: Folder type ("icons", "Colour_images", "aac_images", "real_images")
+        
+    Returns:
+        Path to the image file or None if not found
+    """
+    # Get project root (assuming we're in utils/)
+    from .config import get_project_root
+    root = get_project_root()
+    
+    # Try both with and without common extensions
+    extensions = ['', '.png', '.jpg', '.jpeg', '.PNG', '.JPG', '.JPEG']
+    
+    # Check in theme-specific folder
+    theme_folder = root / "assets" / "themes" / theme_name / image_folder
+    for ext in extensions:
+        image_path = theme_folder / f"{image_name}{ext}"
+        if image_path.exists():
+            return image_path
+    
+    # Check in root-level image folders (legacy structure)
+    for folder_name in [image_folder, image_folder.lower()]:
+        root_folder = root / folder_name
+        if root_folder.exists():
+            for ext in extensions:
+                image_path = root_folder / f"{image_name}{ext}"
+                if image_path.exists():
+                    return image_path
+    
+    return None
+
+
+def load_theme_image(theme_name: str, image_name: str, 
+                    image_folder: str = "icons", 
+                    preserve_transparency: bool = True) -> Optional[Image.Image]:
+    """
+    Load an image from a theme's image folders.
+    
+    Args:
+        theme_name: Name of the theme (e.g., "brown_bear")
+        image_name: Name of the image file
+        image_folder: Folder type ("icons", "Colour_images", "aac_images", "real_images")
+        preserve_transparency: Whether to preserve alpha channel
+        
+    Returns:
+        PIL Image object or None if not found
+    """
+    image_path = find_theme_image(theme_name, image_name, image_folder)
+    
+    if image_path is None:
+        print(f"Warning: Image '{image_name}' not found in {image_folder} for theme '{theme_name}'")
+        return None
+    
+    return load_image(image_path, preserve_transparency)
+
+
+def resize_image_proportional(img: Image.Image, max_width: int, max_height: int) -> Image.Image:
+    """
+    Resize image proportionally to fit within max dimensions.
+    
+    Args:
+        img: PIL Image to resize
+        max_width: Maximum width in pixels
+        max_height: Maximum height in pixels
+        
+    Returns:
+        Resized PIL Image
+    """
+    # Get current dimensions
+    orig_width, orig_height = img.size
+    
+    # Calculate aspect ratio
+    ratio = min(max_width / orig_width, max_height / orig_height)
+    
+    # Don't upscale, only downscale
+    if ratio >= 1.0:
+        return img
+    
+    # Calculate new dimensions
+    new_width = int(orig_width * ratio)
+    new_height = int(orig_height * ratio)
+    
+    # Resize with high-quality resampling
+    return img.resize((new_width, new_height), Image.Resampling.LANCZOS)
+
+
+def get_image_center_position(img_width: int, img_height: int, 
+                              box_width: int, box_height: int) -> Tuple[int, int]:
+    """
+    Calculate position to center an image within a box.
+    
+    Args:
+        img_width: Width of the image
+        img_height: Height of the image
+        box_width: Width of the containing box
+        box_height: Height of the containing box
+        
+    Returns:
+        Tuple of (x, y) coordinates for top-left corner of centered image
+    """
+    x = (box_width - img_width) // 2
+    y = (box_height - img_height) // 2
+    
+    return (x, y)

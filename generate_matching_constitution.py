@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 Brown Bear Matching Cards Generator - Matching Product Specification Compliant
 Generates matching activity pages following Small Wins Studio Matching Product Spec

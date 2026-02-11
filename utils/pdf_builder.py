@@ -1,147 +1,176 @@
 """
-PDF Builder Utility
+PDF generation utilities for TpT Automation System
 
-High-level PDF building functions for SPED resources.
-Extends pdf_export.py with additional PDF construction utilities.
+Creates PDFs at 300 DPI with proper page setup following Design Constitution.
+Uses reportlab for PDF generation.
 """
 
-from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
-from reportlab.lib.utils import ImageReader
-from PIL import Image
-import io
-import os
-from utils.config import DPI
-from utils.pdf_export import save_image_as_pdf, save_images_as_pdf
+from reportlab.lib.units import inch
+from reportlab.pdfgen import canvas
+from pathlib import Path
+from typing import Tuple, Optional
+
+
+# Page constants from Design Constitution
+PAGE_WIDTH, PAGE_HEIGHT = letter  # 8.5" × 11" (US Letter)
+DPI = 300  # Required for print quality
+MARGIN = 0.5 * inch  # 0.5" margins on all sides
+
+# Usable area after margins
+USABLE_WIDTH = PAGE_WIDTH - (2 * MARGIN)
+USABLE_HEIGHT = PAGE_HEIGHT - (2 * MARGIN)
 
 
 class PDFBuilder:
     """
-    High-level PDF builder for creating multi-page SPED resources.
+    Builder class for creating TpT resource PDFs.
+    
+    Handles page setup, margins, and 300 DPI output following Design Constitution.
     """
     
-    def __init__(self, output_path, title=None, page_size=letter):
+    def __init__(self, output_path: Path, title: str = "TpT Resource"):
         """
         Initialize PDF builder.
         
         Args:
             output_path: Path where PDF will be saved
             title: PDF document title
-            page_size: Page size (default: letter)
         """
         self.output_path = output_path
-        self.title = title
-        self.page_size = page_size
-        self.pages = []
+        self.canvas = canvas.Canvas(str(output_path), pagesize=letter)
+        self.canvas.setTitle(title)
         
-        # Ensure output directory exists
-        os.makedirs(os.path.dirname(output_path) if os.path.dirname(output_path) else '.', exist_ok=True)
-    
-    def add_page(self, image):
-        """
-        Add a page to the PDF.
+        # Set high quality
+        self.canvas.setPageCompression(1)
         
-        Args:
-            image: PIL Image representing the page
-        """
-        self.pages.append(image)
+        self.current_page = 0
     
-    def add_pages(self, images):
-        """
-        Add multiple pages to the PDF.
-        
-        Args:
-            images: List of PIL Images
-        """
-        self.pages.extend(images)
+    def add_page(self):
+        """Add a new page to the PDF."""
+        if self.current_page > 0:
+            self.canvas.showPage()
+        self.current_page += 1
     
-    def build(self):
+    def get_canvas(self) -> canvas.Canvas:
+        """Get the underlying reportlab canvas for direct drawing."""
+        return self.canvas
+    
+    def get_usable_area(self) -> Tuple[float, float, float, float]:
         """
-        Build and save the PDF file.
+        Get the usable area coordinates (accounting for margins).
         
         Returns:
-            str: Path to saved PDF
+            Tuple of (x, y, width, height) for the usable area
         """
-        if not self.pages:
-            raise ValueError("No pages added to PDF")
+        return (MARGIN, MARGIN, USABLE_WIDTH, USABLE_HEIGHT)
+    
+    def draw_border(self, x: float, y: float, width: float, height: float,
+                   color: Tuple[float, float, float] = (0, 0, 0),
+                   thickness: float = 1.0, rounded: bool = True,
+                   corner_radius: float = 0.12 * inch):
+        """
+        Draw a border (optionally rounded).
         
-        save_images_as_pdf(self.pages, self.output_path, title=self.title)
-        return self.output_path
+        Args:
+            x, y: Bottom-left corner coordinates
+            width, height: Dimensions of the border
+            color: RGB color tuple (0-1 range)
+            thickness: Line thickness in points
+            rounded: Whether to use rounded corners
+            corner_radius: Radius for rounded corners (default 0.12" per specs)
+        """
+        c = self.canvas
+        c.setStrokeColorRGB(*color)
+        c.setLineWidth(thickness)
+        
+        if rounded:
+            c.roundRect(x, y, width, height, corner_radius)
+        else:
+            c.rect(x, y, width, height)
     
-    def get_page_count(self):
-        """Get number of pages in the PDF."""
-        return len(self.pages)
+    def draw_text(self, text: str, x: float, y: float,
+                 font_name: str = "Helvetica", font_size: float = 12,
+                 color: Tuple[float, float, float] = (0, 0, 0),
+                 align: str = "left"):
+        """
+        Draw text on the canvas.
+        
+        Args:
+            text: Text to draw
+            x, y: Position coordinates
+            font_name: Font name
+            font_size: Font size in points
+            color: RGB color tuple (0-1 range)
+            align: Text alignment ("left", "center", "right")
+        """
+        c = self.canvas
+        c.setFont(font_name, font_size)
+        c.setFillColorRGB(*color)
+        
+        if align == "center":
+            c.drawCentredString(x, y, text)
+        elif align == "right":
+            c.drawRightString(x, y, text)
+        else:
+            c.drawString(x, y, text)
     
-    def clear_pages(self):
-        """Clear all pages from the builder."""
-        self.pages = []
+    def draw_image(self, image_path: Path, x: float, y: float,
+                  width: Optional[float] = None, height: Optional[float] = None,
+                  preserve_aspect: bool = True):
+        """
+        Draw an image on the canvas.
+        
+        Args:
+            image_path: Path to the image file
+            x, y: Bottom-left corner coordinates
+            width: Image width (None to use original)
+            height: Image height (None to use original)
+            preserve_aspect: Whether to preserve aspect ratio
+        """
+        c = self.canvas
+        
+        if width is not None and height is not None and preserve_aspect:
+            c.drawImage(str(image_path), x, y, width, height, 
+                       preserveAspectRatio=True, mask='auto')
+        elif width is not None and height is not None:
+            c.drawImage(str(image_path), x, y, width, height, mask='auto')
+        else:
+            c.drawImage(str(image_path), x, y, mask='auto')
+    
+    def save(self):
+        """Save and close the PDF file."""
+        self.canvas.save()
+        print(f"✓ PDF saved: {self.output_path}")
 
 
-def create_single_page_pdf(image, output_path, title=None):
+def hex_to_rgb(hex_color: str) -> Tuple[float, float, float]:
     """
-    Quickly create a single-page PDF.
+    Convert hex color code to RGB tuple (0-1 range for reportlab).
     
     Args:
-        image: PIL Image for the page
-        output_path: Path to save PDF
-        title: PDF title
+        hex_color: Hex color code (e.g., "#1E3A5F" or "1E3A5F")
         
     Returns:
-        str: Path to saved PDF
+        RGB tuple with values from 0 to 1
     """
-    return save_image_as_pdf(image, output_path, title)
-
-
-def create_multi_page_pdf(images, output_path, title=None):
-    """
-    Quickly create a multi-page PDF.
+    # Remove '#' if present
+    hex_color = hex_color.lstrip('#')
     
-    Args:
-        images: List of PIL Images
-        output_path: Path to save PDF
-        title: PDF title
-        
-    Returns:
-        str: Path to saved PDF
-    """
-    return save_images_as_pdf(images, output_path, title)
+    # Convert to RGB (0-255)
+    r = int(hex_color[0:2], 16)
+    g = int(hex_color[2:4], 16)
+    b = int(hex_color[4:6], 16)
+    
+    # Convert to 0-1 range
+    return (r / 255.0, g / 255.0, b / 255.0)
 
 
-def merge_pdfs_from_images(image_groups, output_path, title=None):
-    """
-    Create a PDF by merging multiple groups of images.
-    
-    Args:
-        image_groups: List of lists of PIL Images
-        output_path: Path to save PDF
-        title: PDF title
-        
-    Returns:
-        str: Path to saved PDF
-    """
-    all_images = []
-    for group in image_groups:
-        all_images.extend(group)
-    
-    return save_images_as_pdf(all_images, output_path, title)
+def inches_to_points(inches: float) -> float:
+    """Convert inches to points (72 points = 1 inch)."""
+    return inches * 72.0
 
 
-def create_booklet_pdf(pages, output_path, title=None):
-    """
-    Create a booklet-style PDF (pages arranged for duplex printing).
-    
-    Args:
-        pages: List of PIL Images
-        output_path: Path to save PDF
-        title: PDF title
-        
-    Returns:
-        str: Path to saved PDF
-    """
-    # For booklet: ensure even number of pages
-    if len(pages) % 2 != 0:
-        # Add blank page if odd number
-        blank = Image.new('RGB', pages[0].size, (255, 255, 255))
-        pages.append(blank)
-    
-    return save_images_as_pdf(pages, output_path, title)
+def points_to_inches(points: float) -> float:
+    """Convert points to inches."""
+    return points / 72.0

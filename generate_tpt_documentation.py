@@ -279,13 +279,11 @@ def create_single_page(c):
     y -= 20
     
     # Combined Bundles & Feedback Section - REMOVED "each bundle includes..."
-    y = draw_section_header(c, y, "⭐ Save with Bundles & Your Feedback Matters!")
     
     c.setFont("Helvetica", 11)  # Larger font
     c.setFillColorRGB(0, 0, 0)
     
     combined_text = [
-        "Love this resource? Check out my complete themed bundles for savings!",
         "",
         "As a new TPT seller, your reviews and feedback mean everything! If you found",
         f"this resource helpful, please consider leaving a rating.",
@@ -324,7 +322,6 @@ def generate_tpt_documentation():
         c.save()
         print(f"Generated: {pdf_path}")
     
-    print("\n✅ TPT Documentation generated successfully!")
     print(f"   - 1 page: Terms of Use & Credits")
     print(f"   - Design: Small Wins Studio branding with logo")
     print(f"   - Theme: {BOOK_TITLE}")

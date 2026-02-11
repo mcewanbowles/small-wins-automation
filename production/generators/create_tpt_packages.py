@@ -1,100 +1,209 @@
 #!/usr/bin/env python3
 """
-Create TpT ZIP packages for Brown Bear Matching.
-Each ZIP contains: Color PDF, B&W PDF, Terms of Use, Quick Start Guide
+Create TpT-Ready ZIP Packages for Each Level Product
+
+This script packages level products with ONLY the required supporting documents:
+- Color PDF (with cover, 16 pages)
+- Black & White PDF (16 pages)
+- Terms of Use Credits (official version)
+- Quick Start Guide (level-specific, auto-generated)
+
+Obsolete documents (NO LONGER INCLUDED):
+- How to Use (already in PDF as page 16)
+- Levels of Differentiation (obsolete)
+- More Packs (obsolete)
+
+Usage:
+    python3 create_tpt_packages.py
 """
 
+import os
 import zipfile
+import shutil
 from pathlib import Path
+from PyPDF2 import PdfReader, PdfWriter
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import letter
+
+# Configuration
+THEME = "brown_bear"
+PRODUCT = "matching"
+LEVELS = [
+    {"num": 1, "name": "Errorless"},
+    {"num": 2, "name": "Easy"},
+    {"num": 3, "name": "Medium"},
+    {"num": 4, "name": "Challenge"}
+]
 
 # Paths
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
-PRODUCTS_DIR = BASE_DIR / "production" / "final_products" / "brown_bear" / "matching"
-SUPPORT_DOCS_DIR = BASE_DIR / "production" / "support_docs"
-OUTPUT_DIR = BASE_DIR / "production" / "final_products" / "brown_bear" / "matching" / "tpt_zips"
+BASE_DIR = Path(__file__).parent
+SAMPLES_DIR = BASE_DIR / "samples" / THEME / PRODUCT
+DOCS_DIR = Path(__file__).parent.parent.parent / "Draft General Docs"
+OUTPUT_DIR = BASE_DIR / "tpt_packages"
 
-# Ensure output directory exists
-OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+# Required documents (ONLY 2)
+REQUIRED_DOCS = {
+    "Terms_of_Use_Credits.pdf": "Terms of Use.pdf",  # Official TOU
+}
 
-def create_tpt_package(level: int):
-    """Create a TpT ZIP package for a specific level."""
-    
-    # File paths
-    color_pdf = PRODUCTS_DIR / f"brown_bear_matching_level{level}_color.pdf"
-    bw_pdf = PRODUCTS_DIR / f"brown_bear_matching_level{level}_bw.pdf"
-    tou_pdf = SUPPORT_DOCS_DIR / "Terms_of_Use_Credits.pdf"
-    quick_start = SUPPORT_DOCS_DIR / "Quick_Start_Guide_Matching_Level1.pdf"
-    
-    # Output ZIP
-    zip_name = f"Brown_Bear_Matching_Level_{level}_TpT.zip"
-    zip_path = OUTPUT_DIR / zip_name
-    
-    # Check required files exist
-    files_to_include = []
-    
-    if color_pdf.exists():
-        files_to_include.append((color_pdf, f"Brown_Bear_Matching_Level_{level}_COLOR.pdf"))
-        print(f"  ✓ Color PDF: {color_pdf.name}")
-    else:
-        print(f"  ✗ Missing: {color_pdf.name}")
-        
-    if bw_pdf.exists():
-        files_to_include.append((bw_pdf, f"Brown_Bear_Matching_Level_{level}_BW.pdf"))
-        print(f"  ✓ B&W PDF: {bw_pdf.name}")
-    else:
-        print(f"  ✗ Missing: {bw_pdf.name}")
-        
-    if tou_pdf.exists():
-        files_to_include.append((tou_pdf, "Terms_of_Use.pdf"))
-        print(f"  ✓ Terms of Use: {tou_pdf.name}")
-    else:
-        print(f"  ✗ Missing: Terms of Use")
-        
-    if quick_start.exists():
-        files_to_include.append((quick_start, f"Quick_Start_Guide_Level_{level}.pdf"))
-        print(f"  ✓ Quick Start: {quick_start.name}")
-    else:
-        print(f"  ✗ Missing: Quick Start Guide")
-    
-    # Create ZIP if we have files
-    if files_to_include:
-        with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zf:
-            for src_path, arc_name in files_to_include:
-                zf.write(src_path, arc_name)
-        
-        zip_size = zip_path.stat().st_size / (1024 * 1024)
-        print(f"  ✅ Created: {zip_name} ({zip_size:.1f} MB)")
-        return True
-    else:
-        print(f"  ⚠️ Skipped Level {level} - missing required files")
-        return False
 
-def main():
-    print("=" * 60)
-    print("🎯 Creating TpT ZIP Packages for Brown Bear Matching")
-    print("=" * 60)
+def create_output_dir():
+    """Create output directory for ZIP packages"""
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    print(f"Output directory: {OUTPUT_DIR}")
+
+
+def get_level_pdfs(level):
+    """Get color and B&W PDFs for a level
     
-    # Check for support docs
-    print("\n📋 Checking support documents...")
-    tou_path = SUPPORT_DOCS_DIR / "Terms_of_Use_Credits.pdf"
-    qs_path = SUPPORT_DOCS_DIR / "Quick_Start_Guide_Matching_Level1.pdf"
+    Args:
+        level: Level number (1-4)
+        
+    Returns:
+        dict with 'color' and 'bw' paths, or None if not found
+    """
+    # Try with cover first
+    color_with_cover = SAMPLES_DIR / f"{THEME}_{PRODUCT}_level{level}_color_with_cover.pdf"
+    color_windows = SAMPLES_DIR / f"{THEME}_{PRODUCT}_level{level}_color_with_cover_windows.pdf"
+    color_basic = SAMPLES_DIR / f"{THEME}_{PRODUCT}_level{level}_color.pdf"
     
-    if not tou_path.exists():
-        print(f"❌ Terms of Use not found at: {tou_path}")
-    if not qs_path.exists():
-        print(f"❌ Quick Start not found at: {qs_path}")
+    # Use best available color PDF
+    if color_with_cover.exists():
+        color_pdf = color_with_cover
+    elif color_windows.exists():
+        color_pdf = color_windows
+    elif color_basic.exists():
+        color_pdf = color_basic
+    else:
+        print(f"  ⚠️  No color PDF found for Level {level}")
+        return None
     
-    # Create packages for each level
-    created = 0
-    for level in range(1, 5):
-        print(f"\n📦 Level {level}:")
-        if create_tpt_package(level):
-            created += 1
+    # Get B&W PDF
+    bw_pdf = SAMPLES_DIR / f"{THEME}_{PRODUCT}_level{level}_bw.pdf"
+    if not bw_pdf.exists():
+        print(f"  ⚠️  No B&W PDF found for Level {level}")
+        return None
     
-    print("\n" + "=" * 60)
-    print(f"✅ Created {created} TpT packages in:")
-    print(f"   {OUTPUT_DIR}")
-    print("=" * 60)
+    return {
+        'color': color_pdf,
+        'bw': bw_pdf
+    }
+
+
+def create_level_package(level):
+    """Create TpT package ZIP for a specific level
+    
+    Args:
+        level: Level number (1-4)
+        
+    Returns:
+        Path to created ZIP file or None if failed
+    """
+    print(f"\n{'='*60}")
+    print(f"Creating TpT Package for Level {level}")
+    print(f"{'='*60}")
+    
+    # Get level PDFs
+    pdfs = get_level_pdfs(level)
+    if not pdfs:
+        print(f"✗ Failed to find PDFs for Level {level}")
+        return None
+    
+    # Create ZIP filename
+    zip_filename = OUTPUT_DIR / f"{THEME}_{PRODUCT}_level{level}_TpT.zip"
+    
+    # Determine level name
+    level_names = {
+        1: "Errorless",
+        2: "Easy",
+        3: "Medium",
+        4: "Challenge"
+    }
+    level_name = level_names.get(level, f"Level{level}")
+    
+    try:
+        with zipfile.ZipFile(zip_filename, 'w', zipfile.ZIP_DEFLATED) as zipf:
+            # Add color PDF
+            color_name = f"Brown_Bear_Matching_Level{level}_{level_name}_Color.pdf"
+            zipf.write(pdfs['color'], color_name)
+            print(f"  ✓ Added: {color_name} ({pdfs['color'].stat().st_size / 1024 / 1024:.1f} MB)")
+            
+            # Add B&W PDF
+            bw_name = f"Brown_Bear_Matching_Level{level}_{level_name}_BW.pdf"
+            zipf.write(pdfs['bw'], bw_name)
+            print(f"  ✓ Added: {bw_name} ({pdfs['bw'].stat().st_size / 1024 / 1024:.1f} MB)")
+            
+            # Add required documents
+            for source_name, archive_name in REQUIRED_DOCS.items():
+                doc_path = DOCS_DIR / source_name
+                if doc_path.exists():
+                    zipf.write(doc_path, archive_name)
+                    print(f"  ✓ Added: {archive_name} ({doc_path.stat().st_size / 1024:.0f} KB)")
+                else:
+                    print(f"  ⚠️  Missing: {archive_name}")
+        
+        # Get ZIP file size
+        zip_size = zip_filename.stat().st_size / 1024 / 1024
+        print(f"\n✓ Created: {zip_filename.name} ({zip_size:.1f} MB)")
+        return zip_filename
+        
+    except Exception as e:
+        print(f"✗ Error creating ZIP for Level {level}: {e}")
+        return None
+
+
+def create_all_packages():
+    """Create TpT packages for all levels"""
+    print("\n" + "="*60)
+    print("TpT Package Creator")
+    print(f"Theme: {THEME.replace('_', ' ').title()}")
+    print(f"Product: {PRODUCT.title()}")
+    print("="*60)
+    
+    create_output_dir()
+    
+    created_packages = []
+    for level in LEVELS:
+        package = create_level_package(level)
+        if package:
+            created_packages.append(package)
+    
+    # Summary
+    print("\n" + "="*60)
+    print("SUMMARY")
+    print("="*60)
+    print(f"\nCreated {len(created_packages)} TpT packages:")
+    for package in created_packages:
+        size = package.stat().st_size / 1024 / 1024
+        print(f"  ✓ {package.name} ({size:.1f} MB)")
+    
+    print(f"\nOutput location: {OUTPUT_DIR}")
+    print("\n✓ All packages ready for TpT upload!")
+    
+    return created_packages
+
+
+def verify_package_contents(zip_path):
+    """Verify contents of a ZIP package
+    
+    Args:
+        zip_path: Path to ZIP file
+    """
+    print(f"\nVerifying: {zip_path.name}")
+    print("-" * 40)
+    
+    with zipfile.ZipFile(zip_path, 'r') as zipf:
+        for info in zipf.filelist:
+            size_mb = info.file_size / 1024 / 1024
+            print(f"  {info.filename} ({size_mb:.2f} MB)")
+
 
 if __name__ == "__main__":
-    main()
+    packages = create_all_packages()
+    
+    # Verify first package as sample
+    if packages:
+        print("\n" + "="*60)
+        print("SAMPLE PACKAGE CONTENTS (Level 1)")
+        print("="*60)
+        verify_package_contents(packages[0])

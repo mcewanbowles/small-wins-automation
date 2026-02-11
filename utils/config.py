@@ -1,78 +1,129 @@
 """
-Configuration settings for SPED-compliant resource generation.
+Configuration loader for TpT Automation System
 
-This module defines all the design rules, constants, and settings
-required for creating accessible, high-quality special education resources.
+Loads theme configurations (brown_bear.json, etc.) and global settings (global_config.json)
+following the structure defined in /themes directory.
 """
 
-# DPI Settings
-DPI = 300  # High-quality print resolution
+import json
+import os
+from pathlib import Path
+from typing import Dict, Any, Optional
 
-# Page dimensions (US Letter at 300 DPI)
-PAGE_WIDTH = 8.5 * DPI  # 2550 pixels
-PAGE_HEIGHT = 11 * DPI  # 3300 pixels
 
-# SPED Design Rules
-SPED_RULES = {
-    'high_contrast': True,
-    'large_images': True,
-    'minimal_clutter': True,
-    'predictable_layouts': True,
-    'consistent_borders': True,
-    'consistent_footers': True,
-}
+def get_project_root() -> Path:
+    """Get the project root directory."""
+    current_file = Path(__file__).resolve()
+    # Go up from utils/ to project root
+    return current_file.parent.parent
 
-# Margins and spacing (in pixels at 300 DPI)
-MARGINS = {
-    'page': 50,  # Outer page margin
-    'content': 30,  # Space between content elements
-    'card': 20,  # Margin inside cards
-    'border': 5,  # Border thickness
-}
 
-# Font sizes (in points)
-FONT_SIZES = {
-    'title': 36,
-    'heading': 28,
-    'body': 24,
-    'small': 18,
-    'footer': 14,
-}
+def load_json_config(filepath: Path) -> Dict[str, Any]:
+    """Load JSON configuration file."""
+    try:
+        with open(filepath, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except FileNotFoundError:
+        raise FileNotFoundError(f"Config file not found: {filepath}")
+    except json.JSONDecodeError as e:
+        raise ValueError(f"Invalid JSON in {filepath}: {e}")
 
-# Colors (SPED-friendly high contrast)
-COLORS = {
-    'black': (0, 0, 0),
-    'white': (255, 255, 255),
-    'dark_gray': (64, 64, 64),
-    'light_gray': (200, 200, 200),
-    'border': (0, 0, 0),
-    'background': (255, 255, 255),
-}
 
-# Image folders - these are relative to the theme's asset folder
-# e.g., assets/themes/{theme_name}/
-IMAGE_FOLDERS = {
-    'color': 'real_images',  # Full-color real photo images
-    'bw_outline': 'colouring',  # Black-and-white outline/colouring images
-    'aac': 'icons',  # AAC/PCS-style icon symbols
-}
+def load_theme_config(theme_name: str) -> Dict[str, Any]:
+    """
+    Load theme configuration from /themes/{theme_name}.json
+    
+    Args:
+        theme_name: Name of the theme (e.g., "brown_bear")
+        
+    Returns:
+        Dictionary containing theme configuration
+    """
+    root = get_project_root()
+    theme_path = root / "themes" / f"{theme_name}.json"
+    
+    if not theme_path.exists():
+        raise FileNotFoundError(f"Theme not found: {theme_name} at {theme_path}")
+    
+    return load_json_config(theme_path)
 
-# Differentiation levels (1-4 for matching cards)
-DIFFERENTIATION_LEVELS = {
-    1: {'visual_cues': True, 'description': 'Level 1 - Identical Errorless'},
-    2: {'visual_cues': False, 'description': 'Level 2 - Outline to Color'},
-    3: {'visual_cues': False, 'increased_difficulty': True, 'description': 'Level 3 - AAC to Image'},
-    4: {'visual_cues': False, 'increased_difficulty': True, 'advanced': True, 'description': 'Level 4 - AAC to Text'},
-}
 
-# Card sizes (common dimensions for various activities)
-CARD_SIZES = {
-    'standard': (750, 750),  # 2.5" x 2.5" at 300 DPI
-    'large': (900, 900),  # 3" x 3" at 300 DPI
-    'rectangle': (900, 600),  # 3" x 2" at 300 DPI
-    'wide': (1200, 600),  # 4" x 2" at 300 DPI
-}
+def load_global_config() -> Dict[str, Any]:
+    """
+    Load global configuration from /themes/global_config.json
+    
+    Returns:
+        Dictionary containing global settings (branding, level colors, etc.)
+    """
+    root = get_project_root()
+    global_path = root / "themes" / "global_config.json"
+    
+    if not global_path.exists():
+        raise FileNotFoundError(f"Global config not found at {global_path}")
+    
+    return load_json_config(global_path)
 
-# Footer settings
-FOOTER_HEIGHT = 80  # Height of footer area in pixels
-FOOTER_TEXT = "© 2026 Small Wins Studio • PCS® symbols used with active PCS Maker Personal Licence — For classroom use only"
+
+def get_level_color(level: int, config: Optional[Dict[str, Any]] = None) -> str:
+    """
+    Get the color code for a specific level.
+    
+    Args:
+        level: Level number (1-4)
+        config: Optional global config dict (will load if not provided)
+        
+    Returns:
+        Hex color code (e.g., "#F4B400")
+    """
+    if config is None:
+        config = load_global_config()
+    
+    level_colors = config.get("level_colors", {})
+    level_key = f"level_{level}"
+    
+    if level_key not in level_colors:
+        # Fallback colors
+        fallback_colors = {
+            "level_1": "#F4B400",  # Orange
+            "level_2": "#4285F4",  # Blue
+            "level_3": "#34A853",  # Green
+            "level_4": "#8C06F2",  # Purple
+        }
+        return fallback_colors.get(level_key, "#000000")
+    
+    return level_colors[level_key].get("hex", "#000000")
+
+
+def get_branding_config(config: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+    """
+    Get branding configuration (Small Wins Studio colors, logos, etc.)
+    
+    Args:
+        config: Optional global config dict (will load if not provided)
+        
+    Returns:
+        Dictionary containing branding information
+    """
+    if config is None:
+        config = load_global_config()
+    
+    return config.get("branding", {})
+
+
+def get_asset_path(asset_type: str, filename: str = "") -> Path:
+    """
+    Get path to an asset file.
+    
+    Args:
+        asset_type: Type of asset ("branding", "global", "themes", etc.)
+        filename: Optional filename within the asset directory
+        
+    Returns:
+        Path to the asset
+    """
+    root = get_project_root()
+    base_path = root / "assets" / asset_type
+    
+    if filename:
+        return base_path / filename
+    return base_path
