@@ -220,16 +220,21 @@ def generate_quick_start_pdf(level, output_dir, template_path):
     with open(template_path, 'r', encoding='utf-8') as f:
         html_content = f.read()
     
-    # Replace placeholders
-    html_content = html_content.replace('{{LEVEL}}', content['level'])
-    html_content = html_content.replace('{{LEVEL_FULL}}', content['level_full'])
-    html_content = html_content.replace('{{NUM_BOARDS}}', content['num_boards'])
-    html_content = html_content.replace('{{NUM_LEVELS}}', content['num_levels'])
-    html_content = html_content.replace('{{DESCRIPTION_FULL}}', content['description_full'])
-    html_content = html_content.replace('{{STUDENT_ROUTINE}}', content['student_routine'])
-    html_content = html_content.replace('{{TROUBLESHOOTING}}', content['troubleshooting'])
-    html_content = html_content.replace('{{NEXT_STEPS}}', content['next_steps'])
-    html_content = html_content.replace('{{QUICK_GAMES}}', content['quick_games'])
+    # Replace all placeholders in one pass
+    replacements = {
+        '{{LEVEL}}': content['level'],
+        '{{LEVEL_FULL}}': content['level_full'],
+        '{{NUM_BOARDS}}': content['num_boards'],
+        '{{NUM_LEVELS}}': content['num_levels'],
+        '{{DESCRIPTION_FULL}}': content['description_full'],
+        '{{STUDENT_ROUTINE}}': content['student_routine'],
+        '{{TROUBLESHOOTING}}': content['troubleshooting'],
+        '{{NEXT_STEPS}}': content['next_steps'],
+        '{{QUICK_GAMES}}': content['quick_games'],
+    }
+    
+    for placeholder, value in replacements.items():
+        html_content = html_content.replace(placeholder, value)
     
     # Generate PDF from HTML
     output_path = output_dir / f"Quick_Start_Guide_Matching_Level{level}.pdf"
