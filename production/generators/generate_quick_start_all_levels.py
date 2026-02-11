@@ -1,10 +1,32 @@
 #!/usr/bin/env python3
 """
-Quick Start Guide Generator - Creates level-specific Quick Start PDFs
-Fills in the template with level-specific content for L1-L5
+Quick Start Guide Generator - DEPRECATED
+This generator creates simple PDFs using reportlab.
+
+⚠️  DEPRECATED: Use generate_quick_start_from_template.py instead
+The new generator uses the beautiful HTML template with proper design.
 
 Output: production/support_docs/Quick_Start_Guide_Matching_Level{N}.pdf
 """
+
+import sys
+
+print("=" * 70)
+print("⚠️  WARNING: This generator is DEPRECATED")
+print("=" * 70)
+print()
+print("Please use: production/generators/generate_quick_start_from_template.py")
+print()
+print("The new generator:")
+print("  • Uses the beautiful HTML template from Draft General Docs")
+print("  • Maintains consistent professional design across all levels")
+print("  • Generates PDFs with WeasyPrint for better quality")
+print()
+print("Exiting...")
+print("=" * 70)
+sys.exit(1)
+
+# OLD CODE BELOW - NOT USED ANYMORE
 
 import os
 import sys
