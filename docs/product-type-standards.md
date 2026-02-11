@@ -21,11 +21,22 @@ Example theme config entry:
 ```json
 {
   "matching": {
-    "levels": ["errorless", "identical", "field_of_6"]
+    "levels": {
+      "L1": { "name": "Errorless", "type": "boardmaker_identical" },
+      "L2": { "name": "Distractors", "type": "boardmaker_distractors" },
+      "L3": { "name": "Picture + Text", "type": "boardmaker_text" },
+      "L4": { "name": "Generalisation", "type": "icon_to_photo" },
+      "L5": { "name": "Advanced", "type": "bw_to_colour" }
+    }
   },
   "find_cover": {
     "grid_size": "4x4",
-    "levels": ["errorless", "mixed", "field_of_6", "cut_paste"]
+    "levels": {
+      "L1": { "name": "Errorless", "distractors": "none" },
+      "L2": { "name": "Distractors", "distractors": "some" },
+      "L3": { "name": "Dense Grid", "distractors": "more" },
+      "L4": { "name": "Expert", "distractors": "most" }
+    }
   }
 }
 ```
@@ -59,14 +70,23 @@ Every level must produce (see Master-Product-Specification.md for details):
 | TpT ZIP | — | — | Yes |
 | SEO Text | — | — | Yes |
 
-### 4. Level Color Coding
+### 4. Level Definitions (SPED Differentiation)
 
-| Level | Name | Color |
-|-------|------|-------|
-| Level 1 | Errorless | 🟢 Green |
-| Level 2 | Easy | 🔵 Blue |
-| Level 3 | Medium | 🟡 Yellow/Orange |
-| Level 4 | Hard | 🔴 Red/Pink |
+| Level | Name | Image Type | Color |
+|-------|------|------------|-------|
+| **L1** | Errorless | Boardmaker Icons (identical) | 🟠 Orange |
+| **L2** | Distractors | Boardmaker Icons (with distractors) | 🔵 Blue |
+| **L3** | Picture + Text | Boardmaker + Text Labels | 🟢 Green |
+| **L4** | Generalisation | Icon ↔ Real Photo | 🟣 Purple |
+| **L5** | Advanced | B&W ↔ Colour Icons | 🔴 Red/Pink |
+
+> **IMPORTANT:** Always refer to levels as "Level 1", "Level 2", etc. — NOT "Easy", "Medium", "Hard"
+
+### Image Types Available
+1. **Boardmaker Icons** - Licenced signature style (colour)
+2. **Real Images** - Actual photographs
+3. **B&W Boardmaker** - Black & white outlines
+4. **Text Labels** - Written word names
 
 ### 5. Naming Conventions
 

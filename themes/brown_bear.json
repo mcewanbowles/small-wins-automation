@@ -77,31 +77,46 @@
       "L1": {
         "name": "Errorless",
         "colour": "#F4B400",
-        "type": "identical",
+        "type": "boardmaker_identical",
+        "image_type": "Boardmaker Icons (identical)",
         "distractors": false,
-        "representation": "single"
+        "description": "Identical matching, no distractors, builds confidence"
       },
       "L2": {
         "name": "Distractors",
         "colour": "#4285F4",
-        "type": "picture_to_picture",
+        "type": "boardmaker_distractors",
+        "image_type": "Boardmaker Icons (with distractors)",
         "distractors": true,
-        "representation": "single"
+        "description": "Same image type with increasing distractors"
       },
       "L3": {
         "name": "Picture + Text",
         "colour": "#34A853",
-        "type": "picture_text",
+        "type": "boardmaker_text",
+        "image_type": "Boardmaker + Text Labels",
         "directions": ["picture_to_word", "word_to_picture"],
         "orientations": ["left", "right"],
-        "extra_cutouts": true
+        "extra_cutouts": true,
+        "description": "Match pictures to written words (both directions)"
       },
       "L4": {
         "name": "Generalisation",
         "colour": "#8C06F2",
-        "type": "cross_representation",
-        "matches": ["icon_to_photo", "bw_to_colour"],
-        "distractors": "hardest"
+        "type": "icon_to_photo",
+        "image_type": "Icon ↔ Real Photo",
+        "matches": ["icon_to_photo"],
+        "distractors": "hardest",
+        "description": "Match Boardmaker icons to real photographs"
+      },
+      "L5": {
+        "name": "Advanced",
+        "colour": "#EA4335",
+        "type": "bw_to_colour",
+        "image_type": "B&W ↔ Colour Icons",
+        "matches": ["bw_to_colour"],
+        "distractors": "challenging",
+        "description": "Match B&W outlines to coloured icons"
       }
     }
   },
@@ -109,28 +124,36 @@
   "find_cover": {
     "levels": {
       "L1": {
-        "name": "Easy",
+        "name": "Errorless",
         "colour": "#F4B400",
+        "image_type": "Boardmaker Icons",
         "distractors": "lowest",
-        "items_per_page": "few"
+        "items_per_page": "few",
+        "description": "Fewer items, easy visual search"
       },
       "L2": {
-        "name": "Medium",
+        "name": "Distractors",
         "colour": "#4285F4",
-        "distractors": "more",
-        "items_per_page": "moderate"
+        "image_type": "Boardmaker Icons",
+        "distractors": "some",
+        "items_per_page": "moderate",
+        "description": "More items, still fairly distinct"
       },
       "L3": {
-        "name": "Hard",
+        "name": "Dense Grid",
         "colour": "#34A853",
-        "distractors": "high",
-        "items_per_page": "many"
+        "image_type": "Boardmaker Icons",
+        "distractors": "more",
+        "items_per_page": "many",
+        "description": "Tighter layout, items more similar"
       },
       "L4": {
         "name": "Expert",
         "colour": "#8C06F2",
-        "distractors": "highest",
-        "items_per_page": "dense"
+        "image_type": "Boardmaker Icons",
+        "distractors": "most",
+        "items_per_page": "dense",
+        "description": "Densest layout, highest challenge"
       }
     },
     "grid_size": "4x4",

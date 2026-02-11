@@ -18,63 +18,82 @@ This document defines the COMPLETE requirements for all TpT products. Every gene
 
 ---
 
-## 2. Level Color Coding (UNIVERSAL)
+## 2. Level Definitions & Color Coding (UNIVERSAL)
 
-These colors are CONSISTENT across ALL products (covers, labels, page headers, accent stripes):
+These levels and colors are CONSISTENT across ALL products:
 
-| Level | Color | Hex Code | Name |
-|-------|-------|----------|------|
-| **L1** | 🟠 Orange | `#F4B400` | Errorless |
-| **L2** | 🔵 Blue | `#4285F4` | Distractors |
-| **L3** | 🟢 Green | `#34A853` | Picture + Text |
-| **L4** | 🟣 Purple | `#8C06F2` | Generalisation |
+| Level | Color | Hex Code | Name | Image Type |
+|-------|-------|----------|------|------------|
+| **L1** | 🟠 Orange | `#F4B400` | Errorless | Boardmaker Icons (identical) |
+| **L2** | 🔵 Blue | `#4285F4` | Distractors | Boardmaker Icons (with distractors) |
+| **L3** | 🟢 Green | `#34A853` | Picture + Text | Boardmaker + Text Labels |
+| **L4** | 🟣 Purple | `#8C06F2` | Generalisation | Icon ↔ Real Photo |
+| **L5** | 🔴 Red/Pink | `#EA4335` | Advanced | B&W ↔ Colour Icons |
 
-> **IMPORTANT:** The accent stripe color instantly tells teachers which level they're using.
+> **IMPORTANT:** Always refer to levels as "Level 1", "Level 2", etc. — NEVER use "Easy", "Medium", "Hard", "Difficult"
+
+### Image Types Available
+| Type | Description | Folder |
+|------|-------------|--------|
+| **Boardmaker Icons** | Licenced signature style (colour) | `/assets/themes/{theme}/icons/` |
+| **Real Images** | Actual photographs | `/assets/themes/{theme}/real_images/` |
+| **B&W Boardmaker** | Black & white outlines | `/assets/themes/{theme}/colouring/` |
+| **Text Labels** | Written word names | Generated dynamically |
 
 ---
 
 ## 3. Product Specifications by Type
 
-### 3.1 MATCHING — 4 Levels
+### 3.1 MATCHING — 5 Levels
 
 #### Level 1: Errorless (🟠 Orange)
+- **Image type:** Boardmaker Icons (identical)
 - **Matching type:** Identical picture → picture
 - **Distractors:** None
 - **Logic:** No wrong answers (any placement is correct)
-- **Representation:** Single type only (icons only OR photos only)
+- **Purpose:** Builds confidence and teaches the matching task
 
 #### Level 2: Distractors (🔵 Blue)
+- **Image type:** Boardmaker Icons (with distractors)
 - **Matching type:** Picture → picture with distractors
 - **Distractors:** Start obvious, become more similar within the set
-- **Representation:** Single type only (icons only OR photos only) per page
+- **Purpose:** Develops discrimination skills
 
 #### Level 3: Picture + Text (🟢 Green)
+- **Image type:** Boardmaker Icons + Text Labels
 - **Content:** BOTH directions included in same product:
   - A) Picture → Word (words in target boxes)
   - B) Word → Picture (words on cards matched to pictures)
-- **Orientations:** BOTH left/right for each direction:
-  - Version 1: Prompts/targets on RIGHT
-  - Version 2: Prompts/targets on LEFT
-- **Note:** Increased page count is intentional for L3
+- **Orientations:** BOTH left/right for each direction
 - **Extra outputs:** Cutouts with text required
+- **Purpose:** Links visual symbols to written words
 
 #### Level 4: Generalisation (🟣 Purple)
-- **Matching type:** Icon ↔ Real photo (cross-representation)
+- **Image type:** Icon ↔ Real Photo (cross-representation)
+- **Matching type:** Match Boardmaker icons to real photographs
 - **Distractors:** Hardest (most similar items)
-- **Additional set:** BW ↔ Colour matching (requires colouring images + real images)
+- **Purpose:** Generalises learning from icons to real-world images
+
+#### Level 5: Advanced (🔴 Red/Pink)
+- **Image type:** B&W ↔ Colour Icons
+- **Matching type:** Match B&W Boardmaker outlines to coloured icons
+- **Distractors:** Challenging
+- **Purpose:** Advanced visual discrimination, highest difficulty
 
 ---
 
 ### 3.2 FIND + COVER — 4 Levels
 
-Levels based on distractor load:
+Levels based on distractor load and grid density:
 
-| Level | Distractors | Layout | Description |
-|-------|-------------|--------|-------------|
-| **L1** | Lowest | Fewer items | Easy visual search |
-| **L2** | More | More items | Still fairly distinct |
-| **L3** | High | Tighter layout | Items more similar |
-| **L4** | Highest | Densest layout | Most similar items |
+| Level | Name | Image Type | Distractors | Description |
+|-------|------|------------|-------------|-------------|
+| **L1** | Errorless | Boardmaker Icons | Lowest | Fewer items, easy visual search |
+| **L2** | Distractors | Boardmaker Icons | Some | More items, still fairly distinct |
+| **L3** | Dense Grid | Boardmaker Icons | More | Tighter layout, items more similar |
+| **L4** | Expert | Boardmaker Icons | Most | Densest layout, highest challenge |
+
+> **Note:** Always refer to levels as "Level 1", "Level 2", etc. — NOT "Easy", "Medium", "Hard"
 
 ---
 
