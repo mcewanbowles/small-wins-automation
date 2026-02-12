@@ -3,7 +3,7 @@
 Complete TpT Release Package Generator
 
 Creates production-ready TpT packages with all required components:
-- TpT ZIP files for upload
+- TpT ZIP files for upload (each contains: Color PDF, B&W PDF, Quick Start, TOU)
 - Preview PDFs
 - Thumbnails
 - Descriptions
@@ -167,13 +167,19 @@ class ReleasePackager:
         zip_path = self.uploads_dir / zip_name
         
         with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zf:
-            # 1. Final product PDF (color version)
-            product_pdf = self.generated_pdfs / f"{self.theme}_{self.product}_level{level}_color.pdf"
-            if product_pdf.exists():
-                zf.write(product_pdf, product_pdf.name)
+            # 1. Final product PDFs (BOTH color AND B&W versions)
+            color_pdf = self.generated_pdfs / f"{self.theme}_{self.product}_level{level}_color.pdf"
+            bw_pdf = self.generated_pdfs / f"{self.theme}_{self.product}_level{level}_bw.pdf"
+            
+            if color_pdf.exists():
+                zf.write(color_pdf, color_pdf.name)
             else:
-                # Try to generate a placeholder
-                print(f"    Warning: Product PDF not found: {product_pdf}")
+                raise FileNotFoundError(f"Required color PDF not found: {color_pdf}")
+            
+            if bw_pdf.exists():
+                zf.write(bw_pdf, bw_pdf.name)
+            else:
+                raise FileNotFoundError(f"Required B&W PDF not found: {bw_pdf}")
             
             # 2. Quick Start Guide for this level
             quick_start = self.support_docs / f"Quick_Start_Guide_Matching_Level{level}.pdf"
@@ -184,7 +190,7 @@ class ReleasePackager:
             if quick_start.exists():
                 zf.write(quick_start, quick_start.name)
             else:
-                print(f"    Warning: Quick Start not found")
+                raise FileNotFoundError(f"Required Quick Start Guide not found at: {self.support_docs}/Quick_Start_Guide_Matching_Level{level}.pdf")
             
             # 3. Terms of Use
             tou = self.support_docs / "Terms_of_Use_Credits.pdf"
@@ -194,7 +200,7 @@ class ReleasePackager:
             if tou.exists():
                 zf.write(tou, tou.name)
             else:
-                print(f"    Warning: Terms of Use not found")
+                raise FileNotFoundError(f"Required Terms of Use not found at: {self.support_docs}/Terms_of_Use_Credits.pdf or Terms_of_Use.pdf")
         
         return zip_path
     
