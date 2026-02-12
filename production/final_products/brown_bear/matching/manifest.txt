@@ -1,0 +1,41 @@
+TpT Release Package Manifest
+======================================================================
+Theme: brown_bear
+Product: matching
+Generated: 2026-02-12 09:32:54
+
+
+UPLOADS/
+----------------------------------------------------------------------
+  brown_bear_matching_level1_TpT.zip                     76.0 KB  2026-02-12 09:32
+  brown_bear_matching_level2_TpT.zip                     75.9 KB  2026-02-12 09:32
+  brown_bear_matching_level3_TpT.zip                     76.8 KB  2026-02-12 09:32
+  brown_bear_matching_level4_TpT.zip                     75.9 KB  2026-02-12 09:32
+
+PREVIEWS/
+----------------------------------------------------------------------
+  brown_bear_matching_level1_PREVIEW.pdf                  1.5 KB  2026-02-12 09:32
+  brown_bear_matching_level2_PREVIEW.pdf                  1.5 KB  2026-02-12 09:32
+  brown_bear_matching_level3_PREVIEW.pdf                  1.5 KB  2026-02-12 09:32
+  brown_bear_matching_level4_PREVIEW.pdf                  1.5 KB  2026-02-12 09:32
+
+THUMBNAILS/
+----------------------------------------------------------------------
+
+DESCRIPTIONS/
+----------------------------------------------------------------------
+  brown_bear_matching_freebie_description.txt             0.1 KB  2026-02-12 09:32
+  brown_bear_matching_level1_description.txt              0.1 KB  2026-02-12 09:32
+  brown_bear_matching_level2_description.txt              0.1 KB  2026-02-12 09:32
+  brown_bear_matching_level3_description.txt              0.1 KB  2026-02-12 09:32
+  brown_bear_matching_level4_description.txt              0.1 KB  2026-02-12 09:32
+
+FREEBIE/
+----------------------------------------------------------------------
+  brown_bear_matching_freebie.pdf                         1.5 KB  2026-02-12 09:32
+
+SUMMARY
+======================================================================
+TpT ZIPs: 4
+Previews: 4
+Descriptions: 5
