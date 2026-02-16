@@ -101,6 +101,7 @@ def _render_find_cover_cover_page(
         footer_title=f"{theme_name} Find & Cover | Level {level}",
         header_left_icon=icon,
         header_left_icon_flip=False,
+        header_left_icon_y_offset_px=int(0.06 * DPI),
         draw_subtitle=True,
         draw_footer=True,
     )
@@ -120,7 +121,7 @@ def _render_find_cover_cover_page(
 
     if icon is not None:
         icon_work = icon.copy()
-        icon_work.thumbnail((int(art_box * 0.86), int(art_box * 0.86)), Image.Resampling.LANCZOS)
+        icon_work.thumbnail((int(art_box * 0.98), int(art_box * 0.98)), Image.Resampling.LANCZOS)
         page.paste(icon_work, (art_x + (art_box - icon_work.width) // 2, art_y + (art_box - icon_work.height) // 2), icon_work)
 
     # Simple text blocks (avoid heavy template dependencies here)
@@ -134,7 +135,8 @@ def _render_find_cover_cover_page(
     y = art_y + art_box + int(0.42 * DPI)
     header = "What's Included"
     tw, th = _text_size(header, title_font)
-    draw.text(((w - tw) // 2, y), header, fill=(30, 30, 30), font=title_font)
+    left = int(1.45 * DPI)
+    draw.text((left, y), header, fill=apply_small_wins_frame.__globals__["hex_to_rgb"](_level_accent_hex(level, mode)), font=title_font)
     y += th + int(0.18 * DPI)
 
     activity_line = f"{activity_pages} activity pages" if activity_pages is not None else "Activity pages included"
@@ -151,14 +153,14 @@ def _render_find_cover_cover_page(
         draw.text((left, y), f"- {f}", fill=(30, 30, 30), font=small_font)
         y += line_h
 
-    y += int(0.55 * DPI)
+    y += int(0.75 * DPI)
     qs = "Quick Start"
     qtw, qth = _text_size(qs, title_font)
-    draw.text(((w - qtw) // 2, y), qs, fill=(30, 30, 30), font=title_font)
+    draw.text((left, y), qs, fill=apply_small_wins_frame.__globals__["hex_to_rgb"](_level_accent_hex(level, mode)), font=title_font)
     y += qth + int(0.18 * DPI)
     qs_text = "Print, cover matches with tokens/daubers, and store extras using the included labels."
     qsw, qsh = _text_size(qs_text, small_font)
-    draw.text(((w - qsw) // 2, y), qs_text, fill=(30, 30, 30), font=small_font)
+    draw.text((left, y), qs_text, fill=(30, 30, 30), font=small_font)
 
     return page
 

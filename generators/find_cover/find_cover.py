@@ -74,7 +74,7 @@ def generate_find_cover_worksheet(
         card_style = {'border_width': 2, 'corner_radius': 0, 'shadow': False}
     
     # Calculate layout areas
-    header_height = 180
+    header_height = 200
     instruction_height = 60
     grid_margin_top = header_height + instruction_height + 20
     grid_margin_bottom = 120  # Space for footer and page number
@@ -85,7 +85,7 @@ def generate_find_cover_worksheet(
     # Header area: Target icon
     target_box_size = 140
     target_x = (PAGE_WIDTH - target_box_size) // 2
-    target_y = 60
+    target_y = 80
     
     # Draw target box with label
     target_rect = (target_x, target_y, target_x + target_box_size, target_y + target_box_size)
