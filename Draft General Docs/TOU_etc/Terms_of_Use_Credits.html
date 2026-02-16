@@ -206,12 +206,24 @@
         }
         
         .page-footer {
-            color: #999;
-            padding: 8px 0px;
-            margin: 15px 0.03in -0.55in 0.03in;
-            font-size: 10px;
+            position: absolute;
+            bottom: 0.18in;
+            left: 0;
+            right: 0;
+            padding: 0;
+            margin: 0;
             line-height: 1.4;
             text-align: center;
+        }
+
+        .page-footer .line1 {
+            font-size: 10px;
+            color: #333;
+        }
+
+        .page-footer .line2 {
+            font-size: 9px;
+            color: #999;
         }
         
         .credits-page {
@@ -374,7 +386,8 @@
         </div>
 
         <div class="page-footer">
-            © 2026 Small Wins Studio. PCS® symbols used with active license. | Page 1/2
+            <div class="line1">Terms of Use &amp; Credits | Page 1/2</div>
+            <div class="line2">Small Wins Studio | PCS symbols used with active PCS Maker Personal License. | © 2026</div>
         </div>
     </div>
 
@@ -434,7 +447,8 @@
         </div>
 
         <div class="page-footer">
-            © 2026 Small Wins Studio. PCS® symbols used with active license. | Page 2/2
+            <div class="line1">Terms of Use &amp; Credits | Page 2/2</div>
+            <div class="line2">Small Wins Studio | PCS symbols used with active PCS Maker Personal License. | © 2026</div>
         </div>
     </div>
 </body>

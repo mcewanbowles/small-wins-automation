@@ -244,7 +244,7 @@ def generate_quick_start_pdf(level, output_dir, template_path):
     
     # Get file size
     file_size = output_path.stat().st_size
-    print(f"✓ Level {level}: {output_path.name} ({file_size / 1024:.1f} KB)")
+    print(f"OK Level {level}: {output_path.name} ({file_size / 1024:.1f} KB)")
     
     return output_path
 
@@ -259,7 +259,7 @@ def main():
     
     # Verify template exists
     if not template_path.exists():
-        print(f"❌ Template not found: {template_path}")
+        print(f"ERROR Template not found: {template_path}")
         sys.exit(1)
     
     # Create output directory
@@ -279,21 +279,21 @@ def main():
             output_path = generate_quick_start_pdf(level, output_dir, template_path)
             generated_files.append(output_path)
         except Exception as e:
-            print(f"❌ Error generating Level {level}: {e}")
+            print(f"ERROR generating Level {level}: {e}")
             import traceback
             traceback.print_exc()
     
     print()
     print("=" * 70)
-    print(f"✅ Successfully generated {len(generated_files)}/5 Quick Start Guides")
+    print(f"OK Successfully generated {len(generated_files)}/5 Quick Start Guides")
     print("=" * 70)
     print()
     print("Files created:")
     for path in generated_files:
-        print(f"  • {path.relative_to(base_dir)}")
+        print(f"  - {path.relative_to(base_dir)}")
     print()
-    print("✅ All Quick Start Guides use the same beautiful design!")
-    print("✅ Each guide has level-specific content for Matching activities")
+    print("OK All Quick Start Guides use the same beautiful design!")
+    print("OK Each guide has level-specific content for Matching activities")
 
 
 if __name__ == "__main__":
