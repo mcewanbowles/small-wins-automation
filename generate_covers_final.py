@@ -9,6 +9,8 @@ Creates single cover page with:
 """
 
 import os
+import json
+from pathlib import Path
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 from reportlab.lib.colors import HexColor
@@ -20,38 +22,44 @@ THEME = "brown_bear"
 PRODUCT = "matching"
 PACK_CODE_BASE = "SWS-MTCH-BB"
 
-# Level definitions with LEVEL-SPECIFIC COLORS (matching activity pages)
-LEVELS = {
-    1: {
-        "name": "Errorless",
-        "color": "#F4B400",  # Orange - SAME as activity pages
-        "description": "Level 1"
-    },
-    2: {
-        "name": "Easy",
-        "color": "#4285F4",  # Blue - SAME as activity pages
-        "description": "Level 2"
-    },
-    3: {
-        "name": "Medium",
-        "color": "#34A853",  # Green - SAME as activity pages
-        "description": "Level 3"
-    },
-    4: {
-        "name": "Challenge",
-        "color": "#8C06F2",  # Purple - SAME as activity pages
-        "description": "Level 4"
-    }
-}
+# Repo root
+REPO_ROOT = Path(__file__).resolve().parent
+
+def _load_matching_levels():
+    theme_path = REPO_ROOT / "themes" / f"{THEME}.json"
+    with open(theme_path, "r", encoding="utf-8") as f:
+        theme = json.load(f)
+    levels = theme["matching"]["levels"]
+    out = {}
+    for i in range(1, 6):
+        key = f"L{i}"
+        out[i] = {
+            "name": levels[key]["name"],
+            "color": levels[key]["colour"],
+            "description": f"Level {i} — {levels[key]['name']}"
+        }
+    return out
+
+
+LEVELS = _load_matching_levels()
 
 # Paths
 ICON_PATH = f"assets/themes/{THEME}/icons/Brown bear.png"
-OUTPUT_DIR = f"final_products/{THEME}/{PRODUCT}"
+OUTPUT_DIR = str(REPO_ROOT / "production" / "final_products" / THEME / PRODUCT)
 
 # Design constants
 NAVY = "#1E3A5F"
 FONT_PRIMARY = "Helvetica-Bold"
 FONT_REGULAR = "Helvetica"
+
+
+def _trim_transparent_padding(img: Image.Image) -> Image.Image:
+    if img.mode != "RGBA":
+        img = img.convert("RGBA")
+    bbox = img.getbbox()
+    if not bbox:
+        return img
+    return img.crop(bbox)
 
 def create_cover_page(level, output_path, grayscale=False):
     """
@@ -94,7 +102,7 @@ def create_cover_page(level, output_path, grayscale=False):
     
     # Draw outer navy border with rounded corners
     c.setStrokeColor(navy_color)
-    c.setLineWidth(3)
+    c.setLineWidth(4)
     c.roundRect(border_x, border_y, border_width, border_height, 0.12 * inch)
     
     # Draw level-colored accent strip at top (matching activity pages)
@@ -137,7 +145,7 @@ def create_cover_page(level, output_path, grayscale=False):
             if grayscale:
                 # Convert image to grayscale for B&W version
                 img = Image.open(ICON_PATH)
-                img_gray = img.convert('L')  # Convert to grayscale
+                img_gray = _trim_transparent_padding(img).convert('L')  # Convert to grayscale
                 # Save to temp file
                 import tempfile
                 with tempfile.NamedTemporaryFile(delete=False, suffix='.png') as temp_file:
@@ -148,9 +156,15 @@ def create_cover_page(level, output_path, grayscale=False):
                            preserveAspectRatio=True, anchor='c')
                 os.unlink(temp_path)  # Clean up temp file
             else:
-                c.drawImage(ICON_PATH, image_x, image_y, 
-                           width=image_size, height=image_size, 
+                import tempfile
+                img = _trim_transparent_padding(Image.open(ICON_PATH))
+                with tempfile.NamedTemporaryFile(delete=False, suffix='.png') as temp_file:
+                    temp_path = temp_file.name
+                    img.save(temp_path)
+                c.drawImage(temp_path, image_x, image_y,
+                           width=image_size, height=image_size,
                            preserveAspectRatio=True, anchor='c')
+                os.unlink(temp_path)
         except Exception as e:
             print(f"Warning: Could not load image: {e}")
             c.setFillColor(navy_color)
@@ -159,11 +173,11 @@ def create_cover_page(level, output_path, grayscale=False):
                               "[Brown Bear]")
     
     # Features section below image
-    features_y = image_y - 0.5 * inch
+    features_y = image_y - 0.7 * inch
     features_x = width / 2
     line_height = 0.32 * inch
-    
-    c.setFillColor(navy_color)
+
+    c.setFillColor(level_color)
     c.setFont(FONT_PRIMARY, 14)
     c.drawCentredString(features_x, features_y, "✨ Product Features ✨")
     
@@ -178,13 +192,14 @@ def create_cover_page(level, output_path, grayscale=False):
         "Bonus: Storage Labels Included"
     ]
     
+    c.setFillColor(navy_color)
     c.setFont(FONT_REGULAR, 11)
     for i, feature in enumerate(features):
         y_pos = features_y - (i * line_height)
         c.drawCentredString(features_x, y_pos, feature)
     
     # Quick Start Instructions section
-    quick_start_y = features_y - (len(features) * line_height) - 0.4 * inch
+    quick_start_y = features_y - (len(features) * line_height) - 0.6 * inch
     
     c.setFont(FONT_PRIMARY, 12)
     c.setFillColor(level_color)
@@ -199,12 +214,12 @@ def create_cover_page(level, output_path, grayscale=False):
     c.drawCentredString(features_x, quick_start_y, quick_start_text)
     
     # Footer with two-line format (inside border)
-    footer_y = border_y + 0.5 * inch
+    footer_y = border_y + 0.32 * inch
     
     c.setFont(FONT_REGULAR, 9)
     # Line 1: Pack code and level info
     footer_line1 = f"Matching – Level {level} | {pack_code}"
-    c.drawCentredString(width / 2, footer_y + 0.25 * inch, footer_line1)
+    c.drawCentredString(width / 2, footer_y + 0.22 * inch, footer_line1)
     
     # Line 2: Copyright and license (lighter color)
     c.setFillColorRGB(0.6, 0.6, 0.6)  # Light gray
@@ -213,7 +228,7 @@ def create_cover_page(level, output_path, grayscale=False):
     
     # Save PDF
     c.save()
-    print(f"✓ Created final cover: {output_path}")
+    print(f"OK Created final cover: {output_path}")
 
 def generate_all_covers():
     """Generate final covers for all 4 levels - both color and B&W versions"""
@@ -226,7 +241,7 @@ def generate_all_covers():
     print("=" * 60)
     print()
     
-    for level in [1, 2, 3, 4]:
+    for level in [1, 2, 3, 4, 5]:
         # Color version
         output_file_color = f"{OUTPUT_DIR}/cover_level{level}_color_FINAL.pdf"
         create_cover_page(level, output_file_color, grayscale=False)
@@ -237,7 +252,7 @@ def generate_all_covers():
     
     print()
     print("=" * 60)
-    print("✓ All covers generated successfully!")
+    print("OK All covers generated successfully!")
     print("  - 4 color covers")
     print("  - 4 B&W (grayscale) covers")
     print("=" * 60)

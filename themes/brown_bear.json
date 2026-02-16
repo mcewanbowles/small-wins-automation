@@ -110,7 +110,7 @@
         "description": "Match Boardmaker icons to real photographs"
       },
       "L5": {
-        "name": "Advanced",
+        "name": "Extension",
         "colour": "#EA4335",
         "type": "bw_to_colour",
         "image_type": "B&W ↔ Colour Icons",

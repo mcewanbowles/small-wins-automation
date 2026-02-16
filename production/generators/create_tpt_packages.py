@@ -21,6 +21,7 @@ import os
 import zipfile
 import shutil
 from pathlib import Path
+import json
 from PyPDF2 import PdfReader, PdfWriter
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
@@ -28,13 +29,6 @@ from reportlab.lib.pagesizes import letter
 # Configuration
 THEME = "brown_bear"
 PRODUCT = "matching"
-LEVELS = [
-    {"num": 1, "name": "Errorless"},
-    {"num": 2, "name": "Supported"},
-    {"num": 3, "name": "Independent"},
-    {"num": 4, "name": "Generalization"},
-    {"num": 5, "name": "Extension"}
-]
 
 # Paths
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -44,6 +38,21 @@ SUPPORT_DOCS_DIR = REPO_ROOT / "production" / "support_docs"
 OUTPUT_DIR = FINAL_DIR / "tpt_zips"
 
 TOU_PDF = SUPPORT_DOCS_DIR / "Terms_of_Use_Credits.pdf"
+
+
+def _load_matching_level_names(theme_id: str) -> dict[int, str]:
+    theme_path = REPO_ROOT / "themes" / f"{theme_id}.json"
+    with open(theme_path, "r", encoding="utf-8") as f:
+        theme = json.load(f)
+    levels = theme["matching"]["levels"]
+    return {i: levels[f"L{i}"]["name"] for i in range(1, 6)}
+
+
+_LEVEL_NAMES = _load_matching_level_names(THEME)
+
+LEVELS = [
+    {"num": i, "name": _LEVEL_NAMES[i]} for i in range(1, 6)
+]
 
 
 def create_output_dir():

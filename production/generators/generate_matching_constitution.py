@@ -6,7 +6,9 @@ Generates matching activity pages following Small Wins Studio Matching Product S
 import os
 import sys
 from pathlib import Path
+import json
 from PIL import Image, ImageDraw, ImageFont
+import tempfile
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.units import inch
@@ -15,6 +17,9 @@ from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.lib import colors
 import random
 from PyPDF2 import PdfReader, PdfWriter
+
+# Use OS temp directory for intermediate images (Windows-safe)
+TEMP_DIR = Path(tempfile.gettempdir())
 
 # Try to register Comic Sans MS font (available on most systems)
 try:
@@ -28,8 +33,23 @@ except:
     TITLE_FONT = 'Helvetica-Bold'
     BODY_FONT = 'Helvetica'
 
-# Add parent directory to path for imports
-sys.path.insert(0, str(Path(__file__).parent))
+# Add repo root to path for imports (so `utils` resolves correctly)
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+
+# Theme config (source of truth for level names/colours)
+THEME_ID = "brown_bear"
+REPO_ROOT = Path(__file__).resolve().parents[2]
+
+
+def _load_theme_level_colours(theme_id: str) -> dict[int, str]:
+    try:
+        theme_path = REPO_ROOT / "themes" / f"{theme_id}.json"
+        with open(theme_path, "r", encoding="utf-8") as f:
+            theme = json.load(f)
+        levels = theme["matching"]["levels"]
+        return {i: levels[f"L{i}"]["colour"] for i in range(1, 6)}
+    except Exception:
+        return {}
 
 # Matching Product Specification Colors
 LIGHT_BLUE_BORDER = '#A0C4E8'  # Light blue border for pages (COLOR MODE)
@@ -42,13 +62,8 @@ WARM_ORANGE = '#F5A623'  # Accent stripe color (default)
 WHITE = '#FFFFFF'
 BLACK = '#000000'
 
-# Level-Based Accent Colors for easy teacher identification
-LEVEL_COLORS = {
-    1: '#F4A259',  # Orange - Level 1 (beginner)
-    2: '#4A90E2',  # Blue - Level 2 (easy)
-    3: '#7BC47F',  # Green - Level 3 (medium)
-    4: '#9B59B6',  # Purple - Level 4 (hard)
-}
+# Level-Based Accent Colors (source of truth: theme config)
+LEVEL_COLORS = _load_theme_level_colours(THEME_ID)
 
 
 def get_level_color(level, mode='color'):
@@ -135,28 +150,28 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
     - Light grey fill #E8E8E8 for velcro boxes
     - Decorative corner details on matching boxes
     - Single line footer at bottom
-    - 5 rows × 2 columns layout
+    - 5 rows x 2 columns layout
     """
     width, height = letter
     
     # Import color utilities for BW mode support
     from utils.color_helpers import hex_to_grayscale, enhance_for_printing
     import hashlib
-    
+
     # Create hash-based temp filenames to reuse same file for same icon
     def get_temp_filename(img, prefix, suffix=""):
         img_hash = hashlib.md5(img.tobytes()).hexdigest()[:12]
-        return f"/tmp/{prefix}_{img_hash}_{mode}_{suffix}.png"
+        return str(TEMP_DIR / f"{prefix}_{img_hash}_{mode}_{suffix}.png")
     
     # Page Structure - 0.25" margin from edge
     border_margin = 0.25 * inch
     content_width = width - 2 * border_margin
     content_height = height - 2 * border_margin
     
-    # Draw rounded rectangle border (3px stroke) - LIGHT BLUE in color mode, BLACK in B&W mode
+    # Draw rounded rectangle border (thicker stroke) - LIGHT BLUE in color mode, BLACK in B&W mode
     border_color = get_border_color_for_mode(LIGHT_BLUE_BORDER, mode)
     c.setStrokeColorRGB(*hex_to_rgb(border_color))
-    c.setLineWidth(3)
+    c.setLineWidth(4)
     c.roundRect(border_margin, border_margin, content_width, content_height, 10, stroke=1, fill=0)
     
     # Accent Stripe - moved higher (less padding from border), increased height
@@ -228,10 +243,10 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
         c.drawImage(temp_target, target_x, target_y, width=target_size, height=target_size, 
                    preserveAspectRatio=True, mask='auto')
         
-        # Draw Navy border around target (slightly thicker than matching boxes per spec) - BLACK in B&W mode
+        # Draw Navy border around target (thicker) - BLACK in B&W mode
         navy_color = get_border_color_for_mode(NAVY_BORDER, mode)
         c.setStrokeColorRGB(*hex_to_rgb(navy_color))
-        c.setLineWidth(4)  # 4px, thicker than matching boxes (3.5px)
+        c.setLineWidth(5)  # Thicker to match other activities
         c.roundRect(target_x, target_y, target_size, target_size, 8.64, stroke=1, fill=0)
     
     # 5-row layout below target - Matching boxes reduced by another 5%
@@ -255,11 +270,7 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
         img_box_x = left_col_x
         img_box_y = row_y - box_size
         
-        # Draw matching box with Navy border (3-4px per spec) - simple, no ornaments - BLACK in B&W mode
-        navy_color = get_border_color_for_mode(NAVY_BORDER, mode)
-        c.setStrokeColorRGB(*hex_to_rgb(navy_color))
-        c.setLineWidth(3.5)  # 3-4px border per spec
-        c.roundRect(img_box_x, img_box_y, box_size, box_size, corner_radius, stroke=1, fill=0)
+        # Draw the contents first, then stroke the border once on top.
         
         # Level 1 Watermark Logic: 20-30% opacity, 70-80% of box
         if level == 1 and target_img:
@@ -288,8 +299,8 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
             if mode == 'bw':
                 display_img = enhance_for_printing(display_img, mode='bw')
             
-            # Image fills 97% of box (95-100% range per spec)
-            icon_size = box_size * 0.97
+            # Leave a touch more padding so the icon edge can't visually read as a 2nd border.
+            icon_size = box_size * 0.93
             icon_x = img_box_x + (box_size - icon_size) / 2
             icon_y = img_box_y + (box_size - icon_size) / 2
             
@@ -299,16 +310,22 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
             
             c.drawImage(temp_icon, icon_x, icon_y, width=icon_size, height=icon_size, 
                        preserveAspectRatio=True, mask='auto')
+
+        # Stroke the matching box border once, on top.
+        navy_color = get_border_color_for_mode(NAVY_BORDER, mode)
+        c.setStrokeColorRGB(*hex_to_rgb(navy_color))
+        c.setLineWidth(4.5)
+        c.roundRect(img_box_x, img_box_y, box_size, box_size, corner_radius, stroke=1, fill=0)
         
         # Right column: Velcro box with purple border and light grey fill
         velcro_box_x = right_col_x
         velcro_box_y = img_box_y
         
-        # Draw velcro box with light grey fill and purple border (3-4px per spec) - BLACK border in B&W mode
+        # Draw velcro box with light grey fill and thicker purple border - BLACK border in B&W mode
         c.setFillColorRGB(*hex_to_rgb(LIGHT_GREY_FILL))
         purple_color = get_border_color_for_mode(PURPLE_BORDER, mode)
         c.setStrokeColorRGB(*hex_to_rgb(purple_color))
-        c.setLineWidth(3.5)  # 3-4px border per spec
+        c.setLineWidth(4.5)
         c.roundRect(velcro_box_x, velcro_box_y, box_size, box_size, corner_radius, stroke=1, fill=1)
         
         # Draw velcro dot (0.3" diameter, centered)
@@ -320,7 +337,7 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
         # Velcro dot with specific colors per Product Spec
         c.setFillColorRGB(*hex_to_rgb(VELCRO_DOT_FILL))
         c.setStrokeColorRGB(*hex_to_rgb(VELCRO_DOT_OUTLINE))
-        c.setLineWidth(1.5)
+        c.setLineWidth(2)
         c.circle(velcro_center_x, velcro_center_y, velcro_radius, stroke=1, fill=1)
         
         # Optional tiny "velcro" text
@@ -354,7 +371,7 @@ def create_cutout_page_constitution(c, images, names, icons_on_page, page_number
     - 5 copies of each icon (60 total per level)
     - 2 pages per level (30 pieces per page)
     - Box size matches activity boxes (1.28")
-    - 6 columns × 5 rows = 30 boxes per page
+    - 6 columns x 5 rows = 30 boxes per page
     - Title includes page number (1 of 2, 2 of 2)
     """
     width, height = letter
@@ -369,7 +386,7 @@ def create_cutout_page_constitution(c, images, names, icons_on_page, page_number
     
     border_color = get_border_color_for_mode(LIGHT_BLUE_BORDER, mode)
     c.setStrokeColorRGB(*hex_to_rgb(border_color))
-    c.setLineWidth(3)
+    c.setLineWidth(4)
     c.roundRect(border_margin, border_margin, content_width, content_height, 10, stroke=1, fill=0)
     
     # Accent stripe: moved higher
@@ -412,9 +429,9 @@ def create_cutout_page_constitution(c, images, names, icons_on_page, page_number
     # Icon fills most of box (97% fill)
     icon_size = box_size * 0.97
     spacing = 0.05 * inch  # Minimal spacing for tight cutting
-    border_pts = 3  # 3pt border
+    border_pts = 4  # thicker border to match activity pages
     
-    # 6 columns × 5 rows = 30 boxes (5 copies of 6 icons)
+    # 6 columns x 5 rows = 30 boxes (5 copies of 6 icons)
     cols = 6
     rows = 5
     
@@ -427,7 +444,7 @@ def create_cutout_page_constitution(c, images, names, icons_on_page, page_number
     content_top = accent_y - 0.4 * inch
     start_y = content_top - 0.3 * inch
     
-    # Draw 6×5 grid - each icon appears 5 times in a column
+    # Draw 6x5 grid - each icon appears 5 times in a column
     icon_idx = 0
     for col in range(cols):
         if icon_idx >= len(icons_on_page):
@@ -458,7 +475,7 @@ def create_cutout_page_constitution(c, images, names, icons_on_page, page_number
                 img_copy = enhance_for_printing(img_copy, mode='bw')
             
             img_hash = hashlib.md5(img_copy.tobytes()).hexdigest()[:12]
-            temp_icon = f"/tmp/cutout_{img_hash}_{mode}_{col}_{row}.png"
+            temp_icon = str(TEMP_DIR / f"cutout_{img_hash}_{mode}_{col}_{row}.png")
             if not os.path.exists(temp_icon):
                 img_copy.save(temp_icon, 'PNG')
             
@@ -517,7 +534,7 @@ def create_storage_label_page_constitution(c, images, names, page_num, total_pag
     
     border_color = get_border_color_for_mode(LIGHT_BLUE_BORDER, mode)
     c.setStrokeColorRGB(*hex_to_rgb(border_color))
-    c.setLineWidth(3)
+    c.setLineWidth(4)
     c.roundRect(border_margin, border_margin, content_width, content_height, 10, stroke=1, fill=0)
     
     # Accent stripe at top
@@ -586,7 +603,7 @@ def create_storage_label_page_constitution(c, images, names, page_num, total_pag
         # Border color - medium blue in color mode, black in B&W mode
         border_color = get_border_color_for_mode(MEDIUM_BLUE, mode)
         c.setStrokeColorRGB(*hex_to_rgb(border_color))
-        c.setLineWidth(2)
+        c.setLineWidth(3)
         c.roundRect(box_x, box_y, box_width, box_height, 6, stroke=1, fill=1)
         
         # Title: "Matching" - dark blue in color mode, black in B&W mode
@@ -622,7 +639,7 @@ def create_storage_label_page_constitution(c, images, names, page_num, total_pag
             img_copy = enhance_for_printing(img_copy, mode='bw')
         
         img_hash = hashlib.md5(img_copy.tobytes()).hexdigest()[:12]
-        temp_icon = f"/tmp/storage_{img_hash}_{mode}_{idx}.png"
+        temp_icon = str(TEMP_DIR / f"storage_{img_hash}_{mode}_{idx}.png")
         if not os.path.exists(temp_icon):
             img_copy.save(temp_icon, 'PNG')
         
@@ -661,8 +678,9 @@ def generate_matching_product_constitution(theme_name="Brown Bear", pack_code="B
     
     Returns paths to generated PDFs.
     """
-    # Load icons from /assets/[theme]/icons/ (Section 12)
-    icon_folder = f'/home/runner/work/small-wins-automation/small-wins-automation/assets/themes/brown_bear/icons'
+    # Load icons from assets/themes/[theme]/icons
+    repo_root = Path(__file__).resolve().parents[2]
+    icon_folder = repo_root / "assets" / "themes" / "brown_bear" / "icons"
     icons, names = load_all_icons(icon_folder)
     
     if not icons:
@@ -687,15 +705,15 @@ def generate_matching_product_constitution(theme_name="Brown Bear", pack_code="B
     num_icons = len(icons)
     # Each level has: 12 matching pages + 2 cutout pages + 1 storage = 15 pages per level
     pages_per_level = num_icons + 2 + 1  # matching + 2 cutouts + storage
-    total_pages = pages_per_level * 4  # 4 levels
+    total_pages = pages_per_level * 5  # 5 levels
     
-    print(f"Total pages: {total_pages} (4 levels × {pages_per_level} pages/level)")
+    print(f"Total pages: {total_pages} (5 levels x {pages_per_level} pages/level)")
     
     page_num = 1
     
     # REORGANIZED: Generate by level first, then by icon within each level
     # This allows each level to be sold separately with its own cutouts and storage labels
-    for level in range(1, 5):
+    for level in range(1, 6):
         print(f"\n=== LEVEL {level} ===")
         
         # Generate all matching pages for this level (all 12 icons)
@@ -719,8 +737,14 @@ def generate_matching_product_constitution(theme_name="Brown Bear", pack_code="B
                 distractor_indices = random.sample(range(len(other_icons)), 2)
                 selected_images = [target_img] * 3 + [other_icons[i] for i in distractor_indices]
                 selected_names = [target_name] * 3 + [other_names[i] for i in distractor_indices]
-            else:  # level == 4
+            elif level == 4:
                 # Level 4: 1 target, 4 distractors
+                distractor_indices = random.sample(range(len(other_icons)), 4)
+                selected_images = [target_img] * 1 + [other_icons[i] for i in distractor_indices]
+                selected_names = [target_name] * 1 + [other_names[i] for i in distractor_indices]
+            else:  # level == 5
+                # Level 5: keep the same layout and visual design as other levels.
+                # Use the hardest distractor pattern (1 target + 4 distractors).
                 distractor_indices = random.sample(range(len(other_icons)), 4)
                 selected_images = [target_img] * 1 + [other_icons[i] for i in distractor_indices]
                 selected_names = [target_name] * 1 + [other_names[i] for i in distractor_indices]
@@ -763,7 +787,7 @@ def generate_matching_product_constitution(theme_name="Brown Bear", pack_code="B
     # Save PDF
     c.save()
     
-    print(f"\n✓ Generated: {output_path}")
+    print(f"\nOK Generated: {output_path}")
     print(f"  Total pages: {total_pages}")
     print(f"  File size: {os.path.getsize(output_path) / 1024:.1f} KB")
     
@@ -816,7 +840,7 @@ def add_preview_watermark(input_pdf_path, output_pdf_path):
     with open(output_pdf_path, 'wb') as output_file:
         writer.write(output_file)
     
-    print(f"✓ Created preview PDF: {output_pdf_path}")
+    print(f"OK Created preview PDF: {output_pdf_path}")
     return output_pdf_path
 
 
@@ -829,7 +853,7 @@ def split_pdf_by_level(full_pdf_path, output_dir, theme_name, pack_code, mode):
     
     # Matching structure: Each level has 15 pages (12 activities + 2 cutouts + 1 storage)
     pages_per_level = 15
-    num_levels = 4
+    num_levels = 5
     
     level_pdfs = []
     
@@ -852,7 +876,7 @@ def split_pdf_by_level(full_pdf_path, output_dir, theme_name, pack_code, mode):
         with open(level_path, 'wb') as output_file:
             writer.write(output_file)
         
-        print(f"  ✓ Level {level} {mode.upper()}: {level_filename} ({pages_per_level} pages)")
+        print(f"  OK Level {level} {mode.upper()}: {level_filename} ({pages_per_level} pages)")
         level_pdfs.append(level_path)
     
     return level_pdfs
@@ -864,7 +888,8 @@ def main():
     print("Brown Bear Matching Cards - Design Constitution Compliant")
     print("=" * 60)
     
-    output_dir = "/home/runner/work/small-wins-automation/small-wins-automation/samples/brown_bear/matching"
+    repo_root = Path(__file__).resolve().parents[2]
+    output_dir = str(repo_root / "samples" / "brown_bear" / "matching")
     
     # Generate full color version
     print("\n[1/4] Generating full COLOR PDF...")
@@ -884,6 +909,10 @@ def main():
         mode='bw'
     )
     
+    if not color_path or not bw_path:
+        print("ERROR Matching PDF generation failed; skipping split/preview steps")
+        return
+
     # Split color PDF by level
     print("\n[3/4] Creating separate COLOR PDFs for each level...")
     color_level_pdfs = split_pdf_by_level(color_path, output_dir, "Brown Bear", "BB03", "color")
@@ -900,28 +929,34 @@ def main():
         preview_path = os.path.join(output_dir, preview_filename)
         add_preview_watermark(color_level_pdf, preview_path)
         preview_pdfs.append(preview_path)
+
+    try:
+        from PyPDF2 import PdfReader
+        total_pages = len(PdfReader(color_path).pages)
+    except Exception:
+        total_pages = "?"
     
     print("\n" + "=" * 60)
-    print("✓ GENERATION COMPLETE")
+    print("OK GENERATION COMPLETE")
     print("=" * 60)
     print(f"\nFull PDFs:")
-    print(f"  • {os.path.basename(color_path)} (60 pages)")
-    print(f"  • {os.path.basename(bw_path)} (60 pages)")
+    print(f"  • {os.path.basename(color_path)} ({total_pages} pages)")
+    print(f"  • {os.path.basename(bw_path)} ({total_pages} pages)")
     print(f"\nLevel PDFs (15 pages each):")
-    for level in range(1, 5):
+    for level in range(1, 6):
         print(f"  Level {level}:")
         print(f"    • brown_bear_matching_level{level}_color.pdf")
         print(f"    • brown_bear_matching_level{level}_bw.pdf")
         print(f"    • brown_bear_matching_level{level}_preview.pdf (with watermark)")
-    print(f"\nDesign Constitution compliance: ✓")
-    print(f"  • Border, accent stripe, title/subtitle: ✓")
-    print(f"  • Activity boxes (1.0\" × 1.0\"): ✓")
-    print(f"  • Velcro dots (0.35\" diameter): ✓")
-    print(f"  • Level 1 watermarks (25% opacity): ✓")
-    print(f"  • Cutout strips (5 icons, touching): ✓")
-    print(f"  • Footer typography (10pt/9pt): ✓")
-    print(f"  • Separate level PDFs: ✓")
-    print(f"  • Preview watermarks: ✓")
+    print(f"\nDesign Constitution compliance: OK")
+    print(f"  • Border, accent stripe, title/subtitle: OK")
+    print(f"  • Activity boxes (1.0\" × 1.0\"): OK")
+    print(f"  • Velcro dots (0.35\" diameter): OK")
+    print(f"  • Level 1 watermarks (25% opacity): OK")
+    print(f"  • Cutout strips (5 icons, touching): OK")
+    print(f"  • Footer typography (10pt/9pt): OK")
+    print(f"  • Separate level PDFs: OK")
+    print(f"  • Preview watermarks: OK")
     
 
 if __name__ == "__main__":

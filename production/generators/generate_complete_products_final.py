@@ -16,7 +16,9 @@ import os
 import sys
 import io
 import tempfile
+import json
 from PyPDF2 import PdfReader, PdfWriter
+from PyPDF2 import PdfMerger
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import inch
@@ -33,12 +35,23 @@ PRODUCT_DIR = BASE_DIR / "samples" / THEME / PRODUCT
 DOCS_DIR = BASE_DIR / "Draft General Docs" / "TOU_etc"
 OUTPUT_DIR = BASE_DIR / "production" / "final_products" / THEME / PRODUCT
 
+def _load_matching_level_names(theme_id: str) -> dict[int, str]:
+    theme_path = BASE_DIR / "themes" / f"{theme_id}.json"
+    with open(theme_path, "r", encoding="utf-8") as f:
+        theme = json.load(f)
+    levels = theme["matching"]["levels"]
+    return {i: levels[f"L{i}"]["name"] for i in range(1, 6)}
+
+
+_LEVEL_NAMES = _load_matching_level_names(THEME)
+
 # Level definitions
 LEVELS = {
-    1: {"name": "Errorless", "file_suffix": "level1"},
-    2: {"name": "Easy", "file_suffix": "level2"},
-    3: {"name": "Medium", "file_suffix": "level3"},
-    4: {"name": "Challenge", "file_suffix": "level4"}
+    1: {"name": _LEVEL_NAMES[1], "file_suffix": "level1"},
+    2: {"name": _LEVEL_NAMES[2], "file_suffix": "level2"},
+    3: {"name": _LEVEL_NAMES[3], "file_suffix": "level3"},
+    4: {"name": _LEVEL_NAMES[4], "file_suffix": "level4"},
+    5: {"name": _LEVEL_NAMES[5], "file_suffix": "level5"},
 }
 
 def add_page_numbers_to_pdf(input_pdf_path, output_pdf_path, start_page=1):
@@ -64,9 +77,9 @@ def add_page_numbers_to_pdf(input_pdf_path, output_pdf_path, start_page=1):
         actual_page = start_page + page_num
         page_text = f"Page {actual_page}/{total_pages + start_page - 1}"
         
-        # Position in bottom right corner (0.6" from edge)
+        # Position in bottom right corner, safely above the Small Wins bottom border.
         x_pos = width - (1.0 * inch)
-        y_pos = 0.4 * inch
+        y_pos = 0.6 * inch
         
         can.drawString(x_pos, y_pos, page_text)
         can.save()
@@ -82,7 +95,7 @@ def add_page_numbers_to_pdf(input_pdf_path, output_pdf_path, start_page=1):
     with open(output_pdf_path, 'wb') as output_file:
         writer.write(output_file)
     
-    print(f"  ✓ Added page numbers: {os.path.basename(output_pdf_path)}")
+    print(f"  OK Added page numbers: {os.path.basename(output_pdf_path)}")
     return total_pages
 
 def merge_complete_product(level, mode='color'):
@@ -117,11 +130,11 @@ def merge_complete_product(level, mode='color'):
     
     # Check if files exist
     if not os.path.exists(cover_pdf):
-        print(f"  ⚠ Cover not found: {cover_pdf}")
+        print(f"  WARN Cover not found: {cover_pdf}")
         return
     
     if not os.path.exists(product_pdf):
-        print(f"  ⚠ Product not found: {product_pdf}")
+        print(f"  WARN Product not found: {product_pdf}")
         return
     
     # Create temporary file with page numbers
@@ -158,7 +171,7 @@ def merge_complete_product(level, mode='color'):
     os.unlink(temp_path)
     
     total_final_pages = 1 + product_pages + (len(PdfReader(how_to_use_pdf).pages) if os.path.exists(how_to_use_pdf) else 0)
-    print(f"✓ Created: {output_filename} ({total_final_pages} pages)")
+    print(f"OK Created: {output_filename} ({total_final_pages} pages)")
 
 def generate_all_products():
     """Generate complete products for all levels"""
@@ -170,7 +183,7 @@ def generate_all_products():
     print("=" * 70)
     print()
     
-    for level in [1, 2, 3, 4]:
+    for level in [1, 2, 3, 4, 5]:
         level_name = LEVELS[level]["name"]
         print(f"Processing Level {level} ({level_name}):")
         
@@ -181,9 +194,37 @@ def generate_all_products():
         merge_complete_product(level, mode='bw')
         
         print()
+
+    # Build the full bundle PDFs (all levels merged) so this folder is the single
+    # source of truth for FINAL products.
+    for mode in ["color", "bw"]:
+        out_name = f"brown_bear_matching_{mode}_FINAL.pdf"
+        out_path = OUTPUT_DIR / out_name
+
+        level_paths = []
+        for level in [1, 2, 3, 4, 5]:
+            level_name = LEVELS[level]["name"]
+            level_paths.append(OUTPUT_DIR / f"brown_bear_matching_level{level}_{level_name}_{mode}_FINAL.pdf")
+
+        missing = [str(p) for p in level_paths if not p.exists()]
+        if missing:
+            print(f"  WARN Skipping full bundle ({mode}): missing level FINAL PDFs")
+            for m in missing:
+                print(f"    WARN Missing: {m}")
+            continue
+
+        merger = PdfMerger()
+        try:
+            for p in level_paths:
+                merger.append(str(p))
+            with open(out_path, "wb") as f:
+                merger.write(f)
+            print(f"OK Created: {out_name}")
+        finally:
+            merger.close()
     
     print("=" * 70)
-    print("✓ All complete products generated successfully!")
+    print("OK All complete products generated successfully!")
     print("=" * 70)
 
 if __name__ == "__main__":
