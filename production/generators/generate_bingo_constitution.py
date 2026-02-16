@@ -1,0 +1,147 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import os
+import shutil
+from io import BytesIO
+from pathlib import Path
+
+from PyPDF2 import PdfMerger, PdfReader, PdfWriter
+from reportlab.lib.colors import HexColor
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+
+
+THEME_ID = "brown_bear"
+PRODUCT = "bingo"
+
+LEVEL_LABELS = {
+    1: "Real_Photos",
+    2: "Icons_Only",
+    3: "Real_Photos",
+    4: "Real_Photos_Text",
+    5: "Text_Only",
+}
+
+LEVEL_COLORS = {
+    1: "#FF8C42",
+    2: "#4A90E2",
+    3: "#7CB342",
+    4: "#9C27B0",
+    5: "#E74C3C",
+}
+
+
+def _get_project_root() -> Path:
+    return Path(__file__).resolve().parents[2]
+
+
+def add_preview_watermark(input_pdf_path: str, output_pdf_path: str) -> str:
+    reader = PdfReader(input_pdf_path)
+    writer = PdfWriter()
+
+    packet = BytesIO()
+    can = canvas.Canvas(packet, pagesize=letter)
+
+    width, height = letter
+    can.saveState()
+    can.setFont("Helvetica-Bold", 110)
+    can.setFillColor(HexColor("#808080"))
+    try:
+        can.setFillAlpha(0.22)
+    except Exception:
+        pass
+
+    can.translate(width / 2, height / 2)
+    can.rotate(30)
+    can.drawCentredString(0, 0, "PREVIEW")
+
+    can.restoreState()
+    can.save()
+
+    packet.seek(0)
+    watermark_pdf = PdfReader(packet)
+    watermark_page = watermark_pdf.pages[0]
+
+    for page in reader.pages:
+        page.merge_page(watermark_page)
+        writer.add_page(page)
+
+    with open(output_pdf_path, "wb") as output_file:
+        writer.write(output_file)
+
+    print(f"OK Created preview PDF: {output_pdf_path}")
+    return output_pdf_path
+
+
+def _copy_and_rename_level_pdfs(samples_dir: Path, final_dir: Path) -> dict:
+    outputs: dict[str, object] = {"levels": {}, "quick_start": None}
+
+    quick_start_src = samples_dir / "brown_bear_bingo_quick_start.pdf"
+    if quick_start_src.exists():
+        quick_start_dst = final_dir / "brown_bear_bingo_quick_start.pdf"
+        shutil.copy2(quick_start_src, quick_start_dst)
+        outputs["quick_start"] = quick_start_dst
+
+    for level in range(1, 6):
+        label = LEVEL_LABELS[level]
+        for mode in ["color", "bw"]:
+            src = samples_dir / f"brown_bear_bingo_level{level}_{mode}.pdf"
+            if not src.exists():
+                raise FileNotFoundError(str(src))
+            dst = final_dir / f"brown_bear_bingo_level{level}_{label}_{mode}_FINAL.pdf"
+            shutil.copy2(src, dst)
+            outputs["levels"][(level, mode)] = dst
+
+    return outputs
+
+
+def _merge_full_product(level_pdfs: list[Path], output_path: Path) -> Path:
+    merger = PdfMerger()
+    for p in level_pdfs:
+        merger.append(str(p))
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(output_path, "wb") as f:
+        merger.write(f)
+    merger.close()
+    return output_path
+
+
+def main() -> int:
+    project_root = _get_project_root()
+
+    samples_dir = project_root / "samples" / THEME_ID / PRODUCT
+    final_dir = project_root / "production" / "final_products" / THEME_ID / PRODUCT
+    os.makedirs(final_dir, exist_ok=True)
+
+    if not samples_dir.exists():
+        raise SystemExit(f"Missing samples dir: {samples_dir}")
+
+    print("=" * 60)
+    print("Brown Bear Bingo - Production Export")
+    print("=" * 60)
+
+    outputs = _copy_and_rename_level_pdfs(samples_dir, final_dir)
+
+    color_levels = [outputs["levels"][(lvl, "color")] for lvl in range(1, 6)]
+    bw_levels = [outputs["levels"][(lvl, "bw")] for lvl in range(1, 6)]
+
+    color_full = _merge_full_product(color_levels, final_dir / "brown_bear_bingo_color_FINAL.pdf")
+    bw_full = _merge_full_product(bw_levels, final_dir / "brown_bear_bingo_bw_FINAL.pdf")
+
+    add_preview_watermark(str(color_full), str(final_dir / "brown_bear_bingo_color_PREVIEW.pdf"))
+    add_preview_watermark(str(bw_full), str(final_dir / "brown_bear_bingo_bw_PREVIEW.pdf"))
+
+    for lvl in range(1, 6):
+        src = outputs["levels"][(lvl, "color")]
+        dst = final_dir / f"brown_bear_bingo_level{lvl}_preview.pdf"
+        add_preview_watermark(str(src), str(dst))
+        print(f"OK Level {lvl} preview: {dst.name}")
+
+    print("\nOK Final products exported to:")
+    print(f"  {final_dir}")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
