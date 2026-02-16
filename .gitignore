@@ -97,6 +97,28 @@ assets/themes/**/icons_colored/
 assets/themes/**/icons_with_labels/
 assets/themes/**/AAC boards/
 
+Draft products to review/
+Evergreen Task Cards/
+review_pdfs_old/
+production/_audit_renders/
+assets/canva_templates/
+assets/themes/hungry_caterpillar/
+
+Draft General Docs/Quick_Start_Guides/Quick_Start_Guide_Bingo.html
+Draft General Docs/Quick_Start_Guides/Quick_Start_Guide_Matching_Sampler.html
+
+generators/i_spy_count/
+generators/sentence_builder/
+generators/sequencing/
+generators/sorting/
+generators/spin_cover/
+generators/task_clip_cards/
+generators/wh_questions/
+generators/word_search/
+generators/aac/
+
+generate_bingo.py
+
 # Ignore marketing thumbnails if generated
 production/marketing/**
 
