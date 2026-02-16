@@ -75,11 +75,27 @@ htmlcov/
 logs/
 test_output.pdf
 __pycache__/
-output/# Ignore generated PDFs
+output/ # Ignore generated PDFs
 review_pdfs/
 production/**/*.pdf
 samples/**/*.pdf
 exports/
+
+# Ignore generated ZIP packages
+*.zip
+production/**/tpt_zips/
+production/generators/tpt_packages/
+
+# Ignore generated product output folders
+production/final_products/
+production/upload_ready/
+final_products/
+
+# Ignore large asset dumps (generated/derived)
+assets/themes/**/icons_bw/
+assets/themes/**/icons_colored/
+assets/themes/**/icons_with_labels/
+assets/themes/**/AAC boards/
 
 # Ignore marketing thumbnails if generated
 production/marketing/**
@@ -87,4 +103,3 @@ production/marketing/**
 # Ignore any auto-generated builds
 build/
 dist/
-
