@@ -137,13 +137,13 @@ def create_level_package(level):
             else:
                 print("  WARNING Missing: Terms_of_Use_Credits.pdf")
 
-            # Add level-specific Quick Start Guide
-            quick_start_pdf = SUPPORT_DOCS_DIR / f"Quick_Start_Guide_Matching_Level{level_num}.pdf"
+            # Add professional Quick Start Guide (single guide for all levels)
+            quick_start_pdf = SAMPLES_DIR / "brown_bear_matching_quick_start.pdf"
             if quick_start_pdf.exists():
-                zipf.write(quick_start_pdf, f"Quick_Start_Guide_Matching_Level{level_num}.pdf")
-                print(f"  OK Added: Quick_Start_Guide_Matching_Level{level_num}.pdf ({quick_start_pdf.stat().st_size / 1024:.0f} KB)")
+                zipf.write(quick_start_pdf, "Quick_Start_Matching.pdf")
+                print(f"  OK Added: Quick_Start_Matching.pdf ({quick_start_pdf.stat().st_size / 1024:.0f} KB)")
             else:
-                print(f"  WARNING Missing: Quick_Start_Guide_Matching_Level{level_num}.pdf")
+                print(f"  WARNING Missing: {quick_start_pdf.name}")
         
         # Get ZIP file size
         zip_size = zip_filename.stat().st_size / 1024 / 1024
