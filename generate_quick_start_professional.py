@@ -445,11 +445,134 @@ def generate_find_cover_quick_start(output_path, theme_name="Brown Bear", pack_c
     print(f"OK Generated: {output_path}")
 
 
+def generate_bingo_quick_start(output_path, theme_name="Brown Bear", pack_code="BB02"):
+    """Generate professional Bingo Quick Start (single page)."""
+    width, height = letter
+    c = canvas.Canvas(output_path, pagesize=letter)
+    
+    # Page structure
+    draw_page_border(c, width, height)
+    header_y = draw_header(c, width, height, "Bingo", theme_name)
+    
+    # 5 level cards: 3 on top row, 2 on bottom row
+    card_width = 2.35 * inch
+    card_height = 1.20 * inch
+    h_gap = 0.12 * inch
+    v_gap = 0.08 * inch
+    
+    total_width_3 = card_width * 3 + h_gap * 2
+    left_x = (width - total_width_3) / 2
+    
+    top_y = header_y - 0.08*inch - card_height
+    bottom_y = top_y - card_height - v_gap
+    
+    # Row 1: Levels 1-3
+    draw_level_card(c, left_x, top_y, card_width, card_height, 1,
+                    "Real Photos", [
+                        "3\u00d73 grid with real photos",
+                        "Great visual anchor for new players",
+                    ])
+    draw_level_card(c, left_x + card_width + h_gap, top_y, card_width, card_height, 2,
+                    "Icons Only", [
+                        "3\u00d73 grid with PCS icons",
+                        "Builds symbol recognition",
+                    ])
+    draw_level_card(c, left_x + 2*(card_width + h_gap), top_y, card_width, card_height, 3,
+                    "Photos + Words", [
+                        "4\u00d74 grid, photos with labels",
+                        "Pairs image with text",
+                    ])
+    
+    # Row 2: Levels 4-5 (centered)
+    total_width_2 = card_width * 2 + h_gap
+    row2_left = (width - total_width_2) / 2
+    draw_level_card(c, row2_left, bottom_y, card_width, card_height, 4,
+                    "Icons + Words", [
+                        "4\u00d74 grid, icons with labels",
+                        "Higher-level discrimination",
+                    ])
+    draw_level_card(c, row2_left + card_width + h_gap, bottom_y, card_width, card_height, 5,
+                    "Text Only", [
+                        "4\u00d74 grid, words only",
+                        "For emerging readers",
+                    ])
+    
+    total_width = total_width_3
+    
+    # Tips section
+    tips_y = bottom_y - 0.1*inch
+    tips_height = 0.9*inch
+    tips_box_y = tips_y - tips_height
+    
+    c.setFillColor(SECTION_BG)
+    c.roundRect(left_x, tips_box_y, total_width, tips_height, 6, stroke=0, fill=1)
+    
+    c.setFillColor(TEAL)
+    c.setFont(TITLE_FONT, SECTION_HEADER_SIZE)
+    c.drawCentredString(width/2, tips_box_y + tips_height - 0.18*inch, "\U0001f4a1 Tips for Complex Learners & Special Needs")
+    
+    c.setFillColor(TEXT_COLOR)
+    c.setFont(BODY_FONT, BODY_SIZE - 1)
+    tips = [
+        "\u2713 Start at Level 1 (3\u00d73 grid) \u2014 fewer choices = more success",
+        "\u2713 Use physical chips or dabbers \u2014 adds a sensory/motor component",
+        "\u2713 Allow 10\u201315 seconds processing time before prompting",
+        "\u2713 Accept AAC responses (device, sign, pointing) \u2014 don\u2019t require verbal speech",
+    ]
+    tip_y = tips_box_y + tips_height - 0.38*inch
+    for tip in tips:
+        c.drawCentredString(width/2, tip_y, tip)
+        tip_y -= 0.14*inch
+    
+    # 3-column bottom section
+    section_width = (total_width - 2*h_gap) / 3
+    section_height = 1.55*inch
+    section_y = tips_box_y - 0.1*inch - section_height
+    
+    # How to Play
+    draw_section(c, left_x, section_y, section_width, section_height,
+                 "\U0001f3ae How to Play", LEVEL_COLORS[2], [
+                     "Give each player a card",
+                     "Draw a calling card",
+                     "Players cover matches",
+                     "Win: line, 4 corners,",
+                     "X pattern, or blackout",
+                     "Celebrate the winner!",
+                 ])
+    
+    # AAC & Communication
+    draw_section(c, left_x + section_width + h_gap, section_y, section_width, section_height,
+                 "\U0001f399\ufe0f AAC & Prompts", LEVEL_COLORS[1], [
+                     "Core Words: look, find,",
+                     "same, cover, more, done",
+                     "Model on device first",
+                     "Praise: \"Great match!\"",
+                     "\"You found it!\"",
+                     "\"Good looking!\"",
+                 ])
+    
+    # Preparation & Storage
+    draw_section(c, left_x + 2*(section_width + h_gap), section_y, section_width, section_height,
+                 "\U0001f527 Prep & Storage", LEVEL_COLORS[3], [
+                     "Print: cardstock",
+                     "Laminate: 3\u20135 mil",
+                     "Cut calling cards",
+                     "Use chips or dabbers",
+                     "Store in labelled bags",
+                     "Color-code by level",
+                 ])
+    
+    draw_footer(c, width, pack_code, theme_name, "Bingo")
+    c.save()
+    print(f"OK Generated: {output_path}")
+
+
 if __name__ == "__main__":
     # Create output directories
     os.makedirs("review_pdfs", exist_ok=True)
     os.makedirs("samples/brown_bear/matching", exist_ok=True)
     os.makedirs("samples/brown_bear/find_cover", exist_ok=True)
+    os.makedirs("samples/brown_bear/bingo", exist_ok=True)
     
     # Generate Matching Quick Start
     generate_matching_quick_start("review_pdfs/brown_bear_matching_quick_start.pdf")
@@ -459,6 +582,11 @@ if __name__ == "__main__":
     generate_find_cover_quick_start("review_pdfs/brown_bear_find_cover_quick_start.pdf")
     generate_find_cover_quick_start("samples/brown_bear/find_cover/brown_bear_find_cover_quick_start.pdf")
     
+    # Generate Bingo Quick Start
+    generate_bingo_quick_start("review_pdfs/brown_bear_bingo_quick_start.pdf")
+    generate_bingo_quick_start("samples/brown_bear/bingo/brown_bear_bingo_quick_start.pdf")
+    
     print("\nOK Professional Quick Start guides generated!")
     print("  Matching: review_pdfs/brown_bear_matching_quick_start.pdf")
     print("  Find & Cover: review_pdfs/brown_bear_find_cover_quick_start.pdf")
+    print("  Bingo: review_pdfs/brown_bear_bingo_quick_start.pdf")
