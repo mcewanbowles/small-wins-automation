@@ -77,12 +77,12 @@ BODY_SIZE = 10
 SMALL_SIZE = 8
 STEP_NUM_SIZE = 7
 
-# Spacing constants - generous and even
-SEC_GAP = 18         # gap between sections
-LINE_H = 14          # line height for body text in boxes
-BULLET_H = 14        # line height for bullet items
-STEP_H = 15          # line height for numbered steps
-HEADING_AFTER = 9    # gap after heading underline before content
+# Spacing constants - generous, even, fill the page
+SEC_GAP = 28         # gap between sections
+LINE_H = 15          # line height for body text in boxes
+BULLET_H = 15        # line height for bullet items
+STEP_H = 16          # line height for numbered steps
+HEADING_AFTER = 14   # gap after heading underline before content
 
 LOGO_PATH = Path(__file__).parent / 'assets' / 'branding' / 'logos' / 'small_wins_logo_with_text.png'
 
