@@ -772,6 +772,130 @@ def generate_aac_quick_start(output_path, theme_name='Brown Bear', pack_code='BB
 
 
 # ===================================================================
+# SEQUENCING Quick Start
+# ===================================================================
+
+def generate_sequencing_quick_start(output_path, theme_name='Brown Bear', pack_code='BB-SEQ'):
+    c = canvas.Canvas(str(output_path), pagesize=letter)
+    _draw_border(c)
+    y = _draw_header(c, 'QUICK START GUIDE', f'Sequencing \u2014 {theme_name}')
+
+    # ---- LEFT COLUMN ----
+    ly = y
+    ly = _section_heading(c, COL1_X, ly, 'What this resource is')
+    ly = _content_box(c, COL1_X, ly, COL_W, [
+        f'A story sequencing activity using {theme_name}',
+        'characters. Students put events in order',
+        'to retell the story \u2014 building comprehension',
+        'and narrative skills.',
+    ], border_color=TEAL)
+
+    ly -= SEC_GAP
+    ly = _section_heading(c, COL1_X, ly, 'Part of a Differentiated Series')
+    ly = _highlight_box(c, COL1_X, ly, COL_W, [
+        ('4 levels of differentiation!', ''),
+        'From visual-only to writing responses.',
+        ('Save with the complete bundle!', ''),
+    ])
+
+    ly -= SEC_GAP
+    ly = _section_heading(c, COL1_X, ly, 'What\'s included')
+    ly = _bullet_list(c, COL1_X + 6, ly, [
+        '4 levelled sequencing activity pages',
+        'Student template page',
+        'Cut-out picture cards',
+        'Answer key',
+        'Colour + Black & White versions',
+    ])
+
+    ly -= SEC_GAP
+    ly = _section_heading(c, COL1_X, ly, 'Set-up steps')
+    ly = _numbered_list(c, COL1_X + 6, ly, [
+        'Print activity pages (Colour or B/W).',
+        'Print and cut out the picture cards.',
+        '(Optional) Laminate for reuse.',
+        '(Optional) Add Velcro for hands-on use.',
+        'Store cards with matching activity page.',
+    ])
+
+    ly -= SEC_GAP
+    ly = _section_heading(c, COL1_X, ly, 'Prep')
+    ly = _content_box(c, COL1_X, ly, COL_W, [
+        ('You\'ll need:', 'printer + scissors'),
+        ('Optional:', 'cardstock, laminator, Velcro, glue'),
+    ], border_color=TEAL)
+
+    ly -= SEC_GAP
+    ly = _section_heading(c, COL1_X, ly, 'The 4 levels')
+    ly = _numbered_list(c, COL1_X + 6, ly, [
+        'Look at the story order (visual model)',
+        'Cut and paste in story order',
+        'Pictures + words \u2014 read the sequence',
+        'Write the names in order',
+    ])
+
+    # ---- RIGHT COLUMN ----
+    ry = y
+    ry = _section_heading(c, COL2_X, ry, 'Teaching support (prompting ladder)')
+    ry = _content_box(c, COL2_X, ry, COL_W, [
+        'Use the least help possible, then fade:',
+    ], border_color=TEAL)
+    ry -= 2
+    ry = _numbered_list(c, COL2_X + 6, ry, [
+        'Independent (wait time)',
+        'Gesture (point to next event)',
+        'Verbal cue ("what comes next?")',
+        'Model (place one card)',
+        'Physical support (only if needed)',
+    ])
+
+    ry -= SEC_GAP
+    ry = _section_heading(c, COL2_X, ry, 'Communication + AAC')
+    ry = _info_box(c, COL2_X, ry, COL_W, [
+        ('AAC users:', 'Perfect for retelling!'),
+        'Model: first, next, then, last, done.',
+        'Use the board to narrate the sequence.',
+    ])
+
+    ry -= SEC_GAP
+    ry = _section_heading(c, COL2_X, ry, 'Ways to use this set')
+    ry = _bullet_list(c, COL2_X + 6, ry, [
+        ('Shared reading:', 'sequence after reading aloud'),
+        ('Work station:', 'cards + template in a pouch'),
+        ('1:1 teaching:', 'guide through each step'),
+        ('Assessment:', 'check retelling accuracy'),
+        ('Morning work:', 'independent practice'),
+    ])
+
+    ry -= SEC_GAP
+    ry = _section_heading(c, COL2_X, ry, 'Troubleshooting')
+    ry = _bullet_list(c, COL2_X + 6, ry, [
+        ('If confused:', 'Start with 3 cards, then build up'),
+        ('If stuck:', 'Re-read the story together first'),
+        ('If mastering:', 'Try Level 4 writing!'),
+    ])
+
+    ry -= SEC_GAP
+    ry = _section_heading(c, COL2_X, ry, 'Next steps')
+    ry = _highlight_box(c, COL2_X, ry, COL_W, [
+        ('Sequencing independently?', ''),
+        'Progress to the next level!',
+    ])
+
+    ry -= SEC_GAP
+    ry = _section_heading(c, COL2_X, ry, 'Quick extensions')
+    ry = _bullet_list(c, COL2_X + 6, ry, [
+        ('Retell aloud:', 'Use cards as visual prompts'),
+        ('Draw & write:', 'Create own sequence'),
+        ('Partner work:', 'Take turns placing cards'),
+    ])
+
+    _draw_footer(c, f'{theme_name} Sequencing', pack_code)
+    c.save()
+    print(f'OK Generated: {output_path}')
+
+
+# ===================================================================
 # Main
 # ===================================================================
 
@@ -781,6 +905,7 @@ if __name__ == '__main__':
     os.makedirs('samples/brown_bear/find_cover', exist_ok=True)
     os.makedirs('samples/brown_bear/bingo', exist_ok=True)
     os.makedirs('samples/brown_bear/aac', exist_ok=True)
+    os.makedirs('samples/brown_bear/sequencing', exist_ok=True)
 
     generate_matching_quick_start('review_pdfs/brown_bear_matching_quick_start.pdf')
     generate_matching_quick_start('samples/brown_bear/matching/brown_bear_matching_quick_start.pdf')
@@ -794,8 +919,12 @@ if __name__ == '__main__':
     generate_aac_quick_start('review_pdfs/brown_bear_aac_quick_start.pdf')
     generate_aac_quick_start('samples/brown_bear/aac/brown_bear_aac_quick_start.pdf')
 
+    generate_sequencing_quick_start('review_pdfs/brown_bear_sequencing_quick_start.pdf')
+    generate_sequencing_quick_start('samples/brown_bear/sequencing/brown_bear_sequencing_quick_start.pdf')
+
     print('\nOK Professional Quick Start guides generated!')
     print('  Matching:     review_pdfs/brown_bear_matching_quick_start.pdf')
     print('  Find & Cover: review_pdfs/brown_bear_find_cover_quick_start.pdf')
     print('  Bingo:        review_pdfs/brown_bear_bingo_quick_start.pdf')
     print('  AAC:          review_pdfs/brown_bear_aac_quick_start.pdf')
+    print('  Sequencing:   review_pdfs/brown_bear_sequencing_quick_start.pdf')
