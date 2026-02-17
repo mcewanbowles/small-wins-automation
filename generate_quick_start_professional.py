@@ -646,6 +646,132 @@ def generate_bingo_quick_start(output_path, theme_name='Brown Bear', pack_code='
 
 
 # ===================================================================
+# AAC LITERACY CHAT BOARDS Quick Start
+# ===================================================================
+
+def generate_aac_quick_start(output_path, theme_name='Brown Bear', pack_code='BB-AAC'):
+    c = canvas.Canvas(str(output_path), pagesize=letter)
+    _draw_border(c)
+    y = _draw_header(c, 'QUICK START GUIDE', f'AAC Literacy Chat Boards \u2014 {theme_name}')
+
+    # ---- LEFT COLUMN ----
+    ly = y
+    ly = _section_heading(c, COL1_X, ly, 'What this resource is')
+    ly = _content_box(c, COL1_X, ly, COL_W, [
+        'AAC communication boards designed for',
+        f'book-based literacy activities using {theme_name}',
+        'vocabulary. Supports aided language input',
+        'and core word modeling during reading.',
+    ], border_color=TEAL)
+
+    ly -= SEC_GAP
+    ly = _section_heading(c, COL1_X, ly, 'What\'s included')
+    ly = _bullet_list(c, COL1_X + 6, ly, [
+        'Literacy Chat Boards (landscape)',
+        'Communication Strips (portrait + landscape)',
+        'Core Word Board',
+        'Colour + Black & White versions',
+        ('Bonus:', 'Storage labels'),
+    ])
+
+    ly -= SEC_GAP
+    ly = _section_heading(c, COL1_X, ly, 'Set-up steps')
+    ly = _numbered_list(c, COL1_X + 6, ly, [
+        'Print boards (Colour or B/W).',
+        '(Optional) Print on cardstock.',
+        '(Optional) Laminate for durability.',
+        'Attach to clipboard or display stand.',
+        'Place within student reach during reading.',
+    ])
+
+    ly -= SEC_GAP
+    ly = _section_heading(c, COL1_X, ly, 'Prep')
+    ly = _content_box(c, COL1_X, ly, COL_W, [
+        ('You\'ll need:', 'printer + the book!'),
+        ('Optional:', 'cardstock, laminator, clipboard'),
+    ], border_color=TEAL)
+
+    ly -= SEC_GAP
+    ly = _section_heading(c, COL1_X, ly, 'How to use during reading')
+    ly = _numbered_list(c, COL1_X + 6, ly, [
+        'Read the book aloud to the student.',
+        'Pause at key vocabulary moments.',
+        'Point to the matching icon on the board.',
+        'Model the word on AAC device + board.',
+        'Encourage student to point or activate.',
+    ])
+
+    ly -= SEC_GAP
+    ly = _section_heading(c, COL1_X, ly, 'Core words to model')
+    ly = _bullet_list(c, COL1_X + 6, ly, [
+        ('During reading:', 'look, more, turn, again'),
+        ('Commenting:', 'I see, big, little, same'),
+        ('Requesting:', 'want, help, open, read'),
+    ])
+
+    # ---- RIGHT COLUMN ----
+    ry = y
+    ry = _section_heading(c, COL2_X, ry, 'Teaching support (prompting ladder)')
+    ry = _content_box(c, COL2_X, ry, COL_W, [
+        'Use the least help possible, then fade:',
+    ], border_color=TEAL)
+    ry -= 2
+    ry = _numbered_list(c, COL2_X + 6, ry, [
+        'Independent (wait time)',
+        'Gesture (point to icon on board)',
+        'Verbal cue ("what do you see?")',
+        'Model (point + say the word)',
+        'Physical support (only if needed)',
+    ])
+
+    ry -= SEC_GAP
+    ry = _section_heading(c, COL2_X, ry, 'Communication + AAC')
+    ry = _info_box(c, COL2_X, ry, COL_W, [
+        ('Aided Language Input:', 'Point to symbols'),
+        'on the board AS you read. This models',
+        'how to use AAC during literacy activities.',
+        'Consistency builds communication skills!',
+    ])
+
+    ry -= SEC_GAP
+    ry = _section_heading(c, COL2_X, ry, 'Ways to use this set')
+    ry = _bullet_list(c, COL2_X + 6, ry, [
+        ('Shared reading:', 'model words while reading'),
+        ('Independent browsing:', 'student + book + board'),
+        ('Retelling:', 'student uses board to retell'),
+        ('Circle time:', 'whole class shared reading'),
+        ('1:1 therapy:', 'SLP or OT session tool'),
+    ])
+
+    ry -= SEC_GAP
+    ry = _section_heading(c, COL2_X, ry, 'Troubleshooting')
+    ry = _bullet_list(c, COL2_X + 6, ry, [
+        ('If overwhelmed:', 'Cover some icons, reveal gradually'),
+        ('If not engaging:', 'Use animated reading voice'),
+        ('If mastering:', 'Ask "what happens next?"'),
+    ])
+
+    ry -= SEC_GAP
+    ry = _section_heading(c, COL2_X, ry, 'Next steps')
+    ry = _highlight_box(c, COL2_X, ry, COL_W, [
+        ('Student pointing independently?', ''),
+        'Try other books in the series!',
+    ])
+
+    ry -= SEC_GAP
+    ry = _section_heading(c, COL2_X, ry, 'Prep & Storage')
+    ry = _content_box(c, COL2_X, ry, COL_W, [
+        'Laminate boards for repeated use.',
+        'Store with the matching book.',
+        'Use a clipboard for easy display.',
+    ], border_color=TEAL)
+
+    _draw_footer(c, f'{theme_name} AAC Literacy Chat Boards', pack_code)
+    c.save()
+    print(f'OK Generated: {output_path}')
+
+
+# ===================================================================
 # Main
 # ===================================================================
 
@@ -654,6 +780,7 @@ if __name__ == '__main__':
     os.makedirs('samples/brown_bear/matching', exist_ok=True)
     os.makedirs('samples/brown_bear/find_cover', exist_ok=True)
     os.makedirs('samples/brown_bear/bingo', exist_ok=True)
+    os.makedirs('samples/brown_bear/aac', exist_ok=True)
 
     generate_matching_quick_start('review_pdfs/brown_bear_matching_quick_start.pdf')
     generate_matching_quick_start('samples/brown_bear/matching/brown_bear_matching_quick_start.pdf')
@@ -664,7 +791,11 @@ if __name__ == '__main__':
     generate_bingo_quick_start('review_pdfs/brown_bear_bingo_quick_start.pdf')
     generate_bingo_quick_start('samples/brown_bear/bingo/brown_bear_bingo_quick_start.pdf')
 
+    generate_aac_quick_start('review_pdfs/brown_bear_aac_quick_start.pdf')
+    generate_aac_quick_start('samples/brown_bear/aac/brown_bear_aac_quick_start.pdf')
+
     print('\nOK Professional Quick Start guides generated!')
     print('  Matching:     review_pdfs/brown_bear_matching_quick_start.pdf')
     print('  Find & Cover: review_pdfs/brown_bear_find_cover_quick_start.pdf')
     print('  Bingo:        review_pdfs/brown_bear_bingo_quick_start.pdf')
+    print('  AAC:          review_pdfs/brown_bear_aac_quick_start.pdf')
