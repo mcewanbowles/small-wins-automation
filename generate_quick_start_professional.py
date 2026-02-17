@@ -78,11 +78,11 @@ SMALL_SIZE = 8
 STEP_NUM_SIZE = 7
 
 # Spacing constants - generous and even
-SEC_GAP = 12         # gap between sections
-LINE_H = 13          # line height for body text in boxes
-BULLET_H = 13        # line height for bullet items
-STEP_H = 14          # line height for numbered steps
-HEADING_AFTER = 7    # gap after heading underline before content
+SEC_GAP = 18         # gap between sections
+LINE_H = 14          # line height for body text in boxes
+BULLET_H = 14        # line height for bullet items
+STEP_H = 15          # line height for numbered steps
+HEADING_AFTER = 9    # gap after heading underline before content
 
 LOGO_PATH = Path(__file__).parent / 'assets' / 'branding' / 'logos' / 'small_wins_logo_with_text.png'
 
@@ -130,7 +130,7 @@ def _draw_header(c, title, subtitle):
     c.drawCentredString(mid_x, accent_y + accent_h * 0.2, subtitle)
 
     # Return y with generous padding below header
-    return accent_y - 0.2 * inch
+    return accent_y - 0.35 * inch
 
 
 def _draw_footer(c, product_name, pack_code):
