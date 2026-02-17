@@ -78,7 +78,7 @@ SMALL_SIZE = 8
 STEP_NUM_SIZE = 7
 
 # Spacing constants - generous, even, fill the page
-SEC_GAP = 50         # gap between sections
+SEC_GAP = 12         # gap between sections
 LINE_H = 15          # line height for body text in boxes
 BULLET_H = 15        # line height for bullet items
 STEP_H = 16          # line height for numbered steps
