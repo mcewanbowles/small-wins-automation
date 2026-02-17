@@ -29,7 +29,7 @@ LEVELS = [
     {"num": 1, "name": "Real_Photos"},
     {"num": 2, "name": "Icons_Only"},
     {"num": 3, "name": "Real_Photos"},
-    {"num": 4, "name": "Real_Photos_Text"},
+    {"num": 4, "name": "Icons_With_Labels"},
     {"num": 5, "name": "Text_Only"},
 ]
 
@@ -40,6 +40,7 @@ OUTPUT_DIR = FINAL_DIR / "tpt_zips"
 
 TOU_PDF = SUPPORT_DOCS_DIR / "Terms_of_Use_Credits.pdf"
 QUICK_START_PDF = FINAL_DIR / f"{THEME}_{PRODUCT}_quick_start.pdf"
+STORAGE_LABELS_PDF = FINAL_DIR / f"{THEME}_{PRODUCT}_storage_labels_color_FINAL.pdf"
 
 
 def create_output_dir() -> None:
@@ -106,6 +107,12 @@ def create_level_package(level: dict) -> Path | None:
                 print(f"  OK Added: Quick_Start_Bingo.pdf ({QUICK_START_PDF.stat().st_size / 1024:.0f} KB)")
             else:
                 print(f"  WARNING Missing: {QUICK_START_PDF.name}")
+
+            if STORAGE_LABELS_PDF.exists():
+                zipf.write(STORAGE_LABELS_PDF, "Storage_Labels.pdf")
+                print(f"  OK Added: Storage_Labels.pdf ({STORAGE_LABELS_PDF.stat().st_size / 1024:.0f} KB)")
+            else:
+                print(f"  WARNING Missing: {STORAGE_LABELS_PDF.name}")
 
         zip_size = zip_filename.stat().st_size / 1024 / 1024
         print(f"\nOK Created: {zip_filename.name} ({zip_size:.1f} MB)")

@@ -7,6 +7,8 @@ Uses Matching Product Spec design elements.
 
 import os
 import sys
+import json
+import io
 from pathlib import Path
 
 # Add parent directory to path for imports
@@ -16,8 +18,21 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.units import inch
 from reportlab.lib import colors
+from reportlab.lib.utils import ImageReader
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
 from PIL import Image
 import random
+
+# Try to register Comic Sans MS (Windows). Fall back to Helvetica if unavailable.
+try:
+    pdfmetrics.registerFont(TTFont('Comic-Sans-MS', 'C:/Windows/Fonts/comic.ttf'))
+    pdfmetrics.registerFont(TTFont('Comic-Sans-MS-Bold', 'C:/Windows/Fonts/comicbd.ttf'))
+    TITLE_FONT = 'Comic-Sans-MS-Bold'
+    BODY_FONT = 'Comic-Sans-MS'
+except Exception:
+    TITLE_FONT = 'Helvetica-Bold'
+    BODY_FONT = 'Helvetica'
 
 # Page settings
 PAGE_WIDTH, PAGE_HEIGHT = letter
@@ -29,36 +44,65 @@ NAVY_BORDER = '#1E3A5F'  # Navy border for target and boxes
 WHITE = '#FFFFFF'
 BLACK = '#000000'
 
-# Level colors for accent strips (matching Matching product)
-LEVEL_COLORS = {
-    1: '#F4A259',  # Orange - Level 1 (beginner)
-    2: '#4A90E2',  # Blue - Level 2 (easy)
-    3: '#7BC47F',  # Green - Level 3 (medium)
-    4: '#9B59B6',  # Purple - Level 4 (hard)
-    5: '#008B8B',  # Teal - Level 5 (real photos)
+_THEME_ID = "brown_bear"
+
+
+def _theme_path() -> Path:
+    return Path(__file__).parent / "themes" / f"{_THEME_ID}.json"
+
+
+def _load_find_cover_theme_levels() -> dict[int, dict]:
+    p = _theme_path()
+    if not p.exists():
+        return {}
+    try:
+        data = json.loads(p.read_text(encoding="utf-8"))
+        levels = (data.get("find_cover") or {}).get("levels") or {}
+        out: dict[int, dict] = {}
+        for k, v in levels.items():
+            if isinstance(k, str) and k.upper().startswith("L"):
+                try:
+                    n = int(k[1:])
+                except Exception:
+                    continue
+                if isinstance(v, dict):
+                    out[n] = v
+        return out
+    except Exception:
+        return {}
+
+
+_FIND_COVER_THEME_LEVELS = _load_find_cover_theme_levels()
+
+
+def _level_name(level: int) -> str:
+    meta = _FIND_COVER_THEME_LEVELS.get(level) or {}
+    name = meta.get("name")
+    if isinstance(name, str) and name.strip():
+        return name.strip()
+    return {1: "Errorless", 2: "Supported", 3: "Independent", 4: "Generalisation", 5: "Extension"}.get(
+        level, f"Level {level}"
+    )
+
+
+def _level_colour(level: int) -> str:
+    meta = _FIND_COVER_THEME_LEVELS.get(level) or {}
+    colour = meta.get("colour")
+    if isinstance(colour, str) and colour.strip().startswith("#") and len(colour.strip()) == 7:
+        return colour.strip()
+    return {1: "#F4B400", 2: "#4285F4", 3: "#34A853", 4: "#8C06F2", 5: "#EA4335"}.get(level, "#F4B400")
+
+
+_COLOUR_PREFIXES = {
+    'black', 'white', 'red', 'blue', 'green', 'yellow', 'orange', 'purple', 'pink', 'brown', 'grey', 'gray'
 }
 
-LEVEL_NAMES = {
-    1: 'Errorless',
-    2: 'Easy',
-    3: 'Medium',
-    4: 'Challenge',
-    5: 'Real Photos'
-}
 
-# Mapping from BoardMaker icons to real photos
-REAL_IMAGE_MAPPING = {
-    'Brown bear.png': 'bear.png',
-    'Red bird.png': 'bird.png',
-    'Purple cat.png': 'cat.png',
-    'White dog.png': 'dog.png',
-    'Yellow duck.png': 'duck.png',
-    'Green frog.png': 'frog.png',
-    'goldfish.png': 'goldfish.png',
-    'Blue horse.png': 'horse.png',
-    'Black sheep.png': 'sheep1.png',
-    'teacher.png': 'teacher.png',
-}
+def _strip_colour_prefix(label: str) -> str:
+    parts = [p for p in str(label).strip().split() if p]
+    if len(parts) >= 2 and parts[0].lower() in _COLOUR_PREFIXES:
+        return " ".join(parts[1:])
+    return " ".join(parts)
 
 def hex_to_rgb(hex_color):
     """Convert hex color to RGB tuple."""
@@ -67,7 +111,10 @@ def hex_to_rgb(hex_color):
 
 def load_brown_bear_icons():
     """Load all Brown Bear icons."""
-    icon_folder = Path(__file__).parent / 'assets' / 'themes' / 'brown_bear' / 'icons'
+    theme_root = Path(__file__).parent / 'assets' / 'themes' / 'brown_bear'
+    icons_colored = theme_root / 'icons_colored'
+    legacy_icons = theme_root / 'icons'
+    icon_folder = icons_colored if icons_colored.exists() else legacy_icons
     icons = []
     
     if not icon_folder.exists():
@@ -85,35 +132,121 @@ def load_brown_bear_icons():
     
     return icons
 
-def load_real_images():
-    """Load all real images for Level 5."""
-    real_folder = Path(__file__).parent / 'assets' / 'themes' / 'brown_bear' / 'real_images'
-    real_images = []
-    
-    if not real_folder.exists():
-        print(f"Warning: Real images folder not found: {real_folder}")
-        return real_images
-    
-    for png_file in sorted(real_folder.glob('*.png')):
-        if png_file.name.startswith('.'):
-            continue
-        name = png_file.stem.replace('_', ' ').title()
-        real_images.append({
-            'path': str(png_file),
-            'name': name,
-            'filename': png_file.name
-        })
-    
-    return real_images
 
-def get_matching_real_image(boardmaker_icon_filename, real_images):
-    """Get the real image that matches a BoardMaker icon."""
-    real_filename = REAL_IMAGE_MAPPING.get(boardmaker_icon_filename)
-    if real_filename:
-        for img in real_images:
-            if img['filename'] == real_filename:
-                return img
-    return None
+def generate_cutout_pieces_page(c, icons, level, page_num, total_pages, mode='color', pack_code="BB-FC", page_number=1, icons_on_page=None):
+    """Generate a cutout pieces page matching the Matching cutout style.
+
+    Layout: 6 columns x 5 rows = 30 boxes per page.
+    Each column contains 5 copies of the same icon.
+    ``icons_on_page`` is a list of icon dicts for the 6 icons on this page.
+    """
+    if icons_on_page is None:
+        icons_on_page = icons[:6]
+
+    width, height = letter
+    c.setPageSize(letter)
+
+    c.setFillColorRGB(1, 1, 1)
+    c.rect(0, 0, width, height, fill=True, stroke=False)
+
+    border_margin = 0.25 * inch
+    content_width = width - 2 * border_margin
+    content_height = height - 2 * border_margin
+
+    r, g, b = hex_to_rgb(LIGHT_BLUE_BORDER)
+    c.setStrokeColorRGB(r, g, b)
+    c.setLineWidth(3)
+    c.roundRect(border_margin, border_margin, content_width, content_height, 10, stroke=1, fill=0)
+
+    # Accent stripe
+    accent_margin = 0.08 * inch
+    accent_height = 1.0 * inch
+    accent_x = border_margin + accent_margin
+    accent_y = height - border_margin - accent_height - accent_margin - 0.1 * inch
+    accent_width = content_width - 2 * accent_margin
+
+    if mode == 'bw':
+        c.setFillColorRGB(0.7, 0.7, 0.7)
+    else:
+        c.setFillColorRGB(*hex_to_rgb(_level_colour(level)))
+    c.roundRect(accent_x, accent_y, accent_width, accent_height, 8, stroke=0, fill=1)
+
+    # Title
+    c.setFillColorRGB(*hex_to_rgb('#001F3F'))
+    c.setFont(TITLE_FONT, 28)
+    title_y = accent_y + accent_height / 2 + 10
+    c.drawCentredString(width / 2, title_y, "Cut Out Find & Cover Pieces")
+
+    # Subtitle
+    c.setFont(BODY_FONT, 20)
+    c.setFillColorRGB(0.2, 0.2, 0.2)
+    c.drawCentredString(width / 2, title_y - 32, "Brown Bear")
+
+    # 6x5 grid matching the Matching cutout layout
+    box_size = 1.28 * inch
+    icon_size = box_size * 0.97
+    spacing = 0.05 * inch
+    border_pts = 4
+
+    cols = 6
+    rows = 5
+
+    grid_width = cols * box_size + (cols - 1) * spacing
+    grid_height = rows * box_size + (rows - 1) * spacing
+
+    start_x = (width - grid_width) / 2
+    content_top = accent_y - 0.4 * inch
+    start_y = content_top - 0.3 * inch
+
+    icon_idx = 0
+    for col in range(cols):
+        if icon_idx >= len(icons_on_page):
+            break
+        icon_dict = icons_on_page[icon_idx]
+
+        for row in range(rows):
+            box_x = start_x + col * (box_size + spacing)
+            box_y = start_y - row * (box_size + spacing) - box_size
+
+            c.setStrokeColorRGB(*hex_to_rgb(NAVY_BORDER))
+            c.setLineWidth(border_pts)
+            c.roundRect(box_x, box_y, box_size, box_size, 8.64, stroke=1, fill=0)
+
+            try:
+                img = Image.open(icon_dict['path'])
+                if mode == 'bw':
+                    img = img.convert('L').convert('RGB')
+                buf = io.BytesIO()
+                img.save(buf, format='PNG')
+                buf.seek(0)
+                icon_padding = (box_size - icon_size) / 2
+                c.drawImage(
+                    ImageReader(buf),
+                    box_x + icon_padding,
+                    box_y + icon_padding,
+                    width=icon_size,
+                    height=icon_size,
+                    preserveAspectRatio=True,
+                    mask='auto',
+                )
+            except Exception:
+                pass
+
+        icon_idx += 1
+
+    # Footer - Gold standard (matches Bingo / apply_small_wins_frame)
+    footer_y = border_margin + 0.26 * inch
+    c.setFont(BODY_FONT, 9)
+    c.setFillColorRGB(*hex_to_rgb('#999999'))
+    footer_line2 = "Small Wins Studio | PCS symbols used with active PCS Maker Personal License. | \u00a9 2026"
+    c.drawCentredString(width/2, footer_y, footer_line2)
+
+    c.setFont(TITLE_FONT, 10)
+    c.setFillColorRGB(*hex_to_rgb('#999999'))
+    footer_line1 = f"Brown Bear Find & Cover | Level {level} | {pack_code} | Page {page_num}/{total_pages}"
+    c.drawCentredString(width/2, footer_y + 12, footer_line1)
+
+    c.showPage()
 
 def generate_find_cover_page(c, target_icon, all_icons, level, page_num, total_pages, mode='color', pack_code="BB-FC"):
     """Generate a single Find & Cover page with Matching design spec."""
@@ -146,7 +279,7 @@ def generate_find_cover_page(c, target_icon, all_icons, level, page_num, total_p
     accent_width = content_width - 2 * accent_margin
     
     # Use level-specific color for accent stripe
-    level_color = LEVEL_COLORS.get(level, '#F4A259')
+    level_color = _level_colour(level)
     if mode == 'bw':
         c.setFillColorRGB(0.7, 0.7, 0.7)
     else:
@@ -158,20 +291,15 @@ def generate_find_cover_page(c, target_icon, all_icons, level, page_num, total_p
     
     # Title and Subtitle inside accent stripe
     c.setFillColorRGB(*hex_to_rgb('#001F3F'))  # Navy
-    c.setFont('Helvetica-Bold', 36)
+    c.setFont(TITLE_FONT, 36)
     title_y = accent_y + accent_height / 2 + 5
     c.drawCentredString(width / 2, title_y, "Find & Cover")
     
     # Subtitle: "Brown Bear"
-    c.setFont('Helvetica', 28)
+    c.setFont(BODY_FONT, 28)
     c.setFillColorRGB(0.2, 0.2, 0.2)
     subtitle_y = title_y - 30
     c.drawCentredString(width / 2, subtitle_y, "Brown Bear")
-    
-    # Level indicator below stripe
-    c.setFont('Helvetica-Bold', 14)
-    c.setFillColorRGB(0, 0, 0)
-    c.drawCentredString(width/2, accent_y - 20, f"Level {level}: {LEVEL_NAMES[level]}")
     
     # Target box - navy border with rounded corners
     target_box_y = accent_y - 150
@@ -189,24 +317,25 @@ def generate_find_cover_page(c, target_icon, all_icons, level, page_num, total_p
         img = Image.open(target_icon['path'])
         if mode == 'bw':
             img = img.convert('L').convert('RGB')
-        # Save temp image
-        temp_path = f'/tmp/target_{page_num}.png'
-        img.save(temp_path)
-        c.drawImage(temp_path, target_box_x + 10, target_box_y + 10, 
+        buf = io.BytesIO()
+        img.save(buf, format='PNG')
+        buf.seek(0)
+        c.drawImage(ImageReader(buf), target_box_x + 10, target_box_y + 10, 
                    width=target_box_size - 20, height=target_box_size - 20,
                    preserveAspectRatio=True, mask='auto')
     except Exception as e:
         # Draw placeholder text
-        c.setFont('Helvetica', 12)
+        c.setFont(BODY_FONT, 12)
         c.drawCentredString(target_box_x + target_box_size/2, target_box_y + target_box_size/2, target_icon['name'][:10])
     
     # Label under target
-    c.setFont('Helvetica', 12)
+    c.setFont(BODY_FONT, 12)
     c.setFillColorRGB(0, 0, 0)
-    c.drawCentredString(width/2, target_box_y - 20, f"Find: {target_icon['name']}")
+    target_label = _strip_colour_prefix(target_icon['name'])
+    c.drawCentredString(width/2, target_box_y - 20, f"Find the {target_label}")
     
     # Instruction
-    c.setFont('Helvetica-Bold', 14)
+    c.setFont(TITLE_FONT, 14)
     c.drawCentredString(width/2, target_box_y - 45, "Cover all matching pictures")
     
     # Grid area
@@ -246,7 +375,7 @@ def generate_find_cover_page(c, target_icon, all_icons, level, page_num, total_p
         distractors = [icon for icon in all_icons if icon['name'] != target_icon['name']]
         while len(grid_content) < total_cells and distractors:
             grid_content.append(random.choice(distractors))
-    # Level 5 handled separately in generate_find_cover_level5_page
+    # Level 5 uses the same icon-based logic (Extension).
     
     # Fill remaining with distractors if needed
     distractors = [icon for icon in all_icons if icon['name'] != target_icon['name']]
@@ -281,29 +410,26 @@ def generate_find_cover_page(c, target_icon, all_icons, level, page_num, total_p
                     img = Image.open(icon['path'])
                     if mode == 'bw':
                         img = img.convert('L').convert('RGB')
-                    temp_path = f'/tmp/grid_{page_num}_{idx}.png'
-                    img.save(temp_path)
-                    c.drawImage(temp_path, x + 8, y + 8,
+                    buf = io.BytesIO()
+                    img.save(buf, format='PNG')
+                    buf.seek(0)
+                    c.drawImage(ImageReader(buf), x + 8, y + 8,
                                width=cell_size - 16, height=cell_size - 16,
                                preserveAspectRatio=True, mask='auto')
                 except Exception as e:
                     pass
     
-    # Footer - TWO lines per Product Spec (both in light grey #999999)
-    # Line 1 (upper): "Find & Cover – Level X | BB-FC | Page Y/Total"
-    # Line 2 (lower): "© 2025 Small Wins Studio. PCS® symbols used with active PCS Maker Personal License."
-    footer_y = border_margin + 0.3 * inch
+    # Footer - Gold standard (matches Matching cover / apply_small_wins_frame)
+    footer_y = border_margin + 0.26 * inch
     
-    # Line 2 (lower line) - Copyright in light grey #999999
-    c.setFont('Helvetica', 9)
+    c.setFont(BODY_FONT, 9)
     c.setFillColorRGB(*hex_to_rgb('#999999'))
-    footer_line2 = "© 2025 Small Wins Studio. PCS® symbols used with active PCS Maker Personal License."
+    footer_line2 = "Small Wins Studio | PCS symbols used with active PCS Maker Personal License. | © 2026"
     c.drawCentredString(width/2, footer_y, footer_line2)
     
-    # Line 1 (upper line) - Product/Level/Page info in light grey #999999
-    c.setFont('Helvetica', 10)
+    c.setFont(TITLE_FONT, 10)
     c.setFillColorRGB(*hex_to_rgb('#999999'))
-    footer_line1 = f"Find & Cover – Level {level} | {pack_code} | Page {page_num}/{total_pages}"
+    footer_line1 = f"Brown Bear Find & Cover | Level {level} | {pack_code} | Page {page_num}/{total_pages}"
     c.drawCentredString(width/2, footer_y + 12, footer_line1)
     
     c.showPage()
@@ -318,16 +444,23 @@ def generate_find_cover_pdf(output_path, level, mode='color'):
     
     c = canvas.Canvas(str(output_path), pagesize=letter)
     
-    # Calculate total pages
-    total_pages = len(icons)
+    # 12 activity pages + 2 cutout pages (matching style: 6 icons per page)
+    total_pages = len(icons) + 2
     
     # Generate pages for each target
     random.seed(42)  # Reproducible randomness
     for i, target_icon in enumerate(icons):
         generate_find_cover_page(c, target_icon, icons, level, i+1, total_pages, mode)
+
+    # Cutout page 1: first 6 icons
+    generate_cutout_pieces_page(c, icons, level, len(icons) + 1, total_pages, mode,
+                                page_number=1, icons_on_page=icons[:6])
+    # Cutout page 2: next 6 icons
+    generate_cutout_pieces_page(c, icons, level, len(icons) + 2, total_pages, mode,
+                                page_number=2, icons_on_page=icons[6:12])
     
     c.save()
-    print(f"✓ Generated: {output_path}")
+    print(f"OK Generated: {output_path}")
     return output_path
 
 def generate_storage_labels_page(c, icons, level, mode='color', pack_code="BB-FC"):
@@ -358,7 +491,7 @@ def generate_storage_labels_page(c, icons, level, mode='color', pack_code="BB-FC
     accent_width = content_width - 2 * accent_margin
     
     # Use level-specific color for accent stripe
-    level_color = LEVEL_COLORS.get(level, '#F4A259')
+    level_color = _level_colour(level)
     if mode == 'bw':
         c.setFillColorRGB(0.7, 0.7, 0.7)
     else:
@@ -369,14 +502,14 @@ def generate_storage_labels_page(c, icons, level, mode='color', pack_code="BB-FC
     
     # Page title
     c.setFillColorRGB(*hex_to_rgb('#001F3F'))
-    c.setFont("Helvetica-Bold", 28)
+    c.setFont(TITLE_FONT, 28)
     title_y = accent_y + accent_height / 2 + 5
     c.drawCentredString(width / 2, title_y, "Storage Labels")
     
     # Subtitle
-    c.setFont("Helvetica", 20)
+    c.setFont(BODY_FONT, 20)
     subtitle_y = title_y - 30
-    c.drawCentredString(width / 2, subtitle_y, f"Find & Cover – Level {level}: {LEVEL_NAMES[level]}")
+    c.drawCentredString(width / 2, subtitle_y, f"Find & Cover – Level {level}: {_level_name(level)}")
     
     # Storage label boxes - 3 columns × 4 rows = 12 boxes
     cols = 3
@@ -422,29 +555,30 @@ def generate_storage_labels_page(c, icons, level, mode='color', pack_code="BB-FC
             
             # Product name
             c.setFillColorRGB(0, 0, 0)
-            c.setFont("Helvetica-Bold", 10)
+            c.setFont(TITLE_FONT, 10)
             c.drawString(box_x + strip_width + 5, box_y + box_height - 15, "Find & Cover")
             
             # Theme and pack code
-            c.setFont("Helvetica", 8)
+            c.setFont(BODY_FONT, 8)
             c.setFillColorRGB(0.4, 0.4, 0.4)
             c.drawString(box_x + strip_width + 5, box_y + box_height - 26, f"Brown Bear | {pack_code}")
             
             # Level indicator
-            c.setFont("Helvetica-Bold", 8)
-            c.drawString(box_x + strip_width + 5, box_y + box_height - 38, f"Level {level}: {LEVEL_NAMES[level]}")
+            c.setFont(TITLE_FONT, 8)
+            c.drawString(box_x + strip_width + 5, box_y + box_height - 38, f"Level {level}: {_level_name(level)}")
             
             # Icon image
             try:
                 img = Image.open(icon['path'])
                 if mode == 'bw':
                     img = img.convert('L').convert('RGB')
-                temp_path = f'/tmp/label_icon_{idx}.png'
-                img.save(temp_path)
+                buf = io.BytesIO()
+                img.save(buf, format='PNG')
+                buf.seek(0)
                 icon_size = 0.6 * inch
                 icon_x = box_x + box_width - icon_size - 10
                 icon_y = box_y + box_height - icon_size - 8
-                c.drawImage(temp_path, icon_x, icon_y, 
+                c.drawImage(ImageReader(buf), icon_x, icon_y,
                            width=icon_size, height=icon_size,
                            preserveAspectRatio=True, mask='auto')
             except:
@@ -452,18 +586,19 @@ def generate_storage_labels_page(c, icons, level, mode='color', pack_code="BB-FC
             
             # Icon name
             c.setFillColorRGB(0, 0, 0)
-            c.setFont("Helvetica", 9)
+            c.setFont(BODY_FONT, 9)
             c.drawCentredString(box_x + box_width/2, box_y + 8, icon['name'])
     
-    # Footer
-    footer_y = border_margin + 0.3 * inch
-    c.setFont('Helvetica', 9)
+    # Footer - Gold standard (matches Matching cover / apply_small_wins_frame)
+    footer_y = border_margin + 0.26 * inch
+    c.setFont(BODY_FONT, 9)
     c.setFillColorRGB(*hex_to_rgb('#999999'))
-    footer_line2 = "© 2025 Small Wins Studio. PCS® symbols used with active PCS Maker Personal License."
+    footer_line2 = "Small Wins Studio | PCS symbols used with active PCS Maker Personal License. | © 2026"
     c.drawCentredString(width/2, footer_y, footer_line2)
     
-    c.setFont('Helvetica', 10)
-    footer_line1 = f"Find & Cover – Storage Labels | {pack_code}"
+    c.setFont(TITLE_FONT, 10)
+    c.setFillColorRGB(*hex_to_rgb('#999999'))
+    footer_line1 = f"Brown Bear Find & Cover | Storage Labels | {pack_code}"
     c.drawCentredString(width/2, footer_y + 12, footer_line1)
     
     c.showPage()
@@ -483,225 +618,7 @@ def generate_storage_labels_pdf(output_path, mode='color'):
         generate_storage_labels_page(c, icons, level, mode)
     
     c.save()
-    print(f"✓ Generated: {output_path}")
-    return output_path
-
-def generate_level5_page(c, target_icon, all_icons, real_images, page_num, total_pages, mode='color', pack_code="BB-FC"):
-    """Generate a Level 5 Find & Cover page with real photos in grid."""
-    
-    width, height = letter
-    level = 5
-    
-    # Page setup
-    c.setPageSize(letter)
-    
-    # Background white
-    c.setFillColorRGB(1, 1, 1)
-    c.rect(0, 0, width, height, fill=True, stroke=False)
-    
-    # Page Structure - 0.25" margin from edge
-    border_margin = 0.25 * inch
-    content_width = width - 2 * border_margin
-    content_height = height - 2 * border_margin
-    
-    # Draw rounded rectangle border - LIGHT BLUE
-    r, g, b = hex_to_rgb(LIGHT_BLUE_BORDER)
-    c.setStrokeColorRGB(r, g, b)
-    c.setLineWidth(3)
-    c.roundRect(border_margin, border_margin, content_width, content_height, 10, stroke=1, fill=0)
-    
-    # Accent Stripe with Teal color for Level 5
-    accent_margin = 0.08 * inch
-    accent_height = 1.0 * inch
-    accent_x = border_margin + accent_margin
-    accent_y = height - border_margin - accent_height - accent_margin - 0.1 * inch
-    accent_width = content_width - 2 * accent_margin
-    
-    # Teal color for Level 5
-    level_color = LEVEL_COLORS.get(5, '#008B8B')
-    if mode == 'bw':
-        c.setFillColorRGB(0.7, 0.7, 0.7)
-    else:
-        r, g, b = hex_to_rgb(level_color)
-        c.setFillColorRGB(r, g, b)
-    
-    c.roundRect(accent_x, accent_y, accent_width, accent_height, 8, stroke=0, fill=1)
-    
-    # Title inside accent stripe
-    c.setFillColorRGB(*hex_to_rgb('#001F3F'))
-    c.setFont('Helvetica-Bold', 36)
-    title_y = accent_y + accent_height / 2 + 5
-    c.drawCentredString(width / 2, title_y, "Find & Cover")
-    
-    # Subtitle
-    c.setFont('Helvetica', 28)
-    c.setFillColorRGB(0.2, 0.2, 0.2)
-    subtitle_y = title_y - 30
-    c.drawCentredString(width / 2, subtitle_y, "Brown Bear - Real Photos")
-    
-    # Level indicator
-    c.setFont('Helvetica-Bold', 14)
-    c.setFillColorRGB(0, 0, 0)
-    c.drawCentredString(width/2, accent_y - 20, f"Level 5: {LEVEL_NAMES[5]}")
-    
-    # Target box - BoardMaker icon as target
-    target_box_y = accent_y - 150
-    target_box_size = 100
-    target_box_x = width/2 - target_box_size/2
-    
-    # Navy border for target box
-    r, g, b = hex_to_rgb(NAVY_BORDER)
-    c.setStrokeColorRGB(r, g, b)
-    c.setLineWidth(3.5)
-    c.roundRect(target_box_x, target_box_y, target_box_size, target_box_size, 8, fill=False, stroke=True)
-    
-    # Draw BoardMaker icon as target
-    try:
-        img = Image.open(target_icon['path'])
-        if mode == 'bw':
-            img = img.convert('L').convert('RGB')
-        temp_path = f'/tmp/target_l5_{page_num}.png'
-        img.save(temp_path)
-        c.drawImage(temp_path, target_box_x + 10, target_box_y + 10, 
-                   width=target_box_size - 20, height=target_box_size - 20,
-                   preserveAspectRatio=True, mask='auto')
-    except Exception as e:
-        c.setFont('Helvetica', 12)
-        c.drawCentredString(target_box_x + target_box_size/2, target_box_y + target_box_size/2, target_icon['name'][:10])
-    
-    # Label under target
-    c.setFont('Helvetica', 12)
-    c.setFillColorRGB(0, 0, 0)
-    c.drawCentredString(width/2, target_box_y - 20, f"Find: {target_icon['name']}")
-    
-    # Instruction
-    c.setFont('Helvetica-Bold', 14)
-    c.drawCentredString(width/2, target_box_y - 45, "Cover matching REAL photos")
-    
-    # Grid area with REAL IMAGES
-    grid_start_y = target_box_y - 80
-    grid_rows = 4
-    grid_cols = 4
-    cell_size = 100
-    grid_width = grid_cols * cell_size
-    grid_height = grid_rows * cell_size
-    grid_start_x = width/2 - grid_width/2
-    
-    # Get available real images (only those that exist)
-    available_real_images = [img for img in real_images if Path(img['path']).exists()]
-    
-    if not available_real_images:
-        # No real images available - draw placeholder text
-        c.setFont('Helvetica', 16)
-        c.setFillColorRGB(0.5, 0.5, 0.5)
-        c.drawCentredString(width/2, grid_start_y - grid_height/2, "Real images not yet available")
-        c.drawCentredString(width/2, grid_start_y - grid_height/2 - 20, "Add images to assets/themes/brown_bear/real_images/")
-    else:
-        # Generate grid content with real images
-        total_cells = grid_rows * grid_cols
-        grid_content = []
-        
-        # Get the real image that matches the target BoardMaker icon
-        target_filename = Path(target_icon['path']).name
-        matching_real = get_matching_real_image(target_filename, real_images)
-        
-        if matching_real and Path(matching_real['path']).exists():
-            # 50% of cells will be matches
-            num_matches = total_cells // 2
-            grid_content = [matching_real] * num_matches
-            
-            # Fill rest with other real images (distractors)
-            other_real = [img for img in available_real_images if img['filename'] != matching_real['filename']]
-            while len(grid_content) < total_cells:
-                if other_real:
-                    grid_content.append(random.choice(other_real))
-                else:
-                    grid_content.append(matching_real)
-        else:
-            # No matching real image - use random real images
-            while len(grid_content) < total_cells:
-                grid_content.append(random.choice(available_real_images))
-        
-        # Shuffle
-        random.shuffle(grid_content)
-        
-        # Draw grid with real images
-        for row in range(grid_rows):
-            for col in range(grid_cols):
-                idx = row * grid_cols + col
-                x = grid_start_x + col * cell_size
-                y = grid_start_y - (row + 1) * cell_size
-                
-                # Navy border for grid cells
-                r, g, b = hex_to_rgb(NAVY_BORDER)
-                c.setStrokeColorRGB(r, g, b)
-                c.setLineWidth(2)
-                c.roundRect(x + 2, y + 2, cell_size - 4, cell_size - 4, 6, fill=False, stroke=True)
-                
-                # Draw real image
-                real_img = grid_content[idx]
-                if real_img and Path(real_img['path']).exists():
-                    try:
-                        img = Image.open(real_img['path'])
-                        if mode == 'bw':
-                            img = img.convert('L').convert('RGB')
-                        temp_path = f'/tmp/grid_l5_{page_num}_{idx}.png'
-                        img.save(temp_path)
-                        c.drawImage(temp_path, x + 8, y + 8,
-                                   width=cell_size - 16, height=cell_size - 16,
-                                   preserveAspectRatio=True, mask='auto')
-                    except Exception as e:
-                        pass
-    
-    # Footer
-    footer_y = border_margin + 0.3 * inch
-    c.setFont('Helvetica', 9)
-    c.setFillColorRGB(*hex_to_rgb('#999999'))
-    footer_line2 = "© 2025 Small Wins Studio. PCS® symbols used with active PCS Maker Personal License."
-    c.drawCentredString(width/2, footer_y, footer_line2)
-    
-    c.setFont('Helvetica', 10)
-    c.setFillColorRGB(*hex_to_rgb('#999999'))
-    footer_line1 = f"Find & Cover – Level 5 | {pack_code} | Page {page_num}/{total_pages}"
-    c.drawCentredString(width/2, footer_y + 12, footer_line1)
-    
-    c.showPage()
-
-def generate_level5_pdf(output_path, mode='color'):
-    """Generate Level 5 Real Photos PDF."""
-    
-    icons = load_brown_bear_icons()
-    real_images = load_real_images()
-    
-    if not icons:
-        print(f"No BoardMaker icons found, cannot generate PDF")
-        return None
-    
-    if not real_images:
-        print(f"Warning: No real images found, generating with placeholders")
-    
-    c = canvas.Canvas(str(output_path), pagesize=letter)
-    
-    # Only generate pages for icons that have matching real images
-    icons_with_real = []
-    for icon in icons:
-        icon_filename = Path(icon['path']).name
-        matching_real = get_matching_real_image(icon_filename, real_images)
-        if matching_real and Path(matching_real['path']).exists():
-            icons_with_real.append(icon)
-    
-    # If no matching real images, use all icons with placeholder message
-    if not icons_with_real:
-        icons_with_real = icons[:6]  # Just use first 6 icons as placeholders
-    
-    total_pages = len(icons_with_real)
-    
-    random.seed(42)
-    for i, target_icon in enumerate(icons_with_real):
-        generate_level5_page(c, target_icon, icons, real_images, i+1, total_pages, mode)
-    
-    c.save()
-    print(f"✓ Generated: {output_path}")
+    print(f"OK Generated: {output_path}")
     return output_path
 
 def main():
@@ -733,9 +650,9 @@ def main():
             shutil.copy(samples_path, review_path)
             print(f"  Copied to: {review_path}")
     
-    # Generate Level 5 (Real Photos)
+    # Generate Level 5 (Extension - icons only)
     print("\n" + "-" * 40)
-    print("GENERATING LEVEL 5: REAL PHOTOS")
+    print("GENERATING LEVEL 5: EXTENSION")
     print("-" * 40)
     
     for mode in ['color', 'bw']:
@@ -743,7 +660,7 @@ def main():
         
         # Generate in samples folder
         samples_path = samples_dir / filename
-        generate_level5_pdf(samples_path, mode)
+        generate_find_cover_pdf(samples_path, level=5, mode=mode)
         
         # Copy to review folder
         review_path = review_dir / filename

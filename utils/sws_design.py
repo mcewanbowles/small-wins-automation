@@ -21,6 +21,8 @@ LEVEL_COLORS = {
     5: "#E74C3C",
 }
 
+_FONT_COMIC = "C:/Windows/Fonts/comic.ttf"
+_FONT_COMIC_BOLD = "C:/Windows/Fonts/comicbd.ttf"
 _FONT_ARIAL = "C:/Windows/Fonts/arial.ttf"
 _FONT_ARIAL_BOLD = "C:/Windows/Fonts/arialbd.ttf"
 
@@ -33,14 +35,26 @@ def hex_to_rgb(hex_color: str) -> tuple[int, int, int]:
 def _load_fonts(*, title_pt: int, body_pt: int, small_pt: int) -> dict[str, ImageFont.ImageFont]:
     scale = DPI / 72
     try:
+        # Prefer Comic Sans MS throughout.
+        return {
+            "title": ImageFont.truetype(_FONT_COMIC_BOLD, int(title_pt * scale)),
+            "body": ImageFont.truetype(_FONT_COMIC_BOLD, int(body_pt * scale)),
+            "small": ImageFont.truetype(_FONT_COMIC, int(small_pt * scale)),
+            "small_bold": ImageFont.truetype(_FONT_COMIC_BOLD, int(small_pt * scale)),
+        }
+    except Exception:
+        pass
+
+    try:
         return {
             "title": ImageFont.truetype(_FONT_ARIAL_BOLD, int(title_pt * scale)),
             "body": ImageFont.truetype(_FONT_ARIAL_BOLD, int(body_pt * scale)),
             "small": ImageFont.truetype(_FONT_ARIAL, int(small_pt * scale)),
+            "small_bold": ImageFont.truetype(_FONT_ARIAL_BOLD, int(small_pt * scale)),
         }
     except Exception:
         f = ImageFont.load_default()
-        return {"title": f, "body": f, "small": f}
+        return {"title": f, "body": f, "small": f, "small_bold": f}
 
 
 def _text_size(draw: ImageDraw.ImageDraw, text: str, font: ImageFont.ImageFont) -> tuple[int, int]:
@@ -180,7 +194,9 @@ def apply_small_wins_frame(
         y2 = h - border_margin - int(0.18 * DPI) - int(footer_y_offset_px)
         y1 = y2 - int(0.14 * DPI)
 
-        fw1, fh1 = _text_size(d, footer_line_1, fonts["small"])
+        fw1, fh1 = _text_size(d, footer_line_1, fonts["small_bold"])
         fw2, fh2 = _text_size(d, footer_line_2, fonts["small"])
-        d.text(((w - fw1) // 2, y1), footer_line_1, fill=(60, 60, 60), font=fonts["small"])
-        d.text(((w - fw2) // 2, y2), footer_line_2, fill=(140, 140, 140), font=fonts["small"])
+        # Gold standard: Find & Cover Level 2 uses light grey for BOTH footer lines.
+        footer_grey = (153, 153, 153)  # #999999
+        d.text(((w - fw1) // 2, y1), footer_line_1, fill=footer_grey, font=fonts["small_bold"])
+        d.text(((w - fw2) // 2, y2), footer_line_2, fill=footer_grey, font=fonts["small"])

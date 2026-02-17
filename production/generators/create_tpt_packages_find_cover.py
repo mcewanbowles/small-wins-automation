@@ -48,8 +48,13 @@ def create_output_dir() -> None:
 
 
 def get_level_pdfs(level_num: int, level_name: str) -> dict[str, Path] | None:
-    color_pdf = FINAL_DIR / f"{THEME}_{PRODUCT}_level{level_num}_{level_name}_color_FINAL.pdf"
-    bw_pdf = FINAL_DIR / f"{THEME}_{PRODUCT}_level{level_num}_{level_name}_bw_FINAL.pdf"
+    integrated_color_pdf = FINAL_DIR / f"{THEME}_{PRODUCT}_level{level_num}_{level_name}_color_INTEGRATED_FINAL.pdf"
+    integrated_bw_pdf = FINAL_DIR / f"{THEME}_{PRODUCT}_level{level_num}_{level_name}_bw_INTEGRATED_FINAL.pdf"
+    color_pdf = integrated_color_pdf if integrated_color_pdf.exists() else (FINAL_DIR / f"{THEME}_{PRODUCT}_level{level_num}_{level_name}_color_FINAL.pdf")
+    bw_pdf = integrated_bw_pdf if integrated_bw_pdf.exists() else (FINAL_DIR / f"{THEME}_{PRODUCT}_level{level_num}_{level_name}_bw_FINAL.pdf")
+
+    print(f"  Using color PDF: {color_pdf.name}")
+    print(f"  Using B&W PDF:   {bw_pdf.name}")
 
     if not color_pdf.exists():
         print(f"  WARNING No color PDF found for Level {level_num}")

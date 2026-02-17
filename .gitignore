@@ -117,8 +117,6 @@ generators/wh_questions/
 generators/word_search/
 generators/aac/
 
-generate_bingo.py
-
 # Ignore marketing thumbnails if generated
 production/marketing/**
 

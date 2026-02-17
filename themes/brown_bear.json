@@ -132,7 +132,7 @@
         "description": "Fewer items, easy visual search"
       },
       "L2": {
-        "name": "Distractors",
+        "name": "Supported",
         "colour": "#4285F4",
         "image_type": "Boardmaker Icons",
         "distractors": "some",
@@ -140,7 +140,7 @@
         "description": "More items, still fairly distinct"
       },
       "L3": {
-        "name": "Dense Grid",
+        "name": "Independent",
         "colour": "#34A853",
         "image_type": "Boardmaker Icons",
         "distractors": "more",
@@ -148,12 +148,20 @@
         "description": "Tighter layout, items more similar"
       },
       "L4": {
-        "name": "Expert",
+        "name": "Generalisation",
         "colour": "#8C06F2",
         "image_type": "Boardmaker Icons",
         "distractors": "most",
         "items_per_page": "dense",
         "description": "Densest layout, highest challenge"
+      },
+      "L5": {
+        "name": "Extension",
+        "colour": "#EA4335",
+        "image_type": "Boardmaker Icons",
+        "distractors": "extension",
+        "items_per_page": "dense",
+        "description": "Extension activities and highest challenge"
       }
     },
     "grid_size": "4x4",

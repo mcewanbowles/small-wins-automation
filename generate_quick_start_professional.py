@@ -23,15 +23,21 @@ from reportlab.lib.colors import HexColor, white, black
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 
-# Try to register Comic Sans
+# Try to register Comic Sans (Windows paths first, then Linux fallback)
 try:
-    pdfmetrics.registerFont(TTFont('ComicSans', '/usr/share/fonts/truetype/msttcorefonts/Comic_Sans_MS.ttf'))
-    pdfmetrics.registerFont(TTFont('ComicSans-Bold', '/usr/share/fonts/truetype/msttcorefonts/Comic_Sans_MS_Bold.ttf'))
+    pdfmetrics.registerFont(TTFont('ComicSans', 'C:/Windows/Fonts/comic.ttf'))
+    pdfmetrics.registerFont(TTFont('ComicSans-Bold', 'C:/Windows/Fonts/comicbd.ttf'))
     TITLE_FONT = 'ComicSans-Bold'
     BODY_FONT = 'ComicSans'
-except:
-    TITLE_FONT = 'Helvetica-Bold'
-    BODY_FONT = 'Helvetica'
+except Exception:
+    try:
+        pdfmetrics.registerFont(TTFont('ComicSans', '/usr/share/fonts/truetype/msttcorefonts/Comic_Sans_MS.ttf'))
+        pdfmetrics.registerFont(TTFont('ComicSans-Bold', '/usr/share/fonts/truetype/msttcorefonts/Comic_Sans_MS_Bold.ttf'))
+        TITLE_FONT = 'ComicSans-Bold'
+        BODY_FONT = 'ComicSans'
+    except Exception:
+        TITLE_FONT = 'Helvetica-Bold'
+        BODY_FONT = 'Helvetica'
 
 # Typography per design brief
 MAIN_TITLE_SIZE = 18  # Main title
@@ -52,6 +58,7 @@ LEVEL_COLORS = {
     2: HexColor('#4A90E2'),  # Blue
     3: HexColor('#7CB342'),  # Green
     4: HexColor('#9C27B0'),  # Purple
+    5: HexColor('#E74C3C'),  # Red
 }
 
 # Page layout
@@ -170,7 +177,7 @@ def draw_footer(c, width, pack_code, theme_name, product_name):
     c.setFont(BODY_FONT, 8)
     
     # Build footer text with star logo rising above the S of Small Wins
-    footer_text = f"© 2025 Small Wins Studio • {pack_code} | {theme_name} {product_name}"
+    footer_text = f"Small Wins Studio | PCS symbols used with active PCS Maker Personal License. | © 2026"
     text_width = c.stringWidth(footer_text, BODY_FONT, 8)
     
     # Position text centered, but leave room for star before "Small"
@@ -184,21 +191,11 @@ def draw_footer(c, width, pack_code, theme_name, product_name):
         # Draw the star logo - slightly larger (14pt height) rising above the "S"
         logo_size = 14  # Larger than text so star rises above
         # Position star just before "Small" (after "© 2025 ")
-        prefix = "© 2025 "
-        prefix_width = c.stringWidth(prefix, BODY_FONT, 8)
-        logo_x = text_x + prefix_width - 2  # Slightly overlapping/close to text
-        logo_y = footer_y - 2  # Star base at text baseline, rises above
-        
-        # Draw logo with transparency
+        logo_y = footer_y - 2
+        logo_x = text_x - logo_size - 2
         c.drawImage(str(logo_path), logo_x, logo_y, width=logo_size, height=logo_size, 
                    preserveAspectRatio=True, mask='auto')
-        
-        # Adjust text to account for star
-        # Draw "© 2025 " first
-        c.drawString(text_x, footer_y, prefix)
-        # Then draw rest of text after logo space
-        rest_text = f"Small Wins Studio • {pack_code} | {theme_name} {product_name}"
-        c.drawString(text_x + prefix_width + logo_size - 2, footer_y, rest_text)
+        c.drawCentredString(width/2, footer_y, footer_text)
     else:
         # Fallback: no logo, just centered text
         c.drawCentredString(width/2, footer_y, footer_text)
@@ -213,50 +210,50 @@ def generate_matching_quick_start(output_path, theme_name="Brown Bear", pack_cod
     draw_page_border(c, width, height)
     header_y = draw_header(c, width, height, "Matching", theme_name)
     
-    # 2x2 Level cards grid
-    card_width = 3.5 * inch
-    card_height = 1.35 * inch
-    h_gap = 0.15 * inch
-    v_gap = 0.1 * inch
+    # 5 level cards: 3 on top row, 2 on bottom row
+    card_width = 2.35 * inch
+    card_height = 1.20 * inch
+    h_gap = 0.12 * inch
+    v_gap = 0.08 * inch
     
-    total_width = card_width * 2 + h_gap
-    left_x = (width - total_width) / 2
-    right_x = left_x + card_width + h_gap
+    total_width_3 = card_width * 3 + h_gap * 2
+    left_x = (width - total_width_3) / 2
     
-    top_y = header_y - 0.1*inch - card_height
+    top_y = header_y - 0.08*inch - card_height
     bottom_y = top_y - card_height - v_gap
     
-    # Level 1 - Top Left
+    # Row 1: Levels 1-3
     draw_level_card(c, left_x, top_y, card_width, card_height, 1,
                     "Errorless", [
-                        "ALL 5 pictures match - 0 distractors",
-                        "100% success builds confidence",
-                        "Great for introducing new activity",
+                        "ALL 5 match - 0 distractors",
+                        "100% success, builds confidence",
                     ])
-    
-    # Level 2 - Top Right  
-    draw_level_card(c, right_x, top_y, card_width, card_height, 2,
+    draw_level_card(c, left_x + card_width + h_gap, top_y, card_width, card_height, 2,
                     "Easy", [
                         "4 matching + 1 distractor",
-                        "Low frustration visual discrimination",
-                        "Good for beginners, early learners",
+                        "Low frustration discrimination",
                     ])
-    
-    # Level 3 - Bottom Left
-    draw_level_card(c, left_x, bottom_y, card_width, card_height, 3,
+    draw_level_card(c, left_x + 2*(card_width + h_gap), top_y, card_width, card_height, 3,
                     "Medium", [
                         "3 matching + 2 distractors",
-                        "Moderate challenge, more scanning",
                         "Builds visual search skills",
                     ])
     
-    # Level 4 - Bottom Right
-    draw_level_card(c, right_x, bottom_y, card_width, card_height, 4,
+    # Row 2: Levels 4-5 (centered)
+    total_width_2 = card_width * 2 + h_gap
+    row2_left = (width - total_width_2) / 2
+    draw_level_card(c, row2_left, bottom_y, card_width, card_height, 4,
                     "Challenge", [
-                        "Only 1-2 matches + 3-4 distractors",
+                        "1-2 matches + 3-4 distractors",
                         "True discrimination task",
-                        "For students ready for challenge",
                     ])
+    draw_level_card(c, row2_left + card_width + h_gap, bottom_y, card_width, card_height, 5,
+                    "Extension", [
+                        "Hardest distractor pattern",
+                        "For students ready to extend",
+                    ])
+    
+    total_width = total_width_3
     
     # Tips section - full width with more content
     tips_y = bottom_y - 0.1*inch
@@ -323,7 +320,7 @@ def generate_matching_quick_start(output_path, theme_name="Brown Bear", pack_cod
     
     draw_footer(c, width, pack_code, theme_name, "Matching")
     c.save()
-    print(f"✓ Generated: {output_path}")
+    print(f"OK Generated: {output_path}")
 
 
 def generate_find_cover_quick_start(output_path, theme_name="Brown Bear", pack_code="BB04"):
@@ -335,50 +332,50 @@ def generate_find_cover_quick_start(output_path, theme_name="Brown Bear", pack_c
     draw_page_border(c, width, height)
     header_y = draw_header(c, width, height, "Find & Cover", theme_name)
     
-    # 2x2 Level cards grid
-    card_width = 3.5 * inch
-    card_height = 1.35 * inch
-    h_gap = 0.15 * inch
-    v_gap = 0.1 * inch
+    # 5 level cards: 3 on top row, 2 on bottom row
+    card_width = 2.35 * inch
+    card_height = 1.20 * inch
+    h_gap = 0.12 * inch
+    v_gap = 0.08 * inch
     
-    total_width = card_width * 2 + h_gap
-    left_x = (width - total_width) / 2
-    right_x = left_x + card_width + h_gap
+    total_width_3 = card_width * 3 + h_gap * 2
+    left_x = (width - total_width_3) / 2
     
-    top_y = header_y - 0.1*inch - card_height
+    top_y = header_y - 0.08*inch - card_height
     bottom_y = top_y - card_height - v_gap
     
-    # Level 1 - Top Left
+    # Row 1: Levels 1-3
     draw_level_card(c, left_x, top_y, card_width, card_height, 1,
                     "Errorless", [
-                        "ALL icons match target - 100% success",
-                        "No distractors, guaranteed success",
+                        "ALL icons match - 100% success",
                         "Great for introducing activity",
                     ])
-    
-    # Level 2 - Top Right  
-    draw_level_card(c, right_x, top_y, card_width, card_height, 2,
-                    "Easy", [
-                        "50% match + 50% distractors",
-                        "Mixed field, multiple correct answers",
-                        "Good for beginners, early learners",
+    draw_level_card(c, left_x + card_width + h_gap, top_y, card_width, card_height, 2,
+                    "Supported", [
+                        "Some matches + distractors",
+                        "Great with prompting support",
+                    ])
+    draw_level_card(c, left_x + 2*(card_width + h_gap), top_y, card_width, card_height, 3,
+                    "Independent", [
+                        "More distractors in field",
+                        "Builds scanning skills",
                     ])
     
-    # Level 3 - Bottom Left
-    draw_level_card(c, left_x, bottom_y, card_width, card_height, 3,
-                    "Challenging", [
-                        "Many distractors in field of icons",
-                        "Find target among many choices",
-                        "Builds visual scanning skills",
+    # Row 2: Levels 4-5 (centered)
+    total_width_2 = card_width * 2 + h_gap
+    row2_left = (width - total_width_2) / 2
+    draw_level_card(c, row2_left, bottom_y, card_width, card_height, 4,
+                    "Generalisation", [
+                        "Complex fields, fewer matches",
+                        "Higher-level discrimination",
+                    ])
+    draw_level_card(c, row2_left + card_width + h_gap, bottom_y, card_width, card_height, 5,
+                    "Extension", [
+                        "Hardest distractor pattern",
+                        "For students ready to extend",
                     ])
     
-    # Level 4 - Bottom Right
-    draw_level_card(c, right_x, bottom_y, card_width, card_height, 4,
-                    "Cut & Paste", [
-                        "Fine motor + visual scanning",
-                        "Cut icons from strip, paste on squares",
-                        "OT-friendly activity for fine motor",
-                    ])
+    total_width = total_width_3
     
     # Tips section - full width with more content
     tips_y = bottom_y - 0.1*inch
@@ -445,7 +442,7 @@ def generate_find_cover_quick_start(output_path, theme_name="Brown Bear", pack_c
     
     draw_footer(c, width, pack_code, theme_name, "Find & Cover")
     c.save()
-    print(f"✓ Generated: {output_path}")
+    print(f"OK Generated: {output_path}")
 
 
 if __name__ == "__main__":
@@ -462,6 +459,6 @@ if __name__ == "__main__":
     generate_find_cover_quick_start("review_pdfs/brown_bear_find_cover_quick_start.pdf")
     generate_find_cover_quick_start("samples/brown_bear/find_cover/brown_bear_find_cover_quick_start.pdf")
     
-    print("\n✅ Professional Quick Start guides generated!")
+    print("\nOK Professional Quick Start guides generated!")
     print("  Matching: review_pdfs/brown_bear_matching_quick_start.pdf")
     print("  Find & Cover: review_pdfs/brown_bear_find_cover_quick_start.pdf")

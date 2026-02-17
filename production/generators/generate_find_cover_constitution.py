@@ -102,6 +102,7 @@ def _render_find_cover_cover_page(
         header_left_icon=icon,
         header_left_icon_flip=False,
         header_left_icon_y_offset_px=int(0.06 * DPI),
+        footer_y_offset_px=int(0.08 * DPI),
         draw_subtitle=True,
         draw_footer=True,
     )
@@ -120,47 +121,107 @@ def _render_find_cover_cover_page(
     )
 
     if icon is not None:
-        icon_work = icon.copy()
-        icon_work.thumbnail((int(art_box * 0.98), int(art_box * 0.98)), Image.Resampling.LANCZOS)
-        page.paste(icon_work, (art_x + (art_box - icon_work.width) // 2, art_y + (art_box - icon_work.height) // 2), icon_work)
+        from utils.sws_design import _make_near_white_transparent
+        icon_work = _make_near_white_transparent(icon.copy())
+        try:
+            bbox = icon_work.split()[3].getbbox()
+            if bbox:
+                icon_work = icon_work.crop(bbox)
+        except Exception:
+            pass
 
-    # Simple text blocks (avoid heavy template dependencies here)
-    title_font = apply_small_wins_frame.__globals__["_load_fonts"](title_pt=24, body_pt=14, small_pt=10)["body"]
-    small_font = apply_small_wins_frame.__globals__["_load_fonts"](title_pt=24, body_pt=14, small_pt=10)["small"]
+        # Scale to fill 80% of art box (resize UP since source icons are small)
+        target = int(art_box * 0.80)
+        iw, ih = icon_work.size
+        scale_factor = min(target / iw, target / ih)
+        icon_work = icon_work.resize((int(iw * scale_factor), int(ih * scale_factor)), Image.Resampling.LANCZOS)
+        page.paste(
+            icon_work,
+            (art_x + (art_box - icon_work.width) // 2, art_y + (art_box - icon_work.height) // 2),
+            icon_work,
+        )
 
-    def _text_size(t: str, f):
+    from PIL import ImageFont
+    from utils.sws_design import hex_to_rgb
+
+    _FONT_COMIC = "C:/Windows/Fonts/comic.ttf"
+    _FONT_COMIC_BOLD = "C:/Windows/Fonts/comicbd.ttf"
+    heading_font = ImageFont.truetype(_FONT_COMIC_BOLD, int(14 * (DPI / 72)))
+    bullet_font = ImageFont.truetype(_FONT_COMIC, int(11 * (DPI / 72)))
+
+    def _ts(t: str, f):
         bbox = draw.textbbox((0, 0), t, font=f)
         return (bbox[2] - bbox[0], bbox[3] - bbox[1])
 
-    y = art_y + art_box + int(0.42 * DPI)
-    header = "What's Included"
-    tw, th = _text_size(header, title_font)
-    left = int(1.45 * DPI)
-    draw.text((left, y), header, fill=apply_small_wins_frame.__globals__["hex_to_rgb"](_level_accent_hex(level, mode)), font=title_font)
-    y += th + int(0.18 * DPI)
+    def _fit_font_local(text, *, max_px, min_px, max_w, max_h):
+        for px in range(max_px, min_px - 1, -1):
+            f = ImageFont.truetype(_FONT_COMIC, px)
+            tw, th = _ts(text, f)
+            if tw <= max_w and th <= max_h:
+                return f
+        return ImageFont.truetype(_FONT_COMIC, min_px)
 
+    accent_rgb = hex_to_rgb(_level_accent_hex(level, mode))
+    navy_rgb = hex_to_rgb("#1E3A5F")
+
+    # --- Layout below artwork box (matches Bingo gold standard) ---
+    left = art_x
+    right_limit = art_x + art_box
+    text_width = right_limit - left
+
+    # 1) Tagline
+    y = art_y + art_box + int(0.18 * DPI)
+    desc = "Print, play, and practice\u2014differentiated levels for SPED learners"
+    fitted_desc = _fit_font_local(
+        desc,
+        max_px=int(32 * (DPI / 72)),
+        min_px=int(16 * (DPI / 72)),
+        max_w=text_width,
+        max_h=int(0.45 * DPI),
+    )
+    dw, dh = _ts(desc, fitted_desc)
+    draw.text((left + (text_width - dw) // 2, y), desc, fill=navy_rgb, font=fitted_desc)
+    y += dh + int(0.18 * DPI)
+
+    # 2) "What\u2019s Included" heading
+    heading = "What\u2019s Included"
+    hw, hh = _ts(heading, heading_font)
+    draw.text((left, y), heading, fill=accent_rgb, font=heading_font)
+    y += hh + int(0.06 * DPI)
+
+    # 3) Bullet list
     activity_line = f"{activity_pages} activity pages" if activity_pages is not None else "Activity pages included"
-    features = [
+    bullets = [
         activity_line,
         "Print-ready cutout pieces",
         "Storage labels",
         "Color + black & white",
         "Optional laminate for reuse",
     ]
-    left = int(1.45 * DPI)
-    line_h = int(0.26 * DPI)
-    for f in features:
-        draw.text((left, y), f"- {f}", fill=(30, 30, 30), font=small_font)
-        y += line_h
+    bullet_indent = left + int(0.12 * DPI)
+    for b in bullets:
+        line = f"\u2022  {b}"
+        draw.text((bullet_indent, y), line, fill=navy_rgb, font=bullet_font)
+        y += int(0.19 * DPI)
 
-    y += int(0.75 * DPI)
-    qs = "Quick Start"
-    qtw, qth = _text_size(qs, title_font)
-    draw.text((left, y), qs, fill=apply_small_wins_frame.__globals__["hex_to_rgb"](_level_accent_hex(level, mode)), font=title_font)
-    y += qth + int(0.18 * DPI)
-    qs_text = "Print, cover matches with tokens/daubers, and store extras using the included labels."
-    qsw, qsh = _text_size(qs_text, small_font)
-    draw.text((left, y), qs_text, fill=(30, 30, 30), font=small_font)
+    # 4) "Quick Start" heading
+    y += int(0.10 * DPI)
+    quick = "Quick Start"
+    qw, qh = _ts(quick, heading_font)
+    draw.text((left, y), quick, fill=accent_rgb, font=heading_font)
+    y += qh + int(0.06 * DPI)
+
+    # 5) Quick Start bullet points
+    qs_bullets = [
+        "Print activity pages and cutouts",
+        "Cover matches with tokens or dabbers",
+        "Store extras using the included labels",
+    ]
+    qs_indent = left + int(0.12 * DPI)
+    for qb in qs_bullets:
+        qline = f"\u2022  {qb}"
+        draw.text((qs_indent, y), qline, fill=navy_rgb, font=bullet_font)
+        y += int(0.19 * DPI)
 
     return page
 
@@ -192,16 +253,18 @@ def add_preview_watermark(input_pdf_path: str, output_pdf_path: str) -> str:
 
     width, height = letter
     can.saveState()
-    can.setFont("Helvetica-Bold", 110)
-    can.setFillColor(HexColor("#808080"))
+    # Keep PREVIEW fully inside the page border.
+    can.setFont("Helvetica-Bold", 140)
+    can.setFillColor(HexColor("#8A8A8A"))
     try:
-        can.setFillAlpha(0.22)
+        can.setFillAlpha(0.18)
     except Exception:
         pass
 
     watermark_text = "PREVIEW"
-    can.translate(width / 2, height / 2)
-    can.rotate(30)
+    # Move the watermark down so it covers the main activity area (grid) rather than the header strip.
+    can.translate(width / 2, (height / 2) - 55)
+    can.rotate(32)
     can.drawCentredString(0, 0, watermark_text)
 
     can.restoreState()
@@ -330,6 +393,8 @@ def main() -> int:
 
     outputs = _copy_and_rename_level_pdfs(samples_dir, final_dir)
 
+    merged_levels: dict[tuple[int, str], Path] = {}
+
     # Make per-level FINAL PDFs self-contained: cover + level + storage labels
     for lvl in range(1, 6):
         label = LEVEL_LABELS[lvl]
@@ -342,7 +407,9 @@ def main() -> int:
             activity_pages = None
             try:
                 total_pages = len(PdfReader(str(level_pdf)).pages)
-                activity_pages = max(1, total_pages - 2)
+                # Level PDFs include: activity pages + 1 cutout pieces page.
+                # (The cover is added separately in this production exporter.)
+                activity_pages = max(1, total_pages - 1)
             except Exception:
                 activity_pages = None
 
@@ -358,21 +425,21 @@ def main() -> int:
             )
             cover_page = _pil_page_to_pdf_page(cover_img)
 
-            merged_tmp = final_dir / f"._tmp_level{lvl}_{label}_{mode}_FINAL.pdf"
+            # Windows can lock PDFs that are open in viewers/preview panes, which makes os.replace fail.
+            # Write the merged, self-contained PDF to a separate filename and let packagers prefer it.
+            merged_out = final_dir / f"brown_bear_find_cover_level{lvl}_{label}_{mode}_INTEGRATED_FINAL.pdf"
             _merge_level_with_cover_and_storage(
                 cover_page=cover_page,
                 level_pdf=level_pdf,
                 storage_labels_pdf=storage_pdf,
                 storage_level_index=lvl - 1,
-                output_path=merged_tmp,
+                output_path=merged_out,
             )
-
-            # Replace the original per-level FINAL with the merged self-contained version
-            os.replace(merged_tmp, level_pdf)
+            merged_levels[(lvl, mode)] = merged_out
 
     # Full merged products (optional but useful for previews)
-    color_levels = [outputs["levels"][(lvl, "color")] for lvl in range(1, 6)]
-    bw_levels = [outputs["levels"][(lvl, "bw")] for lvl in range(1, 6)]
+    color_levels = [merged_levels.get((lvl, "color"), outputs["levels"][(lvl, "color")]) for lvl in range(1, 6)]
+    bw_levels = [merged_levels.get((lvl, "bw"), outputs["levels"][(lvl, "bw")]) for lvl in range(1, 6)]
 
     color_full = _merge_full_product(color_levels, final_dir / "brown_bear_find_cover_color_FINAL.pdf")
     bw_full = _merge_full_product(bw_levels, final_dir / "brown_bear_find_cover_bw_FINAL.pdf")
@@ -381,10 +448,10 @@ def main() -> int:
     add_preview_watermark(str(color_full), str(final_dir / "brown_bear_find_cover_color_PREVIEW.pdf"))
     add_preview_watermark(str(bw_full), str(final_dir / "brown_bear_find_cover_bw_PREVIEW.pdf"))
 
-    # Per-level PREVIEW PDFs (based on color FINAL)
+    # Per-level PREVIEW PDFs (based on integrated color FINAL when available)
     for lvl in range(1, 6):
         label = LEVEL_LABELS[lvl]
-        src = outputs["levels"][(lvl, "color")]
+        src = merged_levels.get((lvl, "color"), outputs["levels"][(lvl, "color")])
         dst = final_dir / f"brown_bear_find_cover_level{lvl}_preview.pdf"
         add_preview_watermark(str(src), str(dst))
         print(f"OK Level {lvl} preview: {dst.name}")

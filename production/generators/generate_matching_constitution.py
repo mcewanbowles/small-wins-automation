@@ -24,8 +24,10 @@ TEMP_DIR = Path(tempfile.gettempdir())
 # Try to register Comic Sans MS font (available on most systems)
 try:
     # Register Comic Sans MS if available
-    pdfmetrics.registerFont(TTFont('Comic-Sans-MS', 'comic.ttf'))
-    pdfmetrics.registerFont(TTFont('Comic-Sans-MS-Bold', 'comicbd.ttf'))
+    _comic = Path("C:/Windows/Fonts/comic.ttf")
+    _comic_bold = Path("C:/Windows/Fonts/comicbd.ttf")
+    pdfmetrics.registerFont(TTFont('Comic-Sans-MS', str(_comic if _comic.exists() else Path('comic.ttf'))))
+    pdfmetrics.registerFont(TTFont('Comic-Sans-MS-Bold', str(_comic_bold if _comic_bold.exists() else Path('comicbd.ttf'))))
     TITLE_FONT = 'Comic-Sans-MS-Bold'
     BODY_FONT = 'Comic-Sans-MS'
 except:
@@ -342,24 +344,23 @@ def create_matching_page_constitution(c, target_img, target_name, images, names,
         
         # Optional tiny "velcro" text
         c.setFillColorRGB(0.4, 0.4, 0.4)
-        c.setFont("Helvetica", 6)
-        text_width = c.stringWidth("velcro", "Helvetica", 6)
+        c.setFont(BODY_FONT, 6)
+        text_width = c.stringWidth("velcro", BODY_FONT, 6)
         c.drawString(velcro_center_x - text_width/2, velcro_center_y - 2, "velcro")
     
-    # Footer - TWO lines per Product Spec (8-9pt, centered, 0.3" from bottom)
-    # Line 1: "Matching – Level X | BB03"
-    # Line 2: "© 2025 Small Wins Studio. PCS® symbols used with active PCS Maker Personal License." (light grey)
-    footer_y = border_margin + 0.3 * inch
+    # Footer - Gold standard (matches Bingo / apply_small_wins_frame)
+    footer_y = border_margin + 0.26 * inch
     
-    # Line 2 (lower line) in light grey #999999
-    c.setFont("Helvetica", 9)
+    # Line 2 (lower) - studio / license / copyright
+    c.setFont(BODY_FONT, 9)
     c.setFillColorRGB(*hex_to_rgb('#999999'))
-    footer_line2 = "© 2025 Small Wins Studio. PCS® symbols used with active PCS Maker Personal License."
+    footer_line2 = "Small Wins Studio | PCS symbols used with active PCS Maker Personal License. | © 2026"
     c.drawCentredString(width / 2, footer_y, footer_line2)
     
-    # Line 1 (upper line) in dark grey/black
-    c.setFillColorRGB(0, 0, 0)
-    footer_line1 = f"Matching – Level {level} | {pack_code}"
+    # Line 1 (upper) - product / level / code / page (bold)
+    c.setFillColorRGB(*hex_to_rgb('#999999'))
+    c.setFont(TITLE_FONT, 10)
+    footer_line1 = f"Brown Bear Matching | Level {level} | {pack_code} | Page {page_num}/{total_pages}"
     c.drawCentredString(width / 2, footer_y + 12, footer_line1)
     
     c.showPage()
@@ -405,20 +406,14 @@ def create_cutout_page_constitution(c, images, names, icons_on_page, page_number
     # Title with page number
     c.setFillColorRGB(*hex_to_rgb('#001F3F'))  # Navy
     # Title: "Cut Out Matching Pieces"
-    try:
-        c.setFont("Comic-Sans-MS-Bold", 28)
-    except:
-        c.setFont("Helvetica-Bold", 28)
+    c.setFont(TITLE_FONT, 28)
     
     title_text = "Cut Out Matching Pieces"
     title_y = accent_y + accent_height / 2 + 10
     c.drawCentredString(width / 2, title_y, title_text)
     
     # Subtitle: "Brown Bear" (no level info)
-    try:
-        c.setFont("Comic-Sans-MS", 20)
-    except:
-        c.setFont("Helvetica", 20)
+    c.setFont(BODY_FONT, 20)
     c.setFillColorRGB(0.2, 0.2, 0.2)  # Dark grey
     subtitle_text = theme_name
     subtitle_y = title_y - 32
@@ -484,21 +479,20 @@ def create_cutout_page_constitution(c, images, names, icons_on_page, page_number
         
         icon_idx += 1
     
-    # Footer - TWO lines per Product Spec
-    footer_y = border_margin + 0.3 * inch
+    # Footer - Gold standard (matches Bingo / apply_small_wins_frame)
+    footer_y = border_margin + 0.26 * inch
     
-    # Line 2 (lower line) in light grey
-    c.setFont("Helvetica", 9)
+    c.setFont(BODY_FONT, 9)
     c.setFillColorRGB(*hex_to_rgb('#999999'))
-    footer_line2 = "© 2025 Small Wins Studio. PCS® symbols used with active PCS Maker Personal License."
+    footer_line2 = "Small Wins Studio | PCS symbols used with active PCS Maker Personal License. | © 2026"
     c.drawCentredString(width / 2, footer_y, footer_line2)
     
-    # Line 1 (upper line)
-    c.setFillColorRGB(0, 0, 0)
+    c.setFillColorRGB(*hex_to_rgb('#999999'))
+    c.setFont(TITLE_FONT, 10)
     if level:
-        footer_line1 = f"Matching – Level {level} | {pack_code}"
+        footer_line1 = f"Brown Bear Matching | Level {level} | {pack_code} | Page {page_num}/{total_pages}"
     else:
-        footer_line1 = f"Cutouts | {pack_code}"
+        footer_line1 = f"Brown Bear Matching | Cutouts | {pack_code}"
     c.drawCentredString(width / 2, footer_y + 12, footer_line1)
     
     c.showPage()
@@ -552,20 +546,14 @@ def create_storage_label_page_constitution(c, images, names, page_num, total_pag
     
     # Page title
     c.setFillColorRGB(*hex_to_rgb('#001F3F'))
-    try:
-        c.setFont("Comic-Sans-MS-Bold", 36)
-    except:
-        c.setFont("Helvetica-Bold", 36)
+    c.setFont(TITLE_FONT, 36)
     
     title_text = "Storage Labels"
     title_y = accent_y + accent_height / 2 + 10
     c.drawCentredString(width / 2, title_y, title_text)
     
     # Subtitle
-    try:
-        c.setFont("Comic-Sans-MS", 28)
-    except:
-        c.setFont("Helvetica", 28)
+    c.setFont(BODY_FONT, 28)
     subtitle_text = f"{theme_name} – Level {level}" if level else theme_name
     subtitle_y = title_y - 42
     c.drawCentredString(width / 2, subtitle_y, subtitle_text)
@@ -609,18 +597,18 @@ def create_storage_label_page_constitution(c, images, names, page_num, total_pag
         # Title: "Matching" - dark blue in color mode, black in B&W mode
         text_color = get_border_color_for_mode(DARK_BLUE, mode)
         c.setFillColorRGB(*hex_to_rgb(text_color))
-        c.setFont("Helvetica-Bold", 11)
+        c.setFont(TITLE_FONT, 11)
         text_y = box_y + box_height - 0.2 * inch
         c.drawCentredString(box_x + box_width / 2, text_y, "Matching")
         
         # Subtitle: "Brown Bear BB03"
-        c.setFont("Helvetica", 9)
+        c.setFont(BODY_FONT, 9)
         text_y -= 0.18 * inch
         c.drawCentredString(box_x + box_width / 2, text_y, f"{theme_name} {pack_code}")
         
         # Level info
         if level:
-            c.setFont("Helvetica-Bold", 9)
+            c.setFont(TITLE_FONT, 9)
             text_y -= 0.16 * inch
             c.drawCentredString(box_x + box_width / 2, text_y, f"Level {level}")
         else:
@@ -647,26 +635,25 @@ def create_storage_label_page_constitution(c, images, names, page_num, total_pag
                    preserveAspectRatio=True, mask='auto')
         
         # Icon name (centered below icon) - adjusted position
-        c.setFont("Helvetica", 10)
+        c.setFont(BODY_FONT, 10)
         c.setFillColorRGB(0, 0, 0)
         name_y = icon_y - 0.18 * inch  # Moved down from -0.15" to -0.18"
         c.drawCentredString(box_x + box_width / 2, name_y, names[idx])
     
-    # Footer
-    footer_y = border_margin + 0.3 * inch
+    # Footer - Gold standard (matches Bingo / apply_small_wins_frame)
+    footer_y = border_margin + 0.26 * inch
     
-    # Line 2 (lower line) in light grey
-    c.setFont("Helvetica", 9)
+    c.setFont(BODY_FONT, 9)
     c.setFillColorRGB(*hex_to_rgb('#999999'))
-    footer_line2 = "© 2025 Small Wins Studio. PCS® symbols used with active PCS Maker Personal License."
+    footer_line2 = "Small Wins Studio | PCS symbols used with active PCS Maker Personal License. | © 2026"
     c.drawCentredString(width / 2, footer_y, footer_line2)
     
-    # Line 1 (upper line)
-    c.setFillColorRGB(0, 0, 0)
+    c.setFillColorRGB(*hex_to_rgb('#999999'))
+    c.setFont(TITLE_FONT, 10)
     if level:
-        footer_line1 = f"Matching – Level {level} | {pack_code}"
+        footer_line1 = f"Brown Bear Matching | Level {level} | {pack_code} | Page {page_num}/{total_pages}"
     else:
-        footer_line1 = f"Storage Labels | {pack_code}"
+        footer_line1 = f"Brown Bear Matching | Storage Labels | {pack_code}"
     c.drawCentredString(width / 2, footer_y + 12, footer_line1)
     
     c.showPage()
@@ -818,7 +805,8 @@ def add_preview_watermark(input_pdf_path, output_pdf_path):
     
     # Rotate and position text
     page_width, page_height = letter
-    can.translate(page_width/2, page_height/2)
+    # Move the watermark down so it covers the main activity area rather than the header strip.
+    can.translate(page_width/2, (page_height/2) - 55)
     can.rotate(45)
     can.drawCentredString(0, 0, "PREVIEW")
     
