@@ -85,7 +85,7 @@ def start_page() -> str:
         <p>Use these links to open the app:</p>
         <ul>
           <li><a href=\"/docs\">Backend API Docs (CEO sign-off test lives here)</a></li>
-          <li><a href=\"{APP_URL}\" target=\"_blank\">Frontend App</a></li>
+          <li><a id=\"frontend-launch\" href=\"{APP_URL}\" target=\"_blank\">Frontend App</a></li>
           <li><a href=\"/health\">Backend Health Check</a></li>
         </ul>
         <p><strong>Phone quick launch (same Wi-Fi):</strong></p>
@@ -110,6 +110,7 @@ def start_page() -> str:
               return appUrl;
             }
           })();
+          const frontendLaunch = document.getElementById('frontend-launch');
           const node = document.getElementById('phone-url');
           const launch = document.getElementById('phone-launch');
           const emailInput = document.getElementById('consultant-email');
@@ -124,6 +125,14 @@ def start_page() -> str:
 
           const renderUrl = () => {
             const phoneUrl = buildUrl();
+            const localOrigin = `http://${host}:5173`;
+            const frontendUrl = host === 'localhost' || host === '127.0.0.1' ? localOrigin : appOrigin;
+            if (frontendLaunch) {
+              frontendLaunch.href = frontendUrl;
+              frontendLaunch.textContent = host === 'localhost' || host === '127.0.0.1'
+                ? 'Frontend App (this computer)'
+                : 'Frontend App';
+            }
             if (node && host && host !== 'localhost' && host !== '127.0.0.1') {
               node.textContent = phoneUrl;
             }

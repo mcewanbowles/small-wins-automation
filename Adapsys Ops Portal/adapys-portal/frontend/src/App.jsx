@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   approveExpense,
+  bulkCreateCoachingEngagements,
   createCoachingEngagement,
   createExpense,
   createTrip,
@@ -175,6 +176,32 @@ const INITIAL_TENDER_FORM = {
   official_close_date: '',
 };
 
+const COACHING_BATCH_DRAFT_STORAGE_KEY = 'adapsys_coaching_batch_draft_v1';
+
+function createEmptyCoachingBatchRow() {
+  return {
+    name: '',
+    job_title: '',
+    client_org: '',
+    coach_input: '',
+    coach_email: '',
+    total_sessions: '5',
+    sessions_used: '0',
+  };
+}
+
+function parseLookupDraftArray(raw) {
+  try {
+    const parsed = JSON.parse(String(raw || '[]'));
+    if (!Array.isArray(parsed)) {
+      return { items: [], error: 'JSON must be an array.' };
+    }
+    return { items: parsed, error: '' };
+  } catch {
+    return { items: [], error: 'Invalid JSON format.' };
+  }
+}
+
 export default function App() {
   const [tripForm, setTripForm] = useState({
     name: '',
@@ -251,6 +278,22 @@ export default function App() {
   const [isSubmittingExpense, setIsSubmittingExpense] = useState(false);
   const [isCreatingCoachingEngagement, setIsCreatingCoachingEngagement] = useState(false);
   const [editingCoachingEngagementId, setEditingCoachingEngagementId] = useState('');
+  const [coachingBatchRows, setCoachingBatchRows] = useState(() => {
+    if (typeof window === 'undefined') return [createEmptyCoachingBatchRow()];
+    try {
+      const raw = localStorage.getItem(COACHING_BATCH_DRAFT_STORAGE_KEY);
+      if (!raw) return [createEmptyCoachingBatchRow()];
+      const parsed = JSON.parse(raw);
+      if (!Array.isArray(parsed) || parsed.length === 0) return [createEmptyCoachingBatchRow()];
+      return parsed.map((row) => ({
+        ...createEmptyCoachingBatchRow(),
+        ...row,
+      }));
+    } catch {
+      return [createEmptyCoachingBatchRow()];
+    }
+  });
+  const [isSubmittingCoachingBatch, setIsSubmittingCoachingBatch] = useState(false);
   const [isSubmittingCoachingSession, setIsSubmittingCoachingSession] = useState(false);
   const [editingCoachingSessionId, setEditingCoachingSessionId] = useState('');
   const [savingConsultantInvoiceSessionId, setSavingConsultantInvoiceSessionId] = useState('');
@@ -326,6 +369,28 @@ export default function App() {
   });
   const headerRef = useRef(null);
 
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    try {
+      localStorage.setItem(COACHING_BATCH_DRAFT_STORAGE_KEY, JSON.stringify(coachingBatchRows));
+    } catch {
+      // Ignore storage failures to avoid blocking data entry.
+    }
+  }, [coachingBatchRows]);
+
+  const consultantLookupPreview = useMemo(
+    () => parseLookupDraftArray(adminLookupDrafts.consultants),
+    [adminLookupDrafts.consultants]
+  );
+  const coachLookupPreview = useMemo(
+    () => parseLookupDraftArray(adminLookupDrafts.coaches),
+    [adminLookupDrafts.coaches]
+  );
+  const clientProgramLookupPreview = useMemo(
+    () => parseLookupDraftArray(adminLookupDrafts.clientPrograms),
+    [adminLookupDrafts.clientPrograms]
+  );
+
   const clientOptions = useMemo(
     () => [...new Set(clientPrograms.map((row) => row.client_name))],
     [clientPrograms]
@@ -382,6 +447,17 @@ export default function App() {
     return map;
   }, [orderedCoaches]);
 
+  const coachLookupOptions = useMemo(
+    () =>
+      orderedCoaches.map((coach) => ({
+        email: String(coach.email || '').trim(),
+        emailLower: String(coach.email || '').trim().toLowerCase(),
+        name: String(coach.name || coach.email || '').trim(),
+        nameLower: String(coach.name || coach.email || '').trim().toLowerCase(),
+      })),
+    [orderedCoaches]
+  );
+
   const personNameByEmail = useMemo(
     () => ({ ...consultantNameByEmail, ...coachNameByEmail }),
     [coachNameByEmail, consultantNameByEmail]
@@ -399,6 +475,132 @@ export default function App() {
       .filter(Boolean)
       .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
       .join(' ');
+  }
+
+  function resolveCoachInput(rawValue) {
+    const normalized = String(rawValue || '').trim().toLowerCase();
+    if (!normalized) return '';
+
+    const exact = coachLookupOptions.find(
+      (coach) =>
+        coach.emailLower === normalized ||
+        coach.nameLower === normalized ||
+        `${coach.nameLower} (${coach.emailLower})` === normalized
+    );
+    if (exact?.email) return exact.email;
+
+    const startsWithMatches = coachLookupOptions.filter(
+      (coach) => coach.nameLower.startsWith(normalized) || coach.emailLower.startsWith(normalized)
+    );
+    if (startsWithMatches.length === 1) return startsWithMatches[0].email;
+
+    const includesMatches = coachLookupOptions.filter(
+      (coach) => coach.nameLower.includes(normalized) || coach.emailLower.includes(normalized)
+    );
+    if (includesMatches.length === 1) return includesMatches[0].email;
+
+    return '';
+  }
+
+  function onCoachingBatchFieldChange(rowIndex, field, value) {
+    setCoachingBatchRows((prev) => {
+      const next = [...prev];
+      const current = next[rowIndex] || createEmptyCoachingBatchRow();
+      next[rowIndex] = { ...current, [field]: value };
+      if (field === 'coach_input') {
+        next[rowIndex].coach_email = resolveCoachInput(value);
+      }
+      return next;
+    });
+  }
+
+  function onAddCoachingBatchRow() {
+    setCoachingBatchRows((prev) => [...prev, createEmptyCoachingBatchRow()]);
+  }
+
+  function onRemoveCoachingBatchRow(rowIndex) {
+    setCoachingBatchRows((prev) => {
+      if (prev.length <= 1) return [createEmptyCoachingBatchRow()];
+      return prev.filter((_, idx) => idx !== rowIndex);
+    });
+  }
+
+  function onResetCoachingBatchRows() {
+    setCoachingBatchRows([createEmptyCoachingBatchRow()]);
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem(COACHING_BATCH_DRAFT_STORAGE_KEY);
+    }
+    setCoachingStatus('Batch draft cleared.');
+  }
+
+  async function onSubmitCoachingBatch(event) {
+    event.preventDefault();
+    setIsSubmittingCoachingBatch(true);
+    setCoachingStatus('Uploading coaching batch...');
+
+    try {
+      const cleanRows = coachingBatchRows
+        .map((row) => {
+          const resolvedCoachEmail = row.coach_email || resolveCoachInput(row.coach_input);
+          return {
+            name: String(row.name || '').trim(),
+            job_title: String(row.job_title || '').trim(),
+            client_org: String(row.client_org || '').trim(),
+            coach_email: String(resolvedCoachEmail || '').trim(),
+            total_sessions: Number(row.total_sessions || 0),
+            sessions_used: Number(row.sessions_used || 0),
+          };
+        })
+        .filter((row) => row.name || row.client_org || row.coach_email);
+
+      if (!cleanRows.length) {
+        setCoachingStatus('Add at least one coaching row before uploading.');
+        return;
+      }
+
+      const completeRows = cleanRows.filter(
+        (row) => !row.name || !row.client_org || !row.coach_email || row.total_sessions <= 0 || row.sessions_used < 0
+      );
+
+      const validRows = cleanRows.filter(
+        (row) => row.name && row.client_org && row.coach_email && row.total_sessions > 0 && row.sessions_used >= 0
+      );
+
+      if (!validRows.length) {
+        setCoachingStatus('No complete rows to save yet. Fill coachee, client, coach, and sessions first.');
+        return;
+      }
+
+      await bulkCreateCoachingEngagements({ items: validRows });
+
+      const remainingDraftRows = coachingBatchRows.filter((row) => {
+        const resolvedCoachEmail = row.coach_email || resolveCoachInput(row.coach_input);
+        const isValid =
+          String(row.name || '').trim() &&
+          String(row.client_org || '').trim() &&
+          String(resolvedCoachEmail || '').trim() &&
+          Number(row.total_sessions || 0) > 0 &&
+          Number(row.sessions_used || 0) >= 0;
+        return !isValid;
+      });
+      setCoachingBatchRows(remainingDraftRows.length ? remainingDraftRows : [createEmptyCoachingBatchRow()]);
+
+      if (!remainingDraftRows.length && typeof window !== 'undefined') {
+        localStorage.removeItem(COACHING_BATCH_DRAFT_STORAGE_KEY);
+      }
+
+      const skippedCount = cleanRows.length - validRows.length;
+      setCoachingStatus(
+        skippedCount > 0
+          ? `Saved ${validRows.length} complete row(s). Kept ${skippedCount} incomplete row(s) in draft.`
+          : `Batch upload complete: ${validRows.length} coaching engagement(s) saved.`
+      );
+      await refresh();
+    } catch (error) {
+      setCoachingStatus(error.message || 'Batch coaching upload failed.');
+    } finally {
+      setIsSubmittingCoachingBatch(false);
+    }
   }
 
   const visibleScreenTabs = useMemo(() => {
@@ -468,6 +670,12 @@ export default function App() {
     () => [...new Set(clientPrograms.map((row) => row.program_name))],
     [clientPrograms]
   );
+
+  const adminCountryOptions = useMemo(() => {
+    const fromRates = atoRates.map((row) => String(row.country || '').trim()).filter(Boolean);
+    const fromTrips = trips.map((row) => String(row.destination_country || '').trim()).filter(Boolean);
+    return Array.from(new Set([...fromRates, ...fromTrips])).sort((a, b) => a.localeCompare(b));
+  }, [atoRates, trips]);
 
   const dashboardLogoCandidates = useMemo(() => {
     if (typeof window === 'undefined') return [];
@@ -1489,6 +1697,25 @@ export default function App() {
     } finally {
       setSavingAdminLookupKey('');
     }
+  }
+
+  function onFormatAdminLookup(kind) {
+    const raw =
+      kind === 'consultants'
+        ? adminLookupDrafts.consultants
+        : kind === 'coaches'
+          ? adminLookupDrafts.coaches
+          : adminLookupDrafts.clientPrograms;
+
+    const parsed = parseLookupDraftArray(raw);
+    if (parsed.error) {
+      setStatus(`Cannot format ${kind}: ${parsed.error}`);
+      return;
+    }
+
+    const pretty = JSON.stringify(parsed.items, null, 2);
+    setAdminLookupDrafts((prev) => ({ ...prev, [kind]: pretty }));
+    setStatus(`${kind} JSON formatted for readability.`);
   }
 
   function onAdminSessionFieldChange(sessionId, field, value) {
@@ -3365,6 +3592,121 @@ export default function App() {
               </form>
             </details>
 
+            <details>
+              <summary>Batch upload coaching engagements (Excel-style helper)</summary>
+              <form onSubmit={onSubmitCoachingBatch} className="coaching-engagement-form" style={{ marginTop: 10 }}>
+                <div className="status coaching-helper-note" style={{ marginBottom: 8 }}>
+                  Tip: type coach like "ca" to suggest Cameron. Client field uses your saved dropdown list.
+                </div>
+
+                <datalist id="coaching-batch-client-options">
+                  {clientOptions.map((clientName) => (
+                    <option key={clientName} value={clientName}>
+                      {clientName}
+                    </option>
+                  ))}
+                </datalist>
+                <datalist id="coaching-batch-coach-options">
+                  {coachLookupOptions.map((coach) => (
+                    <option key={coach.email} value={coach.name}>
+                      {coach.name} ({coach.email})
+                    </option>
+                  ))}
+                </datalist>
+
+                <div style={{ overflowX: 'auto' }}>
+                  <table className="admin-table" style={{ minWidth: 860 }}>
+                    <thead>
+                      <tr>
+                        <th>Coachee</th>
+                        <th>Job Title</th>
+                        <th>Client</th>
+                        <th>Coach</th>
+                        <th>Entitled</th>
+                        <th>Completed</th>
+                        <th>Row</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {coachingBatchRows.map((row, idx) => (
+                        <tr key={`coaching-batch-row-${idx}`}>
+                          <td>
+                            <input
+                              value={row.name}
+                              onChange={(e) => onCoachingBatchFieldChange(idx, 'name', e.target.value)}
+                              placeholder="Jane Smith"
+                              required={idx === 0}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              value={row.job_title}
+                              onChange={(e) => onCoachingBatchFieldChange(idx, 'job_title', e.target.value)}
+                              placeholder="Program Manager"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              value={row.client_org}
+                              onChange={(e) => onCoachingBatchFieldChange(idx, 'client_org', e.target.value)}
+                              list="coaching-batch-client-options"
+                              placeholder="Select or type client"
+                              required={idx === 0}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              value={row.coach_input}
+                              onChange={(e) => onCoachingBatchFieldChange(idx, 'coach_input', e.target.value)}
+                              list="coaching-batch-coach-options"
+                              placeholder="Type coach name/email"
+                              required={idx === 0}
+                            />
+                            <div className="status" style={{ marginTop: 4 }}>
+                              {row.coach_email ? `Resolved: ${displayNameFromEmail(row.coach_email)} (${row.coach_email})` : 'Not resolved yet'}
+                            </div>
+                          </td>
+                          <td>
+                            <input
+                              type="number"
+                              min="1"
+                              value={row.total_sessions}
+                              onChange={(e) => onCoachingBatchFieldChange(idx, 'total_sessions', e.target.value)}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="number"
+                              min="0"
+                              value={row.sessions_used}
+                              onChange={(e) => onCoachingBatchFieldChange(idx, 'sessions_used', e.target.value)}
+                            />
+                          </td>
+                          <td>
+                            <button type="button" className="secondary" onClick={() => onRemoveCoachingBatchRow(idx)}>
+                              Remove
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+
+                <div className="coaching-form-actions">
+                  <button type="button" className="secondary" onClick={onAddCoachingBatchRow}>
+                    + Add Row
+                  </button>
+                  <button type="button" className="secondary" onClick={onResetCoachingBatchRows}>
+                    Clear Batch
+                  </button>
+                  <button type="submit" disabled={isSubmittingCoachingBatch}>
+                    {isSubmittingCoachingBatch ? 'Saving Batch...' : 'Save Batch to Portal'}
+                  </button>
+                </div>
+              </form>
+            </details>
+
           </>
         ) : null}
 
@@ -4329,23 +4671,23 @@ export default function App() {
           </div>
 
           <h3 style={{ margin: '0 0 8px', color: 'var(--color-dark-teal)', fontSize: 15 }}>
-            Projects (All Editable Fields)
+            Projects (Quick Edit)
           </h3>
+          <div className="status" style={{ marginBottom: 8 }}>
+            Key fields are shown first. Open "Advanced" in a row for less-changed fields.
+          </div>
           <div className="admin-table-wrap">
             <table className="admin-table">
               <thead>
                 <tr>
                   <th>Project</th>
                   <th>Lead Consultant</th>
-                  <th>Assigned Consultants (comma list)</th>
                   <th>Client</th>
                   <th>Program</th>
                   <th>Country</th>
-                  <th>City</th>
                   <th>Start</th>
                   <th>End</th>
-                  <th>Depart</th>
-                  <th>Return</th>
+                  <th>Advanced</th>
                   <th>Save</th>
                 </tr>
               </thead>
@@ -4353,6 +4695,22 @@ export default function App() {
                 {trips.map((trip) => {
                   const key = String(trip.id);
                   const draft = adminTripDraftById[key] || {};
+                  const selectedConsultant = String(draft.consultant_email ?? trip.consultant_email ?? '').trim().toLowerCase();
+                  const leadConsultantOptions = [selectedConsultant, ...allConsultantEmails]
+                    .filter(Boolean)
+                    .filter((value, idx, arr) => arr.indexOf(value) === idx);
+                  const selectedClient = String(draft.client_name ?? trip.client_name ?? '').trim();
+                  const clientSelectOptions = [selectedClient, ...clientOptions]
+                    .filter(Boolean)
+                    .filter((value, idx, arr) => arr.indexOf(value) === idx);
+                  const selectedProgram = String(draft.program_name ?? trip.program_name ?? '').trim();
+                  const programSelectOptions = [selectedProgram, ...allProgramOptions]
+                    .filter(Boolean)
+                    .filter((value, idx, arr) => arr.indexOf(value) === idx);
+                  const selectedCountry = String(draft.destination_country ?? trip.destination_country ?? '').trim();
+                  const countrySelectOptions = [selectedCountry, ...adminCountryOptions]
+                    .filter(Boolean)
+                    .filter((value, idx, arr) => arr.indexOf(value) === idx);
                   return (
                     <tr key={trip.id}>
                       <td>
@@ -4362,40 +4720,56 @@ export default function App() {
                         />
                       </td>
                       <td>
-                        <input
-                          value={draft.consultant_email ?? trip.consultant_email ?? ''}
+                        <select
+                          value={selectedConsultant}
                           onChange={(e) => onAdminTripFieldChange(trip.id, 'consultant_email', e.target.value)}
-                        />
+                        >
+                          <option value="">Select consultant</option>
+                          {leadConsultantOptions.map((email) => (
+                            <option key={`${trip.id}-lead-${email}`} value={email}>
+                              {displayNameFromEmail(email)} ({email})
+                            </option>
+                          ))}
+                        </select>
                       </td>
                       <td>
-                        <input
-                          value={draft.assigned_consultants ?? (trip.assigned_consultants || []).join(', ')}
-                          onChange={(e) => onAdminTripFieldChange(trip.id, 'assigned_consultants', e.target.value)}
-                        />
-                      </td>
-                      <td>
-                        <input
-                          value={draft.client_name ?? trip.client_name ?? ''}
+                        <select
+                          value={selectedClient}
                           onChange={(e) => onAdminTripFieldChange(trip.id, 'client_name', e.target.value)}
-                        />
+                        >
+                          <option value="">Select client</option>
+                          {clientSelectOptions.map((clientName) => (
+                            <option key={`${trip.id}-client-${clientName}`} value={clientName}>
+                              {clientName}
+                            </option>
+                          ))}
+                        </select>
                       </td>
                       <td>
-                        <input
-                          value={draft.program_name ?? trip.program_name ?? ''}
+                        <select
+                          value={selectedProgram}
                           onChange={(e) => onAdminTripFieldChange(trip.id, 'program_name', e.target.value)}
-                        />
+                        >
+                          <option value="">Select program</option>
+                          {programSelectOptions.map((programName) => (
+                            <option key={`${trip.id}-program-${programName}`} value={programName}>
+                              {programName}
+                            </option>
+                          ))}
+                        </select>
                       </td>
                       <td>
-                        <input
-                          value={draft.destination_country ?? trip.destination_country ?? ''}
+                        <select
+                          value={selectedCountry}
                           onChange={(e) => onAdminTripFieldChange(trip.id, 'destination_country', e.target.value)}
-                        />
-                      </td>
-                      <td>
-                        <input
-                          value={draft.destination_city ?? trip.destination_city ?? ''}
-                          onChange={(e) => onAdminTripFieldChange(trip.id, 'destination_city', e.target.value)}
-                        />
+                        >
+                          <option value="">Select country</option>
+                          {countrySelectOptions.map((countryName) => (
+                            <option key={`${trip.id}-country-${countryName}`} value={countryName}>
+                              {countryName}
+                            </option>
+                          ))}
+                        </select>
                       </td>
                       <td>
                         <input
@@ -4412,18 +4786,33 @@ export default function App() {
                         />
                       </td>
                       <td>
-                        <input
-                          type="date"
-                          value={draft.departure_date ?? trip.departure_date ?? ''}
-                          onChange={(e) => onAdminTripFieldChange(trip.id, 'departure_date', e.target.value)}
-                        />
-                      </td>
-                      <td>
-                        <input
-                          type="date"
-                          value={draft.return_date ?? trip.return_date ?? ''}
-                          onChange={(e) => onAdminTripFieldChange(trip.id, 'return_date', e.target.value)}
-                        />
+                        <details>
+                          <summary>Open</summary>
+                          <div style={{ display: 'grid', gap: 6, marginTop: 6, minWidth: 260 }}>
+                            <label>Assigned Consultants (comma list)</label>
+                            <input
+                              value={draft.assigned_consultants ?? (trip.assigned_consultants || []).join(', ')}
+                              onChange={(e) => onAdminTripFieldChange(trip.id, 'assigned_consultants', e.target.value)}
+                            />
+                            <label>City</label>
+                            <input
+                              value={draft.destination_city ?? trip.destination_city ?? ''}
+                              onChange={(e) => onAdminTripFieldChange(trip.id, 'destination_city', e.target.value)}
+                            />
+                            <label>Departure Date</label>
+                            <input
+                              type="date"
+                              value={draft.departure_date ?? trip.departure_date ?? ''}
+                              onChange={(e) => onAdminTripFieldChange(trip.id, 'departure_date', e.target.value)}
+                            />
+                            <label>Return Date</label>
+                            <input
+                              type="date"
+                              value={draft.return_date ?? trip.return_date ?? ''}
+                              onChange={(e) => onAdminTripFieldChange(trip.id, 'return_date', e.target.value)}
+                            />
+                          </div>
+                        </details>
                       </td>
                       <td>
                         <button
@@ -4444,9 +4833,35 @@ export default function App() {
           <h3 style={{ margin: '16px 0 8px', color: 'var(--color-dark-teal)', fontSize: 15 }}>
             Lookup Files (Admin Editable)
           </h3>
+          <div className="status" style={{ marginBottom: 8 }}>
+            Readable preview shown below each list. JSON box remains for advanced edits.
+          </div>
           <div className="grid" style={{ marginBottom: 8 }}>
             <div>
               <label>Consultants JSON</label>
+              <div className="status" style={{ marginBottom: 6 }}>
+                {consultantLookupPreview.error
+                  ? `Preview unavailable: ${consultantLookupPreview.error}`
+                  : `${consultantLookupPreview.items.length} consultant(s)`}
+              </div>
+              {!consultantLookupPreview.error ? (
+                <div className="admin-table-wrap" style={{ maxHeight: 180, marginBottom: 6 }}>
+                  <table className="admin-table">
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {consultantLookupPreview.items.map((row, idx) => (
+                        <tr key={`consultant-preview-${idx}`}>
+                          <td>{String(row?.name || '').trim() || '-'}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              ) : null}
               <textarea
                 rows={10}
                 value={adminLookupDrafts.consultants}
@@ -4461,9 +4876,37 @@ export default function App() {
               >
                 {savingAdminLookupKey === 'consultants' ? 'Saving...' : 'Save Consultants'}
               </button>
+              <button type="button" className="secondary" onClick={() => onFormatAdminLookup('consultants')}>
+                Format JSON
+              </button>
             </div>
             <div>
               <label>Coaches JSON</label>
+              <div className="status" style={{ marginBottom: 6 }}>
+                {coachLookupPreview.error
+                  ? `Preview unavailable: ${coachLookupPreview.error}`
+                  : `${coachLookupPreview.items.length} coach(es)`}
+              </div>
+              {!coachLookupPreview.error ? (
+                <div className="admin-table-wrap" style={{ maxHeight: 180, marginBottom: 6 }}>
+                  <table className="admin-table">
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {coachLookupPreview.items.map((row, idx) => (
+                        <tr key={`coach-preview-${idx}`}>
+                          <td>{String(row?.name || '').trim() || '-'}</td>
+                          <td>{String(row?.email || '').trim() || '-'}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              ) : null}
               <textarea
                 rows={10}
                 value={adminLookupDrafts.coaches}
@@ -4478,10 +4921,38 @@ export default function App() {
               >
                 {savingAdminLookupKey === 'coaches' ? 'Saving...' : 'Save Coaches'}
               </button>
+              <button type="button" className="secondary" onClick={() => onFormatAdminLookup('coaches')}>
+                Format JSON
+              </button>
             </div>
           </div>
           <div>
             <label>Client Programs JSON</label>
+            <div className="status" style={{ marginBottom: 6 }}>
+              {clientProgramLookupPreview.error
+                ? `Preview unavailable: ${clientProgramLookupPreview.error}`
+                : `${clientProgramLookupPreview.items.length} client program row(s)`}
+            </div>
+            {!clientProgramLookupPreview.error ? (
+              <div className="admin-table-wrap" style={{ maxHeight: 220, marginBottom: 6 }}>
+                <table className="admin-table">
+                  <thead>
+                    <tr>
+                      <th>Client</th>
+                      <th>Program</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {clientProgramLookupPreview.items.map((row, idx) => (
+                      <tr key={`client-program-preview-${idx}`}>
+                        <td>{String(row?.client_name || '').trim() || '-'}</td>
+                        <td>{String(row?.program_name || '').trim() || '-'}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : null}
             <textarea
               rows={12}
               value={adminLookupDrafts.clientPrograms}
@@ -4495,6 +4966,9 @@ export default function App() {
               disabled={savingAdminLookupKey === 'clientPrograms'}
             >
               {savingAdminLookupKey === 'clientPrograms' ? 'Saving...' : 'Save Client Programs'}
+            </button>
+            <button type="button" className="secondary" onClick={() => onFormatAdminLookup('clientPrograms')}>
+              Format JSON
             </button>
           </div>
 
