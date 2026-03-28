@@ -361,6 +361,7 @@ export default function App() {
   const [savingAdminLookupKey, setSavingAdminLookupKey] = useState('');
   const [atoRateDraftById, setAtoRateDraftById] = useState({});
   const [savingAtoRateId, setSavingAtoRateId] = useState('');
+  const [adminConsoleSection, setAdminConsoleSection] = useState('projects');
   const [layoutMode, setLayoutMode] = useState(() => {
     if (typeof window === 'undefined') return 'tabs';
     const saved = localStorage.getItem('adapsys_layout_mode');
@@ -481,6 +482,9 @@ export default function App() {
     const normalized = String(rawValue || '').trim().toLowerCase();
     if (!normalized) return '';
 
+    // Allow brand-new coaches to be entered by email immediately.
+    if (normalized.includes('@')) return normalized;
+
     const exact = coachLookupOptions.find(
       (coach) =>
         coach.emailLower === normalized ||
@@ -541,12 +545,14 @@ export default function App() {
     try {
       const cleanRows = coachingBatchRows
         .map((row) => {
-          const resolvedCoachEmail = row.coach_email || resolveCoachInput(row.coach_input);
+          const rawCoachInput = String(row.coach_input || '').trim().toLowerCase();
+          const resolvedCoachEmail = row.coach_email || resolveCoachInput(rawCoachInput);
           return {
             name: String(row.name || '').trim(),
             job_title: String(row.job_title || '').trim(),
             client_org: String(row.client_org || '').trim(),
             coach_email: String(resolvedCoachEmail || '').trim(),
+            coach_input: rawCoachInput,
             total_sessions: Number(row.total_sessions || 0),
             sessions_used: Number(row.sessions_used || 0),
           };
@@ -573,6 +579,52 @@ export default function App() {
 
       await bulkCreateCoachingEngagements({ items: validRows });
 
+      const existingCoachByEmail = new Map(
+        coaches
+          .filter((row) => row?.email)
+          .map((row) => [String(row.email).trim().toLowerCase(), String(row.name || '').trim()])
+      );
+      const newCoachRows = [];
+      validRows.forEach((row) => {
+        const email = String(row.coach_email || '').trim().toLowerCase();
+        if (!email || existingCoachByEmail.has(email)) return;
+        const derivedName =
+          String(row.coach_input || '').includes('@') || !String(row.coach_input || '').trim()
+            ? displayNameFromEmail(email)
+            : String(row.coach_input || '').trim();
+        existingCoachByEmail.set(email, derivedName);
+        newCoachRows.push({ name: derivedName, email });
+      });
+
+      if (newCoachRows.length) {
+        const mergedCoaches = [
+          ...coaches,
+          ...newCoachRows,
+        ].filter((row, idx, arr) => {
+          const email = String(row?.email || '').trim().toLowerCase();
+          return email && arr.findIndex((candidate) => String(candidate?.email || '').trim().toLowerCase() === email) === idx;
+        });
+        await updateLookupCoaches({ items: mergedCoaches });
+      }
+
+      const knownClientNames = new Set(
+        clientPrograms.map((row) => String(row.client_name || '').trim().toLowerCase()).filter(Boolean)
+      );
+      const newClientProgramRows = [];
+      validRows.forEach((row) => {
+        const clientName = String(row.client_org || '').trim();
+        const clientKey = clientName.toLowerCase();
+        if (!clientName || knownClientNames.has(clientKey)) return;
+        knownClientNames.add(clientKey);
+        newClientProgramRows.push({ client_name: clientName, program_name: 'General Coaching Program' });
+      });
+
+      if (newClientProgramRows.length) {
+        await updateLookupClientPrograms({
+          items: [...clientPrograms, ...newClientProgramRows],
+        });
+      }
+
       const remainingDraftRows = coachingBatchRows.filter((row) => {
         const resolvedCoachEmail = row.coach_email || resolveCoachInput(row.coach_input);
         const isValid =
@@ -593,7 +645,7 @@ export default function App() {
       setCoachingStatus(
         skippedCount > 0
           ? `Saved ${validRows.length} complete row(s). Kept ${skippedCount} incomplete row(s) in draft.`
-          : `Batch upload complete: ${validRows.length} coaching engagement(s) saved.`
+          : `Batch upload complete: ${validRows.length} coaching engagement(s) saved. Added ${newCoachRows.length} new coach lookup(s) and ${newClientProgramRows.length} new client lookup(s).`
       );
       await refresh();
     } catch (error) {
@@ -1716,6 +1768,72 @@ export default function App() {
     const pretty = JSON.stringify(parsed.items, null, 2);
     setAdminLookupDrafts((prev) => ({ ...prev, [kind]: pretty }));
     setStatus(`${kind} JSON formatted for readability.`);
+  }
+
+  function onLookupRowFieldChange(kind, rowIndex, field, value) {
+    const raw =
+      kind === 'consultants'
+        ? adminLookupDrafts.consultants
+        : kind === 'coaches'
+          ? adminLookupDrafts.coaches
+          : adminLookupDrafts.clientPrograms;
+    const parsed = parseLookupDraftArray(raw);
+    if (parsed.error) {
+      setStatus(`Cannot edit ${kind}: ${parsed.error}`);
+      return;
+    }
+
+    const next = parsed.items.map((row, idx) =>
+      idx === rowIndex ? { ...(row || {}), [field]: value } : row
+    );
+    setAdminLookupDrafts((prev) => ({
+      ...prev,
+      [kind]: JSON.stringify(next, null, 2),
+    }));
+  }
+
+  function onAddLookupRow(kind) {
+    const raw =
+      kind === 'consultants'
+        ? adminLookupDrafts.consultants
+        : kind === 'coaches'
+          ? adminLookupDrafts.coaches
+          : adminLookupDrafts.clientPrograms;
+    const parsed = parseLookupDraftArray(raw);
+    if (parsed.error) {
+      setStatus(`Cannot add row to ${kind}: ${parsed.error}`);
+      return;
+    }
+
+    const blankRow =
+      kind === 'clientPrograms'
+        ? { client_name: '', program_name: '' }
+        : { name: '', email: '' };
+
+    setAdminLookupDrafts((prev) => ({
+      ...prev,
+      [kind]: JSON.stringify([...parsed.items, blankRow], null, 2),
+    }));
+  }
+
+  function onRemoveLookupRow(kind, rowIndex) {
+    const raw =
+      kind === 'consultants'
+        ? adminLookupDrafts.consultants
+        : kind === 'coaches'
+          ? adminLookupDrafts.coaches
+          : adminLookupDrafts.clientPrograms;
+    const parsed = parseLookupDraftArray(raw);
+    if (parsed.error) {
+      setStatus(`Cannot remove row from ${kind}: ${parsed.error}`);
+      return;
+    }
+
+    const next = parsed.items.filter((_, idx) => idx !== rowIndex);
+    setAdminLookupDrafts((prev) => ({
+      ...prev,
+      [kind]: JSON.stringify(next, null, 2),
+    }));
   }
 
   function onAdminSessionFieldChange(sessionId, field, value) {
@@ -3592,8 +3710,8 @@ export default function App() {
               </form>
             </details>
 
-            <details>
-              <summary>Batch upload coaching engagements (Excel-style helper)</summary>
+            <details open>
+              <summary>Batch upload coaching engagements (Excel-style helper) — always available</summary>
               <form onSubmit={onSubmitCoachingBatch} className="coaching-engagement-form" style={{ marginTop: 10 }}>
                 <div className="status coaching-helper-note" style={{ marginBottom: 8 }}>
                   Tip: type coach like "ca" to suggest Cameron. Client field uses your saved dropdown list.
@@ -4667,9 +4785,60 @@ export default function App() {
         <section id="admin-console" className="card" style={sectionVisibilityStyle('admin-console')}>
           <h2>Admin Console</h2>
           <div className="status" style={{ marginBottom: 10 }}>
-            Full admin editor for projects, lookup files, and coaching data.
+            Admin workspace. Use one section at a time for cleaner editing.
+          </div>
+          <div className="status" style={{ marginBottom: 10 }}>
+            <strong>Quick action:</strong> Batch coaching entry lives in <strong>Coaching</strong> tab.
+            <button
+              type="button"
+              className="secondary"
+              style={{ marginLeft: 10 }}
+              onClick={() => {
+                setActiveScreenTabId('coaching-module');
+                setCoachingStatus('Batch entry is open in Coaching tab.');
+              }}
+            >
+              Open Batch Coaching Entry
+            </button>
           </div>
 
+          <div className="status" style={{ marginBottom: 10 }}>
+            Snapshot - Projects: {trips.length} | Active Clients: {clientOptions.length} | Coachees: {coachingEngagements.length} | Sessions: {coachingSessions.length}
+          </div>
+
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 12 }}>
+            <button
+              type="button"
+              className={adminConsoleSection === 'projects' ? '' : 'secondary'}
+              onClick={() => setAdminConsoleSection('projects')}
+            >
+              Projects
+            </button>
+            <button
+              type="button"
+              className={adminConsoleSection === 'lookups' ? '' : 'secondary'}
+              onClick={() => setAdminConsoleSection('lookups')}
+            >
+              Lookup Files
+            </button>
+            <button
+              type="button"
+              className={adminConsoleSection === 'engagements' ? '' : 'secondary'}
+              onClick={() => setAdminConsoleSection('engagements')}
+            >
+              Coaching Engagements
+            </button>
+            <button
+              type="button"
+              className={adminConsoleSection === 'sessions' ? '' : 'secondary'}
+              onClick={() => setAdminConsoleSection('sessions')}
+            >
+              Coaching Sessions
+            </button>
+          </div>
+
+          {adminConsoleSection === 'projects' ? (
+          <>
           <h3 style={{ margin: '0 0 8px', color: 'var(--color-dark-teal)', fontSize: 15 }}>
             Projects (Quick Edit)
           </h3>
@@ -4829,19 +4998,23 @@ export default function App() {
               </tbody>
             </table>
           </div>
+          </>
+          ) : null}
 
+          {adminConsoleSection === 'lookups' ? (
+          <>
           <h3 style={{ margin: '16px 0 8px', color: 'var(--color-dark-teal)', fontSize: 15 }}>
             Lookup Files (Admin Editable)
           </h3>
           <div className="status" style={{ marginBottom: 8 }}>
-            Readable preview shown below each list. JSON box remains for advanced edits.
+            Edit rows directly below. Use Advanced only if you need raw JSON edits.
           </div>
           <div className="grid" style={{ marginBottom: 8 }}>
             <div>
-              <label>Consultants JSON</label>
+              <label>Consultants</label>
               <div className="status" style={{ marginBottom: 6 }}>
                 {consultantLookupPreview.error
-                  ? `Preview unavailable: ${consultantLookupPreview.error}`
+                  ? `Table unavailable: ${consultantLookupPreview.error}`
                   : `${consultantLookupPreview.items.length} consultant(s)`}
               </div>
               {!consultantLookupPreview.error ? (
@@ -4855,20 +5028,31 @@ export default function App() {
                     <tbody>
                       {consultantLookupPreview.items.map((row, idx) => (
                         <tr key={`consultant-preview-${idx}`}>
-                          <td>{String(row?.name || '').trim() || '-'}</td>
+                          <td>
+                            <input
+                              value={String(row?.name || '')}
+                              onChange={(e) => onLookupRowFieldChange('consultants', idx, 'name', e.target.value)}
+                              placeholder="Consultant name"
+                            />
+                          </td>
+                          <td>
+                            <button
+                              type="button"
+                              className="secondary"
+                              onClick={() => onRemoveLookupRow('consultants', idx)}
+                            >
+                              Remove
+                            </button>
+                          </td>
                         </tr>
                       ))}
                     </tbody>
                   </table>
                 </div>
               ) : null}
-              <textarea
-                rows={10}
-                value={adminLookupDrafts.consultants}
-                onChange={(e) =>
-                  setAdminLookupDrafts((prev) => ({ ...prev, consultants: e.target.value }))
-                }
-              />
+              <button type="button" className="secondary" onClick={() => onAddLookupRow('consultants')}>
+                + Add Consultant
+              </button>
               <button
                 type="button"
                 onClick={() => onSaveAdminLookup('consultants')}
@@ -4876,15 +5060,25 @@ export default function App() {
               >
                 {savingAdminLookupKey === 'consultants' ? 'Saving...' : 'Save Consultants'}
               </button>
-              <button type="button" className="secondary" onClick={() => onFormatAdminLookup('consultants')}>
-                Format JSON
-              </button>
+              <details style={{ marginTop: 6 }}>
+                <summary>Advanced JSON</summary>
+                <textarea
+                  rows={10}
+                  value={adminLookupDrafts.consultants}
+                  onChange={(e) =>
+                    setAdminLookupDrafts((prev) => ({ ...prev, consultants: e.target.value }))
+                  }
+                />
+                <button type="button" className="secondary" onClick={() => onFormatAdminLookup('consultants')}>
+                  Format JSON
+                </button>
+              </details>
             </div>
             <div>
-              <label>Coaches JSON</label>
+              <label>Coaches</label>
               <div className="status" style={{ marginBottom: 6 }}>
                 {coachLookupPreview.error
-                  ? `Preview unavailable: ${coachLookupPreview.error}`
+                  ? `Table unavailable: ${coachLookupPreview.error}`
                   : `${coachLookupPreview.items.length} coach(es)`}
               </div>
               {!coachLookupPreview.error ? (
@@ -4899,21 +5093,38 @@ export default function App() {
                     <tbody>
                       {coachLookupPreview.items.map((row, idx) => (
                         <tr key={`coach-preview-${idx}`}>
-                          <td>{String(row?.name || '').trim() || '-'}</td>
-                          <td>{String(row?.email || '').trim() || '-'}</td>
+                          <td>
+                            <input
+                              value={String(row?.name || '')}
+                              onChange={(e) => onLookupRowFieldChange('coaches', idx, 'name', e.target.value)}
+                              placeholder="Coach name"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              value={String(row?.email || '')}
+                              onChange={(e) => onLookupRowFieldChange('coaches', idx, 'email', e.target.value)}
+                              placeholder="coach@email.com"
+                            />
+                          </td>
+                          <td>
+                            <button
+                              type="button"
+                              className="secondary"
+                              onClick={() => onRemoveLookupRow('coaches', idx)}
+                            >
+                              Remove
+                            </button>
+                          </td>
                         </tr>
                       ))}
                     </tbody>
                   </table>
                 </div>
               ) : null}
-              <textarea
-                rows={10}
-                value={adminLookupDrafts.coaches}
-                onChange={(e) =>
-                  setAdminLookupDrafts((prev) => ({ ...prev, coaches: e.target.value }))
-                }
-              />
+              <button type="button" className="secondary" onClick={() => onAddLookupRow('coaches')}>
+                + Add Coach
+              </button>
               <button
                 type="button"
                 onClick={() => onSaveAdminLookup('coaches')}
@@ -4921,16 +5132,26 @@ export default function App() {
               >
                 {savingAdminLookupKey === 'coaches' ? 'Saving...' : 'Save Coaches'}
               </button>
-              <button type="button" className="secondary" onClick={() => onFormatAdminLookup('coaches')}>
-                Format JSON
-              </button>
+              <details style={{ marginTop: 6 }}>
+                <summary>Advanced JSON</summary>
+                <textarea
+                  rows={10}
+                  value={adminLookupDrafts.coaches}
+                  onChange={(e) =>
+                    setAdminLookupDrafts((prev) => ({ ...prev, coaches: e.target.value }))
+                  }
+                />
+                <button type="button" className="secondary" onClick={() => onFormatAdminLookup('coaches')}>
+                  Format JSON
+                </button>
+              </details>
             </div>
           </div>
           <div>
-            <label>Client Programs JSON</label>
+            <label>Client Programs</label>
             <div className="status" style={{ marginBottom: 6 }}>
               {clientProgramLookupPreview.error
-                ? `Preview unavailable: ${clientProgramLookupPreview.error}`
+                ? `Table unavailable: ${clientProgramLookupPreview.error}`
                 : `${clientProgramLookupPreview.items.length} client program row(s)`}
             </div>
             {!clientProgramLookupPreview.error ? (
@@ -4945,21 +5166,38 @@ export default function App() {
                   <tbody>
                     {clientProgramLookupPreview.items.map((row, idx) => (
                       <tr key={`client-program-preview-${idx}`}>
-                        <td>{String(row?.client_name || '').trim() || '-'}</td>
-                        <td>{String(row?.program_name || '').trim() || '-'}</td>
+                        <td>
+                          <input
+                            value={String(row?.client_name || '')}
+                            onChange={(e) => onLookupRowFieldChange('clientPrograms', idx, 'client_name', e.target.value)}
+                            placeholder="Client name"
+                          />
+                        </td>
+                        <td>
+                          <input
+                            value={String(row?.program_name || '')}
+                            onChange={(e) => onLookupRowFieldChange('clientPrograms', idx, 'program_name', e.target.value)}
+                            placeholder="Program name"
+                          />
+                        </td>
+                        <td>
+                          <button
+                            type="button"
+                            className="secondary"
+                            onClick={() => onRemoveLookupRow('clientPrograms', idx)}
+                          >
+                            Remove
+                          </button>
+                        </td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
             ) : null}
-            <textarea
-              rows={12}
-              value={adminLookupDrafts.clientPrograms}
-              onChange={(e) =>
-                setAdminLookupDrafts((prev) => ({ ...prev, clientPrograms: e.target.value }))
-              }
-            />
+            <button type="button" className="secondary" onClick={() => onAddLookupRow('clientPrograms')}>
+              + Add Client Program
+            </button>
             <button
               type="button"
               onClick={() => onSaveAdminLookup('clientPrograms')}
@@ -4967,11 +5205,25 @@ export default function App() {
             >
               {savingAdminLookupKey === 'clientPrograms' ? 'Saving...' : 'Save Client Programs'}
             </button>
-            <button type="button" className="secondary" onClick={() => onFormatAdminLookup('clientPrograms')}>
-              Format JSON
-            </button>
+            <details style={{ marginTop: 6 }}>
+              <summary>Advanced JSON</summary>
+              <textarea
+                rows={12}
+                value={adminLookupDrafts.clientPrograms}
+                onChange={(e) =>
+                  setAdminLookupDrafts((prev) => ({ ...prev, clientPrograms: e.target.value }))
+                }
+              />
+              <button type="button" className="secondary" onClick={() => onFormatAdminLookup('clientPrograms')}>
+                Format JSON
+              </button>
+            </details>
           </div>
+          </>
+          ) : null}
 
+          {adminConsoleSection === 'engagements' ? (
+          <>
           <h3 style={{ margin: '0 0 8px', color: 'var(--color-dark-teal)', fontSize: 15 }}>
             Coaching Engagements (All Fields)
           </h3>
@@ -5126,7 +5378,11 @@ export default function App() {
               </tbody>
             </table>
           </div>
+          </>
+          ) : null}
 
+          {adminConsoleSection === 'sessions' ? (
+          <>
           <h3 style={{ margin: '16px 0 8px', color: 'var(--color-dark-teal)', fontSize: 15 }}>
             Coaching Sessions (All Fields)
           </h3>
@@ -5214,6 +5470,8 @@ export default function App() {
               </tbody>
             </table>
           </div>
+          </>
+          ) : null}
         </section>
       ) : null}
     </div>
