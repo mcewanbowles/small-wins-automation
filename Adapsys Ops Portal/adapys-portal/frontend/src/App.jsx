@@ -382,6 +382,25 @@ export default function App() {
     return map;
   }, [orderedCoaches]);
 
+  const personNameByEmail = useMemo(
+    () => ({ ...consultantNameByEmail, ...coachNameByEmail }),
+    [coachNameByEmail, consultantNameByEmail]
+  );
+
+  function displayNameFromEmail(email) {
+    const normalized = String(email || '').trim().toLowerCase();
+    if (!normalized) return '';
+    const knownName = personNameByEmail[normalized];
+    if (knownName) return knownName;
+
+    const localPart = normalized.split('@')[0] || normalized;
+    return localPart
+      .split(/[._-]+/)
+      .filter(Boolean)
+      .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+      .join(' ');
+  }
+
   const visibleScreenTabs = useMemo(() => {
     const roleFiltered = SCREEN_TABS.filter((tab) => {
       if (!isAdminSession && tab.id === 'admin-console') return false;
@@ -3771,6 +3790,10 @@ export default function App() {
           filteredTenders.map((tender) => {
             const eoiDays = daysUntilIso(tender.eoi_deadline);
             const closeDays = daysUntilIso(tender.official_close_date);
+            const leadName = displayNameFromEmail(tender.lead_consultant_email);
+            const interestSummary = Object.entries(tender.consultant_interest || {})
+              .map(([email, interest]) => `${displayNameFromEmail(email)} (${interest})`)
+              .join(' · ');
             return (
               <div className="card" key={tender.id}>
                 <div>
@@ -3796,6 +3819,8 @@ export default function App() {
                     : 'n/a'}
                 </div>
                 <div className="status">{tender.strategic_value}</div>
+                {leadName ? <div className="status">Lead consultant: {leadName}</div> : null}
+                {interestSummary ? <div className="status">Consultant interest: {interestSummary}</div> : null}
                 {tender.tender_url ? (
                   <div className="status">
                     <a href={tender.tender_url} target="_blank" rel="noreferrer">

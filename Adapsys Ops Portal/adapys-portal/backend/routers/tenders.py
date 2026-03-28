@@ -1,12 +1,14 @@
 from datetime import date, datetime, timezone
 import hashlib
 import json
+import os
 from pathlib import Path
 import re
 from uuid import UUID, uuid4
 
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, Field
+from supabase import Client, create_client
 
 from backend.backup_sync import persist_backup_snapshot
 from backend.routers.security import RequestActor, get_request_actor, require_roles
@@ -78,11 +80,37 @@ def _load_local_tenders() -> list[TenderOut]:
         return []
 
 
-def _save_local_tenders() -> None:
+def _save_local_tenders(rows: list[TenderOut] | None = None) -> None:
     _DATA_DIR.mkdir(parents=True, exist_ok=True)
-    payload = [tender.model_dump(mode="json") for tender in _TENDERS]
+    rows_to_store = rows if rows is not None else _TENDERS
+    payload = [tender.model_dump(mode="json") for tender in rows_to_store]
     _TENDERS_CACHE_FILE.write_text(json.dumps(payload, indent=2), encoding="utf-8")
     persist_backup_snapshot("tenders", payload)
+
+
+def _get_supabase() -> Client | None:
+    url = os.getenv("SUPABASE_URL")
+    key = os.getenv("SUPABASE_SERVICE_KEY") or os.getenv("SUPABASE_ANON_KEY")
+    if not url or not key:
+        return None
+    try:
+        return create_client(url, key)
+    except Exception:
+        return None
+
+
+def _list_tenders_source() -> list[TenderOut]:
+    supabase = _get_supabase()
+    if supabase is not None:
+        try:
+            response = supabase.table("tenders").select("*").execute()
+            rows = [TenderOut(**row) for row in (response.data or [])]
+            _save_local_tenders(rows)
+            _TENDERS[:] = rows
+            return rows
+        except Exception:
+            pass
+    return list(_TENDERS)
 
 
 def _slug(value: str) -> str:
@@ -112,10 +140,16 @@ def _score_tender(payload: TenderTriageIn) -> tuple[int, str, str]:
     high_fit = ["leadership", "coaching", "dfat", "pacific", "capacity", "panel", "organisational development"]
     medium_fit = ["public sector", "government", "workforce", "wellbeing", "training"]
     low_fit = ["infrastructure", "equipment", "construction", "school", "curriculum", "grant"]
+    au_pacific_tokens = ["australia", "australian", "au", "pacific", "png", "fiji", "samoa", "solomon", "vanuatu", "timor"]
+    asia_europe_tokens = ["asia", "europe", "singapore", "indonesia", "philippines", "uk", "eu"]
 
     score += sum(1 for token in high_fit if token in text)
     score += sum(0.5 for token in medium_fit if token in text)
     score -= sum(1.5 for token in low_fit if token in text)
+    if any(token in text for token in au_pacific_tokens):
+        score += 1.5
+    elif any(token in text for token in asia_europe_tokens):
+        score += 0.5
     score = max(1, min(10, int(round(score))))
 
     if score >= 8:
@@ -177,7 +211,8 @@ _TENDERS: list[TenderOut] = _load_local_tenders()
 
 @router.get("")
 def list_tenders() -> list[TenderOut]:
-    return sorted(_TENDERS, key=lambda row: row.updated_at, reverse=True)
+    rows = _list_tenders_source()
+    return sorted(rows, key=lambda row: row.updated_at, reverse=True)
 
 
 @router.get("/summary")
@@ -200,10 +235,11 @@ def triage_tender(
 ) -> TenderOut:
     require_roles(actor, {"admin", "finance"})
 
+    rows = _list_tenders_source()
     fit_score, recommendation, strategic_value = _score_tender(payload)
     duplicate_hash = _duplicate_hash(payload.source, payload.issuer, payload.title, payload.official_close_date)
 
-    for idx, tender in enumerate(_TENDERS):
+    for idx, tender in enumerate(rows):
         if tender.duplicate_hash == duplicate_hash:
             updated = tender.model_copy(
                 update={
@@ -226,8 +262,27 @@ def triage_tender(
                     "updated_at": datetime.now(timezone.utc),
                 }
             )
-            _TENDERS[idx] = updated
-            _save_local_tenders()
+            supabase = _get_supabase()
+            if supabase is not None:
+                try:
+                    response = (
+                        supabase.table("tenders")
+                        .update(updated.model_dump(mode="json"))
+                        .eq("id", str(tender.id))
+                        .execute()
+                    )
+                    if response.data:
+                        persisted = TenderOut(**response.data[0])
+                        rows[idx] = persisted
+                        _TENDERS[:] = rows
+                        _save_local_tenders(rows)
+                        return persisted
+                except Exception:
+                    pass
+
+            rows[idx] = updated
+            _TENDERS[:] = rows
+            _save_local_tenders(rows)
             return updated
 
     tender = TenderOut(
@@ -253,8 +308,22 @@ def triage_tender(
         hidden_deadline_warning=_hidden_deadline_warning(payload),
         duplicate_hash=duplicate_hash,
     )
-    _TENDERS.append(tender)
-    _save_local_tenders()
+    supabase = _get_supabase()
+    if supabase is not None:
+        try:
+            response = supabase.table("tenders").insert(tender.model_dump(mode="json")).execute()
+            if response.data:
+                persisted = TenderOut(**response.data[0])
+                rows.append(persisted)
+                _TENDERS[:] = rows
+                _save_local_tenders(rows)
+                return persisted
+        except Exception:
+            pass
+
+    rows.append(tender)
+    _TENDERS[:] = rows
+    _save_local_tenders(rows)
     return tender
 
 
@@ -275,7 +344,8 @@ def set_tender_decision(
         if decision not in allowed_consultant:
             raise HTTPException(status_code=403, detail="Consultants can only set lead/watching/pass")
 
-    for idx, tender in enumerate(_TENDERS):
+    rows = _list_tenders_source()
+    for idx, tender in enumerate(rows):
         if tender.id != tender_id:
             continue
 
@@ -294,8 +364,28 @@ def set_tender_decision(
 
         updates["consultant_interest"] = interest
         updated = tender.model_copy(update=updates)
-        _TENDERS[idx] = updated
-        _save_local_tenders()
+
+        supabase = _get_supabase()
+        if supabase is not None:
+            try:
+                response = (
+                    supabase.table("tenders")
+                    .update(updated.model_dump(mode="json"))
+                    .eq("id", str(tender.id))
+                    .execute()
+                )
+                if response.data:
+                    persisted = TenderOut(**response.data[0])
+                    rows[idx] = persisted
+                    _TENDERS[:] = rows
+                    _save_local_tenders(rows)
+                    return persisted
+            except Exception:
+                pass
+
+        rows[idx] = updated
+        _TENDERS[:] = rows
+        _save_local_tenders(rows)
         return updated
 
     raise HTTPException(status_code=404, detail="Tender not found")
