@@ -1,11 +1,20 @@
 const browserHost = typeof window !== 'undefined' ? window.location.hostname : '127.0.0.1';
-const defaultApiHost =
-  browserHost === 'localhost' || browserHost === '127.0.0.1' ? '127.0.0.1' : browserHost;
+const isLocalBrowserHost = browserHost === 'localhost' || browserHost === '127.0.0.1';
+const envApiBase = typeof import.meta !== 'undefined' ? String(import.meta.env?.VITE_API_BASE || '').trim() : '';
+const sameOriginApiBase = typeof window !== 'undefined' ? window.location.origin : '';
 const apiBaseOverride =
   typeof window !== 'undefined' ? localStorage.getItem('adapsys_api_base') : null;
-const API_BASE = apiBaseOverride || `http://${defaultApiHost}:8000`;
+const API_BASE =
+  apiBaseOverride || envApiBase || (isLocalBrowserHost ? 'http://127.0.0.1:8000' : sameOriginApiBase);
 const API_BASE_CANDIDATES = Array.from(
-  new Set([API_BASE, `http://${browserHost}:8000`, 'http://127.0.0.1:8000', 'http://localhost:8000'])
+  new Set([
+    API_BASE,
+    envApiBase,
+    sameOriginApiBase,
+    `${window.location.protocol}//${browserHost}:8000`,
+    'http://127.0.0.1:8000',
+    'http://localhost:8000',
+  ].filter(Boolean))
 );
 let resolvedApiBase = API_BASE_CANDIDATES[0];
 
