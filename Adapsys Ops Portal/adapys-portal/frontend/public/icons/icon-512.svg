@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="Adapsys AusPac">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#00b8b8"/>
+      <stop offset="100%" stop-color="#006379"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="100" fill="url(#bg)"/>
+  <circle cx="390" cy="120" r="44" fill="#ef2b97" opacity="0.9"/>
+  <path d="M132 344V168h64c30 0 54 22 54 52 0 31-24 53-54 53h-27v71h-37zm37-106h23c13 0 21-8 21-18s-8-17-21-17h-23v35z" fill="#ffffff"/>
+  <path d="M269 344V168h44l58 100V168h38v176h-38l-64-108v108h-38z" fill="#ffffff"/>
+</svg>

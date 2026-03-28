@@ -1,0 +1,383 @@
+from datetime import date
+import json
+import os
+from pathlib import Path
+from uuid import UUID, uuid4
+
+from fastapi import APIRouter, Depends, HTTPException
+from pydantic import BaseModel, Field
+from supabase import Client, create_client
+
+from backend.backup_sync import persist_backup_snapshot
+from backend.routers.security import RequestActor, get_request_actor, require_roles
+
+router = APIRouter()
+
+
+class EngagementCreate(BaseModel):
+    name: str
+    job_title: str | None = None
+    client_org: str
+    coach_email: str
+    total_sessions: int = 5
+    sessions_used: int = 0
+    session_rate: float | None = None
+    contract_start: date | None = None
+    contract_end: date | None = None
+
+
+class EngagementOut(EngagementCreate):
+    id: UUID = Field(default_factory=uuid4)
+    status: str = "active"
+
+
+class SessionCreate(BaseModel):
+    engagement_id: UUID
+    session_date: date
+    session_type: str  # completed | no_show_chargeable | cancelled | postponed
+    duration_mins: int = 60
+    delivery_mode: str = "video"
+    invoiced_to_adapsys: bool = False
+    notes: str | None = None
+
+
+class SessionOut(SessionCreate):
+    id: UUID = Field(default_factory=uuid4)
+
+
+class EngagementBulkCreate(BaseModel):
+    items: list[EngagementCreate]
+
+
+_ENGAGEMENTS: list[EngagementOut] = []
+_SESSIONS: list[SessionOut] = []
+
+_DATA_DIR = Path(__file__).resolve().parents[1] / "data"
+_ENGAGEMENTS_CACHE_FILE = _DATA_DIR / "coaching_engagements.json"
+_SESSIONS_CACHE_FILE = _DATA_DIR / "coaching_sessions.json"
+_ENGAGEMENTS_BACKUP_FILE = _DATA_DIR / "coaching_engagements.latest.bak.json"
+_SESSIONS_BACKUP_FILE = _DATA_DIR / "coaching_sessions.latest.bak.json"
+
+
+def _get_supabase() -> Client | None:
+    url = os.getenv("SUPABASE_URL")
+    key = os.getenv("SUPABASE_SERVICE_KEY") or os.getenv("SUPABASE_ANON_KEY")
+    if not url or not key:
+        return None
+    try:
+        return create_client(url, key)
+    except Exception:
+        return None
+
+
+def _load_local_cache() -> None:
+    global _ENGAGEMENTS, _SESSIONS
+    try:
+        if _ENGAGEMENTS_CACHE_FILE.exists():
+            engagement_rows = json.loads(_ENGAGEMENTS_CACHE_FILE.read_text(encoding="utf-8"))
+            if isinstance(engagement_rows, list):
+                _ENGAGEMENTS = [EngagementOut(**row) for row in engagement_rows]
+    except Exception:
+        pass
+
+    try:
+        if _SESSIONS_CACHE_FILE.exists():
+            session_rows = json.loads(_SESSIONS_CACHE_FILE.read_text(encoding="utf-8"))
+            if isinstance(session_rows, list):
+                _SESSIONS = [SessionOut(**row) for row in session_rows]
+    except Exception:
+        pass
+
+
+def _save_local_cache() -> None:
+    engagements_to_store = list(_ENGAGEMENTS)
+    sessions_to_store = list(_SESSIONS)
+
+    supabase = _get_supabase()
+    if supabase is not None:
+        try:
+            engagement_rows = supabase.table("engagements").select("*").execute().data or []
+            session_rows = supabase.table("sessions").select("*").execute().data or []
+            engagements_to_store = [EngagementOut(**row) for row in engagement_rows]
+            sessions_to_store = [SessionOut(**row) for row in session_rows]
+        except Exception:
+            # Keep local in-memory fallback if Supabase is temporarily unavailable.
+            pass
+
+    _DATA_DIR.mkdir(parents=True, exist_ok=True)
+    engagements_json = json.dumps([row.model_dump(mode="json") for row in engagements_to_store], indent=2)
+    sessions_json = json.dumps([row.model_dump(mode="json") for row in sessions_to_store], indent=2)
+
+    _ENGAGEMENTS_CACHE_FILE.write_text(engagements_json, encoding="utf-8")
+    _SESSIONS_CACHE_FILE.write_text(sessions_json, encoding="utf-8")
+    _ENGAGEMENTS_BACKUP_FILE.write_text(engagements_json, encoding="utf-8")
+    _SESSIONS_BACKUP_FILE.write_text(sessions_json, encoding="utf-8")
+    persist_backup_snapshot(
+        "coaching_engagements",
+        [row.model_dump(mode="json") for row in engagements_to_store],
+    )
+    persist_backup_snapshot(
+        "coaching_sessions",
+        [row.model_dump(mode="json") for row in sessions_to_store],
+    )
+
+
+def _list_engagements_source() -> list[EngagementOut]:
+    supabase = _get_supabase()
+    if supabase is not None:
+        response = supabase.table("engagements").select("*").execute()
+        return [EngagementOut(**row) for row in (response.data or [])]
+    return _ENGAGEMENTS
+
+
+def _list_sessions_source() -> list[SessionOut]:
+    supabase = _get_supabase()
+    if supabase is not None:
+        response = supabase.table("sessions").select("*").execute()
+        return [SessionOut(**row) for row in (response.data or [])]
+    return _SESSIONS
+
+
+def list_all_engagements_for_reports() -> list[EngagementOut]:
+    return _list_engagements_source()
+
+
+def list_all_sessions_for_reports() -> list[SessionOut]:
+    return _list_sessions_source()
+
+
+def _is_chargeable_session(session_type: str) -> bool:
+    return session_type in {"completed", "no_show_chargeable"}
+
+
+def _apply_sessions_used_delta(engagement_id: UUID, delta: int, supabase: Client | None) -> None:
+    if delta == 0:
+        return
+
+    if supabase is not None:
+        engagement = next((row for row in _list_engagements_source() if row.id == engagement_id), None)
+        if engagement is None:
+            return
+        next_used = max(0, int(engagement.sessions_used or 0) + delta)
+        supabase.table("engagements").update({"sessions_used": next_used}).eq("id", str(engagement_id)).execute()
+        return
+
+    for idx, row in enumerate(_ENGAGEMENTS):
+        if row.id != engagement_id:
+            continue
+        next_used = max(0, int(row.sessions_used or 0) + delta)
+        _ENGAGEMENTS[idx] = row.model_copy(update={"sessions_used": next_used})
+        break
+
+
+_load_local_cache()
+
+
+@router.get("/engagements")
+def list_engagements(actor: RequestActor = Depends(get_request_actor)) -> list[EngagementOut]:
+    rows = _list_engagements_source()
+    if actor.role == "consultant":
+        return [row for row in rows if row.coach_email.strip().lower() == actor.email]
+    return rows
+
+
+@router.post("/engagements")
+def create_engagement(
+    payload: EngagementCreate,
+    actor: RequestActor = Depends(get_request_actor),
+) -> EngagementOut:
+    require_roles(actor, {"admin", "finance"})
+    engagement = EngagementOut(**payload.model_dump())
+    supabase = _get_supabase()
+    if supabase is not None:
+        response = (
+            supabase.table("engagements").insert(engagement.model_dump(mode="json")).execute()
+        )
+        if response.data:
+            _save_local_cache()
+            return EngagementOut(**response.data[0])
+    _ENGAGEMENTS.append(engagement)
+    _save_local_cache()
+    return engagement
+
+
+@router.put("/engagements/{engagement_id}")
+def update_engagement(
+    engagement_id: UUID,
+    payload: EngagementCreate,
+    actor: RequestActor = Depends(get_request_actor),
+) -> EngagementOut:
+    if actor.role not in {"admin", "finance", "consultant"}:
+        raise HTTPException(status_code=403, detail="Access denied")
+
+    current = next((row for row in _list_engagements_source() if row.id == engagement_id), None)
+    if current is None:
+        raise HTTPException(status_code=404, detail="Engagement not found")
+
+    if actor.role == "consultant":
+        actor_email = actor.email.strip().lower()
+        if current.coach_email.strip().lower() != actor_email or payload.coach_email.strip().lower() != actor_email:
+            raise HTTPException(status_code=403, detail="Consultants can only edit their own engagements")
+
+    updated = current.model_copy(update=payload.model_dump())
+    supabase = _get_supabase()
+    if supabase is not None:
+        response = (
+            supabase.table("engagements")
+            .update(updated.model_dump(mode="json", exclude={"id"}))
+            .eq("id", str(engagement_id))
+            .execute()
+        )
+        if response.data:
+            _save_local_cache()
+            return EngagementOut(**response.data[0])
+        _save_local_cache()
+        return updated
+
+    for idx, row in enumerate(_ENGAGEMENTS):
+        if row.id == engagement_id:
+            _ENGAGEMENTS[idx] = updated
+            _save_local_cache()
+            return updated
+
+    raise HTTPException(status_code=404, detail="Engagement not found")
+
+
+@router.post("/engagements/bulk")
+def bulk_create_engagements(
+    payload: EngagementBulkCreate,
+    actor: RequestActor = Depends(get_request_actor),
+) -> list[EngagementOut]:
+    require_roles(actor, {"admin", "finance"})
+    if not payload.items:
+        raise HTTPException(status_code=422, detail="Provide at least one engagement item")
+
+    created: list[EngagementOut] = [EngagementOut(**item.model_dump()) for item in payload.items]
+
+    supabase = _get_supabase()
+    if supabase is not None:
+        try:
+            response = (
+                supabase.table("engagements").insert([row.model_dump(mode="json") for row in created]).execute()
+            )
+        except Exception as exc:
+            raise HTTPException(status_code=422, detail=f"Bulk engagement upload failed: {exc}")
+        if response.data:
+            _save_local_cache()
+            return [EngagementOut(**row) for row in response.data]
+        _save_local_cache()
+        return created
+
+    _ENGAGEMENTS.extend(created)
+    _save_local_cache()
+    return created
+
+
+@router.get("/sessions")
+def list_sessions(actor: RequestActor = Depends(get_request_actor)) -> list[SessionOut]:
+    sessions = _list_sessions_source()
+    if actor.role != "consultant":
+        return sessions
+
+    consultant_engagement_ids = {
+        row.id for row in _list_engagements_source() if row.coach_email.strip().lower() == actor.email
+    }
+    return [row for row in sessions if row.engagement_id in consultant_engagement_ids]
+
+
+@router.post("/sessions")
+def log_session(
+    payload: SessionCreate,
+    actor: RequestActor = Depends(get_request_actor),
+) -> SessionOut:
+    if actor.role not in {"admin", "finance", "consultant"}:
+        raise HTTPException(status_code=403, detail="Access denied")
+
+    engagement = next(
+        (row for row in _list_engagements_source() if row.id == payload.engagement_id),
+        None,
+    )
+    if engagement is None:
+        raise HTTPException(status_code=404, detail="Engagement not found")
+
+    if actor.role == "consultant" and engagement.coach_email.strip().lower() != actor.email:
+        raise HTTPException(status_code=403, detail="Consultants can only log sessions for their own engagements")
+
+    session = SessionOut(**payload.model_dump())
+    supabase = _get_supabase()
+    if supabase is not None:
+        response = supabase.table("sessions").insert(session.model_dump(mode="json")).execute()
+        if response.data:
+            session = SessionOut(**response.data[0])
+    _SESSIONS.append(session)
+
+    if _is_chargeable_session(payload.session_type):
+        _apply_sessions_used_delta(payload.engagement_id, 1, supabase)
+
+    _save_local_cache()
+
+    return session
+
+
+@router.put("/sessions/{session_id}")
+def update_session(
+    session_id: UUID,
+    payload: SessionCreate,
+    actor: RequestActor = Depends(get_request_actor),
+) -> SessionOut:
+    if actor.role not in {"admin", "finance", "consultant"}:
+        raise HTTPException(status_code=403, detail="Access denied")
+
+    sessions = _list_sessions_source()
+    current_session = next((row for row in sessions if row.id == session_id), None)
+    if current_session is None:
+        raise HTTPException(status_code=404, detail="Session not found")
+
+    source_engagement = next(
+        (row for row in _list_engagements_source() if row.id == current_session.engagement_id),
+        None,
+    )
+    target_engagement = next(
+        (row for row in _list_engagements_source() if row.id == payload.engagement_id),
+        None,
+    )
+    if source_engagement is None or target_engagement is None:
+        raise HTTPException(status_code=404, detail="Engagement not found")
+
+    if actor.role == "consultant":
+        actor_email = actor.email.strip().lower()
+        if source_engagement.coach_email.strip().lower() != actor_email:
+            raise HTTPException(status_code=403, detail="Consultants can only edit their own sessions")
+        if target_engagement.coach_email.strip().lower() != actor_email:
+            raise HTTPException(status_code=403, detail="Consultants can only move sessions within their engagements")
+
+    updated_session = current_session.model_copy(update=payload.model_dump())
+    supabase = _get_supabase()
+    if supabase is not None:
+        response = (
+            supabase.table("sessions")
+            .update(updated_session.model_dump(mode="json", exclude={"id"}))
+            .eq("id", str(session_id))
+            .execute()
+        )
+        if response.data:
+            updated_session = SessionOut(**response.data[0])
+    else:
+        for idx, row in enumerate(_SESSIONS):
+            if row.id == session_id:
+                _SESSIONS[idx] = updated_session
+                break
+
+    old_chargeable = _is_chargeable_session(current_session.session_type)
+    new_chargeable = _is_chargeable_session(updated_session.session_type)
+    source_engagement_id = current_session.engagement_id
+    target_engagement_id = updated_session.engagement_id
+    if source_engagement_id == target_engagement_id:
+        delta = int(new_chargeable) - int(old_chargeable)
+        _apply_sessions_used_delta(source_engagement_id, delta, supabase)
+    else:
+        _apply_sessions_used_delta(source_engagement_id, -int(old_chargeable), supabase)
+        _apply_sessions_used_delta(target_engagement_id, int(new_chargeable), supabase)
+
+    _save_local_cache()
+    return updated_session
