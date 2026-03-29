@@ -804,7 +804,7 @@ def _build_coaching_report_html(
     )
     client_scope_label = ", ".join(client_names) if client_names else "Unspecified"
 
-    def _engagement_row_html(engagement: EngagementOut) -> str:
+    def _engagement_row_html(engagement) -> str:
         return (
             "<tr>"
             f"<td>{str(engagement.name or '').strip() or 'Unknown'}</td>"
