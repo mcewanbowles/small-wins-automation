@@ -35,6 +35,8 @@ class SessionCreate(BaseModel):
     engagement_id: UUID
     session_date: date
     session_type: str  # completed | no_show_chargeable | cancelled | postponed
+    lcp_debrief: bool = False
+    lcp_debrief_date: date | None = None
     duration_mins: int = 60
     delivery_mode: str = "video"
     invoiced_to_adapsys: bool = False
@@ -150,6 +152,31 @@ def _is_chargeable_session(session_type: str) -> bool:
     return session_type in {"completed", "no_show_chargeable"}
 
 
+def _normalize_text(value: str | None) -> str:
+    return str(value or "").strip().lower()
+
+
+def _engagement_identity(payload: EngagementCreate | EngagementOut) -> tuple:
+    return (
+        _normalize_text(payload.name),
+        _normalize_text(payload.client_org),
+        _normalize_text(payload.coach_email),
+        _normalize_text(payload.job_title),
+        int(payload.total_sessions or 0),
+        int(payload.sessions_used or 0),
+        str(payload.contract_start or ""),
+        str(payload.contract_end or ""),
+    )
+
+
+def _existing_engagement_identity_set(rows: list[EngagementOut]) -> set[tuple]:
+    return {
+        _engagement_identity(row)
+        for row in rows
+        if _normalize_text(getattr(row, "status", "active")) != "archived"
+    }
+
+
 def _apply_sessions_used_delta(engagement_id: UUID, delta: int, supabase: Client | None) -> None:
     if delta == 0:
         return
@@ -187,6 +214,20 @@ def create_engagement(
     actor: RequestActor = Depends(get_request_actor),
 ) -> EngagementOut:
     require_roles(actor, {"admin", "finance"})
+
+    existing_rows = _list_engagements_source()
+    target_identity = _engagement_identity(payload)
+    existing_match = next(
+        (
+            row
+            for row in existing_rows
+            if _engagement_identity(row) == target_identity and _normalize_text(getattr(row, "status", "active")) != "archived"
+        ),
+        None,
+    )
+    if existing_match is not None:
+        return existing_match
+
     engagement = EngagementOut(**payload.model_dump())
     supabase = _get_supabase()
     if supabase is not None:
@@ -252,7 +293,19 @@ def bulk_create_engagements(
     if not payload.items:
         raise HTTPException(status_code=422, detail="Provide at least one engagement item")
 
-    created: list[EngagementOut] = [EngagementOut(**item.model_dump()) for item in payload.items]
+    existing_identities = _existing_engagement_identity_set(_list_engagements_source())
+    items_to_create: list[EngagementCreate] = []
+    for item in payload.items:
+        identity = _engagement_identity(item)
+        if identity in existing_identities:
+            continue
+        existing_identities.add(identity)
+        items_to_create.append(item)
+
+    if not items_to_create:
+        return []
+
+    created: list[EngagementOut] = [EngagementOut(**item.model_dump()) for item in items_to_create]
 
     supabase = _get_supabase()
     if supabase is not None:
@@ -271,6 +324,39 @@ def bulk_create_engagements(
     _ENGAGEMENTS.extend(created)
     _save_local_cache()
     return created
+
+
+@router.delete("/engagements/{engagement_id}")
+def delete_engagement(
+    engagement_id: UUID,
+    actor: RequestActor = Depends(get_request_actor),
+) -> dict:
+    require_roles(actor, {"admin", "finance"})
+
+    supabase = _get_supabase()
+    if supabase is not None:
+      try:
+          # Remove linked sessions first to avoid dangling foreign references.
+          supabase.table("sessions").delete().eq("engagement_id", str(engagement_id)).execute()
+          response = supabase.table("engagements").delete().eq("id", str(engagement_id)).execute()
+      except Exception as exc:
+          raise HTTPException(status_code=422, detail=f"Delete engagement failed: {exc}")
+
+      if not response.data:
+          raise HTTPException(status_code=404, detail="Engagement not found")
+
+      _save_local_cache()
+      return {"deleted": True, "engagement_id": str(engagement_id)}
+
+    global _ENGAGEMENTS, _SESSIONS
+    before = len(_ENGAGEMENTS)
+    _ENGAGEMENTS = [row for row in _ENGAGEMENTS if row.id != engagement_id]
+    _SESSIONS = [row for row in _SESSIONS if row.engagement_id != engagement_id]
+    if len(_ENGAGEMENTS) == before:
+        raise HTTPException(status_code=404, detail="Engagement not found")
+
+    _save_local_cache()
+    return {"deleted": True, "engagement_id": str(engagement_id)}
 
 
 @router.get("/sessions")
@@ -381,3 +467,45 @@ def update_session(
 
     _save_local_cache()
     return updated_session
+
+
+@router.delete("/sessions/{session_id}")
+def delete_session(
+    session_id: UUID,
+    actor: RequestActor = Depends(get_request_actor),
+) -> dict:
+    if actor.role not in {"admin", "finance", "consultant"}:
+        raise HTTPException(status_code=403, detail="Access denied")
+
+    sessions = _list_sessions_source()
+    current_session = next((row for row in sessions if row.id == session_id), None)
+    if current_session is None:
+        raise HTTPException(status_code=404, detail="Session not found")
+
+    engagement = next(
+        (row for row in _list_engagements_source() if row.id == current_session.engagement_id),
+        None,
+    )
+    if engagement is None:
+        raise HTTPException(status_code=404, detail="Engagement not found")
+
+    if actor.role == "consultant" and engagement.coach_email.strip().lower() != actor.email:
+        raise HTTPException(status_code=403, detail="Consultants can only delete their own sessions")
+
+    supabase = _get_supabase()
+    if supabase is not None:
+        response = supabase.table("sessions").delete().eq("id", str(session_id)).execute()
+        if not response.data:
+            raise HTTPException(status_code=404, detail="Session not found")
+    else:
+        global _SESSIONS
+        before = len(_SESSIONS)
+        _SESSIONS = [row for row in _SESSIONS if row.id != session_id]
+        if len(_SESSIONS) == before:
+            raise HTTPException(status_code=404, detail="Session not found")
+
+    if _is_chargeable_session(current_session.session_type):
+        _apply_sessions_used_delta(current_session.engagement_id, -1, supabase)
+
+    _save_local_cache()
+    return {"deleted": True, "session_id": str(session_id)}
