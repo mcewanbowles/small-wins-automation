@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ListingLift</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main class="popup">
+      <header class="top">
+        <h1>ListingLift</h1>
+        <p>Quick actions</p>
+      </header>
+
+      <section class="card">
+        <label for="apiUrl">API URL</label>
+        <input id="apiUrl" type="text" value="http://localhost:8000" />
+
+        <label for="appUrl">App URL</label>
+        <input id="appUrl" type="text" value="http://localhost:5173" />
+
+        <button id="saveSettingsBtn" class="ghost" type="button">Save settings</button>
+        <p class="hint">Tip: if requests fail, make sure your backend is running first.</p>
+      </section>
+
+      <section class="card">
+        <h2>Keyword quick check</h2>
+        <label for="seed">Seed topic</label>
+        <input id="seed" type="text" placeholder="social stories autism" />
+        <button id="findKeywordsBtn" type="button">Find keywords</button>
+        <button id="copyKeywordsBtn" class="ghost" type="button">Copy keyword results</button>
+        <pre id="keywordsResult" class="result"></pre>
+      </section>
+
+      <section class="card">
+        <h2>Listing quick draft</h2>
+        <label for="platform">Platform</label>
+        <select id="platform">
+          <option value="tpt">Teachers Pay Teachers (TPT)</option>
+          <option value="etsy">Etsy</option>
+          <option value="gumroad">Gumroad</option>
+        </select>
+
+        <label for="niche">Niche</label>
+        <input id="niche" type="text" value="Special Education" />
+
+        <label for="buyerType">Target buyer</label>
+        <input id="buyerType" type="text" value="SPED teacher" />
+
+        <label for="description">Product description</label>
+        <textarea id="description" rows="4" placeholder="Paste product details..."></textarea>
+
+        <button id="generateListingBtn" type="button">Generate title + tags</button>
+        <button id="copyListingBtn" class="ghost" type="button">Copy listing results</button>
+        <pre id="listingResult" class="result"></pre>
+      </section>
+
+      <section class="actions">
+        <button id="openAppBtn" class="ghost" type="button">Open full app</button>
+      </section>
+
+      <p id="status" class="status"></p>
+    </main>
+
+    <script type="module" src="popup.js"></script>
+  </body>
+</html>

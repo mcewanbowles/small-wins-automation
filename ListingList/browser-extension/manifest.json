@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "ListingLift Quick Launcher",
+  "description": "Quick keyword and listing actions for ListingLift.",
+  "version": "0.1.0",
+  "action": {
+    "default_title": "ListingLift",
+    "default_popup": "popup.html"
+  },
+  "permissions": ["storage", "tabs"],
+  "host_permissions": [
+    "http://localhost:8000/*",
+    "http://127.0.0.1:8000/*"
+  ]
+}
