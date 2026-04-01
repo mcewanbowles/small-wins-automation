@@ -1,5 +1,9 @@
 # ListingLift by EasyPrep
 
+For the current cross-session status and single source of truth, see:
+
+`LISTINGLIFT_HANDOFF.md`
+
 Minimal local MVP for digital product sellers:
 - Platform selector (TPT, Etsy, Gumroad)
 - Customer-friendly listing draft workflow with profile questions
