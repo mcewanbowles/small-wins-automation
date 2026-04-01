@@ -44,6 +44,10 @@
 - Trust signals:
   - confidence indicator (High/Medium/Low)
   - source signal (Seen on TPT / Google / TPT + Google)
+- Reverse Seller Intel (v0):
+  - scans top TPT listing titles for a keyword
+  - extracts recurring phrases + suggested angles
+  - endpoint: `POST /api/reverse-intel`
 
 ### Browser extension scaffold
 - Folder: `browser-extension/`
@@ -62,6 +66,7 @@
 - `frontend/src/api.js`
 - `frontend/src/constants.js`
 - `backend/app/keyword_service.py`
+- `backend/app/reverse_intel_service.py`
 - `backend/app/listing_service.py`
 - `backend/app/models.py`
 - `browser-extension/manifest.json`
