@@ -57,3 +57,15 @@ export async function generateListing(form) {
   });
   return unwrapResponse(response);
 }
+
+export async function fetchReverseIntel(keyword, limit = 18) {
+  const response = await fetch(`${API_URL}/api/reverse-intel`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      keyword,
+      limit,
+    }),
+  });
+  return unwrapResponse(response);
+}

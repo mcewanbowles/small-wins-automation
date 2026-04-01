@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from .keyword_service import find_keywords
 from .listing_service import audit_listing, generate_listing
+from .reverse_intel_service import reverse_seller_intel
 from .models import (
     AuditListingRequest,
     AuditListingResponse,
@@ -12,6 +13,8 @@ from .models import (
     GenerateListingResponse,
     KeywordsRequest,
     KeywordsResponse,
+    ReverseIntelRequest,
+    ReverseIntelResponse,
 )
 from .settings import settings
 
@@ -69,3 +72,13 @@ def audit_listing_endpoint(payload: AuditListingRequest) -> AuditListingResponse
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     except Exception as exc:
         raise HTTPException(status_code=502, detail=f"Listing audit failed: {exc}") from exc
+
+
+@app.post("/api/reverse-intel", response_model=ReverseIntelResponse)
+async def reverse_intel_endpoint(payload: ReverseIntelRequest) -> ReverseIntelResponse:
+    try:
+        return await reverse_seller_intel(keyword=payload.keyword, limit=payload.limit)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    except Exception as exc:
+        raise HTTPException(status_code=502, detail=f"Reverse intel failed: {exc}") from exc
