@@ -124,3 +124,11 @@ production/marketing/**
 # Ignore any auto-generated builds
 build/
 dist/
+
+# Conservative ignore: local audit renders / temp scratch
+tmp/
+production/generators/audit_*.png
+
+# PackReady / TPTUploadReady build outputs (keep source only)
+tpt_upload_ready/build/
+tpt_upload_ready/dist_lite/
