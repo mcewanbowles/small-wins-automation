@@ -613,6 +613,18 @@ th {
   font-size: 0.95rem;
 }
 
+.source-note {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.row-subline {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
 .output-block p,
 .output-block li {
   font-size: 0.88rem;

@@ -69,6 +69,24 @@ function keywordConfidence(row) {
   return "Low";
 }
 
+function formatSourceHits(sourceHits) {
+  if (!Array.isArray(sourceHits) || sourceHits.length === 0) {
+    return "";
+  }
+  const mapped = sourceHits
+    .map((item) => String(item || "").toLowerCase().trim())
+    .filter(Boolean)
+    .map((item) => (item === "tpt" ? "TPT" : item === "google" ? "Google" : item));
+  const unique = [...new Set(mapped)];
+  if (!unique.length) {
+    return "";
+  }
+  if (unique.length === 1) {
+    return `Seen on ${unique[0]}`;
+  }
+  return `Seen on ${unique.join(" + ")}`;
+}
+
 const IDEA_SEED_EXAMPLES = [
   "social stories autism",
   "morning work",
@@ -582,7 +600,7 @@ export function App() {
             <div className="onboarding-card">
               <div className="onboarding-head">
                 <h3>1) Tell us your TPT store stage</h3>
-                <p>This tailors what counts as a realistic “Start Here” keyword for your store.</p>
+                <p>This changes what we label as “Start Here” so you avoid competing with huge stores.</p>
               </div>
               <div className="onboarding-controls">
                 <select
@@ -741,7 +759,12 @@ export function App() {
               {(startHereItems.length ? startHereItems : visibleKeywordItems).slice(0, 3).map((row) => (
                 <div className="output-block" key={`${row.phrase}-guidance`}>
                   <div className="split-row">
-                    <h3>{row.phrase}</h3>
+                    <div>
+                      <h3>{row.phrase}</h3>
+                      {formatSourceHits(row.source_hits) ? (
+                        <p className="source-note">{formatSourceHits(row.source_hits)}</p>
+                      ) : null}
+                    </div>
                     <div className="badge-row">
                       <ConfidenceBadge level={keywordConfidence(row)} />
                       <RecommendationBadge label={row.recommendation_label} />
@@ -808,6 +831,9 @@ export function App() {
                       <tr key={row.phrase}>
                         <td>
                           <div className="row-keyword">{row.phrase}</div>
+                          {formatSourceHits(row.source_hits) ? (
+                            <div className="row-subline">{formatSourceHits(row.source_hits)}</div>
+                          ) : null}
                           <div className="keyword-actions">
                             <CopyButton value={row.phrase} className="inline-btn" />
                             <button
