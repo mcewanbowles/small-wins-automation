@@ -22,20 +22,11 @@ Thank you for purchasing from Small Wins Studio.
 ### LICENCE
 One purchase = one teacher/therapist. Please buy extra licences for multiple staff.
 
-{{#if BOOK_TITLE}}
-### BOOK DISCLAIMER
-This resource is designed to accompany "{{BOOK_TITLE}}". The book is not included and must be purchased/borrowed separately.
-This product is not affiliated with, endorsed by, or sponsored by the author, publisher, or trademark holder.
-{{/if}}
-
 ---
 
 ## CREDITS
 
 © {{YEAR}} Small Wins Studio.
-
-PCS® and Boardmaker® are trademarks of Tobii Dynavox LLC. Symbols used by the author under a licensed subscription.
-Not affiliated with or endorsed by Tobii Dynavox.
 
 ---
 

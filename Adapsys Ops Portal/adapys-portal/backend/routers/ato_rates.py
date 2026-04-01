@@ -15,9 +15,9 @@ class AtoRate(BaseModel):
     id: UUID = Field(default_factory=uuid4)
     country: str
     daily_rate_aud: float
-    breakfast_pct: float
-    lunch_pct: float
-    dinner_pct: float
+    breakfast_aud: float
+    lunch_aud: float
+    dinner_aud: float
     incidental_midpoint_aud: float = 0.0
     tax_year: str
     active: bool = True
@@ -25,9 +25,9 @@ class AtoRate(BaseModel):
 
 class AtoRateUpdate(BaseModel):
     daily_rate_aud: float | None = None
-    breakfast_pct: float | None = None
-    lunch_pct: float | None = None
-    dinner_pct: float | None = None
+    breakfast_aud: float | None = None
+    lunch_aud: float | None = None
+    dinner_aud: float | None = None
     incidental_midpoint_aud: float | None = None
     tax_year: str | None = None
     active: bool | None = None
@@ -38,54 +38,54 @@ _ATO_RATES: list[AtoRate] = [
     AtoRate(
         country="Australia",
         daily_rate_aud=120,
-        breakfast_pct=0.2,
-        lunch_pct=0.3,
-        dinner_pct=0.5,
+        breakfast_aud=24,
+        lunch_aud=36,
+        dinner_aud=60,
         incidental_midpoint_aud=0.0,
         tax_year="2025-26",
     ),
     AtoRate(
         country="Papua New Guinea",
         daily_rate_aud=180,
-        breakfast_pct=0.2,
-        lunch_pct=0.3,
-        dinner_pct=0.5,
+        breakfast_aud=36,
+        lunch_aud=54,
+        dinner_aud=90,
         incidental_midpoint_aud=0.0,
         tax_year="2025-26",
     ),
     AtoRate(
         country="Fiji",
         daily_rate_aud=170,
-        breakfast_pct=0.2,
-        lunch_pct=0.3,
-        dinner_pct=0.5,
+        breakfast_aud=34,
+        lunch_aud=51,
+        dinner_aud=85,
         incidental_midpoint_aud=0.0,
         tax_year="2025-26",
     ),
     AtoRate(
         country="Solomon Islands",
         daily_rate_aud=165,
-        breakfast_pct=0.2,
-        lunch_pct=0.3,
-        dinner_pct=0.5,
+        breakfast_aud=33,
+        lunch_aud=49.5,
+        dinner_aud=82.5,
         incidental_midpoint_aud=0.0,
         tax_year="2025-26",
     ),
     AtoRate(
         country="Samoa",
         daily_rate_aud=160,
-        breakfast_pct=0.2,
-        lunch_pct=0.3,
-        dinner_pct=0.5,
+        breakfast_aud=32,
+        lunch_aud=48,
+        dinner_aud=80,
         incidental_midpoint_aud=0.0,
         tax_year="2025-26",
     ),
     AtoRate(
         country="New Caledonia",
         daily_rate_aud=175,
-        breakfast_pct=0.2,
-        lunch_pct=0.3,
-        dinner_pct=0.5,
+        breakfast_aud=35,
+        lunch_aud=52.5,
+        dinner_aud=87.5,
         incidental_midpoint_aud=0.0,
         tax_year="2025-26",
     ),
@@ -103,7 +103,26 @@ def _load_local_ato_rates() -> list[AtoRate]:
         rows = json.loads(_ATO_RATES_CACHE_FILE.read_text(encoding="utf-8"))
         if not isinstance(rows, list):
             return _ATO_RATES
-        loaded = [AtoRate(**row) for row in rows]
+        migrated_rows = []
+        for row in rows:
+            if not isinstance(row, dict):
+                continue
+            daily = float(row.get("daily_rate_aud") or 0)
+            if "breakfast_aud" not in row and "breakfast_pct" in row:
+                pct = float(row.get("breakfast_pct") or 0)
+                row["breakfast_aud"] = round(daily * pct if pct <= 1 else pct, 2)
+            if "lunch_aud" not in row and "lunch_pct" in row:
+                pct = float(row.get("lunch_pct") or 0)
+                row["lunch_aud"] = round(daily * pct if pct <= 1 else pct, 2)
+            if "dinner_aud" not in row and "dinner_pct" in row:
+                pct = float(row.get("dinner_pct") or 0)
+                row["dinner_aud"] = round(daily * pct if pct <= 1 else pct, 2)
+            row.pop("breakfast_pct", None)
+            row.pop("lunch_pct", None)
+            row.pop("dinner_pct", None)
+            migrated_rows.append(row)
+
+        loaded = [AtoRate(**row) for row in migrated_rows]
         return loaded or _ATO_RATES
     except Exception:
         return _ATO_RATES

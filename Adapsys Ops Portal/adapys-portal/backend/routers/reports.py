@@ -1,12 +1,14 @@
 import base64
 from collections import defaultdict
 from datetime import date
+import os
 from pathlib import Path
 import re
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.responses import FileResponse, HTMLResponse, Response
+from pydantic import BaseModel
 
 from backend.routers.coaching import list_all_engagements_for_reports, list_all_sessions_for_reports
 from backend.routers.expenses import ExpenseOut, list_expenses
@@ -19,6 +21,40 @@ router = APIRouter()
 REPORT_ISSUER_NAME = "Adapsys Australia Pacific"
 REPORT_ISSUER_ABN = "ABN 56 623 973 446"
 REPORT_ISSUER_ADDRESS = "Unit 3, 18 Woodlands Way, Parkwood, Queensland 4214"
+CLIENT_REPORTS_FEATURE_FLAG_ENV = "ADAPSYS_CLIENT_REPORTS_ENABLED"
+
+
+class ClientCoachingSummaryRow(BaseModel):
+    coachee: str
+    coach_name: str
+    entitled_sessions: int
+    sessions_taken: int
+    sessions_left: int
+    no_show_count: int
+    session_dates: list[str]
+    lcp_available: bool
+    lcp_entitled: int | None = None
+    lcp_taken: int | None = None
+
+
+def _normalize_scope_text(value: str | None) -> str:
+    return " ".join(str(value or "").strip().lower().split())
+
+
+def _client_matches_scope(client_value: str | None, scope_value: str | None) -> bool:
+    normalized_client = _normalize_scope_text(client_value)
+    normalized_scope = _normalize_scope_text(scope_value)
+    if not normalized_client or not normalized_scope:
+        return False
+    if normalized_client == normalized_scope:
+        return True
+    return normalized_client.startswith(f"{normalized_scope} /") or normalized_scope.startswith(
+        f"{normalized_client} /"
+    )
+
+
+def _is_client_reports_enabled() -> bool:
+    return str(os.getenv(CLIENT_REPORTS_FEATURE_FLAG_ENV, "")).strip().lower() in {"1", "true", "yes", "on"}
 
 
 def _format_date_au(value: date | str) -> str:
@@ -226,13 +262,13 @@ def _build_report_html(
     }
 
     category_icon_meta = {
-        "flight": ("FL", "cat-flight"),
-        "flights": ("FL", "cat-flight"),
+        "flight": ("&#9992;", "cat-flight"),
+        "flights": ("&#9992;", "cat-flight"),
         "accommodation": ("AC", "cat-accommodation"),
         "hotel": ("AC", "cat-accommodation"),
-        "uber": ("UB", "cat-transport"),
-        "taxi": ("TX", "cat-transport"),
-        "train": ("TR", "cat-transport"),
+        "uber": ("&#128663;", "cat-transport"),
+        "taxi": ("&#128663;", "cat-transport"),
+        "train": ("&#128663;", "cat-transport"),
         "dinner": ("ML", "cat-meals"),
         "lunch": ("ML", "cat-meals"),
         "breakfast": ("ML", "cat-meals"),
@@ -308,7 +344,7 @@ def _build_report_html(
         return (
             "<div class='receipt-card-head receipt-card-head-meta'>"
             f"<span><strong>Supplier:</strong> {supplier}</span>"
-            f"<span><strong>Travel date:</strong> {_format_date_au(expense_date)}</span>"
+            f"<span><strong>Date:</strong> {_format_date_au(expense_date)}</span>"
             f"<span><strong>Amount:</strong> AUD {amount_aud:.2f}</span>"
             "</div>"
         )
@@ -487,7 +523,7 @@ def _build_report_html(
 
     program_label = str(trip.program_name or "").strip()
     client_program_label = f"{trip.client_name} / {program_label}" if program_label else str(trip.client_name)
-    report_subtitle = f"Expense Report — {trip.client_name}"
+    report_title = f"Reimbursable Expense Report - {trip.client_name}"
     receipt_pages_html = "".join(receipt_pages)
 
     return f"""
@@ -508,11 +544,11 @@ def _build_report_html(
         --surface-soft: #f4fbfc;
       }}
       body {{ font-family: Poppins, Arial, sans-serif; color: var(--ink-main); margin: 0; background: #f5f8f9; position: relative; }}
-      .page-frame {{ position: fixed; top: 2.5mm; right: 2.5mm; bottom: 2.5mm; left: 2.5mm; border: 1px solid rgba(0, 99, 121, 0.14); border-radius: 7px; pointer-events: none; z-index: -1; }}
+      .page-frame {{ position: fixed; top: 2.5mm; right: 2.5mm; bottom: 2.5mm; left: 2.5mm; border: 1px solid rgba(0, 99, 121, 0.18); border-radius: 10px; box-shadow: inset 0 0 0 1px rgba(0, 184, 184, 0.07); pointer-events: none; z-index: -1; }}
       .report-shell {{ border: 0; border-radius: 12px; padding: 12px; background: #ffffff; box-shadow: none; position: relative; z-index: 1; }}
       .brand-bar {{ height: 8px; background: linear-gradient(90deg, #00b8b8, #006379, #ef2b97); border-radius: 999px; margin-bottom: 18px; }}
       h1 {{ margin: 0 0 2px; color: var(--brand-teal); font-size: 29px; line-height: 1.05; letter-spacing: 0.01em; }}
-      .report-subtitle {{ margin: 6px 0 10px; font-size: 13px; color: #0c7f93; font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase; }}
+      .report-subtitle {{ margin: 6px 0 10px; font-size: 15px; color: #0c7f93; font-weight: 700; letter-spacing: 0.02em; text-transform: uppercase; }}
       h2 {{ margin: 0 0 9px; color: var(--brand-teal); font-size: 17px; }}
       .meta {{ color: var(--ink-muted); margin-bottom: 8px; font-size: 11px; }}
       .meta-grid {{ display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 16px; margin: 8px 0 10px; }}
@@ -534,7 +570,7 @@ def _build_report_html(
         radial-gradient(95% 132% at 112% -18%, rgba(239, 43, 151, 0.09) 0 33%, transparent 34%),
         #f4fbfb;
         font-weight: 600; color: #335861; }}
-      .section-card {{ border: 0; border-radius: 10px; padding: 8px 0 10px; background:
+      .section-card {{ border: 1px solid var(--line-soft); border-radius: 10px; padding: 8px 9px 10px; background:
         radial-gradient(150% 165% at -14% 116%, rgba(0, 184, 184, 0.09) 0 34%, transparent 35%),
         radial-gradient(92% 130% at 112% -18%, rgba(239, 43, 151, 0.07) 0 33%, transparent 34%),
         #fff;
@@ -548,9 +584,9 @@ def _build_report_html(
       .line-items-table th, .line-items-table td {{ padding: 5px 6px; overflow-wrap: anywhere; word-break: break-word; line-height: 1.2; }}
       .line-items-table .num {{ text-align: right; white-space: nowrap; }}
       .line-items-table .cat-icon {{ text-align: center; padding-left: 10px; padding-right: 10px; }}
-      .category-chip {{ display: inline-flex; align-items: center; gap: 8px; border-radius: 999px; border: 1px solid #b7d5da; padding: 1px 9px 1px 4px; font-weight: 600; font-size: 9.2px; white-space: nowrap; max-width: 100%; }}
-      .category-chip-icon {{ display: inline-flex; align-items: center; justify-content: center; min-width: 16px; height: 16px; padding: 0 3px; margin-right: 1px; border-radius: 999px; font-size: 8.6px; font-weight: 700; color: #fff; letter-spacing: 0.02em; }}
-      .category-token {{ display: inline-flex; align-items: center; justify-content: center; min-width: 22px; height: 22px; padding: 0 4px; border-radius: 999px; font-size: 9px; font-weight: 700; color: #fff; letter-spacing: 0.02em; }}
+      .category-chip {{ display: inline-flex; align-items: center; justify-content: flex-start; gap: 8px; width: 132px; border-radius: 999px; border: 1px solid #b7d5da; padding: 1px 9px 1px 4px; font-weight: 600; font-size: 9.2px; white-space: nowrap; max-width: 100%; box-sizing: border-box; }}
+      .category-chip-icon {{ display: inline-flex; align-items: center; justify-content: center; min-width: 17px; height: 17px; padding: 0 2px 0 1px; margin-right: 1px; border-radius: 0; background: transparent; font-size: 10.2px; font-weight: 700; color: currentColor; letter-spacing: 0.01em; }}
+      .category-token {{ display: inline-flex; align-items: center; justify-content: center; min-width: auto; height: auto; padding: 0; border-radius: 0; background: transparent; font-size: 11px; font-weight: 700; color: #2f5d66; letter-spacing: 0.01em; }}
       .category-chip.cat-flight {{ color: #00586a; background: #e9f9ff; border-color: #9bd7ee; }}
       .category-chip.cat-accommodation {{ color: #1f4f5c; background: #eafdf7; border-color: #95dbc9; }}
       .category-chip.cat-transport {{ color: #4c3a62; background: #f2ecff; border-color: #cab8f6; }}
@@ -558,28 +594,14 @@ def _build_report_html(
       .category-chip.cat-perdiem {{ color: #70493a; background: #fff8ea; border-color: #e7c88f; }}
       .category-chip.cat-misc {{ color: #5a4f6e; background: #f7eefb; border-color: #d8bde8; }}
       .category-chip.cat-default {{ color: #365258; background: #edf5f6; border-color: #bfd2d6; }}
-      .category-token.cat-flight {{ background: #009ec5; }}
-      .category-token.cat-accommodation {{ background: #00a276; }}
-      .category-token.cat-transport {{ background: #6e5bc5; }}
-      .category-token.cat-meals {{ background: #d27a3b; }}
-      .category-token.cat-perdiem {{ background: #b98b2a; }}
-      .category-token.cat-misc {{ background: #8f59c2; }}
-      .category-token.cat-default {{ background: #78959b; }}
-      .category-chip.cat-flight .category-chip-icon {{ background: #009ec5; }}
-      .category-chip.cat-accommodation .category-chip-icon {{ background: #00a276; }}
-      .category-chip.cat-transport .category-chip-icon {{ background: #6e5bc5; }}
-      .category-chip.cat-meals .category-chip-icon {{ background: #d27a3b; }}
-      .category-chip.cat-perdiem .category-chip-icon {{ background: #b98b2a; }}
-      .category-chip.cat-misc .category-chip-icon {{ background: #8f59c2; }}
-      .category-chip.cat-default .category-chip-icon {{ background: #78959b; }}
-      .totals {{ margin-top: 11px; font-weight: 700; color: var(--brand-teal); border-top: 1px dashed #bcd8dd; padding-top: 8px; display: grid; gap: 2px; }}
+      .totals {{ margin-top: 11px; margin-left: auto; min-width: 260px; font-weight: 700; color: var(--brand-teal); border-top: 1px dashed #bcd8dd; padding-top: 8px; display: grid; gap: 2px; justify-items: end; text-align: right; }}
       .receipt-page {{ page-break-before: always; page-break-after: always; margin-top: 4px; }}
       .receipt-page.is-last {{ page-break-after: auto; }}
       .receipt-grid {{ display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }}
-      .receipt-card {{ border: 1px solid #cfe1e1; border-radius: 8px; padding: 0; min-height: 118mm; break-inside: avoid; background: #fff; display: flex; flex-direction: column; overflow: hidden; }}
+      .receipt-card {{ border: 1px solid #cfe1e1; border-radius: 9px; padding: 0; min-height: 118mm; break-inside: avoid; background: #fff; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 1px 0 rgba(0, 99, 121, 0.08); }}
       .receipt-card-head {{ font-weight: 700; color: #006379; margin-bottom: 0; font-size: 10px; line-height: 1.2; }}
-      .receipt-card-head-meta {{ display: grid; grid-template-columns: 1.35fr 1fr 1fr; border-bottom: 1px solid #d6e3e3; font-size: 7px; color: #375860; }}
-      .receipt-card-head-meta span {{ padding: 5px 6px; border-right: 1px solid #d6e3e3; }}
+      .receipt-card-head-meta {{ display: grid; grid-template-columns: 1.45fr 0.9fr 1fr; border-bottom: 1px solid #d6e3e3; font-size: 7.6px; color: #375860; background: linear-gradient(180deg, #eef8f9, #f8fcfc); }}
+      .receipt-card-head-meta span {{ padding: 6px 6px; border-right: 1px solid #d6e3e3; }}
       .receipt-card-head-meta span:last-child {{ border-right: 0; }}
       .receipt-card-sub {{ color: #3d5d63; font-size: 8px; margin-top: 3px; line-height: 1.25; }}
       .receipt-meta-small {{ color: #587378; font-size: 7px; }}
@@ -602,8 +624,7 @@ def _build_report_html(
     <div class='brand-bar'></div>
     <div class='report-header'>
       <div class='report-title-block'>
-        <h1>Adapsys Australia Pacific</h1>
-        <div class='report-subtitle'>{report_subtitle}</div>
+        <h1>{report_title}</h1>
       </div>
       <div>{logo_html}</div>
     </div>
@@ -724,9 +745,6 @@ def _build_coaching_report_html(
     start_date: date | None,
     end_date: date | None,
 ) -> str:
-    def _normalize_scope_text(value: str | None) -> str:
-        return " ".join(str(value or "").strip().lower().split())
-
     coach_name_by_email = {
         str(row.email or "").strip().lower(): str(row.name or "").strip()
         for row in [*list_coaches(), *list_consultants()]
@@ -757,20 +775,10 @@ def _build_coaching_report_html(
         report_by_label = "Coachee"
         scope_label = report_value
     else:
-        def _client_matches_scope(client_value: str | None) -> bool:
-            normalized_client = _normalize_scope_text(client_value)
-            if not normalized_client or not report_value_norm:
-                return False
-            if normalized_client == report_value_norm:
-                return True
-            return normalized_client.startswith(f"{report_value_norm} /") or report_value_norm.startswith(
-                f"{normalized_client} /"
-            )
-
         engagements = [
             row
             for row in engagements_source
-            if _client_matches_scope(row.client_org)
+            if _client_matches_scope(row.client_org, report_value_norm)
         ]
         report_by_label = "Client"
         scope_label = report_value
@@ -1082,3 +1090,92 @@ def coaching_report_pdf(
         "Content-Disposition": f"attachment; filename=adapsys-australia-pacific-coaching-report-{report_by_norm}-{safe_target}.pdf",
     }
     return Response(content=pdf_bytes, media_type="application/pdf", headers=headers)
+
+
+@router.get("/coaching/client-summary", response_model=list[ClientCoachingSummaryRow])
+def coaching_client_summary(
+    client_org: str | None = None,
+    start_date: date | None = None,
+    end_date: date | None = None,
+    actor: RequestActor = Depends(get_request_actor),
+) -> list[ClientCoachingSummaryRow]:
+    if not _is_client_reports_enabled():
+        raise HTTPException(status_code=404, detail="Client coaching reports are not enabled")
+
+    require_roles(actor, {"admin", "finance", "client_viewer"})
+    if start_date and end_date and start_date > end_date:
+        raise HTTPException(status_code=422, detail="start_date must be on or before end_date")
+
+    if actor.role == "client_viewer":
+        if not actor.client_org:
+            raise HTTPException(status_code=403, detail="Client account is missing client_org scope")
+        target_client_org = actor.client_org
+    else:
+        target_client_org = str(client_org or "").strip()
+        if not target_client_org:
+            raise HTTPException(status_code=422, detail="client_org is required")
+
+    engagements = [
+        row
+        for row in list_all_engagements_for_reports()
+        if _client_matches_scope(row.client_org, target_client_org)
+    ]
+    engagement_by_id = {row.id: row for row in engagements}
+
+    sessions_by_engagement_id: dict[UUID, list] = defaultdict(list)
+    for row in list_all_sessions_for_reports():
+        if row.engagement_id not in engagement_by_id:
+            continue
+        if start_date is not None and row.session_date < start_date:
+            continue
+        if end_date is not None and row.session_date > end_date:
+            continue
+        sessions_by_engagement_id[row.engagement_id].append(row)
+
+    coach_name_by_email = {
+        str(entry.email or "").strip().lower(): str(entry.name or "").strip()
+        for entry in [*list_coaches(), *list_consultants()]
+        if str(entry.email or "").strip() and str(entry.name or "").strip()
+    }
+
+    rows: list[ClientCoachingSummaryRow] = []
+    for engagement in sorted(
+        engagements,
+        key=lambda row: (
+            str(row.name or "").strip().lower(),
+            _display_name_from_email(str(row.coach_email or "").strip().lower(), coach_name_by_email).lower(),
+        ),
+    ):
+        sessions = sorted(
+            sessions_by_engagement_id.get(engagement.id, []),
+            key=lambda row: (str(row.session_date or ""), str(row.id)),
+        )
+        sessions_taken = sum(
+            1
+            for session in sessions
+            if str(session.session_type or "").strip().lower() in {"completed", "no_show_chargeable"}
+        )
+        no_show_count = sum(
+            1
+            for session in sessions
+            if str(session.session_type or "").strip().lower().startswith("no_show")
+        )
+        lcp_taken = sum(1 for session in sessions if bool(getattr(session, "lcp_debrief", False)))
+        lcp_available = bool(getattr(engagement, "lcp_debrief_enabled", False))
+
+        rows.append(
+            ClientCoachingSummaryRow(
+                coachee=str(engagement.name or "").strip() or "Unknown",
+                coach_name=_display_name_from_email(str(engagement.coach_email or "").strip().lower(), coach_name_by_email),
+                entitled_sessions=int(engagement.total_sessions or 0),
+                sessions_taken=sessions_taken,
+                sessions_left=max(int(engagement.total_sessions or 0) - sessions_taken, 0),
+                no_show_count=no_show_count,
+                session_dates=[_format_date_au(session.session_date) for session in sessions],
+                lcp_available=lcp_available,
+                lcp_entitled=int(engagement.lcp_debrief_total_sessions or 0) if lcp_available else None,
+                lcp_taken=lcp_taken if lcp_available else None,
+            )
+        )
+
+    return rows

@@ -2,8 +2,11 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   approveExpense,
   bulkCreateCoachingEngagements,
+  claimCoachingSessions,
+  createContract,
   createCoachingEngagement,
   deleteCoachingEngagement,
+  deleteContract,
   deleteCoachingSession as deleteCoachingSessionApi,
   createExpense,
   createTrip,
@@ -11,9 +14,14 @@ import {
   deleteTrip,
   downloadCoachingReportPdf,
   downloadExpensePackPdf,
+  fetchClientCoachingSummary,
   fetchCoachingReportPreview,
   fetchExpensePackPreview,
+  getExpenseXeroSyncConfig,
+  getTravelBookingSummary,
+  getContractMergeFields,
   intakeEmailReceipt,
+  listContracts,
   getTenderSummary,
   listAtoRates,
   listCoaches,
@@ -26,11 +34,15 @@ import {
   listTenders,
   logCoachingSession,
   markExpenseInvoiced,
+  listExpenseXeroSyncStatus,
   listTrips,
+  pushExpenseToXero,
   runCeoSignoffAutomation,
   runReminderAutomation,
   sendContractForSignature,
   queueContractSignatureReminder,
+  markTripTravelBooked,
+  createBookedTravelExpenseDraft,
   setTenderDecision,
   triageTender,
   updateAtoRate,
@@ -41,8 +53,12 @@ import {
   updateLookupClientPrograms,
   updateLookupCoaches,
   updateLookupConsultants,
+  fetchContractPreview,
+  downloadContractPreviewPdf,
+  updateContract,
   updateTrip,
 } from './api';
+import { POLICY_LIBRARY, defaultPolicyIds } from './policies/policyLibrary';
 
 function nightsBetween(departureDate, returnDate) {
   const start = new Date(departureDate);
@@ -104,6 +120,13 @@ function formatClientProgramLabel(clientName, programName) {
 function toNumber(value) {
   const parsed = Number(value);
   return Number.isFinite(parsed) ? parsed : 0;
+}
+
+function readLocalStorageNumber(key, fallbackValue) {
+  if (typeof window === 'undefined') return fallbackValue;
+  const raw = String(localStorage.getItem(key) || '').trim();
+  const parsed = Number(raw);
+  return Number.isFinite(parsed) ? parsed : fallbackValue;
 }
 
 function formatAud(value) {
@@ -256,6 +279,7 @@ const COUNTRY_ACRONYM_LABELS = {
 const CONTRACT_DOCUMENT_TYPE_OPTIONS = ['internal_admin_contract', 'new_subcontract', 'variation_amendment'];
 const CONTRACT_LIFECYCLE_STATUS_OPTIONS = ['awaiting_signature', 'draft', 'signed'];
 const COACHING_PLANNER_INVOICE_TICK_STORAGE_KEY = 'COACHING_PLANNER_INVOICE_TICK_BY_ENGAGEMENT';
+const COACHING_RECENT_GROUP_OPEN_STORAGE_KEY = 'COACHING_RECENT_GROUP_OPEN_BY_KEY';
 const COUNTRY_CURRENCY_MAP = {
   Australia: 'AUD',
   'Papua New Guinea': 'PGK',
@@ -264,10 +288,38 @@ const COUNTRY_CURRENCY_MAP = {
   'New Caledonia': 'XPF',
   'Solomon Islands': 'SBD',
 };
+const CAMERON_BOWLES_EMAIL = 'cameron.bowles@adapsysgroup.com';
+const COLLETTE_BROWN_EMAIL = 'collette.brown@adapsysgroup.com';
 const DEFAULT_ADMIN_EMAIL = 'admin@adapsysgroup.com';
+const FIONA_MCEWAN_EMAIL = 'fiona.mcewan@adapsysgroup.com';
+const SAMANTHA_WILCKENS_EMAIL = 'samantha.wilckens@adapsysgroup.com';
+const PHASE2_MANAGER_EMAILS = new Set([FIONA_MCEWAN_EMAIL]);
+const DEMO_CORE_TAB_IDS = new Set(['session-mode', 'help', 'submit-expense', 'coaching-module', 'reports', 'admin-console']);
+const PHASE2_TAB_IDS = new Set(['create-project', 'tender-intelligence', 'reports', 'expense-review', 'ato-rates']);
+const CLIENT_REPORTS_FEATURE_FLAG_STORAGE_KEY = 'adapsys_client_reports_enabled';
+const XERO_SYNC_FEATURE_FLAG_STORAGE_KEY = 'adapsys_xero_sync_enabled';
+const XERO_EXPENSE_LINK_STORAGE_KEY = 'adapsys_xero_expense_url';
+const XERO_ADMIN_LINK_STORAGE_KEY = 'adapsys_xero_admin_url';
+const CTM_TRAVEL_LINK_STORAGE_KEY = 'adapsys_ctm_travel_url';
+const GOOGLE_CHAT_LINK_STORAGE_KEY = 'adapsys_google_chat_url';
+const CLIENT_REPORTS_CORE_TAB_IDS = new Set(['session-mode', 'help', 'reports']);
+const DEMO_ADMIN_EMAIL_PRESETS = [
+  CAMERON_BOWLES_EMAIL,
+  COLLETTE_BROWN_EMAIL,
+  FIONA_MCEWAN_EMAIL,
+  SAMANTHA_WILCKENS_EMAIL,
+];
+const SESSION_PROFILE_OPTIONS = [
+  { id: 'cameron-admin', label: 'Cameron Bowles (Admin)', role: 'admin', email: CAMERON_BOWLES_EMAIL },
+  { id: 'collette-admin', label: 'Collette Brown (Admin)', role: 'admin', email: COLLETTE_BROWN_EMAIL },
+  { id: 'consultant-auto', label: 'Consultant (Auto: first roster email)', role: 'consultant', email: '' },
+  { id: 'fiona-builder', label: 'Fiona McEwan (Builder - Full Access)', role: 'admin', email: FIONA_MCEWAN_EMAIL },
+  { id: 'samantha-admin', label: 'Samantha Wilckens (Admin)', role: 'admin', email: SAMANTHA_WILCKENS_EMAIL },
+];
 
 const SCREEN_TABS = [
   { id: 'session-mode', label: 'Session' },
+  { id: 'help', label: 'Help' },
   { id: 'create-project', label: 'Activities' },
   { id: 'submit-expense', label: 'Expenses' },
   { id: 'coaching-module', label: 'Coaching' },
@@ -278,8 +330,64 @@ const SCREEN_TABS = [
   { id: 'ato-rates', label: 'ATO' },
 ];
 
+const QUICK_HELP_BY_TAB_ID = {
+  'session-mode': {
+    title: 'Quick help: choose your session mode',
+    steps: [
+      'Pick role first (Admin or Consultant).',
+      'Confirm email identity before applying session.',
+      'Use quick buttons for demo switching when presenting.',
+    ],
+  },
+  'submit-expense': {
+    title: 'Quick help: submit an expense',
+    steps: [
+      'Complete Context first (consultant + activity).',
+      'Enter claim details (category, date, amount).',
+      'Upload receipt evidence, then finalise and submit.',
+    ],
+  },
+  'coaching-module': {
+    title: 'Quick help: log coaching',
+    steps: [
+      'Open the coaching form path for your role.',
+      'Enter date, outcome, and attendance details.',
+      'Check Recent Sessions to confirm or edit.',
+    ],
+  },
+  'admin-console': {
+    title: 'Quick help: admin console',
+    steps: [
+      'Use this area for controlled setup and maintenance.',
+      'Keep changes small and save one section at a time.',
+      'Return to core tabs to validate workflow outcomes.',
+    ],
+  },
+};
+
+const DEFAULT_QUICK_HELP = {
+  title: 'Quick help: this screen',
+  steps: ['Work top-to-bottom.', 'Complete required fields first.', 'Use Help tab for full walkthroughs and examples.'],
+};
+
+function findSessionProfileId(role, email) {
+  const normalizedRole = String(role || '').trim().toLowerCase();
+  const normalizedEmail = normalizeEmailIdentity(email);
+  const matchedProfile = SESSION_PROFILE_OPTIONS.find(
+    (profile) => profile.role === normalizedRole && profile.email && normalizeEmailIdentity(profile.email) === normalizedEmail
+  );
+  return matchedProfile ? matchedProfile.id : '';
+}
+
 function currencyForCountry(country) {
   return COUNTRY_CURRENCY_MAP[country] || 'AUD';
+}
+
+function sanitizeExternalUrl(value) {
+  const raw = String(value || '').trim();
+  if (!raw) return '';
+  if (/^https?:\/\//i.test(raw)) return raw;
+  return '';
 }
 
 function listIsoDatesInclusive(startIso, endIso) {
@@ -301,6 +409,28 @@ function listIsoDatesInclusive(startIso, endIso) {
   return days;
 }
 
+function parseIsoDateList(rawValue) {
+  const tokens = String(rawValue || '')
+    .split(/[\n,;]+/)
+    .map((token) => token.trim())
+    .filter(Boolean);
+  const unique = Array.from(new Set(tokens));
+  const validDates = [];
+  unique.forEach((token) => {
+    const isoToken = /^\d{4}-\d{2}-\d{2}$/.test(token)
+      ? token
+      : /^\d{2}\/\d{2}\/\d{4}$/.test(token)
+        ? `${token.slice(6, 10)}-${token.slice(3, 5)}-${token.slice(0, 2)}`
+        : '';
+    if (!isoToken) return;
+    const parsed = new Date(`${isoToken}T00:00:00Z`);
+    if (Number.isNaN(parsed.getTime())) return;
+    if (parsed.toISOString().slice(0, 10) !== isoToken) return;
+    validDates.push(isoToken);
+  });
+  return validDates.sort((a, b) => a.localeCompare(b));
+}
+
 const INITIAL_EXPENSE_FORM = {
   trip_id: '',
   submitted_by_role: 'admin',
@@ -314,6 +444,7 @@ const INITIAL_EXPENSE_FORM = {
   currency_local: 'AUD',
   exchange_rate: '1',
   gst_applicable: true,
+  paid_by: '',
   description: '',
   supplier: '',
   receipt_url: '',
@@ -360,6 +491,9 @@ function createEmptyCoachingBatchRow() {
     coach_email: '',
     total_sessions: '5',
     sessions_used: '0',
+    lcp_debrief_enabled: false,
+    lcp_debrief_total_sessions: '0',
+    lcp_debrief_sessions_used: '0',
   };
 }
 
@@ -392,6 +526,8 @@ function parseLookupDraftArray(raw) {
 }
 
 export default function App() {
+  const coachingLcpDateRef = useRef(null);
+  const adminLcpDateRef = useRef(null);
   const [tripForm, setTripForm] = useState({
     name: '',
     consultant_email: '',
@@ -432,6 +568,10 @@ export default function App() {
     coach_email: '',
     total_sessions: '5',
     sessions_used: '0',
+    lcp_debrief_enabled: false,
+    lcp_debrief_total_sessions: '0',
+    lcp_debrief_sessions_used: '0',
+    associate_cost_per_session: '',
   });
   const [coachingSessionForm, setCoachingSessionForm] = useState({
     engagement_id: '',
@@ -439,6 +579,8 @@ export default function App() {
     session_type: 'completed',
     lcp_debrief: false,
     lcp_debrief_date: '',
+    duration_mins: '60',
+    delivery_mode: 'video',
     invoiced_to_adapsys: false,
     notes: '',
   });
@@ -484,6 +626,17 @@ export default function App() {
       return {};
     }
   });
+  const [openRecentCoachingGroupByKey, setOpenRecentCoachingGroupByKey] = useState(() => {
+    if (typeof window === 'undefined') return {};
+    try {
+      const raw = localStorage.getItem(COACHING_RECENT_GROUP_OPEN_STORAGE_KEY);
+      if (!raw) return {};
+      const parsed = JSON.parse(raw);
+      return parsed && typeof parsed === 'object' ? parsed : {};
+    } catch {
+      return {};
+    }
+  });
   const [consultantCoachingReportFilters, setConsultantCoachingReportFilters] = useState({
     start_date: '',
     end_date: '',
@@ -510,7 +663,6 @@ export default function App() {
   const [isSubmittingCoachingBatch, setIsSubmittingCoachingBatch] = useState(false);
   const [isSubmittingCoachingSession, setIsSubmittingCoachingSession] = useState(false);
   const [editingCoachingSessionId, setEditingCoachingSessionId] = useState('');
-  const [savingConsultantInvoiceSessionId, setSavingConsultantInvoiceSessionId] = useState('');
   const [deletingCoachingSessionId, setDeletingCoachingSessionId] = useState('');
   const [isSubmittingTender, setIsSubmittingTender] = useState(false);
   const [activeScreenTabId, setActiveScreenTabId] = useState('submit-expense');
@@ -550,6 +702,13 @@ export default function App() {
   const [coachingReportStatus, setCoachingReportStatus] = useState('');
   const [isPreviewingCoachingReport, setIsPreviewingCoachingReport] = useState(false);
   const [isDownloadingCoachingReportPdf, setIsDownloadingCoachingReportPdf] = useState(false);
+  const [clientReportFilters, setClientReportFilters] = useState({
+    start_date: '',
+    end_date: '',
+  });
+  const [clientCoachingSummaryRows, setClientCoachingSummaryRows] = useState([]);
+  const [clientCoachingSummaryStatus, setClientCoachingSummaryStatus] = useState('');
+  const [isLoadingClientCoachingSummary, setIsLoadingClientCoachingSummary] = useState(false);
   const [receiptDropActive, setReceiptDropActive] = useState(false);
   const [expenseValidationActive, setExpenseValidationActive] = useState(false);
   const [sessionLockedFromLink, setSessionLockedFromLink] = useState(false);
@@ -558,12 +717,32 @@ export default function App() {
   const [tripDraftByExpenseId, setTripDraftByExpenseId] = useState({});
   const [movingExpenseId, setMovingExpenseId] = useState('');
   const [deletingExpenseId, setDeletingExpenseId] = useState('');
+  const [syncingExpenseId, setSyncingExpenseId] = useState('');
+  const [expenseXeroSyncById, setExpenseXeroSyncById] = useState({});
+  const [expenseXeroIntegrationStatus, setExpenseXeroIntegrationStatus] = useState(null);
   const [adminEngagementDraftById, setAdminEngagementDraftById] = useState({});
   const [adminSessionDraftById, setAdminSessionDraftById] = useState({});
   const [adminEngagementSearch, setAdminEngagementSearch] = useState({
     name: '',
     client_org: '',
     coach_email: '',
+  });
+  const [adminSessionQuickSearch, setAdminSessionQuickSearch] = useState({
+    coach: '',
+    consultant: '',
+    client: '',
+  });
+  const [adminSessionQuickForm, setAdminSessionQuickForm] = useState({
+    engagement_id: '',
+    next_date: '',
+    session_dates_text: '',
+    session_type: 'completed',
+    lcp_debrief: false,
+    lcp_debrief_date: '',
+    duration_mins: '60',
+    delivery_mode: 'video',
+    invoiced_to_adapsys: false,
+    notes: '',
   });
   const [adminEngagementSort, setAdminEngagementSort] = useState({
     key: 'name',
@@ -573,6 +752,8 @@ export default function App() {
   const [savingAdminEngagementId, setSavingAdminEngagementId] = useState('');
   const [deletingAdminEngagementId, setDeletingAdminEngagementId] = useState('');
   const [savingAdminSessionId, setSavingAdminSessionId] = useState('');
+  const [isSavingAdminSessionBatch, setIsSavingAdminSessionBatch] = useState(false);
+  const [isSavingAllAdminSessions, setIsSavingAllAdminSessions] = useState(false);
   const [adminTripDraftById, setAdminTripDraftById] = useState({});
   const [savingAdminTripId, setSavingAdminTripId] = useState('');
   const [deletingAdminTripId, setDeletingAdminTripId] = useState('');
@@ -594,6 +775,152 @@ export default function App() {
   const [isResolvingPerDiemFx, setIsResolvingPerDiemFx] = useState(false);
   const [adminEngagementSaveNoteById, setAdminEngagementSaveNoteById] = useState({});
   const [adminConsoleSection, setAdminConsoleSection] = useState('projects');
+
+  const [associateInvoicePrep, setAssociateInvoicePrep] = useState({
+    start_date: '',
+    end_date: '',
+    claim_ref: '',
+    selected_ids: {},
+  });
+  const [associateInvoicePrepStatus, setAssociateInvoicePrepStatus] = useState('');
+  const [isClaimingAssociateSessions, setIsClaimingAssociateSessions] = useState(false);
+
+  const associateClaimableSessions = useMemo(() => {
+    if (!isConsultantSession) return [];
+    const startDate = String(associateInvoicePrep.start_date || '').trim();
+    const endDate = String(associateInvoicePrep.end_date || '').trim();
+    const rangeStart = startDate ? new Date(`${startDate}T00:00:00Z`) : null;
+    const rangeEnd = endDate ? new Date(`${endDate}T23:59:59Z`) : null;
+
+    return coachingSessions
+      .filter((session) => !String(session.associate_claim_ref || '').trim())
+      .filter((session) => session.session_type === 'completed' || session.session_type === 'no_show_chargeable')
+      .filter((session) => {
+        if (!rangeStart && !rangeEnd) return true;
+        const iso = String(session.session_date || '').slice(0, 10);
+        if (!iso) return false;
+        const d = new Date(`${iso}T12:00:00Z`);
+        if (rangeStart && d < rangeStart) return false;
+        if (rangeEnd && d > rangeEnd) return false;
+        return true;
+      })
+      .sort((a, b) => String(a.session_date || '').localeCompare(String(b.session_date || '')));
+  }, [associateInvoicePrep.end_date, associateInvoicePrep.start_date, coachingSessions, isConsultantSession]);
+
+  const associateSelectedClaimSessionIds = useMemo(
+    () => Object.keys(associateInvoicePrep.selected_ids || {}).filter((key) => associateInvoicePrep.selected_ids[key]),
+    [associateInvoicePrep.selected_ids]
+  );
+
+  const associateSelectedClaimSummary = useMemo(() => {
+    const byId = new Map(associateClaimableSessions.map((row) => [String(row.id), row]));
+    const selectedRows = associateSelectedClaimSessionIds
+      .map((key) => byId.get(String(key)) || null)
+      .filter(Boolean);
+
+    const missingCostRows = selectedRows.filter((row) => {
+      const amount = Number(row.associate_cost_amount ?? row.associate_cost_per_session ?? 0);
+      return !Number.isFinite(amount) || amount <= 0;
+    });
+
+    const total = selectedRows.reduce((sum, row) => {
+      const amount = Number(row.associate_cost_amount ?? row.associate_cost_per_session ?? 0);
+      if (!Number.isFinite(amount) || amount <= 0) return sum;
+      return sum + amount;
+    }, 0);
+
+    return {
+      selectedRows,
+      missingCostCount: missingCostRows.length,
+      total,
+    };
+  }, [associateClaimableSessions, associateSelectedClaimSessionIds]);
+
+  async function onCopyAssociateClaimSummary() {
+    const claimRef = String(associateInvoicePrep.claim_ref || '').trim();
+    const lines = [];
+    if (claimRef) lines.push(`Claim ref: ${claimRef}`);
+    lines.push(`Selected sessions: ${associateSelectedClaimSummary.selectedRows.length}`);
+    lines.push(`Total: $${associateSelectedClaimSummary.total.toFixed(2)}`);
+    lines.push('');
+    lines.push('Date\tCoachee\tClient\tType\tCost');
+    associateSelectedClaimSummary.selectedRows.forEach((session) => {
+      const engagement = coachingEngagementById[String(session.engagement_id)] || null;
+      const cost = Number(session.associate_cost_amount ?? session.associate_cost_per_session ?? 0);
+      lines.push(
+        [
+          formatDateAu(session.session_date),
+          engagement?.name || String(session.engagement_id),
+          engagement?.client_org || '',
+          formatTokenLabel(session.session_type),
+          Number.isFinite(cost) ? cost.toFixed(2) : '',
+        ].join('\t')
+      );
+    });
+    const text = lines.join('\n');
+
+    try {
+      if (navigator?.clipboard?.writeText) {
+        await navigator.clipboard.writeText(text);
+        setAssociateInvoicePrepStatus('Copied selected session summary to clipboard.');
+        return;
+      }
+    } catch {
+      // ignore and fallback below
+    }
+
+    try {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.setAttribute('readonly', '');
+      textarea.style.position = 'absolute';
+      textarea.style.left = '-9999px';
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+      setAssociateInvoicePrepStatus('Copied selected session summary to clipboard.');
+    } catch {
+      setAssociateInvoicePrepStatus('Could not copy automatically. Please select and copy manually.');
+    }
+  }
+
+  async function onClaimAssociateSessions() {
+    const claimRef = String(associateInvoicePrep.claim_ref || '').trim();
+    if (!claimRef) {
+      setAssociateInvoicePrepStatus('Enter a claim reference (e.g. KT001) before marking sessions as claimed.');
+      return;
+    }
+    if (!associateSelectedClaimSessionIds.length) {
+      setAssociateInvoicePrepStatus('Select at least one session to claim.');
+      return;
+    }
+    if (associateSelectedClaimSummary.missingCostCount > 0) {
+      setAssociateInvoicePrepStatus(
+        'Some selected sessions have no cost configured. Ask admin to set Cost/Session on the engagement before claiming.'
+      );
+      return;
+    }
+
+    setIsClaimingAssociateSessions(true);
+    setAssociateInvoicePrepStatus('Marking selected sessions as claimed...');
+    try {
+      await claimCoachingSessions({
+        session_ids: associateSelectedClaimSessionIds,
+        claim_ref: claimRef,
+      });
+      setAssociateInvoicePrep((prev) => ({
+        ...prev,
+        selected_ids: {},
+      }));
+      setAssociateInvoicePrepStatus(`Claim saved. Reference: ${claimRef}.`);
+      await refresh();
+    } catch (error) {
+      setAssociateInvoicePrepStatus(error.message);
+    } finally {
+      setIsClaimingAssociateSessions(false);
+    }
+  }
   const [contractScaffoldForm, setContractScaffoldForm] = useState({
     consultant_email: '',
     contract_party_name: '',
@@ -606,12 +933,28 @@ export default function App() {
     estimated_days: '',
     variation_reason: '',
     variation_value_delta: '',
+    policy_ids: defaultPolicyIds(),
+    policy_acknowledged: false,
+    policy_notes: '',
     lifecycle_status: 'draft',
     attachments: [],
   });
   const [contractScaffoldRows, setContractScaffoldRows] = useState([]);
+  const [contractMergeTemplates, setContractMergeTemplates] = useState([]);
+  const [selectedPolicyId, setSelectedPolicyId] = useState(POLICY_LIBRARY[0]?.id || '');
   const [contractScaffoldStatus, setContractScaffoldStatus] = useState('');
+  const [contractPreviewHtml, setContractPreviewHtml] = useState('');
+  const [contractPreviewRowId, setContractPreviewRowId] = useState('');
+  const [isPreviewingContract, setIsPreviewingContract] = useState(false);
+  const [isDownloadingContractPdfRowId, setIsDownloadingContractPdfRowId] = useState('');
   const [contractDropActive, setContractDropActive] = useState(false);
+  const [travelBookingSummary, setTravelBookingSummary] = useState({
+    total_required: 0,
+    outstanding_to_book: 0,
+    booked: 0,
+    need_expense_prompt: 0,
+  });
+  const [markingTravelBookedTripId, setMarkingTravelBookedTripId] = useState('');
   const [profileScaffoldForm, setProfileScaffoldForm] = useState({
     consultant_email: '',
     title: '',
@@ -627,7 +970,21 @@ export default function App() {
     if (saved === 'tabs' || saved === 'scroll') return saved;
     return window.innerWidth >= 980 ? 'tabs' : 'scroll';
   });
+  const [showPhase2Modules, setShowPhase2Modules] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return localStorage.getItem('adapsys_show_phase2_modules') === '1';
+  });
+  const [isQuickHelpOpen, setIsQuickHelpOpen] = useState(false);
+  const [helpImageAvailable, setHelpImageAvailable] = useState({ expense: true, coaching: true });
+  const [selectedSessionProfileId, setSelectedSessionProfileId] = useState(() => {
+    if (typeof window === 'undefined') return '';
+    return findSessionProfileId(
+      (localStorage.getItem('adapsys_user_role') || 'admin').trim().toLowerCase(),
+      normalizeEmailIdentity(localStorage.getItem('adapsys_user_email') || DEFAULT_ADMIN_EMAIL)
+    );
+  });
   const headerRef = useRef(null);
+  const quickHelpRef = useRef(null);
   const expenseProjectRef = useRef(null);
   const expenseConsultantRef = useRef(null);
   const expenseCategoryRef = useRef(null);
@@ -661,6 +1018,57 @@ export default function App() {
       // Ignore storage failures to avoid blocking session logging.
     }
   }, [plannerInvoiceTickByEngagementId]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    try {
+      localStorage.setItem(
+        COACHING_RECENT_GROUP_OPEN_STORAGE_KEY,
+        JSON.stringify(openRecentCoachingGroupByKey)
+      );
+    } catch {
+      // Ignore storage failures to avoid blocking session logging.
+    }
+  }, [openRecentCoachingGroupByKey]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    try {
+      localStorage.setItem('adapsys_show_phase2_modules', showPhase2Modules ? '1' : '0');
+    } catch {
+      // Ignore storage failures to avoid blocking UI mode selection.
+    }
+  }, [showPhase2Modules]);
+
+  useEffect(() => {
+    setSelectedSessionProfileId(findSessionProfileId(sessionRole, sessionEmail));
+  }, [sessionEmail, sessionRole]);
+
+  useEffect(() => {
+    if (!isQuickHelpOpen || typeof window === 'undefined') return;
+
+    function onDocumentPointerDown(event) {
+      if (!quickHelpRef.current) return;
+      if (!quickHelpRef.current.contains(event.target)) {
+        setIsQuickHelpOpen(false);
+      }
+    }
+
+    function onDocumentKeyDown(event) {
+      if (event.key === 'Escape') {
+        setIsQuickHelpOpen(false);
+      }
+    }
+
+    window.addEventListener('mousedown', onDocumentPointerDown);
+    window.addEventListener('touchstart', onDocumentPointerDown);
+    window.addEventListener('keydown', onDocumentKeyDown);
+    return () => {
+      window.removeEventListener('mousedown', onDocumentPointerDown);
+      window.removeEventListener('touchstart', onDocumentPointerDown);
+      window.removeEventListener('keydown', onDocumentKeyDown);
+    };
+  }, [isQuickHelpOpen]);
 
   const consultantLookupPreview = useMemo(
     () => parseLookupDraftArray(adminLookupDrafts.consultants),
@@ -718,6 +1126,93 @@ export default function App() {
         })),
     [contractScaffoldRows]
   );
+
+  const policyLibraryById = useMemo(() => {
+    const map = {};
+    POLICY_LIBRARY.forEach((policy) => {
+      const key = String(policy?.id || '').trim();
+      if (!key) return;
+      map[key] = policy;
+    });
+    return map;
+  }, []);
+
+  function buildPolicyAttachments(policyIds) {
+    const attachedAt = new Date().toISOString();
+    return (policyIds || [])
+      .map((policyId) => {
+        const key = String(policyId || '').trim();
+        if (!key) return null;
+        const policy = policyLibraryById[key];
+        if (!policy) return null;
+        return {
+          id: `policy-${key}`,
+          name: String(policy.attachmentName || `${policy.title || key}.html`),
+          size_bytes: 0,
+          mime_type: 'text/html',
+          attached_at: attachedAt,
+          source: 'policy_library',
+          policy_id: key,
+          policy_title: String(policy.title || ''),
+          policy_version: String(policy.version || ''),
+          policy_path: String(policy.attachmentSourcePath || ''),
+        };
+      })
+      .filter(Boolean);
+  }
+
+  function mergePolicyAttachments(existingAttachments, policyIds) {
+    const selectedPolicyIds = (policyIds || []).map((value) => String(value || '').trim()).filter(Boolean);
+    const manualAttachments = (existingAttachments || []).filter(
+      (attachment) => String(attachment?.source || '').trim().toLowerCase() !== 'policy_library'
+    );
+    return [...manualAttachments, ...buildPolicyAttachments(selectedPolicyIds)];
+  }
+
+  const contractMergeFieldMap = useMemo(() => {
+    const map = {};
+    (contractMergeTemplates || []).forEach((template) => {
+      const key = String(template?.document_type || '').trim();
+      if (!key) return;
+      map[key] = Array.isArray(template?.merge_fields) ? template.merge_fields : [];
+    });
+    return map;
+  }, [contractMergeTemplates]);
+
+  const mergeFieldsForSelectedContractType = useMemo(
+    () => contractMergeFieldMap[contractScaffoldForm.document_type] || [],
+    [contractMergeFieldMap, contractScaffoldForm.document_type]
+  );
+
+  const contractPoliciesForSelectedType = useMemo(
+    () =>
+      POLICY_LIBRARY.filter(
+        (policy) =>
+          !Array.isArray(policy.requiredFor) ||
+          !policy.requiredFor.length ||
+          policy.requiredFor.includes(contractScaffoldForm.document_type)
+      ),
+    [contractScaffoldForm.document_type]
+  );
+
+  const activePolicyDetail = useMemo(() => {
+    if (!contractPoliciesForSelectedType.length) return null;
+    return (
+      contractPoliciesForSelectedType.find((policy) => policy.id === selectedPolicyId) ||
+      contractPoliciesForSelectedType[0]
+    );
+  }, [contractPoliciesForSelectedType, selectedPolicyId]);
+
+  useEffect(() => {
+    if (!contractPoliciesForSelectedType.length) {
+      if (selectedPolicyId) setSelectedPolicyId('');
+      return;
+    }
+    const stillExists = contractPoliciesForSelectedType.some((policy) => policy.id === selectedPolicyId);
+    if (!stillExists) {
+      setSelectedPolicyId(contractPoliciesForSelectedType[0].id);
+    }
+  }, [contractPoliciesForSelectedType, selectedPolicyId]);
 
   const contractGenerationReadiness = useMemo(() => {
     const projectReady = Boolean(contractScaffoldForm.project_name.trim());
@@ -794,9 +1289,13 @@ export default function App() {
     return summary;
   }, [contractScaffoldRows]);
 
-  function onCreateContractScaffold() {
+  async function onCreateContractScaffold() {
     if (!contractGenerationReadiness.ready) {
       setContractScaffoldStatus(contractGenerationReadiness.message);
+      return;
+    }
+    if ((contractScaffoldForm.policy_ids || []).length && !contractScaffoldForm.policy_acknowledged) {
+      setContractScaffoldStatus('Tick policy acknowledgement before adding this contract scaffold row.');
       return;
     }
     const normalizedProject = contractScaffoldForm.project_name.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-');
@@ -808,11 +1307,14 @@ export default function App() {
           : `subcontract-${normalizedProject || 'draft'}.docx`;
     const parentContract = contractScaffoldRows.find((row) => row.id === contractScaffoldForm.parent_contract_id) || null;
     const entry = {
-      id: `${Date.now()}`,
       ...contractScaffoldForm,
+      attachments: mergePolicyAttachments(contractScaffoldForm.attachments, contractScaffoldForm.policy_ids),
       estimated_value: contractScaffoldEstimate,
       generated_document_name: generatedDocumentName,
       generated_document_status: contractGenerationReadiness.ready ? 'ready_to_generate' : 'draft_only',
+      policy_ids: contractScaffoldForm.policy_ids || [],
+      policy_acknowledged: Boolean(contractScaffoldForm.policy_acknowledged),
+      policy_notes: String(contractScaffoldForm.policy_notes || '').trim() || null,
       contract_party_name:
         contractScaffoldForm.document_type === 'internal_admin_contract'
           ? contractScaffoldForm.contract_party_name.trim()
@@ -820,17 +1322,154 @@ export default function App() {
       parent_contract_label: parentContract
         ? `${parentContract.project_name || 'Untitled activity'} (${displayNameFromEmail(parentContract.consultant_email)})`
         : '',
-      created_at: new Date().toISOString(),
     };
-    setContractScaffoldRows((prev) => [entry, ...prev]);
-    setContractScaffoldStatus(
-      `${formatTokenLabel(entry.document_type)} scaffold row added for ${
-        entry.contract_party_name || displayNameFromEmail(entry.consultant_email)
-      }.`
-    );
+    try {
+      const created = await createContract(entry);
+      setContractScaffoldRows((prev) => [created, ...prev]);
+      setContractScaffoldStatus(
+        `${formatTokenLabel(created.document_type)} row added for ${
+          created.contract_party_name || displayNameFromEmail(created.consultant_email)
+        }.`
+      );
+    } catch (error) {
+      setContractScaffoldStatus(error.message || 'Failed to create contract row.');
+    }
+  }
+
+  function onAdminQuickAddDate() {
+    const dateToAdd = String(adminSessionQuickForm.next_date || '').trim();
+    if (!dateToAdd) {
+      setStatus('Select a date before adding to the list.');
+      return;
+    }
+    const mergedDates = parseIsoDateList(`${adminSessionQuickForm.session_dates_text}\n${dateToAdd}`);
+    setAdminSessionQuickForm((prev) => ({
+      ...prev,
+      next_date: '',
+      session_dates_text: mergedDates.join('\n'),
+    }));
+  }
+
+  function onAdminQuickRemoveDate(dateValue) {
+    setAdminSessionQuickForm((prev) => ({
+      ...prev,
+      session_dates_text: parseIsoDateList(prev.session_dates_text)
+        .filter((value) => value !== dateValue)
+        .join('\n'),
+    }));
+  }
+
+  async function onCreateAdminSessionBatch() {
+    const engagementId = String(adminSessionQuickForm.engagement_id || '').trim();
+    if (!engagementId) {
+      setStatus('Search and select a coachee before adding session dates.');
+      return;
+    }
+
+    const enteredTokens = String(adminSessionQuickForm.session_dates_text || '')
+      .split(/[\n,;]+/)
+      .map((token) => token.trim())
+      .filter(Boolean);
+    const uniqueEnteredTokens = Array.from(new Set(enteredTokens));
+    const sessionDates = parseIsoDateList(adminSessionQuickForm.session_dates_text);
+
+    if (!sessionDates.length) {
+      setStatus('Add at least one valid session date (dd/mm/yyyy or yyyy-mm-dd).');
+      return;
+    }
+    if (sessionDates.length !== uniqueEnteredTokens.length) {
+      setStatus('Some dates are invalid. Use dd/mm/yyyy or yyyy-mm-dd, one date per line.');
+      return;
+    }
+    if (adminSessionQuickForm.lcp_debrief && !String(adminSessionQuickForm.lcp_debrief_date || '').trim()) {
+      setStatus('Select an LCP de-brief date when the LCP tick is enabled.');
+      return;
+    }
+    if (adminSessionQuickForm.lcp_debrief && !selectedAdminQuickLcpEnabled) {
+      setStatus('Selected coachee does not have LCP de-brief entitlement enabled.');
+      return;
+    }
+
+    const durationMins = Number(adminSessionQuickForm.duration_mins || 0);
+    if (!Number.isFinite(durationMins) || durationMins <= 0) {
+      setStatus('Session duration must be 1 minute or greater.');
+      return;
+    }
+    const deliveryMode = String(adminSessionQuickForm.delivery_mode || '').trim() || 'video';
+
+    const basePayload = {
+      engagement_id: engagementId,
+      session_type: adminSessionQuickForm.session_type,
+      lcp_debrief: Boolean(adminSessionQuickForm.lcp_debrief),
+      lcp_debrief_date: adminSessionQuickForm.lcp_debrief
+        ? String(adminSessionQuickForm.lcp_debrief_date || '').trim() || null
+        : null,
+      duration_mins: durationMins,
+      delivery_mode: deliveryMode,
+      invoiced_to_adapsys: Boolean(adminSessionQuickForm.invoiced_to_adapsys),
+      notes: String(adminSessionQuickForm.notes || '').trim() || null,
+    };
+
+    setIsSavingAdminSessionBatch(true);
+    setStatus(`Saving ${sessionDates.length} coaching session date(s)...`);
+
+    let successCount = 0;
+    const failedDates = [];
+    for (const sessionDate of sessionDates) {
+      try {
+        await logCoachingSession({
+          ...basePayload,
+          session_date: sessionDate,
+        });
+        successCount += 1;
+      } catch (error) {
+        failedDates.push(`${formatDateAu(sessionDate)} (${error.message || 'save failed'})`);
+      }
+    }
+
+    try {
+      if (successCount > 0) {
+        await refresh();
+      }
+      if (failedDates.length) {
+        setStatus(
+          `Saved ${successCount}/${sessionDates.length} sessions. Failed: ${failedDates.slice(0, 3).join(' | ')}`
+        );
+      } else {
+        setStatus(`Saved ${successCount} coaching sessions.`);
+      }
+      setAdminSessionQuickForm((prev) => ({
+        ...prev,
+        next_date: '',
+        session_dates_text: '',
+      }));
+    } finally {
+      setIsSavingAdminSessionBatch(false);
+    }
+  }
+
+  function onOpenContractPreviewInNewTab() {
+    if (!contractPreviewHtml) return;
+    const previewBlob = new Blob([contractPreviewHtml], { type: 'text/html' });
+    const previewUrl = window.URL.createObjectURL(previewBlob);
+    window.open(previewUrl, '_blank', 'noopener,noreferrer');
+    window.setTimeout(() => {
+      window.URL.revokeObjectURL(previewUrl);
+    }, 15000);
+  }
+
+  function onClearContractPreview() {
+    setContractPreviewHtml('');
+    setContractPreviewRowId('');
+    setContractScaffoldStatus('Contract preview cleared.');
   }
 
   function onContractDocumentTypeChange(nextType) {
+    const defaultPolicyIdsForType = POLICY_LIBRARY.filter(
+      (policy) =>
+        policy.sendByDefault &&
+        (!Array.isArray(policy.requiredFor) || !policy.requiredFor.length || policy.requiredFor.includes(nextType))
+    ).map((policy) => policy.id);
     setContractScaffoldForm((prev) => ({
       ...prev,
       document_type: nextType,
@@ -838,7 +1477,41 @@ export default function App() {
       variation_reason: nextType === 'variation_amendment' ? prev.variation_reason : '',
       variation_value_delta: nextType === 'variation_amendment' ? prev.variation_value_delta : '',
       contract_party_name: nextType === 'internal_admin_contract' ? prev.contract_party_name : '',
+      policy_ids: defaultPolicyIdsForType,
+      policy_acknowledged: false,
     }));
+  }
+
+  function onToggleContractPolicy(policyId, checked) {
+    const key = String(policyId || '').trim();
+    if (!key) return;
+    setContractScaffoldForm((prev) => {
+      const existing = new Set(Array.isArray(prev.policy_ids) ? prev.policy_ids : []);
+      if (checked) {
+        existing.add(key);
+      } else {
+        existing.delete(key);
+      }
+      return {
+        ...prev,
+        policy_ids: Array.from(existing),
+        attachments: mergePolicyAttachments(prev.attachments, Array.from(existing)),
+        policy_acknowledged: false,
+      };
+    });
+  }
+
+  async function onAcknowledgeContractPolicies(rowId) {
+    const row = contractScaffoldRows.find((item) => item.id === rowId);
+    if (!row) return;
+    const nextAttachments = mergePolicyAttachments(row.attachments, row.policy_ids || []);
+    onUpdateContractRow(rowId, { policy_acknowledged: true, attachments: nextAttachments });
+    try {
+      await updateContract(rowId, { policy_acknowledged: true, attachments: nextAttachments });
+      setContractScaffoldStatus('Policy checklist tick captured for this contract row.');
+    } catch (error) {
+      setContractScaffoldStatus(error.message || 'Failed to save policy checklist tick.');
+    }
   }
 
   function onAttachContractFiles(fileList) {
@@ -883,11 +1556,31 @@ export default function App() {
     );
   }
 
+  async function onDeleteContractRow(rowId) {
+    const selectedRow = contractScaffoldRows.find((row) => row.id === rowId);
+    if (!selectedRow) return;
+    const confirmed = window.confirm(
+      `Delete contract row for "${selectedRow.project_name || 'activity'}"?`
+    );
+    if (!confirmed) return;
+    try {
+      await deleteContract(rowId);
+      setContractScaffoldRows((prev) => prev.filter((row) => row.id !== rowId));
+      setContractScaffoldStatus('Contract row deleted.');
+    } catch (error) {
+      setContractScaffoldStatus(error.message || 'Failed to delete contract row.');
+    }
+  }
+
   async function onMarkContractLifecycle(rowId, nextStatus) {
     const selectedRow = contractScaffoldRows.find((row) => row.id === rowId);
     if (!selectedRow) return;
 
     if (nextStatus === 'awaiting_signature') {
+      if ((selectedRow.policy_ids || []).length && !selectedRow.policy_acknowledged) {
+        setContractScaffoldStatus('Tick policies as sent before issuing this contract for signature.');
+        return;
+      }
       const fallbackSignerEmail =
         String(localStorage.getItem('adapsys_user_email') || '').trim().toLowerCase() || DEFAULT_ADMIN_EMAIL;
       const signerEmail =
@@ -900,13 +1593,21 @@ export default function App() {
         deriveDisplayNameFromEmail(fallbackSignerEmail);
 
       try {
+        const nextAttachments = mergePolicyAttachments(selectedRow.attachments, selectedRow.policy_ids || []);
+        if ((selectedRow.policy_ids || []).length) {
+          onUpdateContractRow(rowId, { attachments: nextAttachments });
+          await updateContract(rowId, { attachments: nextAttachments });
+        }
         const signatureResult = await sendContractForSignature({
           contract_id: selectedRow.id,
           document_type: selectedRow.document_type,
           document_name: selectedRow.generated_document_name || selectedRow.project_name || 'contract-draft.docx',
           signer_email: signerEmail,
           signer_name: signerName,
-          source_payload: selectedRow,
+          source_payload: {
+            ...selectedRow,
+            attachments: nextAttachments,
+          },
         });
 
         onUpdateContractRow(rowId, {
@@ -917,6 +1618,15 @@ export default function App() {
           signature_detail: signatureResult.detail || '',
           reminder_count: Number(signatureResult.reminder_count || 0),
           reminder_requested_at: signatureResult.reminder_requested_at || '',
+        });
+        await updateContract(rowId, {
+          lifecycle_status: signatureResult.status || 'awaiting_signature',
+          sent_date: signatureResult.sent_at || new Date().toISOString(),
+          signature_provider: signatureResult.provider || 'local',
+          signature_envelope_id: signatureResult.envelope_id || '',
+          signature_detail: signatureResult.detail || '',
+          reminder_count: Number(signatureResult.reminder_count || 0),
+          reminder_requested_at: signatureResult.reminder_requested_at || null,
         });
         setContractScaffoldStatus(signatureResult.detail || 'Contract sent for signature.');
       } catch (error) {
@@ -932,7 +1642,16 @@ export default function App() {
       signed_date: nextStatus === 'signed' ? nowIso : row.signed_date,
       reminder_requested_at: nextStatus === 'signed' ? '' : row.reminder_requested_at,
     }));
-    setContractScaffoldStatus(`Marked contract as ${formatTokenLabel(nextStatus)}.`);
+    try {
+      await updateContract(rowId, {
+        lifecycle_status: nextStatus,
+        sent_date: nextStatus === 'awaiting_signature' ? nowIso : selectedRow.sent_date,
+        signed_date: nextStatus === 'signed' ? nowIso : selectedRow.signed_date,
+      });
+      setContractScaffoldStatus(`Marked contract as ${formatTokenLabel(nextStatus)}.`);
+    } catch (error) {
+      setContractScaffoldStatus(error.message || 'Failed to update contract lifecycle.');
+    }
   }
 
   async function onFlagContractReminder(rowId) {
@@ -948,9 +1667,64 @@ export default function App() {
         reminder_count: Number(reminderResult.reminder_count || 1),
         signature_detail: reminderResult.detail || '',
       });
+      await updateContract(rowId, {
+        reminder_requested_at: reminderResult.reminder_requested_at || new Date().toISOString(),
+        reminder_count: Number(reminderResult.reminder_count || 1),
+        signature_detail: reminderResult.detail || '',
+      });
       setContractScaffoldStatus(reminderResult.detail || 'Reminder queued for this contract.');
     } catch (error) {
       setContractScaffoldStatus(error.message || 'Failed to queue contract reminder.');
+    }
+  }
+
+  async function onMarkTripTravelBooked(trip) {
+    const key = String(trip.id);
+    setMarkingTravelBookedTripId(key);
+    setAdminTripSaveNoteById((prev) => ({ ...prev, [key]: 'Marking booked...' }));
+    try {
+      const result = await markTripTravelBooked(trip.id);
+      setAdminTripSaveNoteById((prev) => ({ ...prev, [key]: 'Travel marked booked.' }));
+      if (result.should_prompt_add_expense) {
+        const proceedToExpenseDraft = window.confirm(
+          'Travel is booked and this activity requires an expense report. Open a prefilled expense draft now?'
+        );
+        if (proceedToExpenseDraft) {
+          await onCreateBookedTravelExpenseDraft({
+            ...trip,
+            travel_request_status: result.travel_request_status || 'booked',
+            travel_booked_add_expense_prompted: false,
+          });
+        }
+      }
+      setStatus(result.detail || 'Travel marked as booked.');
+      await refresh();
+    } catch (error) {
+      setAdminTripSaveNoteById((prev) => ({ ...prev, [key]: `Travel update failed: ${error.message}` }));
+      setStatus(error.message || 'Failed to mark travel booked.');
+    } finally {
+      setMarkingTravelBookedTripId('');
+    }
+  }
+
+  async function onCreateBookedTravelExpenseDraft(trip) {
+    const tripId = String(trip?.id || '').trim();
+    if (!tripId) return;
+
+    try {
+      const result = await createBookedTravelExpenseDraft(tripId);
+      const draftPayload = result?.draft_payload || {};
+      setExpenseForm(() => ({
+        ...INITIAL_EXPENSE_FORM,
+        ...draftPayload,
+      }));
+      setActiveScreenTabId('submit-expense');
+      setStatus(
+        result?.detail ||
+          'Opened prefilled expense draft from booked travel queue. Complete amount/supplier and submit.'
+      );
+    } catch (error) {
+      setStatus(error.message || 'Failed to open booked-travel expense draft.');
     }
   }
 
@@ -1090,13 +1864,58 @@ export default function App() {
     setIsSubmittingAdminBulkActivities(false);
   }
 
-  function onGenerateContractPreview(rowId) {
-    const nowIso = new Date().toISOString();
-    onUpdateContractRow(rowId, {
-      generated_document_status: 'generated_preview',
-      generated_document_generated_at: nowIso,
-    });
-    setContractScaffoldStatus('Generated template preview marker for selected row.');
+  async function onGenerateContractPreview(rowId) {
+    const row = contractScaffoldRows.find((item) => item.id === rowId);
+    if (!row) {
+      setContractScaffoldStatus('Contract row not found for preview.');
+      return;
+    }
+    setIsPreviewingContract(true);
+    setContractPreviewRowId(rowId);
+    setContractScaffoldStatus('Generating contract preview...');
+    try {
+      const previewHtml = await fetchContractPreview(rowId);
+      setContractPreviewHtml(previewHtml);
+      onUpdateContractRow(rowId, { generated_document_status: 'generated_preview' });
+      try {
+        await updateContract(rowId, { generated_document_status: 'generated_preview' });
+      } catch {
+        // Preview should still be available even if status persistence fails.
+      }
+      setContractScaffoldStatus(`Contract preview ready for ${row.project_name || 'selected row'}.`);
+    } catch (error) {
+      setContractScaffoldStatus(error.message || 'Failed to generate contract preview.');
+    } finally {
+      setIsPreviewingContract(false);
+    }
+  }
+
+  async function onDownloadContractPreviewPdf(rowId) {
+    const row = contractScaffoldRows.find((item) => item.id === rowId);
+    if (!row) {
+      setContractScaffoldStatus('Contract row not found for PDF export.');
+      return;
+    }
+    setIsDownloadingContractPdfRowId(rowId);
+    setContractScaffoldStatus('Preparing contract PDF...');
+    try {
+      const blob = await downloadContractPreviewPdf(rowId);
+      const url = window.URL.createObjectURL(blob);
+      const anchor = document.createElement('a');
+      anchor.href = url;
+      const baseName = String(row.generated_document_name || row.project_name || 'contract-preview')
+        .replace(/\.html?$/i, '')
+        .trim();
+      const safeName = (baseName || 'contract-preview').toLowerCase().replace(/[^a-z0-9-_.]+/g, '-');
+      anchor.download = `${safeName}.pdf`;
+      anchor.click();
+      window.URL.revokeObjectURL(url);
+      setContractScaffoldStatus('Contract PDF download started.');
+    } catch (error) {
+      setContractScaffoldStatus(error.message || 'Failed to download contract PDF.');
+    } finally {
+      setIsDownloadingContractPdfRowId('');
+    }
   }
 
   function formatFileSize(sizeBytes) {
@@ -1119,6 +1938,16 @@ export default function App() {
     setProfileScaffoldStatus(`Profile scaffold row added for ${displayNameFromEmail(entry.consultant_email)}.`);
   }
 
+  function onOpenExternalTool(url, label) {
+    if (!url) {
+      setExpenseStatus(
+        `${label} link is not configured yet. Add localStorage key ${XERO_EXPENSE_LINK_STORAGE_KEY}, ${XERO_ADMIN_LINK_STORAGE_KEY}, ${CTM_TRAVEL_LINK_STORAGE_KEY}, or ${GOOGLE_CHAT_LINK_STORAGE_KEY}.`
+      );
+      return;
+    }
+    window.open(url, '_blank', 'noopener,noreferrer');
+  }
+
   const clientOptions = useMemo(() => {
     const fromPrograms = clientPrograms.map((row) => String(row?.client_name || '').trim());
     const fromTrips = trips.map((row) => String(row?.client_name || '').trim());
@@ -1130,7 +1959,67 @@ export default function App() {
 
   const isConsultantSession = sessionRole === 'consultant';
   const isAdminSession = sessionRole === 'admin';
+  const isClientViewerSession = sessionRole === 'client_viewer';
+  const isClientReportsFeatureEnabled =
+    String(localStorage.getItem(CLIENT_REPORTS_FEATURE_FLAG_STORAGE_KEY) || '').trim().toLowerCase() === '1';
+  const isXeroSyncFeatureEnabled =
+    String(localStorage.getItem(XERO_SYNC_FEATURE_FLAG_STORAGE_KEY) || '').trim().toLowerCase() === '1';
+  const xeroIntegrationBannerText = useMemo(() => {
+    if (!isXeroSyncFeatureEnabled) {
+      return `Xero sync controls are hidden. Set localStorage key ${XERO_SYNC_FEATURE_FLAG_STORAGE_KEY}=1 to show controls.`;
+    }
+    if (!expenseXeroIntegrationStatus?.enabled) {
+      return 'Xero sync is disabled on backend. Set ADAPSYS_XERO_SYNC_ENABLED=1 to enable push/retry actions.';
+    }
+    if (expenseXeroIntegrationStatus?.mode === 'stub') {
+      return 'Xero sync is running in STUB mode (demo-safe). Push actions will not send data to live Xero yet.';
+    }
+    if (!expenseXeroIntegrationStatus?.credentials_configured) {
+      return 'Xero sync is set to LIVE mode, but credentials are missing. Configure XERO_CLIENT_ID, XERO_CLIENT_SECRET, XERO_REFRESH_TOKEN, and XERO_TENANT_ID.';
+    }
+    return 'Xero sync is in LIVE mode with credentials configured.';
+  }, [expenseXeroIntegrationStatus, isXeroSyncFeatureEnabled]);
   const isCoachOnlySession = COACH_ONLY_EMAILS.has(normalizeEmailIdentity(sessionEmail));
+  const canManagePhase2Modules =
+    isAdminSession && PHASE2_MANAGER_EMAILS.has(normalizeEmailIdentity(sessionEmail));
+  const isSimplifiedAdminDemoView =
+    isAdminSession && (!canManagePhase2Modules || !showPhase2Modules);
+  const externalToolLinks = useMemo(
+    () => ({
+      xeroExpense: sanitizeExternalUrl(localStorage.getItem(XERO_EXPENSE_LINK_STORAGE_KEY)),
+      xeroAdmin: sanitizeExternalUrl(localStorage.getItem(XERO_ADMIN_LINK_STORAGE_KEY)),
+      ctmTravel: sanitizeExternalUrl(localStorage.getItem(CTM_TRAVEL_LINK_STORAGE_KEY)),
+      googleChat: sanitizeExternalUrl(localStorage.getItem(GOOGLE_CHAT_LINK_STORAGE_KEY)),
+    }),
+    []
+  );
+  const expenseExternalToolActions = useMemo(() => {
+    const actions = [
+      {
+        id: 'xero-expense',
+        label: isConsultantSession ? 'Open Xero (My Expenses)' : 'Open Xero Expenses',
+        url: externalToolLinks.xeroExpense,
+      },
+      {
+        id: 'ctm-travel',
+        label: 'Open CTM Travel',
+        url: externalToolLinks.ctmTravel,
+      },
+      {
+        id: 'google-chat',
+        label: 'Open Team Chat',
+        url: externalToolLinks.googleChat,
+      },
+    ];
+    if (isAdminSession) {
+      actions.push({
+        id: 'xero-admin',
+        label: 'Open Xero Admin',
+        url: externalToolLinks.xeroAdmin,
+      });
+    }
+    return actions;
+  }, [externalToolLinks, isAdminSession, isConsultantSession]);
 
   const orderedConsultants = useMemo(() => {
     const rank = (name) => {
@@ -1302,6 +2191,8 @@ export default function App() {
           coach_input: String(lastRow.coach_input || '').trim(),
           coach_email: String(lastRow.coach_email || '').trim(),
           total_sessions: String(lastRow.total_sessions || '').trim(),
+          lcp_debrief_enabled: Boolean(lastRow.lcp_debrief_enabled),
+          lcp_debrief_total_sessions: String(lastRow.lcp_debrief_total_sessions || '0').trim(),
         },
       ];
     });
@@ -1340,6 +2231,9 @@ export default function App() {
             coach_input: rawCoachInput,
             total_sessions: Number(row.total_sessions || 0),
             sessions_used: Number(row.sessions_used || 0),
+            lcp_debrief_enabled: Boolean(row.lcp_debrief_enabled),
+            lcp_debrief_total_sessions: Number(row.lcp_debrief_total_sessions || 0),
+            lcp_debrief_sessions_used: Number(row.lcp_debrief_sessions_used || 0),
             source_index: sourceIndex,
           };
         })
@@ -1351,7 +2245,17 @@ export default function App() {
       }
 
       const validRows = cleanRows.filter(
-        (row) => row.name && row.client_org && row.coach_email && row.total_sessions > 0 && row.sessions_used >= 0
+        (row) =>
+          row.name &&
+          row.client_org &&
+          row.coach_email &&
+          row.total_sessions > 0 &&
+          row.sessions_used >= 0 &&
+          row.sessions_used <= row.total_sessions &&
+          (!row.lcp_debrief_enabled ||
+            (row.lcp_debrief_total_sessions >= 0 &&
+              row.lcp_debrief_sessions_used >= 0 &&
+              row.lcp_debrief_sessions_used <= row.lcp_debrief_total_sessions))
       );
 
       if (!validRows.length) {
@@ -1538,16 +2442,27 @@ export default function App() {
       if (isConsultantSession && tab.id === 'create-project') return false;
       return true;
     });
+    if (isClientViewerSession) {
+      return roleFiltered.filter((tab) => CLIENT_REPORTS_CORE_TAB_IDS.has(tab.id));
+    }
     if (isCoachOnlySession) {
-      return roleFiltered.filter((tab) => tab.id === 'session-mode' || tab.id === 'coaching-module');
+      return roleFiltered.filter((tab) => tab.id === 'session-mode' || tab.id === 'help' || tab.id === 'coaching-module');
     }
     if (isConsultantSession) {
       return roleFiltered.filter(
-        (tab) => tab.id === 'session-mode' || tab.id === 'submit-expense' || tab.id === 'coaching-module'
+        (tab) => tab.id === 'session-mode' || tab.id === 'help' || tab.id === 'submit-expense' || tab.id === 'coaching-module'
       );
     }
+    if (isSimplifiedAdminDemoView) {
+      return roleFiltered.filter((tab) => DEMO_CORE_TAB_IDS.has(tab.id));
+    }
     return roleFiltered;
-  }, [isAdminSession, isCoachOnlySession, isConsultantSession]);
+  }, [isAdminSession, isClientViewerSession, isCoachOnlySession, isConsultantSession, isSimplifiedAdminDemoView]);
+
+  const activeQuickHelp = useMemo(
+    () => QUICK_HELP_BY_TAB_ID[activeScreenTabId] || DEFAULT_QUICK_HELP,
+    [activeScreenTabId]
+  );
 
   const isTabbedLayout = layoutMode === 'tabs';
 
@@ -1583,6 +2498,106 @@ export default function App() {
     () => coachingEngagements.find((row) => String(row.id) === String(selectedAdminEngagementId)) || null,
     [coachingEngagements, selectedAdminEngagementId]
   );
+
+  const adminSessionQuickMatches = useMemo(() => {
+    const queryCoach = String(adminSessionQuickSearch.coach || '').trim().toLowerCase();
+    const queryConsultant = String(adminSessionQuickSearch.consultant || '').trim().toLowerCase();
+    const queryClient = String(adminSessionQuickSearch.client || '').trim().toLowerCase();
+
+    return [...coachingEngagements]
+      .filter((engagement) => {
+        const coachEmail = String(engagement.coach_email || '').trim().toLowerCase();
+        const coachName = String(coachNameByEmail[coachEmail] || '').trim().toLowerCase();
+        const consultantName = String(engagement.name || '').trim().toLowerCase();
+        const clientName = String(engagement.client_org || '').trim().toLowerCase();
+        if (queryCoach && !coachEmail.includes(queryCoach) && !coachName.includes(queryCoach)) return false;
+        if (queryConsultant && !consultantName.includes(queryConsultant)) return false;
+        if (queryClient && !clientName.includes(queryClient)) return false;
+        return true;
+      })
+      .sort((a, b) => {
+        const byName = String(a.name || '').localeCompare(String(b.name || ''));
+        if (byName !== 0) return byName;
+        return String(a.client_org || '').localeCompare(String(b.client_org || ''));
+      });
+  }, [adminSessionQuickSearch, coachNameByEmail, coachingEngagements]);
+
+  const selectedAdminQuickEngagement = useMemo(
+    () =>
+      coachingEngagements.find(
+        (engagement) => String(engagement.id) === String(adminSessionQuickForm.engagement_id)
+      ) || null,
+    [adminSessionQuickForm.engagement_id, coachingEngagements]
+  );
+
+  const selectedAdminQuickLcpEnabled = Boolean(selectedAdminQuickEngagement?.lcp_debrief_enabled);
+
+  const coachingEngagementById = useMemo(() => {
+    const map = {};
+    coachingEngagements.forEach((row) => {
+      map[String(row.id)] = row;
+    });
+    return map;
+  }, [coachingEngagements]);
+
+  const sessionsByEngagementId = useMemo(() => {
+    const map = {};
+    coachingSessions.forEach((session) => {
+      const key = String(session.engagement_id || '');
+      if (!key) return;
+      if (!map[key]) map[key] = [];
+      map[key].push(session);
+    });
+    Object.keys(map).forEach((key) => {
+      map[key] = map[key].sort((a, b) => String(a.session_date || '').localeCompare(String(b.session_date || '')));
+    });
+    return map;
+  }, [coachingSessions]);
+
+  const adminQuickSessionDates = useMemo(
+    () => parseIsoDateList(adminSessionQuickForm.session_dates_text),
+    [adminSessionQuickForm.session_dates_text]
+  );
+
+  const adminQuickRecentSessions = useMemo(() => {
+    if (!selectedAdminQuickEngagement) return [];
+    return [...(sessionsByEngagementId[String(selectedAdminQuickEngagement.id)] || [])]
+      .sort((a, b) => String(b.session_date || '').localeCompare(String(a.session_date || '')))
+      .slice(0, 6);
+  }, [selectedAdminQuickEngagement, sessionsByEngagementId]);
+
+  const filteredAdminSessions = useMemo(() => {
+    const queryCoach = String(adminSessionQuickSearch.coach || '').trim().toLowerCase();
+    const queryConsultant = String(adminSessionQuickSearch.consultant || '').trim().toLowerCase();
+    const queryClient = String(adminSessionQuickSearch.client || '').trim().toLowerCase();
+
+    return coachingSessions.filter((session) => {
+      const engagement = coachingEngagementById[String(session.engagement_id)] || {};
+      const coachEmail = String(engagement.coach_email || '').trim().toLowerCase();
+      const coachName = String(coachNameByEmail[coachEmail] || '').trim().toLowerCase();
+      const consultantName = String(engagement.name || '').trim().toLowerCase();
+      const clientName = String(engagement.client_org || '').trim().toLowerCase();
+      if (queryCoach && !coachEmail.includes(queryCoach) && !coachName.includes(queryCoach)) return false;
+      if (queryConsultant && !consultantName.includes(queryConsultant)) return false;
+      if (queryClient && !clientName.includes(queryClient)) return false;
+      return true;
+    });
+  }, [adminSessionQuickSearch, coachNameByEmail, coachingEngagementById, coachingSessions]);
+
+  const adminSessionEditedRows = useMemo(
+    () => filteredAdminSessions.filter((session) => Boolean(adminSessionDraftById[String(session.id)])).length,
+    [adminSessionDraftById, filteredAdminSessions]
+  );
+
+  useEffect(() => {
+    const currentId = String(adminSessionQuickForm.engagement_id || '');
+    const stillVisible = adminSessionQuickMatches.some((engagement) => String(engagement.id) === currentId);
+    if (stillVisible) return;
+    setAdminSessionQuickForm((prev) => ({
+      ...prev,
+      engagement_id: String(adminSessionQuickMatches[0]?.id || ''),
+    }));
+  }, [adminSessionQuickForm.engagement_id, adminSessionQuickMatches]);
 
   const categoryOptions = useMemo(
     () =>
@@ -1821,6 +2836,95 @@ export default function App() {
     };
   }, [expenseForm, isBulkPerDiemMode, isConsultantSession, isPerDiemCategory]);
 
+  const expenseNextStep = useMemo(() => {
+    const claimKeys = new Set(['flightFrom', 'flightTo', 'date', 'perDiemStart', 'perDiemEnd', 'amount', 'exchangeRate']);
+    if (!expenseForm.trip_id || (!isConsultantSession && !expenseForm.submitted_by_email)) {
+      return {
+        id: 'expense-step-context',
+        label: 'Complete Step 1: Context',
+      };
+    }
+    if (expenseValidation.orderedMissingKeys.some((key) => claimKeys.has(key))) {
+      return {
+        id: 'expense-step-claim',
+        label: `Complete Step 2: ${expenseValidation.orderedMissingLabels[0] || 'Claim details'}`,
+      };
+    }
+    if (expenseValidation.orderedMissingKeys.includes('receipt')) {
+      return {
+        id: 'expense-step-receipt',
+        label: 'Complete Step 3: Receipt evidence',
+      };
+    }
+    return {
+      id: 'expense-step-submit',
+      label: 'Step 4: Review and submit',
+    };
+  }, [
+    expenseForm.submitted_by_email,
+    expenseForm.trip_id,
+    expenseValidation.orderedMissingKeys,
+    expenseValidation.orderedMissingLabels,
+    isConsultantSession,
+  ]);
+
+  const expenseStepState = useMemo(() => {
+    const claimKeys = ['flightFrom', 'flightTo', 'date', 'perDiemStart', 'perDiemEnd', 'amount', 'exchangeRate'];
+    const contextComplete = Boolean(expenseForm.trip_id) && (isConsultantSession || Boolean(expenseForm.submitted_by_email));
+    const claimComplete = claimKeys.every((key) => !expenseValidation.missing[key]);
+    const receiptComplete = !expenseValidation.missing.receipt;
+    const submitComplete = contextComplete && claimComplete && receiptComplete;
+    return {
+      context: contextComplete,
+      claim: claimComplete,
+      receipt: receiptComplete,
+      submit: submitComplete,
+    };
+  }, [expenseForm.submitted_by_email, expenseForm.trip_id, expenseValidation.missing, isConsultantSession]);
+
+  const expenseCompletedStepCount = useMemo(
+    () => Object.values(expenseStepState).filter(Boolean).length,
+    [expenseStepState]
+  );
+
+  const coachingNextStep = useMemo(() => {
+    if (isConsultantSession) {
+      if (!coachingSessionForm.engagement_id || !coachingSessionForm.session_date) {
+        return {
+          id: 'coaching-session-log',
+          label: 'Log the next consultant session',
+        };
+      }
+      return {
+        id: 'coaching-recent-edit',
+        label: 'Review or update recent sessions',
+      };
+    }
+
+    if (!coachingEngagements.length) {
+      return {
+        id: 'coaching-batch-entry',
+        label: 'Start with Batch Setup',
+      };
+    }
+    if (!coachingSessions.length) {
+      return {
+        id: 'coaching-admin-sessions',
+        label: 'Open Admin Sessions to add first session dates',
+      };
+    }
+    return {
+      id: 'coaching-recent-edit',
+      label: 'Review/edit recent sessions',
+    };
+  }, [
+    coachingEngagements.length,
+    coachingSessionForm.engagement_id,
+    coachingSessionForm.session_date,
+    coachingSessions.length,
+    isConsultantSession,
+  ]);
+
   const flightLocationOptions = useMemo(() => {
     const dynamicLocations = [
       selectedExpenseTrip?.destination_city,
@@ -1951,13 +3055,29 @@ export default function App() {
 
   useEffect(() => {
     setExpenseForm((prev) => {
-      if (String(prev.description || '').trim() === String(standardDescriptorPreview || '').trim()) return prev;
+      if (String(prev.description || '').trim()) return prev;
       return {
         ...prev,
         description: standardDescriptorPreview,
       };
     });
   }, [standardDescriptorPreview]);
+
+  useEffect(() => {
+    if (!coachingSessionForm.lcp_debrief) return;
+    const handle = setTimeout(() => {
+      coachingLcpDateRef.current?.focus?.();
+    }, 0);
+    return () => clearTimeout(handle);
+  }, [coachingSessionForm.lcp_debrief]);
+
+  useEffect(() => {
+    if (!adminSessionQuickForm.lcp_debrief) return;
+    const handle = setTimeout(() => {
+      adminLcpDateRef.current?.focus?.();
+    }, 0);
+    return () => clearTimeout(handle);
+  }, [adminSessionQuickForm.lcp_debrief]);
 
   const perDiemFinancialYearOptions = useMemo(() => {
     const current = currentFinancialYearLabel();
@@ -2017,13 +3137,13 @@ export default function App() {
   const sortedCoachingEngagementOptions = useMemo(
     () =>
       [...coachingEngagementOptions].sort((a, b) => {
-        const aName = String(a.name || '').trim().toLowerCase();
-        const bName = String(b.name || '').trim().toLowerCase();
-        const byName = aName.localeCompare(bName);
-        if (byName !== 0) return byName;
         const aClient = String(a.client_org || '').trim().toLowerCase();
         const bClient = String(b.client_org || '').trim().toLowerCase();
-        return aClient.localeCompare(bClient);
+        const byClient = aClient.localeCompare(bClient);
+        if (byClient !== 0) return byClient;
+        const aName = String(a.name || '').trim().toLowerCase();
+        const bName = String(b.name || '').trim().toLowerCase();
+        return aName.localeCompare(bName);
       }),
     [coachingEngagementOptions]
   );
@@ -2078,38 +3198,24 @@ export default function App() {
         const entitled = Number(engagement.total_sessions || 0);
         const used = Number(engagement.sessions_used || 0);
         const remaining = Math.max(entitled - used, 0);
+        const lcpEnabled = Boolean(engagement.lcp_debrief_enabled);
+        const lcpEntitled = Number(engagement.lcp_debrief_total_sessions || 0);
+        const lcpUsed = Number(engagement.lcp_debrief_sessions_used || 0);
+        const lcpRemaining = lcpEnabled ? Math.max(lcpEntitled - lcpUsed, 0) : 0;
         return {
           ...engagement,
           entitled,
           used,
           remaining,
+          lcpEnabled,
+          lcpEntitled,
+          lcpUsed,
+          lcpRemaining,
           oneLeft: remaining === 1,
         };
       }),
     [coachingEngagementOptions]
   );
-
-  const coachingEngagementById = useMemo(() => {
-    const map = {};
-    coachingEngagements.forEach((row) => {
-      map[String(row.id)] = row;
-    });
-    return map;
-  }, [coachingEngagements]);
-
-  const sessionsByEngagementId = useMemo(() => {
-    const map = {};
-    coachingSessions.forEach((session) => {
-      const key = String(session.engagement_id || '');
-      if (!key) return;
-      if (!map[key]) map[key] = [];
-      map[key].push(session);
-    });
-    Object.keys(map).forEach((key) => {
-      map[key] = map[key].sort((a, b) => String(a.session_date || '').localeCompare(String(b.session_date || '')));
-    });
-    return map;
-  }, [coachingSessions]);
 
   const coachingPlannerRows = useMemo(() => {
     const queryName = String(coachingEngagementSearch.name || '').trim().toLowerCase();
@@ -2131,6 +3237,10 @@ export default function App() {
         const entitled = Number(engagement.total_sessions || 0);
         const used = Number(engagement.sessions_used || 0);
         const remaining = Math.max(entitled - used, 0);
+        const lcpEnabled = Boolean(engagement.lcp_debrief_enabled);
+        const lcpEntitled = Number(engagement.lcp_debrief_total_sessions || 0);
+        const lcpUsed = Number(engagement.lcp_debrief_sessions_used || 0);
+        const lcpRemaining = lcpEnabled ? Math.max(lcpEntitled - lcpUsed, 0) : 0;
         return {
           engagement,
           pastSessions,
@@ -2138,6 +3248,10 @@ export default function App() {
           entitled,
           used,
           remaining,
+          lcpEnabled,
+          lcpEntitled,
+          lcpUsed,
+          lcpRemaining,
         };
       })
       .sort((a, b) => {
@@ -2161,6 +3275,54 @@ export default function App() {
       .sort((a, b) => String(b.session_date || '').localeCompare(String(a.session_date || '')))
       .slice(0, 12);
   }, [coachingSessions]);
+
+  const groupedRecentCoachingSessions = useMemo(() => {
+    const groups = new Map();
+    recentCoachingSessions.forEach((session) => {
+      const engagement = coachingEngagementById[String(session.engagement_id)] || {};
+      const coachee = String(engagement.name || 'Unknown coachee').trim();
+      const client = String(engagement.client_org || 'Unknown client').trim();
+      const key = `${client.toLowerCase()}::${coachee.toLowerCase()}`;
+      if (!groups.has(key)) {
+        groups.set(key, { key, coachee, client, sessions: [] });
+      }
+      groups.get(key).sessions.push(session);
+    });
+    return [...groups.values()].sort((a, b) => {
+      const byClient = a.client.toLowerCase().localeCompare(b.client.toLowerCase());
+      if (byClient !== 0) return byClient;
+      return a.coachee.toLowerCase().localeCompare(b.coachee.toLowerCase());
+    });
+  }, [coachingEngagementById, recentCoachingSessions]);
+
+  useEffect(() => {
+    setOpenRecentCoachingGroupByKey((prev) => {
+      const fallbackOpen = groupedRecentCoachingSessions.length <= 3;
+      const validKeys = new Set(groupedRecentCoachingSessions.map((group) => group.key));
+      const next = {};
+      let changed = false;
+
+      groupedRecentCoachingSessions.forEach((group) => {
+        if (Object.prototype.hasOwnProperty.call(prev, group.key)) {
+          next[group.key] = Boolean(prev[group.key]);
+        } else {
+          next[group.key] = fallbackOpen;
+          changed = true;
+        }
+      });
+
+      Object.keys(prev).forEach((key) => {
+        if (!validKeys.has(key)) {
+          changed = true;
+        }
+      });
+
+      if (!changed && Object.keys(prev).length === Object.keys(next).length) {
+        return prev;
+      }
+      return next;
+    });
+  }, [groupedRecentCoachingSessions]);
 
   const consultantExpenseRows = useMemo(() => {
     if (!isConsultantSession) return [];
@@ -2643,6 +3805,50 @@ export default function App() {
     };
   }, [expenses]);
 
+  const savingsAssumptions = useMemo(
+    () => ({
+      hourlyRateAud: readLocalStorageNumber('adapsys_savings_hourly_rate_aud', 95),
+      reportPrepBeforeMinutes: readLocalStorageNumber('adapsys_savings_report_before_minutes', 45),
+      reportPrepAfterMinutes: readLocalStorageNumber('adapsys_savings_report_after_minutes', 12),
+      monthlyReportCount: readLocalStorageNumber('adapsys_savings_report_count_monthly', 12),
+      workbookFollowupBeforeMinutes: readLocalStorageNumber('adapsys_savings_workbook_followup_before_minutes', 30),
+      workbookFollowupAfterMinutes: readLocalStorageNumber('adapsys_savings_workbook_followup_after_minutes', 8),
+      monthlyWorkshopCount: readLocalStorageNumber('adapsys_savings_workshop_count_monthly', 6),
+      expenseDoubleEntryBeforeMinutes: readLocalStorageNumber('adapsys_savings_expense_double_entry_before_minutes', 6),
+      expenseDoubleEntryAfterMinutes: readLocalStorageNumber('adapsys_savings_expense_double_entry_after_minutes', 2),
+    }),
+    []
+  );
+
+  const savingsSnapshot = useMemo(() => {
+    const maxZero = (value) => Math.max(0, Number(value) || 0);
+    const reportHours =
+      (maxZero(savingsAssumptions.reportPrepBeforeMinutes - savingsAssumptions.reportPrepAfterMinutes) *
+        maxZero(savingsAssumptions.monthlyReportCount)) /
+      60;
+    const workbookHours =
+      (maxZero(savingsAssumptions.workbookFollowupBeforeMinutes - savingsAssumptions.workbookFollowupAfterMinutes) *
+        maxZero(savingsAssumptions.monthlyWorkshopCount)) /
+      60;
+    const xeroCandidateCount = expenses.filter((row) => ['approved', 'invoiced'].includes(String(row.status || '').toLowerCase())).length;
+    const expenseHours =
+      (maxZero(savingsAssumptions.expenseDoubleEntryBeforeMinutes - savingsAssumptions.expenseDoubleEntryAfterMinutes) *
+        xeroCandidateCount) /
+      60;
+    const totalHours = reportHours + workbookHours + expenseHours;
+    const hourlyRate = maxZero(savingsAssumptions.hourlyRateAud);
+    const totalAud = totalHours * hourlyRate;
+    return {
+      reportHours,
+      workbookHours,
+      expenseHours,
+      totalHours,
+      totalAud,
+      xeroCandidateCount,
+      hourlyRate,
+    };
+  }, [expenses, savingsAssumptions]);
+
   const filteredTenders = useMemo(() => {
     const rows = tenderFilter === 'all' ? tenders : tenders.filter((row) => row.status === tenderFilter);
     return rows;
@@ -2650,6 +3856,46 @@ export default function App() {
 
   async function refresh() {
     try {
+      if (isClientViewerSession) {
+        setTrips([]);
+        setExpenses([]);
+        setExpenseXeroSyncById({});
+        setExpenseXeroIntegrationStatus(null);
+        setTenders([]);
+        setAtoRates([]);
+        setCoachingEngagements([]);
+        setCoachingSessions([]);
+        setConsultants([]);
+        setContractScaffoldRows([]);
+        setContractMergeTemplates([]);
+        setTravelBookingSummary({
+          total_required: 0,
+          outstanding_to_book: 0,
+          booked: 0,
+          need_expense_prompt: 0,
+        });
+        const [coachesData, clientProgramsData] = await Promise.all([listCoaches(), listClientPrograms()]);
+        setCoaches(coachesData);
+        setClientPrograms(clientProgramsData);
+
+        if (!isClientReportsFeatureEnabled) {
+          setClientCoachingSummaryRows([]);
+          setClientCoachingSummaryStatus('Client reports feature is currently disabled.');
+          return;
+        }
+
+        setIsLoadingClientCoachingSummary(true);
+        setClientCoachingSummaryStatus('Loading client coaching summary...');
+        const rows = await fetchClientCoachingSummary({
+          start_date: clientReportFilters.start_date,
+          end_date: clientReportFilters.end_date,
+        });
+        setClientCoachingSummaryRows(Array.isArray(rows) ? rows : []);
+        setClientCoachingSummaryStatus('Client coaching summary ready.');
+        setIsLoadingClientCoachingSummary(false);
+        return;
+      }
+
       if (isCoachOnlySession) {
         const [coachesData, clientProgramsData, coachingEngagementData, coachingSessionData] = await Promise.all([
           listCoaches(),
@@ -2659,6 +3905,8 @@ export default function App() {
         ]);
         setTrips([]);
         setExpenses([]);
+        setExpenseXeroSyncById({});
+        setExpenseXeroIntegrationStatus(null);
         setTenders([]);
         setTenderSummary({ total: 0, urgent: 0, pursue: 0, monitor: 0, ignore: 0, led: 0 });
         setAtoRates([]);
@@ -2666,6 +3914,14 @@ export default function App() {
         setConsultants([]);
         setCoaches(coachesData);
         setClientPrograms(clientProgramsData);
+        setContractScaffoldRows([]);
+        setContractMergeTemplates([]);
+        setTravelBookingSummary({
+          total_required: 0,
+          outstanding_to_book: 0,
+          booked: 0,
+          need_expense_prompt: 0,
+        });
         setCoachingEngagements(coachingEngagementData);
         setCoachingSessions(coachingSessionData);
         setCoachingSessionForm((prev) => ({
@@ -2695,6 +3951,11 @@ export default function App() {
         coachingEngagementData,
         coachingSessionData,
         reminderLastSentData,
+        contractRowsData,
+        travelBookingSummaryData,
+        contractMergeFieldsData,
+        expenseXeroSyncRows,
+        expenseXeroConfig,
       ] = await Promise.all([
         listTrips(),
         listExpenses(),
@@ -2707,6 +3968,13 @@ export default function App() {
         listCoachingEngagements(),
         listCoachingSessions(),
         isConsultantSession ? Promise.resolve([]) : listReminderLastSent(),
+        isConsultantSession ? Promise.resolve([]) : listContracts(),
+        isConsultantSession
+          ? Promise.resolve({ total_required: 0, outstanding_to_book: 0, booked: 0, need_expense_prompt: 0 })
+          : getTravelBookingSummary(),
+        isConsultantSession ? Promise.resolve({ templates: [] }) : getContractMergeFields(),
+        isConsultantSession ? Promise.resolve([]) : listExpenseXeroSyncStatus().catch(() => []),
+        isConsultantSession ? Promise.resolve(null) : getExpenseXeroSyncConfig().catch(() => null),
       ]);
       setTrips(tripData);
       setExpenses(expenseData);
@@ -2728,6 +3996,21 @@ export default function App() {
       setConsultants(consultantsData);
       setCoaches(coachesData);
       setClientPrograms(clientProgramsData);
+      setContractScaffoldRows(Array.isArray(contractRowsData) ? contractRowsData : []);
+      setContractMergeTemplates(Array.isArray(contractMergeFieldsData?.templates) ? contractMergeFieldsData.templates : []);
+      setTravelBookingSummary(travelBookingSummaryData || {
+        total_required: 0,
+        outstanding_to_book: 0,
+        booked: 0,
+        need_expense_prompt: 0,
+      });
+      const syncById = {};
+      (Array.isArray(expenseXeroSyncRows) ? expenseXeroSyncRows : []).forEach((row) => {
+        if (!row?.expense_id) return;
+        syncById[String(row.expense_id)] = row;
+      });
+      setExpenseXeroSyncById(syncById);
+      setExpenseXeroIntegrationStatus(expenseXeroConfig);
       setAdminLookupDrafts({
         consultants: JSON.stringify(consultantsData, null, 2),
         coaches: JSON.stringify(coachesData, null, 2),
@@ -2793,6 +4076,9 @@ export default function App() {
       setSelectedReportClient((prev) => prev || String(tripData[0]?.client_name || ''));
       setSelectedReportTripId((prev) => prev || tripData[0]?.id || '');
     } catch (error) {
+      if (isClientViewerSession) {
+        setIsLoadingClientCoachingSummary(false);
+      }
       setStatus(error.message);
     }
   }
@@ -2856,10 +4142,62 @@ export default function App() {
     setIsCreatingCoachingEngagement(true);
     setCoachingStatus(editingCoachingEngagementId ? 'Updating coaching engagement...' : 'Creating coaching engagement...');
     try {
+      const totalSessions = Number(coachingEngagementForm.total_sessions || 0);
+      const usedSessions = Number(coachingEngagementForm.sessions_used || 0);
+      if (!Number.isFinite(totalSessions) || totalSessions <= 0) {
+        setCoachingStatus('Entitled sessions must be 1 or greater.');
+        setIsCreatingCoachingEngagement(false);
+        return;
+      }
+      if (!Number.isFinite(usedSessions) || usedSessions < 0) {
+        setCoachingStatus('Sessions used must be 0 or greater.');
+        setIsCreatingCoachingEngagement(false);
+        return;
+      }
+      if (usedSessions > totalSessions) {
+        setCoachingStatus('Sessions used cannot be greater than entitled sessions.');
+        setIsCreatingCoachingEngagement(false);
+        return;
+      }
+
+      const lcpTotal = coachingEngagementForm.lcp_debrief_enabled
+        ? Number(coachingEngagementForm.lcp_debrief_total_sessions || 0)
+        : 0;
+      const lcpUsed = coachingEngagementForm.lcp_debrief_enabled
+        ? Number(coachingEngagementForm.lcp_debrief_sessions_used || 0)
+        : 0;
+      if (coachingEngagementForm.lcp_debrief_enabled) {
+        if (!Number.isFinite(lcpTotal) || lcpTotal < 0) {
+          setCoachingStatus('LCP entitled sessions must be 0 or greater.');
+          setIsCreatingCoachingEngagement(false);
+          return;
+        }
+        if (!Number.isFinite(lcpUsed) || lcpUsed < 0) {
+          setCoachingStatus('LCP sessions used must be 0 or greater.');
+          setIsCreatingCoachingEngagement(false);
+          return;
+        }
+        if (lcpUsed > lcpTotal) {
+          setCoachingStatus('LCP sessions used cannot be greater than LCP entitled sessions.');
+          setIsCreatingCoachingEngagement(false);
+          return;
+        }
+      }
+
       const payload = {
         ...coachingEngagementForm,
-        total_sessions: Number(coachingEngagementForm.total_sessions || 0),
-        sessions_used: Number(coachingEngagementForm.sessions_used || 0),
+        total_sessions: totalSessions,
+        sessions_used: usedSessions,
+        lcp_debrief_enabled: Boolean(coachingEngagementForm.lcp_debrief_enabled),
+        lcp_debrief_total_sessions: coachingEngagementForm.lcp_debrief_enabled
+          ? lcpTotal
+          : 0,
+        lcp_debrief_sessions_used: coachingEngagementForm.lcp_debrief_enabled
+          ? lcpUsed
+          : 0,
+        associate_cost_per_session: !isConsultantSession && String(coachingEngagementForm.associate_cost_per_session || '').trim() !== ''
+          ? Number(coachingEngagementForm.associate_cost_per_session)
+          : null,
       };
       if (editingCoachingEngagementId) {
         await updateCoachingEngagement(editingCoachingEngagementId, payload);
@@ -2875,6 +4213,10 @@ export default function App() {
         coach_email: '',
         total_sessions: '5',
         sessions_used: '0',
+        lcp_debrief_enabled: false,
+        lcp_debrief_total_sessions: '0',
+        lcp_debrief_sessions_used: '0',
+        associate_cost_per_session: '',
       });
       setEditingCoachingEngagementId('');
       await refresh();
@@ -2894,6 +4236,10 @@ export default function App() {
       coach_email: String(engagement.coach_email || ''),
       total_sessions: String(engagement.total_sessions ?? '0'),
       sessions_used: String(engagement.sessions_used ?? '0'),
+      lcp_debrief_enabled: Boolean(engagement.lcp_debrief_enabled),
+      lcp_debrief_total_sessions: String(engagement.lcp_debrief_total_sessions ?? '0'),
+      lcp_debrief_sessions_used: String(engagement.lcp_debrief_sessions_used ?? '0'),
+      associate_cost_per_session: String(engagement.associate_cost_per_session ?? ''),
     });
     setCoachingStatus('Editing coachee record. Update fields and click Save Coachee Record.');
   }
@@ -2907,12 +4253,29 @@ export default function App() {
       coach_email: '',
       total_sessions: '5',
       sessions_used: '0',
+      lcp_debrief_enabled: false,
+      lcp_debrief_total_sessions: '0',
+      lcp_debrief_sessions_used: '0',
+      associate_cost_per_session: '',
     });
     setCoachingStatus('Coachee record edit cancelled.');
   }
 
   async function onLogCoachingSession(event) {
     event.preventDefault();
+    if (!String(coachingSessionForm.engagement_id || '').trim()) {
+      setCoachingStatus('Select an engagement before saving the session.');
+      return;
+    }
+    if (!String(coachingSessionForm.session_date || '').trim()) {
+      setCoachingStatus('Select a session date before saving the session.');
+      return;
+    }
+    const selectedEngagement = coachingEngagementById[String(coachingSessionForm.engagement_id)] || null;
+    if (coachingSessionForm.lcp_debrief && !selectedEngagement?.lcp_debrief_enabled) {
+      setCoachingStatus('This coachee does not have LCP de-brief entitlement enabled.');
+      return;
+    }
     if (coachingSessionForm.lcp_debrief && !String(coachingSessionForm.lcp_debrief_date || '').trim()) {
       setCoachingStatus('Select an LCP de-brief date before saving the session.');
       return;
@@ -2920,8 +4283,17 @@ export default function App() {
     setIsSubmittingCoachingSession(true);
     setCoachingStatus(editingCoachingSessionId ? 'Updating coaching session...' : 'Logging coaching session...');
     try {
+      const durationMins = Number(coachingSessionForm.duration_mins || 0);
+      if (!Number.isFinite(durationMins) || durationMins <= 0) {
+        setCoachingStatus('Session duration must be 1 minute or greater.');
+        setIsSubmittingCoachingSession(false);
+        return;
+      }
+      const deliveryMode = String(coachingSessionForm.delivery_mode || '').trim() || 'video';
       const payload = {
         ...coachingSessionForm,
+        duration_mins: durationMins,
+        delivery_mode: deliveryMode,
         lcp_debrief_date: coachingSessionForm.lcp_debrief
           ? String(coachingSessionForm.lcp_debrief_date || '').trim() || null
           : null,
@@ -2938,6 +4310,8 @@ export default function App() {
         session_type: 'completed',
         lcp_debrief: false,
         lcp_debrief_date: '',
+        duration_mins: prev.duration_mins || '60',
+        delivery_mode: prev.delivery_mode || 'video',
         invoiced_to_adapsys: false,
         session_date: '',
         notes: '',
@@ -2959,6 +4333,8 @@ export default function App() {
       session_type: String(session.session_type || 'completed'),
       lcp_debrief: Boolean(session.lcp_debrief),
       lcp_debrief_date: String(session.lcp_debrief_date || ''),
+      duration_mins: String(session.duration_mins ?? '60'),
+      delivery_mode: String(session.delivery_mode || 'video'),
       invoiced_to_adapsys: Boolean(session.invoiced_to_adapsys),
       notes: String(session.notes || ''),
     });
@@ -2972,38 +4348,13 @@ export default function App() {
       session_type: 'completed',
       lcp_debrief: false,
       lcp_debrief_date: '',
+      duration_mins: prev.duration_mins || '60',
+      delivery_mode: prev.delivery_mode || 'video',
       invoiced_to_adapsys: false,
       session_date: '',
       notes: '',
     }));
     setCoachingStatus('Session edit cancelled.');
-  }
-
-  async function onToggleConsultantSessionInvoiced(session) {
-    const sessionId = String(session.id || '');
-    if (!sessionId) return;
-    setSavingConsultantInvoiceSessionId(sessionId);
-    try {
-      await updateCoachingSession(session.id, {
-        engagement_id: session.engagement_id,
-        session_date: session.session_date,
-        session_type: session.session_type,
-        lcp_debrief: Boolean(session.lcp_debrief),
-        lcp_debrief_date: session.lcp_debrief ? (session.lcp_debrief_date || null) : null,
-        invoiced_to_adapsys: !Boolean(session.invoiced_to_adapsys),
-        notes: session.notes || '',
-      });
-      setCoachingStatus(
-        !Boolean(session.invoiced_to_adapsys)
-          ? 'Session marked as invoiced to Adapsys.'
-          : 'Session marked as not invoiced.'
-      );
-      await refresh();
-    } catch (error) {
-      setCoachingStatus(error.message);
-    } finally {
-      setSavingConsultantInvoiceSessionId('');
-    }
   }
 
   async function onDeleteCoachingSession(session) {
@@ -3225,6 +4576,26 @@ export default function App() {
     }
   }
 
+  async function onPushExpenseToXero(expenseId) {
+    const key = String(expenseId);
+    setSyncingExpenseId(key);
+    try {
+      const result = await pushExpenseToXero(expenseId);
+      const syncRow = result?.sync;
+      if (syncRow?.expense_id) {
+        setExpenseXeroSyncById((prev) => ({
+          ...prev,
+          [String(syncRow.expense_id)]: syncRow,
+        }));
+      }
+      setStatus(result?.message || 'Expense sync action completed.');
+    } catch (error) {
+      setStatus(error.message || 'Failed to sync expense to Xero.');
+    } finally {
+      setSyncingExpenseId('');
+    }
+  }
+
   function onAdminEngagementFieldChange(engagementId, field, value) {
     const key = String(engagementId);
     setAdminEngagementDraftById((prev) => ({
@@ -3272,6 +4643,18 @@ export default function App() {
       departure_date: (draft.departure_date ?? trip.departure_date ?? '') || null,
       return_date: (draft.return_date ?? trip.return_date ?? '') || null,
       expense_report_required: Boolean(draft.expense_report_required ?? trip.expense_report_required),
+      travel_booking_required: Boolean(draft.travel_booking_required ?? trip.travel_booking_required),
+      travel_request_status: String(draft.travel_request_status ?? trip.travel_request_status ?? 'not_required') || 'not_required',
+      travel_needs_flight: Boolean(draft.travel_needs_flight ?? trip.travel_needs_flight),
+      travel_needs_accommodation: Boolean(draft.travel_needs_accommodation ?? trip.travel_needs_accommodation),
+      travel_outbound_preference: String(draft.travel_outbound_preference ?? trip.travel_outbound_preference ?? '').trim() || null,
+      travel_outbound_target_date: String(draft.travel_outbound_target_date ?? trip.travel_outbound_target_date ?? '').trim() || null,
+      travel_return_preference: String(draft.travel_return_preference ?? trip.travel_return_preference ?? '').trim() || null,
+      travel_return_target_date: String(draft.travel_return_target_date ?? trip.travel_return_target_date ?? '').trim() || null,
+      travel_admin_notes: String(draft.travel_admin_notes ?? trip.travel_admin_notes ?? '').trim() || null,
+      travel_booked_add_expense_prompted: Boolean(
+        draft.travel_booked_add_expense_prompted ?? trip.travel_booked_add_expense_prompted
+      ),
     };
 
     setSavingAdminTripId(key);
@@ -3449,12 +4832,25 @@ export default function App() {
       coach_email: draft.coach_email ?? engagement.coach_email,
       total_sessions: Number(draft.total_sessions ?? engagement.total_sessions ?? 0),
       sessions_used: Number(draft.sessions_used ?? engagement.sessions_used ?? 0),
+      lcp_debrief_enabled: Boolean(draft.lcp_debrief_enabled ?? engagement.lcp_debrief_enabled),
+      lcp_debrief_total_sessions: Number(
+        draft.lcp_debrief_total_sessions ?? engagement.lcp_debrief_total_sessions ?? 0
+      ),
+      lcp_debrief_sessions_used: Number(
+        draft.lcp_debrief_sessions_used ?? engagement.lcp_debrief_sessions_used ?? 0
+      ),
       session_rate:
         draft.session_rate === ''
           ? null
           : draft.session_rate !== undefined
             ? Number(draft.session_rate)
             : engagement.session_rate,
+      associate_cost_per_session:
+        draft.associate_cost_per_session === ''
+          ? null
+          : draft.associate_cost_per_session !== undefined
+            ? Number(draft.associate_cost_per_session)
+            : engagement.associate_cost_per_session,
       contract_start: draft.contract_start === '' ? null : (draft.contract_start ?? engagement.contract_start),
       contract_end: draft.contract_end === '' ? null : (draft.contract_end ?? engagement.contract_end),
     };
@@ -3482,17 +4878,26 @@ export default function App() {
     }
   }
 
-  async function onSaveAdminSession(session) {
+  async function onSaveAdminSession(session, options = {}) {
+    const skipRefresh = Boolean(options.skipRefresh);
     const key = String(session.id);
     const draft = adminSessionDraftById[key] || {};
+    const targetEngagementId = draft.engagement_id ?? session.engagement_id;
+    const targetEngagement = coachingEngagementById[String(targetEngagementId)] || null;
+    if (Boolean(draft.lcp_debrief ?? session.lcp_debrief) && !targetEngagement?.lcp_debrief_enabled) {
+      setStatus('Cannot tick LCP de-brief: selected engagement has no LCP entitlement.');
+      return false;
+    }
     const payload = {
-      engagement_id: draft.engagement_id ?? session.engagement_id,
+      engagement_id: targetEngagementId,
       session_date: draft.session_date ?? session.session_date,
       session_type: draft.session_type ?? session.session_type,
       lcp_debrief: Boolean(draft.lcp_debrief ?? session.lcp_debrief),
       lcp_debrief_date: Boolean(draft.lcp_debrief ?? session.lcp_debrief)
         ? (draft.lcp_debrief_date ?? session.lcp_debrief_date ?? null)
         : null,
+      duration_mins: Number(draft.duration_mins ?? session.duration_mins ?? 60),
+      delivery_mode: String(draft.delivery_mode ?? session.delivery_mode ?? 'video'),
       invoiced_to_adapsys: Boolean(draft.invoiced_to_adapsys ?? session.invoiced_to_adapsys),
       notes: draft.notes ?? session.notes ?? '',
     };
@@ -3506,11 +4911,52 @@ export default function App() {
         delete next[key];
         return next;
       });
-      await refresh();
+      if (!skipRefresh) {
+        await refresh();
+      }
+      return true;
     } catch (error) {
       setStatus(error.message);
+      return false;
     } finally {
       setSavingAdminSessionId('');
+    }
+  }
+
+  async function onSaveAllAdminSessions() {
+    const sessionsToSave = filteredAdminSessions.filter((session) => Boolean(adminSessionDraftById[String(session.id)]));
+    if (!sessionsToSave.length) {
+      setStatus('No edited session rows to save.');
+      return;
+    }
+
+    setIsSavingAllAdminSessions(true);
+    setStatus(`Saving ${sessionsToSave.length} edited session row(s)...`);
+
+    let successCount = 0;
+    const failedRows = [];
+    for (const session of sessionsToSave) {
+      const saved = await onSaveAdminSession(session, { skipRefresh: true });
+      if (saved) {
+        successCount += 1;
+      } else {
+        failedRows.push(formatDateAu(session.session_date));
+      }
+    }
+
+    try {
+      if (successCount > 0) {
+        await refresh();
+      }
+      if (failedRows.length) {
+        setStatus(
+          `Saved ${successCount}/${sessionsToSave.length} edited session row(s). Failed: ${failedRows.slice(0, 3).join(', ')}`
+        );
+      } else {
+        setStatus(`Saved ${successCount} edited session row(s).`);
+      }
+    } finally {
+      setIsSavingAllAdminSessions(false);
     }
   }
 
@@ -3585,22 +5031,26 @@ export default function App() {
     await applySessionMode(sessionRole, sessionEmail);
   }
 
-  async function onQuickAdminView() {
-    await applySessionMode('admin', DEFAULT_ADMIN_EMAIL, {
-      targetTabId: 'admin-console',
-      statusPrefix: 'Quick Admin View ready',
-    });
-  }
-
-  async function onQuickConsultantView() {
-    const preferredEmail = String(orderedConsultants[0]?.email || sessionEmail || '').trim().toLowerCase();
-    if (!preferredEmail) {
-      setStatus('No consultant email found. Add a consultant in lookups first.');
+  async function onSelectSessionProfile(profileId) {
+    setSelectedSessionProfileId(profileId);
+    if (!profileId) return;
+    if (profileId === 'consultant-auto') {
+      const preferredEmail = String(orderedConsultants[0]?.email || sessionEmail || '').trim().toLowerCase();
+      if (!preferredEmail) {
+        setStatus('No consultant email found. Add a consultant in lookups first.');
+        return;
+      }
+      await applySessionMode('consultant', preferredEmail, {
+        targetTabId: 'submit-expense',
+        statusPrefix: 'Consultant profile ready',
+      });
       return;
     }
-    await applySessionMode('consultant', preferredEmail, {
+    const profile = SESSION_PROFILE_OPTIONS.find((option) => option.id === profileId);
+    if (!profile) return;
+    await applySessionMode(profile.role, profile.email, {
       targetTabId: 'submit-expense',
-      statusPrefix: 'Quick Consultant View ready',
+      statusPrefix: `${profile.label} ready`,
     });
   }
 
@@ -3949,6 +5399,20 @@ export default function App() {
       focusNextExpenseField();
       return;
     }
+
+    const normalizedCategory = String(expenseForm.category || '').toLowerCase();
+    const descriptionEmpty = !String(expenseForm.description || '').trim();
+    const needsDescription = isConsultantSession && normalizedCategory !== 'per_diem';
+    if (needsDescription && descriptionEmpty && typeof window !== 'undefined') {
+      const proceed = window.confirm(
+        'This expense has no description. Finance often has to chase missing descriptions at month end. Submit anyway?'
+      );
+      if (!proceed) {
+        setExpenseStatus('Submission cancelled. Add a short description and resubmit.');
+        return;
+      }
+    }
+
     setIsSubmittingExpense(true);
     setExpenseStatus('Submitting expense...');
     try {
@@ -4007,7 +5471,9 @@ export default function App() {
         .map((item) => (item || '').trim())
         .filter(Boolean)
         .join('\n\n');
-      const generatedDescription = String(standardDescriptorPreview || '').trim() || null;
+      const userDescription = String(expenseForm.description || '').trim();
+      const generatedDescription = String(standardDescriptorPreview || '').trim();
+      const resolvedDescription = userDescription || generatedDescription || null;
 
       const submitDates = isBulkPerDiemMode ? bulkPerDiemDates : [expenseForm.expense_date];
       if (!submitDates.length) {
@@ -4114,7 +5580,7 @@ export default function App() {
             ...expensePayload,
             receipt_kind: effectiveReceiptKind,
             receipt_group_key: null,
-            description: generatedDescription,
+            description: resolvedDescription,
             expense_date: expenseDate,
             amount_local:
               expenseForm.category === 'per_diem' ? perDiemEntryTotal : Number(expenseForm.amount_local),
@@ -4163,7 +5629,7 @@ export default function App() {
     } catch (error) {
       const message =
         error?.message === 'Failed to fetch'
-          ? 'Failed to fetch. Confirm backend is running at http://127.0.0.1:8000.'
+          ? 'Cannot reach backend (http://127.0.0.1:8000). Start backend and retry.'
           : error.message;
       setExpenseStatus(message);
       setStatus(error.message);
@@ -4268,6 +5734,7 @@ export default function App() {
   }
 
   function onSelectScreenTab(sectionId) {
+    setIsQuickHelpOpen(false);
     setActiveScreenTabId(sectionId);
     const isDesktopViewport = typeof window !== 'undefined' && window.innerWidth >= 980;
     if (!isTabbedLayout && isDesktopViewport) {
@@ -4359,9 +5826,41 @@ export default function App() {
                 className={`screen-tab ${activeScreenTabId === tab.id ? 'is-active' : ''}`}
                 onClick={() => onSelectScreenTab(tab.id)}
               >
-                {tab.label}
+                <span>{tab.label}</span>
+                {PHASE2_TAB_IDS.has(tab.id) ? <span className="screen-tab-phase">Phase 2</span> : null}
               </button>
             ))}
+          </div>
+        </div>
+        <div className="header-assist-row">
+          <div className="quick-help-badge" ref={quickHelpRef}>
+            <button
+              type="button"
+              className="quick-help-trigger"
+              aria-expanded={isQuickHelpOpen}
+              aria-controls="header-quick-help-popover"
+              onClick={() => setIsQuickHelpOpen((prev) => !prev)}
+            >
+              Help
+            </button>
+            {isQuickHelpOpen ? (
+              <div
+                id="header-quick-help-popover"
+                className="quick-help-popover"
+                role="region"
+                aria-label="Quick help for current screen"
+              >
+                <h3>{activeQuickHelp.title}</h3>
+                <ol>
+                  {activeQuickHelp.steps.map((step) => (
+                    <li key={`quick-help-${activeScreenTabId}-${step}`}>{step}</li>
+                  ))}
+                </ol>
+                <button type="button" className="secondary" onClick={() => onSelectScreenTab('help')}>
+                  Open Full Help Tab
+                </button>
+              </div>
+            ) : null}
           </div>
         </div>
         <div className="header-layout-toggle">
@@ -4383,6 +5882,23 @@ export default function App() {
             </button>
           </div>
         </div>
+        {isAdminSession ? (
+          <div className="status demo-mode-banner">
+            {isSimplifiedAdminDemoView
+              ? 'Demo view active: only core modules are visible for a cleaner presentation.'
+              : 'Builder view active: Phase 2 modules are visible for testing.'}
+            {canManagePhase2Modules ? (
+              <button
+                type="button"
+                className="secondary"
+                style={{ width: 'auto', marginLeft: 8 }}
+                onClick={() => setShowPhase2Modules((prev) => !prev)}
+              >
+                {showPhase2Modules ? 'Hide Phase 2 Modules' : 'Show Phase 2 Modules'}
+              </button>
+            ) : null}
+          </div>
+        ) : null}
       </header>
 
       {status ? (
@@ -4400,6 +5916,17 @@ export default function App() {
           </div>
         ) : (
           <>
+            <div>
+              <label>Sign in as (quick profile)</label>
+              <select value={selectedSessionProfileId} onChange={(e) => void onSelectSessionProfile(e.target.value)}>
+                <option value="">Custom role/email (manual)</option>
+                {SESSION_PROFILE_OPTIONS.map((profile) => (
+                  <option key={profile.id} value={profile.id}>
+                    {profile.label}
+                  </option>
+                ))}
+              </select>
+            </div>
             <div className="grid">
               <div>
                 <label>Role</label>
@@ -4412,28 +5939,108 @@ export default function App() {
                 <label>Email</label>
                 <input
                   type="email"
+                  list="demo-admin-email-presets"
                   value={sessionEmail}
                   onChange={(e) => setSessionEmail(e.target.value)}
                   placeholder="name@adapsysgroup.com"
                 />
+                <datalist id="demo-admin-email-presets">
+                  {DEMO_ADMIN_EMAIL_PRESETS.map((email) => (
+                    <option key={`demo-admin-${email}`} value={email} />
+                  ))}
+                </datalist>
               </div>
             </div>
             <button type="button" onClick={onApplySession} style={{ marginTop: 8 }}>
               Apply Session
             </button>
-            <div className="coaching-form-actions" style={{ marginTop: 8 }}>
-              <button type="button" className="secondary" onClick={onQuickAdminView}>
-                Quick Admin View
-              </button>
-              <button type="button" className="secondary" onClick={onQuickConsultantView}>
-                Quick Consultant View
-              </button>
-            </div>
             <div className="status" style={{ marginTop: 8 }}>
-              Consultant mode shows only assigned projects.
+              Profile dropdown applies one-step sign-in. Consultant mode shows only assigned projects.
             </div>
           </>
         )}
+      </section>
+
+      <section id="help" className="card help-shell" style={sectionVisibilityStyle('help')}>
+        <h2>Help (Step-by-Step)</h2>
+        <div className="status">
+          Designed for occasional users. Follow each list in order. Keep this open while you work.
+        </div>
+        <div className="help-quick-checklist" role="note" aria-label="Quick help checklist">
+          <strong>Before you start:</strong> sign in, select the correct role, and keep receipts ready in one folder.
+        </div>
+        <div className="help-guide-grid">
+          <article className="help-guide-card">
+            <h3>How to Submit an Expense (Simple)</h3>
+            <ol className="help-step-list">
+              <li>Open the <strong>Expenses</strong> tab.</li>
+              <li>Complete <strong>1. Context</strong> (consultant + activity).</li>
+              <li>Complete <strong>2. Claim details</strong> (category, date, amount).</li>
+              <li>Complete <strong>3. Receipt evidence</strong> (upload file or mark no receipt with reason).</li>
+              <li>Go to <strong>4. Finalise</strong> and click submit.</li>
+            </ol>
+            <div className="help-example-note">
+              Example: Taxi from airport to hotel, AUD 48.00, add receipt photo, then submit.
+            </div>
+            {helpImageAvailable.expense ? (
+              <img
+                className="help-image-preview"
+                src="/help/help-expense-flow.png"
+                alt="Expense flow screenshot with steps 1 to 4"
+                onError={() =>
+                  setHelpImageAvailable((prev) =>
+                    prev.expense ? { ...prev, expense: false } : prev
+                  )
+                }
+              />
+            ) : (
+              <div className="help-image-placeholder" role="img" aria-label="Placeholder for expense process screenshot">
+                <div className="help-image-title">Screenshot placeholder</div>
+                <div>Add file: frontend/public/help/help-expense-flow.png</div>
+              </div>
+            )}
+            <div className="help-guide-actions">
+              <button type="button" className="secondary" onClick={() => onSelectScreenTab('submit-expense')}>
+                Open Expenses
+              </button>
+            </div>
+          </article>
+
+          <article className="help-guide-card">
+            <h3>How to Log Coaching (Simple)</h3>
+            <ol className="help-step-list">
+              <li>Open the <strong>Coaching</strong> tab.</li>
+              <li>If consultant: click <strong>Log Session</strong> and fill date/outcome.</li>
+              <li>If admin: use <strong>Batch Setup</strong> first for new coachees.</li>
+              <li>Use <strong>Recent Coaching Sessions</strong> to check or edit.</li>
+            </ol>
+            <div className="help-example-note">
+              Example: 60-minute completed session today, then confirm it appears in Recent Sessions.
+            </div>
+            {helpImageAvailable.coaching ? (
+              <img
+                className="help-image-preview"
+                src="/help/help-coaching-flow.png"
+                alt="Coaching flow screenshot for setup, logging, and recent sessions"
+                onError={() =>
+                  setHelpImageAvailable((prev) =>
+                    prev.coaching ? { ...prev, coaching: false } : prev
+                  )
+                }
+              />
+            ) : (
+              <div className="help-image-placeholder" role="img" aria-label="Placeholder for coaching process screenshot">
+                <div className="help-image-title">Screenshot placeholder</div>
+                <div>Add file: frontend/public/help/help-coaching-flow.png</div>
+              </div>
+            )}
+            <div className="help-guide-actions">
+              <button type="button" className="secondary" onClick={() => onSelectScreenTab('coaching-module')}>
+                Open Coaching
+              </button>
+            </div>
+          </article>
+        </div>
       </section>
 
       {!isConsultantSession ? (
@@ -4612,10 +6219,10 @@ export default function App() {
                 }))
               }
             >
-              Lead Consultant Only
+              Consultant Only
             </button>
             <div className="roster-lead-picker">
-              <label>Lead Consultant</label>
+              <label>Consultant</label>
               <select
                 value={tripForm.consultant_email}
                 onChange={(e) =>
@@ -4628,7 +6235,7 @@ export default function App() {
                   }))
                 }
               >
-                <option value="">No lead consultant selected</option>
+                <option value="">No consultant selected</option>
                 {orderedConsultants.map((consultant) => (
                   <option key={consultant.email} value={consultant.email}>
                     {consultant.name}
@@ -4682,6 +6289,77 @@ export default function App() {
             ? 'Consultant quick flow: pick activity, category, date/amount, then add receipt and submit.'
             : 'Admin mode: choose an activity and consultant, then submit or review expenses.'}
         </div>
+        <div className="status" style={{ marginBottom: 10 }}>
+          <strong>Quick help on this page:</strong> 1) Complete Context, 2) Fill claim + receipt evidence, 3) Finalise and submit.
+        </div>
+        <div className="expense-external-tools" role="region" aria-label="External tool shortcuts">
+          <div className="expense-external-tools-head">
+            <strong>External tools</strong>
+            <span className="status">Use these shortcuts to reduce duplicate entry and speed up handoffs.</span>
+          </div>
+          <div className="expense-external-tool-actions">
+            {expenseExternalToolActions.map((action) => (
+              <button
+                key={action.id}
+                type="button"
+                className="secondary expense-external-tool-button"
+                onClick={() => onOpenExternalTool(action.url, action.label)}
+                disabled={!action.url}
+              >
+                {action.label}
+              </button>
+            ))}
+          </div>
+          <div className="status expense-external-tools-hint">
+            Link keys: {XERO_EXPENSE_LINK_STORAGE_KEY}, {XERO_ADMIN_LINK_STORAGE_KEY}, {CTM_TRAVEL_LINK_STORAGE_KEY},{' '}
+            {GOOGLE_CHAT_LINK_STORAGE_KEY}.
+          </div>
+        </div>
+        <div className="workflow-priority-panel expense-priority-panel" role="region" aria-label="Expense priority workflow">
+          <div className="workflow-priority-head">
+            <strong>{isConsultantSession ? 'Consultant priority path' : 'Admin priority path'}</strong>
+            <span className="status">Next best action: {expenseNextStep.label}</span>
+            <span className="status workflow-progress-inline">Progress: {expenseCompletedStepCount}/4 steps ready</span>
+          </div>
+          <div className="workflow-step-list">
+            <button
+              type="button"
+              className={`secondary workflow-step-button ${expenseNextStep.id === 'expense-step-context' ? 'is-active' : ''} ${expenseStepState.context ? 'is-complete' : ''}`}
+              onClick={() => document.getElementById('expense-step-context')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+            >
+              1. Context
+            </button>
+            <button
+              type="button"
+              className={`secondary workflow-step-button ${expenseNextStep.id === 'expense-step-claim' ? 'is-active' : ''} ${expenseStepState.claim ? 'is-complete' : ''}`}
+              onClick={() => document.getElementById('expense-step-claim')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+            >
+              2. Claim details
+            </button>
+            <button
+              type="button"
+              className={`secondary workflow-step-button ${expenseNextStep.id === 'expense-step-receipt' ? 'is-active' : ''} ${expenseStepState.receipt ? 'is-complete' : ''}`}
+              onClick={() => document.getElementById('expense-step-receipt')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+            >
+              3. Receipt evidence
+            </button>
+            <button
+              type="button"
+              className={`secondary workflow-step-button ${expenseNextStep.id === 'expense-step-submit' ? 'is-active' : ''} ${expenseStepState.submit ? 'is-complete' : ''}`}
+              onClick={() => document.getElementById('expense-step-submit')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+            >
+              4. Finalise
+            </button>
+          </div>
+        </div>
+        {!isConsultantSession && expenseForm.no_receipt_reason === 'Booked travel cost to be entered by admin' ? (
+          <div className="expense-booked-travel-badge" role="status">
+            <strong>Booked Travel Draft</strong>
+            <span>
+              This draft came from the travel booking queue. Add supplier, amount, and any receipt details before submitting.
+            </span>
+          </div>
+        ) : null}
         <form
           onSubmit={onCreateExpense}
           className={`expense-submit-form ${isConsultantSession ? 'expense-submit-form-consultant' : ''}`}
@@ -4695,7 +6373,7 @@ export default function App() {
             </span>
           </div>
 
-          <div className={`expense-section expense-section-context ${isConsultantSession ? 'consultant-step-panel' : ''}`}>
+          <div id="expense-step-context" className={`expense-section expense-section-context ${isConsultantSession ? 'consultant-step-panel' : ''}`}>
             <h3 className="expense-section-title">1. Context</h3>
           <div className="expense-compact-row expense-compact-row-top">
             <div className="expense-field-consultant">
@@ -4843,7 +6521,7 @@ export default function App() {
             ) : null}
           </div>
 
-          <div className={`expense-section expense-section-claim ${isConsultantSession ? 'consultant-step-panel' : ''}`}>
+          <div id="expense-step-claim" className={`expense-section expense-section-claim ${isConsultantSession ? 'consultant-step-panel' : ''}`}>
             <h3 className="expense-section-title">2. Claim details</h3>
             <div className="status expense-claim-guidance">
               Enter route + amount details first, then proceed to receipt evidence.
@@ -5107,6 +6785,22 @@ export default function App() {
                 <option value="no">No GST</option>
               </select>
             </div>
+            <div className="expense-field-paid-by">
+              <label>Paid by</label>
+              <select
+                value={expenseForm.paid_by}
+                onChange={(e) => setExpenseForm({ ...expenseForm, paid_by: e.target.value })}
+                disabled={isPerDiemCategory}
+              >
+                <option value="">Auto</option>
+                <option value="company_card">Company card</option>
+                <option value="personal_reimbursable">Personal (reimburse)</option>
+                <option value="personal_non_reimbursable">Personal (no reimburse)</option>
+              </select>
+              <div className="status" style={{ marginTop: 4 }}>
+                Company card = no reimbursement. Personal (reimburse) = reimburse consultant. Personal (no reimburse) = FYI only.
+              </div>
+            </div>
             <div className="expense-field-currency">
               <label>Currency</label>
               <select
@@ -5351,7 +7045,7 @@ export default function App() {
 
           </div>
 
-          <div className={`expense-section expense-section-receipt ${isConsultantSession ? 'consultant-step-panel' : ''}`}>
+          <div id="expense-step-receipt" className={`expense-section expense-section-receipt ${isConsultantSession ? 'consultant-step-panel' : ''}`}>
             <h3 className="expense-section-title">3. Receipt evidence</h3>
 
           <label>Receipt upload (recommended)</label>
@@ -5478,7 +7172,7 @@ export default function App() {
           ) : null}
           </div>
 
-          <div className={`expense-section expense-section-submit ${isConsultantSession ? 'consultant-step-panel' : ''}`}>
+          <div id="expense-step-submit" className={`expense-section expense-section-submit ${isConsultantSession ? 'consultant-step-panel' : ''}`}>
             <h3 className="expense-section-title">4. Finalise</h3>
 
           {expenseForm.category !== 'per_diem' ? (
@@ -5501,6 +7195,11 @@ export default function App() {
           ) : null}
 
           <label>Notes - explain any extra details (optional)</label>
+          {isConsultantSession && expenseForm.category !== 'per_diem' && !String(expenseForm.description || '').trim() ? (
+            <div className="status" style={{ marginTop: 4 }}>
+              Recommended: add a short description so Finance can reconcile quickly at month end.
+            </div>
+          ) : null}
           <textarea
             value={expenseForm.notes}
             onChange={(e) => setExpenseForm({ ...expenseForm, notes: e.target.value })}
@@ -5772,33 +7471,73 @@ export default function App() {
             ? 'Consultant mode: focus on logging sessions and tracking your coachee schedule.'
             : 'Admin mode: use Batch Setup for onboarding, then monitor sessions and entitlements below.'}
         </div>
+        <div className="status" style={{ marginBottom: 10 }}>
+          <strong>Quick help on this page:</strong> 1) Add/update coachees, 2) Log sessions, 3) Use Recent Sessions + Entitlements to edit and check totals.
+        </div>
+
+        <div className="workflow-priority-panel coaching-priority-panel" role="region" aria-label="Coaching priority workflow">
+          <div className="workflow-priority-head">
+            <strong>{isConsultantSession ? 'Consultant coaching flow' : 'Admin coaching flow'}</strong>
+            <span className="status">Next best action: {coachingNextStep.label}</span>
+          </div>
+          {isConsultantSession ? (
+            <div className="workflow-step-list">
+              <button
+                type="button"
+                className={`secondary workflow-step-button ${coachingNextStep.id === 'coaching-session-log' ? 'is-active' : ''}`}
+                onClick={() => document.getElementById('coaching-session-log')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+              >
+                Log Session
+              </button>
+              <button
+                type="button"
+                className={`secondary workflow-step-button ${coachingNextStep.id === 'coaching-engagement-planner' ? 'is-active' : ''}`}
+                onClick={() => document.getElementById('coaching-engagement-planner')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+              >
+                Planner
+              </button>
+              <button
+                type="button"
+                className={`secondary workflow-step-button ${coachingNextStep.id === 'coaching-recent-edit' ? 'is-active' : ''}`}
+                onClick={() => document.getElementById('coaching-recent-edit')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+              >
+                Edit Recent
+              </button>
+            </div>
+          ) : (
+            <div className="workflow-step-list">
+              <button
+                type="button"
+                className={`secondary workflow-step-button ${coachingNextStep.id === 'coaching-batch-entry' ? 'is-active' : ''}`}
+                onClick={() => document.getElementById('coaching-batch-entry')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+              >
+                Batch Setup
+              </button>
+              <button
+                type="button"
+                className={`secondary workflow-step-button ${coachingNextStep.id === 'coaching-single-entry' ? 'is-active' : ''}`}
+                onClick={() => document.getElementById('coaching-single-entry')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+              >
+                Single Entry
+              </button>
+              <button
+                type="button"
+                className={`secondary workflow-step-button ${coachingNextStep.id === 'coaching-admin-sessions' ? 'is-active' : ''}`}
+                onClick={() => {
+                  setActiveScreenTabId('admin-console');
+                  setAdminConsoleSection('sessions');
+                }}
+              >
+                Open Admin Sessions
+              </button>
+            </div>
+          )}
+        </div>
 
         {!isConsultantSession ? (
           <div className="status coaching-admin-guidance" style={{ marginBottom: 10 }}>
             <strong>Recommended workflow:</strong> use <strong>Batch Setup</strong> for most onboarding; use
             <strong> Single Coachee Entry</strong> only for one-off fixes.
-            <button
-              type="button"
-              className="secondary"
-              style={{ width: 'auto', marginLeft: 8 }}
-              onClick={() => {
-                const target = document.getElementById('coaching-batch-entry');
-                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              }}
-            >
-              Jump to Batch Setup
-            </button>
-            <button
-              type="button"
-              className="secondary"
-              style={{ width: 'auto', marginLeft: 8 }}
-              onClick={() => {
-                const target = document.getElementById('coaching-single-entry');
-                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              }}
-            >
-              Open Single Entry
-            </button>
           </div>
         ) : (
           <div className="status" style={{ marginBottom: 10 }}>
@@ -5909,6 +7648,70 @@ export default function App() {
                     }
                   />
                 </div>
+                <div>
+                  <label>Associate Cost Per Session (optional)</label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    value={coachingEngagementForm.associate_cost_per_session}
+                    onChange={(e) =>
+                      setCoachingEngagementForm((prev) => ({
+                        ...prev,
+                        associate_cost_per_session: e.target.value,
+                      }))
+                    }
+                    placeholder="e.g. 220"
+                  />
+                </div>
+                <div>
+                  <label className="inline-checkbox" style={{ marginBottom: 8 }}>
+                    <input
+                      type="checkbox"
+                      checked={Boolean(coachingEngagementForm.lcp_debrief_enabled)}
+                      onChange={(e) =>
+                        setCoachingEngagementForm((prev) => ({
+                          ...prev,
+                          lcp_debrief_enabled: e.target.checked,
+                          lcp_debrief_total_sessions: e.target.checked ? prev.lcp_debrief_total_sessions : '0',
+                          lcp_debrief_sessions_used: e.target.checked ? prev.lcp_debrief_sessions_used : '0',
+                        }))
+                      }
+                    />
+                    LCP de-brief available for this client
+                  </label>
+                </div>
+                {coachingEngagementForm.lcp_debrief_enabled ? (
+                  <>
+                    <div>
+                      <label>LCP Entitled Sessions</label>
+                      <input
+                        type="number"
+                        min="0"
+                        value={coachingEngagementForm.lcp_debrief_total_sessions}
+                        onChange={(e) =>
+                          setCoachingEngagementForm((prev) => ({
+                            ...prev,
+                            lcp_debrief_total_sessions: e.target.value,
+                          }))
+                        }
+                      />
+                    </div>
+                    <div>
+                      <label>LCP Sessions Completed</label>
+                      <input
+                        type="number"
+                        min="0"
+                        value={coachingEngagementForm.lcp_debrief_sessions_used}
+                        onChange={(e) =>
+                          setCoachingEngagementForm((prev) => ({
+                            ...prev,
+                            lcp_debrief_sessions_used: e.target.value,
+                          }))
+                        }
+                      />
+                    </div>
+                  </>
+                ) : null}
               </div>
               <div className="coaching-form-actions">
                 <button type="submit" disabled={isCreatingCoachingEngagement}>
@@ -5931,7 +7734,7 @@ export default function App() {
 
             <div id="coaching-batch-entry" className="coaching-engagement-form" style={{ marginTop: 12 }}>
               <h3 style={{ margin: '0 0 8px', color: 'var(--color-dark-teal)', fontSize: 15 }}>
-                Primary: Batch Coachee Setup (Excel-style helper)
+                Primary: Batch Coachee Setup
               </h3>
               <div className="status" style={{ marginBottom: 8 }}>
                 Fastest way to onboard many coachees while linking client + coach.
@@ -5969,6 +7772,9 @@ export default function App() {
                         <th>Coach</th>
                         <th>Entitled</th>
                         <th>Completed</th>
+                        <th>LCP On</th>
+                        <th>LCP Entitled</th>
+                        <th>LCP Used</th>
                         <th>Row</th>
                       </tr>
                     </thead>
@@ -6076,6 +7882,40 @@ export default function App() {
                             />
                           </td>
                           <td>
+                            <label className="inline-checkbox" style={{ margin: 0 }}>
+                              <input
+                                type="checkbox"
+                                checked={Boolean(row.lcp_debrief_enabled)}
+                                onChange={(e) =>
+                                  onCoachingBatchFieldChange(idx, 'lcp_debrief_enabled', e.target.checked)
+                                }
+                              />
+                              Yes
+                            </label>
+                          </td>
+                          <td>
+                            <input
+                              type="number"
+                              min="0"
+                              value={row.lcp_debrief_total_sessions}
+                              onChange={(e) =>
+                                onCoachingBatchFieldChange(idx, 'lcp_debrief_total_sessions', e.target.value)
+                              }
+                              disabled={!Boolean(row.lcp_debrief_enabled)}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="number"
+                              min="0"
+                              value={row.lcp_debrief_sessions_used}
+                              onChange={(e) =>
+                                onCoachingBatchFieldChange(idx, 'lcp_debrief_sessions_used', e.target.value)
+                              }
+                              disabled={!Boolean(row.lcp_debrief_enabled)}
+                            />
+                          </td>
+                          <td>
                             <button type="button" className="secondary" onClick={() => onRemoveCoachingBatchRow(idx)}>
                               Remove
                             </button>
@@ -6104,15 +7944,137 @@ export default function App() {
         ) : null}
 
         {isConsultantSession ? (
-        <div className="coaching-session-shell" style={{ marginTop: 12 }}>
-          <h3 style={{ margin: '0 0 8px', color: 'var(--color-dark-teal)', fontSize: 15 }}>
-            Session Logging
-          </h3>
-          <div className="status" style={{ marginBottom: 8 }}>
-            Log sessions quickly for your assigned coachees.
-          </div>
+          <>
+            <div className="coaching-session-shell" style={{ marginTop: 12 }}>
+              <h3 style={{ margin: '0 0 8px', color: 'var(--color-dark-teal)', fontSize: 15 }}>
+                Invoice Prep (Associates)
+              </h3>
+              <div className="status" style={{ marginBottom: 8 }}>
+                Select unclaimed chargeable sessions, add a claim reference (e.g. KT001), then mark them as claimed so you don't double invoice.
+              </div>
+              <div className="grid" style={{ marginBottom: 8 }}>
+                <div>
+                  <label>Start date (optional)</label>
+                  <input
+                    type="date"
+                    value={associateInvoicePrep.start_date}
+                    onChange={(e) => setAssociateInvoicePrep((prev) => ({ ...prev, start_date: e.target.value }))}
+                  />
+                </div>
+                <div>
+                  <label>End date (optional)</label>
+                  <input
+                    type="date"
+                    value={associateInvoicePrep.end_date}
+                    onChange={(e) => setAssociateInvoicePrep((prev) => ({ ...prev, end_date: e.target.value }))}
+                  />
+                </div>
+                <div>
+                  <label>Claim reference</label>
+                  <input
+                    value={associateInvoicePrep.claim_ref}
+                    onChange={(e) => setAssociateInvoicePrep((prev) => ({ ...prev, claim_ref: e.target.value }))}
+                    placeholder="e.g. KT001"
+                  />
+                </div>
+              </div>
+              <div className="status" style={{ marginBottom: 8 }}>
+                Unclaimed sessions in range: {associateClaimableSessions.length}. Selected: {associateSelectedClaimSessionIds.length}. Total: ${associateSelectedClaimSummary.total.toFixed(2)}
+                {associateSelectedClaimSummary.missingCostCount > 0 ? ` · Missing cost on ${associateSelectedClaimSummary.missingCostCount} selected` : ''}
+              </div>
+              {associateInvoicePrepStatus ? (
+                <div className="status" style={{ marginBottom: 8 }}>
+                  {associateInvoicePrepStatus}
+                </div>
+              ) : null}
+              <div className="admin-table-wrap" style={{ marginBottom: 8 }}>
+                <table className="admin-table">
+                  <thead>
+                    <tr>
+                      <th>Select</th>
+                      <th>Date</th>
+                      <th>Coachee</th>
+                      <th>Client</th>
+                      <th>Type</th>
+                      <th>Cost</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {associateClaimableSessions.slice(0, 50).map((session) => {
+                      const engagement = coachingEngagementById[String(session.engagement_id)] || null;
+                      const key = String(session.id);
+                      const checked = Boolean(associateInvoicePrep.selected_ids?.[key]);
+                      const cost = Number(session.associate_cost_amount ?? session.associate_cost_per_session ?? 0);
+                      return (
+                        <tr key={key}>
+                          <td>
+                            <input
+                              type="checkbox"
+                              checked={checked}
+                              onChange={(e) =>
+                                setAssociateInvoicePrep((prev) => ({
+                                  ...prev,
+                                  selected_ids: { ...prev.selected_ids, [key]: e.target.checked },
+                                }))
+                              }
+                            />
+                          </td>
+                          <td>{formatDateAu(session.session_date)}</td>
+                          <td>{engagement?.name || session.engagement_id}</td>
+                          <td>{engagement?.client_org || ''}</td>
+                          <td>{formatTokenLabel(session.session_type)}</td>
+                          <td>{Number.isFinite(cost) ? `$${cost.toFixed(2)}` : ''}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+              <div className="coaching-form-actions">
+                <button
+                  type="button"
+                  className="secondary"
+                  onClick={() => {
+                    const shown = associateClaimableSessions.slice(0, 50);
+                    const next = {};
+                    shown.forEach((row) => {
+                      next[String(row.id)] = true;
+                    });
+                    setAssociateInvoicePrep((prev) => ({ ...prev, selected_ids: next }));
+                  }}
+                  disabled={!associateClaimableSessions.length}
+                >
+                  Select All Shown
+                </button>
+                <button type="button" onClick={onClaimAssociateSessions} disabled={isClaimingAssociateSessions}>
+                  {isClaimingAssociateSessions ? 'Saving Claim...' : 'Mark Selected as Claimed'}
+                </button>
+                <button
+                  type="button"
+                  className="secondary"
+                  onClick={onCopyAssociateClaimSummary}
+                  disabled={!associateSelectedClaimSessionIds.length}
+                >
+                  Copy Summary
+                </button>
+                <button
+                  type="button"
+                  className="secondary"
+                  onClick={() => setAssociateInvoicePrep((prev) => ({ ...prev, selected_ids: {} }))}
+                >
+                  Clear Selection
+                </button>
+              </div>
+            </div>
+            <div id="coaching-session-log" className="coaching-session-shell" style={{ marginTop: 12 }}>
+              <h3 style={{ margin: '0 0 8px', color: 'var(--color-dark-teal)', fontSize: 15 }}>
+                Session Logging
+              </h3>
+              <div className="status" style={{ marginBottom: 8 }}>
+                Log sessions quickly for your assigned coachees.
+              </div>
 
-        <form onSubmit={onLogCoachingSession} className="coaching-session-form coaching-session-shell-form">
+              <form onSubmit={onLogCoachingSession} className="coaching-session-form coaching-session-shell-form">
           <div className="grid" style={{ marginBottom: 8 }}>
             <div>
               <label>Search Client</label>
@@ -6178,6 +8140,30 @@ export default function App() {
                 ))}
               </select>
             </div>
+            <div className="coaching-field-compact coaching-field-duration">
+              <label>Duration (mins)</label>
+              <input
+                type="number"
+                min="1"
+                value={coachingSessionForm.duration_mins}
+                onChange={(e) =>
+                  setCoachingSessionForm((prev) => ({ ...prev, duration_mins: e.target.value }))
+                }
+              />
+            </div>
+            <div className="coaching-field-compact coaching-field-mode">
+              <label>Mode</label>
+              <select
+                value={coachingSessionForm.delivery_mode}
+                onChange={(e) =>
+                  setCoachingSessionForm((prev) => ({ ...prev, delivery_mode: e.target.value }))
+                }
+              >
+                <option value="video">Video</option>
+                <option value="in_person">In person</option>
+                <option value="phone">Phone</option>
+              </select>
+            </div>
             <div className="coaching-field-compact coaching-field-no-show">
               <label>No Show</label>
               <label className="inline-checkbox coaching-inline-checkbox">
@@ -6219,6 +8205,7 @@ export default function App() {
                   <label style={{ marginTop: 6 }}>LCP de-brief Date</label>
                   <input
                     className="coaching-lcp-date-input"
+                    ref={coachingLcpDateRef}
                     type="date"
                     value={coachingSessionForm.lcp_debrief_date}
                     onChange={(e) =>
@@ -6278,15 +8265,20 @@ export default function App() {
             ) : null}
           </div>
         </form>
-        </div>
+        {coachingStatus ? <div className="status" style={{ marginTop: 8 }}>{coachingStatus}</div> : null}
+            </div>
+            <div className="status" style={{ marginTop: 12 }}>
+              Use Admin Console → Coaching Sessions for admin edits.
+            </div>
+          </>
         ) : (
           <div className="status" style={{ marginTop: 12 }}>
-            Session logging is consultant-only in Coaching view. Use Admin Console → Coaching Sessions for admin edits.
+            Session logging is available in Consultant mode.
           </div>
         )}
 
         {isConsultantSession ? (
-          <div className="coaching-planner" style={{ marginTop: 12 }}>
+          <div id="coaching-engagement-planner" className="coaching-planner" style={{ marginTop: 12 }}>
             <h3 style={{ margin: '0 0 8px', color: 'var(--color-dark-teal)', fontSize: 15 }}>
               Engagement Planner (Search + History + Future)
             </h3>
@@ -6322,7 +8314,7 @@ export default function App() {
             ) : coachingPlannerRows.length === 0 ? (
               <div className="status">No matching coaching engagements.</div>
             ) : (
-              coachingPlannerRows.map(({ engagement, pastSessions, todayAndFutureSessions, entitled, used, remaining }) => (
+              coachingPlannerRows.map(({ engagement, pastSessions, todayAndFutureSessions, entitled, used, remaining, lcpEnabled, lcpEntitled, lcpUsed, lcpRemaining }) => (
                 <div key={engagement.id} className="coaching-planner-card">
                   <div className="coaching-planner-head">
                     <strong>{engagement.name}</strong>
@@ -6347,6 +8339,9 @@ export default function App() {
                     <span className="coaching-planner-pill">Entitled: {entitled}</span>
                     <span className="coaching-planner-pill">Used: {used}</span>
                     <span className="coaching-planner-pill">Remaining: {remaining}</span>
+                    <span className="coaching-planner-pill">
+                      LCP: {lcpEnabled ? `${lcpUsed}/${lcpEntitled} (${lcpRemaining} left)` : 'Not offered'}
+                    </span>
                     <span className="coaching-planner-pill">Upcoming: {todayAndFutureSessions.length}</span>
                     <span className="coaching-planner-pill">History: {pastSessions.length}</span>
                   </div>
@@ -6457,26 +8452,16 @@ export default function App() {
                     {formatDateAu(row.session_date)} · {sessionLabel}
                     {row.invoiced_to_adapsys ? ' · Invoiced to Adapsys' : ' · Not invoiced to Adapsys'}
                     {isFuture ? ' · Future session' : ''}
-                    <button
-                      type="button"
-                      className="secondary coaching-row-action"
-                      onClick={() => onToggleConsultantSessionInvoiced(row)}
-                      disabled={savingConsultantInvoiceSessionId === String(row.id) || deletingCoachingSessionId === String(row.id)}
-                    >
-                      {savingConsultantInvoiceSessionId === String(row.id)
-                        ? 'Saving...'
-                        : row.invoiced_to_adapsys
-                          ? 'Mark Not Invoiced'
-                          : 'Mark Invoiced'}
-                    </button>
-                    <button
-                      type="button"
-                      className="secondary coaching-row-action"
-                      onClick={() => onDeleteCoachingSession(row)}
-                      disabled={deletingCoachingSessionId === String(row.id) || savingConsultantInvoiceSessionId === String(row.id)}
-                    >
-                      {deletingCoachingSessionId === String(row.id) ? 'Removing...' : 'Remove Session'}
-                    </button>
+                    <div className="coaching-row-actions">
+                      <button
+                        type="button"
+                        className="secondary coaching-row-action"
+                        onClick={() => onDeleteCoachingSession(row)}
+                        disabled={deletingCoachingSessionId === String(row.id)}
+                      >
+                        {deletingCoachingSessionId === String(row.id) ? 'Removing...' : 'Remove Session'}
+                      </button>
+                    </div>
                   </div>
                 );
               })
@@ -6484,41 +8469,64 @@ export default function App() {
           </div>
         ) : null}
 
-        <div className="coaching-recent-panel" style={{ marginTop: 12 }}>
+        <div id="coaching-recent-edit" className="coaching-recent-panel" style={{ marginTop: 12 }}>
           <h3 style={{ margin: '0 0 8px', color: 'var(--color-dark-teal)', fontSize: 15 }}>
             Recent Coaching Sessions (Edit)
           </h3>
           {recentCoachingSessions.length === 0 ? (
             <div className="status">No coaching sessions logged yet.</div>
           ) : (
-            recentCoachingSessions.map((session) => {
-              const engagement = coachingEngagementById[String(session.engagement_id)];
-              const sessionLabel =
-                session.session_type === 'no_show_chargeable' ? 'chargeable no-show' : session.session_type;
-              const invoiceLabel = session.invoiced_to_adapsys ? 'invoiced' : 'not invoiced';
-              return (
-                <div key={session.id} className="status coaching-recent-row">
-                  <strong>{engagement?.name || 'Unknown coachee'}</strong> ({engagement?.client_org || 'Unknown client'}) ·
-                  {` ${formatDateAu(session.session_date)} · ${sessionLabel} · ${invoiceLabel}`}
-                  <button
-                    type="button"
-                    className="secondary coaching-row-action"
-                    onClick={() => onStartEditCoachingSession(session)}
-                    disabled={deletingCoachingSessionId === String(session.id)}
-                  >
-                    Edit Session
-                  </button>
-                  <button
-                    type="button"
-                    className="secondary coaching-row-action"
-                    onClick={() => onDeleteCoachingSession(session)}
-                    disabled={deletingCoachingSessionId === String(session.id)}
-                  >
-                    {deletingCoachingSessionId === String(session.id) ? 'Removing...' : 'Remove Session'}
-                  </button>
-                </div>
-              );
-            })
+            <div className="coaching-recent-groups">
+              {groupedRecentCoachingSessions.map((group) => (
+                <details
+                  key={group.key}
+                  className="coaching-recent-group"
+                  open={Boolean(openRecentCoachingGroupByKey[group.key])}
+                  onToggle={(event) => {
+                    const isOpen = Boolean(event.currentTarget.open);
+                    setOpenRecentCoachingGroupByKey((prev) => ({
+                      ...prev,
+                      [group.key]: isOpen,
+                    }));
+                  }}
+                >
+                  <summary>
+                    <strong>{group.client}</strong> — {group.coachee} ({group.sessions.length} session{group.sessions.length === 1 ? '' : 's'})
+                  </summary>
+                  <div className="coaching-recent-group-body">
+                    {group.sessions.map((session) => {
+                      const sessionLabel =
+                        session.session_type === 'no_show_chargeable' ? 'chargeable no-show' : session.session_type;
+                      const invoiceLabel = session.invoiced_to_adapsys ? 'invoiced' : 'not invoiced';
+                      return (
+                        <div key={session.id} className="status coaching-recent-row">
+                          <strong>{group.coachee}</strong> ({group.client}) ·
+                          {` ${formatDateAu(session.session_date)} · ${sessionLabel} · ${invoiceLabel}`}
+                          <div className="coaching-row-actions">
+                            <button
+                              type="button"
+                              className="secondary coaching-row-action"
+                              onClick={() => onStartEditCoachingSession(session)}
+                              disabled={deletingCoachingSessionId === String(session.id)}
+                            >
+                              Edit Session
+                            </button>
+                            <button
+                              type="button"
+                              className="secondary coaching-row-action"
+                              onClick={() => onDeleteCoachingSession(session)}
+                              disabled={deletingCoachingSessionId === String(session.id)}
+                            >
+                              {deletingCoachingSessionId === String(session.id) ? 'Removing...' : 'Remove Session'}
+                            </button>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </details>
+              ))}
+            </div>
           )}
         </div>
 
@@ -6544,8 +8552,10 @@ export default function App() {
               ) : (
                 coachingEntitlementRows.map((row) => (
                   <div key={row.id} className={`status coaching-entitlement-row ${row.oneLeft ? 'is-alert' : ''}`}>
-                    <strong>{row.name}</strong> ({row.client_org}) — Coach: {row.coach_email} · Entitled {row.entitled}{' '}
-                    · Completed {row.used} · Remaining {row.remaining}
+                    <strong>{row.name}</strong> ({row.client_org}) — Coach:{' '}
+                    {coachNameByEmail[String(row.coach_email || '').trim().toLowerCase()] || displayNameFromEmail(row.coach_email)} · Entitled {row.entitled}{' '}
+                    · Completed {row.used} · Remaining {row.remaining} · LCP{' '}
+                    {row.lcpEnabled ? `${row.lcpUsed}/${row.lcpEntitled} (remaining ${row.lcpRemaining})` : 'not offered'}
                     {row.oneLeft ? ' · ⚠ 1 session left' : ''}
                   </div>
                 ))
@@ -6688,7 +8698,7 @@ export default function App() {
                     : 'n/a'}
                 </div>
                 <div className="status">{tender.strategic_value}</div>
-                {leadName ? <div className="status">Lead consultant: {leadName}</div> : null}
+                {leadName ? <div className="status">Consultant: {leadName}</div> : null}
                 {interestSummary ? <div className="status">Consultant interest: {interestSummary}</div> : null}
                 {tender.tender_url ? (
                   <div className="status">
@@ -6830,9 +8840,64 @@ export default function App() {
       </section>
       ) : null}
 
-      {!isConsultantSession ? (
+      {isClientViewerSession ? (
+      <section id="reports" className="card" style={sectionVisibilityStyle('reports')}>
+        <h2>Client Coaching Report</h2>
+        <div className="status" style={{ marginBottom: 10 }}>
+          Read-only progress view. Fields shown: coachee, coach, entitled sessions, taken/left, no-shows, session dates, and LCP when available.
+        </div>
+        <div className="report-date-row">
+          <div>
+            <label>Start Date (optional)</label>
+            <input
+              type="date"
+              value={clientReportFilters.start_date}
+              onChange={(e) => setClientReportFilters((prev) => ({ ...prev, start_date: e.target.value }))}
+            />
+          </div>
+          <div>
+            <label>End Date (optional)</label>
+            <input
+              type="date"
+              value={clientReportFilters.end_date}
+              onChange={(e) => setClientReportFilters((prev) => ({ ...prev, end_date: e.target.value }))}
+            />
+          </div>
+        </div>
+        <div className="report-action-row" style={{ marginTop: 10 }}>
+          <button type="button" onClick={refresh} disabled={isLoadingClientCoachingSummary || !isClientReportsFeatureEnabled}>
+            {isLoadingClientCoachingSummary ? 'Refreshing...' : 'Refresh Client Report'}
+          </button>
+          <button type="button" className="secondary" onClick={() => window.print()} disabled={!clientCoachingSummaryRows.length}>
+            Print Report
+          </button>
+        </div>
+        {clientCoachingSummaryStatus ? <div className="status report-status-surface">{clientCoachingSummaryStatus}</div> : null}
+        {!isClientReportsFeatureEnabled ? (
+          <div className="status">Client reports are feature-flagged off. Set localStorage.adapsys_client_reports_enabled = 1 to test.</div>
+        ) : clientCoachingSummaryRows.length === 0 ? (
+          <div className="status">No coaching records found for the selected filters.</div>
+        ) : (
+          <div className="reports-panel" style={{ marginTop: 10 }}>
+            {clientCoachingSummaryRows.map((row) => (
+              <div key={`${row.coachee}-${row.coach_name}`} className="status coaching-entitlement-row" style={{ marginBottom: 8 }}>
+                <strong>{row.coachee}</strong> · Coach: {row.coach_name} · Entitled {row.entitled_sessions} · Taken {row.sessions_taken} · Left {row.sessions_left} · No-shows {row.no_show_count}
+                {row.lcp_available ? ` · LCP ${row.lcp_taken || 0}/${row.lcp_entitled || 0}` : ''}
+                <div className="status" style={{ marginTop: 4 }}>
+                  Session dates: {row.session_dates?.length ? row.session_dates.join(', ') : 'No sessions logged'}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </section>
+      ) : !isConsultantSession ? (
       <section id="reports" className="card" style={sectionVisibilityStyle('reports')}>
         <h2>Reports Hub</h2>
+        <div className="status" style={{ marginBottom: 10 }}>
+          <strong>Quick help on this page:</strong> 1) Choose report scope (client, coach, or coachee), 2) Set optional date range,
+          3) Click Preview first, then Download PDF when ready.
+        </div>
         <div className="reports-hub-grid">
           {!isConsultantSession ? (
             <div className="reports-panel">
@@ -7085,6 +9150,15 @@ export default function App() {
       {!isConsultantSession ? (
       <section id="expense-review" className="card" style={sectionVisibilityStyle('expense-review')}>
         <h2>Expense Review (Admin)</h2>
+        <div className={`xero-integration-banner ${
+          !isXeroSyncFeatureEnabled || !expenseXeroIntegrationStatus?.enabled
+            ? 'is-warning'
+            : expenseXeroIntegrationStatus?.mode === 'stub'
+              ? 'is-info'
+              : 'is-success'
+        }`}>
+          {xeroIntegrationBannerText}
+        </div>
         {expenses.length === 0 ? (
           <div className="status">No expenses submitted yet.</div>
         ) : (
@@ -7098,6 +9172,42 @@ export default function App() {
               <div className="status">
                 Project: {trips.find((trip) => String(trip.id) === String(expense.trip_id))?.name || 'Unknown project'}
               </div>
+              {isXeroSyncFeatureEnabled ? (
+                <div className="expense-xero-sync-panel" role="status" aria-live="polite">
+                  <div className="expense-xero-sync-head">
+                    <strong>Xero Sync</strong>
+                    <span className="status">
+                      Status: {formatTokenLabel(expenseXeroSyncById[String(expense.id)]?.sync_status || 'not_synced')}
+                    </span>
+                  </div>
+                  {expenseXeroSyncById[String(expense.id)]?.last_synced_at ? (
+                    <div className="status">
+                      Last synced: {formatDateTimeAu(expenseXeroSyncById[String(expense.id)]?.last_synced_at)}
+                    </div>
+                  ) : null}
+                  {expenseXeroSyncById[String(expense.id)]?.error ? (
+                    <div className="status">Sync note: {expenseXeroSyncById[String(expense.id)]?.error}</div>
+                  ) : null}
+                  <button
+                    type="button"
+                    className="secondary"
+                    onClick={() => onPushExpenseToXero(expense.id)}
+                    disabled={
+                      syncingExpenseId === String(expense.id) ||
+                      (expense.status !== 'approved' && expense.status !== 'invoiced')
+                    }
+                  >
+                    {syncingExpenseId === String(expense.id)
+                      ? 'Syncing to Xero...'
+                      : (expenseXeroSyncById[String(expense.id)]?.sync_status || 'not_synced') === 'not_synced'
+                        ? 'Push to Xero'
+                        : 'Retry Xero Sync'}
+                  </button>
+                  {expense.status !== 'approved' && expense.status !== 'invoiced' ? (
+                    <div className="status">Approve this expense before pushing to Xero.</div>
+                  ) : null}
+                </div>
+              ) : null}
               <label>Move to another project (if initially logged to holding project)</label>
               <div className="grid">
                 <select
@@ -7328,7 +9438,7 @@ export default function App() {
             Admin workspace. Use one section at a time for cleaner editing.
           </div>
           <div className="status admin-console-intro" style={{ marginBottom: 10 }}>
-            <strong>Business Details:</strong> Adapsys Australia Pacific Pty Ltd · ABN 56 623 973 446
+            <strong>Business Details:</strong> Adapsys Australia Pacific · ABN 56 623 973 446
           </div>
           <div className="status admin-console-quick" style={{ marginBottom: 10 }}>
             <strong>Quick action:</strong> Batch coaching entry lives in <strong>Coaching</strong> tab.
@@ -7350,6 +9460,38 @@ export default function App() {
             <span className="admin-console-snapshot-item">Active Clients: <strong>{dashboardMetrics.activeClients}</strong></span>
             <span className="admin-console-snapshot-item">Coachees: <strong>{coachingEngagements.length}</strong></span>
             <span className="admin-console-snapshot-item">Sessions: <strong>{coachingSessions.length}</strong></span>
+          </div>
+
+          <div className="admin-savings-panel" style={{ marginBottom: 10 }}>
+            <div className="admin-savings-head">
+              <strong>Savings Snapshot (Monthly Estimate)</strong>
+              <span className="status">Demo assumptions can be tuned via localStorage savings keys.</span>
+            </div>
+            <div className="admin-savings-grid">
+              <div className="admin-savings-item">
+                <div className="status">Client report prep</div>
+                <strong>{savingsSnapshot.reportHours.toFixed(1)} hrs</strong>
+              </div>
+              <div className="admin-savings-item">
+                <div className="status">Workflow follow-ups</div>
+                <strong>{savingsSnapshot.workbookHours.toFixed(1)} hrs</strong>
+              </div>
+              <div className="admin-savings-item">
+                <div className="status">Xero double-entry reduction</div>
+                <strong>{savingsSnapshot.expenseHours.toFixed(1)} hrs</strong>
+              </div>
+              <div className="admin-savings-item">
+                <div className="status">Total monthly time saved</div>
+                <strong>{savingsSnapshot.totalHours.toFixed(1)} hrs</strong>
+              </div>
+              <div className="admin-savings-item">
+                <div className="status">Estimated monthly value</div>
+                <strong>{formatAud(savingsSnapshot.totalAud)}</strong>
+              </div>
+            </div>
+            <div className="status" style={{ marginTop: 6 }}>
+              Xero-ready expenses in this snapshot: {savingsSnapshot.xeroCandidateCount}. Hourly rate assumption: {formatAud(savingsSnapshot.hourlyRate)}.
+            </div>
           </div>
 
           <div className="admin-console-nav" style={{ marginBottom: 12 }}>
@@ -7386,14 +9528,14 @@ export default function App() {
               className={`admin-console-tab ${adminConsoleSection === 'contracts' ? 'is-active' : 'secondary'}`}
               onClick={() => setAdminConsoleSection('contracts')}
             >
-              Contracts (Phase)
+              Contracts
             </button>
             <button
               type="button"
               className={`admin-console-tab ${adminConsoleSection === 'consultant-profiles' ? 'is-active' : 'secondary'}`}
               onClick={() => setAdminConsoleSection('consultant-profiles')}
             >
-              Consultant Profiles (Phase)
+              Consultant Profiles
             </button>
           </div>
 
@@ -7424,14 +9566,14 @@ export default function App() {
               className={`admin-quick-chip ${adminConsoleSection === 'contracts' ? 'is-active' : ''}`}
               onClick={() => setAdminConsoleSection('contracts')}
             >
-              Contracts (scaffold)
+              Contracts
             </button>
             <button
               type="button"
               className={`admin-quick-chip ${adminConsoleSection === 'consultant-profiles' ? 'is-active' : ''}`}
               onClick={() => setAdminConsoleSection('consultant-profiles')}
             >
-              Consultant profiles (scaffold)
+              Consultant Profiles
             </button>
           </div>
 
@@ -7535,6 +9677,12 @@ export default function App() {
           <h3 style={{ margin: '0 0 8px', color: 'var(--color-dark-teal)', fontSize: 15 }}>
             Activities (Quick Edit)
           </h3>
+          <div className="admin-console-snapshot" style={{ marginBottom: 8 }}>
+            <div><strong>{travelBookingSummary.total_required || 0}</strong><span>Travel Requests</span></div>
+            <div><strong>{travelBookingSummary.outstanding_to_book || 0}</strong><span>Travel To Book</span></div>
+            <div><strong>{travelBookingSummary.booked || 0}</strong><span>Booked Travel</span></div>
+            <div><strong>{travelBookingSummary.need_expense_prompt || 0}</strong><span>Prompt Add Expense</span></div>
+          </div>
           <div className="status" style={{ marginBottom: 8 }}>
             Key fields are shown first. Open "Advanced" in a row for less-changed fields.
           </div>
@@ -7543,7 +9691,7 @@ export default function App() {
               <thead>
                 <tr>
                   <th>Activity</th>
-                  <th>Lead Consultant</th>
+                  <th>Consultant</th>
                   <th>Client</th>
                   <th>Program (optional)</th>
                   <th>Country</th>
@@ -7705,6 +9853,97 @@ export default function App() {
                               value={draft.return_date ?? trip.return_date ?? ''}
                               onChange={(e) => onAdminTripFieldChange(trip.id, 'return_date', e.target.value)}
                             />
+                            <label className="inline-checkbox" style={{ margin: 0 }}>
+                              <input
+                                type="checkbox"
+                                checked={Boolean(draft.travel_booking_required ?? trip.travel_booking_required)}
+                                onChange={(e) => onAdminTripFieldChange(trip.id, 'travel_booking_required', e.target.checked)}
+                              />{' '}
+                              Travel booking required
+                            </label>
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6 }}>
+                              <label className="inline-checkbox" style={{ margin: 0 }}>
+                                <input
+                                  type="checkbox"
+                                  checked={Boolean(draft.travel_needs_flight ?? trip.travel_needs_flight)}
+                                  onChange={(e) => onAdminTripFieldChange(trip.id, 'travel_needs_flight', e.target.checked)}
+                                />{' '}
+                                Flight required
+                              </label>
+                              <label className="inline-checkbox" style={{ margin: 0 }}>
+                                <input
+                                  type="checkbox"
+                                  checked={Boolean(draft.travel_needs_accommodation ?? trip.travel_needs_accommodation)}
+                                  onChange={(e) => onAdminTripFieldChange(trip.id, 'travel_needs_accommodation', e.target.checked)}
+                                />{' '}
+                                Accommodation required
+                              </label>
+                            </div>
+                            <label>Outbound Preference</label>
+                            <select
+                              value={String(draft.travel_outbound_preference ?? trip.travel_outbound_preference ?? '')}
+                              onChange={(e) => onAdminTripFieldChange(trip.id, 'travel_outbound_preference', e.target.value)}
+                            >
+                              <option value="">Not set</option>
+                              <option value="arrive_by">Arrive by</option>
+                              <option value="leave_after">Leave after</option>
+                            </select>
+                            <label>Outbound Target Date</label>
+                            <input
+                              type="date"
+                              value={draft.travel_outbound_target_date ?? trip.travel_outbound_target_date ?? ''}
+                              onChange={(e) => onAdminTripFieldChange(trip.id, 'travel_outbound_target_date', e.target.value)}
+                            />
+                            <label>Return Preference</label>
+                            <select
+                              value={String(draft.travel_return_preference ?? trip.travel_return_preference ?? '')}
+                              onChange={(e) => onAdminTripFieldChange(trip.id, 'travel_return_preference', e.target.value)}
+                            >
+                              <option value="">Not set</option>
+                              <option value="leave_after">Leave after</option>
+                              <option value="arrive_before">Arrive before</option>
+                            </select>
+                            <label>Return Target Date</label>
+                            <input
+                              type="date"
+                              value={draft.travel_return_target_date ?? trip.travel_return_target_date ?? ''}
+                              onChange={(e) => onAdminTripFieldChange(trip.id, 'travel_return_target_date', e.target.value)}
+                            />
+                            <label>Travel Request Status</label>
+                            <select
+                              value={String(draft.travel_request_status ?? trip.travel_request_status ?? 'not_required')}
+                              onChange={(e) => onAdminTripFieldChange(trip.id, 'travel_request_status', e.target.value)}
+                            >
+                              <option value="not_required">Not required</option>
+                              <option value="requested">Requested</option>
+                              <option value="booked">Booked</option>
+                              <option value="cancelled">Cancelled</option>
+                            </select>
+                            <label>Travel Notes</label>
+                            <textarea
+                              rows={2}
+                              value={draft.travel_admin_notes ?? trip.travel_admin_notes ?? ''}
+                              onChange={(e) => onAdminTripFieldChange(trip.id, 'travel_admin_notes', e.target.value)}
+                              placeholder="Preferred windows, special notes for admin booking"
+                            />
+                            <button
+                              type="button"
+                              className="secondary"
+                              onClick={() => onMarkTripTravelBooked(trip)}
+                              disabled={markingTravelBookedTripId === key}
+                            >
+                              {markingTravelBookedTripId === key ? 'Marking...' : 'Mark Travel Booked'}
+                            </button>
+                            {Boolean(trip.expense_report_required) &&
+                            String(trip.travel_request_status || '').toLowerCase() === 'booked' &&
+                            !Boolean(trip.travel_booked_add_expense_prompted) ? (
+                              <button
+                                type="button"
+                                onClick={() => onCreateBookedTravelExpenseDraft(trip)}
+                              >
+                                Create Expense Draft
+                              </button>
+                            ) : null}
                           </div>
                         </details>
                       </td>
@@ -8155,6 +10394,106 @@ export default function App() {
           <div className={`status ${contractGenerationReadiness.ready ? 'qa-pass' : 'qa-fail'}`} style={{ marginBottom: 8 }}>
             Template readiness: {contractGenerationReadiness.message}
           </div>
+          <div className="contracts-workflow-grid" style={{ marginBottom: 8 }}>
+            <div className="contract-merge-panel">
+              <h4>Template Merge Fields</h4>
+              <div className="status" style={{ marginBottom: 6 }}>
+                {formatTokenLabel(contractScaffoldForm.document_type)} uses these merge points.
+              </div>
+              {mergeFieldsForSelectedContractType.length ? (
+                <div className="contract-merge-chip-grid">
+                  {mergeFieldsForSelectedContractType.map((field) => (
+                    <span key={field} className="contract-merge-chip">
+                      {'{{'}{field}{'}}'}
+                    </span>
+                  ))}
+                </div>
+              ) : (
+                <div className="status">No merge-fields metadata loaded yet.</div>
+              )}
+            </div>
+
+            <div className="contract-policy-panel">
+              <h4>Policy Send Workflow</h4>
+              <div className="status" style={{ marginBottom: 6 }}>
+                Select which policies will be bundled when issuing this contract.
+              </div>
+              <div className="contract-policy-checklist">
+                {contractPoliciesForSelectedType.map((policy) => {
+                  const checked = (contractScaffoldForm.policy_ids || []).includes(policy.id);
+                  return (
+                    <label key={policy.id} className="contract-policy-option">
+                      <input
+                        type="checkbox"
+                        checked={checked}
+                        onChange={(e) => onToggleContractPolicy(policy.id, e.target.checked)}
+                      />
+                      <span>
+                        <strong>{policy.title}</strong>
+                        <small>{policy.version} · Effective {formatDateAu(policy.effectiveDate)}</small>
+                      </span>
+                    </label>
+                  );
+                })}
+              </div>
+              <label className="contract-policy-ack">
+                <input
+                  type="checkbox"
+                  checked={Boolean(contractScaffoldForm.policy_acknowledged)}
+                  onChange={(e) =>
+                    setContractScaffoldForm((prev) => ({ ...prev, policy_acknowledged: e.target.checked }))
+                  }
+                />
+                I confirm selected policies will be attached before sending for signature.
+              </label>
+              <label>Policy Notes</label>
+              <textarea
+                rows={2}
+                value={contractScaffoldForm.policy_notes}
+                onChange={(e) => setContractScaffoldForm((prev) => ({ ...prev, policy_notes: e.target.value }))}
+                placeholder="Optional: include any policy package notes for this contract."
+              />
+            </div>
+          </div>
+
+          {activePolicyDetail ? (
+            <div className="policy-reference-card" style={{ marginBottom: 8 }}>
+              <div className="policy-reference-header">
+                <div>
+                  <div className="policy-eyebrow">Adapsys Policy Reference</div>
+                  <h4>{activePolicyDetail.title}</h4>
+                  <p>{activePolicyDetail.summary}</p>
+                </div>
+                <select
+                  value={activePolicyDetail.id}
+                  onChange={(e) => setSelectedPolicyId(e.target.value)}
+                >
+                  {contractPoliciesForSelectedType.map((policy) => (
+                    <option key={policy.id} value={policy.id}>
+                      {policy.title}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="policy-highlight-grid">
+                {(activePolicyDetail.highlights || []).map((highlight) => (
+                  <div key={highlight} className="policy-highlight-item">
+                    {highlight}
+                  </div>
+                ))}
+              </div>
+              {(activePolicyDetail.sections || []).length ? (
+                <div className="policy-section-grid">
+                  {activePolicyDetail.sections.map((section) => (
+                    <article key={section.heading} className="policy-section-card">
+                      <h5>{section.heading}</h5>
+                      <p>{section.body}</p>
+                    </article>
+                  ))}
+                </div>
+              ) : null}
+            </div>
+          ) : null}
           <div className="admin-console-snapshot" style={{ marginBottom: 8 }}>
             <div><strong>{contractOpsSummary.total}</strong><span>Total Drafts</span></div>
             <div><strong>{contractOpsSummary.awaitingSignature}</strong><span>Awaiting Signature</span></div>
@@ -8165,6 +10504,24 @@ export default function App() {
           </div>
           <button type="button" onClick={onCreateContractScaffold}>Add Contract Scaffold Row</button>
           {contractScaffoldStatus ? <div className="status admin-save-note">{contractScaffoldStatus}</div> : null}
+          {contractPreviewHtml ? (
+            <div className="contract-preview-surface">
+              <div className="contract-preview-header">
+                <div className="status report-status-surface" style={{ margin: 0 }}>
+                  Contract preview {contractPreviewRowId ? `for ${contractScaffoldRows.find((row) => row.id === contractPreviewRowId)?.project_name || 'selected row'}` : ''}
+                </div>
+                <div className="contract-preview-actions">
+                  <button type="button" className="secondary" onClick={onOpenContractPreviewInNewTab}>Open in New Tab</button>
+                  <button type="button" className="secondary" onClick={onClearContractPreview}>Close Preview</button>
+                </div>
+              </div>
+              <iframe
+                title="Adapsys Contract Preview"
+                srcDoc={contractPreviewHtml}
+                className="report-preview-frame"
+              />
+            </div>
+          ) : null}
           {contractScaffoldRows.length ? (
             <div className="admin-table-wrap" style={{ marginTop: 8 }}>
               <table className="admin-table">
@@ -8181,6 +10538,7 @@ export default function App() {
                     <th>Days</th>
                     <th>Estimated Value</th>
                     <th>Status</th>
+                    <th>Policies</th>
                     <th>Sent</th>
                     <th>Signed</th>
                     <th>Files</th>
@@ -8202,23 +10560,70 @@ export default function App() {
                       <td>{row.estimated_days}</td>
                       <td>{formatAud(row.estimated_value)}</td>
                       <td>{formatTokenLabel(row.lifecycle_status)}</td>
+                      <td>
+                        {(row.policy_ids || []).length ? `${row.policy_ids.length} selected` : 'None'}
+                        <div className={`status ${(row.policy_ids || []).length && !row.policy_acknowledged ? 'qa-fail' : 'qa-pass'}`}>
+                          {(row.policy_ids || []).length
+                            ? row.policy_acknowledged
+                              ? 'Policies ticked'
+                              : 'Policy tick pending'
+                            : 'No policies required'}
+                        </div>
+                        {(row.attachments || []).some(
+                          (attachment) => String(attachment?.source || '').trim().toLowerCase() === 'policy_library'
+                        ) ? (
+                          <div className="status" style={{ marginTop: 4 }}>
+                            Bundled:{' '}
+                            {(row.attachments || [])
+                              .filter(
+                                (attachment) =>
+                                  String(attachment?.source || '').trim().toLowerCase() === 'policy_library'
+                              )
+                              .map((attachment) => String(attachment?.name || '').trim())
+                              .filter(Boolean)
+                              .join(', ')}
+                          </div>
+                        ) : null}
+                      </td>
                       <td>{formatDateAu(String(row.sent_date || '').slice(0, 10)) || '—'}</td>
                       <td>{formatDateAu(String(row.signed_date || '').slice(0, 10)) || '—'}</td>
                       <td>{(row.attachments || []).length}</td>
                       <td>{row.generated_document_name}</td>
                       <td>
-                        <div className="coaching-form-actions" style={{ margin: 0 }}>
+                        <div className="coaching-form-actions contract-row-actions" style={{ margin: 0 }}>
+                          <button
+                            type="button"
+                            className={`secondary ${contractPreviewRowId === row.id && contractPreviewHtml ? 'is-active' : ''}`}
+                            onClick={() => onGenerateContractPreview(row.id)}
+                            disabled={isPreviewingContract && contractPreviewRowId === row.id}
+                          >
+                            {isPreviewingContract && contractPreviewRowId === row.id
+                              ? 'Generating...'
+                              : contractPreviewRowId === row.id && contractPreviewHtml
+                                ? 'Previewing'
+                                : 'Preview'}
+                          </button>
                           <button
                             type="button"
                             className="secondary"
-                            onClick={() => onGenerateContractPreview(row.id)}
+                            onClick={() => onDownloadContractPreviewPdf(row.id)}
+                            disabled={isDownloadingContractPdfRowId === row.id}
                           >
-                            Generate
+                            {isDownloadingContractPdfRowId === row.id ? 'Preparing PDF...' : 'Download PDF'}
+                          </button>
+                          <button
+                            type="button"
+                            className="secondary"
+                            onClick={() => onAcknowledgeContractPolicies(row.id)}
+                            disabled={!(row.policy_ids || []).length || row.policy_acknowledged}
+                          >
+                            {row.policy_acknowledged ? 'Policies Ticked' : 'Tick Policies Sent'}
                           </button>
                           <button
                             type="button"
                             className="secondary"
                             onClick={() => onMarkContractLifecycle(row.id, 'awaiting_signature')}
+                            disabled={(row.policy_ids || []).length > 0 && !row.policy_acknowledged}
                           >
                             Send
                           </button>
@@ -8235,6 +10640,13 @@ export default function App() {
                             onClick={() => onMarkContractLifecycle(row.id, 'signed')}
                           >
                             Mark Signed
+                          </button>
+                          <button
+                            type="button"
+                            className="secondary"
+                            onClick={() => onDeleteContractRow(row.id)}
+                          >
+                            Delete
                           </button>
                         </div>
                         {row.reminder_requested_at ? (
@@ -8413,8 +10825,12 @@ export default function App() {
                   </th>
                   <th className="col-entitled">Entitled</th>
                   <th className="col-completed">Completed</th>
+                  <th>LCP On</th>
+                  <th>LCP Entitled</th>
+                  <th>LCP Used</th>
                   <th className="col-no-show">No Show</th>
                   <th className="col-rate">Rate</th>
+                  <th className="col-cost">Cost/Session</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -8493,6 +10909,38 @@ export default function App() {
                           onChange={(e) => onAdminEngagementFieldChange(engagement.id, 'sessions_used', e.target.value)}
                         />
                       </td>
+                      <td>
+                        <label className="inline-checkbox" style={{ margin: 0 }}>
+                          <input
+                            type="checkbox"
+                            checked={Boolean(draft.lcp_debrief_enabled ?? engagement.lcp_debrief_enabled)}
+                            onChange={(e) =>
+                              onAdminEngagementFieldChange(engagement.id, 'lcp_debrief_enabled', e.target.checked)
+                            }
+                          />
+                          Yes
+                        </label>
+                      </td>
+                      <td>
+                        <input
+                          type="number"
+                          value={draft.lcp_debrief_total_sessions ?? engagement.lcp_debrief_total_sessions ?? 0}
+                          onChange={(e) =>
+                            onAdminEngagementFieldChange(engagement.id, 'lcp_debrief_total_sessions', e.target.value)
+                          }
+                          disabled={!Boolean(draft.lcp_debrief_enabled ?? engagement.lcp_debrief_enabled)}
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="number"
+                          value={draft.lcp_debrief_sessions_used ?? engagement.lcp_debrief_sessions_used ?? 0}
+                          onChange={(e) =>
+                            onAdminEngagementFieldChange(engagement.id, 'lcp_debrief_sessions_used', e.target.value)
+                          }
+                          disabled={!Boolean(draft.lcp_debrief_enabled ?? engagement.lcp_debrief_enabled)}
+                        />
+                      </td>
                       <td className="col-no-show">
                         <input
                           type="number"
@@ -8506,6 +10954,16 @@ export default function App() {
                           step="0.01"
                           value={draft.session_rate ?? engagement.session_rate ?? ''}
                           onChange={(e) => onAdminEngagementFieldChange(engagement.id, 'session_rate', e.target.value)}
+                        />
+                      </td>
+                      <td className="col-cost">
+                        <input
+                          type="number"
+                          step="0.01"
+                          value={draft.associate_cost_per_session ?? engagement.associate_cost_per_session ?? ''}
+                          onChange={(e) =>
+                            onAdminEngagementFieldChange(engagement.id, 'associate_cost_per_session', e.target.value)
+                          }
                         />
                       </td>
                       <td>
@@ -8544,6 +11002,247 @@ export default function App() {
           <h3 style={{ margin: '16px 0 8px', color: 'var(--color-dark-teal)', fontSize: 15 }}>
             Coaching Sessions (All Fields)
           </h3>
+          <div className="coaching-planner" style={{ marginBottom: 10 }}>
+            <h4 style={{ margin: '0 0 8px', color: 'var(--color-dark-teal)', fontSize: 14 }}>
+              Quick Add Multiple Session Dates
+            </h4>
+            <div className="coaching-planner-search is-admin">
+              <div>
+                <label>Search Coach</label>
+                <input
+                  value={adminSessionQuickSearch.coach}
+                  onChange={(e) =>
+                    setAdminSessionQuickSearch((prev) => ({ ...prev, coach: e.target.value }))
+                  }
+                  placeholder="Coach name or email"
+                />
+              </div>
+              <div>
+                <label>Search Consultant/Coachee</label>
+                <input
+                  value={adminSessionQuickSearch.consultant}
+                  onChange={(e) =>
+                    setAdminSessionQuickSearch((prev) => ({ ...prev, consultant: e.target.value }))
+                  }
+                  placeholder="Coachee name"
+                />
+              </div>
+              <div>
+                <label>Search Client</label>
+                <input
+                  value={adminSessionQuickSearch.client}
+                  onChange={(e) =>
+                    setAdminSessionQuickSearch((prev) => ({ ...prev, client: e.target.value }))
+                  }
+                  placeholder="Client"
+                />
+              </div>
+            </div>
+            <div className="status" style={{ marginBottom: 8 }}>
+              Matching people: {adminSessionQuickMatches.length}
+            </div>
+            <label>Selected Person</label>
+            <select
+              value={adminSessionQuickForm.engagement_id}
+              onChange={(e) =>
+                setAdminSessionQuickForm((prev) => ({ ...prev, engagement_id: e.target.value }))
+              }
+            >
+              <option value="">Select coachee</option>
+              {adminSessionQuickMatches.map((engagement) => (
+                <option key={engagement.id} value={engagement.id}>
+                  {engagement.name} — {engagement.client_org} — {displayNameFromEmail(engagement.coach_email)}
+                </option>
+              ))}
+            </select>
+
+            {selectedAdminQuickEngagement ? (
+              <div className="status" style={{ marginTop: 8 }}>
+                Recent dates for {selectedAdminQuickEngagement.name}:{' '}
+                {adminQuickRecentSessions.length
+                  ? adminQuickRecentSessions.map((session) => formatDateAu(session.session_date)).join(', ')
+                  : 'No sessions logged yet'}
+                {selectedAdminQuickLcpEnabled ? ' · LCP de-brief available' : ' · LCP de-brief not offered'}
+              </div>
+            ) : null}
+
+            <div className="coaching-planner-add-row" style={{ marginTop: 8 }}>
+              <label>Add Date</label>
+              <input
+                type="date"
+                value={adminSessionQuickForm.next_date}
+                onChange={(e) =>
+                  setAdminSessionQuickForm((prev) => ({ ...prev, next_date: e.target.value }))
+                }
+              />
+              <button type="button" className="secondary" onClick={onAdminQuickAddDate}>
+                Add Date
+              </button>
+            </div>
+
+            <label style={{ marginTop: 8 }}>Session Dates (one per line)</label>
+            <textarea
+              rows={3}
+              value={adminSessionQuickForm.session_dates_text}
+              onChange={(e) =>
+                setAdminSessionQuickForm((prev) => ({ ...prev, session_dates_text: e.target.value }))
+              }
+              placeholder={'30/03/2026\n06/04/2026\n13/04/2026'}
+            />
+
+            {adminQuickSessionDates.length ? (
+              <div className="admin-session-date-chip-list">
+                {adminQuickSessionDates.map((dateValue) => (
+                  <button
+                    key={dateValue}
+                    type="button"
+                    className="secondary admin-session-date-chip"
+                    onClick={() => onAdminQuickRemoveDate(dateValue)}
+                    title="Remove date"
+                  >
+                    {formatDateAu(dateValue)} ×
+                  </button>
+                ))}
+              </div>
+            ) : null}
+
+            <div className="coaching-session-core-grid" style={{ marginTop: 8 }}>
+              <div className="coaching-field-compact coaching-field-duration">
+                <label>Duration (mins)</label>
+                <input
+                  type="number"
+                  min="1"
+                  value={adminSessionQuickForm.duration_mins}
+                  onChange={(e) =>
+                    setAdminSessionQuickForm((prev) => ({ ...prev, duration_mins: e.target.value }))
+                  }
+                />
+              </div>
+              <div className="coaching-field-compact coaching-field-mode">
+                <label>Mode</label>
+                <select
+                  value={adminSessionQuickForm.delivery_mode}
+                  onChange={(e) =>
+                    setAdminSessionQuickForm((prev) => ({ ...prev, delivery_mode: e.target.value }))
+                  }
+                >
+                  <option value="video">Video</option>
+                  <option value="in_person">In person</option>
+                  <option value="phone">Phone</option>
+                </select>
+              </div>
+              <div className="coaching-field-compact coaching-field-no-show">
+                <label>No Show</label>
+                <label className="inline-checkbox coaching-inline-checkbox">
+                  <input
+                    type="checkbox"
+                    checked={adminSessionQuickForm.session_type === 'no_show_chargeable'}
+                    onChange={(e) =>
+                      setAdminSessionQuickForm((prev) => ({
+                        ...prev,
+                        session_type: e.target.checked ? 'no_show_chargeable' : 'completed',
+                      }))
+                    }
+                  />{' '}
+                  Chargeable no-show
+                </label>
+              </div>
+              <div className="coaching-field-compact coaching-field-lcp">
+                <label>LCP de-brief</label>
+                <label className="inline-checkbox coaching-inline-checkbox">
+                  <input
+                    type="checkbox"
+                    checked={Boolean(adminSessionQuickForm.lcp_debrief)}
+                    disabled={!selectedAdminQuickLcpEnabled}
+                    onChange={(e) =>
+                      setAdminSessionQuickForm((prev) => ({
+                        ...prev,
+                        lcp_debrief: e.target.checked,
+                        lcp_debrief_date: e.target.checked ? prev.lcp_debrief_date : '',
+                      }))
+                    }
+                  />{' '}
+                  LCP de-brief completed
+                </label>
+                {!selectedAdminQuickLcpEnabled ? (
+                  <div className="status" style={{ marginTop: 4 }}>LCP de-brief is not enabled for this coachee.</div>
+                ) : null}
+                {adminSessionQuickForm.lcp_debrief ? (
+                  <>
+                    <label style={{ marginTop: 6 }}>LCP de-brief Date</label>
+                    <input
+                      className="coaching-lcp-date-input"
+                      ref={adminLcpDateRef}
+                      type="date"
+                      value={adminSessionQuickForm.lcp_debrief_date}
+                      onChange={(e) =>
+                        setAdminSessionQuickForm((prev) => ({
+                          ...prev,
+                          lcp_debrief_date: e.target.value,
+                        }))
+                      }
+                      required
+                    />
+                  </>
+                ) : null}
+              </div>
+              <div className="coaching-field-compact coaching-field-date">
+                <label>Invoiced</label>
+                <label className="inline-checkbox coaching-inline-checkbox">
+                  <input
+                    type="checkbox"
+                    checked={Boolean(adminSessionQuickForm.invoiced_to_adapsys)}
+                    onChange={(e) =>
+                      setAdminSessionQuickForm((prev) => ({
+                        ...prev,
+                        invoiced_to_adapsys: e.target.checked,
+                      }))
+                    }
+                  />{' '}
+                  Invoiced to Adapsys
+                </label>
+              </div>
+            </div>
+
+            <label>Notes (optional)</label>
+            <textarea
+              rows={2}
+              value={adminSessionQuickForm.notes}
+              onChange={(e) =>
+                setAdminSessionQuickForm((prev) => ({ ...prev, notes: e.target.value }))
+              }
+              placeholder="Optional note applied to all dates above"
+            />
+
+            <div className="coaching-form-actions">
+              <button
+                type="button"
+                onClick={onCreateAdminSessionBatch}
+                disabled={isSavingAdminSessionBatch}
+              >
+                {isSavingAdminSessionBatch ? 'Saving Dates...' : 'Save All Dates'}
+              </button>
+              <div className="status">
+                Default outcome is <strong>completed</strong> unless no-show is ticked.
+              </div>
+            </div>
+          </div>
+          <div className="status" style={{ marginBottom: 8 }}>
+            Showing {filteredAdminSessions.length} session row(s) after search filters.
+          </div>
+          <div className="coaching-form-actions" style={{ marginBottom: 8 }}>
+            <button
+              type="button"
+              className="secondary"
+              onClick={onSaveAllAdminSessions}
+              disabled={isSavingAllAdminSessions || adminSessionEditedRows === 0}
+            >
+              {isSavingAllAdminSessions ? 'Saving Edited Rows...' : `Save Edited Rows (${adminSessionEditedRows})`}
+            </button>
+            <div className="status">
+              Use <strong>Save All Dates</strong> above to add new sessions in bulk; use this button to batch-save table edits.
+            </div>
+          </div>
           <div className="admin-table-wrap">
             <table className="admin-table">
               <thead>
@@ -8551,14 +11250,19 @@ export default function App() {
                   <th>Date</th>
                   <th>Engagement</th>
                   <th>Outcome</th>
+                  <th>LCP</th>
+                  <th>LCP Date</th>
+                  <th>Invoiced</th>
                   <th>Notes</th>
                   <th>Save</th>
                 </tr>
               </thead>
               <tbody>
-                {coachingSessions.map((session) => {
+                {filteredAdminSessions.map((session) => {
                   const key = String(session.id);
                   const draft = adminSessionDraftById[key] || {};
+                  const rowEngagement = coachingEngagementById[String(draft.engagement_id ?? session.engagement_id)] || null;
+                  const rowLcpEnabled = Boolean(rowEngagement?.lcp_debrief_enabled);
                   return (
                     <tr key={session.id}>
                       <td>
@@ -8575,7 +11279,7 @@ export default function App() {
                         >
                           {coachingEngagements.map((engagement) => (
                             <option key={engagement.id} value={engagement.id}>
-                              {engagement.name} — {engagement.client_org}
+                              {engagement.name} — {engagement.client_org} — {displayNameFromEmail(engagement.coach_email)}
                             </option>
                           ))}
                         </select>
@@ -8591,6 +11295,42 @@ export default function App() {
                             </option>
                           ))}
                         </select>
+                      </td>
+                      <td>
+                        <label className="inline-checkbox" style={{ margin: 0 }}>
+                          <input
+                            type="checkbox"
+                            checked={Boolean(draft.lcp_debrief ?? session.lcp_debrief)}
+                            disabled={!rowLcpEnabled}
+                            onChange={(e) => {
+                              onAdminSessionFieldChange(session.id, 'lcp_debrief', e.target.checked);
+                              if (!e.target.checked) {
+                                onAdminSessionFieldChange(session.id, 'lcp_debrief_date', '');
+                              }
+                            }}
+                          />
+                          Done
+                        </label>
+                      </td>
+                      <td>
+                        <input
+                          type="date"
+                          value={draft.lcp_debrief_date ?? session.lcp_debrief_date ?? ''}
+                          onChange={(e) => onAdminSessionFieldChange(session.id, 'lcp_debrief_date', e.target.value)}
+                          disabled={!Boolean(draft.lcp_debrief ?? session.lcp_debrief) || !rowLcpEnabled}
+                        />
+                      </td>
+                      <td>
+                        <label className="inline-checkbox" style={{ margin: 0 }}>
+                          <input
+                            type="checkbox"
+                            checked={Boolean(draft.invoiced_to_adapsys ?? session.invoiced_to_adapsys)}
+                            onChange={(e) =>
+                              onAdminSessionFieldChange(session.id, 'invoiced_to_adapsys', e.target.checked)
+                            }
+                          />
+                          Yes
+                        </label>
                       </td>
                       <td>
                         <input

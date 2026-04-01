@@ -50,14 +50,14 @@ _DEFAULT_COACHES: list[Consultant] = [
 ]
 
 _DEFAULT_CLIENT_PROGRAMS: list[ClientProgram] = [
-    ClientProgram(client_name="MHC", program_name="General Coaching Program"),
-    ClientProgram(client_name="PFLP", program_name="General Coaching Program"),
-    ClientProgram(client_name="SPC", program_name="General Coaching Program"),
-    ClientProgram(client_name="ARTC", program_name="General Coaching Program"),
-    ClientProgram(client_name="ATI", program_name="General Coaching Program"),
-    ClientProgram(client_name="NSW Dept of HDA", program_name="General Coaching Program"),
-    ClientProgram(client_name="Mindaroo", program_name="General Coaching Program"),
-    ClientProgram(client_name="SILA", program_name="General Coaching Program"),
+    ClientProgram(client_name="MHC", program_name=""),
+    ClientProgram(client_name="PFLP", program_name=""),
+    ClientProgram(client_name="SPC", program_name=""),
+    ClientProgram(client_name="ARTC", program_name=""),
+    ClientProgram(client_name="ATI", program_name=""),
+    ClientProgram(client_name="NSW Dept of HDA", program_name=""),
+    ClientProgram(client_name="Mindaroo", program_name=""),
+    ClientProgram(client_name="SILA", program_name=""),
 ]
 
 

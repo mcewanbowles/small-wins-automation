@@ -1,5 +1,6 @@
 import json
 import os
+import shutil
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -40,6 +41,25 @@ def _post_google_backup(dataset: str, payload: Any) -> None:
         return
 
 
+def _mirror_onedrive_backup(latest_path: Path, stamped_path: Path) -> None:
+    """
+    Optionally mirrors backup artifacts into a OneDrive-synced directory when
+    ONEDRIVE_BACKUP_DIR is configured.
+    """
+    root = (os.getenv("ONEDRIVE_BACKUP_DIR") or "").strip()
+    if not root:
+        return
+
+    try:
+        mirror_dir = Path(root).expanduser()
+        mirror_dir.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(latest_path, mirror_dir / latest_path.name)
+        shutil.copy2(stamped_path, mirror_dir / stamped_path.name)
+    except Exception:
+        # OneDrive mirror failures should never block normal app operations.
+        return
+
+
 def persist_backup_snapshot(dataset: str, payload: Any) -> None:
     """
     Writes local rolling + timestamped backups and optionally posts to a
@@ -61,6 +81,7 @@ def persist_backup_snapshot(dataset: str, payload: Any) -> None:
 
         latest_path.write_text(rendered, encoding="utf-8")
         stamped_path.write_text(rendered, encoding="utf-8")
+        _mirror_onedrive_backup(latest_path=latest_path, stamped_path=stamped_path)
     except Exception:
         # Local backup write should never crash business operations.
         pass

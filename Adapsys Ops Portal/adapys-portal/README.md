@@ -58,6 +58,50 @@ pip install -r backend/requirements.txt
 uvicorn backend.main:app --reload --port 8000
 ```
 
+### Backend env (recommended)
+
+Set these environment variables before starting backend:
+
+- `SUPABASE_URL=https://<your-project-ref>.supabase.co`
+- `SUPABASE_SERVICE_KEY=<service-role-key>`
+- `SUPABASE_ANON_KEY=<anon-key>` (optional fallback)
+- `ONEDRIVE_BACKUP_DIR=C:\Users\<you>\OneDrive\AdapsysBackups\backend-data`
+- `ADAPSYS_XERO_SYNC_ENABLED=1` (enable expense->Xero scaffold endpoints)
+- `ADAPSYS_XERO_SYNC_STUB_MODE=1` (default-safe demo mode; no live Xero call)
+
+`ONEDRIVE_BACKUP_DIR` mirrors each local backup snapshot into a OneDrive-synced folder.
+Backups are still written locally under `backend/data/backups`.
+
+### Xero expense sync scaffold (demo-safe)
+
+This repo includes a one-way Xero sync scaffold intended for demo-first rollout.
+
+- Endpoint status list: `GET /expenses/xero-sync-status`
+- Integration mode/config: `GET /expenses/xero-sync-config`
+- Manual push/retry: `POST /expenses/{expense_id}/xero-sync`
+- Allowed roles: `admin`, `finance`
+- Allowed expense status before push: `approved` or `invoiced`
+
+If `ADAPSYS_XERO_SYNC_STUB_MODE=1`, pushes return a safe stub success payload (`synced_stub`) and persist sync metadata without requiring any Xero credentials.
+
+To expose the Expense Review sync controls in frontend, set localStorage key:
+
+- `adapsys_xero_sync_enabled = 1`
+
+### Admin savings snapshot tuning (optional)
+
+Admin Console now includes a monthly Savings Snapshot panel. You can tune assumptions in localStorage:
+
+- `adapsys_savings_hourly_rate_aud` (default `95`)
+- `adapsys_savings_report_before_minutes` (default `45`)
+- `adapsys_savings_report_after_minutes` (default `12`)
+- `adapsys_savings_report_count_monthly` (default `12`)
+- `adapsys_savings_workbook_followup_before_minutes` (default `30`)
+- `adapsys_savings_workbook_followup_after_minutes` (default `8`)
+- `adapsys_savings_workshop_count_monthly` (default `6`)
+- `adapsys_savings_expense_double_entry_before_minutes` (default `6`)
+- `adapsys_savings_expense_double_entry_after_minutes` (default `2`)
+
 ### Frontend
 
 ```powershell
@@ -66,6 +110,30 @@ npm install
 npm run dev
 ```
 
+### One-time data migration to Supabase
+
+After Supabase env vars are set, you can migrate local JSON cache data:
+
+```powershell
+python backend/scripts/migrate_local_json_to_supabase.py
+```
+
+Optional scope and batching:
+
+```powershell
+python backend/scripts/migrate_local_json_to_supabase.py --dry-run
+python backend/scripts/migrate_local_json_to_supabase.py --datasets trips expenses
+python backend/scripts/migrate_local_json_to_supabase.py --datasets all --batch-size 200
+```
+
+Current migration covers local datasets:
+
+- `trips.json` -> `trips`
+- `expenses.json` -> `expenses`
+- `coaching_engagements.json` -> `engagements`
+- `coaching_sessions.json` -> `sessions`
+- `tenders.json` -> `tenders`
+
 ## Notes
 
 Environment variables and full architecture are documented in:
@@ -73,6 +141,11 @@ Environment variables and full architecture are documented in:
 - `../ADAPYS_PORTAL_ARCHITECTURE.md`
 - `../ADAPYS_OPS_PORTAL_BRIEF.md`
 - `../ADAPYS_BRAND_STYLE_GUIDE.md`
+
+Demo and UX governance runbooks:
+
+- `docs/DEMO_WEEK_PLAYBOOK.md`
+- `docs/UX_ARCHITECTURE_CHECKPOINT_TEMPLATE.md`
 
 ## Production domain (adapsysauspac.com)
 

@@ -4,7 +4,7 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse, JSONResponse
 
-from backend.routers import ato_rates, auth, automations, coaching, expenses, health, lookups, portal, reports, tenders, trips
+from backend.routers import ato_rates, auth, automations, coaching, contracts, expenses, health, lookups, portal, reports, tenders, trips, xero_oauth
 
 app = FastAPI(title="Adapsys Australia Pacific API", version="0.1.0")
 
@@ -67,11 +67,13 @@ app.include_router(portal.router, prefix="/portal", tags=["portal"])
 app.include_router(lookups.router, prefix="/lookups", tags=["lookups"])
 app.include_router(trips.router, prefix="/trips", tags=["trips"])
 app.include_router(expenses.router, prefix="/expenses", tags=["expenses"])
+app.include_router(xero_oauth.router, prefix="/xero", tags=["xero"])
 app.include_router(coaching.router, prefix="/coaching", tags=["coaching"])
 app.include_router(ato_rates.router, prefix="/ato-rates", tags=["ato-rates"])
 app.include_router(automations.router, prefix="/automations", tags=["automations"])
 app.include_router(reports.router, prefix="/reports", tags=["reports"])
 app.include_router(tenders.router, prefix="/tenders", tags=["tenders"])
+app.include_router(contracts.router, prefix="/contracts", tags=["contracts"])
 
 
 @app.get("/", response_class=HTMLResponse)

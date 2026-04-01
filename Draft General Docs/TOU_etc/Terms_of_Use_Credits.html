@@ -20,7 +20,7 @@
             font-family: 'Comic Sans MS', 'Comic Sans', cursive;
             background: white;
             color: #333;
-            line-height: 1.5;
+            line-height: 1.6;
             padding: 0;
         }
         
@@ -28,12 +28,12 @@
             width: 7.5in;
             height: 10in;
             margin: 0 auto;
-            padding: 0.08in 0.45in 0.55in 0.45in;
+            padding: 0.16in 0.5in 0.58in 0.5in;
             border: 3px solid #20B2AA;
             border-radius: 0.12in;
             background: white;
             position: relative;
-            page-break-after: always;
+            page-break-after: auto;
             display: flex;
             flex-direction: column;
         }
@@ -51,8 +51,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 20px;
-            margin: 0.03in 0.03in 14px 0.03in;
+            gap: 18px;
+            margin: 0.02in 0.03in 16px 0.03in;
         }
         
         .logo {
@@ -68,7 +68,7 @@
         .header {
             background: linear-gradient(135deg, #20B2AA 0%, #17a2a2 100%);
             color: white;
-            padding: 18px 35px;
+            padding: 16px 30px;
             text-align: center;
             border-radius: 0.12in;
             display: inline-block;
@@ -108,8 +108,8 @@
             background: #E0F7F7;
             border: 2px solid #20B2AA;
             border-radius: 10px;
-            padding: 8px;
-            margin: 8px 0;
+            padding: 12px 14px;
+            margin: 8px 0 10px;
             text-align: center;
         }
         
@@ -121,8 +121,8 @@
         }
         
         .thank-you-box p {
-            font-size: 10px;
-            line-height: 1.3;
+            font-size: 11px;
+            line-height: 1.45;
         }
         
         .section {
@@ -133,7 +133,7 @@
             color: #20B2AA;
             font-size: 13px;
             font-weight: bold;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
             padding-bottom: 2px;
             border-bottom: 2px solid #20B2AA;
             display: flex;
@@ -150,24 +150,25 @@
         .content-box {
             background: #F8FFFE;
             border-left: 4px solid #20B2AA;
-            padding: 6px 8px;
+            padding: 8px 10px;
             margin: 5px 0;
         }
         
         .content-box p {
-            font-size: 10px;
+            font-size: 11px;
+            line-height: 1.45;
             margin-bottom: 4px;
         }
         
         ul {
-            margin-left: 14px;
-            margin-top: 4px;
+            margin-left: 16px;
+            margin-top: 6px;
         }
         
         li {
-            margin: 3px 0;
-            line-height: 1.3;
-            font-size: 10px;
+            margin: 4px 0;
+            line-height: 1.45;
+            font-size: 11px;
         }
         
         .highlight-box {
@@ -186,8 +187,8 @@
         }
         
         .highlight-box p {
-            font-size: 10px;
-            line-height: 1.3;
+            font-size: 11px;
+            line-height: 1.45;
         }
         
         .highlight-box ul {
@@ -201,8 +202,8 @@
             border-radius: 8px;
             text-align: center;
             margin: 8px 0;
-            font-size: 10px;
-            line-height: 1.3;
+            font-size: 11px;
+            line-height: 1.45;
         }
         
         .page-footer {
@@ -226,52 +227,10 @@
             color: #999;
         }
         
-        .credits-page {
-            page-break-before: always;
-        }
-        
-        .symbol-attribution {
-            background: #FFF9E6;
-            border: 2px solid #FFC107;
-            border-radius: 8px;
-            padding: 15px;
-            margin: 15px 0;
-        }
-        
-        .book-disclaimer {
-            background: #FFF9E6;
-            border: 2px solid #FFC107;
-            border-radius: 8px;
-            padding: 12px;
-            margin: 12px 0;
-        }
-        
-        .book-disclaimer h3 {
-            color: #F57C00;
-            margin-bottom: 8px;
-            font-size: 14px;
-            font-weight: bold;
-        }
-        
-        .book-disclaimer p {
-            font-size: 12px;
-            line-height: 1.5;
-        }
-        
-        .symbol-attribution h3 {
-            color: #F57C00;
-            margin-bottom: 10px;
-            font-size: 16px;
-            font-weight: bold;
-        }
-        
-        .symbol-attribution p {
-            font-size: 13px;
-            line-height: 1.6;
-        }
-        
-        .symbol-attribution ul {
-            margin-top: 8px;
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
         }
         
         strong {
@@ -311,7 +270,7 @@
     </style>
 </head>
 <body>
-    <!-- PAGE 1: TERMS OF USE -->
+    <!-- SINGLE PAGE: TERMS OF USE + CREDITS -->
     <div class="page">
         <div class="page-content">
             <div class="header-container">
@@ -326,129 +285,62 @@
 
             <div class="thank-you-box">
             <h2>THANK YOU FOR YOUR PURCHASE!</h2>
-            <p>Thank you for purchasing from Small Wins Studio! This resource has been created with care to support students with diverse learning needs, particularly those using AAC (Augmentative and Alternative Communication). By purchasing this resource, you agree to the following terms:</p>
+            <p>Thank you for purchasing from Small Wins Studio! UnitReady is a structured weekly reading intervention program for older struggling readers, designed to support decoding, fluency, vocabulary, comprehension, and evidence-based writing in age-respectful ways. By purchasing this resource, you agree to the following terms:</p>
         </div>
 
-        <div class="section">
-            <div class="section-title">YOU MAY:</div>
-            <div class="content-box">
-                <ul>
-                    <li>Use this resource in your own classroom, therapy room, or homeschool setting</li>
-                    <li>Print/laminate unlimited copies for use with your students</li>
-                    <li>Share printed materials with your students and their families for home use</li>
-                    <li>Upload to password-protected LMS (Google Classroom, Seesaw, etc.) for your students only</li>
-                    <li>Store digital files on your personal computer or device</li>
-                    <li>Make necessary accommodations or modifications for individual student needs</li>
-                </ul>
+        <div class="two-col">
+            <div class="section">
+                <div class="section-title">YOU MAY:</div>
+                <div class="content-box">
+                    <ul>
+                        <li>Use this resource in your own classroom, therapy room, or homeschool setting</li>
+                        <li>Print/laminate unlimited copies for use with your students</li>
+                        <li>Share printed materials with your students and their families for home use</li>
+                        <li>Upload to password-protected LMS (Google Classroom, Seesaw, etc.) for your students only</li>
+                        <li>Store digital files on your personal computer or device</li>
+                        <li>Make accommodations or modifications for student needs</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">YOU MAY NOT:</div>
+                <div class="content-box">
+                    <ul>
+                        <li>Share, distribute, or sell this resource to other teachers or colleagues</li>
+                        <li>Post files publicly online for download</li>
+                        <li>Upload to public file-sharing platforms or social media</li>
+                        <li>Email or transmit digital files to other educators</li>
+                        <li>Claim this work as your own or remove copyright information</li>
+                    </ul>
+                </div>
             </div>
         </div>
 
         <div class="section">
-            <div class="section-title">YOU MAY NOT:</div>
+            <div class="section-title">CREDITS & EDUCATIONAL FRAMEWORK</div>
             <div class="content-box">
-                <ul>
-                    <li>Share, distribute, or sell this resource to other teachers or colleagues</li>
-                    <li>Post this resource on the internet where files can be downloaded publicly</li>
-                    <li>Upload to public file-sharing platforms or social media</li>
-                    <li>Email or transmit digital files to other educators</li>
-                    <li>Claim this work as your own or remove copyright information</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- BOOK DISCLAIMER SECTION - OPTIONAL
-             Remove this entire section if product does not accompany a specific book.
-             If used, replace {{BOOK_TITLE}} with the actual book title. -->
-        <div class="section">
-            <div class="book-disclaimer">
-                <h3>📚 BOOK DISCLAIMER</h3>
-                <p>This resource is designed to accompany "<strong>{{BOOK_TITLE}}</strong>". The book is not included and must be purchased/borrowed separately. This product is not affiliated with, endorsed by, or sponsored by the author, publisher, or trademark holder.</p>
+                <p><strong>Created by:</strong> Small Wins Studio</p>
+                <p><strong>Framework:</strong> Structured Literacy principles, Science of Reading-aligned explicit instruction, progress-monitoring routines, and age-respectful intervention design for mixed-readiness classrooms.</p>
+                <p><strong>Copyright:</strong> © 2026 Small Wins Studio. This resource is protected by U.S. and international copyright laws.</p>
             </div>
         </div>
 
         <div class="section">
-            <div class="section-title">EARN TPT CREDITS & FOLLOW SMALL WINS STUDIO</div>
+            <div class="section-title">SUPPORT, CREDITS, AND STORE</div>
             <div class="content-box">
-                <p>Leave feedback on your "My Purchases" page to earn credits for future purchases! Your reviews help other teachers discover quality resources.</p>
-                <p style="margin-top: 10px;">Stay updated on new products, sales, and free resources:</p>
+                <p>Leave feedback on your "My Purchases" page to earn credits for future purchases and help other teachers find quality resources.</p>
+                <p style="margin-top: 6px;">Questions? Contact Small Wins Studio through TPT messaging before leaving a negative review so we can quickly resolve concerns.</p>
                 <ul>
                     <li><strong>TPT Store:</strong> <a href="https://www.teacherspayteachers.com/store/small-wins-studio" target="_blank">https://www.teacherspayteachers.com/store/small-wins-studio</a></li>
                 </ul>
             </div>
         </div>
-
-        <div class="section">
-            <div class="section-title">QUESTIONS OR SUPPORT?</div>
-            <div class="content-box">
-                <p>Contact Small Wins Studio through TPT messaging before leaving a negative review. I'm committed to ensuring you have a positive experience and will work quickly to resolve any concerns!</p>
-            </div>
-        </div>
         </div>
 
         <div class="page-footer">
-            <div class="line1">Terms of Use &amp; Credits | Page 1/2</div>
-            <div class="line2">Small Wins Studio | PCS symbols used with active PCS Maker Personal License. | © 2026</div>
-        </div>
-    </div>
-
-    <!-- PAGE 2: CREDITS & ATTRIBUTIONS -->
-    <div class="page credits-page">
-        <div class="page-content">
-            <div class="header">
-                <h1>CREDITS & ATTRIBUTIONS</h1>
-                <div class="subtitle">Small Wins Studio</div>
-            </div>
-
-        <div class="section">
-            <div class="section-title">PRODUCT CREATED BY</div>
-            <div class="content-box">
-                <p style="text-align: center; font-size: 18px; font-weight: bold; color: #20B2AA;">Small Wins Studio</p>
-                <p style="text-align: center; margin-top: 10px;">This resource is created by Small Wins Studio and is protected by U.S. and international copyright laws.</p>
-            </div>
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="section">
-            <div class="section-title">PICTURE COMMUNICATION SYMBOLS</div>
-            <div class="symbol-attribution">
-                <p><strong>The Picture Communication Symbols ©1981–2024 by Tobii Dynavox LLC. All Rights Reserved Worldwide. Used with permission.</strong></p>
-                
-                <p style="margin-top: 10px;"><strong>Boardmaker®</strong> is a trademark of Tobii Dynavox LLC.</p>
-                
-                <p style="margin-top: 10px;">Licensed use through Boardmaker® subscription/license. PCS symbols used in accordance with Tobii Dynavox commercial use guidelines.</p>
-                
-                <p style="margin-top: 10px; font-style: italic;">This product is not affiliated with, sponsored by, or endorsed by Tobii Dynavox LLC.</p>
-                
-                <p style="margin-top: 10px;"><strong>For more information:</strong> <a href="http://www.tobiidynavox.com">www.tobiidynavox.com</a> | mayer-johnson.usa@mayer-johnson.com</p>
-            </div>
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="section">
-            <div class="section-title">EDUCATIONAL FRAMEWORK</div>
-            <div class="content-box">
-                <p><strong>This product is grounded in research-based practices:</strong> AAC Core Vocabulary Research, Universal Design for Learning (UDL) - CAST framework, and Structured Literacy Principles.</p>
-            </div>
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="thank-you-box">
-            <h2>THANK YOU!</h2>
-            <p>Thank you for supporting Small Wins Studio and for the important work you do every day to support students with diverse learning needs. Your dedication makes a difference!</p>
-            <p style="margin-top: 10px; font-weight: bold;">Please remember to rate this product and follow my store for updates!</p>
-        </div>
-
-        <div class="content-box" style="margin-top: 15px;">
-            <p style="font-style: italic;"><strong>If you have found this product useful, please add a review!</strong> I am a new seller and depend on your support. I would love to know how you used the product and if you have ideas for future products. Your feedback helps me create better resources for you and other educators!</p>
-        </div>
-        </div>
-
-        <div class="page-footer">
-            <div class="line1">Terms of Use &amp; Credits | Page 2/2</div>
-            <div class="line2">Small Wins Studio | PCS symbols used with active PCS Maker Personal License. | © 2026</div>
+            <div class="line1">UnitReady Terms of Use &amp; Credits | Page 1/1</div>
+            <div class="line2">Small Wins Studio | © 2026 Small Wins Studio</div>
         </div>
     </div>
 </body>
