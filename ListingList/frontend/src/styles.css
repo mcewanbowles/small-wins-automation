@@ -268,6 +268,88 @@ body {
   line-height: 1.45;
 }
 
+.onboarding-card,
+.intent-card {
+  margin-top: 12px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 12px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbfb 100%);
+}
+
+.onboarding-head h3 {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.onboarding-head p {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.35;
+}
+
+.onboarding-controls {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.intent-buttons {
+  margin-top: 10px;
+  display: grid;
+  gap: 10px;
+}
+
+.seed-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip-btn {
+  border: 1px solid var(--line);
+  background: #ffffff;
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 0.78rem;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.chip-btn:hover {
+  border-color: #b8d6d6;
+  background: #f6fbfb;
+  color: #2d5a5a;
+}
+
+.advanced {
+  margin-top: 6px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #ffffff;
+  padding: 6px 10px;
+}
+
+.advanced-summary {
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.84rem;
+  color: var(--teal);
+}
+
+.advanced-summary::-webkit-details-marker {
+  display: none;
+}
+
+.advanced-panel {
+  margin-top: 10px;
+  display: grid;
+  gap: 10px;
+}
+
 .input,
 .textarea,
 select {
@@ -337,6 +419,40 @@ input:disabled {
   margin: 10px 2px 0;
   color: var(--muted);
   font-size: 0.8rem;
+}
+
+.all-results {
+  margin-top: 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.all-results-summary {
+  cursor: pointer;
+  padding: 12px 14px;
+  font-weight: 700;
+  color: var(--ink);
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbfb 100%);
+}
+
+.all-results-summary::-webkit-details-marker {
+  display: none;
+}
+
+.all-results[open] .all-results-summary {
+  border-bottom: 1px solid var(--line);
+}
+
+.all-results .table-head {
+  padding: 14px 14px 0;
+}
+
+.all-results .table-wrap {
+  margin-top: 10px;
+  border: 0;
+  border-radius: 0;
 }
 
 .table-wrap {

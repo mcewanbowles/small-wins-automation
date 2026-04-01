@@ -69,6 +69,22 @@ function keywordConfidence(row) {
   return "Low";
 }
 
+const IDEA_SEED_EXAMPLES = [
+  "social stories autism",
+  "morning work",
+  "adapted books",
+  "behavior expectations",
+  "visual schedule",
+];
+
+const ANGLE_SEED_EXAMPLES = [
+  "christmas social stories",
+  "christmas math centers",
+  "halloween writing prompts",
+  "valentines day activities",
+  "end of year reflection",
+];
+
 const SESSION_KEY = `listinglift_session_${PRODUCT_VARIANT}_v1`;
 
 export function App() {
@@ -80,6 +96,8 @@ export function App() {
   const [winnableOnly, setWinnableOnly] = useState(true);
   const [beginnerMode, setBeginnerMode] = useState(true);
   const [startHereOnly, setStartHereOnly] = useState(false);
+  const [tptStageConfirmed, setTptStageConfirmed] = useState(false);
+  const [keywordIntent, setKeywordIntent] = useState("idea");
   const [keywordsLoading, setKeywordsLoading] = useState(false);
   const [keywordsError, setKeywordsError] = useState("");
   const [keywordItems, setKeywordItems] = useState([]);
@@ -118,6 +136,20 @@ export function App() {
   const effectiveStoreLevel = beginnerMode ? "new_store" : storeLevel;
   const effectiveWinnableOnly = beginnerMode ? true : winnableOnly;
 
+  const seedPlaceholder = useMemo(() => {
+    if (keywordIntent === "angle") {
+      return "christmas social stories";
+    }
+    return "social stories autism";
+  }, [keywordIntent]);
+
+  const seedLabel = useMemo(() => {
+    if (keywordIntent === "angle") {
+      return "Theme / product topic";
+    }
+    return "Seed topic";
+  }, [keywordIntent]);
+
   const titleStatus = useMemo(() => {
     if (!listing) return "muted";
     return listing.title_chars <= listing.title_limit ? "ok" : "bad";
@@ -129,6 +161,10 @@ export function App() {
     }
     return keywordItems.filter((item) => item.recommendation_label === "Start Here");
   }, [keywordItems, startHereOnly]);
+
+  const startHereItems = useMemo(() => {
+    return visibleKeywordItems.filter((item) => item.recommendation_label === "Start Here");
+  }, [visibleKeywordItems]);
 
   async function onSearchKeywords(event) {
     event.preventDefault();
@@ -285,6 +321,8 @@ export function App() {
       winnableOnly,
       beginnerMode,
       startHereOnly,
+      tptStageConfirmed,
+      keywordIntent,
       keywordItems,
       form,
       listing,
@@ -300,6 +338,8 @@ export function App() {
     setGoldOnly(Boolean(snapshot.goldOnly));
     setBeginnerMode(snapshot.beginnerMode ?? true);
     setStartHereOnly(Boolean(snapshot.startHereOnly));
+    setTptStageConfirmed(Boolean(snapshot.tptStageConfirmed));
+    setKeywordIntent(snapshot.keywordIntent === "angle" ? "angle" : "idea");
     setStoreLevel(snapshot.storeLevel || STORE_LEVELS[0].value);
     setWinnableOnly(snapshot.winnableOnly ?? true);
     setKeywordItems(Array.isArray(snapshot.keywordItems) ? snapshot.keywordItems : []);
@@ -311,6 +351,26 @@ export function App() {
     setListing(snapshot.listing || null);
     setAuditForm((old) => ({ ...old, ...(snapshot.auditForm || {}) }));
     setAuditResult(snapshot.auditResult || null);
+  }
+
+  function onConfirmTptStoreStage() {
+    setTptStageConfirmed(true);
+
+    if (storeLevel === "new_store") {
+      setBeginnerMode(true);
+      setWinnableOnly(true);
+    } else {
+      setBeginnerMode(false);
+    }
+  }
+
+  function onChangeTptStoreStage() {
+    setTptStageConfirmed(false);
+  }
+
+  function onUseSeedExample(example) {
+    setSeed(example);
+    setKeywordsError("");
   }
 
   function onDownloadSessionJson() {
@@ -518,54 +578,90 @@ export function App() {
             </div>
           ) : null}
 
+          {activePlatform === "tpt" && activeCapabilities.keywords ? (
+            <div className="onboarding-card">
+              <div className="onboarding-head">
+                <h3>1) Tell us your TPT store stage</h3>
+                <p>This tailors what counts as a realistic “Start Here” keyword for your store.</p>
+              </div>
+              <div className="onboarding-controls">
+                <select
+                  className="input"
+                  value={storeLevel}
+                  onChange={(event) => setStoreLevel(event.target.value)}
+                  disabled={tptStageConfirmed}
+                >
+                  {STORE_LEVELS.map((level) => (
+                    <option key={level.value} value={level.value}>
+                      {level.label}
+                    </option>
+                  ))}
+                </select>
+                {!tptStageConfirmed ? (
+                  <button className="primary-btn" type="button" onClick={onConfirmTptStoreStage}>
+                    Confirm store stage
+                  </button>
+                ) : (
+                  <button className="ghost-btn" type="button" onClick={onChangeTptStoreStage}>
+                    Change
+                  </button>
+                )}
+              </div>
+              {!tptStageConfirmed ? (
+                <p className="helper-copy">Once confirmed, we’ll keep your recommendations aligned to your current authority level.</p>
+              ) : null}
+            </div>
+          ) : null}
+
+          {activeCapabilities.keywords ? (
+            <div className="intent-card">
+              <div className="onboarding-head">
+                <h3>2) What are you working on today?</h3>
+                <p>Same engine — we just tailor the examples and guidance.</p>
+              </div>
+              <div className="intent-buttons">
+                <button
+                  className={keywordIntent === "idea" ? "primary-btn" : "ghost-btn"}
+                  type="button"
+                  onClick={() => setKeywordIntent("idea")}
+                >
+                  I need an idea (what should I sell?)
+                </button>
+                <button
+                  className={keywordIntent === "angle" ? "primary-btn" : "ghost-btn"}
+                  type="button"
+                  onClick={() => setKeywordIntent("angle")}
+                >
+                  I have a theme/product (best angle)
+                </button>
+              </div>
+            </div>
+          ) : null}
+
           <form onSubmit={onSearchKeywords} className="stack">
             <label className="label" htmlFor="seed">
-              Seed topic
+              {seedLabel}
             </label>
             <input
               id="seed"
               className="input"
               value={seed}
               onChange={(event) => setSeed(event.target.value)}
-              placeholder="social stories autism"
+              placeholder={seedPlaceholder}
             />
 
-            <label className="check-row">
-              <input
-                type="checkbox"
-                checked={goldOnly}
-                onChange={(event) => setGoldOnly(event.target.checked)}
-                disabled={!activeCapabilities.keywords}
-              />
-              Show best opportunities only
-            </label>
-
-            <label className="check-row">
-              <input
-                type="checkbox"
-                checked={beginnerMode}
-                onChange={(event) => {
-                  const enabled = event.target.checked;
-                  setBeginnerMode(enabled);
-                  if (enabled) {
-                    setStoreLevel("new_store");
-                    setWinnableOnly(true);
-                  }
-                }}
-                disabled={!activeCapabilities.keywords}
-              />
-              Beginner Mode (0 reviews / 0 sales)
-            </label>
-
-            <label className="check-row">
-              <input
-                type="checkbox"
-                checked={effectiveWinnableOnly}
-                onChange={(event) => setWinnableOnly(event.target.checked)}
-                disabled={!activeCapabilities.keywords || beginnerMode}
-              />
-              Realistic for my store right now
-            </label>
+            <div className="seed-chips">
+              {(keywordIntent === "angle" ? ANGLE_SEED_EXAMPLES : IDEA_SEED_EXAMPLES).map((example) => (
+                <button
+                  key={example}
+                  className="chip-btn"
+                  type="button"
+                  onClick={() => onUseSeedExample(example)}
+                >
+                  {example}
+                </button>
+              ))}
+            </div>
 
             <label className="check-row">
               <input
@@ -576,6 +672,49 @@ export function App() {
               />
               Start Here only
             </label>
+
+            <details className="advanced" open={false}>
+              <summary className="advanced-summary">Advanced options</summary>
+
+              <div className="advanced-panel">
+                <label className="check-row">
+                  <input
+                    type="checkbox"
+                    checked={goldOnly}
+                    onChange={(event) => setGoldOnly(event.target.checked)}
+                    disabled={!activeCapabilities.keywords}
+                  />
+                  Show best opportunities only
+                </label>
+
+                <label className="check-row">
+                  <input
+                    type="checkbox"
+                    checked={beginnerMode}
+                    onChange={(event) => {
+                      const enabled = event.target.checked;
+                      setBeginnerMode(enabled);
+                      if (enabled) {
+                        setStoreLevel("new_store");
+                        setWinnableOnly(true);
+                      }
+                    }}
+                    disabled={!activeCapabilities.keywords}
+                  />
+                  Beginner Mode (0 reviews / 0 sales)
+                </label>
+
+                <label className="check-row">
+                  <input
+                    type="checkbox"
+                    checked={effectiveWinnableOnly}
+                    onChange={(event) => setWinnableOnly(event.target.checked)}
+                    disabled={!activeCapabilities.keywords || beginnerMode}
+                  />
+                  Realistic for my store right now
+                </label>
+              </div>
+            </details>
 
             {beginnerMode && activeCapabilities.keywords ? (
               <p className="helper-copy">
@@ -590,87 +729,16 @@ export function App() {
 
           {keywordsError ? <p className="error">{keywordsError}</p> : null}
 
-          <div className="section-actions">
-            <button
-              className="ghost-btn inline-btn"
-              type="button"
-              onClick={onExportKeywordsCsv}
-              disabled={!visibleKeywordItems.length}
-            >
-              Export Keywords CSV
-            </button>
-          </div>
-
-          {activeCapabilities.keywords ? (
-            <p className="sort-note">Sorted by Opportunity Score (highest to lowest).</p>
+          {!visibleKeywordItems.length && !keywordsLoading && !keywordsError && activeCapabilities.keywords ? (
+            <div className="empty-hint">
+              <h3>Start with a broad topic, then pick one “Start Here” keyword.</h3>
+              <p>Tip: click an example above, then press “Find Keywords”.</p>
+            </div>
           ) : null}
-
-          <div className="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Keyword phrase</th>
-                  <th>Demand</th>
-                  <th>Opportunity</th>
-                  <th>Confidence</th>
-                  <th>TPT supply</th>
-                  <th>Avg reviews (P1)</th>
-                  <th>Winnable</th>
-                  <th>Verdict</th>
-                  <th>Recommendation</th>
-                </tr>
-              </thead>
-              <tbody>
-                {visibleKeywordItems.length === 0 ? (
-                  <tr>
-                    <td colSpan={8} className="muted-cell">
-                      {keywordItems.length === 0
-                        ? "No keywords yet. Enter a seed topic (example: \"social stories autism\") and click Find Keywords."
-                        : "No Start Here keywords in this result set. Try another seed topic or turn off Start Here only."}
-                    </td>
-                  </tr>
-                ) : (
-                  visibleKeywordItems.map((row) => (
-                    <tr key={row.phrase}>
-                      <td>
-                        <div className="row-keyword">{row.phrase}</div>
-                        <div className="keyword-actions">
-                          <CopyButton value={row.phrase} className="inline-btn" />
-                          <button
-                            className="ghost-btn inline-btn"
-                            onClick={() => onUseKeywordInDraft(row.phrase)}
-                            type="button"
-                          >
-                            Use in draft
-                          </button>
-                        </div>
-                      </td>
-                      <td>{row.demand_label}</td>
-                      <td>
-                        <span className="opportunity-pill">{row.opportunity_score}</span>
-                      </td>
-                      <td>
-                        <ConfidenceBadge level={keywordConfidence(row)} />
-                      </td>
-                      <td>{row.tpt_supply_count === null ? "n/a" : row.tpt_supply_count}</td>
-                      <td>{row.avg_top5_reviews === null ? "n/a" : row.avg_top5_reviews}</td>
-                      <td>{row.winnable_now ? "Yes" : "No"}</td>
-                      <td>
-                        <VerdictBadge verdict={row.verdict} />
-                      </td>
-                      <td>
-                        <RecommendationBadge label={row.recommendation_label} />
-                      </td>
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
-          </div>
 
           {visibleKeywordItems.length ? (
             <div className="output-stack keyword-guidance-stack">
-              {visibleKeywordItems.slice(0, 3).map((row) => (
+              {(startHereItems.length ? startHereItems : visibleKeywordItems).slice(0, 3).map((row) => (
                 <div className="output-block" key={`${row.phrase}-guidance`}>
                   <div className="split-row">
                     <h3>{row.phrase}</h3>
@@ -689,6 +757,91 @@ export function App() {
               ))}
             </div>
           ) : null}
+
+          <details className="all-results" open={false}>
+            <summary className="all-results-summary">All keyword results</summary>
+
+            <div className="table-head">
+              <div>
+                <p className="helper-copy">Click a keyword to copy it or send it directly into your listing draft notes.</p>
+              </div>
+              <div className="section-actions">
+                <button
+                  className="ghost-btn"
+                  type="button"
+                  onClick={onExportKeywordsCsv}
+                  disabled={!visibleKeywordItems.length}
+                >
+                  Export CSV
+                </button>
+              </div>
+            </div>
+
+            {visibleKeywordItems.length ? (
+              <p className="sort-note">Sorted by Opportunity Score (highest to lowest).</p>
+            ) : null}
+
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Keyword phrase</th>
+                    <th>Demand</th>
+                    <th>Opportunity</th>
+                    <th>Confidence</th>
+                    <th>TPT supply</th>
+                    <th>Avg reviews (P1)</th>
+                    <th>Winnable</th>
+                    <th>Verdict</th>
+                    <th>Recommendation</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {visibleKeywordItems.length === 0 ? (
+                    <tr>
+                      <td colSpan={9} className="empty-cell">
+                        No keyword ideas yet. Enter a seed topic above.
+                      </td>
+                    </tr>
+                  ) : (
+                    visibleKeywordItems.map((row) => (
+                      <tr key={row.phrase}>
+                        <td>
+                          <div className="row-keyword">{row.phrase}</div>
+                          <div className="keyword-actions">
+                            <CopyButton value={row.phrase} className="inline-btn" />
+                            <button
+                              className="ghost-btn inline-btn"
+                              onClick={() => onUseKeywordInDraft(row.phrase)}
+                              type="button"
+                            >
+                              Use in draft
+                            </button>
+                          </div>
+                        </td>
+                        <td>{row.demand_label}</td>
+                        <td>
+                          <span className="opportunity-pill">{row.opportunity_score}</span>
+                        </td>
+                        <td>
+                          <ConfidenceBadge level={keywordConfidence(row)} />
+                        </td>
+                        <td>{row.tpt_supply_count === null ? "n/a" : row.tpt_supply_count}</td>
+                        <td>{row.avg_top5_reviews === null ? "n/a" : row.avg_top5_reviews}</td>
+                        <td>{row.winnable_now ? "Yes" : "No"}</td>
+                        <td>
+                          <VerdictBadge verdict={row.verdict} />
+                        </td>
+                        <td>
+                          <RecommendationBadge label={row.recommendation_label} />
+                        </td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </details>
         </section>
 
         <section className="card">
