@@ -132,3 +132,8 @@ production/generators/audit_*.png
 # PackReady / TPTUploadReady build outputs (keep source only)
 tpt_upload_ready/build/
 tpt_upload_ready/dist_lite/
+
+# Root-level audit outputs (local QA artifacts)
+audit_*.png
+audit_covers/
+audit_zip_covers/
