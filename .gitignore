@@ -79,7 +79,7 @@ __pycache__/
 output/ # Ignore generated PDFs
 review_pdfs/
 production/**/*.pdf
-samples/**/*.pdf
+samples/
 exports/
 
 # Ignore generated ZIP packages
