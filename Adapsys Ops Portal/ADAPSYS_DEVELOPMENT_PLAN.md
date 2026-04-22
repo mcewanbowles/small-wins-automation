@@ -17,6 +17,8 @@
 > `@ADAPSYS_BRAND_STYLE_GUIDE.md`
 > `@ADAPSYS_EXPENSE_APP_WINDSURF_BRIEF.md`
 > `@ADAPSYS_BD_GROWTH_STRATEGY_AND_TENDER_MODULE.md`
+> `@ADAPSYS_MODULE_11_WORKSHOP_REFERENCE_BOOK.md`
+> `@ADAPSYS_MODULE_12_WAYS_OF_WORKING.md`
 
 ---
 
@@ -88,6 +90,8 @@ MODULE 7:  BD / Relationship CRM    🔲 NOT STARTED
 MODULE 8:  Participant Portal       🔲 NOT STARTED — Phase 2
 MODULE 9:  Adaptive Leadership Tool 🔲 NOT STARTED — Phase 3
 MODULE 10: Google Drive Sync        🔲 NOT STARTED — integrate throughout
+MODULE 11: Workshop + Ref Books     🔲 NOT STARTED — Phase 3
+MODULE 12: Ways of Working (SOP)    🔲 NOT STARTED — Phase 3
 ```
 
 ---
@@ -865,6 +869,57 @@ DRIVE_FOLDERS = {
 
 ---
 
+# MODULE 11: WORKSHOP MANAGEMENT + REFERENCE BOOK BUILDER
+## Status: 🔲 NOT STARTED — PHASE 3
+
+Full specification in `@ADAPSYS_MODULE_11_WORKSHOP_REFERENCE_BOOK.md`
+
+### Summary of Core Features
+- Workshop creation opens a trackable project with auto-generated project code
+- Optional reference-book workflow with design deadline, print location, and quantity
+- Facilitator selector pulls from consultant profiles (photo + bio auto-population)
+- Consultant-facing reference book builder with reorderable page structure
+- Eight page types (cover, facilitator bios, text, image+text, full image, activity, client logo, custom upload)
+- Dashboard KPI for outstanding reference books with deadline escalation
+- Fi submission flow with structured design-brief PDF generation
+- Google Drive asset backup for submitted content + attachments
+
+### Implementation Scope (first pass)
+- [ ] Workshop schema + CRUD (workshops, workshop_facilitators)
+- [ ] Reference book schema + CRUD (reference_books, book_pages)
+- [ ] Workshop creation screen (admin/lead consultant)
+- [ ] Reference book builder shell UI + page ordering
+- [ ] Submit-to-Fi workflow + status transitions
+- [ ] Design brief PDF endpoint (WeasyPrint)
+- [ ] Print location intelligence + preferred printer settings
+
+---
+
+# MODULE 12: WAYS OF WORKING (KNOWLEDGE BASE + SOP)
+## Status: 🔲 NOT STARTED — PHASE 3
+
+Full specification in `@ADAPSYS_MODULE_12_WAYS_OF_WORKING.md`
+
+### Summary of Core Features
+- Consultant-facing SOP knowledge base in magic-link portal
+- Fi admin content builder for SOP categories/pages (draft + publish)
+- Structured content sections: intro, steps, checklist, warning, portal links, contacts
+- Mark-as-read tracking per consultant and per policy page
+- New starter onboarding checklist with completion tracker
+- Policy update notifications and review-due reminders
+- Search across SOP pages and recently updated feed
+
+### Implementation Scope (first pass)
+- [ ] SOP schema + CRUD (sop_categories, sop_pages)
+- [ ] Read tracking + onboarding progress schema and endpoints
+- [ ] Fi admin: category manager + SOP page builder
+- [ ] Consultant portal tab: Ways of Working list + page render
+- [ ] Mark-as-read action + Fi tracker view
+- [ ] Onboarding checklist gate (first-login flow)
+- [ ] Policy update email and review reminder widget
+
+---
+
 # ADMIN PORTAL — COMPLETE FEATURE LIST
 
 ## What Fi Sees on Login Every Morning
@@ -1039,8 +1094,10 @@ GO / NO-GO CHECKLIST
 
 ### Session 17: BD / Relationship CRM (Module 7)
 ### Session 18: Adaptive Leadership Tool (Module 9)
-### Session 19: Google Drive Auto-Sync (Module 10)
-### Session 20: n8n Integration + Zoho Sync
+### Session 19: Workshop Management + Ref Book Core (Module 11)
+### Session 20: Ways of Working + SOP Tracker (Module 12)
+### Session 21: Google Drive Auto-Sync (Module 10)
+### Session 22: n8n Integration + Zoho Sync
 
 ---
 
