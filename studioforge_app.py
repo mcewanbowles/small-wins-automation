@@ -344,7 +344,7 @@ def render_status_badge(status: str, key: str) -> bool:
     clicked = st.button(
         label,
         key=key,
-        help="Click to cycle status: Not started â†’ Ready â†’ Uploaded",
+        help="Click to cycle status: Not started -> Ready -> Uploaded",
     )
     st.markdown(
         f"""
@@ -407,7 +407,7 @@ def render_tracker_screen(display_map: dict[str, str]):
                     if created:
                         show_toast("success", f"Created {created} tracker record(s)")
                     else:
-                        show_toast("info", "No new records â€” already up to date")
+                        show_toast("info", "No new records - already up to date")
                     safe_rerun()
     except Exception:
         pass
@@ -458,12 +458,12 @@ def render_tracker_screen(display_map: dict[str, str]):
         if st.button("Mark Ready", key="trk_mark_ready", disabled=not sel_ids):
             for rid in list(sel_ids):
                 update_tracker_record(rid, {"status": "ready"})
-            show_toast("success", f"Updated {len(sel_ids)} record(s) â†’ Ready")
+            show_toast("success", f"Updated {len(sel_ids)} record(s) -> Ready")
             safe_rerun()
         if st.button("Mark Uploaded", key="trk_mark_uploaded", disabled=not sel_ids):
             for rid in list(sel_ids):
                 update_tracker_record(rid, {"status": "uploaded", "uploaded_date": _now_iso_date()})
-            show_toast("success", f"Updated {len(sel_ids)} record(s) â†’ Uploaded")
+            show_toast("success", f"Updated {len(sel_ids)} record(s) -> Uploaded")
             safe_rerun()
         if st.button("Mark Not Started", key="trk_mark_not_started", disabled=not sel_ids):
             for rid in list(sel_ids):
@@ -549,7 +549,7 @@ def render_tracker_screen(display_map: dict[str, str]):
             a, b, c, d, e = st.columns([3, 1, 2, 2, 2])
             with a:
                 sel_key = f"trk_sel_{rid}"
-                checked = st.checkbox("âœ“", value=(rid in st.session_state.get("trk_sel", [])), key=sel_key)
+                checked = st.checkbox("Select", value=(rid in st.session_state.get("trk_sel", [])), key=sel_key)
                 try:
                     cur = set(st.session_state.get("trk_sel", []))
                     if checked:
@@ -560,10 +560,10 @@ def render_tracker_screen(display_map: dict[str, str]):
                 except Exception:
                     pass
                 st.markdown(f"**{book_title}**")
-                st.caption(f"{pack} Â· {pt}")
+                st.caption(f"{pack} - {pt}")
             with b:
                 if st.button(
-                    {"not_started": "â—‹", "ready": "â—", "uploaded": "â—", "needs_update": "!", "paused": "â¸"}.get(status, "â—‹"),
+                    {"not_started": "o", "ready": ">", "uploaded": "*", "needs_update": "!", "paused": "||"}.get(status, "o"),
                     key=f"trk_cycle_{rid}",
                     help="Cycle status",
                 ):
@@ -572,12 +572,12 @@ def render_tracker_screen(display_map: dict[str, str]):
                     if new_s == "uploaded" and not r.get("uploaded_date"):
                         patch["uploaded_date"] = _now_iso_date()
                     update_tracker_record(rid, patch)
-                    show_toast("success", f"Status â†’ {new_s}")
+                    show_toast("success", f"Status -> {new_s}")
                     safe_rerun()
                 st.caption(status)
             with c:
                 st.caption("Uploaded")
-                st.write(uploaded_date or "â€”")
+                st.write(uploaded_date or "-")
             with d:
                 st.caption("TPT URL")
                 if tpt_url:
@@ -593,7 +593,7 @@ def render_tracker_screen(display_map: dict[str, str]):
                     except Exception:
                         pass
                 else:
-                    st.write("â€”")
+                    st.write("-")
             with e:
                 exp = st.expander("Edit", expanded=(rid == st.session_state.get("trk_focus_id")))
                 with exp:
@@ -712,7 +712,7 @@ def get_display_map(slugs: list[str], titles_map: dict) -> dict:
 
 def show_toast(kind: str, msg: str, duration: int | None = None):
     if hasattr(st, "toast"):
-        st.toast(msg, icon={"success": "âœ…", "info": "â„¹ï¸", "warning": "âš ï¸", "error": "âŒ"}.get(kind, "â„¹ï¸"))
+        st.toast(msg)
     else:
         if kind == "success":
             st.success(msg)
@@ -796,7 +796,7 @@ def parse_vocab_for_slug(slug: str) -> list[str]:
             return []
         payload = em.group(1).strip()
         payload = payload.splitlines()[0]
-        raw = [t.strip() for t in re.split(r",|/|;|Â·|â€”|â€“", payload)]
+        raw = [t.strip() for t in re.split(r",|/|;|\||-", payload)]
         toks = [t for t in raw if t]
         return toks[:80]
     except Exception:
@@ -1046,7 +1046,7 @@ def write_book_state(slug: str, data: dict, toast_ok: bool = False):
         if toast_ok:
             show_toast("success", "Config saved")
     except Exception:
-        show_toast("warning", "Could not save book state â€” changes are session-only.")
+        show_toast("warning", "Could not save book state - changes are session-only.")
 
 
 def default_pack_code(slug: str) -> str:
@@ -1313,13 +1313,13 @@ def build_cover_csv(
         return _pdf_page_count(p) if p else 0
 
     bullet_templates = {
-        "Adapted Book": "âœ… Adapted Book â€” {pages} pages",
-        "Matching": "âœ… Matching Activities â€” {pages} pages (4 levels)",
-        "Find & Cover": "âœ… Find & Cover â€” {pages} pages (3 levels)",
-        "AAC Board": "âœ… AAC Communication Board â€” {pages} pages",
-        "Word Search": "âœ… Word Search â€” {pages} pages",
-        "AAC Sentence Strips": "âœ… AAC Sentence Strips â€” {pages} pages",
-        "Sorting Cards": "âœ… Sorting Cards â€” {pages} pages",
+        "Adapted Book": "[x] Adapted Book - {pages} pages",
+        "Matching": "[x] Matching Activities - {pages} pages (4 levels)",
+        "Find & Cover": "[x] Find & Cover - {pages} pages (3 levels)",
+        "AAC Board": "[x] AAC Communication Board - {pages} pages",
+        "Word Search": "[x] Word Search - {pages} pages",
+        "AAC Sentence Strips": "[x] AAC Sentence Strips - {pages} pages",
+        "Sorting Cards": "[x] Sorting Cards - {pages} pages",
     }
     bullets: list[str] = []
     for name in [
@@ -1344,7 +1344,7 @@ def build_cover_csv(
         if built_info.get(n, {}).get("built"):
             built_count += 1
             total_pages += _pages_for_product(n)
-    product_count_str = f"{built_count} Products Â· {total_pages}+ Pages"
+    product_count_str = f"{built_count} Products - {total_pages}+ Pages"
 
     how_to = [
         "Print and laminate all pages",
@@ -1352,9 +1352,9 @@ def build_cover_csv(
         "Store in zip bag or file folder",
         "Re-use across multiple sessions!",
     ]
-    audience = "SPED Classrooms Â· AAC Users Â· Speech Therapy Â· Autism Support"
+    audience = "SPED Classrooms - AAC Users - Speech Therapy - Autism Support"
     product_subtitle = "Book Companion Pack"
-    grade_band = "SPED Â· Autism Â· AAC"
+    grade_band = "SPED - Autism - AAC"
 
     fields = [
         "template",
@@ -1991,12 +1991,12 @@ def _create_product_cover_pdf(*, out_path: Path, theme_name: str, pack_code: str
         top = int(2.05 * DPI)
         max_w = w - 2 * left
 
-        title = "Whatâ€™s Included"
+        title = "What's Included"
         d.text((left, top), title, fill=hex_to_rgb(NAVY_HEX), font=heading_font)
         y = top + int(0.30 * DPI)
 
         for b in bullets[:10]:
-            line = f"â€¢  {b}"
+            line = f"-  {b}"
             d.text((left + int(0.10 * DPI), y), line, fill=hex_to_rgb(NAVY_HEX), font=body_font)
             y += int(0.22 * DPI)
 
@@ -2249,7 +2249,7 @@ def read_qa_status(slug: str) -> tuple[str, bool]:
     st_data = read_book_state(slug)
     try:
         if st_data.get("qa", {}).get("status") == "passed":
-            return ("Passed âœ“", True)
+            return ("Passed OK", True)
     except Exception:
         pass
     # Fallback to historical logs
@@ -2266,7 +2266,7 @@ def read_qa_status(slug: str) -> tuple[str, bool]:
                 info = data.get(slug)
                 if info and isinstance(info, dict):
                     reviewed = bool(info.get("reviewed"))
-                    return ("Passed âœ“" if reviewed else "Partial"), reviewed
+                    return ("Passed OK" if reviewed else "Partial"), reviewed
         except Exception:
             pass
     return ("Not run", False)
@@ -2375,7 +2375,7 @@ def run_product_build(slug: str, product_name: str, display_name: str) -> tuple[
             }
         except Exception:
             pass
-        return True, f"{product_name} built â€” {next((s['pages'] for s in PRODUCT_SPECS if s['name']==product_name), '?')} pages"
+        return True, f"{product_name} built - {next((s['pages'] for s in PRODUCT_SPECS if s['name']==product_name), '?')} pages"
     except subprocess.TimeoutExpired:
         msg = f"Timed out after {_fmt_secs(int(os.environ.get('SF_BUILD_TIMEOUT_SEC', '600') or 600))}. Try building products one-by-one to find the slow step, or increase SF_BUILD_TIMEOUT_SEC."
         try:
@@ -2451,7 +2451,7 @@ def render_build_tab(slug: str, display_name: str):
             if not st.session_state.get("sf_building") and icons_gate and qa_pass:
                 st.session_state.sf_building = True
                 name = str(rb)
-                with st.spinner(f"Building {name}â€¦"):
+                with st.spinner(f"Building {name}..."):
                     ok, msg = run_product_build(slug, name, display_name)
                 st.session_state.sf_building = False
                 show_toast("success" if ok else "error", msg)
@@ -2547,7 +2547,7 @@ def render_build_tab(slug: str, display_name: str):
     if not (icons_gate and qa_pass):
         missing = []
         if not icons_gate:
-            missing.append("Icons (â‰¥6)")
+            missing.append("Icons (>=6)")
         if not qa_pass:
             missing.append("QA")
         st.info("Complete before building: " + ", ".join(missing))
@@ -2565,7 +2565,7 @@ def render_build_tab(slug: str, display_name: str):
             pass
         last = st.session_state.get("sf_last_build")
         if last and isinstance(last, dict):
-            st.markdown(f"**Last build:** {'OK' if last.get('ok') else 'FAILED'} Â· {last.get('product','')} Â· {last.get('message','')}")
+            st.markdown(f"**Last build:** {'OK' if last.get('ok') else 'FAILED'} - {last.get('product','')} - {last.get('message','')}")
             if last.get("stderr_tail"):
                 st.text_area("stderr (tail)", value=str(last.get("stderr_tail")), height=140)
             if last.get("stdout_tail"):
@@ -2582,13 +2582,13 @@ def render_build_tab(slug: str, display_name: str):
         total_steps = int(st.session_state.get("sf_build_total", 0) or 0)
         idx_step = int(st.session_state.get("sf_build_index", 0) or 0)
         if total_steps > 0:
-            st.info(f"Building {idx_step}/{total_steps}: {building_name or 'â€¦'}")
+            st.info(f"Building {idx_step}/{total_steps}: {building_name or '...'}")
             try:
                 st.progress(min(max(idx_step, 0), total_steps) / float(total_steps))
             except Exception:
                 pass
         else:
-            st.info(f"Building: {building_name or 'â€¦'}")
+            st.info(f"Building: {building_name or '...'}")
 
     st.subheader(f"Build products for {display_name}")
 
@@ -2609,7 +2609,7 @@ def render_build_tab(slug: str, display_name: str):
         pc_val = st.text_input("Pack", value=pack_code, max_chars=12, key=f"tb_pack_{slug}")
         sc1, sc2 = st.columns([4, 1])
         with sc2:
-            if st.button("ðŸ’¾", key=f"tb_pack_save_{slug}", help="Save pack code"):
+            if st.button("Save", key=f"tb_pack_save_{slug}", help="Save pack code"):
                 st_data = read_book_state(slug)
                 b = st_data.get("build", {}) if isinstance(st_data.get("build"), dict) else {}
                 b["pack_code"] = st.session_state.get(f"tb_pack_{slug}", pack_code)
@@ -2620,7 +2620,7 @@ def render_build_tab(slug: str, display_name: str):
     with tb1:
         # Rebuild all (top)
         unlocked_tb = [s for s in PRODUCT_SPECS if (icons_gate and qa_pass)]
-        if st.button("ðŸ” Rebuild all", key=f"tb_rebuild_all_{slug}", disabled=st.session_state.get("sf_building", False) or not unlocked_tb, help=(None if unlocked_tb else "Complete Icons and QA first.")):
+        if st.button("Rebuild all", key=f"tb_rebuild_all_{slug}", disabled=st.session_state.get("sf_building", False) or not unlocked_tb, help=(None if unlocked_tb else "Complete Icons and QA first.")):
             st.session_state.sf_building = True
             all_ok = True
             st.session_state.sf_build_total = len(unlocked_tb)
@@ -2632,10 +2632,10 @@ def render_build_tab(slug: str, display_name: str):
                 st.session_state.sf_build_index = idx
                 status.markdown(f"**Building {idx} of {len(unlocked_tb)}:** {spec['name']}")
                 prog.progress((idx - 1) / float(len(unlocked_tb)))
-                with st.spinner(f"Building {idx} of {len(unlocked_tb)}: {spec['name']}â€¦"):
+                with st.spinner(f"Building {idx} of {len(unlocked_tb)}: {spec['name']}..."):
                     ok, msg = run_product_build(slug, spec["name"], display_name)
                 if not ok:
-                    show_toast("error", f"Stopped â€” {spec['name']} failed: {msg}")
+                    show_toast("error", f"Stopped - {spec['name']} failed: {msg}")
                     all_ok = False
                     break
                 prog.progress(idx / float(len(unlocked_tb)))
@@ -2652,7 +2652,7 @@ def render_build_tab(slug: str, display_name: str):
             qp_update(view="build", tab="build")
             safe_rerun()
         # Rebuild only stale or unbuilt
-        if st.button("ðŸ” Stale", key=f"tb_rebuild_stale_{slug}", disabled=st.session_state.get("sf_building", False) or not unlocked_tb, help="Rebuild products that are unbuilt or older than latest icons"):
+        if st.button("Rebuild Stale", key=f"tb_rebuild_stale_{slug}", disabled=st.session_state.get("sf_building", False) or not unlocked_tb, help="Rebuild products that are unbuilt or older than latest icons"):
             built_now = detect_products_in_output(slug)
             to_build = []
             for spec in unlocked_tb:
@@ -2662,7 +2662,7 @@ def render_build_tab(slug: str, display_name: str):
                 if not built or (latest_kit_mtime and mtime and mtime < latest_kit_mtime):
                     to_build.append(spec)
             if not to_build:
-                show_toast("info", "No stale products â€” all up to date.")
+                show_toast("info", "No stale products - all up to date.")
             else:
                 st.session_state.sf_building = True
                 all_ok = True
@@ -2675,10 +2675,10 @@ def render_build_tab(slug: str, display_name: str):
                     st.session_state.sf_build_index = idx
                     status.markdown(f"**Building {idx} of {len(to_build)}:** {spec['name']}")
                     prog.progress((idx - 1) / float(len(to_build)))
-                    with st.spinner(f"Building {idx} of {len(to_build)}: {spec['name']}â€¦"):
+                    with st.spinner(f"Building {idx} of {len(to_build)}: {spec['name']}..."):
                         ok, msg = run_product_build(slug, spec["name"], display_name)
                     if not ok:
-                        show_toast("error", f"Stopped â€” {spec['name']} failed: {msg}")
+                        show_toast("error", f"Stopped - {spec['name']} failed: {msg}")
                         all_ok = False
                         break
                     prog.progress(idx / float(len(to_build)))
@@ -2695,7 +2695,7 @@ def render_build_tab(slug: str, display_name: str):
                 qp_update(view="build", tab="build")
                 safe_rerun()
     with tb2:
-        if st.button("ðŸ“‚ OUTPUT", key=f"tb_open_out_{slug}"):
+        if st.button("Open OUTPUT", key=f"tb_open_out_{slug}"):
             out = output_dir_for_book(slug)
             if out and out.exists():
                 open_folder(out)
@@ -2703,12 +2703,12 @@ def render_build_tab(slug: str, display_name: str):
                 show_toast("info", "OUTPUT folder not found")
     with tb3:
         pv = bool(st.session_state.get(prev_key, False))
-        if st.button("ðŸ‘ Preview" + (" âœ“" if pv else ""), key=f"tb_prev_{slug}", help=("Hide preview outputs" if pv else "Show preview outputs")):
+        if st.button("Preview" + (" (ON)" if pv else ""), key=f"tb_prev_{slug}", help=("Hide preview outputs" if pv else "Show preview outputs")):
             st.session_state[prev_key] = not pv
             safe_rerun()
     with tb4:
         dg = bool(st.session_state.get(diag_key, False))
-        if st.button("ðŸ§ª Diagnostics" + (" âœ“" if dg else ""), key=f"tb_diag_{slug}", help=("Hide build diagnostics" if dg else "Show build diagnostics")):
+        if st.button("Diagnostics" + (" (ON)" if dg else ""), key=f"tb_diag_{slug}", help=("Hide build diagnostics" if dg else "Show build diagnostics")):
             st.session_state[diag_key] = not dg
             safe_rerun()
     if ok:
@@ -2845,7 +2845,7 @@ def render_build_tab(slug: str, display_name: str):
                         st.session_state[f"fs_sel_{slug}"] = []
                         safe_rerun()
                 with qs4:
-                    if st.button("ðŸ’¾ Save", key=f"fs_sel_btn_save_{slug}", help="Save selection for this book"):
+                    if st.button("Save selection", key=f"fs_sel_btn_save_{slug}", help="Save selection for this book"):
                         st_data = read_book_state(slug)
                         b = st_data.get("build", {}) if isinstance(st_data.get("build"), dict) else {}
                         b["rebuild_selected"] = list(st.session_state.get(f"fs_sel_{slug}", []))
@@ -2854,7 +2854,7 @@ def render_build_tab(slug: str, display_name: str):
                         show_toast("success", "Selection saved")
             with rs2:
                 dis_sel = bool(st.session_state.get("sf_building", False) or not (icons_gate and qa_pass) or not st.session_state.get(f"fs_sel_{slug}", []))
-                if st.button("ðŸ” Selected", key=f"tb_rebuild_selected_{slug}", disabled=dis_sel, help="Rebuild only the selected products"):
+                if st.button("Rebuild Selected", key=f"tb_rebuild_selected_{slug}", disabled=dis_sel, help="Rebuild only the selected products"):
                     names = list(st.session_state.get(f"fs_sel_{slug}", []))
                     unlocked_list = [s for s in PRODUCT_SPECS if s["name"] in names]
                     if not unlocked_list:
@@ -2871,10 +2871,10 @@ def render_build_tab(slug: str, display_name: str):
                             st.session_state.sf_build_index = idx
                             status.markdown(f"**Building {idx} of {len(unlocked_list)}:** {spec['name']}")
                             prog.progress((idx - 1) / float(len(unlocked_list)))
-                            with st.spinner(f"Building {idx} of {len(unlocked_list)}: {spec['name']}â€¦"):
+                            with st.spinner(f"Building {idx} of {len(unlocked_list)}: {spec['name']}..."):
                                 ok, msg = run_product_build(slug, spec["name"], display_name)
                             if not ok:
-                                show_toast("error", f"Stopped â€” {spec['name']} failed: {msg}")
+                                show_toast("error", f"Stopped - {spec['name']} failed: {msg}")
                                 all_ok = False
                                 break
                             prog.progress(idx / float(len(unlocked_list)))
@@ -2951,7 +2951,7 @@ def render_build_tab(slug: str, display_name: str):
             # If no entries match the filter, show a friendly note
             if not entries:
                 try:
-                    st.info("No stale products â€” all up to date." if fs_filter == "Stale" else "No products match this filter.")
+                    st.info("No stale products - all up to date." if fs_filter == "Stale" else "No products match this filter.")
                 except Exception:
                     pass
 
@@ -2959,7 +2959,7 @@ def render_build_tab(slug: str, display_name: str):
             for ent in entries:
                 spec = ent["spec"]
                 name = ent["name"]
-                name_short = name if len(name) <= 18 else name[:17] + "â€¦"
+                name_short = name if len(name) <= 18 else name[:17] + "..."
                 files = ent["files"]
                 p = ent["p"]
                 img_tag = ""
@@ -3013,10 +3013,10 @@ def render_build_tab(slug: str, display_name: str):
                     has_final = False
                 is_stale = bool(latest_kit_mtime and ts and ts < latest_kit_mtime)
                 stale_badge = "<div class='badge2' title='Stale: Icons newer than this build'>Stale</div>" if is_stale else ""
-                busy = "<div class='busy'>â³ Buildingâ€¦</div>" if (st.session_state.get("sf_building") and st.session_state.get("sf_building_product") == name) else ""
+                busy = "<div class='busy'>Building...</div>" if (st.session_state.get("sf_building") and st.session_state.get("sf_building_product") == name) else ""
                 cls = "tile stale" if is_stale else "tile"
-                final_btn = ("<a class='act3' href='?openfinal=1' title='Open FINAL'>ðŸ—‚ï¸</a>" if has_final else "")
-                tile = f"<div class='{cls}'>{badge}{stale_badge}<a class='act' href='{href_rebuild}' title='Rebuild {name}'>ðŸ”</a><a class='act2' href='?openout=1' title='Open OUTPUT'>ðŸ“‚</a>{final_btn}<a href='{href}' target='_blank' title='{name}'>{img_tag}</a>{pages_html}{busy}<div class='name'>{name_short}</div>{time_html}</div>"
+                final_btn = ("<a class='act3' href='?openfinal=1' title='Open FINAL'>Final</a>" if has_final else "")
+                tile = f"<div class='{cls}'>{badge}{stale_badge}<a class='act' href='{href_rebuild}' title='Rebuild {name}'>Rebuild</a><a class='act2' href='?openout=1' title='Open OUTPUT'>Output</a>{final_btn}<a href='{href}' target='_blank' title='{name}'>{img_tag}</a>{pages_html}{busy}<div class='name'>{name_short}</div>{time_html}</div>"
                 html.append(tile)
             html.append("</div>")
             st.markdown("\n".join(html), unsafe_allow_html=True)
@@ -3061,7 +3061,7 @@ def render_build_tab(slug: str, display_name: str):
                 cols_prev = st.columns(6)
                 for i, spec in enumerate(PRODUCT_SPECS):
                     name = spec["name"]
-                    name_short = name if len(name) <= 16 else name[:15] + "â€¦"
+                    name_short = name if len(name) <= 16 else name[:15] + "..."
                     files = _product_output_files(out_dir_quick, name)
                     p = files.get("color") or files.get("bw")
                     with cols_prev[i % 6]:
@@ -3086,10 +3086,10 @@ def render_build_tab(slug: str, display_name: str):
                         st.markdown('<div class="sf-prev-actions">', unsafe_allow_html=True)
                         ac1, ac2, ac3 = st.columns([1, 1, 1])
                         with ac1:
-                            if st.button("ðŸ”", key=f"gal_rebuild_{i}_{slug}", help=f"Rebuild {name}") and (icons_gate and qa_pass) and not st.session_state.get("sf_building"):
+                            if st.button("Rebuild", key=f"gal_rebuild_{i}_{slug}", help=f"Rebuild {name}") and (icons_gate and qa_pass) and not st.session_state.get("sf_building"):
                                 st.session_state.sf_building = True
                                 st.session_state.sf_building_product = name
-                                with st.spinner(f"Building {name}â€¦"):
+                                with st.spinner(f"Building {name}..."):
                                     ok, msg = run_product_build(slug, name, display_name)
                                 st.session_state.sf_building = False
                                 st.session_state.sf_building_product = None
@@ -3097,14 +3097,14 @@ def render_build_tab(slug: str, display_name: str):
                                 qp_update(view="build", tab="build")
                                 safe_rerun()
                         with ac2:
-                            if st.button("ðŸ“‚", key=f"gal_open_{i}_{slug}", help="Open OUTPUT"):
+                            if st.button("Output", key=f"gal_open_{i}_{slug}", help="Open OUTPUT"):
                                 outp = output_dir_for_book(slug)
                                 if outp and outp.exists():
                                     open_folder(outp)
                         with ac3:
                             if p and p.exists():
                                 try:
-                                    st.download_button("â¬‡", data=p.read_bytes(), file_name=p.name, key=f"gal_dl_{i}_{slug}")
+                                    st.download_button("Download", data=p.read_bytes(), file_name=p.name, key=f"gal_dl_{i}_{slug}")
                                 except Exception:
                                     pass
                         st.markdown('</div>', unsafe_allow_html=True)
@@ -3128,7 +3128,7 @@ def render_build_tab(slug: str, display_name: str):
                 if not items:
                     st.caption("No AAC outputs found yet. Build an AAC product first, or uncheck 'AAC only'.")
                 else:
-                    labels = [f"{p.name}  Â·  {datetime.fromtimestamp(p.stat().st_mtime).strftime('%d/%m/%Y %H:%M')}" for p in items[:50]]
+                    labels = [f"{p.name}  -  {datetime.fromtimestamp(p.stat().st_mtime).strftime('%d/%m/%Y %H:%M')}" for p in items[:50]]
                     idx = st.selectbox("File", options=list(range(len(labels))), format_func=lambda i: labels[i], key=f"out_prev_sel_{slug}")
                     chosen = items[int(idx)]
                     c1, c2 = st.columns([1, 1])
@@ -3163,35 +3163,35 @@ def render_build_tab(slug: str, display_name: str):
 
         c1, c2, c3 = st.columns([3, 1, 1])
         with c1:
-            status = "Built" if built else ("Buildingâ€¦" if building and building_name == name else "Not built")
-            st.markdown(f"**{name}**  Â·  {spec['pages']} pages  â€”  {status}{'  Â·  ' + last if last and built else ''}")
+            status = "Built" if built else ("Building..." if building and building_name == name else "Not built")
+            st.markdown(f"**{name}**  -  {spec['pages']} pages  -  {status}{'  -  ' + last if last and built else ''}")
         with c2:
             disabled = building or (not icons_gate) or (not qa_pass)
-            label = "ðŸ” Rebuild" if built else "â–¶ Build"
+            label = "Rebuild" if built else "Build"
             help_txt = None
             if disabled and not building and (not icons_gate or not qa_pass):
                 needs = []
                 if not icons_gate:
-                    needs.append("Icons (â‰¥6)")
+                    needs.append("Icons (>=6)")
                 if not qa_pass:
                     needs.append("QA")
                 help_txt = "Complete " + " and ".join(needs) + " first."
             if st.button(label, key=f"build_{name}", disabled=disabled, help=help_txt):
                 st.session_state.sf_building = True
                 st.session_state.sf_building_product = name
-                with st.spinner(f"Building {name}â€¦"):
+                with st.spinner(f"Building {name}..."):
                     ok, msg = run_product_build(slug, name, display_name)
                 st.session_state.sf_building = False
                 st.session_state.sf_building_product = None
                 if ok:
                     show_toast("success", msg)
                 else:
-                    show_toast("error", f"{name} failed â€” {msg}")
+                    show_toast("error", f"{name} failed - {msg}")
                 qp_update(view="build", tab="build")
                 safe_rerun()
         with c3:
             if built and info.get("path"):
-                if st.button("ðŸ“‚ Output", key=f"open_{name}"):
+                if st.button("Open Output", key=f"open_{name}"):
                     out = output_dir_for_book(slug)
                     if out and out.exists():
                         open_folder(out)
@@ -4660,13 +4660,13 @@ def render_priorities_panel(display_map: dict):
 
     def render_priority_chip(title: str, priority: str, status: str = "not_started", href: str | None = None) -> str:
         colours = {
-            "P1": {"bg": "#FAECE7", "border": "#C0392B", "text": "#C0392B", "dot": "ðŸ”´"},
-            "P2": {"bg": "#FAEEDA", "border": "#E07B00", "text": "#E07B00", "dot": "ðŸŸ "},
-            "P3": {"bg": "#FAFADA", "border": "#C8960C", "text": "#C8960C", "dot": "ðŸŸ¡"},
+            "P1": {"bg": "#FAECE7", "border": "#C0392B", "text": "#C0392B", "dot": "*"},
+            "P2": {"bg": "#FAEEDA", "border": "#E07B00", "text": "#E07B00", "dot": "*"},
+            "P3": {"bg": "#FAFADA", "border": "#C8960C", "text": "#C8960C", "dot": "*"},
         }
-        done_style = {"bg": "#EEFFEE", "border": "#2D8A00", "text": "#2D8A00", "dot": "âœ…"}
+        done_style = {"bg": "#EEFFEE", "border": "#2D8A00", "text": "#2D8A00", "dot": "*"}
         c = done_style if status == "done" else colours.get(priority, colours["P3"])
-        status_label = {"done": "Done âœ“", "in_progress": "In progressâ€¦", "not_started": ""}.get(status, "")
+        status_label = {"done": "Done", "in_progress": "In progress...", "not_started": ""}.get(status, "")
         chip_body = f"""
     <div style="
         display: inline-block;
@@ -4689,11 +4689,11 @@ def render_priorities_panel(display_map: dict):
             return f"<a href=\"{href}\" style=\"text-decoration:none;\">{chip_body}</a>"
         return chip_body
 
-    st.markdown("### ðŸ“Œ This Week's Priorities")
+    st.markdown("### This Week's Priorities")
     col1, col2 = st.columns(2)
     with col1:
         st.markdown(
-            "<p style='font-size:11px;font-weight:600;color:#C0392B;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:8px;'>P1 â€” Build this week</p>",
+            "<p style='font-size:11px;font-weight:600;color:#C0392B;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:8px;'>P1 - Build this week</p>",
             unsafe_allow_html=True,
         )
         chips_html = ""
@@ -4706,7 +4706,7 @@ def render_priorities_panel(display_map: dict):
 
     with col2:
         st.markdown(
-            "<p style='font-size:11px;font-weight:600;color:#E07B00;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:8px;'>P2 â€” Next 2 weeks</p>",
+            "<p style='font-size:11px;font-weight:600;color:#E07B00;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:8px;'>P2 - Next 2 weeks</p>",
             unsafe_allow_html=True,
         )
         chips_html = ""
@@ -4736,14 +4736,14 @@ def render_status_card(slug: str, display_name: str):
         st.markdown(f"### {display_name}")
         # Icon gates
         st.markdown("Icons")
-        pb = st.progress(min(icons, 20) / 20.0, text=f"{icons} icons â€” â–²6  â–²8  â–²20")
+        pb = st.progress(min(icons, 20) / 20.0, text=f"{icons} icons - gates: 6, 8, 20")
 
         # Built products row
         cols = st.columns(5)
         prods = list(built.items())
         for idx, (name, ok) in enumerate(prods):
             with cols[idx % 5]:
-                st.markdown(f"{'âœ…' if ok else 'â€”'} {name}")
+                st.markdown(f"{'[x]' if ok else '-'} {name}")
 
         # Badges: QA, Listing, ZIP
         c1, c2, c3 = st.columns(3)
@@ -4760,7 +4760,7 @@ def render_status_card(slug: str, display_name: str):
             if target in {"icons", "qa", "build", "listing"}:
                 open_build_screen(slug, target)
             else:
-                show_toast("success", "Marked done â€” pick next book from the selector above")
+                show_toast("success", "Marked done - pick next book from the selector above")
 
 
 def render_recent_books_chips(active_slug: str, display_map: dict):
@@ -6288,7 +6288,7 @@ def render_top_bar(display_map: dict, active_slug: str | None) -> str | None:
 
 
 def main():
-    st.set_page_config(page_title="StudioForge", page_icon="ðŸ“¦", layout="wide")
+    st.set_page_config(page_title="StudioForge", layout="wide")
     drawer_css = (
         """
 /* Backdrop */
@@ -6653,9 +6653,9 @@ hr {
                     safe_rerun()
             recs = get_today_recommendations(display_map, season)
             ai_on = (anthropic is not None) and bool(os.environ.get("ANTHROPIC_API_KEY", "").strip())
-            season_icon = {"Spring": "ðŸŒ±", "Summer": "â˜€ï¸", "Autumn": "ðŸ‚", "Winter": "â„ï¸"}.get(season, "ðŸ“Œ")
+            season_icon = {"Spring": "", "Summer": "", "Autumn": "", "Winter": ""}.get(season, "")
             picks_label = f"{season} picks:" if season else "Picks:"
-            picks = " &nbsp;Â·&nbsp; ".join(recs)
+            picks = " | ".join(recs)
             st.markdown(
                 f"""
 <div style="
