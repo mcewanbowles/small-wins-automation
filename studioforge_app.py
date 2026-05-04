@@ -1,4 +1,5 @@
-﻿import os
+﻿# -*- coding: utf-8 -*-
+import os
 import json
 import sys
 import subprocess
@@ -2409,6 +2410,8 @@ def render_build_tab(slug: str, display_name: str):
     kit = st.session_state.get(get_kit_key(slug)) or [str((images_dir_for_book(slug) or Path('')) / fn) for fn in state.get("icons_kit", [])]
     icons_gate = len(kit) >= 6
     qa_label, qa_pass = read_qa_status(slug)
+    # Ensure 'ok' exists for any later conditional checks
+    ok = False
     # Toolbar toggle keys
     diag_key = f"sf_show_diag_{slug}"
     prev_key = f"sf_show_prev_{slug}"
@@ -2592,7 +2595,7 @@ def render_build_tab(slug: str, display_name: str):
 
     st.subheader(f"Build products for {display_name}")
 
-    # Build toolbar â€” compact actions
+    # Build toolbar - compact actions
     st.markdown(
         """
 <style>
@@ -3343,7 +3346,7 @@ def render_build_tab(slug: str, display_name: str):
                 except Exception:
                     pass
             else:
-                st.info("No images created — ensure at least one product is built and covers are available.")
+                st.info("No images created - ensure at least one product is built and covers are available.")
         except Exception as e:
             st.error(f"Listing image generation failed: {e}")
 
@@ -3559,7 +3562,7 @@ def render_build_tab(slug: str, display_name: str):
                         except Exception:
                             pass
                     else:
-                        st.info("No images created — ensure at least one product is built and covers are available.")
+                        st.info("No images created - ensure at least one product is built and covers are available.")
                 except Exception as e:
                     st.error(f"Listing image generation failed: {e}")
 
@@ -3633,7 +3636,7 @@ def render_build_tab(slug: str, display_name: str):
                                 if out_path.exists():
                                     copied += 1
                             except Exception as e:
-                                errs2.append(f"Error copy: {content.name} — {e}")
+                                errs2.append(f"Error copy: {content.name} - {e}")
                     for t in tmp_files:
                         try:
                             t.unlink(missing_ok=True)
@@ -4000,7 +4003,7 @@ def render_listing_tab(slug: str, display_name: str):
                             except Exception:
                                 pass
     with c2:
-        if st.button("Save listing"):
+        if st.button("Save to listing.json"):
             # Gather latest values from inputs
             data = {
                 "tpt_title": title,
@@ -4102,7 +4105,7 @@ def render_aac_board_tab(slug: str, display_name: str):
         st.info("No AAC board config found for this book. Run aac_migrate_configs.py to generate configs for existing boards, or use the AAC generator to create a board first.")
         c1, c2 = st.columns([1, 1])
         with c1:
-            if st.button("Create default 6Ã—6 board", key=f"aac_create_{slug}"):
+            if st.button("Create default 6x6 board", key=f"aac_create_{slug}"):
                 try:
                     data = {
                         "grid_size": "6x6",
@@ -4579,7 +4582,7 @@ def compute_next_action(icon_count: int, qa_passed: bool, any_built: bool, listi
     if qa_passed and not any_built:
         return ("Build this kit ->", True, "build")
     if any_built and not listing_saved:
-        return ("Write the TpT listing ->", True, "listing")
+        return ("Write the TPT Listing ->", True, "listing")
     return ("Mark as done and pick next book ->", True, "today")
 
 
@@ -5285,7 +5288,7 @@ def render_icons_tab(slug: str, display_name: str):
 
             with cols[0]:
                 if accepted:
-                    st.caption("Accepted âœ“")
+                    st.caption("Accepted")
                 elif skipped:
                     st.caption("Skipped")
                 elif match:
@@ -5301,7 +5304,7 @@ def render_icons_tab(slug: str, display_name: str):
             with cols[1]:
                 st.markdown(f"**{w}**")
                 if uploaded:
-                    st.caption("Uploaded âœ“")
+                    st.caption("Uploaded")
                 elif accepted:
                     st.caption("Ready")
                 elif skipped:
@@ -5441,7 +5444,7 @@ def render_icons_tab(slug: str, display_name: str):
         # Swap panel
         if vstate.get("swap_word"):
             def _swap_ui():
-                q = st.text_input("Search symbolsâ€¦", value="", key="swap_q")
+                q = st.text_input("Search symbols...", value="", key="swap_q")
                 files = [p for p in symbols_root().rglob("*.png")]
                 files = sorted(files, key=lambda p: p.stem.lower())
                 if q.strip():
@@ -5526,7 +5529,7 @@ def render_icons_tab(slug: str, display_name: str):
             _swap_ui()
 
         # Multi-file upload for efficiency
-        st.markdown("Or upload multiple icons at once â†’")
+        st.markdown("Or upload multiple icons at once ->")
         with st.expander("Upload multiple icons"):
             ups = st.file_uploader(
                 "Upload PNG/JPG/WEBP files",
@@ -5550,8 +5553,8 @@ def render_icons_tab(slug: str, display_name: str):
                     show_toast("success", f"Added {added_n} icons to Symbol Library")
                     safe_rerun()
 
-        with st.expander("Import Boardmaker PDF icons (4Ã—4 grid)", expanded=False):
-            st.caption("Upload a Boardmaker PDF with a 4Ã—4 grid. Provide 16 labels per page (row-major). Extracted icons are saved to the Symbol Library and can be added to this bookâ€™s kit.")
+        with st.expander("Import Boardmaker PDF icons (4x4 grid)", expanded=False):
+            st.caption("Upload a Boardmaker PDF with a 4x4 grid. Provide 16 labels per page (row-major). Extracted icons are saved to the Symbol Library and can be added to this book's kit.")
             if fitz is None:
                 st.info("PDF import requires PyMuPDF (fitz).")
             else:
@@ -5564,7 +5567,7 @@ def render_icons_tab(slug: str, display_name: str):
                 with c_bm3:
                     bm_pad = st.number_input("Inner padding %", min_value=0.0, max_value=20.0, value=2.0, step=0.5, key=f"bm_pad_{slug}")
                 with c_bm4:
-                    add_to_kit = st.checkbox("Also add to this bookâ€™s kit", value=True, key=f"bm_addkit_{slug}")
+                    add_to_kit = st.checkbox("Also add to this book's kit", value=True, key=f"bm_addkit_{slug}")
 
                 st.caption("Labels (one per line). Use 16 labels per page. Leave a line blank to skip a cell.")
                 labels_raw = st.text_area("", value="", height=140, key=f"bm_labels_{slug}")
@@ -5706,7 +5709,7 @@ def render_icons_tab(slug: str, display_name: str):
                     st.session_state[f"sf_add_icon_{slug}"] = False
                     safe_rerun()
     if not kit:
-        st.info("No icons yet â€” accept suggestions or add from library in a later phase.")
+        st.info("No icons yet - accept suggestions or add from library in a later phase.")
     else:
         # Scoped styling for consistent, unclipped thumbnails and tight spacing
         st.markdown(
@@ -5738,16 +5741,16 @@ def render_icons_tab(slug: str, display_name: str):
                 st.markdown('<div class="sf-actions">', unsafe_allow_html=True)
                 a1, a2, a3 = st.columns([1, 1, 1])
                 with a1:
-                    if st.button("Ã—", key=f"rm_{i}", help="Remove from kit"):
+                    if st.button("Remove", key=f"rm_{i}", help="Remove from kit"):
                         st.session_state[kit_key] = [p for p in kit if p != path]
                         persist_icons_hero(slug)
                         safe_rerun()
                 with a2:
-                    if st.button("ðŸ—‘", key=f"rm_file_{i}", help="Delete file from book"):
+                    if st.button("Delete file", key=f"rm_file_{i}", help="Delete file from book"):
                         st.session_state[f"rm_conf_{i}"] = path
                         safe_rerun()
                 with a3:
-                    if st.button("â‡„", key=f"repl_{i}", help="Replace icon"):
+                    if st.button("Replace", key=f"repl_{i}", help="Replace icon"):
                         st.session_state[f"kit_replace_target_{slug}"] = {"index": i, "old_path": path}
                         safe_rerun()
                 # Delete confirm row
@@ -5778,7 +5781,7 @@ def render_icons_tab(slug: str, display_name: str):
         st.markdown("#### Replace selected icon")
         del_old = st.checkbox("Delete old file after replace", value=False, key=f"repl_del_old_{slug}")
         # Search library
-        q = st.text_input("Search library symbolsâ€¦", value="", key=f"repl_q_{slug}")
+        q = st.text_input("Search library symbols...", value="", key=f"repl_q_{slug}")
         files = [p for p in symbols_root().rglob("*.png")]
         files = sorted(files, key=lambda p: p.stem.lower())
         if q.strip():
@@ -5882,7 +5885,7 @@ def render_icons_tab(slug: str, display_name: str):
         persist_icons_hero(slug)
     else:
         st.caption("No icons yet to select as hero.")
-    st.caption("â€” or â€”")
+    st.caption("- or -")
     hup = st.file_uploader("Upload a hero image directly", type=["png","jpg","jpeg","webp"], key=f"hero_up_{slug}")
     if hup is not None:
         h_default = sanitise_symbol_name(Path(hup.name).stem)
@@ -6001,8 +6004,8 @@ def render_qa_tab(slug: str, display_name: str):
             else:
                 missing_words.append(w)
         st.markdown(
-            f"**Vocab icons checklist** â€” "
-            f"Missing: {len(missing_words)} Â· "
+            f"**Vocab icons checklist** - "
+            f"Missing: {len(missing_words)} | "
             f"Suggested: {len(suggested_words)}"
         )
         with st.expander("What icons are we still looking for?", expanded=False):
@@ -6043,7 +6046,7 @@ def render_qa_tab(slug: str, display_name: str):
 
     c1, c2 = st.columns([1, 2])
     with c1:
-        if st.button("Accept all high-confidence (â‰¥0.85)"):
+        if st.button("Accept all high-confidence (>= 0.85)"):
             n = 0
             for sp, v in state.items():
                 if v.get("status") == "pending" and float(v.get("confidence", 0)) >= 0.85:
@@ -6066,7 +6069,7 @@ def render_qa_tab(slug: str, display_name: str):
                 st.image(sp, caption=Path(sp).stem[:20], width=160)
             except Exception:
                 st.write(Path(sp).name)
-            st.caption(f"conf {float(v.get('confidence', 0)):.2f} â€” {v.get('status')}")
+            st.caption(f"conf {float(v.get('confidence', 0)):.2f} - {v.get('status')}")
             a_key = f"qa_acc_{i}"
             m_key = f"qa_miss_{i}"
             r_key = f"qa_rep_{i}"
@@ -6129,8 +6132,8 @@ def render_qa_tab(slug: str, display_name: str):
 
 
 def render_build_screen(slug: str, display_name: str):
-    st.header(f"Build â€” {display_name}")
-    tab_names = ["â‘  Icons", "â‘¡ QA", "â‘¢ Build", "â‘£ Listing", "â‘¤ AAC Board"]
+    st.header(f"Build - {display_name}")
+    tab_names = ["Icons", "QA", "Build", "Listing", "AAC Board"]
     default_tab = {"icons": 0, "qa": 1, "build": 2, "listing": 3, "aac": 4}.get(st.session_state.get("build_tab", "icons"), 0)
     tabs = st.tabs(tab_names)
 
@@ -6258,7 +6261,7 @@ def render_top_bar(display_map: dict, active_slug: str | None) -> str | None:
                 padding: 3px 10px; border-radius: 20px;
                 border: 1px solid #2D8A00;
                 cursor: pointer;" title="Click to open AI settings">
-                â— AI: Ready
+                AI: Ready
             </span></a>"""
                     return """<a href=\"?tools=1\" style=\"text-decoration:none;\"><span style="
                 background: #FAEEDA; color: #E07B00;
@@ -6266,7 +6269,7 @@ def render_top_bar(display_map: dict, active_slug: str | None) -> str | None:
                 padding: 3px 10px; border-radius: 20px;
                 border: 1px solid #E07B00;
                 cursor: pointer;" title="Click to set up API key">
-                â— AI: Off
+                AI: Off
             </span></a>"""
 
                 st.markdown(render_ai_badge(ai_on), unsafe_allow_html=True)
@@ -6720,9 +6723,9 @@ hr {
 
     def render_tool_settings():
         root_local = project_root()
-        st.markdown("## âš™ï¸ Settings")
+        st.markdown("## Settings")
 
-        with st.expander("ðŸ“š Book title overrides", expanded=False):
+        with st.expander("Book title overrides", expanded=False):
             titles = load_theme_titles(root_local)
             slugs_local = discover_books()
             edited: dict[str, str] = {}
@@ -6746,18 +6749,18 @@ hr {
                 write_theme_titles(root_local, compact)
                 st.experimental_rerun() if hasattr(st, "experimental_rerun") else None
 
-        with st.expander("ðŸ“ Themes root folder", expanded=False):
+        with st.expander("Themes root folder", expanded=False):
             current_root = os.environ.get("SF_THEMES_ROOT", str(project_root() / "assets" / "themes"))
             new_root = st.text_input("Path to themes root", value=current_root, key="sf_themes_root")
             if st.button("Save themes root"):
                 if new_root and Path(new_root).exists():
                     os.environ["SF_THEMES_ROOT"] = new_root
-                    show_toast("success", "Themes root updated. Rescanning booksâ€¦")
+                    show_toast("success", "Themes root updated. Rescanning books...")
                     safe_rerun()
                 else:
                     show_toast("warning", "Path does not exist.")
 
-        with st.expander("ðŸ—‚ï¸ Symbols folder", expanded=False):
+        with st.expander("Symbols folder", expanded=False):
             current_symbols = os.environ.get("SF_SYMBOLS_ROOT", str(project_root() / "assets" / "symbols"))
             new_symbols = st.text_input("Path to symbols folder", value=current_symbols, key="sf_symbols_root")
             if st.button("Save symbols folder"):
@@ -6768,10 +6771,10 @@ hr {
                 else:
                     show_toast("warning", "Path does not exist.")
 
-        with st.expander("ðŸ¤– AI / API diagnostics", expanded=True):
+        with st.expander("AI / API diagnostics", expanded=True):
             env_path = project_root() / ".env"
             key_raw = os.environ.get("ANTHROPIC_API_KEY", "").strip()
-            masked = (f"{key_raw[:6]}â€¦{key_raw[-4:]}" if len(key_raw) >= 10 else ("(set)" if key_raw else "(empty)"))
+            masked = (f"{key_raw[:6]}...{key_raw[-4:]}" if len(key_raw) >= 10 else ("(set)" if key_raw else "(empty)"))
             ai_pkg = (anthropic is not None)
             ai_on_flag = ai_pkg and bool(key_raw)
             cols_ai = st.columns([2, 2, 2])
@@ -6790,7 +6793,7 @@ hr {
                     show_toast("warning", "Failed to reload .env")
                 safe_rerun()
 
-        with st.expander("ðŸŽ¨ UI preferences", expanded=False):
+        with st.expander("UI preferences", expanded=False):
             try:
                 ensure_global_prefs()
             except Exception:
@@ -6809,10 +6812,9 @@ hr {
             except Exception:
                 pass
 
-        with st.expander("â„¹ï¸ About", expanded=False):
-            st.markdown("""**StudioForge** Â· Small Wins Studio  
-April 2026  
-""")
+        with st.expander("About", expanded=False):
+            st.markdown("""**StudioForge** - Small Wins Studio  
+April 2026""")
 
             st.markdown("#### Exports & audits")
             ec1, ec2, ec3 = st.columns([1, 1, 1])
@@ -6877,7 +6879,7 @@ April 2026
                 missing = [w for w in words if sanitise_symbol_name(w) not in have]
                 use_ai = (anthropic is not None) and bool(os.environ.get("ANTHROPIC_API_KEY", "").strip())
                 lines = []
-                lines.append(f"# Progress â€” {title} ({slug})")
+                lines.append(f"# Progress - {title} ({slug})")
                 lines.append("")
                 lines.append(f"AI: {'Ready' if use_ai else 'Off'}")
                 lines.append("")
@@ -6888,12 +6890,12 @@ April 2026
                 lines.append("")
                 lines.append("## Built products")
                 for k, v in built.items():
-                    lines.append(f"- {'âœ…' if v else 'â€”'} {k}")
+                    lines.append(f"- {'OK' if v else '-'} {k}")
                 lines.append("")
                 lines.append(f"## Listing: {listing}")
                 return "\n".join(lines)
             except Exception as e:
-                return f"# Progress â€” {slug}\nError building report: {e}"
+                return f"# Progress - {slug}\nError building report: {e}"
 
         pr1, pr2 = st.columns([1, 1])
         with pr1:
@@ -6951,13 +6953,13 @@ April 2026
 
         scope = st.selectbox(
             "Browse",
-            options=["All", "Alpha (Aâ€“Z)", "Categories"],
+            options=["All", "Alpha (A-Z)", "Categories"],
             index=0,
             key="symlib_scope",
         )
 
         browse_root = sym_root
-        if scope == "Alpha (Aâ€“Z)" and (sym_root / "Alpha").exists():
+        if scope == "Alpha (A-Z)" and (sym_root / "Alpha").exists():
             alpha_root = sym_root / "Alpha"
             letter = st.selectbox(
                 "Letter",
@@ -7042,7 +7044,7 @@ April 2026
                             show_toast("error", f"Add failed: {e}")
             except Exception:
                 pass
-        query = st.text_input("Search symbolsâ€¦", value=st.session_state.get("symlib_q", ""), key="symlib_q")
+        query = st.text_input("Search symbols...", value=st.session_state.get("symlib_q", ""), key="symlib_q")
 
         with st.expander("Upload new icons to library"):
             ow = st.checkbox("Overwrite existing on name clash", value=False, key="symlib_ow")
@@ -7077,11 +7079,11 @@ April 2026
                         continue
                 msg = f"Added {added} icon(s)"
                 if replaced:
-                    msg += f" â€” replaced {replaced}"
+                    msg += f" - replaced {replaced}"
                 show_toast("success", msg)
                 safe_rerun()
 
-        with st.expander("âš™ï¸ Advanced normalisation", expanded=False):
+        with st.expander("Advanced normalisation", expanded=False):
             fb1, fb2, fb3 = st.columns([1, 1, 1])
             with fb1:
                 hide_blanks_lib = st.checkbox("Hide suspected blanks", value=True, key="symlib_hide_blanks")
@@ -7129,17 +7131,17 @@ April 2026
 
         pc1, pc2, pc3 = st.columns([1, 1, 2])
         with pc1:
-            if st.button("â—€ Prev", disabled=cur_page <= 1, key="symlib_prev"):
+            if st.button("< Prev", disabled=cur_page <= 1, key="symlib_prev"):
                 st.session_state.symlib_page = cur_page - 1
                 safe_rerun()
         with pc2:
-            if st.button("Next â–¶", disabled=cur_page >= max_page, key="symlib_next"):
+            if st.button("Next >", disabled=cur_page >= max_page, key="symlib_next"):
                 st.session_state.symlib_page = cur_page + 1
                 safe_rerun()
         with pc3:
-            st.caption(f"Page {cur_page}/{max_page} â€” {total} symbols")
+            st.caption(f"Page {cur_page}/{max_page} - {total} symbols")
 
-        with st.expander("âš™ï¸ Advanced normalisation", expanded=False):
+        with st.expander("Advanced normalisation", expanded=False):
             if st.button("Normalize this page", key="symlib_norm_page"):
                 done = 0
                 for p in page_files:
@@ -7187,7 +7189,7 @@ April 2026
                             st.session_state[ed_key] = False
                             safe_rerun()
                 else:
-                    if st.button("âœŽ", key=f"sym_rename_{gi}", help="Rename"):
+                    if st.button("Rename", key=f"sym_rename_{gi}", help="Rename"):
                         st.session_state[ed_key] = True
                         safe_rerun()
                 # Compact action: add to kit
@@ -7215,7 +7217,7 @@ April 2026
                                 show_toast("success", f"Added {p.stem} to kit")
                             except Exception as e:
                                 show_toast("error", f"Failed to add: {e}")
-                if st.button("â‹¯", key=f"sym_sel_{gi}", help="Select"):
+                if st.button("Select", key=f"sym_sel_{gi}", help="Select"):
                     st.session_state.symlib_selected_path = str(p)
                     safe_rerun()
 
@@ -7422,7 +7424,7 @@ April 2026
                 pass
             msg = f"Imported {added} icon(s)"
             if replaced:
-                msg += f" — replaced {replaced}"
+                msg += f" - replaced {replaced}"
             show_toast("success", msg)
             safe_rerun()
 
@@ -7464,14 +7466,14 @@ April 2026
             page_files = files[start:end]
             pc1, pc2, pc3 = st.columns([1, 1, 2])
             with pc1:
-                if st.button("â—€ Prev", disabled=page <= 1, key="ex_prev"):
+                if st.button("< Prev", disabled=page <= 1, key="ex_prev"):
                     st.session_state.ex_page = page - 1
                     safe_rerun()
             with pc2:
-                if st.button("Next â–¶", disabled=page >= max_page, key="ex_next"):
+                if st.button("Next >", disabled=page >= max_page, key="ex_next"):
                     st.session_state.ex_page = page + 1
                     safe_rerun()
-            st.caption(f"Page {page}/{max_page} â€” {total} tiles")
+            st.caption(f"Page {page}/{max_page} - {total} tiles")
             # Duplicate awareness (by stem) relative to the active book images
             active_slug = st.session_state.get("active_book")
             dest_dir = images_dir_for_book(active_slug) if active_slug else None
@@ -7892,7 +7894,7 @@ April 2026
                 out_path = Path(out_dir)
                 if not out_path.exists():
                     out_path.mkdir(parents=True, exist_ok=True)
-                with st.spinner("Extractingâ€¦ this may take a minute"):
+                with st.spinner("Extracting... this may take a minute"):
                     files, skipped = extract(
                         uploaded.getvalue(),
                         out_path,
@@ -8011,9 +8013,9 @@ April 2026
                 for p in list(status[b].keys()):
                     if status[b][p] in {"Done", "Failed"}:
                         continue
-                    status[b][p] = "Buildingâ€¦"
+                    status[b][p] = "Building..."
                     st.session_state.sf_pipeline_status = status
-                    with st.spinner(f"Building {labels[b]} â€” {p}â€¦"):
+                    with st.spinner(f"Building {labels[b]} - {p}..."):
                         ok, msg = run_product_build(b, p, labels[b])
                     status[b][p] = "Done" if ok else "Failed"
                     st.session_state.sf_pipeline_status = status
@@ -8050,7 +8052,7 @@ April 2026
         with st.sidebar:
             c_close, c_title = st.columns([1, 4])
             with c_close:
-                if st.button("âœ•", key="sf_tools_close_top"):
+                if st.button("Close", key="sf_tools_close_top"):
                     st.session_state.sf_tools_open = False
                     qp_update(tools=None)
                     safe_rerun()
