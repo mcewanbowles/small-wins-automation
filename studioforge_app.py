@@ -3237,11 +3237,11 @@ def render_build_tab(slug: str, display_name: str):
             p = files.get("color") or files.get("bw")
             if p:
                 pages = _pdf_page_count(p)
-            st.success(f"**{name}** â€” {pages} pages")
+            st.success(f"**{name}** - {pages} pages")
             total_pages += max(0, int(pages))
             built_count += 1
         else:
-            st.caption(f"â¬œ {name} â€” not built")
+            st.caption(f"{name} - not built")
     st.caption(f"Total: {total_pages} pages across {built_count} products")
 
     st.divider()
@@ -3304,11 +3304,11 @@ def render_build_tab(slug: str, display_name: str):
             rel = os.path.relpath(m, start=str(project_root())) if project_root().exists() else m
         except Exception:
             rel = m
-        st.warning(f"âš  Missing: {rel.replace('\\\\', '/')}" )
+        st.warning(f"Missing: {rel.replace('\\\\', '/')}" )
 
     # Optional: Generate listing images (requires covers or content PDFs)
     st.markdown("#### Generate Listing Images")
-    if st.button("Generate Listing Images (1200×1200)", key=f"gen_imgs_{slug}"):
+    if st.button("Generate Listing Images (1200x1200)", key=f"gen_imgs_{slug}"):
         try:
             imgs = generate_listing_images(slug, pack_code, out_dir, built_info)
             if imgs:
@@ -3395,7 +3395,7 @@ def render_build_tab(slug: str, display_name: str):
         st.info("Build at least one product to enable Freebie generation.")
 
     # Enable merge only when all cover checkboxes are done
-    if st.button("ðŸ”— Merge PDFs with Covers", type="primary", key=f"merge_{slug}", disabled=not all_done, help=(None if all_done else "Mark all cover items done first.")):
+    if st.button("Merge PDFs with Covers", type="primary", key=f"merge_{slug}", disabled=not all_done, help=(None if all_done else "Mark all cover items done first.")):
         book_dir = find_book_dir(slug)
         if not book_dir:
             show_toast("error", "Book folder not found")
@@ -3465,14 +3465,14 @@ def render_build_tab(slug: str, display_name: str):
                     else:
                         errs.append(f"Failed merge: {content.name}\n{res.stderr.strip() if res.stderr else ''}")
                 except Exception as e:
-                    errs.append(f"Error merge: {content.name} â€” {e}")
+                    errs.append(f"Error merge: {content.name} - {e}")
             else:
                 try:
                     shutil.copy2(str(content), str(out_path))
                     if out_path.exists():
                         copied += 1
                 except Exception as e:
-                    errs.append(f"Error copy: {content.name} â€” {e}")
+                    errs.append(f"Error copy: {content.name} - {e}")
         # Cleanup temporary combined cover steps
         for t in tmp_files:
             try:
@@ -3485,7 +3485,7 @@ def render_build_tab(slug: str, display_name: str):
                 miss_list = ", ".join([os.path.relpath(m, start=str(project_root())).replace('\\\\','/') if project_root().exists() else m for m in missing])
             except Exception:
                 miss_list = ", ".join(missing)
-            summary += f" â€” missing covers: {miss_list}"
+            summary += f" - missing covers: {miss_list}"
         if errs:
             st.error("\n".join(errs))
         show_toast("success", summary)
@@ -3685,7 +3685,7 @@ def compute_built_products_and_pages(slug: str) -> tuple[list[str], int]:
 
 
 def _truncate(s: str, n: int) -> str:
-    return s if len(s) <= n else s[: n - 1].rstrip() + "â€¦"
+    return s if len(s) <= n else s[: n - 1].rstrip() + "..."
 
 
 def generate_listing_template(book_title: str, built_products: list[str], total_pages: int) -> dict:
@@ -3696,13 +3696,13 @@ def generate_listing_template(book_title: str, built_products: list[str], total_
     # Description blocks
     if built_products:
         acts = ", ".join(built_products)
-        opening = f"Engaging, lowâ€‘prep book companion for {book_title}. Designed for special education and AAC learners."
-        whats_included = f"What's included: {acts} â€” {total_pages} total pages across differentiated levels."
+        opening = f"Engaging, low-prep book companion for {book_title}. Designed for special education and AAC learners."
+        whats_included = f"What's included: {acts} - {total_pages} total pages across differentiated levels."
         who_for = "Perfect for SPED classrooms, speech therapy, autism programs, small groups, and independent tasks."
-        how_use = "Print, laminate, and reuse all year. Use during readâ€‘alouds, centers, or therapy sessions."
+        how_use = "Print, laminate, and reuse all year. Use during read-alouds, centers, or therapy sessions."
     else:
-        opening = f"Engaging, lowâ€‘prep book companion for {book_title}."
-        whats_included = "Includes multiple handsâ€‘on activities to build matching, vocabulary, and comprehension."
+        opening = f"Engaging, low-prep book companion for {book_title}."
+        whats_included = "Includes multiple hands-on activities to build matching, vocabulary, and comprehension."
         who_for = "Ideal for SPED, AAC users, autism classrooms, and speech therapy."
         how_use = "Print, laminate, and use for centers, small groups, or independent practice."
 
@@ -3726,12 +3726,12 @@ def generate_listing_template(book_title: str, built_products: list[str], total_
             bullets.append(f"Includes {name}")
     # Ensure exactly 6 bullets, pad with general benefits
     pads = [
-        "Lowâ€‘prep: print, laminate, and go",
+        "Low-prep: print, laminate, and go",
         "Clear visuals for emergent learners",
         "Perfect for IEP goals and data collection",
-        "Flexible for wholeâ€‘group, smallâ€‘group, or stations",
+        "Flexible for whole-group, small-group, or stations",
         "Supports AAC users with consistent visuals",
-        "Teacherâ€‘friendly: consistent formatting across pages",
+        "Teacher-friendly: consistent formatting across pages",
     ]
     for p in pads:
         if len(bullets) >= 6:
@@ -3925,7 +3925,7 @@ def render_listing_tab(slug: str, display_name: str):
             with cc1:
                 if st.button("Confirm replace", key=f"confirm_regen_{slug}"):
                     book_title = decode_slug(slug)
-                    with st.spinner("Drafting your listingâ€¦"):
+                    with st.spinner("Drafting your listing..."):
                         ok, data, err = generate_listing_ai(book_title, built_names, total_pages, seed_keywords=seed_list)
                     if ok and data:
                         st.session_state[k].update({
@@ -3950,7 +3950,7 @@ def render_listing_tab(slug: str, display_name: str):
                         show_toast("success", "Listing draft replaced.")
                         safe_rerun()
                     else:
-                        show_toast("error", "Draft failed â€” check your API key or try again.")
+                        show_toast("error", "Draft failed - check your API key or try again.")
                         if err:
                             try:
                                 print(err)
@@ -3969,7 +3969,7 @@ def render_listing_tab(slug: str, display_name: str):
                     safe_rerun()
                 else:
                     book_title = decode_slug(slug)
-                    with st.spinner("Drafting your listingâ€¦"):
+                    with st.spinner("Drafting your listing..."):
                         ok, data, err = generate_listing_ai(book_title, built_names, total_pages, seed_keywords=seed_list)
                     if ok and data:
                         st.session_state[k].update({
@@ -3990,10 +3990,10 @@ def render_listing_tab(slug: str, display_name: str):
                             "grade_tags_missing": not bool(ai_grades),
                             "subject_tags_missing": not bool(ai_subjects),
                         })
-                        show_toast("success", "Listing draft ready â€” review and edit before saving.")
+                        show_toast("success", "Listing draft ready - review and edit before saving.")
                         safe_rerun()
                     else:
-                        show_toast("error", "Draft failed â€” check your API key or try again.")
+                        show_toast("error", "Draft failed - check your API key or try again.")
                         if err:
                             try:
                                 print(err)
@@ -4027,7 +4027,7 @@ def render_listing_tab(slug: str, display_name: str):
                 # refresh local state from file
                 st.session_state.pop(k, None)
                 ensure_listing_state_from_book(slug)
-                show_toast("success", "Listing saved âœ“")
+                show_toast("success", "Listing saved")
                 safe_rerun()
     with c3:
         if st.button("Copy all to clipboard"):
@@ -4336,9 +4336,9 @@ def render_aac_board_tab(slug: str, display_name: str):
                                 dr.text((tx, ty), lbl, fill=col, font=fnt, align="center")
                             except Exception:
                                 pass
-                # Footer â€” PCS license notice
+                # Footer — PCS license notice
                 try:
-                    foot_txt = "PCS symbols Â© Tobii Dynavox. Used under license."
+                    foot_txt = "PCS symbols (C) Tobii Dynavox. Used under license."
                     try:
                         foot_font = ImageFont.truetype("C:/Windows/Fonts/arial.ttf", 12)
                     except Exception:
@@ -4520,7 +4520,7 @@ def read_qa_status(slug: str) -> tuple[str, bool]:
     st_data = read_book_state(slug)
     try:
         if st_data.get("qa", {}).get("status") == "passed":
-            return ("Passed âœ“", True)
+            return ("Passed", True)
     except Exception:
         pass
     # Fallback to historical QA log files
@@ -4537,7 +4537,7 @@ def read_qa_status(slug: str) -> tuple[str, bool]:
                 info = data.get(slug)
                 if info and isinstance(info, dict):
                     reviewed = bool(info.get("reviewed"))
-                    return ("Passed âœ“" if reviewed else "Partial"), reviewed
+                    return ("Passed" if reviewed else "Partial"), reviewed
         except Exception:
             continue
     return ("Not run", False)
@@ -4549,7 +4549,7 @@ def read_listing_status(slug: str) -> str:
         state = read_book_state(slug)
         listing = state.get("listing", {})
         if listing.get("saved_at"):
-            return "Saved âœ“"
+            return "Saved"
     except Exception:
         pass
     return "Not started"
@@ -4564,23 +4564,23 @@ def read_zip_status(slug: str) -> str:
         if zips:
             latest = max(zips, key=lambda p: p.stat().st_mtime)
             dt = datetime.fromtimestamp(latest.stat().st_mtime).strftime("%d %b %Y")
-            return f"Created âœ“ â€” {dt}"
+            return f"Created - {dt}"
     return "Not created"
 
 
 def compute_next_action(icon_count: int, qa_passed: bool, any_built: bool, listing_saved: bool) -> tuple[str, bool, str]:
     """Return (label, enabled, target_tab)."""
     if icon_count == 0:
-        return ("Add icons to get started â†’", True, "icons")
+        return ("Add icons to get started ->", True, "icons")
     if 1 <= icon_count <= 5 and not qa_passed:
-        return (f"Add more icons â€” {icon_count} added, need {max(0, 6 - icon_count)} more â†’", True, "icons")
+        return (f"Add more icons - {icon_count} added, need {max(0, 6 - icon_count)} more ->", True, "icons")
     if icon_count >= 6 and not qa_passed:
-        return ("Run QA to check your icon matches â†’", True, "qa")
+        return ("Run QA to check your icon matches ->", True, "qa")
     if qa_passed and not any_built:
-        return ("Build this kit â†’", True, "build")
+        return ("Build this kit ->", True, "build")
     if any_built and not listing_saved:
-        return ("Write the TpT listing â†’", True, "listing")
-    return ("Mark as done and pick next book â†’", True, "today")
+        return ("Write the TpT listing ->", True, "listing")
+    return ("Mark as done and pick next book ->", True, "today")
 
 
 def season_au(dt: datetime) -> str:
@@ -4971,7 +4971,7 @@ def render_icons_tab(slug: str, display_name: str):
     ensure_vocab_state(slug)
     vstate = st.session_state[vocab_state_key(slug)]
     if st.session_state.get(f"sf_add_icon_{slug}") or st.session_state.get(f"kit_replace_target_{slug}") or vstate.get("swap_word"):
-        if st.button("â—€ Back to icons", key=f"icons_back_{slug}"):
+        if st.button("Back to icons", key=f"icons_back_{slug}"):
             st.session_state[f"sf_add_icon_{slug}"] = False
             st.session_state.pop(f"kit_replace_target_{slug}", None)
             vstate["swap_word"] = None
@@ -4984,7 +4984,7 @@ def render_icons_tab(slug: str, display_name: str):
 
     # Gate indicator
     icons_count = len(kit)
-    st.markdown(f"**{icons_count} icons** â€” gates at â–²6, â–²8, â–²20")
+    st.markdown(f"**{icons_count} icons** - gates: 6, 8, 20")
     st.progress(min(icons_count, 20) / 20.0)
 
     # SECTION 1 â€” Book vocabulary icons (AAC/manual preferred)
@@ -5016,18 +5016,18 @@ def render_icons_tab(slug: str, display_name: str):
                         show_toast("error", f"Save failed: {e}")
         with c2:
             can_suggest = (anthropic is not None) and bool(os.environ.get("ANTHROPIC_API_KEY", "").strip())
-            if can_suggest and st.button("âœ¨ Suggest vocab for this book", key=f"voc_suggest_{slug}"):
+            if can_suggest and st.button("Suggest vocab for this book", key=f"voc_suggest_{slug}"):
                 title = display_name or decode_slug(slug)
-                with st.spinner("Asking Claudeâ€¦"):
+                with st.spinner("Asking Claude..."):
                     sugs = suggest_vocab_for_book(title)
                 if sugs:
                     st.session_state[ta_key] = "\n".join(sugs)
-                    show_toast("success", "Suggestions added â€” review before saving")
+                    show_toast("success", "Suggestions added - review before saving")
                     safe_rerun()
                 else:
                     show_toast("warning", "No suggestions available")
         st.markdown("#### Or search existing symbols")
-        qry = st.text_input("Search symbols by wordâ€¦", value="")
+        qry = st.text_input("Search symbols by word...", value="")
         if qry.strip():
             files = [p for p in symbols_root().rglob("*.png") if qry.lower() in p.stem.lower()]
             files = sorted(files, key=lambda p: p.stem.lower())[:60]
@@ -5067,7 +5067,7 @@ def render_icons_tab(slug: str, display_name: str):
             if st.button("Edit words", key=f"voc_edit_{slug}"):
                 st.session_state[f"sf_edit_vocab_{slug}"] = True
         else:
-            src_lbl = f" â€” {Path(aac_src).name}" if aac_src else ""
+            src_lbl = f" - {Path(aac_src).name}" if aac_src else ""
             st.caption(f"Book-specific vocabulary from AAC board{src_lbl}")
             # AAC board preview (only for PDFs)
             if aac_src and str(aac_src).lower().endswith(".pdf"):
@@ -5087,7 +5087,7 @@ def render_icons_tab(slug: str, display_name: str):
         words = parse_vocab_for_slug(slug)
         if words:
             if aac_src and not manual_cfg:
-                src_lbl = f" â€” {Path(aac_src).name}"
+                src_lbl = f" - {Path(aac_src).name}"
                 st.caption(f"AAC board detected{src_lbl} but no embedded vocab; using Essential words from master file")
                 if str(aac_src).lower().endswith(".pdf"):
                     with st.expander("AAC Board Preview"):
@@ -5142,19 +5142,19 @@ def render_icons_tab(slug: str, display_name: str):
                 safe_rerun()
         with ec3:
             can_suggest2 = (anthropic is not None) and bool(os.environ.get("ANTHROPIC_API_KEY", "").strip())
-            if can_suggest2 and st.button("âœ¨ Suggest vocab", key=f"voc_edit_suggest_{slug}"):
+            if can_suggest2 and st.button("Suggest vocab", key=f"voc_edit_suggest_{slug}"):
                 title = display_name or decode_slug(slug)
-                with st.spinner("Asking Claudeâ€¦"):
+                with st.spinner("Asking Claude..."):
                     sugs = suggest_vocab_for_book(title)
                 if sugs:
                     st.session_state[ta_key2] = "\n".join(sugs)
-                    show_toast("success", "Suggestions added â€” review before saving")
+                    show_toast("success", "Suggestions added - review before saving")
                     safe_rerun()
                 else:
                     show_toast("warning", "No suggestions available")
     if not words:
         st.info("No AAC board or vocab found for this book. Use search below to add icons manually.")
-        qry = st.text_input("Search symbols by wordâ€¦", value="")
+        qry = st.text_input("Search symbols by word...", value="")
         if qry.strip():
             files = [p for p in symbols_root().rglob("*.png") if qry.lower() in p.stem.lower()]
             files = sorted(files, key=lambda p: p.stem.lower())[:60]
@@ -5237,10 +5237,10 @@ def render_icons_tab(slug: str, display_name: str):
         }
         total = max(len(words), 1)
         st.markdown(
-            f"**Icons progress** â€” "
-            f"Accepted: {counts['accepted']} Â· "
-            f"Suggested: {counts['suggested']} Â· "
-            f"Missing: {counts['missing']} Â· "
+            f"**Icons progress** - "
+            f"Accepted: {counts['accepted']} | "
+            f"Suggested: {counts['suggested']} | "
+            f"Missing: {counts['missing']} | "
             f"Skipped: {counts['skipped']}  "
             f"(Total: {len(words)})"
         )
