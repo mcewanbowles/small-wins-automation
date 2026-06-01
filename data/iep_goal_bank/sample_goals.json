@@ -1,0 +1,140 @@
+{
+  "domains": [
+    {
+      "name": "Communication",
+      "subdomains": [
+        {
+          "name": "Receptive Language",
+          "goals": [
+            {
+              "level": "Emerging",
+              "goal_text": "The student will respond to their name being called by looking toward the speaker.",
+              "criteria": "4/5 opportunities",
+              "prompt_level": "Moderate verbal and gestural",
+              "measurement_type": "Trials",
+              "notes": "Use consistent voice volume and distance"
+            },
+            {
+              "level": "Emerging",
+              "goal_text": "The student will follow a one-step direction with gestural support (e.g., 'sit down' with pointing)."
+            },
+            {
+              "level": "Developing",
+              "goal_text": "The student will identify common objects by pointing when named from a field of 4 choices.",
+              "criteria": "80% accuracy across 3 sessions",
+              "measurement_type": "Frequency"
+            },
+            {
+              "level": "Proficient",
+              "goal_text": "The student will follow two-step unrelated directions independently (e.g., 'Get your backpack and sit at the table').",
+              "prompt_level": "Independent",
+              "measurement_type": "Trials"
+            }
+          ]
+        },
+        {
+          "name": "Expressive Language",
+          "goals": [
+            {
+              "level": "Emerging",
+              "goal_text": "The student will use gestures (e.g., pointing, reaching) to communicate wants and needs.",
+              "measurement_type": "Frequency"
+            },
+            {
+              "level": "Developing",
+              "goal_text": "The student will verbally request preferred items using single words or signs.",
+              "criteria": "3/5 opportunities",
+              "prompt_level": "Minimal verbal",
+              "notes": "Accept approximations and sign language"
+            },
+            {
+              "level": "Developing",
+              "goal_text": "The student will use 2-word phrases to express basic needs (e.g., 'want juice', 'more play')."
+            },
+            {
+              "level": "Proficient",
+              "goal_text": "The student will answer 'wh-' questions (who, what, where) about familiar events with 80% accuracy.",
+              "criteria": "4/5 trials across 2 weeks",
+              "measurement_type": "Trials"
+            },
+            {
+              "level": "Generalisation",
+              "goal_text": "The student will initiate conversations with peers across multiple settings (classroom, playground, lunch) using complete sentences.",
+              "measurement_type": "Frequency",
+              "notes": "Track settings and frequency weekly"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Literacy",
+      "subdomains": [
+        {
+          "name": "Phonological Awareness",
+          "goals": [
+            {
+              "level": "Emerging",
+              "goal_text": "The student will identify rhyming words from a set of picture cards with gestural prompts.",
+              "prompt_level": "Moderate",
+              "measurement_type": "Trials"
+            },
+            {
+              "level": "Developing",
+              "goal_text": "The student will segment words into syllables by clapping with 75% accuracy.",
+              "criteria": "3/4 trials",
+              "measurement_type": "Trials"
+            },
+            {
+              "level": "Proficient",
+              "goal_text": "The student will identify the initial sound in spoken words independently.",
+              "criteria": "80% accuracy across 5 sessions",
+              "prompt_level": "Independent",
+              "measurement_type": "Trials"
+            },
+            {
+              "level": "Generalisation",
+              "goal_text": "The student will blend individual phonemes to form CVC words across reading and writing activities.",
+              "measurement_type": "Rubric",
+              "notes": "Observe in multiple literacy contexts"
+            }
+          ]
+        },
+        {
+          "name": "Reading Comprehension",
+          "goals": [
+            {
+              "level": "Emerging",
+              "goal_text": "The student will point to pictures in a book when named during shared reading.",
+              "prompt_level": "Gestural and verbal",
+              "measurement_type": "Frequency"
+            },
+            {
+              "level": "Emerging",
+              "goal_text": "The student will turn pages in a book during shared reading with hand-over-hand support."
+            },
+            {
+              "level": "Developing",
+              "goal_text": "The student will answer simple yes/no questions about a story after it is read aloud.",
+              "criteria": "4/5 questions correct",
+              "measurement_type": "Trials"
+            },
+            {
+              "level": "Proficient",
+              "goal_text": "The student will retell the main events of a story using a picture sequence with minimal prompting.",
+              "criteria": "Include beginning, middle, and end",
+              "prompt_level": "Minimal verbal",
+              "measurement_type": "Rubric"
+            },
+            {
+              "level": "Generalisation",
+              "goal_text": "The student will make predictions about texts based on title and pictures before reading across various genres.",
+              "measurement_type": "Frequency",
+              "notes": "Track accuracy of predictions and variety of genres"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
