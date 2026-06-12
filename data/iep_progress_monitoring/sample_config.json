@@ -1,0 +1,243 @@
+{
+  "toolkit_name": "IEP Progress Monitoring Toolkit",
+  "version": "1.0",
+  "brand": "Small Wins Studio",
+  "page_size": "letter",
+  "margins": {
+    "left": 0.75,
+    "right": 0.5,
+    "top": 0.5,
+    "bottom": 0.5,
+    "unit": "inches"
+  },
+  "fonts": {
+    "title": {
+      "family": "Helvetica-Bold",
+      "size": 18
+    },
+    "subtitle": {
+      "family": "Helvetica",
+      "size": 14
+    },
+    "body": {
+      "family": "Helvetica",
+      "size": 10
+    },
+    "footer": {
+      "family": "Helvetica",
+      "size": 9
+    },
+    "table_header": {
+      "family": "Helvetica-Bold",
+      "size": 9
+    },
+    "table_body": {
+      "family": "Helvetica",
+      "size": 8
+    }
+  },
+  "colors": {
+    "footer_text": "#666666",
+    "header_text": "#000000",
+    "table_border": "#333333",
+    "table_header_bg": "#E8E8E8"
+  },
+  "quick_start_pages": [
+    {
+      "title": "IEP Progress Monitoring Toolkit",
+      "subtitle": "Quick-Start Guide",
+      "sections": [
+        {
+          "heading": "What's Included in This Toolkit",
+          "content": [
+            "• Quick-start guide pages with tips and best practices",
+            "• Seven types of data collection sheets for different measurement approaches",
+            "• Digital tracker template for organizing and summarizing data",
+            "• Privacy guidelines for handling student information"
+          ]
+        },
+        {
+          "heading": "How to Choose the Right Data Sheet",
+          "content": [
+            "1. Read your IEP goal carefully and identify what needs to be measured",
+            "2. Refer to the Measurement Type Quick Reference (next page)",
+            "3. Select the data sheet that matches your measurement approach",
+            "4. Make copies as needed for multiple students or goals"
+          ]
+        },
+        {
+          "heading": "Tips for Consistent Data Collection",
+          "content": [
+            "• Collect data at the same time each day or session when possible",
+            "• Record data immediately after the session while details are fresh",
+            "• Be specific in your notes about prompts and supports used",
+            "• Review data weekly to identify trends and adjust instruction"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Measurement Type Quick Reference",
+      "subtitle": "",
+      "type": "table",
+      "table_data": {
+        "headers": ["Measurement Type", "When to Use", "Example Goals"],
+        "rows": [
+          ["Trials/Accuracy (DTT)", "Discrete skills with clear correct/incorrect responses", "Identify 10 sight words with 80% accuracy"],
+          ["Frequency Count", "Count how many times a behavior occurs", "Raise hand to ask question 5+ times per day"],
+          ["Duration Tracking", "Measure how long a behavior lasts", "Stay on task for 10 minutes during independent work"],
+          ["Interval Recording", "Sample behavior at specific time intervals", "Demonstrate on-task behavior in 80% of intervals"],
+          ["ABC Observation", "Analyze antecedents and consequences of behavior", "Identify triggers for classroom disruption"],
+          ["Work Sample/Anecdotal", "Document complex skills or qualitative progress", "Demonstrate problem-solving strategies in math"],
+          ["Goal Snapshot", "Track overall goal progress and supports", "Monitor progress toward annual IEP goal"]
+        ]
+      }
+    },
+    {
+      "title": "Privacy & Best Practices",
+      "subtitle": "",
+      "sections": [
+        {
+          "heading": "Privacy Reminder",
+          "content": [
+            "• Do NOT include student names or identifying information in shared digital files",
+            "• Use student IDs or codes (e.g., 'Student A', 'Student B') in tracker templates",
+            "• Store paper data sheets in a locked cabinet or secure location",
+            "• Follow your district's data privacy and FERPA guidelines",
+            "• Shred or securely dispose of outdated data sheets"
+          ]
+        },
+        {
+          "heading": "Best Practices for Data Collection",
+          "content": [
+            "• Define success criteria clearly before beginning data collection",
+            "• Train all team members on consistent data collection procedures",
+            "• Use the same measurement tool throughout the IEP period for consistency",
+            "• Graph data regularly to visualize progress trends",
+            "• Bring data to IEP meetings to support decision-making"
+          ]
+        },
+        {
+          "heading": "Tips for Progress Report Preparation",
+          "content": [
+            "• Review all data before writing progress reports",
+            "• Calculate percentages and averages using the tracker template",
+            "• Note any changes in supports, prompts, or instructional strategies",
+            "• Include specific examples of student performance in your narrative",
+            "• Keep language objective and data-based"
+          ]
+        }
+      ]
+    }
+  ],
+  "data_sheets": [
+    {
+      "type": "trials_accuracy",
+      "title": "Trials/Accuracy Data Sheet (DTT-Style)",
+      "trials": 10,
+      "sessions": 5,
+      "prompt_levels": ["I", "V", "G", "PP", "FP"],
+      "prompt_legend": {
+        "I": "Independent",
+        "V": "Verbal",
+        "G": "Gestural",
+        "PP": "Partial Physical",
+        "FP": "Full Physical"
+      }
+    },
+    {
+      "type": "frequency_count",
+      "title": "Frequency Count Data Sheet",
+      "sessions": 10
+    },
+    {
+      "type": "duration",
+      "title": "Duration Tracking Data Sheet",
+      "sessions": 8
+    },
+    {
+      "type": "interval_5min",
+      "title": "Interval Recording (5-Minute Intervals)",
+      "intervals": 6,
+      "session_length": 30,
+      "interval_duration": 5
+    },
+    {
+      "type": "interval_10min",
+      "title": "Interval Recording (10-Minute Intervals)",
+      "intervals": 6,
+      "session_length": 60,
+      "interval_duration": 10
+    },
+    {
+      "type": "abc_observation",
+      "title": "ABC Observation Form",
+      "rows": 12
+    },
+    {
+      "type": "work_sample",
+      "title": "Work Sample / Anecdotal Log"
+    },
+    {
+      "type": "goal_snapshot",
+      "title": "Goal Snapshot Page"
+    }
+  ],
+  "tracker_template": {
+    "format": ["csv"],
+    "tabs": [
+      {
+        "name": "caseload_overview",
+        "title": "Caseload Overview",
+        "columns": [
+          "Student ID",
+          "Goal Area",
+          "Goal Description",
+          "Baseline Data",
+          "Target Criterion",
+          "Next Review Date",
+          "Status"
+        ]
+      },
+      {
+        "name": "session_log",
+        "title": "Session Log",
+        "columns": [
+          "Date",
+          "Student ID",
+          "Goal ID",
+          "Session Type",
+          "Score/Data Point",
+          "Prompt Level",
+          "Notes",
+          "Entered By"
+        ]
+      },
+      {
+        "name": "auto_summary",
+        "title": "Data Summary",
+        "columns": [
+          "Student ID",
+          "Goal ID",
+          "Total Sessions",
+          "Average Score",
+          "Latest Score",
+          "Trend",
+          "Last Session Date"
+        ]
+      },
+      {
+        "name": "next_steps",
+        "title": "Next Steps & Notes",
+        "columns": [
+          "Student ID",
+          "Goal ID",
+          "Observation Date",
+          "Next Steps/Action Items",
+          "Follow-up Date",
+          "Completed"
+        ]
+      }
+    ]
+  }
+}
