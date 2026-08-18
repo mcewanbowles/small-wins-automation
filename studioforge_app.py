@@ -490,7 +490,7 @@ def render_tracker_screen(display_map: dict[str, str]):
             rows = [r for r in filt if isinstance(r, dict)]
             for r in rows:
                 wr.writerow([r.get("id"), r.get("book_title"), r.get("book_slug"), r.get("pack_code"), r.get("product_type"), r.get("status"), r.get("uploaded_date"), r.get("tpt_url"), r.get("tpt_listing_id"), (r.get("notes") or "").replace("\n", " ").strip(), r.get("updated_at")])
-            st.download_button("Export CSV (filtered)", data=buf.getvalue(), file_name="tracker_export.csv", mime="text/csv", key="trk_export_csv")
+            st.download_button("Export CSV (filtered)", data=buf.getvalue().encode("utf-8-sig"), file_name="tracker_export.csv", mime="text/csv", key="trk_export_csv")
         except Exception:
             pass
         active_slug = st.session_state.get("active_book")
@@ -1617,7 +1617,7 @@ def generate_listing_images(slug: str, pack_code: str, out_dir: Path, built_info
     # Write captions CSV and preview PDF (best effort)
     try:
         cap_csv = images_dir / f"{pack_code}_captions.csv"
-        with open(cap_csv, "w", newline="", encoding="utf-8") as f:
+        with open(cap_csv, "w", newline="", encoding="utf-8-sig") as f:
             w = csv.DictWriter(f, fieldnames=["filename", "caption"])
             w.writeheader()
             for p in results:
@@ -1658,15 +1658,17 @@ def generate_pinterest_csv(slug: str, pack_code: str, out_dir: Path, listing: di
         for i in range(5):
             media = str(imgs[i % len(imgs)]) if imgs else ""
             desc = f"{desc_base} " + (" ".join(kws[:3]) if kws else "")
+            # ASCII-safe title to reduce mojibake risk in CSV consumers
+            safe_title = str(title or "").replace("–", "-").replace("—", "-")
             rows.append({
-                "title": title if i == 0 else f"{title} – {i+1}",
+                "title": safe_title if i == 0 else f"{safe_title} - {i+1}",
                 "description": desc.strip(),
                 "link": str(link_base or ""),  # Fill with TPT listing or store URL after publishing
                 "board": str(default_board or ""),
                 "media_url": media,
                 "publish_date": (today + timedelta(days=i * 3)).isoformat(),
             })
-        with open(csv_path, "w", newline="", encoding="utf-8") as f:
+        with open(csv_path, "w", newline="", encoding="utf-8-sig") as f:
             w = csv.DictWriter(f, fieldnames=["title", "description", "link", "board", "media_url", "publish_date"])
             w.writeheader()
             for r in rows:
