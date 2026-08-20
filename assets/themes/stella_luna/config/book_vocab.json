@@ -1,0 +1,20 @@
+{
+  "slug": "stellaluna",
+  "source": "conversation_auto",
+  "book_words": [
+    "I",
+    "you",
+    "want",
+    "more",
+    "yes",
+    "no",
+    "what",
+    "why",
+    "where",
+    "same",
+    "different",
+    "favourite"
+  ],
+  "conversation_seeded": true,
+  "saved_at": "2026-06-26T02:12:30"
+}

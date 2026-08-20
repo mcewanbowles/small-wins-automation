@@ -1,0 +1,86 @@
+{
+  "title": "Leaf Thief",
+  "author": "Alice Hemming",
+  "hero": {
+    "name": "Squirrel",
+    "description": "A small brown squirrel, the main character who is upset about missing leaves",
+    "search_term": "squirrel",
+    "needs_sourcing": false,
+    "source_note": "Generic squirrel — Boardmaker library should have a suitable image"
+  },
+  "fringe_12": [
+    "Squirrel",
+    "leaf",
+    "tree",
+    "wind",
+    "autumn",
+    "bird",
+    "bear",
+    "stolen",
+    "angry",
+    "cold",
+    "acorn",
+    "forest"
+  ],
+  "fringe_11": [
+    "leaf",
+    "tree",
+    "wind",
+    "autumn",
+    "bird",
+    "bear",
+    "stolen",
+    "angry",
+    "cold",
+    "acorn",
+    "forest"
+  ],
+  "activity_images": [
+    "leaf",
+    "tree",
+    "wind",
+    "autumn",
+    "bird",
+    "bear"
+  ],
+  "aac_extras": [
+    "stolen",
+    "angry",
+    "cold",
+    "acorn",
+    "forest"
+  ],
+  "ambiguous": [
+    {
+      "word": "fall",
+      "issue": "Could mean the season (autumn) or the action of falling down",
+      "preferred": "autumn",
+      "reason": "The book is about leaves falling in autumn; using 'autumn' avoids ambiguity with the action verb 'fall'"
+    },
+    {
+      "word": "bear",
+      "issue": "Could mean the animal or the verb 'to bear/carry'",
+      "preferred": "bear animal",
+      "reason": "Bear is a secondary animal character in the book, not a verb"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "leaf": "leaf",
+    "tree": "tree",
+    "wind": "wind",
+    "autumn": "autumn",
+    "bird": "bird",
+    "bear": "bear",
+    "stolen": "steal",
+    "angry": "angry",
+    "cold": "cold",
+    "acorn": "acorn",
+    "forest": "forest"
+  },
+  "notes": "The Leaf Thief by Alice Hemming features a squirrel who notices leaves disappearing from his tree and suspects a thief — the twist is that it is simply autumn and the wind is taking the leaves. Key vocabulary centres on nature, seasons, and emotions. 'Stolen' may not have a direct Boardmaker symbol; 'steal' or 'take' may be better search terms. 'Autumn' is preferred over 'fall' to avoid ambiguity. The acorn symbol exists in the sample library (multiple variants available). 'Forest' or 'woods' may be interchangeable depending on library coverage.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

@@ -1,0 +1,88 @@
+{
+  "title": "Where The Wild Things Go",
+  "author": "Unknown",
+  "hero": {
+    "name": "Wild Thing",
+    "description": "Horned, clawed monster creature reminiscent of Maurice Sendak's Wild Things — large furry beast with sharp teeth and claws",
+    "search_term": "monster creature",
+    "needs_sourcing": true,
+    "source_note": "Distinctive wild monster character — source from Creative Fabrica or TPT clip art; if this is a Sendak-adjacent title, search for 'wild thing monster' clip art"
+  },
+  "fringe_12": [
+    "Wild Thing",
+    "monster",
+    "forest",
+    "roar",
+    "boat",
+    "crown",
+    "wild",
+    "scary",
+    "home",
+    "night",
+    "jungle",
+    "angry"
+  ],
+  "fringe_11": [
+    "monster",
+    "forest",
+    "roar",
+    "boat",
+    "crown",
+    "wild",
+    "scary",
+    "home",
+    "night",
+    "jungle",
+    "angry"
+  ],
+  "activity_images": [
+    "monster",
+    "forest",
+    "roar",
+    "boat",
+    "crown",
+    "wild"
+  ],
+  "aac_extras": [
+    "scary",
+    "home",
+    "night",
+    "jungle",
+    "angry"
+  ],
+  "ambiguous": [
+    {
+      "word": "wild",
+      "issue": "Could mean an adjective (untamed/feral) or a proper noun part of the title",
+      "preferred": "wild",
+      "reason": "Used as a descriptive adjective for the creatures and setting throughout the book; search for 'wild' or 'untamed' in Boardmaker"
+    },
+    {
+      "word": "night",
+      "issue": "Could mean the time of day (dark sky) or be confused with 'knight'",
+      "preferred": "night",
+      "reason": "The story takes place at night; search for 'night' showing dark sky or moon"
+    }
+  ],
+  "character_images_needed": [
+    "Wild Thing"
+  ],
+  "icon_search_terms": {
+    "monster": "monster",
+    "forest": "forest",
+    "roar": "roar",
+    "boat": "boat",
+    "crown": "crown",
+    "wild": "wild",
+    "scary": "scary",
+    "home": "home",
+    "night": "night",
+    "jungle": "jungle",
+    "angry": "angry"
+  },
+  "notes": "Author is listed as Unknown — this book may be a classroom adaptation, retelling, or lesser-known title inspired by Maurice Sendak's 'Where the Wild Things Are'. Vocabulary has been chosen to match the likely themes of that story world (monsters, forest/jungle, sailing, night-time adventure, crown as symbol of king, emotions of anger and fear, return home). If the actual book differs significantly in plot or characters, fringe words should be revised once the book content is confirmed. 'Roar' is a key action in the Wild Things genre and is picturable as an open-mouthed yelling creature. 'Crown' is important as the child protagonist typically becomes king of the wild things. Recommend confirming book content before printing boards.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

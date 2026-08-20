@@ -1,0 +1,91 @@
+{
+  "title": "The Very Hungry Caterpillar",
+  "author": "Eric Carle",
+  "hero": {
+    "name": "The Very Hungry Caterpillar",
+    "description": "Small green caterpillar with red head, distinctive Eric Carle collage art style",
+    "search_term": "hungry caterpillar",
+    "needs_sourcing": true,
+    "source_note": "Named/distinctive character in Eric Carle collage style — source from Creative Fabrica, TPT, or official Eric Carle licensed clip art"
+  },
+  "fringe_12": [
+    "The Very Hungry Caterpillar",
+    "caterpillar",
+    "butterfly",
+    "eat",
+    "hungry",
+    "full",
+    "egg",
+    "cocoon",
+    "apple",
+    "leaf",
+    "big",
+    "small"
+  ],
+  "fringe_11": [
+    "caterpillar",
+    "butterfly",
+    "eat",
+    "hungry",
+    "full",
+    "egg",
+    "cocoon",
+    "apple",
+    "leaf",
+    "big",
+    "small"
+  ],
+  "activity_images": [
+    "caterpillar",
+    "butterfly",
+    "eat",
+    "hungry",
+    "full",
+    "egg"
+  ],
+  "aac_extras": [
+    "cocoon",
+    "apple",
+    "leaf",
+    "big",
+    "small"
+  ],
+  "ambiguous": [
+    {
+      "word": "full",
+      "issue": "Could mean 'full stomach / satiated' (feeling) or 'full container' (adjective for capacity)",
+      "preferred": "full stomach",
+      "reason": "The caterpillar eats until his tummy aches — the meaning is 'satiated', not a container being full"
+    },
+    {
+      "word": "big",
+      "issue": "Could mean physically large (size adjective) or 'big deal / important' (abstract)",
+      "preferred": "big size",
+      "reason": "The caterpillar grows big — physical size meaning is correct here"
+    }
+  ],
+  "character_images_needed": [
+    "The Very Hungry Caterpillar"
+  ],
+  "icon_search_terms": {
+    "caterpillar": "caterpillar",
+    "butterfly": "butterfly",
+    "eat": "eat",
+    "hungry": "hungry",
+    "full": "full stomach",
+    "egg": "egg",
+    "cocoon": "cocoon",
+    "apple": "apple",
+    "leaf": "leaf",
+    "big": "big",
+    "small": "small"
+  },
+  "notes": "Most key vocabulary (egg, cocoon, leaf, eat, hungry, full, butterfly, apple) already exists in activity_images or aac_extras — verify existing assets match Eric Carle art style for visual consistency. The book features many foods (pear, plum, strawberry, orange, watermelon, chocolate cake, ice cream, pickle, swiss cheese, salami, lollipop, cherry pie, sausage, cupcake, watermelon) but with only 11 fringe slots the priority is the life-cycle narrative words and the most iconic food. Apple is chosen as the single food representative since it is the first food eaten and most iconic. Days of the week (monday–sunday) are already in aac_extras and can be added to a supplementary page if the teacher wishes to extend the board. The transformation sequence egg → caterpillar → cocoon → butterfly is the core retell path and is fully covered by the chosen fringe.",
+  "characters": [
+    "butterfly",
+    "caterpillar"
+  ],
+  "code": "VHC1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

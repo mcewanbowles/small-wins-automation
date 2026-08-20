@@ -1,0 +1,88 @@
+{
+  "title": "Don't Let the Pigeon Drive the Bus!",
+  "author": "Mo Willems",
+  "hero": {
+    "name": "Pigeon",
+    "description": "Mo Willems' distinctive cartoon pigeon — simple blue-grey bird with one large round eye, stick legs, and expressive poses",
+    "search_term": "pigeon mo willems",
+    "needs_sourcing": true,
+    "source_note": "Named/distinctive character — generic Boardmaker pigeon won't match; source Mo Willems pigeon clip art from Creative Fabrica, TPT, or official Mo Willems licensed materials"
+  },
+  "fringe_12": [
+    "PIGEON",
+    "bus",
+    "drive",
+    "no",
+    "please",
+    "mad",
+    "dream",
+    "steer",
+    "tired",
+    "wait",
+    "ask",
+    "honk"
+  ],
+  "fringe_11": [
+    "bus",
+    "drive",
+    "no",
+    "please",
+    "mad",
+    "dream",
+    "steer",
+    "tired",
+    "wait",
+    "ask",
+    "honk"
+  ],
+  "activity_images": [
+    "bus",
+    "drive",
+    "no",
+    "please",
+    "mad",
+    "dream"
+  ],
+  "aac_extras": [
+    "steer",
+    "tired",
+    "wait",
+    "ask",
+    "honk"
+  ],
+  "ambiguous": [
+    {
+      "word": "steer",
+      "issue": "Could mean to direct/control (verb) or a young bull (noun)",
+      "preferred": "steering wheel",
+      "reason": "Book is about driving a bus; steering refers to controlling the vehicle via the steering wheel"
+    },
+    {
+      "word": "drive",
+      "issue": "Could mean to operate a vehicle (verb) or a driveway/road (noun)",
+      "preferred": "drive vehicle",
+      "reason": "Central action of the book is the pigeon wanting to drive the bus"
+    }
+  ],
+  "character_images_needed": [
+    "Pigeon (Mo Willems)"
+  ],
+  "icon_search_terms": {
+    "bus": "bus",
+    "drive": "drive car",
+    "no": "no",
+    "please": "please",
+    "mad": "mad angry",
+    "dream": "dream sleep",
+    "steer": "steering wheel",
+    "tired": "tired",
+    "wait": "wait",
+    "ask": "ask question",
+    "honk": "horn honk"
+  },
+  "notes": "The word 'no' appears in the fixed core row (Row 1) as 'NO'; however it is so central to this specific book's interactive read-aloud experience (children shout 'No!' at the pigeon) that keeping a fringe version labelled 'no' gives students a direct, book-contextual button to use enthusiastically during the activity. Teachers may choose to drop it and substitute another word (e.g. 'hot dog' — the pigeon's coveted treat) if the core NO button is felt to be sufficient. Existing activity_images icons (pigeon, bus, steering_wheel_3, stop_sign, bus_driver) can populate the board directly. Existing aac_extras (shout, mad, ask) also map directly to fringe words here.",
+  "characters": [],
+  "code": "DLPDB1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

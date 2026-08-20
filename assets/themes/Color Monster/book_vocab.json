@@ -1,0 +1,94 @@
+{
+  "title": "The Color Monster: A Story About Emotions",
+  "author": "Anna Llenas",
+  "hero": {
+    "name": "Color Monster",
+    "description": "Round fuzzy monster character whose body colour changes to reflect different emotions — central to the book's concept",
+    "search_term": "color monster",
+    "needs_sourcing": true,
+    "source_note": "Named character with distinctive design — source from Creative Fabrica, TPT, or Anna Llenas licensed clip art"
+  },
+  "fringe_12": [
+    "Color Monster",
+    "happy",
+    "sad",
+    "angry",
+    "scared",
+    "calm",
+    "love",
+    "monster",
+    "feelings",
+    "mixed up",
+    "jar",
+    "friend"
+  ],
+  "fringe_11": [
+    "happy",
+    "sad",
+    "angry",
+    "scared",
+    "calm",
+    "love",
+    "monster",
+    "feelings",
+    "mixed up",
+    "jar",
+    "friend"
+  ],
+  "activity_images": [
+    "happy",
+    "sad",
+    "angry",
+    "scared",
+    "calm",
+    "love"
+  ],
+  "aac_extras": [
+    "monster",
+    "feelings",
+    "mixed up",
+    "jar",
+    "friend"
+  ],
+  "ambiguous": [
+    {
+      "word": "mixed up",
+      "issue": "Could mean physically stirred/confused or emotionally jumbled",
+      "preferred": "mixed up confused",
+      "reason": "In this book mixed up refers to emotions all tangled together — emotional confusion is the correct meaning"
+    },
+    {
+      "word": "calm",
+      "issue": "Could map to a quiet scene or a person sitting still rather than the specific emotion of peacefulness",
+      "preferred": "calm peaceful",
+      "reason": "Book uses calm as a named emotion represented by blue — the feeling of peace is the intended meaning"
+    },
+    {
+      "word": "jar",
+      "issue": "Could map to a glass jar or the verb to jar/startle",
+      "preferred": "jar glass container",
+      "reason": "The monster sorts emotions into glass jars in the story — the noun container is the correct meaning"
+    }
+  ],
+  "character_images_needed": [
+    "Color Monster"
+  ],
+  "icon_search_terms": {
+    "happy": "happy",
+    "sad": "sad",
+    "angry": "angry",
+    "scared": "afraid",
+    "calm": "calm",
+    "love": "love",
+    "monster": "monster",
+    "feelings": "feelings",
+    "mixed up": "confused",
+    "jar": "jar",
+    "friend": "friend"
+  },
+  "notes": "The Color Monster is built entirely around named emotions (happy, sad, angry, scared, calm, love) so all six emotion words are high-priority fringe even though they are abstract — they ARE picturable as faces and are the core vocabulary of the book. The hero image must show the monster in a neutral or multicoloured state so students can point to it without it being anchored to a single emotion. If sourcing multiple hero variants (one per emotion colour) is feasible, that would extend the board's utility but is not required for the base board.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

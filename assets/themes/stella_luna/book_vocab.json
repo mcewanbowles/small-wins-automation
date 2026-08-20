@@ -1,0 +1,530 @@
+﻿{
+    "title":  "Stellaluna",
+    "author":  "Janell Cannon",
+    "hero":  {
+                 "name":  "Stellaluna",
+                 "description":  "Small brown fruit bat with large eyes and distinctive pointed ears, the named protagonist of the book",
+                 "search_term":  "stellaluna bat",
+                 "needs_sourcing":  true,
+                 "source_note":  "Named character â€” source from Creative Fabrica, TPT, or Teachers Pay Teachers clip art; generic bat icon will not be recognisable as Stellaluna"
+             },
+    "fringe_12":  [
+                      "STELLALUNA",
+                      "bird",
+                      "owl",
+                      "nest",
+                      "mango",
+                      "moth",
+                      "tree",
+                      "cave",
+                      "night",
+                      "wing",
+                      "lost",
+                      "hang"
+                  ],
+    "fringe_11":  [
+                      "bird",
+                      "owl",
+                      "nest",
+                      "mango",
+                      "moth",
+                      "tree",
+                      "cave",
+                      "night",
+                      "wing",
+                      "lost",
+                      "hang"
+                  ],
+    "activity_images":  [
+                            "bird",
+                            "owl",
+                            "nest",
+                            "mango",
+                            "moth",
+                            "tree"
+                        ],
+    "aac_extras":  [
+                       "cave",
+                       "night",
+                       "wing",
+                       "lost",
+                       "hang"
+                   ],
+    "ambiguous":  [
+                      {
+                          "word":  "bat",
+                          "issue":  "Could mean the animal bat or a baseball bat",
+                          "preferred":  "bat animal",
+                          "reason":  "Stellaluna is a fruit bat; the animal meaning is correct â€” already covered by the HERO slot so not needed as a separate fringe word"
+                      },
+                      {
+                          "word":  "hang",
+                          "issue":  "Could mean hang up clothes or hang upside-down from a branch",
+                          "preferred":  "hang upside down",
+                          "reason":  "Central action in the book is Stellaluna hanging by her feet from a branch like a bat, not hanging laundry"
+                      },
+                      {
+                          "word":  "moth",
+                          "issue":  "Could be confused with butterfly or general insect",
+                          "preferred":  "moth insect",
+                          "reason":  "Stellaluna tries to eat moths as food in the story; moth is the correct insect meaning"
+                      }
+                  ],
+    "character_images_needed":  [
+                                    "Stellaluna"
+                                ],
+    "icon_search_terms":  {
+                              "bird":  [
+                                           "bird",
+                                           "songbird",
+                                           "small bird"
+                                       ],
+                              "owl":  [
+                                          "owl",
+                                          "bird owl"
+                                      ],
+                              "nest":  [
+                                           "nest",
+                                           "bird nest"
+                                       ],
+                              "mango":  [
+                                            "mango",
+                                            "fruit mango"
+                                        ],
+                              "moth":  [
+                                           "moth",
+                                           "moth insect",
+                                           "insect"
+                                       ],
+                              "tree":  [
+                                           "tree",
+                                           "tree branch",
+                                           "branch",
+                                           "forest"
+                                       ],
+                              "cave":  [
+                                           "cave",
+                                           "dark cave"
+                                       ],
+                              "night":  [
+                                            "night",
+                                            "nighttime",
+                                            "dark",
+                                            "moonlight"
+                                        ],
+                              "wing":  [
+                                           "bat wing",
+                                           "wing"
+                                       ],
+                              "lost":  [
+                                           "lost",
+                                           "missing",
+                                           "searching"
+                                       ],
+                              "hang":  [
+                                           "hang upside down",
+                                           "hang from branch",
+                                           "upside-down"
+                                       ]
+                          },
+    "notes":  "Stellaluna is a distinctive named character and the generic Boardmaker bat icon will not be recognisable to students as her â€” sourcing a dedicated Stellaluna PNG is strongly recommended. The word \u0027hang\u0027 refers specifically to hanging upside-down by the feet (bat behaviour), so the icon should show this posture rather than hanging laundry. \u0027Night\u0027 is central to the bat/bird contrast in the story. The existing activity_images already cover bat, bird, owl, nest, mango, moth and the existing aac_extras cover tree, cave, night, wing, lost â€” so all 11 fringe words have prior icon sources; only the hero Stellaluna image needs new sourcing.",
+    "characters":  [
+
+                   ],
+    "code":  "",
+    "board_format":  "6x6_LETTER_hero_fringe",
+    "vocab_generated":  "2026-07-20",
+    "sorting_categories":  [
+                               {
+                                   "category":  "Animals",
+                                   "items":  [
+                                                 "bat",
+                                                 "owl",
+                                                 "bird"
+                                             ],
+                                   "grounded":  true,
+                                   "grounding_note":  "All three are concrete animal characters confirmed in story summaries.",
+                                   "citations":  [
+                                                     0,
+                                                     1,
+                                                     2
+                                                 ]
+                               },
+                               {
+                                   "category":  "Places",
+                                   "items":  [
+                                                 "nest"
+                                             ],
+                                   "grounded":  true,
+                                   "grounding_note":  "Nest is the concrete setting location described across sources.",
+                                   "citations":  [
+                                                     0,
+                                                     1,
+                                                     2
+                                                 ]
+                               }
+                           ],
+    "vocab_words":  [
+                        "bat",
+                        "bird",
+                        "branch",
+                        "cave",
+                        "mango",
+                        "moon",
+                        "moth",
+                        "nest",
+                        "owl",
+                        "wing",
+                        "night"
+                    ],
+    "all_words":  [
+                      "bat",
+                      "bird",
+                      "branch",
+                      "cave",
+                      "mango",
+                      "moon",
+                      "moth",
+                      "nest",
+                      "owl",
+                      "wing",
+                      "night"
+                  ],
+    "word_search_words":  [
+                              {
+                                  "word":  "bat",
+                                  "grounded":  true,
+                                  "grounding_note":  "Stellaluna is a baby fruit bat, confirmed across sources.",
+                                  "citations":  [
+                                                    0,
+                                                    1,
+                                                    2
+                                                ]
+                              },
+                              {
+                                  "word":  "owl",
+                                  "grounded":  true,
+                                  "grounding_note":  "Stellaluna is adopted into a nest of baby birds; adapted book page identifies them as owls.",
+                                  "citations":  [
+                                                    0,
+                                                    1,
+                                                    2
+                                                ]
+                              },
+                              {
+                                  "word":  "nest",
+                                  "grounded":  true,
+                                  "grounding_note":  "Bird nest is central setting where Stellaluna lands and is raised.",
+                                  "citations":  [
+                                                    0,
+                                                    1,
+                                                    2
+                                                ]
+                              },
+                              {
+                                  "word":  "mother",
+                                  "grounded":  true,
+                                  "grounding_note":  "Stellaluna becomes separated from her bat mother, a key plot point.",
+                                  "citations":  [
+                                                    0,
+                                                    1,
+                                                    2
+                                                ]
+                              },
+                              {
+                                  "word":  "bird",
+                                  "grounded":  true,
+                                  "grounding_note":  "Birds adopt and raise Stellaluna alongside their own chicks.",
+                                  "citations":  [
+                                                    0,
+                                                    1,
+                                                    2
+                                                ]
+                              }
+                          ],
+    "starting_sight_words":  [
+                                 {
+                                     "word":  "I",
+                                     "grounded":  true,
+                                     "grounding_note":  "Appears verbatim in adapted book sentences (e.g., \u0027I see the bat.\u0027).",
+                                     "citations":  [
+                                                       0
+                                                   ]
+                                 },
+                                 {
+                                     "word":  "see",
+                                     "grounded":  true,
+                                     "grounding_note":  "Appears verbatim in adapted book sentences.",
+                                     "citations":  [
+                                                       0
+                                                   ]
+                                 },
+                                 {
+                                     "word":  "the",
+                                     "grounded":  true,
+                                     "grounding_note":  "Appears verbatim in adapted book sentences.",
+                                     "citations":  [
+                                                       0
+                                                   ]
+                                 }
+                             ],
+    "sequence_order":  [
+                           {
+                               "step":  "Stellaluna clings to her mother",
+                               "grounded":  true,
+                               "grounding_note":  "Opening scene shows baby bat with mother before separation.",
+                               "citations":  [
+                                                 0,
+                                                 1,
+                                                 2
+                                             ]
+                           },
+                           {
+                               "step":  "Stellaluna falls into a bird nest",
+                               "grounded":  true,
+                               "grounding_note":  "Stellaluna becomes separated from mother and lands in a nest of owls/birds.",
+                               "citations":  [
+                                                 0,
+                                                 1,
+                                                 2
+                                             ]
+                           },
+                           {
+                               "step":  "Stellaluna is raised with baby birds",
+                               "grounded":  true,
+                               "grounding_note":  "She is adopted by the bird family and learns bird behaviors alongside them.",
+                               "citations":  [
+                                                 0,
+                                                 1,
+                                                 2
+                                             ]
+                           }
+                       ],
+    "sequencing_strips_verbs":  [
+                                    {
+                                        "verb":  "cling",
+                                        "grounded":  true,
+                                        "grounding_note":  "Depicts Stellaluna clinging to mother in early scene.",
+                                        "citations":  [
+                                                          0,
+                                                          1,
+                                                          2
+                                                      ]
+                                    },
+                                    {
+                                        "verb":  "fall",
+                                        "grounded":  true,
+                                        "grounding_note":  "Stellaluna falls into the nest, a key plot action.",
+                                        "citations":  [
+                                                          0,
+                                                          1,
+                                                          2
+                                                      ]
+                                    },
+                                    {
+                                        "verb":  "land",
+                                        "grounded":  true,
+                                        "grounding_note":  "She lands in the bird nest after separation.",
+                                        "citations":  [
+                                                          0,
+                                                          1,
+                                                          2
+                                                      ]
+                                    }
+                                ],
+    "adapted_book_sentences":  [
+                                   {
+                                       "page_num":  3,
+                                       "sentence":  "I see the bat.",
+                                       "grounded":  true,
+                                       "grounding_note":  "Matches adapted_book_preview page 3 content.",
+                                       "citations":  [
+                                                         0,
+                                                         1,
+                                                         2
+                                                     ]
+                                   },
+                                   {
+                                       "page_num":  4,
+                                       "sentence":  "I see the owl.",
+                                       "grounded":  true,
+                                       "grounding_note":  "Matches adapted_book_preview page 4 content depicting baby owls.",
+                                       "citations":  [
+                                                         0,
+                                                         1,
+                                                         2
+                                                     ]
+                                   },
+                                   {
+                                       "page_num":  5,
+                                       "sentence":  "I see the nest.",
+                                       "grounded":  true,
+                                       "grounding_note":  "Matches adapted_book_preview page 5 content depicting the nest.",
+                                       "citations":  [
+                                                         0,
+                                                         1,
+                                                         2
+                                                     ]
+                                   }
+                               ],
+    "wh_questions":  [
+                         {
+                             "question":  "Who is the baby bat?",
+                             "grounded":  true,
+                             "grounding_note":  "Stellaluna is explicitly named as the baby fruit bat.",
+                             "citations":  [
+                                               0,
+                                               1,
+                                               2
+                                           ]
+                         },
+                         {
+                             "question":  "Where does Stellaluna land?",
+                             "grounded":  true,
+                             "grounding_note":  "She lands in a bird nest per all sources.",
+                             "citations":  [
+                                               0,
+                                               1,
+                                               2
+                                           ]
+                         },
+                         {
+                             "question":  "What is in the nest?",
+                             "grounded":  true,
+                             "grounding_note":  "Baby birds/owls are in the nest with Stellaluna.",
+                             "citations":  [
+                                               0,
+                                               1,
+                                               2
+                                           ]
+                         }
+                     ],
+    "yes_no_questions":  [
+                             {
+                                 "question":  "Is Stellaluna a bat?",
+                                 "answer":  "yes",
+                                 "grounded":  true,
+                                 "grounding_note":  "Directly confirmed across all sources.",
+                                 "citations":  [
+                                                   0,
+                                                   1,
+                                                   2
+                                               ]
+                             },
+                             {
+                                 "question":  "Does Stellaluna land in a nest?",
+                                 "answer":  "yes",
+                                 "grounded":  true,
+                                 "grounding_note":  "Directly confirmed across all sources.",
+                                 "citations":  [
+                                                   0,
+                                                   1,
+                                                   2
+                                               ]
+                             },
+                             {
+                                 "question":  "Is Stellaluna raised by fish?",
+                                 "answer":  "no",
+                                 "grounded":  true,
+                                 "grounding_note":  "She is raised by birds, not fish; specific contrast avoids ambiguity.",
+                                 "citations":  [
+                                                   0,
+                                                   1,
+                                                   2
+                                               ]
+                             },
+                             {
+                                 "grounded":  true,
+                                 "citations":  [
+                                                   1
+                                               ],
+                                 "grounding_note":  "Wings are used for flying; bats and birds compared in story.",
+                                 "question":  "Is a bat wing used to fly?",
+                                 "answer":  "yes"
+                             },
+                             {
+                                 "grounded":  true,
+                                 "citations":  [
+                                                   1,
+                                                   3
+                                               ],
+                                 "grounding_note":  "She learns bird behaviors while living with the birds.",
+                                 "question":  "Does Stellaluna try to act like a bird?",
+                                 "answer":  "yes"
+                             },
+                             {
+                                 "grounded":  true,
+                                 "citations":  [
+                                                   0,
+                                                   1,
+                                                   3,
+                                                   5,
+                                                   7
+                                               ],
+                                 "grounding_note":  "She falls into a bird\u0027s nest, not a cave.",
+                                 "question":  "Does Stellaluna fall into a cave after she lets go of her mother?",
+                                 "answer":  "no"
+                             },
+                             {
+                                 "grounded":  true,
+                                 "citations":  [
+                                                   1
+                                               ],
+                                 "grounding_note":  "Wings used for flying is a general and story-relevant fact.",
+                                 "question":  "Is a wing part of the body used to fly?",
+                                 "answer":  "yes"
+                             },
+                             {
+                                 "question":  "Does an owl attack Stellaluna\u0027s mother?",
+                                 "answer":  "yes",
+                                 "grounded":  true,
+                                 "grounding_note":  "Owl attacks mother, causing separation.",
+                                 "citations":  [
+                                                   6
+                                               ]
+                             }
+                         ],
+    "aac_fringe_vocab":  [
+                             {
+                                 "word":  "scared",
+                                 "grounded":  true,
+                                 "grounding_note":  "Falling and separation from mother implies fear, consistent with book reviews describing the emotional journey.",
+                                 "citations":  [
+                                                   0,
+                                                   1,
+                                                   2
+                                               ]
+                             },
+                             {
+                                 "word":  "lost",
+                                 "grounded":  true,
+                                 "grounding_note":  "Stellaluna loses sight/track of her mother, an internal-state relevant word.",
+                                 "citations":  [
+                                                   0,
+                                                   2
+                                               ]
+                             }
+                         ],
+    "inferencing_questions":  [
+                                  {
+                                      "question":  "Why might Stellaluna have felt scared when she fell from her mother?",
+                                      "grounded":  true,
+                                      "grounding_note":  "Inference based on being separated from mother, not stated verbatim.",
+                                      "citations":  [
+                                                        0,
+                                                        1,
+                                                        2
+                                                    ]
+                                  },
+                                  {
+                                      "question":  "Why do the baby birds and Stellaluna look different even though they live together?",
+                                      "grounded":  true,
+                                      "grounding_note":  "Requires inference that bat and bird anatomy differ despite same nest, supported by general story premise.",
+                                      "citations":  [
+                                                        0,
+                                                        1,
+                                                        2
+                                                    ]
+                                  }
+                              ]
+}
