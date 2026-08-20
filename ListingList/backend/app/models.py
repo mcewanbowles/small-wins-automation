@@ -33,6 +33,23 @@ class KeywordsResponse(BaseModel):
     items: list[KeywordResult]
 
 
+class ReverseIntelRequest(BaseModel):
+    keyword: str = Field(..., min_length=2, max_length=140)
+    limit: int = Field(default=18, ge=5, le=40)
+
+
+class ReverseIntelListing(BaseModel):
+    rank: int
+    title: str
+
+
+class ReverseIntelResponse(BaseModel):
+    keyword: str
+    listings: list[ReverseIntelListing]
+    recurring_phrases: list[str]
+    angles: list[str]
+
+
 class GenerateListingRequest(BaseModel):
     platform: str = Field(default="tpt", pattern="^(tpt|etsy|gumroad)$")
     niche: str = Field(..., min_length=2, max_length=60)

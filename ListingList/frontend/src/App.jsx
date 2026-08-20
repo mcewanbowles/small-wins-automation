@@ -1,5 +1,5 @@
 import { useMemo, useRef, useState } from "react";
-import { auditListing, fetchKeywords, generateListing } from "./api";
+import { auditListing, fetchKeywords, fetchReverseIntel, generateListing } from "./api";
 import {
   BUYER_TYPES,
   NICHES,
@@ -109,6 +109,7 @@ export function App() {
   const sessionFileInputRef = useRef(null);
   const [logoMissing, setLogoMissing] = useState(false);
   const [seed, setSeed] = useState("");
+  const [reverseIntelKeyword, setReverseIntelKeyword] = useState("");
   const [goldOnly, setGoldOnly] = useState(false);
   const [storeLevel, setStoreLevel] = useState(STORE_LEVELS[0].value);
   const [winnableOnly, setWinnableOnly] = useState(true);
@@ -119,6 +120,10 @@ export function App() {
   const [keywordsLoading, setKeywordsLoading] = useState(false);
   const [keywordsError, setKeywordsError] = useState("");
   const [keywordItems, setKeywordItems] = useState([]);
+
+  const [reverseIntelLoading, setReverseIntelLoading] = useState(false);
+  const [reverseIntelError, setReverseIntelError] = useState("");
+  const [reverseIntelResult, setReverseIntelResult] = useState(null);
 
   const [form, setForm] = useState({
     platform: PLATFORM_OPTIONS[0].value,
@@ -199,18 +204,49 @@ export function App() {
     setKeywordsLoading(true);
     setKeywordsError("");
     try {
-      const payload = await fetchKeywords(
+      const response = await fetchKeywords(
         activePlatform,
         seed.trim(),
         goldOnly,
         effectiveStoreLevel,
         effectiveWinnableOnly,
       );
-      setKeywordItems(payload.items || []);
+      setKeywordItems(response.items || []);
+      setKeywordsError("");
+
+      if (!reverseIntelKeyword.trim()) {
+        setReverseIntelKeyword(seed);
+      }
     } catch (error) {
-      setKeywordsError(error.message);
+      setKeywordsError(error.message || "Keyword lookup failed.");
     } finally {
       setKeywordsLoading(false);
+    }
+  }
+
+  async function onRunReverseIntel() {
+    if (!activeCapabilities.keywords) {
+      setReverseIntelError(`Reverse intel is not available in the ${activePlatformLabel} edition yet.`);
+      return;
+    }
+
+    const keyword = (reverseIntelKeyword || seed).trim();
+    if (!keyword) {
+      setReverseIntelError("Enter a keyword first.");
+      return;
+    }
+
+    setReverseIntelLoading(true);
+    setReverseIntelError("");
+
+    try {
+      const payload = await fetchReverseIntel(keyword, 18);
+      setReverseIntelResult(payload);
+    } catch (error) {
+      setReverseIntelResult(null);
+      setReverseIntelError(error.message || "Reverse intel failed.");
+    } finally {
+      setReverseIntelLoading(false);
     }
   }
 
@@ -779,6 +815,73 @@ export function App() {
                 </div>
               ))}
             </div>
+          ) : null}
+
+          {activeCapabilities.keywords ? (
+            <section className="intel-card">
+              <div className="card-head">
+                <h3>Reverse Seller Intel (v0)</h3>
+                <p>See how top listings phrase this keyword, then borrow the winning angle.</p>
+              </div>
+
+              <div className="intel-controls">
+                <input
+                  className="input"
+                  value={reverseIntelKeyword}
+                  onChange={(event) => setReverseIntelKeyword(event.target.value)}
+                  placeholder="Example: social story autism"
+                />
+                <button className="primary-btn" type="button" onClick={onRunReverseIntel} disabled={reverseIntelLoading}>
+                  {reverseIntelLoading ? "Scanning..." : "Scan top listings"}
+                </button>
+              </div>
+
+              {reverseIntelError ? <p className="error">{reverseIntelError}</p> : null}
+
+              {reverseIntelResult ? (
+                <div className="intel-output">
+                  {reverseIntelResult.angles?.length ? (
+                    <div className="output-block">
+                      <h4>Suggested angles</h4>
+                      <ul>
+                        {reverseIntelResult.angles.map((angle) => (
+                          <li key={angle}>{angle}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : null}
+
+                  {reverseIntelResult.recurring_phrases?.length ? (
+                    <div className="output-block">
+                      <h4>Recurring phrases</h4>
+                      <div className="phrase-chips">
+                        {reverseIntelResult.recurring_phrases.map((phrase) => (
+                          <span className="phrase-chip" key={phrase}>
+                            {phrase}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  ) : null}
+
+                  {reverseIntelResult.listings?.length ? (
+                    <div className="output-block">
+                      <h4>Top listing titles (sample)</h4>
+                      <ol className="listing-ol">
+                        {reverseIntelResult.listings.slice(0, 10).map((item) => (
+                          <li key={`${item.rank}-${item.title}`}>
+                            <div className="intel-title-row">
+                              <span>{item.title}</span>
+                              <CopyButton value={item.title} className="inline-btn" />
+                            </div>
+                          </li>
+                        ))}
+                      </ol>
+                    </div>
+                  ) : null}
+                </div>
+              ) : null}
+            </section>
           ) : null}
 
           <details className="all-results" open={false}>

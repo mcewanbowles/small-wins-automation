@@ -602,6 +602,77 @@ th {
   gap: 10px;
 }
 
+.intel-card {
+  margin-top: 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #ffffff;
+  padding: 14px;
+}
+
+.intel-card .card-head h3 {
+  margin: 0;
+  font-size: 0.98rem;
+}
+
+.intel-card .card-head p {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+.intel-controls {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  align-items: end;
+}
+
+.intel-output {
+  margin-top: 12px;
+  display: grid;
+  gap: 10px;
+}
+
+.intel-output h4 {
+  margin: 0 0 6px;
+  font-size: 0.88rem;
+}
+
+.phrase-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.phrase-chip {
+  border: 1px solid var(--line);
+  background: #f8fbfb;
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 0.78rem;
+  color: #2d5a5a;
+}
+
+.listing-ol {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 8px;
+}
+
+.intel-title-row {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.intel-title-row span {
+  flex: 1;
+}
+
 .output-block {
   border: 1px solid var(--line);
   border-radius: 12px;
