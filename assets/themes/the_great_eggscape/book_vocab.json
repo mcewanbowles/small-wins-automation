@@ -1,0 +1,94 @@
+{
+  "title": "The Good Egg Presents: The Great Eggscape!",
+  "author": "Jory John",
+  "hero": {
+    "name": "Good Egg",
+    "description": "Smiling white egg character with a face, the main character from Jory John's Good Egg series",
+    "search_term": "good egg character",
+    "needs_sourcing": true,
+    "source_note": "Named illustrated character — source from Creative Fabrica or TPT clip art; search 'Good Egg Jory John'"
+  },
+  "fringe_12": [
+    "Good Egg",
+    "egg",
+    "hide",
+    "find",
+    "basket",
+    "run",
+    "scared",
+    "outside",
+    "together",
+    "yolk",
+    "nest",
+    "happy"
+  ],
+  "fringe_11": [
+    "egg",
+    "hide",
+    "find",
+    "basket",
+    "run",
+    "scared",
+    "outside",
+    "together",
+    "yolk",
+    "nest",
+    "happy"
+  ],
+  "activity_images": [
+    "egg",
+    "hide",
+    "find",
+    "basket",
+    "run",
+    "scared"
+  ],
+  "aac_extras": [
+    "outside",
+    "together",
+    "yolk",
+    "nest",
+    "happy"
+  ],
+  "ambiguous": [
+    {
+      "word": "outside",
+      "issue": "Could be interpreted as a location concept or direction",
+      "preferred": "outside location",
+      "reason": "Book features eggs escaping and adventuring outdoors; locative meaning is correct"
+    },
+    {
+      "word": "run",
+      "issue": "Could mean running as locomotion or running water/time",
+      "preferred": "run action person",
+      "reason": "Eggs are escaping and moving quickly; physical locomotion is the correct meaning"
+    },
+    {
+      "word": "nest",
+      "issue": "Could be a bird nest or a verb meaning to nestle",
+      "preferred": "nest bird",
+      "reason": "Book features egg characters; a bird nest image is the most recognisable picturable object"
+    }
+  ],
+  "character_images_needed": [
+    "Good Egg"
+  ],
+  "icon_search_terms": {
+    "egg": "egg",
+    "hide": "hide",
+    "find": "find",
+    "basket": "basket",
+    "run": "run",
+    "scared": "afraid",
+    "outside": "outside",
+    "together": "together",
+    "yolk": "yolk",
+    "nest": "nest",
+    "happy": "happy"
+  },
+  "notes": "The Great Eggscape! is an Easter-themed adventure where egg characters hide and are found. Key vocabulary focuses on the hunt/escape narrative: hiding, finding, running, and feeling emotions (scared, happy). 'Yolk' is included as a book-specific concrete noun central to egg identity in the story. Several words (egg, basket, hide, find) already exist in activity_images and aac_extras from prior use, which is ideal for reuse. 'Nest' is included as a story setting element. Core words 'more', 'stop', 'go', and 'finished' already on the fixed core rows cover additional narrative moments. Consider pairing this board with an Easter egg hunt activity for generalisation.",
+  "characters": [],
+  "code": "TGE1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

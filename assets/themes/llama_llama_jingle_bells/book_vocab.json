@@ -1,0 +1,82 @@
+{
+  "title": "Llama Llama Jingle Bells",
+  "author": "Anna Dewdney",
+  "hero": {
+    "name": "Llama Llama",
+    "description": "Young red llama character, distinctive Anna Dewdney illustration style with expressive face",
+    "search_term": "llama llama red pajama character",
+    "needs_sourcing": true,
+    "source_note": "Named character — source from Creative Fabrica or TPT clip art; distinctive red llama child character"
+  },
+  "fringe_12": [
+    "Llama Llama",
+    "bell",
+    "snow",
+    "gift",
+    "tree",
+    "sing",
+    "shop",
+    "cookies",
+    "lights",
+    "hug",
+    "cold",
+    "happy"
+  ],
+  "fringe_11": [
+    "bell",
+    "snow",
+    "gift",
+    "tree",
+    "sing",
+    "shop",
+    "cookies",
+    "lights",
+    "hug",
+    "cold",
+    "happy"
+  ],
+  "activity_images": [
+    "bell",
+    "snow",
+    "gift",
+    "tree",
+    "sing",
+    "shop"
+  ],
+  "aac_extras": [
+    "cookies",
+    "lights",
+    "hug",
+    "cold",
+    "happy"
+  ],
+  "ambiguous": [
+    {
+      "word": "lights",
+      "issue": "Could mean general light source (lamp) or Christmas string lights",
+      "preferred": "christmas lights",
+      "reason": "Book is about Christmas celebrations; string/twinkle lights on a tree or house are the correct referent"
+    }
+  ],
+  "character_images_needed": [
+    "Llama Llama"
+  ],
+  "icon_search_terms": {
+    "bell": "bell jingle",
+    "snow": "snow",
+    "gift": "gift present",
+    "tree": "christmas tree",
+    "sing": "sing singing",
+    "shop": "shopping store",
+    "cookies": "cookies",
+    "lights": "christmas lights",
+    "hug": "hug",
+    "cold": "cold",
+    "happy": "happy"
+  },
+  "notes": "Llama Llama Jingle Bells is a Christmas-themed holiday book featuring Llama Llama experiencing festive activities like shopping, decorating, baking, and celebrating with family. Key vocabulary centres on Christmas traditions. 'Mama Llama' appears as a secondary character but is not placed on the fringe board to conserve slots for more broadly useful vocabulary. The word 'bell' refers specifically to jingle bells from the title and story. Consider adding 'Mama' if a slot were available as she is central to the story.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

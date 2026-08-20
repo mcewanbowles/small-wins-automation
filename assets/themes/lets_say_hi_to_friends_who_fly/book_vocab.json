@@ -1,0 +1,86 @@
+{
+  "title": "Let's Say Hi to Friends Who Fly",
+  "author": "Unknown",
+  "hero": {
+    "name": "Flying insect friend (generic bee/butterfly cover character)",
+    "description": "A friendly flying insect, likely a bee or butterfly featured prominently on the cover — generic cheerful insect character used to greet various flying creatures",
+    "search_term": "bee",
+    "needs_sourcing": false,
+    "source_note": "If cover features a specific named character, re-evaluate; otherwise a generic bee or butterfly from Boardmaker should suffice"
+  },
+  "fringe_12": [
+    "Flying insect friend (generic bee/butterfly cover character)",
+    "fly",
+    "butterfly",
+    "bee",
+    "bird",
+    "dragonfly",
+    "ladybug",
+    "wings",
+    "flower",
+    "wave",
+    "friend",
+    "hi"
+  ],
+  "fringe_11": [
+    "fly",
+    "butterfly",
+    "bee",
+    "bird",
+    "dragonfly",
+    "ladybug",
+    "wings",
+    "flower",
+    "wave",
+    "friend",
+    "hi"
+  ],
+  "activity_images": [
+    "fly",
+    "butterfly",
+    "bee",
+    "bird",
+    "dragonfly",
+    "ladybug"
+  ],
+  "aac_extras": [
+    "wings",
+    "flower",
+    "wave",
+    "friend",
+    "hi"
+  ],
+  "ambiguous": [
+    {
+      "word": "fly",
+      "issue": "Could mean the action of flying (verb) or a housefly (insect noun)",
+      "preferred": "flying",
+      "reason": "In this book 'fly' is used as an action — creatures that fly; prefer the verb/action image showing flight rather than a housefly insect"
+    },
+    {
+      "word": "wave",
+      "issue": "Could mean a water wave or the greeting action of waving a hand",
+      "preferred": "wave hello",
+      "reason": "In this book waving is the greeting gesture — saying hi — so the hand-waving action image is correct"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "fly": "flying",
+    "butterfly": "butterfly",
+    "bee": "bee",
+    "bird": "bird",
+    "dragonfly": "dragonfly",
+    "ladybug": "ladybug",
+    "wings": "wings",
+    "flower": "flower",
+    "wave": "wave hello",
+    "friend": "friend",
+    "hi": "hello"
+  },
+  "notes": "This book is a greeting/social story about saying hello to various flying creatures (insects and birds). Vocabulary prioritises the flying animals a student will encounter page by page and the social greeting theme (hi, wave, friend). 'Fly' is flagged as ambiguous — use a flying-action image not a housefly. If the publisher or cover art reveals a specific named character as the guide/narrator, the hero field should be updated and needs_sourcing set to true accordingly.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

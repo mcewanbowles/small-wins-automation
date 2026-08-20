@@ -1,0 +1,88 @@
+{
+  "title": "Owl Babies",
+  "author": "Martin Waddell",
+  "hero": {
+    "name": "Owl Baby (Sarah, Percy, or Bill)",
+    "description": "Small fluffy baby owl, wide-eyed, sitting on a branch at night — as illustrated by Patrick Benson",
+    "search_term": "baby owl",
+    "needs_sourcing": false,
+    "source_note": "Generic baby owl symbol from Boardmaker should suffice; if a more book-accurate fluffy white owlet is needed, source from TPT or Creative Fabrica"
+  },
+  "fringe_12": [
+    "Owl Baby (Sarah, Percy, or Bill)",
+    "owl",
+    "mother",
+    "nest",
+    "tree",
+    "night",
+    "scared",
+    "wait",
+    "come back",
+    "together",
+    "dark",
+    "happy"
+  ],
+  "fringe_11": [
+    "owl",
+    "mother",
+    "nest",
+    "tree",
+    "night",
+    "scared",
+    "wait",
+    "come back",
+    "together",
+    "dark",
+    "happy"
+  ],
+  "activity_images": [
+    "owl",
+    "mother",
+    "nest",
+    "tree",
+    "night",
+    "scared"
+  ],
+  "aac_extras": [
+    "wait",
+    "come back",
+    "together",
+    "dark",
+    "happy"
+  ],
+  "ambiguous": [
+    {
+      "word": "dark",
+      "issue": "Could mean the adjective (absence of light) or the verb (to darken)",
+      "preferred": "dark night",
+      "reason": "In this book dark refers to the scary nighttime setting — use an image showing darkness or a dark sky"
+    },
+    {
+      "word": "together",
+      "issue": "Abstract concept — could be shown as people side by side or as a hug",
+      "preferred": "together family",
+      "reason": "Reunion of the owl family at the end of the story — search for a symbol showing animals or figures grouped together"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "owl": "owl",
+    "mother": "mother",
+    "nest": "nest",
+    "tree": "tree",
+    "night": "night",
+    "scared": "afraid",
+    "wait": "wait",
+    "come back": "come back",
+    "together": "together",
+    "dark": "dark",
+    "happy": "happy"
+  },
+  "notes": "Owl Babies centres on three baby owls — Sarah, Percy, and Bill — who wake to find their mother gone and anxiously wait for her return. The emotional arc (fear → relief → joy) is the core of the story, so 'scared', 'wait', 'come back', and 'happy' are high-priority fringe words. 'Together' captures the reunion ending ('And she came back'). The existing activity_images vocab already includes owl, tree, night, nest, moon, and branch — these overlap well; 'owl' and 'nest' and 'tree' and 'night' are retained in fringe because they are the most communicatively essential. The existing aac_extras 'wait' and 'come_back' align perfectly with this book's central repeated phrase ('She'll come back'). Consider pairing the board with a visual of the mother owl returning as a reward/motivator for waiting.",
+  "characters": [
+    "owl_babies"
+  ],
+  "code": "OB1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

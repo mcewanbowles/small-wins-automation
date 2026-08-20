@@ -1,0 +1,86 @@
+{
+  "title": "Tops & Bottoms",
+  "author": "Janet Stevens",
+  "hero": {
+    "name": "Hare",
+    "description": "Upright anthropomorphic hare character, industrious and clever, as illustrated by Janet Stevens",
+    "search_term": "hare",
+    "needs_sourcing": false,
+    "source_note": "Generic hare/rabbit symbol from Boardmaker should suffice; hare is a common symbol"
+  },
+  "fringe_12": [
+    "Hare",
+    "bear",
+    "garden",
+    "carrots",
+    "lettuce",
+    "corn",
+    "plant",
+    "dig",
+    "cheat",
+    "lazy",
+    "sell",
+    "tops"
+  ],
+  "fringe_11": [
+    "bear",
+    "garden",
+    "carrots",
+    "lettuce",
+    "corn",
+    "plant",
+    "dig",
+    "cheat",
+    "lazy",
+    "sell",
+    "tops"
+  ],
+  "activity_images": [
+    "bear",
+    "garden",
+    "carrots",
+    "lettuce",
+    "corn",
+    "plant"
+  ],
+  "aac_extras": [
+    "dig",
+    "cheat",
+    "lazy",
+    "sell",
+    "tops"
+  ],
+  "ambiguous": [
+    {
+      "word": "bear",
+      "issue": "Could mean the animal (noun) or to bear/carry (verb)",
+      "preferred": "bear animal",
+      "reason": "Bear is the lazy landowner character in the story — the animal meaning is correct"
+    },
+    {
+      "word": "tops",
+      "issue": "Could mean spinning tops (toy), shirt tops (clothing), or the top part of a plant",
+      "preferred": "plant tops",
+      "reason": "In this book 'tops' refers to the leafy tops of root vegetables — the central trick of the story"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "bear": "bear",
+    "garden": "garden",
+    "carrots": "carrots",
+    "lettuce": "lettuce",
+    "corn": "corn",
+    "plant": "plant",
+    "dig": "dig",
+    "cheat": "cheat",
+    "lazy": "lazy",
+    "sell": "sell",
+    "tops": "top plant"
+  },
+  "notes": "The central concept of this book is the 'tops and bottoms' trick — Hare tricks Bear by letting him choose tops or bottoms while planting crops that yield value in the opposite part (e.g. carrots = bottoms valuable, lettuce = tops valuable). The word 'tops' is essential vocabulary for retelling. 'Bottoms' was omitted as the 12th slot is the hero; consider swapping 'sell' for 'bottoms' if the teacher wants to emphasise the trick more directly. Several words (hare, bear, garden, carrots, lettuce, corn, dig) already exist in the activity_images or aac_extras folders and can be reused. 'Cheat' and 'lazy' support social-emotional discussion about Bear's character. 'Plant' supports sequencing the garden activity. Beans, radish, celery, pot, harvest, root, and leaf are available in existing assets and could substitute fringe words depending on lesson focus.",
+  "characters": [],
+  "code": "TB1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

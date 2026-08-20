@@ -1,0 +1,86 @@
+{
+  "title": "A Turkey For Thanksgiving",
+  "author": "Eve Bunting",
+  "hero": {
+    "name": "Turkey",
+    "description": "A live turkey character central to the Thanksgiving story — not a roasted turkey, but a living bird with feathers and wattle",
+    "search_term": "turkey",
+    "needs_sourcing": false,
+    "source_note": "Generic turkey bird symbol available in Boardmaker — ensure it shows a live turkey not a cooked one"
+  },
+  "fringe_12": [
+    "Turkey",
+    "Thanksgiving",
+    "table",
+    "feast",
+    "family",
+    "food",
+    "pie",
+    "corn",
+    "moose",
+    "invite",
+    "run",
+    "thankful"
+  ],
+  "fringe_11": [
+    "Thanksgiving",
+    "table",
+    "feast",
+    "family",
+    "food",
+    "pie",
+    "corn",
+    "moose",
+    "invite",
+    "run",
+    "thankful"
+  ],
+  "activity_images": [
+    "Thanksgiving",
+    "table",
+    "feast",
+    "family",
+    "food",
+    "pie"
+  ],
+  "aac_extras": [
+    "corn",
+    "moose",
+    "invite",
+    "run",
+    "thankful"
+  ],
+  "ambiguous": [
+    {
+      "word": "turkey",
+      "issue": "Could mean a live turkey bird or a cooked Thanksgiving dish",
+      "preferred": "turkey bird",
+      "reason": "The turkey in this book is a living character — not food — so a live bird image is correct"
+    },
+    {
+      "word": "run",
+      "issue": "Could mean running as a physical action or running away/escaping",
+      "preferred": "run",
+      "reason": "Turkey runs away in the story; standard running action symbol is appropriate"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "Thanksgiving": "thanksgiving",
+    "table": "table",
+    "feast": "feast",
+    "family": "family",
+    "food": "food",
+    "pie": "pie",
+    "corn": "corn",
+    "moose": "moose",
+    "invite": "invite",
+    "run": "run",
+    "thankful": "thankful"
+  },
+  "notes": "This book is by Eve Bunting (not unknown). The story features Mr. and Mrs. Moose wanting to have a turkey for Thanksgiving — but as a guest, not as dinner. The turkey runs and hides before being persuaded to join the feast as a friend. Key vocabulary should reflect the holiday setting, the characters (moose family, turkey), and the themes of invitation and thankfulness. The hero symbol must depict a live turkey bird; avoid any image of a cooked or plated turkey. 'Feast' and 'thankful' are thematically central and worth including despite being slightly abstract, as they are core Thanksgiving concepts students will encounter repeatedly.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

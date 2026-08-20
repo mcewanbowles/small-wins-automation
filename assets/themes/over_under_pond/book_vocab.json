@@ -1,0 +1,86 @@
+{
+  "title": "Over and Under the Pond",
+  "author": "Kate Messner",
+  "hero": {
+    "name": "Boy in canoe",
+    "description": "Young boy paddling a red canoe with his father on a pond, as shown on the book cover",
+    "search_term": "boy canoe",
+    "needs_sourcing": false,
+    "source_note": "Generic child in boat — search Boardmaker for 'boy canoe' or 'canoe'; if poor match, source a simple canoe+child clip art from TPT"
+  },
+  "fringe_12": [
+    "Boy in canoe",
+    "pond",
+    "duck",
+    "fish",
+    "frog",
+    "beaver",
+    "turtle",
+    "dragonfly",
+    "heron",
+    "canoe",
+    "underwater",
+    "nest"
+  ],
+  "fringe_11": [
+    "pond",
+    "duck",
+    "fish",
+    "frog",
+    "beaver",
+    "turtle",
+    "dragonfly",
+    "heron",
+    "canoe",
+    "underwater",
+    "nest"
+  ],
+  "activity_images": [
+    "pond",
+    "duck",
+    "fish",
+    "frog",
+    "beaver",
+    "turtle"
+  ],
+  "aac_extras": [
+    "dragonfly",
+    "heron",
+    "canoe",
+    "underwater",
+    "nest"
+  ],
+  "ambiguous": [
+    {
+      "word": "duck",
+      "issue": "Could mean the bird (noun) or the action of ducking down (verb)",
+      "preferred": "duck bird",
+      "reason": "Book is about pond wildlife; duck is a key animal character in the story"
+    },
+    {
+      "word": "heron",
+      "issue": "May not be immediately recognisable; could be confused with crane or stork",
+      "preferred": "heron bird",
+      "reason": "Great blue heron is specifically named in the book; use a tall wading bird image labelled 'heron'"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "pond": "pond",
+    "duck": "duck",
+    "fish": "fish",
+    "frog": "frog",
+    "beaver": "beaver",
+    "turtle": "turtle",
+    "dragonfly": "dragonfly",
+    "heron": "heron",
+    "canoe": "canoe",
+    "underwater": "underwater",
+    "nest": "nest"
+  },
+  "notes": "Core vocabulary already includes 'over', 'under', 'swim', 'dive', and 'hide' in aac_extras — these do not need fringe slots. The book's central concept is the hidden underwater world beneath a pond surface, so 'underwater' is a high-value fringe word. 'Nest' covers beaver lodge, duck nest, and heron nest referenced in the story. 'Canoe' is the vehicle the boy and father use throughout and is strongly picturable. All 11 fringe animals/objects are already present in activity_images or are standard Boardmaker library items — no custom sourcing required. Consider pairing the board with a simple over/under visual divider on the physical board to reinforce the spatial concept.",
+  "characters": [],
+  "code": "OUP1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

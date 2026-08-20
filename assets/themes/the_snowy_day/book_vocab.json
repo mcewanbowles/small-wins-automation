@@ -1,0 +1,88 @@
+{
+  "title": "The Snowy Day",
+  "author": "Ezra Jack Keats",
+  "hero": {
+    "name": "Peter",
+    "description": "Young Black boy in red snowsuit, the main character from The Snowy Day by Ezra Jack Keats",
+    "search_term": "peter snowy day keats",
+    "needs_sourcing": true,
+    "source_note": "Named/distinctive character in iconic red snowsuit — generic Boardmaker boy icon won't match; source from TPT, Creative Fabrica, or Ezra Jack Keats Foundation resources"
+  },
+  "fringe_12": [
+    "Peter",
+    "snow",
+    "snowman",
+    "stick",
+    "footprints",
+    "hill",
+    "cold",
+    "coat",
+    "mittens",
+    "bed",
+    "melt",
+    "morning"
+  ],
+  "fringe_11": [
+    "snow",
+    "snowman",
+    "stick",
+    "footprints",
+    "hill",
+    "cold",
+    "coat",
+    "mittens",
+    "bed",
+    "melt",
+    "morning"
+  ],
+  "activity_images": [
+    "snow",
+    "snowman",
+    "stick",
+    "footprints",
+    "hill",
+    "cold"
+  ],
+  "aac_extras": [
+    "coat",
+    "mittens",
+    "bed",
+    "melt",
+    "morning"
+  ],
+  "ambiguous": [
+    {
+      "word": "stick",
+      "issue": "Could mean a twig/branch (noun) or the action of sticking something (verb)",
+      "preferred": "stick branch",
+      "reason": "Peter uses a stick to hit snow off a tree — the physical twig object is the correct meaning"
+    },
+    {
+      "word": "melt",
+      "issue": "Could be confused with general liquid/water imagery rather than snow melting specifically",
+      "preferred": "melt snow",
+      "reason": "The key story moment is Peter's snowball melting in his pocket overnight — snow melting is the correct context"
+    }
+  ],
+  "character_images_needed": [
+    "Peter (boy in red snowsuit from The Snowy Day)"
+  ],
+  "icon_search_terms": {
+    "snow": "snow",
+    "snowman": "snowman",
+    "stick": "stick branch",
+    "footprints": "footprints",
+    "hill": "hill",
+    "cold": "cold",
+    "coat": "coat",
+    "mittens": "mittens",
+    "bed": "bed",
+    "melt": "melt",
+    "morning": "morning"
+  },
+  "notes": "The Snowy Day is a quiet, exploratory story — vocabulary should reflect Peter's solo sensory play in snow (dragging stick, making footprints, sliding down hill, making snow angels) and the emotional arc of the melted snowball. 'Footprints' is a central repeated concept in the book and highly picturable. 'Morning' captures the story's joyful ending when Peter wakes to new snow. 'Coat' and 'mittens' already exist in activity_images and aac_extras respectively so PNGs may already be available. The hero Peter is a historically significant character — use Ezra Jack Keats Foundation-approved artwork or licensed clip art to ensure cultural accuracy and representation of a Black child protagonist.",
+  "characters": [],
+  "code": "TSD1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

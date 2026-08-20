@@ -1,0 +1,86 @@
+{
+  "title": "I Am A Frog",
+  "author": "Unknown",
+  "hero": {
+    "name": "Frog",
+    "description": "A simple cartoon frog, generic green frog character from a children's picture book",
+    "search_term": "frog",
+    "needs_sourcing": false,
+    "source_note": "Generic frog — standard Boardmaker frog symbol should work well"
+  },
+  "fringe_12": [
+    "Frog",
+    "frog",
+    "jump",
+    "pond",
+    "wet",
+    "green",
+    "tongue",
+    "fly",
+    "swim",
+    "log",
+    "loud",
+    "scared"
+  ],
+  "fringe_11": [
+    "frog",
+    "jump",
+    "pond",
+    "wet",
+    "green",
+    "tongue",
+    "fly",
+    "swim",
+    "log",
+    "loud",
+    "scared"
+  ],
+  "activity_images": [
+    "frog",
+    "jump",
+    "pond",
+    "wet",
+    "green",
+    "tongue"
+  ],
+  "aac_extras": [
+    "fly",
+    "swim",
+    "log",
+    "loud",
+    "scared"
+  ],
+  "ambiguous": [
+    {
+      "word": "fly",
+      "issue": "Could mean the insect (noun) or the action of flying (verb)",
+      "preferred": "fly insect",
+      "reason": "Frogs catch flies with their tongues — the insect meaning is correct for this book"
+    },
+    {
+      "word": "log",
+      "issue": "Could mean a wooden log (noun) or to log/record something (verb)",
+      "preferred": "log wood",
+      "reason": "Frogs sit on logs in ponds — the object meaning is correct for this book"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "frog": "frog",
+    "jump": "jump",
+    "pond": "pond",
+    "wet": "wet",
+    "green": "green",
+    "tongue": "tongue",
+    "fly": "fly insect",
+    "swim": "swim",
+    "log": "log wood",
+    "loud": "loud",
+    "scared": "scared"
+  },
+  "notes": "I Am A Frog is a beginner reader exploring frog identity and characteristics. The vocabulary prioritises key frog attributes and actions: jumping, swimming, catching flies with tongue, living in ponds on logs. 'Scared' is included as frogs are often depicted reacting to threats. 'Loud' references frog croaking. The hero slot uses a generic Boardmaker frog which should closely match the simple illustrative style of the book. If the specific edition has a named frog character on the cover, reconsider needs_sourcing.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

@@ -1,0 +1,88 @@
+{
+  "title": "I Talk Like a River",
+  "author": "Jordan Scott",
+  "hero": {
+    "name": "Boy with stutter (narrator)",
+    "description": "Young boy protagonist who stutters and finds comfort by the river; appears on cover looking at water",
+    "search_term": "boy river",
+    "needs_sourcing": true,
+    "source_note": "Named/distinctive cover character — source from Creative Fabrica or TPT clip art matching Sydney Smith's illustration style"
+  },
+  "fringe_12": [
+    "Boy with stutter (narrator)",
+    "river",
+    "water",
+    "talk",
+    "words",
+    "stutter",
+    "quiet",
+    "morning",
+    "dad",
+    "feel",
+    "broken",
+    "breathe"
+  ],
+  "fringe_11": [
+    "river",
+    "water",
+    "talk",
+    "words",
+    "stutter",
+    "quiet",
+    "morning",
+    "dad",
+    "feel",
+    "broken",
+    "breathe"
+  ],
+  "activity_images": [
+    "river",
+    "water",
+    "talk",
+    "words",
+    "stutter",
+    "quiet"
+  ],
+  "aac_extras": [
+    "morning",
+    "dad",
+    "feel",
+    "broken",
+    "breathe"
+  ],
+  "ambiguous": [
+    {
+      "word": "broken",
+      "issue": "Could mean a broken object (physical) or feeling broken/sad (emotional/metaphorical)",
+      "preferred": "broken heart",
+      "reason": "In this book 'broken' refers to the boy's feelings about his stutter — an emotional state; a cracked/broken heart icon conveys the metaphorical meaning better than a broken toy"
+    },
+    {
+      "word": "feel",
+      "issue": "Could mean physical touch/texture or emotional feeling",
+      "preferred": "feel emotions",
+      "reason": "Book centres on emotional experience of stuttering; emotional 'feel' is the correct meaning"
+    }
+  ],
+  "character_images_needed": [
+    "Boy with stutter (narrator)"
+  ],
+  "icon_search_terms": {
+    "river": "river",
+    "water": "water",
+    "talk": "talk",
+    "words": "words",
+    "stutter": "stutter",
+    "quiet": "quiet",
+    "morning": "morning",
+    "dad": "dad",
+    "feel": "feelings",
+    "broken": "broken heart",
+    "breathe": "breathe"
+  },
+  "notes": "This book deals with stuttering and finding one's voice through the metaphor of a river. Key vocabulary should support discussion of speech, feelings, and the natural imagery Sydney Smith uses throughout. 'stutter' may not exist in all Boardmaker libraries — an alternative search of 'speech' or a custom image may be needed. 'breathe' is central to both the river metaphor and practical speech therapy strategies depicted in the book. 'broken' and 'feel' are flagged as ambiguous due to their metaphorical use. Several words (river, morning, dad) already exist in activity_images and can be reused directly.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

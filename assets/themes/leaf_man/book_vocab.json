@@ -1,0 +1,94 @@
+{
+  "title": "Leaf Man",
+  "author": "Lois Ehlert",
+  "hero": {
+    "name": "Leaf Man",
+    "description": "A figure made entirely of autumn leaves arranged in the shape of a man, as seen on the book cover",
+    "search_term": "leaf man",
+    "needs_sourcing": true,
+    "source_note": "Named character made of collaged leaves — generic Boardmaker won't match; source from Creative Fabrica, TPT, or create custom collage image"
+  },
+  "fringe_12": [
+    "Leaf Man",
+    "leaf",
+    "wind",
+    "fly",
+    "fall",
+    "orange",
+    "acorn",
+    "pumpkin",
+    "bird",
+    "farm",
+    "pond",
+    "autumn"
+  ],
+  "fringe_11": [
+    "leaf",
+    "wind",
+    "fly",
+    "fall",
+    "orange",
+    "acorn",
+    "pumpkin",
+    "bird",
+    "farm",
+    "pond",
+    "autumn"
+  ],
+  "activity_images": [
+    "leaf",
+    "wind",
+    "fly",
+    "fall",
+    "orange",
+    "acorn"
+  ],
+  "aac_extras": [
+    "pumpkin",
+    "bird",
+    "farm",
+    "pond",
+    "autumn"
+  ],
+  "ambiguous": [
+    {
+      "word": "fly",
+      "issue": "Could mean insect (noun) or the action of flying/being blown through the air (verb)",
+      "preferred": "fly action",
+      "reason": "The Leaf Man is blown by the wind and flies through the air; the verb meaning is central to the story"
+    },
+    {
+      "word": "fall",
+      "issue": "Could mean the autumn season or the action of falling down",
+      "preferred": "fall season",
+      "reason": "The book is set entirely in autumn/fall; the seasonal meaning is correct here"
+    },
+    {
+      "word": "pond",
+      "issue": "Could be confused with lake or pool",
+      "preferred": "pond",
+      "reason": "The Leaf Man drifts over a pond with ducks; pond is the specific setting word used in the book"
+    }
+  ],
+  "character_images_needed": [
+    "Leaf Man"
+  ],
+  "icon_search_terms": {
+    "leaf": "leaf",
+    "wind": "wind",
+    "fly": "fly action",
+    "fall": "fall autumn",
+    "orange": "orange colour",
+    "acorn": "acorn",
+    "pumpkin": "pumpkin",
+    "bird": "bird",
+    "farm": "farm",
+    "pond": "pond",
+    "autumn": "autumn fall leaves"
+  },
+  "notes": "Leaf Man is a wordless-style collage book with minimal text; vocabulary supports describing the journey of the Leaf Man blown by the wind across an autumn landscape. 'Fall' and 'autumn' are included because the season is visually and thematically central — consider using whichever term the classroom uses. 'Orange' is the dominant colour throughout the book and is worth including as a fringe colour word. Several words (leaf, acorn, pumpkin) already exist in activity_images and can be reused. The existing aac_extras 'fly' and 'blow' are both highly relevant and should be surfaced in the board context even though they sit in core-adjacent slots.",
+  "characters": [],
+  "code": "LM1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

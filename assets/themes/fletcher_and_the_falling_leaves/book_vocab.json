@@ -1,0 +1,88 @@
+{
+  "title": "Fletcher and the Falling Leaves",
+  "author": "Julia Rawlinson",
+  "hero": {
+    "name": "Fletcher the Fox",
+    "description": "Small orange/red fox cub, the main character of the book",
+    "search_term": "fletcher fox",
+    "needs_sourcing": true,
+    "source_note": "Named character — source from Creative Fabrica or TPT clip art; a generic fox may substitute if unavailable"
+  },
+  "fringe_12": [
+    "Fletcher the Fox",
+    "leaf",
+    "tree",
+    "fall",
+    "wind",
+    "cold",
+    "worried",
+    "frost",
+    "ice",
+    "sparkle",
+    "branch",
+    "winter"
+  ],
+  "fringe_11": [
+    "leaf",
+    "tree",
+    "fall",
+    "wind",
+    "cold",
+    "worried",
+    "frost",
+    "ice",
+    "sparkle",
+    "branch",
+    "winter"
+  ],
+  "activity_images": [
+    "leaf",
+    "tree",
+    "fall",
+    "wind",
+    "cold",
+    "worried"
+  ],
+  "aac_extras": [
+    "frost",
+    "ice",
+    "sparkle",
+    "branch",
+    "winter"
+  ],
+  "ambiguous": [
+    {
+      "word": "fall",
+      "issue": "Could mean the action of falling (verb) or the autumn season (noun)",
+      "preferred": "autumn",
+      "reason": "The book is set in autumn/fall season — the season meaning is correct; using 'autumn' or 'fall season' avoids confusion with the falling action"
+    },
+    {
+      "word": "branch",
+      "issue": "Could mean a tree branch or a branch of a business/organisation",
+      "preferred": "tree branch",
+      "reason": "Book is about a tree losing its leaves; tree branch is the correct meaning"
+    }
+  ],
+  "character_images_needed": [
+    "Fletcher the Fox"
+  ],
+  "icon_search_terms": {
+    "leaf": "leaf",
+    "tree": "tree",
+    "fall": "autumn",
+    "wind": "wind",
+    "cold": "cold",
+    "worried": "worried",
+    "frost": "frost",
+    "ice": "ice",
+    "sparkle": "sparkle",
+    "branch": "branch",
+    "winter": "winter"
+  },
+  "notes": "This book is about Fletcher the fox who worries as his favourite tree loses its leaves in autumn, but is reassured when he sees the tree transformed by frost and ice into something beautiful in winter. Key emotional vocabulary (worried, cold) and seasonal/nature vocabulary (leaf, frost, ice, sparkle, winter) are central to retelling and discussing the story. 'Fall' has been flagged as ambiguous — boards may prefer to label this cell 'autumn' to avoid confusion with the falling-leaves action. A generic fox Boardmaker icon can substitute for Fletcher if a sourced character image is unavailable, with the label 'Fletcher'.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

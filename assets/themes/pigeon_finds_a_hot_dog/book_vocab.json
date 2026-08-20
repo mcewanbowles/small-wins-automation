@@ -1,0 +1,92 @@
+{
+  "title": "The Pigeon Finds a Hot Dog!",
+  "author": "Mo Willems",
+  "hero": {
+    "name": "Pigeon",
+    "description": "Blue cartoon pigeon character from Mo Willems' Pigeon series — distinctive simple round body, single eye, orange beak and feet",
+    "search_term": "pigeon bird",
+    "needs_sourcing": true,
+    "source_note": "Named Mo Willems character — source from Teachers Pay Teachers or Creative Fabrica for Pigeon clip art"
+  },
+  "fringe_12": [
+    "PIGEON",
+    "hot dog",
+    "duckling",
+    "mine",
+    "share",
+    "taste",
+    "smell",
+    "question",
+    "eat",
+    "yummy",
+    "give",
+    "napkin"
+  ],
+  "fringe_11": [
+    "hot dog",
+    "duckling",
+    "mine",
+    "share",
+    "taste",
+    "smell",
+    "question",
+    "eat",
+    "yummy",
+    "give",
+    "napkin"
+  ],
+  "activity_images": [
+    "hot dog",
+    "duckling",
+    "mine",
+    "share",
+    "taste",
+    "smell"
+  ],
+  "aac_extras": [
+    "question",
+    "eat",
+    "yummy",
+    "give",
+    "napkin"
+  ],
+  "ambiguous": [
+    {
+      "word": "mine",
+      "issue": "Could be possessive pronoun or a digging mine",
+      "preferred": "mine possessive",
+      "reason": "Book centres on Pigeon claiming ownership of the hot dog — possessive meaning is correct"
+    },
+    {
+      "word": "question",
+      "issue": "Could map to a question mark symbol or a person asking — abstract concept",
+      "preferred": "question mark",
+      "reason": "The Duckling's persistent questioning is a key story element; a question mark icon is most recognisable"
+    }
+  ],
+  "character_images_needed": [
+    "Pigeon",
+    "Duckling"
+  ],
+  "icon_search_terms": {
+    "hot dog": "hot dog",
+    "duckling": "duckling",
+    "mine": "mine",
+    "share": "share",
+    "taste": "taste",
+    "smell": "smell",
+    "question": "question",
+    "eat": "eat",
+    "yummy": "yummy",
+    "give": "give",
+    "napkin": "napkin"
+  },
+  "notes": "The Duckling is a secondary named character who needs a sourced PNG — ideally matching Mo Willems' art style (yellow duckling with similar simple design). Core story tension is possession and persuasion: Pigeon finds the hot dog and Duckling wants a taste. Words like 'mine', 'share', 'give', and 'question' capture this dynamic well for AAC use. 'Yummy' is highly motivating and frequently modelled during read-alouds. 'Napkin' appears in the story as Duckling uses one to taste the hot dog. Ketchup, mustard, and bun are already in activity_images so they do not need to be added to fringe slots but can be referenced as supplementary vocabulary on a second board if desired.",
+  "characters": [
+    "duckling",
+    "pigeon"
+  ],
+  "code": "PFHD1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

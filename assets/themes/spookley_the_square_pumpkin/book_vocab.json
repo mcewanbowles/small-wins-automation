@@ -1,0 +1,88 @@
+{
+  "title": "Spookley The Square Pumpkin",
+  "author": "Joe Troiano",
+  "hero": {
+    "name": "Spookley the Square Pumpkin",
+    "description": "Square orange pumpkin with a face, distinctive shaped character from the cover",
+    "search_term": "square pumpkin",
+    "needs_sourcing": true,
+    "source_note": "Named distinctive character — source from Creative Fabrica or TPT clip art; must be square-shaped pumpkin not round"
+  },
+  "fringe_12": [
+    "Spookley the Square Pumpkin",
+    "pumpkin",
+    "square",
+    "round",
+    "different",
+    "scared",
+    "laugh",
+    "fall",
+    "friend",
+    "roll",
+    "patch",
+    "orange"
+  ],
+  "fringe_11": [
+    "pumpkin",
+    "square",
+    "round",
+    "different",
+    "scared",
+    "laugh",
+    "fall",
+    "friend",
+    "roll",
+    "patch",
+    "orange"
+  ],
+  "activity_images": [
+    "pumpkin",
+    "square",
+    "round",
+    "different",
+    "scared",
+    "laugh"
+  ],
+  "aac_extras": [
+    "fall",
+    "friend",
+    "roll",
+    "patch",
+    "orange"
+  ],
+  "ambiguous": [
+    {
+      "word": "fall",
+      "issue": "Could mean the autumn season or the action of falling down",
+      "preferred": "autumn",
+      "reason": "The book is set in a Halloween/autumn pumpkin patch setting; the season meaning is correct"
+    },
+    {
+      "word": "roll",
+      "issue": "Could mean bread roll (food) or rolling movement action",
+      "preferred": "roll action",
+      "reason": "In the story, Spookley rolls/stops rolling because of his square shape; action meaning is correct"
+    }
+  ],
+  "character_images_needed": [
+    "Spookley the Square Pumpkin"
+  ],
+  "icon_search_terms": {
+    "pumpkin": "pumpkin",
+    "square": "square",
+    "round": "round circle",
+    "different": "different",
+    "scared": "afraid",
+    "laugh": "laugh",
+    "fall": "autumn",
+    "friend": "friend",
+    "roll": "roll",
+    "patch": "garden patch",
+    "orange": "orange colour"
+  },
+  "notes": "The core theme of this book is being different and accepted — 'different' is already in the fixed core row 2 but is so central to the story it is worth retaining as a fringe reinforcer. The word 'different' has been included intentionally as a high-frequency thematic word even though it appears in core. The book is set in a Halloween pumpkin patch so autumn/fall setting vocabulary is important. Spookley's square shape saving the other pumpkins in a storm is the climax — 'roll' and 'square' are critical action/descriptor words. If 'different' must be dropped to avoid core duplication, replace with 'save' or 'storm'.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

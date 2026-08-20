@@ -1,0 +1,80 @@
+{
+  "title": "Listen To My Trumpet",
+  "author": "Unknown",
+  "hero": {
+    "name": "Elephant with trumpet",
+    "description": "Elephant character playing a trumpet, likely a child elephant protagonist",
+    "search_term": "elephant",
+    "needs_sourcing": false,
+    "source_note": "Generic elephant — Boardmaker library should have a suitable elephant image; if book has a named distinctive elephant character, re-evaluate"
+  },
+  "fringe_12": [
+    "Elephant with trumpet",
+    "trumpet",
+    "music",
+    "loud",
+    "listen",
+    "play",
+    "noise",
+    "ears",
+    "happy",
+    "friend",
+    "practice",
+    "sound"
+  ],
+  "fringe_11": [
+    "trumpet",
+    "music",
+    "loud",
+    "listen",
+    "play",
+    "noise",
+    "ears",
+    "happy",
+    "friend",
+    "practice",
+    "sound"
+  ],
+  "activity_images": [
+    "trumpet",
+    "music",
+    "loud",
+    "listen",
+    "play",
+    "noise"
+  ],
+  "aac_extras": [
+    "ears",
+    "happy",
+    "friend",
+    "practice",
+    "sound"
+  ],
+  "ambiguous": [
+    {
+      "word": "play",
+      "issue": "Could mean play an instrument (action) or play as in recreational activity",
+      "preferred": "play instrument",
+      "reason": "Book is about playing a trumpet, so musical instrument action is correct meaning"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "trumpet": "trumpet",
+    "music": "music",
+    "loud": "loud",
+    "listen": "listen",
+    "play": "play music",
+    "noise": "noise",
+    "ears": "ears",
+    "happy": "happy",
+    "friend": "friend",
+    "practice": "practice",
+    "sound": "sound"
+  },
+  "notes": "Author is listed as unknown — book may be 'Listen to My Trumpet!' by Mo Willems (Elephant & Piggie series). If so, HERO should be Gerald the elephant (named character from Elephant & Piggie) and needs_sourcing should be set to true. Piggie may also be a relevant secondary character worth sourcing. Please verify authorship and update accordingly. Fringe vocabulary is appropriate for either interpretation as the core theme of trumpet-playing and listening remains central.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

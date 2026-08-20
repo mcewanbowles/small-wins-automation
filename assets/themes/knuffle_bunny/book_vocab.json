@@ -1,0 +1,91 @@
+{
+  "title": "Knuffle Bunny: A Cautionary Tale",
+  "author": "Mo Willems",
+  "hero": {
+    "name": "Knuffle Bunny",
+    "description": "Soft grey stuffed bunny toy, the beloved plush from Mo Willems' book — distinctive floppy-eared cartoon-style toy",
+    "search_term": "knuffle bunny stuffed animal",
+    "needs_sourcing": true,
+    "source_note": "Named character object — source from Creative Fabrica, TPT, or Mo Willems fan art clip art; must look like the grey floppy plush from the book cover"
+  },
+  "fringe_12": [
+    "KNUFFLE BUNNY",
+    "Trixie",
+    "daddy",
+    "laundromat",
+    "washing machine",
+    "lost",
+    "found",
+    "cry",
+    "hug",
+    "walk",
+    "uh oh",
+    "home"
+  ],
+  "fringe_11": [
+    "Trixie",
+    "daddy",
+    "laundromat",
+    "washing machine",
+    "lost",
+    "found",
+    "cry",
+    "hug",
+    "walk",
+    "uh oh",
+    "home"
+  ],
+  "activity_images": [
+    "Trixie",
+    "daddy",
+    "laundromat",
+    "washing machine",
+    "lost",
+    "found"
+  ],
+  "aac_extras": [
+    "cry",
+    "hug",
+    "walk",
+    "uh oh",
+    "home"
+  ],
+  "ambiguous": [
+    {
+      "word": "lost",
+      "issue": "Could mean direction/navigation or losing a possession",
+      "preferred": "lost object",
+      "reason": "In this book 'lost' refers to the stuffed bunny being missing — an object being lost, not being geographically lost"
+    },
+    {
+      "word": "washing machine",
+      "issue": "Generic 'machine' symbol vs specific laundry appliance",
+      "preferred": "washing machine",
+      "reason": "The laundromat washing machine is central to the plot — search specifically for washing machine not generic machine"
+    }
+  ],
+  "character_images_needed": [
+    "Knuffle Bunny",
+    "Trixie"
+  ],
+  "icon_search_terms": {
+    "Trixie": "girl toddler",
+    "daddy": "dad father man",
+    "laundromat": "laundromat laundry",
+    "washing machine": "washing machine",
+    "lost": "lost missing",
+    "found": "found object",
+    "cry": "cry crying",
+    "hug": "hug",
+    "walk": "walk walking",
+    "uh oh": "uh oh",
+    "home": "home house"
+  },
+  "notes": "Trixie is a pre-verbal toddler in the story — this makes the book especially resonant for AAC users. 'uh oh' already exists in core row 6 but is SO central to this book's plot and Mo Willems' style that it is retained in fringe for emphasis and direct access during shared reading. Teachers may choose to swap it for another word like 'angry' or 'upset' if preferred. 'Daddy' is used rather than generic 'dad' to match the book's language. The laundromat setting is critical to the plot and should be included even if the symbol requires customisation. Existing activity_images (bunny, girl, dad, park, laundromat, washing_machine, cry, hug) and aac_extras (lost, found, help, love) cover many of these — icons should be pulled from existing assets where available before sourcing new ones.",
+  "characters": [
+    "knuffle_bunny"
+  ],
+  "code": "KB1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

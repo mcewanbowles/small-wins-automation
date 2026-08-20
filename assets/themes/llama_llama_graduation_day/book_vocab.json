@@ -1,0 +1,88 @@
+{
+  "title": "Llama Llama Graduation Day",
+  "author": "Anna Dewdney (series)",
+  "hero": {
+    "name": "Llama Llama",
+    "description": "Young red llama character from the Anna Dewdney Llama Llama series, typically shown with expressive face and simple clothing",
+    "search_term": "llama llama",
+    "needs_sourcing": true,
+    "source_note": "Named/distinctive series character — source from Creative Fabrica or TPT clip art matching Anna Dewdney style"
+  },
+  "fringe_12": [
+    "Llama Llama",
+    "graduate",
+    "diploma",
+    "cap",
+    "friends",
+    "proud",
+    "celebrate",
+    "school",
+    "clap",
+    "grow",
+    "happy",
+    "family"
+  ],
+  "fringe_11": [
+    "graduate",
+    "diploma",
+    "cap",
+    "friends",
+    "proud",
+    "celebrate",
+    "school",
+    "clap",
+    "grow",
+    "happy",
+    "family"
+  ],
+  "activity_images": [
+    "graduate",
+    "diploma",
+    "cap",
+    "friends",
+    "proud",
+    "celebrate"
+  ],
+  "aac_extras": [
+    "school",
+    "clap",
+    "grow",
+    "happy",
+    "family"
+  ],
+  "ambiguous": [
+    {
+      "word": "cap",
+      "issue": "Could mean a hat generally or a graduation cap (mortarboard) specifically",
+      "preferred": "graduation cap",
+      "reason": "Book is about graduation day — the mortarboard graduation cap is the correct image"
+    },
+    {
+      "word": "grow",
+      "issue": "Could mean physical growth (getting taller) or a plant growing",
+      "preferred": "grow up",
+      "reason": "Book theme is about growing up and moving on from preschool/kindergarten — search for child growing taller"
+    }
+  ],
+  "character_images_needed": [
+    "Llama Llama"
+  ],
+  "icon_search_terms": {
+    "graduate": "graduate",
+    "diploma": "diploma",
+    "cap": "graduation cap",
+    "friends": "friends",
+    "proud": "proud",
+    "celebrate": "celebrate",
+    "school": "school",
+    "clap": "clap",
+    "grow": "grow",
+    "happy": "happy",
+    "family": "family"
+  },
+  "notes": "Llama Llama Graduation Day centres on themes of milestone transitions, pride, friendship, and celebrating growth. The 11 fringe words reflect the emotional and event-based vocabulary most useful for students to communicate about graduation ceremonies and preschool/kindergarten transitions. 'Proud' and 'celebrate' are slightly abstract but are picturable emotions/actions central to this book's theme. The Llama Llama character is a well-known named series character and will not be adequately represented by a generic llama symbol in Boardmaker.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

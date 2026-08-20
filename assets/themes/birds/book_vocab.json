@@ -1,0 +1,80 @@
+{
+  "title": "Birds",
+  "author": "Unknown",
+  "hero": {
+    "name": "bird",
+    "description": "Generic bird character — likely a simple illustrated bird suitable for a children's non-fiction or simple picture book about birds",
+    "search_term": "bird",
+    "needs_sourcing": false,
+    "source_note": "Generic bird — Boardmaker library symbol should suffice"
+  },
+  "fringe_12": [
+    "bird",
+    "fly",
+    "nest",
+    "egg",
+    "feather",
+    "beak",
+    "wing",
+    "tree",
+    "sky",
+    "sing",
+    "eat",
+    "small"
+  ],
+  "fringe_11": [
+    "fly",
+    "nest",
+    "egg",
+    "feather",
+    "beak",
+    "wing",
+    "tree",
+    "sky",
+    "sing",
+    "eat",
+    "small"
+  ],
+  "activity_images": [
+    "fly",
+    "nest",
+    "egg",
+    "feather",
+    "beak",
+    "wing"
+  ],
+  "aac_extras": [
+    "tree",
+    "sky",
+    "sing",
+    "eat",
+    "small"
+  ],
+  "ambiguous": [
+    {
+      "word": "fly",
+      "issue": "Could mean the insect (housefly/noun) or the action of flying (verb)",
+      "preferred": "fly action",
+      "reason": "Book is about birds; flying as an action is the central meaning here"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "fly": "flying",
+    "nest": "nest",
+    "egg": "egg",
+    "feather": "feather",
+    "beak": "beak",
+    "wing": "wing",
+    "tree": "tree",
+    "sky": "sky",
+    "sing": "sing",
+    "eat": "eat",
+    "small": "small"
+  },
+  "notes": "Author is unknown so book content is inferred from title alone. Vocabulary selected covers the most universally relevant bird-related concepts: body parts (beak, wing, feather), habitats/objects (nest, tree, sky, egg), and actions (fly, sing, eat). 'Small' is included as birds are often described by size in early reader bird books. If the specific book has a named bird character or a particular storyline (e.g. a colour theme or a specific species), fringe words should be revised accordingly once the book content is confirmed.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

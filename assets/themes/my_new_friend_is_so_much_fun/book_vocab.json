@@ -1,0 +1,80 @@
+{
+  "title": "My New Friend Is So Much Fun!",
+  "author": "Unknown",
+  "hero": {
+    "name": "Main child character (new friend)",
+    "description": "Generic child character making a new friend, likely shown on cover playing and having fun",
+    "search_term": "child friend",
+    "needs_sourcing": false,
+    "source_note": "Generic child character — Boardmaker child/friend symbol should suffice; verify cover art"
+  },
+  "fringe_12": [
+    "Main child character (new friend)",
+    "friend",
+    "play",
+    "fun",
+    "laugh",
+    "jump",
+    "run",
+    "ball",
+    "happy",
+    "share",
+    "wave",
+    "new"
+  ],
+  "fringe_11": [
+    "friend",
+    "play",
+    "fun",
+    "laugh",
+    "jump",
+    "run",
+    "ball",
+    "happy",
+    "share",
+    "wave",
+    "new"
+  ],
+  "activity_images": [
+    "friend",
+    "play",
+    "fun",
+    "laugh",
+    "jump",
+    "run"
+  ],
+  "aac_extras": [
+    "ball",
+    "happy",
+    "share",
+    "wave",
+    "new"
+  ],
+  "ambiguous": [
+    {
+      "word": "wave",
+      "issue": "Could mean a water wave (noun) or a greeting gesture (verb)",
+      "preferred": "wave hello",
+      "reason": "Book is about making a new friend, so waving as a greeting action is the correct meaning"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "friend": "friend",
+    "play": "play",
+    "fun": "fun",
+    "laugh": "laugh",
+    "jump": "jump",
+    "run": "run",
+    "ball": "ball",
+    "happy": "happy",
+    "share": "share",
+    "wave": "wave hello",
+    "new": "new"
+  },
+  "notes": "Author is unknown for this title; the book appears to focus on themes of friendship, play, and social connection — vocabulary is chosen to support social communication and retelling of friendship-building moments. If the book features specific named characters or a distinctive art style, the hero image may need sourcing. Verify cover art to confirm hero character before finalising. 'Fun' and 'laugh' are prioritised as they are likely repeated refrains in the text.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

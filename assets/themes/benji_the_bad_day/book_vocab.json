@@ -1,0 +1,88 @@
+{
+  "title": "Benji, the Bad Day, and Me",
+  "author": "S.J. Loring",
+  "hero": {
+    "name": "Benji",
+    "description": "Young boy with autism, the little brother character from the book cover",
+    "search_term": "benji boy autism",
+    "needs_sourcing": true,
+    "source_note": "Named character — source from Creative Fabrica or TPT clip art; may need custom illustration of young boy"
+  },
+  "fringe_12": [
+    "Benji",
+    "sad",
+    "hug",
+    "cry",
+    "calm",
+    "feelings",
+    "brother",
+    "home",
+    "tired",
+    "angry",
+    "quiet",
+    "better"
+  ],
+  "fringe_11": [
+    "sad",
+    "hug",
+    "cry",
+    "calm",
+    "feelings",
+    "brother",
+    "home",
+    "tired",
+    "angry",
+    "quiet",
+    "better"
+  ],
+  "activity_images": [
+    "sad",
+    "hug",
+    "cry",
+    "calm",
+    "feelings",
+    "brother"
+  ],
+  "aac_extras": [
+    "home",
+    "tired",
+    "angry",
+    "quiet",
+    "better"
+  ],
+  "ambiguous": [
+    {
+      "word": "calm",
+      "issue": "Could be represented as a verb (to calm someone) or an adjective (feeling calm/peaceful)",
+      "preferred": "calm peaceful",
+      "reason": "In this book calm refers to the emotional state of becoming settled and regulated, so the adjective/feeling meaning is correct"
+    },
+    {
+      "word": "better",
+      "issue": "Could mean comparative (better than something) or feeling better/improved after a bad day",
+      "preferred": "better feel better",
+      "reason": "Book is about recovering from a bad day, so feeling better/improved is the correct meaning"
+    }
+  ],
+  "character_images_needed": [
+    "Benji"
+  ],
+  "icon_search_terms": {
+    "sad": "sad",
+    "hug": "hug",
+    "cry": "cry",
+    "calm": "calm",
+    "feelings": "feelings",
+    "brother": "brother",
+    "home": "home",
+    "tired": "tired",
+    "angry": "angry",
+    "quiet": "quiet",
+    "better": "better"
+  },
+  "notes": "This book centres on emotional regulation and sibling empathy — a child narrator helps their younger autistic brother Benji through a bad day. Vocabulary prioritises emotions and comfort actions over physical objects. 'brother' is already in existing activity_images vocab so the existing icon can be reused. Headphones and backpack are also in existing vocab and are relevant to autism sensory themes in the book but were not included in fringe_11 as they are less central to the narrative arc than the emotional vocabulary selected. Consider adding them if a teacher wants a more object-focused board variant.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

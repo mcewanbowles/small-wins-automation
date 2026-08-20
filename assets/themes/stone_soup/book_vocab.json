@@ -1,0 +1,86 @@
+{
+  "title": "Stone Soup",
+  "author": "Classic (Traditional Folk Tale)",
+  "hero": {
+    "name": "Soldier / Traveller with pot",
+    "description": "A travelling stranger or soldier carrying a large pot, the central character who tricks the villagers into sharing by making 'stone soup'",
+    "search_term": "soldier man travelling",
+    "needs_sourcing": false,
+    "source_note": "Generic traveller or soldier figure — Boardmaker 'man' or 'soldier' icon acceptable; no named/branded character"
+  },
+  "fringe_12": [
+    "Soldier / Traveller with pot",
+    "pot",
+    "stone",
+    "carrot",
+    "villager",
+    "hungry",
+    "share",
+    "stir",
+    "soup",
+    "fire",
+    "together",
+    "add"
+  ],
+  "fringe_11": [
+    "pot",
+    "stone",
+    "carrot",
+    "villager",
+    "hungry",
+    "share",
+    "stir",
+    "soup",
+    "fire",
+    "together",
+    "add"
+  ],
+  "activity_images": [
+    "pot",
+    "stone",
+    "carrot",
+    "villager",
+    "hungry",
+    "share"
+  ],
+  "aac_extras": [
+    "stir",
+    "soup",
+    "fire",
+    "together",
+    "add"
+  ],
+  "ambiguous": [
+    {
+      "word": "fire",
+      "issue": "Could mean fire (flames under a cooking pot) or fire (danger/emergency)",
+      "preferred": "fire cooking flames",
+      "reason": "In Stone Soup, fire is used to heat the pot for cooking — the campfire/cooking fire meaning is correct"
+    },
+    {
+      "word": "stone",
+      "issue": "Could mean a pebble/rock (noun) or the action 'to stone' (verb)",
+      "preferred": "stone rock",
+      "reason": "The story centres on a literal stone/rock dropped into the pot — the noun meaning is correct"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "pot": "pot cooking",
+    "stone": "stone rock",
+    "carrot": "carrot",
+    "villager": "person village",
+    "hungry": "hungry",
+    "share": "share",
+    "stir": "stir",
+    "soup": "soup",
+    "fire": "fire cooking",
+    "together": "together",
+    "add": "add"
+  },
+  "notes": "Stone Soup is a classic folk tale about community and sharing. Key vocabulary centres on cooking actions (stir, add), food items (carrot, pot, stone, soup), and social concepts (share, together, hungry). 'Villager' represents the townsfolk characters; a generic 'person' or 'people' Boardmaker icon is suitable. The existing activity_images already cover pot, stone, carrot, water, village, spoon, turnip, bread, onion, potato, and aac_extras cover share, cook, stir, hungry — so the fringe selection here prioritises the most story-critical items including 'soup' (the finished product), 'fire' (cooking method), 'together' (the story's moral theme), and 'add' (the repeated action of villagers contributing ingredients). 'Villager' and 'hungry' are prioritised over vegetable duplicates already covered in existing assets.",
+  "characters": [],
+  "code": "SSOU1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

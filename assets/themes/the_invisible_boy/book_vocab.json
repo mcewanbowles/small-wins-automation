@@ -1,0 +1,88 @@
+{
+  "title": "The Invisible Boy",
+  "author": "Trudy Ludwig",
+  "hero": {
+    "name": "Brian",
+    "description": "A quiet boy who feels invisible at school, illustrated as a faint grey outline among colourful classmates",
+    "search_term": "invisible boy brian",
+    "needs_sourcing": true,
+    "source_note": "Named character with distinctive grey/outline art style — source from Creative Fabrica or TPT clip art"
+  },
+  "fringe_12": [
+    "Brian",
+    "friend",
+    "alone",
+    "happy",
+    "sad",
+    "school",
+    "draw",
+    "invite",
+    "lunch",
+    "play",
+    "kind",
+    "new"
+  ],
+  "fringe_11": [
+    "friend",
+    "alone",
+    "happy",
+    "sad",
+    "school",
+    "draw",
+    "invite",
+    "lunch",
+    "play",
+    "kind",
+    "new"
+  ],
+  "activity_images": [
+    "friend",
+    "alone",
+    "happy",
+    "sad",
+    "school",
+    "draw"
+  ],
+  "aac_extras": [
+    "invite",
+    "lunch",
+    "play",
+    "kind",
+    "new"
+  ],
+  "ambiguous": [
+    {
+      "word": "draw",
+      "issue": "Could mean drawing/art (verb/action) or drawing a curtain/pulling something",
+      "preferred": "draw art",
+      "reason": "Brian expresses himself through drawing pictures in the story; art/drawing meaning is correct"
+    },
+    {
+      "word": "alone",
+      "issue": "Could be interpreted as lonely (emotion) or physically by oneself (location state)",
+      "preferred": "alone lonely",
+      "reason": "In this book alone conveys the feeling of being excluded and unnoticed; emotional/social meaning is intended"
+    }
+  ],
+  "character_images_needed": [
+    "Brian (The Invisible Boy)"
+  ],
+  "icon_search_terms": {
+    "friend": "friend",
+    "alone": "alone",
+    "happy": "happy",
+    "sad": "sad",
+    "school": "school",
+    "draw": "draw",
+    "invite": "invite",
+    "lunch": "lunch",
+    "play": "play",
+    "kind": "kind",
+    "new": "new"
+  },
+  "notes": "The core theme of this book is inclusion, belonging, and the power of small acts of kindness. Vocabulary prioritises social-emotional words relevant to the story. 'Invite' is critical as the turning point involves a new student Justin inviting Brian to join his lunch group. 'Draw' reflects Brian's key self-expression activity throughout. The grey-outline illustration style of Brian is distinctive and will not be matched by any generic Boardmaker boy icon — sourcing a character-specific PNG is strongly recommended for student recognition.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

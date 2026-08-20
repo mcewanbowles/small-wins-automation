@@ -1,0 +1,86 @@
+{
+  "title": "And Then It's Spring",
+  "author": "Julie Fogliano",
+  "hero": {
+    "name": "Boy with seeds",
+    "description": "Young child in winter coat planting seeds in brown dirt, generic unnamed child character from cover",
+    "search_term": "boy gardening",
+    "needs_sourcing": false,
+    "source_note": "Generic child gardening — use Boardmaker 'boy' or 'gardening' symbol, or a child planting seeds image"
+  },
+  "fringe_12": [
+    "Boy with seeds",
+    "seeds",
+    "mud",
+    "rain",
+    "sprout",
+    "wait",
+    "brown",
+    "green",
+    "bird",
+    "rabbit",
+    "worm",
+    "spring"
+  ],
+  "fringe_11": [
+    "seeds",
+    "mud",
+    "rain",
+    "sprout",
+    "wait",
+    "brown",
+    "green",
+    "bird",
+    "rabbit",
+    "worm",
+    "spring"
+  ],
+  "activity_images": [
+    "seeds",
+    "mud",
+    "rain",
+    "sprout",
+    "wait",
+    "brown"
+  ],
+  "aac_extras": [
+    "green",
+    "bird",
+    "rabbit",
+    "worm",
+    "spring"
+  ],
+  "ambiguous": [
+    {
+      "word": "spring",
+      "issue": "Could mean the season (spring) or a coiled spring object",
+      "preferred": "spring season",
+      "reason": "Book is entirely about the season of spring arriving after winter planting"
+    },
+    {
+      "word": "brown",
+      "issue": "Could map to a colour swatch or the adjective describing dirt/mud",
+      "preferred": "brown colour",
+      "reason": "Brown is used throughout the book to describe the dirt and waiting earth before green appears; a colour swatch is correct"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "seeds": "seeds",
+    "mud": "mud",
+    "rain": "rain",
+    "sprout": "sprout",
+    "wait": "wait",
+    "brown": "brown",
+    "green": "green",
+    "bird": "bird",
+    "rabbit": "rabbit",
+    "worm": "worm",
+    "spring": "spring season"
+  },
+  "notes": "All 11 fringe words already exist in either activity_images or aac_extras (seeds, mud, rain, sprout, bird, rabbit, worm from activity_images; brown, green, wait, spring from aac_extras) — no new icons need to be sourced. The hero is a generic unnamed child; a Boardmaker 'boy planting' or 'child gardening' symbol is sufficient. The book's central tension is waiting and watching brown dirt for green to appear, so 'brown', 'green', 'wait', and 'sprout' are especially high-value fringe words alongside the nature objects. Deer and groundhog are available in activity_images but were omitted in favour of higher-frequency story vocabulary; they could substitute for worm or bird if desired for a more story-specific set.",
+  "characters": [],
+  "code": "ATS1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

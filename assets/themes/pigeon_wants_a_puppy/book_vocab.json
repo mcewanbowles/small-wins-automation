@@ -1,0 +1,85 @@
+{
+  "title": "The Pigeon Wants a Puppy!",
+  "author": "Mo Willems",
+  "hero": {
+    "name": "Pigeon",
+    "description": "Mo Willems' distinctive cartoon pigeon — simple round blue-grey bird with one large expressive eye, stick legs, and an open beak; iconic character from the Don't Let the Pigeon... series",
+    "search_term": "mo willems pigeon",
+    "needs_sourcing": true,
+    "source_note": "Named/distinctive character — generic Boardmaker bird will not match; source from Mo Willems licensed clip art, Creative Fabrica, or TPT"
+  },
+  "fringe_12": [
+    "PIGEON",
+    "puppy",
+    "dog",
+    "want",
+    "please",
+    "promise",
+    "walrus",
+    "angry",
+    "happy",
+    "mine",
+    "loud",
+    "beg"
+  ],
+  "fringe_11": [
+    "puppy",
+    "dog",
+    "want",
+    "please",
+    "promise",
+    "walrus",
+    "angry",
+    "happy",
+    "mine",
+    "loud",
+    "beg"
+  ],
+  "activity_images": [
+    "puppy",
+    "dog",
+    "want",
+    "please",
+    "promise",
+    "walrus"
+  ],
+  "aac_extras": [
+    "angry",
+    "happy",
+    "mine",
+    "loud",
+    "beg"
+  ],
+  "ambiguous": [
+    {
+      "word": "loud",
+      "issue": "Could map to a speaker/volume icon or to an expressive face/shouting character",
+      "preferred": "loud voice shouting",
+      "reason": "The Pigeon shouts and has dramatic loud outbursts; an expressive shouting face is the clearest representation for students"
+    }
+  ],
+  "character_images_needed": [
+    "Pigeon",
+    "Walrus"
+  ],
+  "icon_search_terms": {
+    "puppy": "puppy",
+    "dog": "dog",
+    "want": "want",
+    "please": "please",
+    "promise": "promise",
+    "walrus": "walrus",
+    "angry": "angry",
+    "happy": "happy",
+    "mine": "mine",
+    "loud": "loud",
+    "beg": "beg"
+  },
+  "notes": "The walrus is a surprise character who appears at the end of the book — this is a key story moment and highly memorable for students, making it an important fringe word. 'Want' appears in the title and is the pigeon's central communicative act throughout, though it also exists in the fixed core row; it is included here as a fringe word because it is so thematically central and will reinforce its use in context. The Pigeon's emotional escalation (begging, pleading, promising, getting angry, then being happy/horrified at the walrus) drives the whole narrative, so emotions 'angry' and 'happy' are prioritised over physical objects like leash or bowl, which are mentioned but are secondary. 'Mine' captures the Pigeon's possessive, demanding personality. Walrus image will likely need sourcing alongside Pigeon as Boardmaker may not have a recognisable match; note that walrus does appear in some symbol libraries so check before sourcing externally.",
+  "characters": [
+    "pigeon"
+  ],
+  "code": "PWAP1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

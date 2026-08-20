@@ -1,0 +1,94 @@
+{
+  "title": "The Polar Express",
+  "author": "Chris Van Allsburg",
+  "hero": {
+    "name": "The Polar Express Train",
+    "description": "The iconic red and green steam locomotive from the cover of The Polar Express, pulling through a snowy night scene",
+    "search_term": "polar express train",
+    "needs_sourcing": true,
+    "source_note": "Distinctive named vehicle — source from Creative Fabrica or TPT clip art; generic Boardmaker train will not match"
+  },
+  "fringe_12": [
+    "The Polar Express Train",
+    "train",
+    "bell",
+    "snow",
+    "night",
+    "conductor",
+    "ticket",
+    "gift",
+    "hot chocolate",
+    "boy",
+    "North Pole",
+    "believe"
+  ],
+  "fringe_11": [
+    "train",
+    "bell",
+    "snow",
+    "night",
+    "conductor",
+    "ticket",
+    "gift",
+    "hot chocolate",
+    "boy",
+    "North Pole",
+    "believe"
+  ],
+  "activity_images": [
+    "train",
+    "bell",
+    "snow",
+    "night",
+    "conductor",
+    "ticket"
+  ],
+  "aac_extras": [
+    "gift",
+    "hot chocolate",
+    "boy",
+    "North Pole",
+    "believe"
+  ],
+  "ambiguous": [
+    {
+      "word": "bell",
+      "issue": "Could be a school bell, door bell, or Christmas bell",
+      "preferred": "bell christmas",
+      "reason": "The golden bell in this book is a Christmas sleigh bell given as the first gift of Christmas"
+    },
+    {
+      "word": "conductor",
+      "issue": "Could be a train conductor or a music conductor (orchestra)",
+      "preferred": "train conductor",
+      "reason": "The conductor in this book is the train conductor who punches tickets on the Polar Express"
+    },
+    {
+      "word": "gift",
+      "issue": "Could be a wrapped present box or the abstract concept of a gift or talent",
+      "preferred": "present",
+      "reason": "The gift in this book is a wrapped Christmas present — the bell from Santa's sleigh"
+    }
+  ],
+  "character_images_needed": [
+    "The Polar Express Train"
+  ],
+  "icon_search_terms": {
+    "train": "train",
+    "bell": "bell",
+    "snow": "snow",
+    "night": "night",
+    "conductor": "conductor",
+    "ticket": "ticket",
+    "gift": "present",
+    "hot chocolate": "hot chocolate",
+    "boy": "boy",
+    "North Pole": "north pole",
+    "believe": "believe"
+  },
+  "notes": "The Polar Express by Chris Van Allsburg is a classic Christmas picture book. The central themes are belief, magic, and Christmas. 'Believe' is an abstract word but is so central to the book's message that it is worth including — pair with a simple text-based symbol or a heart/star image. 'North Pole' may not exist as a single Boardmaker symbol; consider a compound image of a striped pole with snow. 'Hot chocolate' is a key story object (the children drink hot chocolate on the train) and may need a compound search for 'hot drink' or 'cocoa' if the exact term is unavailable.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

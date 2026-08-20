@@ -1,0 +1,88 @@
+{
+  "title": "Ish",
+  "author": "Peter H. Reynolds",
+  "hero": {
+    "name": "Ramon",
+    "description": "Young boy artist, main character from Peter H. Reynolds' Ish — curly-haired child who draws and makes art",
+    "search_term": "ramon ish peter reynolds boy artist",
+    "needs_sourcing": true,
+    "source_note": "Named character from Peter H. Reynolds — source from Creative Fabrica, TPT, or Peter H. Reynolds FableVision clip art"
+  },
+  "fringe_12": [
+    "Ramon",
+    "draw",
+    "crumple",
+    "cry",
+    "laugh",
+    "vase",
+    "flower",
+    "notebook",
+    "art",
+    "beautiful",
+    "idea",
+    "happy"
+  ],
+  "fringe_11": [
+    "draw",
+    "crumple",
+    "cry",
+    "laugh",
+    "vase",
+    "flower",
+    "notebook",
+    "art",
+    "beautiful",
+    "idea",
+    "happy"
+  ],
+  "activity_images": [
+    "draw",
+    "crumple",
+    "cry",
+    "laugh",
+    "vase",
+    "flower"
+  ],
+  "aac_extras": [
+    "notebook",
+    "art",
+    "beautiful",
+    "idea",
+    "happy"
+  ],
+  "ambiguous": [
+    {
+      "word": "vase",
+      "issue": "Could be confused with a jar or cup",
+      "preferred": "vase",
+      "reason": "Ramon draws a vase — the flower vase drawing is a key story moment"
+    },
+    {
+      "word": "art",
+      "issue": "Could map to art class, craft activity, or abstract concept",
+      "preferred": "art",
+      "reason": "The book is centrally about making art and being an artist — use art/painting image"
+    }
+  ],
+  "character_images_needed": [
+    "Ramon"
+  ],
+  "icon_search_terms": {
+    "draw": "draw",
+    "crumple": "crumple paper",
+    "cry": "cry",
+    "laugh": "laugh",
+    "vase": "vase",
+    "flower": "flower",
+    "notebook": "notebook",
+    "art": "art",
+    "beautiful": "beautiful",
+    "idea": "idea",
+    "happy": "happy"
+  },
+  "notes": "Ish by Peter H. Reynolds is about a boy named Ramon who loves to draw until his brother Leon laughs at his work. His sister Marisol saves his crumpled drawings and frames them, helping Ramon see that art can be 'ish' — not perfect, but expressive and good enough. Key vocabulary themes: creating art, emotional reactions (cry, laugh, happy), the vase drawing, and the concept of 'beautiful' imperfection. The words 'crumple' and 'idea' are critical to the story arc. Words 'vase' and 'flower' and 'notebook' are already in existing activity_images which is helpful. The word 'ish' itself is abstract and not easily picturable, so it has been omitted from fringe in favour of more concrete communicative vocabulary.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

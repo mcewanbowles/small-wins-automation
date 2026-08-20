@@ -1,0 +1,343 @@
+{
+  "word_search_words": [
+    {
+      "value": "race car",
+      "grounded": true,
+      "grounding_note": "Core topic term, race cars discussed throughout evidence.",
+      "citations": [
+        0,
+        3,
+        6
+      ]
+    },
+    {
+      "value": "stock car",
+      "grounded": true,
+      "grounding_note": "Named as a car type in iRacing evidence.",
+      "citations": [
+        0
+      ]
+    },
+    {
+      "value": "open wheel",
+      "grounded": true,
+      "grounding_note": "Named car type category in iRacing evidence.",
+      "citations": [
+        0
+      ]
+    },
+    {
+      "value": "driver",
+      "grounded": true,
+      "grounding_note": "Implied by motorsport competition context; drivers referenced (e.g. Wittmann).",
+      "citations": [
+        3,
+        4
+      ]
+    },
+    {
+      "value": "track",
+      "grounded": true,
+      "grounding_note": "Tracks referenced as part of racing infrastructure.",
+      "citations": [
+        0
+      ]
+    },
+    {
+      "value": "engine",
+      "grounded": true,
+      "grounding_note": "Engine explicitly mentioned for sale/parts.",
+      "citations": [
+        4
+      ]
+    },
+    {
+      "value": "rally car",
+      "grounded": true,
+      "grounding_note": "Named category of race car in evidence.",
+      "citations": [
+        4
+      ]
+    },
+    {
+      "value": "truck",
+      "grounded": true,
+      "grounding_note": "Race truck variant named in iRacing evidence.",
+      "citations": [
+        0
+      ]
+    }
+  ],
+  "starting_sight_words": [
+    {
+      "value": "race",
+      "grounded": true,
+      "grounding_note": "Core recurring topic word.",
+      "citations": [
+        0,
+        3,
+        6
+      ]
+    },
+    {
+      "value": "car",
+      "grounded": true,
+      "grounding_note": "Core recurring topic word.",
+      "citations": [
+        0,
+        3,
+        4
+      ]
+    },
+    {
+      "value": "drive",
+      "grounded": true,
+      "grounding_note": "Driving/drivers referenced in context of competing cars.",
+      "citations": [
+        3,
+        4
+      ]
+    },
+    {
+      "value": "track",
+      "grounded": true,
+      "grounding_note": "Track infrastructure mentioned.",
+      "citations": [
+        0
+      ]
+    },
+    {
+      "value": "win",
+      "grounded": true,
+      "grounding_note": "Championship winner referenced.",
+      "citations": [
+        4
+      ]
+    }
+  ],
+  "sequence_order": [
+    {
+      "value": "Cars race around the track",
+      "grounded": true,
+      "grounding_note": "Auto racing defined as racing automobiles in competition.",
+      "citations": [
+        3
+      ]
+    },
+    {
+      "value": "A car wins the race",
+      "grounded": true,
+      "grounding_note": "Championship winner referenced in evidence.",
+      "citations": [
+        4
+      ]
+    }
+  ],
+  "sorting_categories": [
+    {
+      "value": "stock car",
+      "grounded": true,
+      "grounding_note": "Named car type in iRacing evidence.",
+      "citations": [
+        0
+      ]
+    },
+    {
+      "value": "open wheel car",
+      "grounded": true,
+      "grounding_note": "Named car type in iRacing evidence.",
+      "citations": [
+        0
+      ]
+    },
+    {
+      "value": "rally car",
+      "grounded": true,
+      "grounding_note": "Named car category in evidence.",
+      "citations": [
+        4
+      ]
+    },
+    {
+      "value": "race truck",
+      "grounded": true,
+      "grounding_note": "Named vehicle variant in iRacing evidence.",
+      "citations": [
+        0
+      ]
+    }
+  ],
+  "sequencing_strips_verbs": [
+    {
+      "value": "start",
+      "grounded": true,
+      "grounding_note": "Implied beginning of a race competition.",
+      "citations": [
+        3
+      ]
+    },
+    {
+      "value": "drive",
+      "grounded": true,
+      "grounding_note": "Driving is central to racing competition.",
+      "citations": [
+        3,
+        4
+      ]
+    },
+    {
+      "value": "race",
+      "grounded": true,
+      "grounding_note": "Core action word for the topic.",
+      "citations": [
+        3
+      ]
+    },
+    {
+      "value": "finish",
+      "grounded": true,
+      "grounding_note": "Implied by winning outcome referenced in evidence.",
+      "citations": [
+        4
+      ]
+    }
+  ],
+  "adapted_book_sentences": [
+    {
+      "value": "Auto racing is a sport where cars race to compete.",
+      "grounded": true,
+      "grounding_note": "Direct paraphrase of auto racing definition.",
+      "citations": [
+        3
+      ]
+    },
+    {
+      "value": "There are more than 180 kinds of race cars.",
+      "grounded": true,
+      "grounding_note": "Direct fact from iRacing evidence.",
+      "citations": [
+        0
+      ]
+    },
+    {
+      "value": "Some race cars are stock cars and some are open-wheel cars.",
+      "grounded": true,
+      "grounding_note": "Car types named in iRacing evidence.",
+      "citations": [
+        0
+      ]
+    },
+    {
+      "value": "People buy and sell race cars and rally cars.",
+      "grounded": true,
+      "grounding_note": "Racecarsdirect evidence describes buying/selling race and rally cars.",
+      "citations": [
+        4
+      ]
+    },
+    {
+      "value": "Some drivers win championships in their race cars.",
+      "grounded": true,
+      "grounding_note": "Championship winner mentioned in evidence.",
+      "citations": [
+        4
+      ]
+    }
+  ],
+  "wh_questions": [
+    {
+      "value": "What is auto racing?",
+      "grounded": true,
+      "grounding_note": "Definition provided in evidence.",
+      "citations": [
+        3
+      ]
+    },
+    {
+      "value": "How many kinds of race cars are there?",
+      "grounded": true,
+      "grounding_note": "Specific number stated in evidence.",
+      "citations": [
+        0
+      ]
+    },
+    {
+      "value": "What are two types of race cars?",
+      "grounded": true,
+      "grounding_note": "Stock car and open-wheel car named.",
+      "citations": [
+        0
+      ]
+    },
+    {
+      "value": "What can people buy on a race car website?",
+      "grounded": true,
+      "grounding_note": "Buying/selling race cars, rally cars, parts mentioned.",
+      "citations": [
+        4
+      ]
+    }
+  ],
+  "yes_no_questions": [
+    {
+      "value": "Is a stock car a type of race car?",
+      "grounded": true,
+      "grounding_note": "Stock car named as a race car type.",
+      "citations": [
+        0
+      ]
+    },
+    {
+      "value": "Are there more than 180 kinds of race cars?",
+      "grounded": true,
+      "grounding_note": "Exact number stated.",
+      "citations": [
+        0
+      ]
+    },
+    {
+      "value": "Is auto racing a sport?",
+      "grounded": true,
+      "grounding_note": "Auto racing defined as a motorsport.",
+      "citations": [
+        3
+      ]
+    },
+    {
+      "value": "Can you buy a rally car online?",
+      "grounded": true,
+      "grounding_note": "Rally cars listed for sale on racecarsdirect.",
+      "citations": [
+        4
+      ]
+    }
+  ],
+  "aac_fringe_vocab": [
+    {
+      "value": "excited",
+      "grounded": true,
+      "grounding_note": "Evidence describes racing making people 'glad to be alive' and passionate.",
+      "citations": [
+        6
+      ]
+    },
+    {
+      "value": "thrilled",
+      "grounded": true,
+      "grounding_note": "Matches 'ache to be there' passionate excitement language.",
+      "citations": [
+        6
+      ]
+    }
+  ],
+  "inferencing_questions": [
+    {
+      "value": "If a car finishes first, what happens to its driver?",
+      "grounded": true,
+      "grounding_note": "Evidence references championship winners, implying success from finishing first.",
+      "citations": [
+        4
+      ]
+    }
+  ]
+}

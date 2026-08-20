@@ -1,0 +1,88 @@
+{
+  "title": "Fletcher and the Springtime Blossoms",
+  "author": "Julia Rawlinson",
+  "hero": {
+    "name": "Fletcher",
+    "description": "A small orange fox with a bushy tail, the main character of the Fletcher series by Julia Rawlinson",
+    "search_term": "fletcher fox",
+    "needs_sourcing": true,
+    "source_note": "Named character fox from Julia Rawlinson series — source from Creative Fabrica or TPT clip art; generic Boardmaker fox will not match"
+  },
+  "fringe_12": [
+    "Fletcher",
+    "fox",
+    "blossoms",
+    "petals",
+    "tree",
+    "spring",
+    "snow",
+    "bird",
+    "rabbit",
+    "meadow",
+    "wind",
+    "white"
+  ],
+  "fringe_11": [
+    "fox",
+    "blossoms",
+    "petals",
+    "tree",
+    "spring",
+    "snow",
+    "bird",
+    "rabbit",
+    "meadow",
+    "wind",
+    "white"
+  ],
+  "activity_images": [
+    "fox",
+    "blossoms",
+    "petals",
+    "tree",
+    "spring",
+    "snow"
+  ],
+  "aac_extras": [
+    "bird",
+    "rabbit",
+    "meadow",
+    "wind",
+    "white"
+  ],
+  "ambiguous": [
+    {
+      "word": "spring",
+      "issue": "Could mean the season (spring/springtime) or a coiled spring object or the action of jumping",
+      "preferred": "spring season",
+      "reason": "The book is about the arrival of springtime; the seasonal meaning is correct"
+    },
+    {
+      "word": "white",
+      "issue": "Could be searched as a colour swatch or as white object (snow, paper)",
+      "preferred": "white colour",
+      "reason": "Used here as a colour descriptor for the blossoms/petals that Fletcher mistakes for snow"
+    }
+  ],
+  "character_images_needed": [
+    "Fletcher the fox"
+  ],
+  "icon_search_terms": {
+    "fox": "fox",
+    "blossoms": "blossom",
+    "petals": "petal",
+    "tree": "tree",
+    "spring": "spring season",
+    "snow": "snow",
+    "bird": "bird",
+    "rabbit": "rabbit",
+    "meadow": "meadow",
+    "wind": "wind",
+    "white": "white"
+  },
+  "notes": "Fletcher mistakes falling white blossoms for snow, so both 'blossoms' and 'snow' are central vocabulary items and the contrast between them is thematically important. 'White' is included as a colour descriptor because the visual similarity of blossoms to snow is the core story concept — useful for students to express same/different comparisons. Several words (fox, bird, rabbit, meadow, snow) are already present in the existing activity_images or aac_extras pool and can be reused directly. 'Spring' and 'blossoms' are the highest-priority new additions. 'Wind' is picturable and drives the plot (wind blows the petals). The fixed core row already contains 'colour', 'same', and 'different', which pair well with this book's themes.",
+  "characters": [],
+  "code": "FSB1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

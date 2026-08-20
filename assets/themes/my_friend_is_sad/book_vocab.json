@@ -1,0 +1,83 @@
+{
+  "title": "My Friend Is Sad",
+  "author": "Mo Willems",
+  "hero": {
+    "name": "Gerald the Elephant",
+    "description": "Large grey elephant character from Mo Willems' Elephant and Piggie series, wears glasses",
+    "search_term": "gerald elephant mo willems",
+    "needs_sourcing": true,
+    "source_note": "Named character from Elephant and Piggie series — source from TPT, Creative Fabrica, or Mo Willems licensed clip art"
+  },
+  "fringe_12": [
+    "Gerald the Elephant",
+    "sad",
+    "happy",
+    "friend",
+    "funny",
+    "costume",
+    "laugh",
+    "cry",
+    "cheer up",
+    "pig",
+    "surprise",
+    "hug"
+  ],
+  "fringe_11": [
+    "sad",
+    "happy",
+    "friend",
+    "funny",
+    "costume",
+    "laugh",
+    "cry",
+    "cheer up",
+    "pig",
+    "surprise",
+    "hug"
+  ],
+  "activity_images": [
+    "sad",
+    "happy",
+    "friend",
+    "funny",
+    "costume",
+    "laugh"
+  ],
+  "aac_extras": [
+    "cry",
+    "cheer up",
+    "pig",
+    "surprise",
+    "hug"
+  ],
+  "ambiguous": [
+    {
+      "word": "funny",
+      "issue": "Could mean humorous (adjective) or strange/odd (adjective)",
+      "preferred": "funny laughing",
+      "reason": "In this book, Piggie tries to be funny/entertaining to cheer Gerald up — humorous meaning is correct"
+    }
+  ],
+  "character_images_needed": [
+    "Gerald the Elephant",
+    "Piggie the Pig"
+  ],
+  "icon_search_terms": {
+    "sad": "sad",
+    "happy": "happy",
+    "friend": "friend",
+    "funny": "funny",
+    "costume": "costume",
+    "laugh": "laugh",
+    "cry": "cry",
+    "cheer up": "cheer up",
+    "pig": "pig",
+    "surprise": "surprise",
+    "hug": "hug"
+  },
+  "notes": "This is a Mo Willems Elephant and Piggie book. Both Gerald (elephant) and Piggie are named distinctive characters requiring sourced clip art. The core theme is emotional support between friends — Piggie dresses up in costumes (cowboy, clown, robot) to cheer up sad Gerald. Key vocabulary centres on emotions (sad, happy, cry, laugh, surprise) and social interaction (friend, hug, cheer up, funny). 'Costume' is central to the plot. Piggie should be included in character_images_needed as a key secondary character who drives the action. Both characters appear extensively throughout the book.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

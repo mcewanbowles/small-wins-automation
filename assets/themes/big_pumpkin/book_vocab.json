@@ -1,0 +1,92 @@
+{
+  "title": "Big Pumpkin",
+  "author": "Erica Silverman",
+  "hero": {
+    "name": "Witch",
+    "description": "Classic Halloween witch with pointed black hat and broomstick, main character of the story",
+    "search_term": "witch",
+    "needs_sourcing": false,
+    "source_note": "Generic witch image available in Boardmaker library — Halloween context"
+  },
+  "fringe_12": [
+    "Witch",
+    "pumpkin",
+    "pull",
+    "stuck",
+    "ghost",
+    "mummy",
+    "vampire",
+    "bat",
+    "pie",
+    "Halloween",
+    "big",
+    "fall"
+  ],
+  "fringe_11": [
+    "pumpkin",
+    "pull",
+    "stuck",
+    "ghost",
+    "mummy",
+    "vampire",
+    "bat",
+    "pie",
+    "Halloween",
+    "big",
+    "fall"
+  ],
+  "activity_images": [
+    "pumpkin",
+    "pull",
+    "stuck",
+    "ghost",
+    "mummy",
+    "vampire"
+  ],
+  "aac_extras": [
+    "bat",
+    "pie",
+    "Halloween",
+    "big",
+    "fall"
+  ],
+  "ambiguous": [
+    {
+      "word": "bat",
+      "issue": "Could mean flying mammal animal or baseball bat (sports equipment)",
+      "preferred": "bat animal",
+      "reason": "Book features a bat as one of the Halloween characters who helps pull the pumpkin"
+    },
+    {
+      "word": "fall",
+      "issue": "Could mean the season autumn or the action of falling down",
+      "preferred": "fall season",
+      "reason": "Book is set in autumn Halloween season — season meaning is correct"
+    },
+    {
+      "word": "stuck",
+      "issue": "Could be interpreted as an emotion/state or a physical action concept",
+      "preferred": "stuck",
+      "reason": "The pumpkin is stuck and cannot be pulled off the vine — physical state meaning is correct"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "pumpkin": "pumpkin",
+    "pull": "pull",
+    "stuck": "stuck",
+    "ghost": "ghost",
+    "mummy": "mummy",
+    "vampire": "vampire",
+    "bat": "bat",
+    "pie": "pie",
+    "Halloween": "halloween",
+    "big": "big",
+    "fall": "fall autumn"
+  },
+  "notes": "Big Pumpkin by Erica Silverman is a Halloween cumulative tale where a witch cannot pull a giant pumpkin off the vine alone and is helped by Halloween creatures — ghost, mummy, vampire, and bat. The bat finally succeeds using a different strategy. Key vocabulary centres on the Halloween characters, the physical action of pulling, and the concept of being stuck. The reward is pumpkin pie. The witch is a generic enough character that Boardmaker's standard witch icon should suffice. Fall/autumn is flagged as ambiguous. Bat is flagged as ambiguous — the flying mammal meaning is correct here.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

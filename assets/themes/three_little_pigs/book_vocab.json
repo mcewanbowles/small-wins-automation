@@ -1,0 +1,97 @@
+{
+  "title": "The Three Little Pigs",
+  "author": "Classic",
+  "hero": {
+    "name": "Three Little Pigs",
+    "description": "Three cartoon pigs — the classic fairy tale characters recognisable from book covers; generic pig icon will not capture the trio or fairy-tale style",
+    "search_term": "pig",
+    "needs_sourcing": true,
+    "source_note": "Classic fairy-tale characters — source a three-pigs illustration from Creative Fabrica or TPT clip art; alternatively use a single cartoon pig if trio image unavailable"
+  },
+  "fringe_12": [
+    "Three Little Pigs",
+    "wolf",
+    "house",
+    "straw",
+    "sticks",
+    "bricks",
+    "blow",
+    "build",
+    "run",
+    "safe",
+    "strong",
+    "scared"
+  ],
+  "fringe_11": [
+    "wolf",
+    "house",
+    "straw",
+    "sticks",
+    "bricks",
+    "blow",
+    "build",
+    "run",
+    "safe",
+    "strong",
+    "scared"
+  ],
+  "activity_images": [
+    "wolf",
+    "house",
+    "straw",
+    "sticks",
+    "bricks",
+    "blow"
+  ],
+  "aac_extras": [
+    "build",
+    "run",
+    "safe",
+    "strong",
+    "scared"
+  ],
+  "ambiguous": [
+    {
+      "word": "blow",
+      "issue": "Could map to blowing out candles, wind blowing, or a generic blow action",
+      "preferred": "blow wind",
+      "reason": "The wolf blows the houses down — a strong exhaling/wind action is the correct meaning"
+    },
+    {
+      "word": "run",
+      "issue": "Could mean running as exercise or fleeing in fear",
+      "preferred": "run away",
+      "reason": "The pigs run away from the wolf — escape meaning is most contextually relevant"
+    },
+    {
+      "word": "sticks",
+      "issue": "Could mean sticks as building material or the verb to stick/adhere",
+      "preferred": "sticks wood",
+      "reason": "The second pig builds a house of sticks — wooden twigs are the correct meaning"
+    }
+  ],
+  "character_images_needed": [
+    "Three Little Pigs"
+  ],
+  "icon_search_terms": {
+    "wolf": "bad wolf",
+    "house": "house",
+    "straw": "straw",
+    "sticks": "sticks wood",
+    "bricks": "bricks",
+    "blow": "blow",
+    "build": "build",
+    "run": "run",
+    "safe": "safe",
+    "strong": "strong",
+    "scared": "afraid"
+  },
+  "notes": "All 11 fringe words were already present across activity_images and aac_extras (pig/wolf/house/straw/sticks/bricks/blow/run and build/safe/strong/scared) so no new sourcing is needed for fringe icons. The hero image needs sourcing as a recognisable three-pigs fairy-tale illustration. The board covers the core narrative arc: materials (straw, sticks, bricks), actions (blow, build, run), setting (house), antagonist (wolf), and emotional/evaluative vocabulary (safe, strong, scared).",
+  "characters": [
+    "pigs",
+    "wolf"
+  ],
+  "code": "TLP1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

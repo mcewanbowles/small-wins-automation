@@ -1,0 +1,90 @@
+{
+  "title": "The Pigeon Needs a Bath!",
+  "author": "Mo Willems",
+  "hero": {
+    "name": "Pigeon",
+    "description": "Mo Willems' distinctive blue-grey pigeon character with large expressive eye, orange beak and feet — iconic named character from the series",
+    "search_term": "pigeon mo willems",
+    "needs_sourcing": true,
+    "source_note": "Named/distinctive character — source Mo Willems Pigeon clip art from TPT, Creative Fabrica, or Teachers Pay Teachers licensed sets"
+  },
+  "fringe_12": [
+    "PIGEON",
+    "bath",
+    "water",
+    "soap",
+    "dirty",
+    "clean",
+    "smell",
+    "tub",
+    "bubbles",
+    "towel",
+    "wash",
+    "splash"
+  ],
+  "fringe_11": [
+    "bath",
+    "water",
+    "soap",
+    "dirty",
+    "clean",
+    "smell",
+    "tub",
+    "bubbles",
+    "towel",
+    "wash",
+    "splash"
+  ],
+  "activity_images": [
+    "bath",
+    "water",
+    "soap",
+    "dirty",
+    "clean",
+    "smell"
+  ],
+  "aac_extras": [
+    "tub",
+    "bubbles",
+    "towel",
+    "wash",
+    "splash"
+  ],
+  "ambiguous": [
+    {
+      "word": "dirty",
+      "issue": "Could map to a dirty object, dirty hands, or a general mess image",
+      "preferred": "dirty",
+      "reason": "The pigeon is described as smelly and unwashed — a general dirty/smelly concept image is correct"
+    },
+    {
+      "word": "smell",
+      "issue": "Could mean the action of sniffing or the concept of a bad odour",
+      "preferred": "smell bad",
+      "reason": "The pigeon smells bad and refuses to acknowledge it — bad smell/odour meaning is correct for this book"
+    }
+  ],
+  "character_images_needed": [
+    "Pigeon (Mo Willems)"
+  ],
+  "icon_search_terms": {
+    "bath": "bathtub",
+    "water": "water",
+    "soap": "soap",
+    "dirty": "dirty",
+    "clean": "clean",
+    "smell": "smell bad",
+    "tub": "bathtub",
+    "bubbles": "bubbles",
+    "towel": "towel",
+    "wash": "bathe",
+    "splash": "splash"
+  },
+  "notes": "The Pigeon is a highly recognisable named character and must be sourced as Mo Willems clip art — Boardmaker generic bird or pigeon will not match. Core story arc: pigeon resists bath, insists he is not dirty/smelly, eventually enjoys bath. Key vocabulary focuses on hygiene concepts (dirty, clean, smell, wash) and bath objects (tub, soap, bubbles, towel, splash). 'Wash' and 'bathe' overlap — 'bathe' Boardmaker icon may be clearer than 'wash' for this context; check existing activity_images 'wash' asset first. 'Splash' may need sourcing if not in Boardmaker library — search 'splash water'. Rubber duck is in existing activity_images but omitted from fringe_11 as less essential than core hygiene vocabulary; consider swapping 'splash' for 'rubber duck' if students respond better to concrete objects.",
+  "characters": [
+    "pigeon"
+  ],
+  "code": "PNAB1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

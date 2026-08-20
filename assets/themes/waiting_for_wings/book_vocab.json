@@ -1,0 +1,87 @@
+{
+  "title": "Waiting for Wings",
+  "author": "Lois Ehlert",
+  "hero": {
+    "name": "butterfly",
+    "description": "Brightly coloured butterfly as depicted on the cover of Waiting for Wings — bold, graphic Lois Ehlert art style with vivid wing patterns",
+    "search_term": "butterfly",
+    "needs_sourcing": false,
+    "source_note": "Generic butterfly symbol available in Boardmaker; choose a colourful, wings-spread image to match Ehlert's bold style"
+  },
+  "fringe_12": [
+    "butterfly",
+    "egg",
+    "caterpillar",
+    "chrysalis",
+    "flower",
+    "nectar",
+    "garden",
+    "leaf",
+    "milkweed",
+    "fly",
+    "wings",
+    "grow"
+  ],
+  "fringe_11": [
+    "egg",
+    "caterpillar",
+    "chrysalis",
+    "flower",
+    "nectar",
+    "garden",
+    "leaf",
+    "milkweed",
+    "fly",
+    "wings",
+    "grow"
+  ],
+  "activity_images": [
+    "egg",
+    "caterpillar",
+    "chrysalis",
+    "flower",
+    "nectar",
+    "garden"
+  ],
+  "aac_extras": [
+    "leaf",
+    "milkweed",
+    "fly",
+    "wings",
+    "grow"
+  ],
+  "ambiguous": [
+    {
+      "word": "fly",
+      "issue": "Could mean the action of flying (verb) or a fly insect (noun)",
+      "preferred": "fly action",
+      "reason": "In this book butterflies fly — the verb meaning is primary; students will use it to describe butterfly movement"
+    },
+    {
+      "word": "grow",
+      "issue": "Could mean to grow a plant or a creature growing/changing size",
+      "preferred": "grow",
+      "reason": "In this book both caterpillars and plants grow — the general growth/change meaning is correct; search 'grow plant' or 'growing' for a clear picturable symbol"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "egg": "egg",
+    "caterpillar": "caterpillar",
+    "chrysalis": "chrysalis",
+    "flower": "flower",
+    "nectar": "nectar",
+    "garden": "garden",
+    "leaf": "leaf",
+    "milkweed": "milkweed",
+    "fly": "fly flying",
+    "wings": "wings",
+    "grow": "grow plant",
+    "butterfly": "butterfly"
+  },
+  "notes": "This book traces the complete butterfly life cycle (egg → caterpillar → chrysalis → butterfly) alongside garden plant vocabulary. Eight of the twelve fringe words already exist in activity_images or aac_extras (egg, caterpillar, chrysalis, butterfly, flower, nectar, garden, leaf, milkweed, fly) — only 'wings' and 'grow' will need new icons sourced. The hero butterfly is well-covered by generic Boardmaker symbols; select the most colourful, wings-spread option available to match Ehlert's vivid illustrations. 'Chrysalis' may be labelled 'cocoon' in some symbol libraries — flag this for the teacher, as Ehlert uses 'chrysalis' specifically. 'Milkweed' is unlikely to exist in standard Boardmaker libraries; a photo or custom clip art image may be needed. The fixed core already covers 'see', 'more', 'where', and 'finished', which are useful for this book's repetitive predictable text pattern.",
+  "characters": [],
+  "code": "WFW1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

@@ -1,0 +1,88 @@
+{
+  "title": "Little Blue Truck's Springtime",
+  "author": "Alice Schertle",
+  "hero": {
+    "name": "Little Blue Truck",
+    "description": "Small bright blue truck with friendly face/headlight eyes, classic character from the series",
+    "search_term": "little blue truck",
+    "needs_sourcing": true,
+    "source_note": "Named character with distinctive face — source from Creative Fabrica or TPT clip art; generic Boardmaker truck will not match"
+  },
+  "fringe_12": [
+    "Little Blue Truck",
+    "spring",
+    "flower",
+    "egg",
+    "nest",
+    "lamb",
+    "chick",
+    "mud",
+    "rain",
+    "beep",
+    "grow",
+    "bird"
+  ],
+  "fringe_11": [
+    "spring",
+    "flower",
+    "egg",
+    "nest",
+    "lamb",
+    "chick",
+    "mud",
+    "rain",
+    "beep",
+    "grow",
+    "bird"
+  ],
+  "activity_images": [
+    "spring",
+    "flower",
+    "egg",
+    "nest",
+    "lamb",
+    "chick"
+  ],
+  "aac_extras": [
+    "mud",
+    "rain",
+    "beep",
+    "grow",
+    "bird"
+  ],
+  "ambiguous": [
+    {
+      "word": "spring",
+      "issue": "Could mean the season (spring) or the action of jumping/bouncing",
+      "preferred": "spring season",
+      "reason": "Book is explicitly about springtime — the season is the correct meaning"
+    },
+    {
+      "word": "grow",
+      "issue": "Could depict a plant growing or a person/animal growing bigger",
+      "preferred": "grow plant",
+      "reason": "Springtime context — flowers and plants growing is the relevant meaning"
+    }
+  ],
+  "character_images_needed": [
+    "Little Blue Truck"
+  ],
+  "icon_search_terms": {
+    "spring": "spring season",
+    "flower": "flower",
+    "egg": "egg",
+    "nest": "nest",
+    "lamb": "lamb",
+    "chick": "chick",
+    "mud": "mud",
+    "rain": "rain",
+    "beep": "beep horn",
+    "grow": "grow plant",
+    "bird": "bird"
+  },
+  "notes": "Core farm animals (truck, toad, sheep, cow, pig, hen) are already available in activity_images or aac_extras and do not need to be re-sourced; the fringe prioritises springtime-specific vocabulary (eggs, nests, mud, rain, growth) that distinguishes this seasonal title from other Little Blue Truck books. 'Beep' is the truck's signature sound and highly motivating for students familiar with the series — search for a horn/beep symbol or create a custom cell. Lamb and chick are springtime baby-animal highlights of this book and are preferred over their parent animals (sheep, hen) which are already in existing assets.",
+  "characters": [],
+  "code": "LBTSP1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

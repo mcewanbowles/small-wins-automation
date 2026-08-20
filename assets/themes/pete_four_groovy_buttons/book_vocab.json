@@ -1,0 +1,90 @@
+{
+  "title": "Pete the Cat and His Four Groovy Buttons",
+  "author": "James Dean",
+  "hero": {
+    "name": "Pete the Cat",
+    "description": "Blue cat wearing a shirt with four large round buttons, James Dean illustrated character",
+    "search_term": "pete cat",
+    "needs_sourcing": true,
+    "source_note": "Named character — source from Creative Fabrica or TPT clip art; ensure version shows Pete wearing his button shirt"
+  },
+  "fringe_12": [
+    "Pete the Cat",
+    "buttons",
+    "shirt",
+    "four",
+    "count",
+    "pop",
+    "one",
+    "two",
+    "three",
+    "sing",
+    "cool",
+    "sad"
+  ],
+  "fringe_11": [
+    "buttons",
+    "shirt",
+    "four",
+    "count",
+    "pop",
+    "one",
+    "two",
+    "three",
+    "sing",
+    "cool",
+    "sad"
+  ],
+  "activity_images": [
+    "buttons",
+    "shirt",
+    "four",
+    "count",
+    "pop",
+    "one"
+  ],
+  "aac_extras": [
+    "two",
+    "three",
+    "sing",
+    "cool",
+    "sad"
+  ],
+  "ambiguous": [
+    {
+      "word": "pop",
+      "issue": "Could mean a popping action/sound, a fizzy drink, or informal word for father",
+      "preferred": "pop burst",
+      "reason": "In this book 'pop' refers to a button popping off Pete's shirt — an action/sound; search for burst or pop action symbol"
+    },
+    {
+      "word": "cool",
+      "issue": "Could mean temperature (cold/cool) or an attitude/feeling (groovy, awesome)",
+      "preferred": "cool attitude",
+      "reason": "Pete says 'cool' as an expression of positive attitude — not a temperature; search for thumbs up or awesome symbol"
+    }
+  ],
+  "character_images_needed": [
+    "Pete the Cat"
+  ],
+  "icon_search_terms": {
+    "buttons": "button",
+    "shirt": "shirt",
+    "four": "4",
+    "count": "count",
+    "pop": "pop burst",
+    "one": "1",
+    "two": "2",
+    "three": "3",
+    "sing": "sing",
+    "cool": "thumbs up",
+    "sad": "sad"
+  },
+  "notes": "All 11 fringe words are already available either in activity_images or aac_extras — no new sourcing needed for fringe. The entire story revolves around counting down from four buttons to zero as each button pops off, so the number words one through four and 'count' are essential. Pete's emotional responses (sad, cool/groovy) and the key action 'pop' are central to the narrative and support retelling. The hero image should specifically show Pete in his button shirt to match the book cover recognition.",
+  "characters": [
+    "pete_cat"
+  ],
+  "code": "PFG1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

@@ -1,0 +1,88 @@
+{
+  "title": "The Recess Queen",
+  "author": "Alexis O'Neill",
+  "hero": {
+    "name": "Mean Jean",
+    "description": "Large, tough-looking girl in red outfit, the dominant bully of the playground — main character on the cover",
+    "search_term": "mean jean recess queen",
+    "needs_sourcing": true,
+    "source_note": "Named distinctive character — source from Creative Fabrica or TPT clip art"
+  },
+  "fringe_12": [
+    "Mean Jean",
+    "playground",
+    "swing",
+    "jump rope",
+    "ball",
+    "push",
+    "friend",
+    "scared",
+    "mean",
+    "kind",
+    "recess",
+    "turn"
+  ],
+  "fringe_11": [
+    "playground",
+    "swing",
+    "jump rope",
+    "ball",
+    "push",
+    "friend",
+    "scared",
+    "mean",
+    "kind",
+    "recess",
+    "turn"
+  ],
+  "activity_images": [
+    "playground",
+    "swing",
+    "jump rope",
+    "ball",
+    "push",
+    "friend"
+  ],
+  "aac_extras": [
+    "scared",
+    "mean",
+    "kind",
+    "recess",
+    "turn"
+  ],
+  "ambiguous": [
+    {
+      "word": "mean",
+      "issue": "Could mean 'unkind/bully' (adjective) or 'to intend/signify' (verb)",
+      "preferred": "mean bully",
+      "reason": "Book is about bullying behaviour; the adjective meaning (unkind) is correct here"
+    },
+    {
+      "word": "turn",
+      "issue": "Could mean 'rotate' (action) or 'a turn/go in a game' (noun)",
+      "preferred": "turn taking",
+      "reason": "Book focuses on taking turns on playground equipment; the noun/social concept meaning is correct"
+    }
+  ],
+  "character_images_needed": [
+    "Mean Jean"
+  ],
+  "icon_search_terms": {
+    "playground": "playground",
+    "swing": "swing",
+    "jump rope": "jump rope",
+    "ball": "ball",
+    "push": "push",
+    "friend": "friend",
+    "scared": "afraid",
+    "mean": "bad",
+    "kind": "beautiful",
+    "recess": "recess",
+    "turn": "turn taking"
+  },
+  "notes": "The Recess Queen is a story about playground bullying and the power of friendship and kindness. Mean Jean dominates the playground until a new girl, Katie Sue, befriends her. Key vocabulary focuses on playground equipment (swing, jump rope, ball), social-emotional concepts (mean, kind, scared, friend), and playground context (recess, playground, push, turn). 'Scared' maps best to 'afraid' in Boardmaker. 'Kind' has no perfect Boardmaker match — 'beautiful' or 'good' may be the closest; consider a custom icon. The word 'recess' may need a custom icon if not found in the library. Secondary character Katie Sue could also be sourced if a named-character fringe slot is desired, but she was not included in the 11 fringe words in favour of more functional vocabulary.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

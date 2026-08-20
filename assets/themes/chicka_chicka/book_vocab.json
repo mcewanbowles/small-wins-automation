@@ -1,0 +1,89 @@
+{
+  "title": "Chicka Chicka Boom Boom",
+  "author": "Bill Martin Jr and John Archambault",
+  "hero": {
+    "name": "Coconut Tree",
+    "description": "Tall green palm tree with coconuts, the central setting/character of the book where all the letters climb",
+    "search_term": "coconut tree palm tree",
+    "needs_sourcing": false,
+    "source_note": "A generic palm or coconut tree from Boardmaker should work well; use activity_images version if already created"
+  },
+  "fringe_12": [
+    "Coconut Tree",
+    "alphabet",
+    "climb",
+    "fall",
+    "boom",
+    "letters",
+    "moon",
+    "sun",
+    "full",
+    "up",
+    "top",
+    "letter a"
+  ],
+  "fringe_11": [
+    "alphabet",
+    "climb",
+    "fall",
+    "boom",
+    "letters",
+    "moon",
+    "sun",
+    "full",
+    "up",
+    "top",
+    "letter a"
+  ],
+  "activity_images": [
+    "alphabet",
+    "climb",
+    "fall",
+    "boom",
+    "letters",
+    "moon"
+  ],
+  "aac_extras": [
+    "sun",
+    "full",
+    "up",
+    "top",
+    "letter a"
+  ],
+  "ambiguous": [
+    {
+      "word": "fall",
+      "issue": "Could mean the season autumn or the action of falling down",
+      "preferred": "fall action",
+      "reason": "In this book the letters fall out of the tree — the action meaning is correct; search for 'fall down' or 'falling'"
+    },
+    {
+      "word": "full",
+      "issue": "Could mean full as in not hungry or full as in filled up/crowded",
+      "preferred": "full crowded",
+      "reason": "The tree is full of letters — the 'crowded/filled' meaning is correct; search for 'full' depicting a container or space filled up"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "alphabet": "alphabet",
+    "climb": "climb",
+    "fall": "fall down",
+    "boom": "boom explosion",
+    "letters": "letters",
+    "moon": "moon",
+    "sun": "sun",
+    "full": "full",
+    "up": "up",
+    "top": "top",
+    "letter a": "a"
+  },
+  "notes": "Chicka Chicka Boom Boom is primarily about the alphabet letters as characters racing each other up the coconut tree. The hero is best represented as the coconut tree since it is the iconic visual anchor of the book and already exists in activity_images. The 11 fringe words draw heavily from existing activity_images and aac_extras vocab (coconut tree, moon, sun, letter a, letter b, letter c, climb, fall, full, up, top, boom, letters) — prioritise reusing those assets to minimise new image sourcing. 'Alphabet' is added as a high-value concept word for this book. Individual letter cards (letter a) represent the cast of characters. Consider whether to use a single generic 'letter' card or specific letter cards depending on student level.",
+  "characters": [],
+  "code": "CCB1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}, "llama_llama_mad_at_mama": {
+  "activity_images": ["car", "shopping_cart", "store", "clothes", "socks", "sweaters", "stuffed_toy", "shoes", "ice_cream", "tantrum"],
+  "aac_extras": ["mama", "cry", "wait", "hug"]
+},

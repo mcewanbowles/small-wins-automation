@@ -1,0 +1,337 @@
+{
+  "word_search_words": [
+    {
+      "value": "magma",
+      "grounded": true,
+      "citations": [
+        1,
+        7
+      ],
+      "grounding_note": "Magma is molten rock described in evidence."
+    },
+    {
+      "value": "lava",
+      "grounded": true,
+      "citations": [
+        6
+      ],
+      "grounding_note": "Lava is molten mantle rock described in evidence."
+    },
+    {
+      "value": "volcano",
+      "grounded": true,
+      "citations": [
+        3,
+        7
+      ],
+      "grounding_note": "Central topic term, defined in evidence."
+    },
+    {
+      "value": "steam",
+      "grounded": true,
+      "citations": [
+        1
+      ],
+      "grounding_note": "Water turning to steam from magma heat is stated in evidence."
+    },
+    {
+      "value": "crust",
+      "grounded": true,
+      "citations": [
+        6
+      ],
+      "grounding_note": "Crust mentioned as where lava emerges."
+    },
+    {
+      "value": "mantle",
+      "grounded": true,
+      "citations": [
+        6,
+        7
+      ],
+      "grounding_note": "Mantle rock is described as source of magma."
+    },
+    {
+      "value": "eruption",
+      "grounded": true,
+      "citations": [
+        1,
+        5
+      ],
+      "grounding_note": "Eruption is the core process discussed in evidence."
+    },
+    {
+      "value": "rock",
+      "grounded": true,
+      "citations": [
+        6,
+        7
+      ],
+      "grounding_note": "Rock (molten) referenced repeatedly in evidence."
+    }
+  ],
+  "starting_sight_words": [
+    {
+      "value": "hot",
+      "grounded": true,
+      "citations": [
+        1,
+        7
+      ],
+      "grounding_note": "Describes magma temperature per evidence."
+    },
+    {
+      "value": "how",
+      "grounded": true,
+      "citations": [
+        1,
+        3,
+        5
+      ],
+      "grounding_note": "Appears in titles/questions about volcano process."
+    },
+    {
+      "value": "out",
+      "grounded": true,
+      "citations": [
+        7
+      ],
+      "grounding_note": "Used in 'coming out at the surface' description."
+    },
+    {
+      "value": "the",
+      "grounded": true,
+      "citations": [
+        1
+      ],
+      "grounding_note": "High-frequency function word present throughout evidence text."
+    }
+  ],
+  "sequence_order": [
+    {
+      "value": "Magma forms deep in the mantle.",
+      "grounded": true,
+      "citations": [
+        6,
+        7
+      ],
+      "grounding_note": "Evidence states magma is molten mantle rock from below the surface."
+    },
+    {
+      "value": "Magma heats underground water into steam.",
+      "grounded": true,
+      "citations": [
+        1
+      ],
+      "grounding_note": "Directly stated: magma heats water so it becomes steam."
+    },
+    {
+      "value": "Pressure builds and magma moves toward the surface.",
+      "grounded": true,
+      "citations": [
+        6
+      ],
+      "grounding_note": "Evidence describes magma rising and lava gushing through the crust."
+    },
+    {
+      "value": "The volcano erupts and releases magma as lava.",
+      "grounded": true,
+      "citations": [
+        5,
+        6
+      ],
+      "grounding_note": "Eruption described as lava emerging from magma through the crust."
+    }
+  ],
+  "sorting_categories": [
+    {
+      "value": "Underground: magma, mantle",
+      "grounded": true,
+      "citations": [
+        6,
+        7
+      ],
+      "grounding_note": "Magma and mantle are described as being below the surface."
+    },
+    {
+      "value": "Surface: lava, crust",
+      "grounded": true,
+      "citations": [
+        6
+      ],
+      "grounding_note": "Lava emerges through the crust, per evidence."
+    },
+    {
+      "value": "Process: eruption, steam",
+      "grounded": true,
+      "citations": [
+        1,
+        5
+      ],
+      "grounding_note": "Eruption and steam formation are process terms from evidence."
+    }
+  ],
+  "sequencing_strips_verbs": [
+    {
+      "value": "heat",
+      "grounded": true,
+      "citations": [
+        1
+      ],
+      "grounding_note": "Magma heats water into steam, per evidence."
+    },
+    {
+      "value": "rise",
+      "grounded": true,
+      "citations": [
+        6
+      ],
+      "grounding_note": "Molten rock rising to become lava is implied in evidence description."
+    },
+    {
+      "value": "erupt",
+      "grounded": true,
+      "citations": [
+        5
+      ],
+      "grounding_note": "Erupting is the central action described in evidence title/question."
+    },
+    {
+      "value": "cool",
+      "grounded": true,
+      "citations": [
+        6
+      ],
+      "grounding_note": "Lava cools off in open air, per evidence."
+    }
+  ],
+  "adapted_book_sentences": [
+    {
+      "value": "Magma is molten rock found deep under the earth's surface.",
+      "grounded": true,
+      "citations": [
+        6,
+        7
+      ],
+      "grounding_note": "Directly supported by evidence describing magma as molten mantle rock."
+    },
+    {
+      "value": "Magma heats underground water until it turns into steam.",
+      "grounded": true,
+      "citations": [
+        1
+      ],
+      "grounding_note": "Direct paraphrase of evidence sentence."
+    },
+    {
+      "value": "When magma reaches the surface, it is called lava.",
+      "grounded": true,
+      "citations": [
+        6
+      ],
+      "grounding_note": "Evidence states lava is magma once it emerges into the open."
+    },
+    {
+      "value": "A volcano is any place where magma reaches the earth's surface.",
+      "grounded": true,
+      "citations": [
+        7
+      ],
+      "grounding_note": "Direct paraphrase of evidence definition of a volcano."
+    }
+  ],
+  "wh_questions": [
+    {
+      "value": "What is magma?",
+      "grounded": true,
+      "citations": [
+        7
+      ],
+      "grounding_note": "Evidence directly defines magma as molten rock."
+    },
+    {
+      "value": "What does magma do to underground water?",
+      "grounded": true,
+      "citations": [
+        1
+      ],
+      "grounding_note": "Evidence states magma heats water into steam."
+    },
+    {
+      "value": "Where does magma usually come from?",
+      "grounded": true,
+      "citations": [
+        6
+      ],
+      "grounding_note": "Evidence states magma comes from mantle rock, not great depth."
+    },
+    {
+      "value": "What is a volcano?",
+      "grounded": true,
+      "citations": [
+        7
+      ],
+      "grounding_note": "Evidence gives a direct definition of a volcano."
+    }
+  ],
+  "yes_no_questions": [
+    {
+      "value": "Is magma molten rock?",
+      "grounded": true,
+      "citations": [
+        7
+      ],
+      "grounding_note": "Directly stated in evidence as fact."
+    },
+    {
+      "value": "Does magma come from the earth's core?",
+      "grounded": true,
+      "citations": [
+        6
+      ],
+      "grounding_note": "Evidence states magma does NOT come from the core; answer is no."
+    },
+    {
+      "value": "Can magma heat underground water into steam?",
+      "grounded": true,
+      "citations": [
+        1
+      ],
+      "grounding_note": "Directly stated as fact in evidence."
+    },
+    {
+      "value": "Is lava called magma before it reaches the surface?",
+      "grounded": true,
+      "citations": [
+        6
+      ],
+      "grounding_note": "Evidence states lava is known as magma before it emerges."
+    }
+  ],
+  "inferencing_questions": [
+    {
+      "value": "If magma stays deep underground and never reaches the surface, would we call it lava? Why or why not?",
+      "grounded": true,
+      "citations": [
+        6
+      ],
+      "grounding_note": "Requires inference from evidence that lava is the name only once magma emerges."
+    },
+    {
+      "value": "Why might land near a volcano be a place where magma is close to the surface?",
+      "grounded": true,
+      "citations": [
+        7
+      ],
+      "grounding_note": "Requires inference from definition of a volcano as a point where magma reaches the surface."
+    },
+    {
+      "value": "If magma heats water into steam, what might happen underground before an eruption?",
+      "grounded": true,
+      "citations": [
+        1
+      ],
+      "grounding_note": "Requires inferring pressure buildup from steam formation fact."
+    }
+  ]
+}

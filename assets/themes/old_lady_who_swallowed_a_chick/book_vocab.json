@@ -1,0 +1,80 @@
+{
+  "title": "Old Lady Who Swallowed A Chick",
+  "author": "Unknown",
+  "hero": {
+    "name": "Old Lady",
+    "description": "Eccentric old woman character from the classic swallowing song/story, typically depicted as a large woman in a dress and apron",
+    "search_term": "old woman lady",
+    "needs_sourcing": false,
+    "source_note": "Generic old woman character — Boardmaker should have a suitable old lady or woman icon"
+  },
+  "fringe_12": [
+    "Old Lady",
+    "chick",
+    "egg",
+    "hen",
+    "rooster",
+    "hay",
+    "basket",
+    "swallow",
+    "Easter",
+    "wiggle",
+    "big",
+    "bird"
+  ],
+  "fringe_11": [
+    "chick",
+    "egg",
+    "hen",
+    "rooster",
+    "hay",
+    "basket",
+    "swallow",
+    "Easter",
+    "wiggle",
+    "big",
+    "bird"
+  ],
+  "activity_images": [
+    "chick",
+    "egg",
+    "hen",
+    "rooster",
+    "hay",
+    "basket"
+  ],
+  "aac_extras": [
+    "swallow",
+    "Easter",
+    "wiggle",
+    "big",
+    "bird"
+  ],
+  "ambiguous": [
+    {
+      "word": "swallow",
+      "issue": "Could mean the action of swallowing (verb) or a type of bird (noun)",
+      "preferred": "swallow action",
+      "reason": "The book is about the old lady swallowing animals, so the verb/action meaning is correct"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "chick": "chick baby chicken",
+    "egg": "egg",
+    "hen": "hen chicken",
+    "rooster": "rooster",
+    "hay": "hay",
+    "basket": "basket",
+    "swallow": "swallow eat gulp",
+    "Easter": "easter",
+    "wiggle": "wiggle",
+    "big": "big large",
+    "bird": "bird"
+  },
+  "notes": "This is the Easter-themed adaptation of the classic 'Old Lady Who Swallowed a Fly' cumulative story. The vocabulary focuses on the Easter/farm animal chain the old lady swallows: chick, hen, rooster, and related props like egg, hay, and basket. 'Easter' is included as a key contextual word since this is the seasonal variant. 'Wiggle' is included as it often appears in the cumulative refrains. If the specific illustrated version features additional animals (e.g. a cat or dog as in other variants), those could replace lower-priority words like 'big' or 'bird'.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

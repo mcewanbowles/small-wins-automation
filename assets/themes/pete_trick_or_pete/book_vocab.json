@@ -1,0 +1,88 @@
+{
+  "title": "Pete Trick Or Pete",
+  "author": "Unknown",
+  "hero": {
+    "name": "Pete the Cat",
+    "description": "Blue cat character, distinctive Pete the Cat style from the popular children's book series",
+    "search_term": "pete the cat",
+    "needs_sourcing": true,
+    "source_note": "Named character — source from Creative Fabrica or TPT clip art; Pete the Cat Halloween themed version preferred"
+  },
+  "fringe_12": [
+    "Pete the Cat",
+    "Halloween",
+    "costume",
+    "trick or treat",
+    "candy",
+    "scary",
+    "knock",
+    "door",
+    "bag",
+    "night",
+    "cat",
+    "fun"
+  ],
+  "fringe_11": [
+    "Halloween",
+    "costume",
+    "trick or treat",
+    "candy",
+    "scary",
+    "knock",
+    "door",
+    "bag",
+    "night",
+    "cat",
+    "fun"
+  ],
+  "activity_images": [
+    "Halloween",
+    "costume",
+    "trick or treat",
+    "candy",
+    "scary",
+    "knock"
+  ],
+  "aac_extras": [
+    "door",
+    "bag",
+    "night",
+    "cat",
+    "fun"
+  ],
+  "ambiguous": [
+    {
+      "word": "bat",
+      "issue": "Could mean Halloween bat animal or baseball bat",
+      "preferred": "bat animal",
+      "reason": "Halloween context means the flying nocturnal animal is the correct meaning; however bat was not selected as a fringe word"
+    },
+    {
+      "word": "trick or treat",
+      "issue": "Compound phrase may be difficult to represent in a single icon",
+      "preferred": "trick or treat",
+      "reason": "Core Halloween phrase central to the book; search for a single trick-or-treat icon showing a child at a door or candy bag"
+    }
+  ],
+  "character_images_needed": [
+    "Pete the Cat"
+  ],
+  "icon_search_terms": {
+    "Halloween": "halloween",
+    "costume": "costume",
+    "trick or treat": "trick or treat",
+    "candy": "candy",
+    "scary": "scary",
+    "knock": "knock door",
+    "door": "door",
+    "bag": "bag",
+    "night": "night",
+    "cat": "cat",
+    "fun": "fun"
+  },
+  "notes": "Pete Trick Or Pete is a Halloween-themed Pete the Cat book. Vocabulary is centred on Halloween traditions: trick-or-treating, costumes, and collecting candy. 'Trick or treat' is included as a single fringe slot given its central importance to the story and Halloween theme; the teacher may wish to use a composite icon or a speech-bubble style symbol. 'Scary' is included as a key descriptive word children will use to react to costumes and situations in the book. 'Cat' is included as a fringe word because Pete is a cat and students may use it to label or comment on the character independently of the hero slot. If the library contains a Halloween-specific bag or treat bucket icon, prefer that over a generic bag symbol.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

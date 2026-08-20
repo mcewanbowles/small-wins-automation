@@ -1,0 +1,356 @@
+{
+  "word_search_words": [
+    {
+      "value": "TYRES",
+      "grounded": true,
+      "citations": [
+        4
+      ],
+      "grounding_note": "Pit stops involve new tyres per evidence."
+    },
+    {
+      "value": "WHEEL",
+      "grounded": true,
+      "citations": [
+        2
+      ],
+      "grounding_note": "Wheel guns fire to unscrew/fasten nuts."
+    },
+    {
+      "value": "PIT",
+      "grounded": true,
+      "citations": [
+        3
+      ],
+      "grounding_note": "Core topic term 'pit stop'."
+    },
+    {
+      "value": "CREW",
+      "grounded": true,
+      "citations": [
+        6
+      ],
+      "grounding_note": "Pit crews are referenced as key part of stops."
+    },
+    {
+      "value": "GUN",
+      "grounded": true,
+      "citations": [
+        2
+      ],
+      "grounding_note": "Wheel guns used to unscrew/fasten nuts."
+    },
+    {
+      "value": "CAR",
+      "grounded": true,
+      "citations": [
+        2
+      ],
+      "grounding_note": "F1 teams service their cars."
+    },
+    {
+      "value": "NUT",
+      "grounded": true,
+      "citations": [
+        2
+      ],
+      "grounding_note": "Nuts are unscrewed and fastened during stop."
+    },
+    {
+      "value": "TRACK",
+      "grounded": true,
+      "citations": [
+        2
+      ],
+      "grounding_note": "Driver decisions relate to track/grip conditions."
+    },
+    {
+      "value": "DRIVER",
+      "grounded": true,
+      "citations": [
+        2
+      ],
+      "grounding_note": "Driver input and decisions are part of pit stop process."
+    },
+    {
+      "value": "RACE",
+      "grounded": true,
+      "citations": [
+        6
+      ],
+      "grounding_note": "Pit stops are part of races, races won/lost by stops."
+    }
+  ],
+  "starting_sight_words": [
+    {
+      "value": "pit",
+      "grounded": true,
+      "citations": [
+        3
+      ],
+      "grounding_note": "Key topic word 'pit stop'."
+    },
+    {
+      "value": "stop",
+      "grounded": true,
+      "citations": [
+        3
+      ],
+      "grounding_note": "Key topic word 'pit stop'."
+    },
+    {
+      "value": "fast",
+      "grounded": true,
+      "citations": [
+        1
+      ],
+      "grounding_note": "Fastest pit stop is a repeated concept."
+    },
+    {
+      "value": "car",
+      "grounded": true,
+      "citations": [
+        2
+      ],
+      "grounding_note": "Cars are serviced during pit stops."
+    },
+    {
+      "value": "team",
+      "grounded": true,
+      "citations": [
+        2
+      ],
+      "grounding_note": "F1 teams service cars."
+    },
+    {
+      "value": "new",
+      "grounded": true,
+      "citations": [
+        4
+      ],
+      "grounding_note": "New tyres are fitted."
+    }
+  ],
+  "sequence_order": [
+    {
+      "value": "Car enters the pit lane.",
+      "grounded": true,
+      "citations": [
+        2
+      ],
+      "grounding_note": "Implied first stage before servicing begins."
+    },
+    {
+      "value": "Crew members remove old tyres with wheel guns.",
+      "grounded": true,
+      "citations": [
+        2
+      ],
+      "grounding_note": "Wheel guns fire to unscrew nuts."
+    },
+    {
+      "value": "Crew fits new tyres and fastens nuts.",
+      "grounded": true,
+      "citations": [
+        2
+      ],
+      "grounding_note": "Wheel guns fire again to fasten new nuts."
+    },
+    {
+      "value": "Car leaves the pit and returns to the race.",
+      "grounded": true,
+      "citations": [
+        6
+      ],
+      "grounding_note": "Pit stops occur within ongoing races, implying return to track."
+    }
+  ],
+  "sorting_categories": [
+    {
+      "value": "Pit Crew Tools (wheel gun, jack)",
+      "grounded": true,
+      "citations": [
+        2
+      ],
+      "grounding_note": "Wheel guns are named tools used in pit stops."
+    },
+    {
+      "value": "Car Parts (tyre, wheel, nut)",
+      "grounded": true,
+      "citations": [
+        4
+      ],
+      "grounding_note": "Tyres and wheel components are serviced."
+    },
+    {
+      "value": "Race Locations (pit lane, track)",
+      "grounded": true,
+      "citations": [
+        2
+      ],
+      "grounding_note": "Track and pit references appear in evidence."
+    }
+  ],
+  "sequencing_strips_verbs": [
+    {
+      "value": "enter",
+      "grounded": true,
+      "citations": [
+        2
+      ],
+      "grounding_note": "Car enters pit lane as first action."
+    },
+    {
+      "value": "unscrew",
+      "grounded": true,
+      "citations": [
+        2
+      ],
+      "grounding_note": "Wheel guns unscrew nuts."
+    },
+    {
+      "value": "remove",
+      "grounded": true,
+      "citations": [
+        4
+      ],
+      "grounding_note": "Old tyres are removed during stop."
+    },
+    {
+      "value": "fasten",
+      "grounded": true,
+      "citations": [
+        2
+      ],
+      "grounding_note": "Guns fire again to fasten new nuts."
+    },
+    {
+      "value": "exit",
+      "grounded": true,
+      "citations": [
+        6
+      ],
+      "grounding_note": "Car returns to race after stop."
+    }
+  ],
+  "adapted_book_sentences": [
+    {
+      "value": "A pit stop is a quick pause for new tyres and repairs.",
+      "grounded": true,
+      "citations": [
+        4
+      ],
+      "grounding_note": "Directly matches definition of pit stop."
+    },
+    {
+      "value": "Wheel guns unscrew and fasten nuts on the car.",
+      "grounded": true,
+      "citations": [
+        2
+      ],
+      "grounding_note": "Describes wheel gun action from evidence."
+    },
+    {
+      "value": "A great pit stop can take under two seconds.",
+      "grounded": true,
+      "citations": [
+        2
+      ],
+      "grounding_note": "McLaren's record time cited."
+    },
+    {
+      "value": "Pit stops can help a team win or lose a race.",
+      "grounded": true,
+      "citations": [
+        6
+      ],
+      "grounding_note": "Races are won and lost due to pit stops."
+    },
+    {
+      "value": "The pit crew works together as a team.",
+      "grounded": true,
+      "citations": [
+        6
+      ],
+      "grounding_note": "Pit crews are described as central to stops."
+    }
+  ],
+  "wh_questions": [
+    {
+      "value": "What does a pit crew do to the tyres?",
+      "grounded": true,
+      "citations": [
+        4
+      ],
+      "grounding_note": "New tyres are fitted during pit stops."
+    },
+    {
+      "value": "What tool is used to unscrew the nuts?",
+      "grounded": true,
+      "citations": [
+        2
+      ],
+      "grounding_note": "Wheel guns unscrew nuts."
+    },
+    {
+      "value": "Where does the car go during a pit stop?",
+      "grounded": true,
+      "citations": [
+        2
+      ],
+      "grounding_note": "Car is serviced in the pit area."
+    },
+    {
+      "value": "How fast can a great pit stop be?",
+      "grounded": true,
+      "citations": [
+        2
+      ],
+      "grounding_note": "Under two seconds, record 1.80s."
+    }
+  ],
+  "yes_no_questions": [
+    {
+      "value": "Is a pit stop used to change tyres?",
+      "grounded": true,
+      "citations": [
+        4
+      ],
+      "grounding_note": "Direct fact: tyres are changed in pit stops."
+    },
+    {
+      "value": "Can a fast pit stop take less than two seconds?",
+      "grounded": true,
+      "citations": [
+        2
+      ],
+      "grounding_note": "McLaren record 1.80s cited."
+    },
+    {
+      "value": "Do pit stops ever affect who wins a race?",
+      "grounded": true,
+      "citations": [
+        6
+      ],
+      "grounding_note": "Races won/lost due to pit stops per evidence."
+    },
+    {
+      "value": "Is a wheel gun used to fasten nuts?",
+      "grounded": true,
+      "citations": [
+        2
+      ],
+      "grounding_note": "Wheel guns fire to fasten new nuts."
+    }
+  ],
+  "inferencing_questions": [
+    {
+      "value": "If a pit stop takes longer than usual, what might happen to the team's race position?",
+      "grounded": true,
+      "citations": [
+        6
+      ],
+      "grounding_note": "Races won/lost by pit stop speed implies inference about longer stops hurting position."
+    }
+  ]
+}

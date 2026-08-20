@@ -1,0 +1,87 @@
+{
+  "title": "Brown Bear, Brown Bear, What Do You See?",
+  "author": "Bill Martin Jr.",
+  "hero": {
+    "name": "Brown Bear",
+    "description": "A brown bear — generic animal, but colour is central to the character identity",
+    "search_term": "brown bear",
+    "needs_sourcing": false,
+    "source_note": "Generic brown bear from Boardmaker should work; ensure icon is clearly brown"
+  },
+  "fringe_12": [
+    "brown bear",
+    "red",
+    "yellow",
+    "blue",
+    "green",
+    "purple",
+    "white",
+    "black",
+    "bird",
+    "duck",
+    "frog",
+    "cat"
+  ],
+  "fringe_11": [
+    "red",
+    "yellow",
+    "blue",
+    "green",
+    "purple",
+    "white",
+    "black",
+    "bird",
+    "duck",
+    "frog",
+    "cat"
+  ],
+  "activity_images": [
+    "red",
+    "yellow",
+    "blue",
+    "green",
+    "purple",
+    "white"
+  ],
+  "aac_extras": [
+    "black",
+    "bird",
+    "duck",
+    "frog",
+    "cat"
+  ],
+  "ambiguous": [
+    {
+      "word": "duck",
+      "issue": "Could mean the bird (noun) or to duck/dodge (verb)",
+      "preferred": "duck bird",
+      "reason": "Book features a yellow duck as one of the animals in the sequence"
+    },
+    {
+      "word": "bear",
+      "issue": "Could mean the animal (noun) or to bear/carry (verb)",
+      "preferred": "bear animal",
+      "reason": "Brown Bear is the central character; animal meaning is correct"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "red": "red colour",
+    "yellow": "yellow colour",
+    "blue": "blue colour",
+    "green": "green colour",
+    "purple": "purple colour",
+    "white": "white colour",
+    "black": "black colour",
+    "bird": "bird",
+    "duck": "duck",
+    "frog": "frog",
+    "cat": "cat",
+    "brown bear": "brown bear"
+  },
+  "notes": "This book is built around a colour-animal repetition pattern, so the 11 fringe slots are best used for the six key colours (red, yellow, blue, green, purple, white, black — seven colours total) plus the four remaining named animals not covered by the hero (bird, duck, frog, cat). Horse, sheep, goldfish, teacher, and children are already in activity_images so they do not need fringe slots. The core row already contains 'colour' and 'see', which perfectly support the book's repeated 'What do you see?' refrain. The fixed core words 'same' and 'different' also support pattern discussion. Consider labelling each colour cell with both a colour swatch background AND the colour name text for maximum accessibility.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

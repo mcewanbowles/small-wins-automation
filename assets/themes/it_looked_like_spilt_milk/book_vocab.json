@@ -1,0 +1,88 @@
+{
+  "title": "It Looked Like Spilt Milk",
+  "author": "Charles G. Shaw",
+  "hero": {
+    "name": "Spilt Milk / White Shape",
+    "description": "Bold white silhouette shape on bright blue background — the iconic ambiguous cloud/milk shape from the cover",
+    "search_term": "spilt milk white shape",
+    "needs_sourcing": true,
+    "source_note": "The hero is the abstract white silhouette shape itself — no named character. Source a high-contrast white blob/cloud silhouette on blue background from Creative Fabrica or create custom. A simple white cloud silhouette on blue may serve as a reasonable substitute."
+  },
+  "fringe_12": [
+    "Spilt Milk / White Shape",
+    "cloud",
+    "milk",
+    "sky",
+    "white",
+    "look",
+    "rabbit",
+    "bird",
+    "tree",
+    "flower",
+    "moon",
+    "star"
+  ],
+  "fringe_11": [
+    "cloud",
+    "milk",
+    "sky",
+    "white",
+    "look",
+    "rabbit",
+    "bird",
+    "tree",
+    "flower",
+    "moon",
+    "star"
+  ],
+  "activity_images": [
+    "cloud",
+    "milk",
+    "sky",
+    "white",
+    "look",
+    "rabbit"
+  ],
+  "aac_extras": [
+    "bird",
+    "tree",
+    "flower",
+    "moon",
+    "star"
+  ],
+  "ambiguous": [
+    {
+      "word": "star",
+      "issue": "Could mean a celestial star shape or a celebrity/achievement star",
+      "preferred": "star night sky",
+      "reason": "Book is about cloud shapes in the sky — celestial star is correct meaning"
+    },
+    {
+      "word": "look",
+      "issue": "Could mean the action of looking/seeing or appearance/style",
+      "preferred": "look eyes",
+      "reason": "Core phrase of the book is 'it looked like' — action of perceiving/observing is correct"
+    }
+  ],
+  "character_images_needed": [
+    "Spilt Milk white silhouette shape on blue background"
+  ],
+  "icon_search_terms": {
+    "cloud": "cloud",
+    "milk": "milk",
+    "sky": "sky",
+    "white": "white colour",
+    "look": "look eyes",
+    "rabbit": "rabbit",
+    "bird": "bird",
+    "tree": "tree",
+    "flower": "flower",
+    "moon": "moon",
+    "star": "star"
+  },
+  "notes": "This book has no named character — the hero is the concept of the white silhouette shape itself. The entire book is built on the repeated phrase 'It looked like...' followed by a shape that resembles a familiar object. Key vocabulary therefore centres on the shapes named (rabbit, bird, tree, flower, angel, ice cream, pig, mitten) and sky/cloud/milk. The 11 fringe words selected prioritise the most frequently named shapes plus the core concept words 'cloud', 'milk', 'sky', and 'white'. Note that 'angel', 'ice cream', 'pig', and 'mitten' were considered but omitted in favour of the most frequently recurring and communicatively functional shapes. The colour 'white' is included as it is the defining visual feature of every shape in the book. Most vocabulary items are already in the existing activity_images or aac_extras libraries (cloud, sky, rabbit, bird, tree, flower, milk, moon, star) which is advantageous for production.",
+  "characters": [],
+  "code": "ILLSM1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

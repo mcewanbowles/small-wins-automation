@@ -1,0 +1,86 @@
+{
+  "title": "When Spring Comes",
+  "author": "Kevin Henkes",
+  "hero": {
+    "name": "Spring (season personified / bare winter tree becoming spring tree)",
+    "description": "The book uses a bare tree transitioning to a blossoming spring tree as its central visual symbol — no named character. Use a simple tree-in-spring illustration showing buds or blossoms on branches.",
+    "search_term": "tree spring blossoms",
+    "needs_sourcing": false,
+    "source_note": "Generic spring tree — search Boardmaker for 'tree' or 'spring'; if insufficient, source a simple seasonal tree clip art from Creative Fabrica"
+  },
+  "fringe_12": [
+    "Spring (season personified / bare winter tree becoming spring tree)",
+    "buds",
+    "blossoms",
+    "rain",
+    "mud",
+    "flowers",
+    "bird",
+    "puddle",
+    "nest",
+    "seed",
+    "wind",
+    "warm"
+  ],
+  "fringe_11": [
+    "buds",
+    "blossoms",
+    "rain",
+    "mud",
+    "flowers",
+    "bird",
+    "puddle",
+    "nest",
+    "seed",
+    "wind",
+    "warm"
+  ],
+  "activity_images": [
+    "buds",
+    "blossoms",
+    "rain",
+    "mud",
+    "flowers",
+    "bird"
+  ],
+  "aac_extras": [
+    "puddle",
+    "nest",
+    "seed",
+    "wind",
+    "warm"
+  ],
+  "ambiguous": [
+    {
+      "word": "warm",
+      "issue": "Could map to temperature adjective or an action like warming hands — both abstract",
+      "preferred": "warm sun",
+      "reason": "In the book 'warm' refers to the warming weather of spring arriving; a sun with warmth rays is the clearest picturable symbol"
+    },
+    {
+      "word": "bird",
+      "issue": "Many bird species exist; could be confused with specific named birds",
+      "preferred": "bird",
+      "reason": "The book features generic small songbirds returning in spring; a generic bird symbol is correct"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "buds": "buds plant",
+    "blossoms": "blossoms",
+    "rain": "rain",
+    "mud": "mud",
+    "flowers": "flowers",
+    "bird": "bird",
+    "puddle": "puddle",
+    "nest": "nest",
+    "seed": "seed",
+    "wind": "wind",
+    "warm": "warm sun"
+  },
+  "notes": "'When Spring Comes' has no named protagonist — the 'hero' slot is best used for a seasonal tree or spring landscape icon that children will recognise from the cover. Buds, blossoms, rain, mud, flowers, puddle, and nest are already present in activity_images or aac_extras and can be reused directly. 'Seed' and 'wind' are key concepts in the book (things that wait underground, wind bringing change) and are worth adding. 'Warm' captures the central emotional and sensory payoff of the book. 'Bird' replaces lamb/chick from the existing vocab pool as more universally picturable and central to this book's spring imagery. Consider pairing this board with a sequencing activity about what happens before and after spring arrives.",
+  "characters": [],
+  "code": "WSC1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

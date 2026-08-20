@@ -1,0 +1,86 @@
+{
+  "title": "Spring Book Themes",
+  "author": "Unknown",
+  "hero": {
+    "name": "Spring Scene",
+    "description": "Generic spring theme — flowers blooming, sunshine, green grass; no single named character",
+    "search_term": "spring",
+    "needs_sourcing": false,
+    "source_note": "Generic seasonal image — Boardmaker 'spring' or 'flower' symbol should work"
+  },
+  "fringe_12": [
+    "Spring Scene",
+    "flower",
+    "butterfly",
+    "rain",
+    "sun",
+    "bird",
+    "egg",
+    "garden",
+    "grow",
+    "rainbow",
+    "green",
+    "warm"
+  ],
+  "fringe_11": [
+    "flower",
+    "butterfly",
+    "rain",
+    "sun",
+    "bird",
+    "egg",
+    "garden",
+    "grow",
+    "rainbow",
+    "green",
+    "warm"
+  ],
+  "activity_images": [
+    "flower",
+    "butterfly",
+    "rain",
+    "sun",
+    "bird",
+    "egg"
+  ],
+  "aac_extras": [
+    "garden",
+    "grow",
+    "rainbow",
+    "green",
+    "warm"
+  ],
+  "ambiguous": [
+    {
+      "word": "spring",
+      "issue": "Could mean the season or the action of jumping/bouncing",
+      "preferred": "spring season",
+      "reason": "This board is about the season of spring, not a physical action"
+    },
+    {
+      "word": "grow",
+      "issue": "Could be shown as a plant growing or a child growing taller",
+      "preferred": "grow plant",
+      "reason": "Spring context is about plants and seeds growing in a garden"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "flower": "flower",
+    "butterfly": "butterfly",
+    "rain": "rain",
+    "sun": "sun",
+    "bird": "bird",
+    "egg": "egg",
+    "garden": "garden",
+    "grow": "grow",
+    "rainbow": "rainbow",
+    "green": "green",
+    "warm": "warm"
+  },
+  "notes": "This is a thematic collection rather than a single titled picture book, so no single named hero character exists. The hero slot uses a generic spring image. All 11 fringe words are drawn from classic spring themes (weather, nature, animals, plants) that typically appear across spring-themed books in early childhood and SPED classrooms. If this board is paired with a specific spring book (e.g. 'The Tiny Seed' by Eric Carle or 'Fletcher and the Springtime Blossoms'), consider replacing the hero image and adjusting fringe words to match that specific text.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

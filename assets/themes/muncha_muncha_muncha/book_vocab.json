@@ -1,0 +1,86 @@
+{
+  "title": "Muncha! Muncha! Muncha!",
+  "author": "Candace Fleming",
+  "hero": {
+    "name": "Rabbits (three small rabbits)",
+    "description": "Three small grey/white rabbits who sneak into the garden — generic rabbits but their trio nature is key to the story",
+    "search_term": "rabbit",
+    "needs_sourcing": false,
+    "source_note": "Generic rabbit symbol from Boardmaker is sufficient; note there are three rabbits but a single rabbit icon represents them adequately"
+  },
+  "fringe_12": [
+    "Rabbits (three small rabbits)",
+    "garden",
+    "vegetables",
+    "fence",
+    "dig",
+    "eat",
+    "night",
+    "farmer",
+    "sneak",
+    "build",
+    "angry",
+    "carrots"
+  ],
+  "fringe_11": [
+    "garden",
+    "vegetables",
+    "fence",
+    "dig",
+    "eat",
+    "night",
+    "farmer",
+    "sneak",
+    "build",
+    "angry",
+    "carrots"
+  ],
+  "activity_images": [
+    "garden",
+    "vegetables",
+    "fence",
+    "dig",
+    "eat",
+    "night"
+  ],
+  "aac_extras": [
+    "farmer",
+    "sneak",
+    "build",
+    "angry",
+    "carrots"
+  ],
+  "ambiguous": [
+    {
+      "word": "dig",
+      "issue": "Could mean digging with a shovel (action/tool use) or the rabbits burrowing under the fence",
+      "preferred": "dig shovel",
+      "reason": "Both meanings occur in the book but the shovel-digging action is the most picturable and recurring"
+    },
+    {
+      "word": "build",
+      "issue": "Could mean general construction or specifically building a barrier/fence/wall",
+      "preferred": "build fence",
+      "reason": "Mr. McGreely builds increasingly elaborate barriers throughout the story; fence-building is the specific context"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "garden": "garden",
+    "vegetables": "vegetables",
+    "fence": "fence",
+    "dig": "dig",
+    "eat": "eat",
+    "night": "night",
+    "farmer": "farmer",
+    "sneak": "sneak",
+    "build": "build",
+    "angry": "angry",
+    "carrots": "carrots"
+  },
+  "notes": "The repetitive refrain 'Muncha! Muncha! Muncha!' is central to the book — the eating action is critical vocabulary. 'Farmer' represents Mr. McGreely, the human protagonist who repeatedly tries to protect his garden. 'Sneak' captures the rabbits' nighttime tunnelling behaviour. 'Build' covers the escalating barrier construction (fence, moat, cage). 'Night' is important because the rabbits always strike at night. Existing activity_images (rabbit, garden, lettuce, carrots, peas, fence, gate, shovel, wheelbarrow, basket) and aac_extras (flower, sprouts, chase, sleep) are already available — 'vegetables' is added as a broader category word to cover peas/lettuce collectively, and 'angry' and 'night' fill key emotional and temporal vocabulary gaps not covered by existing assets.",
+  "characters": [],
+  "code": "MMM1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

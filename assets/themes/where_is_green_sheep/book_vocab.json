@@ -1,0 +1,92 @@
+{
+  "title": "Where Is the Green Sheep?",
+  "author": "Mem Fox",
+  "hero": {
+    "name": "Green Sheep",
+    "description": "A simple green sheep — the missing sheep sought throughout the book; generic enough that a Boardmaker sheep symbol with green colouring may work, but the specific 'green sheep' identity is central to the book's concept",
+    "search_term": "sheep",
+    "needs_sourcing": false,
+    "source_note": "Use standard Boardmaker sheep symbol; pair with green colour overlay or label. Activity_images already has 'sheep' — use that as hero base."
+  },
+  "fringe_12": [
+    "Green Sheep",
+    "sleeping",
+    "loud",
+    "scared",
+    "thin",
+    "bath",
+    "up",
+    "down",
+    "near",
+    "far",
+    "fast",
+    "slow"
+  ],
+  "fringe_11": [
+    "sleeping",
+    "loud",
+    "scared",
+    "thin",
+    "bath",
+    "up",
+    "down",
+    "near",
+    "far",
+    "fast",
+    "slow"
+  ],
+  "activity_images": [
+    "sleeping",
+    "loud",
+    "scared",
+    "thin",
+    "bath",
+    "up"
+  ],
+  "aac_extras": [
+    "down",
+    "near",
+    "far",
+    "fast",
+    "slow"
+  ],
+  "ambiguous": [
+    {
+      "word": "thin",
+      "issue": "Could map to 'skinny' body shape or a thin object/line",
+      "preferred": "thin sheep",
+      "reason": "In this book thin describes a sheep character; the activity_images folder already has 'thin sheep' — use that specific image"
+    },
+    {
+      "word": "loud",
+      "issue": "Could map to a speaker/volume icon or a person shouting",
+      "preferred": "loud sheep",
+      "reason": "In this book loud describes a sheep character; the activity_images folder already has 'loud sheep' — use that specific image"
+    },
+    {
+      "word": "bath",
+      "issue": "Could map to a bathtub object or the action of bathing",
+      "preferred": "bath sheep",
+      "reason": "In this book bath describes a sheep in a tub; the activity_images folder already has 'bath sheep' — use that specific image"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "sleeping": "sleeping sheep",
+    "loud": "loud sheep",
+    "scared": "scared sheep",
+    "thin": "thin sheep",
+    "bath": "bath sheep",
+    "up": "up",
+    "down": "down",
+    "near": "near",
+    "far": "far",
+    "fast": "fast",
+    "slow": "slow"
+  },
+  "notes": "This book is built almost entirely around contrasting pairs (up/down, near/far, fast/slow, loud/quiet, big/small, thin/fat) and sheep in different scenarios (sleeping, scared, bath). The existing activity_images and aac_extras already cover the core vocabulary extremely well — sleeping sheep, loud sheep, scared sheep, thin sheep, bath sheep are in activity_images; up, down, near, far, loud, quiet, fast, slow, big, small are in aac_extras. The fringe_11 here draws entirely from those existing assets to avoid duplication. 'quiet', 'big', and 'small' were omitted from fringe_11 in favour of 'scared' and 'bath' since quiet/big/small are already in aac_extras and accessible via core. The HERO slot should use the existing 'sheep' activity image with a green label. No new sourcing is required for this board — all vocabulary is covered by existing assets.",
+  "characters": [],
+  "code": "GS1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

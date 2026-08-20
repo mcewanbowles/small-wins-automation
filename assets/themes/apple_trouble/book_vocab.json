@@ -1,0 +1,92 @@
+{
+  "title": "Apple Trouble",
+  "author": "Unknown",
+  "hero": {
+    "name": "Apple (with face / trouble expression)",
+    "description": "A round red apple with an expressive face, central character of the story — generic apple icon may lack the 'trouble' personality but a standard apple PNG is recognisable",
+    "search_term": "apple",
+    "needs_sourcing": false,
+    "source_note": "Generic apple Boardmaker symbol is acceptable; if a faced apple is preferred source from TPT or Creative Fabrica"
+  },
+  "fringe_12": [
+    "Apple (with face / trouble expression)",
+    "tree",
+    "fall",
+    "ground",
+    "worm",
+    "bird",
+    "bite",
+    "red",
+    "big",
+    "little",
+    "oh no",
+    "help"
+  ],
+  "fringe_11": [
+    "tree",
+    "fall",
+    "ground",
+    "worm",
+    "bird",
+    "bite",
+    "red",
+    "big",
+    "little",
+    "oh no",
+    "help"
+  ],
+  "activity_images": [
+    "tree",
+    "fall",
+    "ground",
+    "worm",
+    "bird",
+    "bite"
+  ],
+  "aac_extras": [
+    "red",
+    "big",
+    "little",
+    "oh no",
+    "help"
+  ],
+  "ambiguous": [
+    {
+      "word": "fall",
+      "issue": "Could mean the season autumn or the action of falling down",
+      "preferred": "fall down",
+      "reason": "In this book the apple falls from the tree — action meaning is correct"
+    },
+    {
+      "word": "little",
+      "issue": "Could be mapped to a size concept symbol or a child figure",
+      "preferred": "little (small)",
+      "reason": "Describes small size of worm or apple pieces — size adjective meaning is correct"
+    },
+    {
+      "word": "bite",
+      "issue": "Could map to a generic teeth/mouth symbol or a food bite action",
+      "preferred": "bite food",
+      "reason": "Characters bite the apple — food-bite action is the correct meaning"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "tree": "tree",
+    "fall": "fall down",
+    "ground": "ground",
+    "worm": "worm",
+    "bird": "bird",
+    "bite": "bite",
+    "red": "red",
+    "big": "big",
+    "little": "little",
+    "oh no": "oh no",
+    "help": "help"
+  },
+  "notes": "'Apple Trouble' is a lesser-known title; the core story involves an apple falling from a tree and various characters interacting with it (worm, bird, biting). Vocabulary chosen reflects key story events and objects. 'oh no' is included as a fringe word because it is a highly functional exclamation specific to the story's trouble theme and distinct from the fixed core. If the actual story has named animal characters, their names could replace some generic nouns — verify against the physical book. The hero is treated as a generic apple since no distinctive named character is confirmed.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

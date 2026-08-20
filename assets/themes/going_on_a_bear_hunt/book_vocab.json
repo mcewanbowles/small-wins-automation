@@ -1,0 +1,87 @@
+{
+  "title": "We're Going on a Bear Hunt",
+  "author": "Michael Rosen",
+  "hero": {
+    "name": "Bear",
+    "description": "Large brown bear, generic bear character from the story — not stylised or named",
+    "search_term": "bear",
+    "needs_sourcing": false,
+    "source_note": "Generic brown bear — standard Boardmaker bear symbol should work well"
+  },
+  "fringe_12": [
+    "Bear",
+    "grass",
+    "river",
+    "mud",
+    "forest",
+    "snowstorm",
+    "cave",
+    "hunt",
+    "scared",
+    "run",
+    "back",
+    "family"
+  ],
+  "fringe_11": [
+    "grass",
+    "river",
+    "mud",
+    "forest",
+    "snowstorm",
+    "cave",
+    "hunt",
+    "scared",
+    "run",
+    "back",
+    "family"
+  ],
+  "activity_images": [
+    "grass",
+    "river",
+    "mud",
+    "forest",
+    "snowstorm",
+    "cave"
+  ],
+  "aac_extras": [
+    "hunt",
+    "scared",
+    "run",
+    "back",
+    "family"
+  ],
+  "ambiguous": [
+    {
+      "word": "back",
+      "issue": "Could mean body part (back of body) or direction/return (going back)",
+      "preferred": "back direction",
+      "reason": "In this book 'back' means returning home — the family runs back through all the obstacles"
+    },
+    {
+      "word": "hunt",
+      "issue": "Could mean the action of hunting or a treasure/search activity",
+      "preferred": "hunt search",
+      "reason": "In this book hunting means searching/going on an adventure quest, not weapon-based hunting"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "grass": "grass",
+    "river": "river",
+    "mud": "mud",
+    "forest": "forest",
+    "snowstorm": "snowstorm",
+    "cave": "cave",
+    "hunt": "hunt",
+    "scared": "afraid",
+    "run": "run",
+    "back": "back",
+    "family": "family",
+    "bear": "bear"
+  },
+  "notes": "All 11 fringe words map directly to existing activity_images or aac_extras assets: grass, river, mud, forest, snowstorm, cave, family (activity_images) and back, scared (aac_extras). 'Run' and 'hunt' will need sourcing from the Boardmaker library. The book's repetitive chant structure ('We can't go over it, we can't go under it') makes core words like 'go', 'stop', 'what', and 'uh oh' especially valuable — point teachers to Row 5 and Row 6 of the core grid during shared reading. The climax emotion (scared) and escape action (run, back) are the highest-priority fringe words for expressive communication at the story peak.",
+  "characters": [],
+  "code": "GOBH1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

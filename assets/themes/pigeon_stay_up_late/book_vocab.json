@@ -1,0 +1,90 @@
+{
+  "title": "Don't Let the Pigeon Stay Up Late!",
+  "author": "Mo Willems",
+  "hero": {
+    "name": "Pigeon",
+    "description": "Mo Willems' distinctive cartoon pigeon — simple blue-grey bird with one large round eye and an orange beak, iconic character from the Pigeon series",
+    "search_term": "mo willems pigeon",
+    "needs_sourcing": true,
+    "source_note": "Named/distinctive character — source from Creative Fabrica, TPT, or Mo Willems licensed clip art; generic Boardmaker pigeon will not match"
+  },
+  "fringe_12": [
+    "PIGEON",
+    "bed",
+    "sleep",
+    "tired",
+    "night",
+    "moon",
+    "star",
+    "lamp",
+    "awake",
+    "pillow",
+    "hot dog",
+    "dream"
+  ],
+  "fringe_11": [
+    "bed",
+    "sleep",
+    "tired",
+    "night",
+    "moon",
+    "star",
+    "lamp",
+    "awake",
+    "pillow",
+    "hot dog",
+    "dream"
+  ],
+  "activity_images": [
+    "bed",
+    "sleep",
+    "tired",
+    "night",
+    "moon",
+    "star"
+  ],
+  "aac_extras": [
+    "lamp",
+    "awake",
+    "pillow",
+    "hot dog",
+    "dream"
+  ],
+  "ambiguous": [
+    {
+      "word": "light",
+      "issue": "Could mean a lamp/light source (noun) or the adjective light (not heavy)",
+      "preferred": "lamp",
+      "reason": "The bedside lamp is a key story prop; 'lamp' is unambiguous and already in fringe"
+    },
+    {
+      "word": "star",
+      "issue": "Could mean a star in the sky (noun) or a celebrity/star shape",
+      "preferred": "star night sky",
+      "reason": "Book is set at bedtime; stars in the night sky are part of the setting"
+    }
+  ],
+  "character_images_needed": [
+    "Pigeon (Mo Willems)"
+  ],
+  "icon_search_terms": {
+    "bed": "bed",
+    "sleep": "sleep",
+    "tired": "tired",
+    "night": "night",
+    "moon": "moon",
+    "star": "star",
+    "lamp": "lamp",
+    "awake": "awake",
+    "pillow": "pillow",
+    "hot dog": "hot dog",
+    "dream": "dream"
+  },
+  "notes": "The hot dog is a recurring Pigeon series motif and the pigeon uses wanting a hot dog as a stalling tactic to avoid bedtime — high engagement word for fans of the series. 'Tired' and 'awake' are opposites that work well together on this board and support the core 'same/different' row. Several words (bed, moon, star, lamp, pillow, night, tired) are already present in activity_images or aac_extras per existing data — confirm exact filenames before generating new PNGs. 'Dream' may need sourcing; search Boardmaker for 'dream' or 'dreaming'. The pigeon character MUST be sourced externally as Mo Willems' style is highly distinctive and students familiar with the book will not accept a generic bird.",
+  "characters": [
+    "pigeon"
+  ],
+  "code": "PSUL1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

@@ -1,0 +1,89 @@
+{
+  "title": "A Big Guy Took My Ball",
+  "author": "Mo Willems",
+  "hero": {
+    "name": "Piggie",
+    "description": "Small pink pig character from the Elephant and Piggie series by Mo Willems, stands upright, wears glasses sometimes",
+    "search_term": "piggie mo willems",
+    "needs_sourcing": true,
+    "source_note": "Named character from Elephant & Piggie series — source from Creative Fabrica, TPT, or Mo Willems licensed clip art"
+  },
+  "fringe_12": [
+    "Piggie",
+    "ball",
+    "big",
+    "elephant",
+    "pig",
+    "take",
+    "cry",
+    "ask",
+    "small",
+    "play",
+    "share",
+    "sad"
+  ],
+  "fringe_11": [
+    "ball",
+    "big",
+    "elephant",
+    "pig",
+    "take",
+    "cry",
+    "ask",
+    "small",
+    "play",
+    "share",
+    "sad"
+  ],
+  "activity_images": [
+    "ball",
+    "big",
+    "elephant",
+    "pig",
+    "take",
+    "cry"
+  ],
+  "aac_extras": [
+    "ask",
+    "small",
+    "play",
+    "share",
+    "sad"
+  ],
+  "ambiguous": [
+    {
+      "word": "big",
+      "issue": "Could be an abstract size concept or a pictured large object/character",
+      "preferred": "big",
+      "reason": "In this book, big refers specifically to the large whale character's size — a size comparison symbol is correct"
+    },
+    {
+      "word": "take",
+      "issue": "Could mean physically grabbing/taking an object or could be confused with 'bring'",
+      "preferred": "take",
+      "reason": "Book is about a character taking (grabbing) a ball away — the action of grabbing is the correct meaning"
+    }
+  ],
+  "character_images_needed": [
+    "Piggie",
+    "Gerald the Elephant"
+  ],
+  "icon_search_terms": {
+    "ball": "ball",
+    "big": "big",
+    "elephant": "elephant",
+    "pig": "pig",
+    "take": "take",
+    "cry": "cry",
+    "ask": "ask",
+    "small": "small",
+    "play": "play",
+    "share": "share",
+    "sad": "sad"
+  },
+  "notes": "This is a Mo Willems Elephant & Piggie book. The two main characters — Piggie (pig) and Gerald (elephant) — are distinctive named characters and will not be represented adequately by generic Boardmaker pig or elephant symbols. A whale character also appears as the 'big guy' who takes the ball; if a whale slot were needed it could replace one word, but the core conflict and vocabulary centres on ball, size contrast (big/small), taking, sadness, asking, and sharing. Secondary character Gerald the Elephant (Piggie's best friend) is central to the story and also needs sourcing. The resolution involves sharing and playing together, making 'share' and 'play' high-value fringe words for comprehension and retell activities.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

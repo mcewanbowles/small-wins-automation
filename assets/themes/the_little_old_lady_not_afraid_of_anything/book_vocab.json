@@ -1,0 +1,80 @@
+{
+  "title": "The Little Old Lady Who Was Not Afraid of Anything",
+  "author": "Linda Williams",
+  "hero": {
+    "name": "Little Old Lady",
+    "description": "Elderly woman walking through the woods, wearing a bonnet and apron, central character of the book",
+    "search_term": "old woman",
+    "needs_sourcing": false,
+    "source_note": "Generic elderly woman image should work from Boardmaker library"
+  },
+  "fringe_12": [
+    "Little Old Lady",
+    "scared",
+    "walk",
+    "shoes",
+    "pants",
+    "shirt",
+    "hat",
+    "gloves",
+    "pumpkin",
+    "night",
+    "scarecrow",
+    "shake"
+  ],
+  "fringe_11": [
+    "scared",
+    "walk",
+    "shoes",
+    "pants",
+    "shirt",
+    "hat",
+    "gloves",
+    "pumpkin",
+    "night",
+    "scarecrow",
+    "shake"
+  ],
+  "activity_images": [
+    "scared",
+    "walk",
+    "shoes",
+    "pants",
+    "shirt",
+    "hat"
+  ],
+  "aac_extras": [
+    "gloves",
+    "pumpkin",
+    "night",
+    "scarecrow",
+    "shake"
+  ],
+  "ambiguous": [
+    {
+      "word": "shake",
+      "issue": "Could mean to tremble (from fear) or to shake hands/objects",
+      "preferred": "shake tremble",
+      "reason": "In this book the clothing items shake and rattle to frighten the old lady — trembling/shaking motion is the correct meaning"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "scared": "afraid",
+    "walk": "walk",
+    "shoes": "shoes",
+    "pants": "pants",
+    "shirt": "shirt",
+    "hat": "hat",
+    "gloves": "gloves",
+    "pumpkin": "pumpkin",
+    "night": "night",
+    "scarecrow": "scarecrow",
+    "shake": "shake"
+  },
+  "notes": "This Halloween-themed cumulative tale features a brave old lady who encounters animated clothing items (two shoes, one pair of pants, one shirt, two gloves, one hat) that clank and shake behind her, and ultimately a scary pumpkin head scarecrow. The repetitive cumulative structure ('CLUNK CLUNK, SHAKE SHAKE, WIGGLE WIGGLE') makes this ideal for AAC use. Key vocabulary centres on clothing items and the emotion of being scared (or NOT scared). The phrase 'not afraid' aligns with the YES/NO core row. Scarecrow may need sourcing if Boardmaker library lacks a clear image — check library first. Night/woods setting is important for context. The old lady is a generic elderly woman and should be findable in Boardmaker without custom sourcing.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

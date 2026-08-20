@@ -1,0 +1,338 @@
+{
+  "word_search_words": [
+    {
+      "value": "TRUCK",
+      "grounded": true,
+      "grounding_note": "Core topic term, monster truck vehicle.",
+      "citations": [
+        4
+      ]
+    },
+    {
+      "value": "TIRES",
+      "grounded": true,
+      "grounding_note": "Oversized tires described as key feature.",
+      "citations": [
+        4
+      ]
+    },
+    {
+      "value": "ENGINE",
+      "grounded": true,
+      "grounding_note": "Large-displacement V8 engines mentioned.",
+      "citations": [
+        4
+      ]
+    },
+    {
+      "value": "SUSPENSION",
+      "grounded": true,
+      "grounding_note": "Heavy duty suspension mentioned as feature.",
+      "citations": [
+        4
+      ]
+    },
+    {
+      "value": "TRACK",
+      "grounded": true,
+      "grounding_note": "Trucks battle on a fast track.",
+      "citations": [
+        5
+      ]
+    },
+    {
+      "value": "JAM",
+      "grounded": true,
+      "grounding_note": "Monster Jam is the named event.",
+      "citations": [
+        0
+      ]
+    },
+    {
+      "value": "WHEELS",
+      "grounded": true,
+      "grounding_note": "Four-wheel steering and giant wheels referenced.",
+      "citations": [
+        4,
+        2
+      ]
+    },
+    {
+      "value": "CRASH",
+      "grounded": true,
+      "grounding_note": "Smash & crash play referenced for trucks.",
+      "citations": [
+        2
+      ]
+    }
+  ],
+  "starting_sight_words": [
+    {
+      "value": "big",
+      "grounded": true,
+      "grounding_note": "Trucks described as giant/big vehicles.",
+      "citations": [
+        5
+      ]
+    },
+    {
+      "value": "fast",
+      "grounded": true,
+      "grounding_note": "Trucks race on a fast track.",
+      "citations": [
+        5
+      ]
+    },
+    {
+      "value": "truck",
+      "grounded": true,
+      "grounding_note": "Core topic word.",
+      "citations": [
+        4
+      ]
+    },
+    {
+      "value": "wheels",
+      "grounded": true,
+      "grounding_note": "Oversized wheels/tires are a defining feature.",
+      "citations": [
+        4
+      ]
+    }
+  ],
+  "sequence_order": [
+    {
+      "value": "Trucks line up at the start.",
+      "grounded": true,
+      "grounding_note": "Trucks race and battle on a track, implying a starting stage.",
+      "citations": [
+        5
+      ]
+    },
+    {
+      "value": "Engines start and roar.",
+      "grounded": true,
+      "grounding_note": "V8 engines are a key described feature.",
+      "citations": [
+        4
+      ]
+    },
+    {
+      "value": "Trucks drive onto the track.",
+      "grounded": true,
+      "grounding_note": "Trucks battle it out on a track.",
+      "citations": [
+        5
+      ]
+    },
+    {
+      "value": "Trucks race and jump for big air.",
+      "grounded": true,
+      "grounding_note": "Trucks get 'BIG AIR' during the show.",
+      "citations": [
+        5
+      ]
+    },
+    {
+      "value": "A winner is decided.",
+      "grounded": true,
+      "grounding_note": "Trucks battle it out, implying competitive outcome.",
+      "citations": [
+        5
+      ]
+    }
+  ],
+  "sorting_categories": [
+    {
+      "value": "Truck parts (tires, engine, suspension)",
+      "grounded": true,
+      "grounding_note": "Parts listed as defining features of monster trucks.",
+      "citations": [
+        4
+      ]
+    },
+    {
+      "value": "Places (track, show, event)",
+      "grounded": true,
+      "grounding_note": "Trucks perform on tracks at events/shows.",
+      "citations": [
+        5,
+        0
+      ]
+    },
+    {
+      "value": "Actions (race, jump, crash)",
+      "grounded": true,
+      "grounding_note": "Trucks race, get big air, and crash/smash in play descriptions.",
+      "citations": [
+        5,
+        2
+      ]
+    }
+  ],
+  "sequencing_strips_verbs": [
+    {
+      "value": "start",
+      "grounded": true,
+      "grounding_note": "Engines start before trucks move.",
+      "citations": [
+        4
+      ]
+    },
+    {
+      "value": "drive",
+      "grounded": true,
+      "grounding_note": "Trucks drive onto the track for competition.",
+      "citations": [
+        5
+      ]
+    },
+    {
+      "value": "race",
+      "grounded": true,
+      "grounding_note": "Trucks battle it out on the track, implying racing.",
+      "citations": [
+        5
+      ]
+    },
+    {
+      "value": "jump",
+      "grounded": true,
+      "grounding_note": "Trucks get big air, meaning they jump.",
+      "citations": [
+        5
+      ]
+    },
+    {
+      "value": "crash",
+      "grounded": true,
+      "grounding_note": "Smash and crash play is a described action.",
+      "citations": [
+        2
+      ]
+    }
+  ],
+  "adapted_book_sentences": [
+    {
+      "value": "A monster truck has oversized tires.",
+      "grounded": true,
+      "grounding_note": "Directly matches described feature.",
+      "citations": [
+        4
+      ]
+    },
+    {
+      "value": "A monster truck has a heavy duty suspension.",
+      "grounded": true,
+      "grounding_note": "Directly matches described feature.",
+      "citations": [
+        4
+      ]
+    },
+    {
+      "value": "A monster truck has a big V8 engine.",
+      "grounded": true,
+      "grounding_note": "Directly matches described feature.",
+      "citations": [
+        4
+      ]
+    },
+    {
+      "value": "Monster trucks race on a big track.",
+      "grounded": true,
+      "grounding_note": "Trucks battle on a huge fast track.",
+      "citations": [
+        5
+      ]
+    },
+    {
+      "value": "Monster trucks can jump for big air.",
+      "grounded": true,
+      "grounding_note": "Directly matches 'BIG AIR' description.",
+      "citations": [
+        5
+      ]
+    },
+    {
+      "value": "Monster Jam is a big truck event.",
+      "grounded": true,
+      "grounding_note": "Monster Jam named as an action-packed motorsports event.",
+      "citations": [
+        0
+      ]
+    }
+  ],
+  "aac_fringe_vocab": [
+    {
+      "value": "loud",
+      "grounded": true,
+      "grounding_note": "Engines and crashes imply loud sound at events.",
+      "citations": [
+        5,
+        2
+      ]
+    }
+  ],
+  "wh_questions": [
+    {
+      "value": "What do monster trucks have that are very big?",
+      "grounded": true,
+      "grounding_note": "Oversized tires are a described feature.",
+      "citations": [
+        4
+      ]
+    },
+    {
+      "value": "Where do monster trucks race?",
+      "grounded": true,
+      "grounding_note": "Trucks battle it out on a huge fast track.",
+      "citations": [
+        5
+      ]
+    },
+    {
+      "value": "What kind of engine does a monster truck have?",
+      "grounded": true,
+      "grounding_note": "Large-displacement V8 engines described.",
+      "citations": [
+        4
+      ]
+    }
+  ],
+  "yes_no_questions": [
+    {
+      "value": "Does a monster truck have oversized tires?",
+      "grounded": true,
+      "grounding_note": "Directly matches described feature.",
+      "citations": [
+        4
+      ]
+    },
+    {
+      "value": "Do monster trucks race on a track?",
+      "grounded": true,
+      "grounding_note": "Trucks battle it out on a track.",
+      "citations": [
+        5
+      ]
+    },
+    {
+      "value": "Does a monster truck have a small engine?",
+      "grounded": true,
+      "grounding_note": "Engines are large-displacement V8, so this is false but single-fact testable.",
+      "citations": [
+        4
+      ]
+    }
+  ],
+  "inferencing_questions": [
+    {
+      "value": "If a monster truck gets big air, what did it just do?",
+      "grounded": true,
+      "grounding_note": "Requires inferring a jump action from the stated 'BIG AIR' fact.",
+      "citations": [
+        5
+      ]
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "title": "Cat the Cat, Who Is That?",
+  "author": "Mo Willems",
+  "hero": {
+    "name": "Cat the Cat",
+    "description": "Pink cat character from Mo Willems' early reader series, distinctive simple cartoon style",
+    "search_term": "cat the cat mo willems",
+    "needs_sourcing": true,
+    "source_note": "Named Mo Willems character — source from Creative Fabrica or TPT clip art"
+  },
+  "fringe_12": [
+    "Cat the Cat",
+    "cat",
+    "fish",
+    "duck",
+    "mouse",
+    "friend",
+    "hello",
+    "meet",
+    "wave",
+    "smile",
+    "happy",
+    "new"
+  ],
+  "fringe_11": [
+    "cat",
+    "fish",
+    "duck",
+    "mouse",
+    "friend",
+    "hello",
+    "meet",
+    "wave",
+    "smile",
+    "happy",
+    "new"
+  ],
+  "activity_images": [
+    "cat",
+    "fish",
+    "duck",
+    "mouse",
+    "friend",
+    "hello"
+  ],
+  "aac_extras": [
+    "meet",
+    "wave",
+    "smile",
+    "happy",
+    "new"
+  ],
+  "ambiguous": [
+    {
+      "word": "duck",
+      "issue": "Could mean the bird (noun) or the action of ducking down",
+      "preferred": "duck bird",
+      "reason": "Book features a duck character that Cat the Cat meets — bird meaning is correct"
+    },
+    {
+      "word": "wave",
+      "issue": "Could mean a water wave or the greeting action of waving",
+      "preferred": "wave greeting",
+      "reason": "Characters greet each other by waving — greeting action meaning is correct"
+    }
+  ],
+  "character_images_needed": [
+    "Cat the Cat"
+  ],
+  "icon_search_terms": {
+    "cat": "cat",
+    "fish": "fish",
+    "duck": "duck",
+    "mouse": "mouse",
+    "friend": "friend",
+    "hello": "hello",
+    "meet": "meet",
+    "wave": "wave",
+    "smile": "smile",
+    "happy": "happy",
+    "new": "new"
+  },
+  "notes": "This is a Mo Willems early reader book focused on a cat who introduces her animal friends one by one. The core vocabulary of the book is highly repetitive around meeting and greeting. Key fringe words reflect the four animal characters (cat, fish, duck, mouse), the social greeting theme (hello, meet, wave), and emotional/descriptive words (smile, happy, friend, new). The word 'new' is used in the book's refrain when Cat introduces someone new. Duck is flagged as ambiguous. The hero image must be sourced as Cat the Cat is a distinctive Mo Willems character not well represented in generic Boardmaker libraries.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

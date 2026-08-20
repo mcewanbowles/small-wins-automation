@@ -1,0 +1,94 @@
+{
+  "title": "Balloons Over Broadway: The True Story of the Puppeteer of Macy's Parade",
+  "author": "Melissa Sweet",
+  "hero": {
+    "name": "Tony Sarg",
+    "description": "Tony Sarg, real-life puppeteer and illustrator, depicted in vintage illustrative style by Melissa Sweet",
+    "search_term": "puppeteer man puppet strings",
+    "needs_sourcing": true,
+    "source_note": "Real historical person depicted in Melissa Sweet's collage-illustration style — source period-appropriate clip art or illustrated portrait from TPT or Creative Fabrica"
+  },
+  "fringe_12": [
+    "Tony Sarg",
+    "balloon",
+    "parade",
+    "puppet",
+    "float",
+    "string",
+    "crowd",
+    "big",
+    "sky",
+    "march",
+    "make",
+    "happy"
+  ],
+  "fringe_11": [
+    "balloon",
+    "parade",
+    "puppet",
+    "float",
+    "string",
+    "crowd",
+    "big",
+    "sky",
+    "march",
+    "make",
+    "happy"
+  ],
+  "activity_images": [
+    "balloon",
+    "parade",
+    "puppet",
+    "float",
+    "string",
+    "crowd"
+  ],
+  "aac_extras": [
+    "big",
+    "sky",
+    "march",
+    "make",
+    "happy"
+  ],
+  "ambiguous": [
+    {
+      "word": "float",
+      "issue": "Could mean parade float (vehicle/display) or floating in water/air",
+      "preferred": "parade float",
+      "reason": "Book is about the Macy's Thanksgiving Day Parade; float refers to a decorated parade vehicle"
+    },
+    {
+      "word": "march",
+      "issue": "Could mean to walk in a parade (action) or the month March",
+      "preferred": "march walk parade",
+      "reason": "Book is about the parade procession; march as an action verb is correct here"
+    },
+    {
+      "word": "big",
+      "issue": "Could be a generic size adjective or map to many different images",
+      "preferred": "big large",
+      "reason": "Giant balloons are central to the story; big is used to describe the enormous character balloons"
+    }
+  ],
+  "character_images_needed": [
+    "Tony Sarg"
+  ],
+  "icon_search_terms": {
+    "balloon": "balloon",
+    "parade": "parade",
+    "puppet": "puppet",
+    "float": "parade float",
+    "string": "string",
+    "crowd": "crowd",
+    "big": "big",
+    "sky": "sky",
+    "march": "march",
+    "make": "make",
+    "happy": "happy"
+  },
+  "notes": "Balloons Over Broadway is a picture book biography of Tony Sarg, the puppeteer who invented the giant character balloons for the Macy's Thanksgiving Day Parade. Key vocabulary centres on balloons, parades, and puppetry. 'Float' and 'march' are both flagged as ambiguous. The word 'make' is included because a central theme is Sarg inventing and creating things. 'Happy' captures the emotional tone and crowd reaction. Because this is a nonfiction picture book biography, the hero is a real person — sourcing a period-style illustrated portrait is recommended rather than using a generic Boardmaker symbol.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

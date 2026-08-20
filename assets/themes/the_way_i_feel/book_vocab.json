@@ -1,0 +1,82 @@
+{
+  "title": "The Way I Feel",
+  "author": "Janan Cain",
+  "hero": {
+    "name": "Feelings Child (cover character)",
+    "description": "Expressive child figure from the book cover showing big emotions — illustrated in Janan Cain's distinctive painted style",
+    "search_term": "child face emotions",
+    "needs_sourcing": true,
+    "source_note": "Distinctive painted illustration style — source cover art crop or matching clip art from TPT or Creative Fabrica; generic Boardmaker child will not match"
+  },
+  "fringe_12": [
+    "Feelings Child (cover character)",
+    "angry",
+    "sad",
+    "scared",
+    "excited",
+    "happy",
+    "silly",
+    "frustrated",
+    "calm",
+    "cry",
+    "face",
+    "feelings"
+  ],
+  "fringe_11": [
+    "angry",
+    "sad",
+    "scared",
+    "excited",
+    "happy",
+    "silly",
+    "frustrated",
+    "calm",
+    "cry",
+    "face",
+    "feelings"
+  ],
+  "activity_images": [
+    "angry",
+    "sad",
+    "scared",
+    "excited",
+    "happy",
+    "silly"
+  ],
+  "aac_extras": [
+    "frustrated",
+    "calm",
+    "cry",
+    "face",
+    "feelings"
+  ],
+  "ambiguous": [
+    {
+      "word": "calm",
+      "issue": "Could map to a weather symbol (calm seas) or an emotional state",
+      "preferred": "calm person",
+      "reason": "Book is about emotions — the emotional/person meaning is correct; search for a relaxed child or peaceful face symbol"
+    }
+  ],
+  "character_images_needed": [
+    "Feelings Child (cover character)"
+  ],
+  "icon_search_terms": {
+    "angry": "angry",
+    "sad": "sad",
+    "scared": "afraid",
+    "excited": "excited",
+    "happy": "happy",
+    "silly": "silly",
+    "frustrated": "frustrated",
+    "calm": "calm",
+    "cry": "cry",
+    "face": "face",
+    "feelings": "feelings"
+  },
+  "notes": "This book is entirely about emotions — all 11 fringe words are emotion or emotion-adjacent vocabulary. Several (happy, sad, angry, scared, silly, calm, face) already exist in activity_images or aac_extras per the existing data, so those PNGs can be reused directly. 'Frustrated' is not in the existing set and will need sourcing from the Boardmaker library ('frustrated' symbol). 'Feelings' as a concept label may need a custom card or a composite face/heart image. The hero image should evoke the expressive painted style of the book cover; a TPT 'way I feel' clip art pack is the recommended source. No colours are central enough to the story to warrant inclusion in the fringe. Core row words 'like', 'don't like', and 'same/different' pair especially well with this book for structured discussion activities.",
+  "characters": [],
+  "code": "TWIF1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

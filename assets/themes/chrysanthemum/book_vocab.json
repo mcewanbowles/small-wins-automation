@@ -1,0 +1,82 @@
+{
+  "title": "Chrysanthemum",
+  "author": "Kevin Henkes",
+  "hero": {
+    "name": "Chrysanthemum",
+    "description": "Small grey mouse girl with a pink bow, wearing a dress — main character from Kevin Henkes' book",
+    "search_term": "chrysanthemum mouse henkes",
+    "needs_sourcing": true,
+    "source_note": "Named Kevin Henkes character — source from Creative Fabrica, TPT, or Teachers Pay Teachers clip art"
+  },
+  "fringe_12": [
+    "Chrysanthemum",
+    "flower",
+    "name",
+    "school",
+    "tease",
+    "sad",
+    "happy",
+    "teacher",
+    "heart",
+    "perfect",
+    "long",
+    "special"
+  ],
+  "fringe_11": [
+    "flower",
+    "name",
+    "school",
+    "tease",
+    "sad",
+    "happy",
+    "teacher",
+    "heart",
+    "perfect",
+    "long",
+    "special"
+  ],
+  "activity_images": [
+    "flower",
+    "name",
+    "school",
+    "tease",
+    "sad",
+    "happy"
+  ],
+  "aac_extras": [
+    "teacher",
+    "heart",
+    "perfect",
+    "long",
+    "special"
+  ],
+  "ambiguous": [
+    {
+      "word": "long",
+      "issue": "Could mean physical length or a verb meaning to yearn/desire",
+      "preferred": "long length",
+      "reason": "In this book 'long' describes Chrysanthemum's name being too long to fit — physical length meaning is correct"
+    }
+  ],
+  "character_images_needed": [
+    "Chrysanthemum"
+  ],
+  "icon_search_terms": {
+    "flower": "flower",
+    "name": "name tag",
+    "school": "school",
+    "tease": "tease",
+    "sad": "sad",
+    "happy": "happy",
+    "teacher": "teacher",
+    "heart": "heart",
+    "perfect": "perfect",
+    "long": "long",
+    "special": "special"
+  },
+  "notes": "Chrysanthemum is a Kevin Henkes mouse character — generic Boardmaker mouse will not match the distinctive illustrated style. Key themes are name identity, teasing/bullying, feeling sad then happy, and a loving teacher (Mrs. Twinkle). 'Tease' is central to the plot. 'Perfect' and 'special' are key story words used to reassure Chrysanthemum about her name. Several existing activity_images icons (flower, name tag, school, heart) align well with the fringe vocabulary. 'Name tag' can serve as the icon for 'name'.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

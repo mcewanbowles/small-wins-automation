@@ -1,0 +1,86 @@
+{
+  "title": "Bear Snores On",
+  "author": "Karma Wilson",
+  "hero": {
+    "name": "Bear (Bear Snores On)",
+    "description": "Large brown bear sleeping in a cave, the central character of the book — generic enough that a good Boardmaker brown bear icon may suffice, but the sleeping pose is distinctive",
+    "search_term": "bear",
+    "needs_sourcing": false,
+    "source_note": "Generic sleeping bear — use Boardmaker 'bear' or 'bear sleeping'. If a more specific sleeping bear is needed, source from TPT or Creative Fabrica."
+  },
+  "fringe_12": [
+    "Bear (Bear Snores On)",
+    "sleep",
+    "cave",
+    "snow",
+    "mouse",
+    "fire",
+    "friends",
+    "cold",
+    "wake",
+    "snore",
+    "party",
+    "popcorn"
+  ],
+  "fringe_11": [
+    "sleep",
+    "cave",
+    "snow",
+    "mouse",
+    "fire",
+    "friends",
+    "cold",
+    "wake",
+    "snore",
+    "party",
+    "popcorn"
+  ],
+  "activity_images": [
+    "sleep",
+    "cave",
+    "snow",
+    "mouse",
+    "fire",
+    "friends"
+  ],
+  "aac_extras": [
+    "cold",
+    "wake",
+    "snore",
+    "party",
+    "popcorn"
+  ],
+  "ambiguous": [
+    {
+      "word": "fire",
+      "issue": "Could mean a dangerous fire/flames or a cosy campfire/hearth",
+      "preferred": "fire campfire",
+      "reason": "In the book the animals light a warm fire inside the cave for the party — a cosy hearth or campfire image is correct, not a dangerous blaze"
+    },
+    {
+      "word": "cold",
+      "issue": "Could mean temperature (cold weather) or illness (a cold)",
+      "preferred": "cold weather",
+      "reason": "The story is set in winter with snow outside — cold refers to the weather, not an illness"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "sleep": "sleep",
+    "cave": "cave",
+    "snow": "snow",
+    "mouse": "mouse",
+    "fire": "fire",
+    "friends": "friends",
+    "cold": "cold",
+    "wake": "awake",
+    "snore": "snore",
+    "party": "party",
+    "popcorn": "popcorn"
+  },
+  "notes": "Most key vocabulary (bear, cave, snow, mouse, fire, popcorn, sleep, wake, party, tea) already exists in activity_images or aac_extras — only 'friends', 'cold', and 'snore' are likely to need new sourcing. 'snore' may not exist in standard Boardmaker libraries; consider a sleeping face with ZZZ graphic or source from TPT. 'hare', 'badger', and 'crow' exist in activity_images but were deprioritised in favour of the collective concept 'friends' to keep the board functional and generalisable. 'tea' from aac_extras was replaced by the more plot-central 'party' and 'popcorn' which are already in activity_images. The fixed core row 5 already includes 'colour' and 'read' which support story interaction without needing fringe slots.",
+  "characters": [],
+  "code": "BSO1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

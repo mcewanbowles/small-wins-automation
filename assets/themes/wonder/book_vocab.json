@@ -1,0 +1,82 @@
+{
+  "title": "Wonder",
+  "author": "R.J. Palacio",
+  "hero": {
+    "name": "Auggie Pullman",
+    "description": "Boy with facial difference, often depicted wearing an astronaut helmet on the cover",
+    "search_term": "auggie wonder boy",
+    "needs_sourcing": true,
+    "source_note": "Named/distinctive character — source from Creative Fabrica or TPT clip art; astronaut helmet version widely recognised"
+  },
+  "fringe_12": [
+    "Auggie",
+    "face",
+    "friend",
+    "school",
+    "kind",
+    "different",
+    "bully",
+    "helmet",
+    "laugh",
+    "cry",
+    "brave",
+    "family"
+  ],
+  "fringe_11": [
+    "face",
+    "friend",
+    "school",
+    "kind",
+    "different",
+    "bully",
+    "helmet",
+    "laugh",
+    "cry",
+    "brave",
+    "family"
+  ],
+  "activity_images": [
+    "face",
+    "friend",
+    "school",
+    "kind",
+    "different",
+    "bully"
+  ],
+  "aac_extras": [
+    "helmet",
+    "laugh",
+    "cry",
+    "brave",
+    "family"
+  ],
+  "ambiguous": [
+    {
+      "word": "different",
+      "issue": "Already exists as a fixed core word in Row 2 of the board",
+      "preferred": "unique",
+      "reason": "Since 'different' is a fixed core slot, consider substituting 'unique' or 'stand out' as a fringe word to avoid duplication — or retain 'different' here as a thematic reinforcement specific to the book's central message"
+    }
+  ],
+  "character_images_needed": [
+    "Auggie Pullman"
+  ],
+  "icon_search_terms": {
+    "face": "face",
+    "friend": "friend",
+    "school": "school",
+    "kind": "kind",
+    "different": "different",
+    "bully": "bully",
+    "helmet": "helmet",
+    "laugh": "laugh",
+    "cry": "cry",
+    "brave": "brave",
+    "family": "family"
+  },
+  "notes": "Wonder by R.J. Palacio is a middle-grade novel about Auggie Pullman, a boy with Treacher Collins syndrome starting mainstream school for the first time. Core themes are kindness, belonging, facial difference, bullying, and friendship. For younger or lower-verbal SPED users, the picture book adaptation 'We're All Wonders' (also by Palacio) may be a better classroom match and would share most of this vocabulary. The word 'different' appears in the fixed core row — teachers may wish to swap it for 'unique' or 'stand out' in the fringe to avoid redundancy. The astronaut helmet is the most iconic visual symbol for Auggie and should be prioritised when sourcing his character image.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

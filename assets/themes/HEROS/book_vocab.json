@@ -1,0 +1,86 @@
+{
+  "title": "Heroes",
+  "author": "Unknown",
+  "hero": {
+    "name": "Hero (generic superhero character)",
+    "description": "A superhero figure — likely a child dressed as or depicted as a hero, central to the book's theme of heroism",
+    "search_term": "superhero",
+    "needs_sourcing": false,
+    "source_note": "Generic superhero image likely available in Boardmaker; if book has a specific named hero character, re-evaluate and source from Creative Fabrica or TPT"
+  },
+  "fringe_12": [
+    "Hero (generic superhero character)",
+    "superhero",
+    "brave",
+    "strong",
+    "rescue",
+    "cape",
+    "help",
+    "save",
+    "fly",
+    "fight",
+    "danger",
+    "proud"
+  ],
+  "fringe_11": [
+    "superhero",
+    "brave",
+    "strong",
+    "rescue",
+    "cape",
+    "help",
+    "save",
+    "fly",
+    "fight",
+    "danger",
+    "proud"
+  ],
+  "activity_images": [
+    "superhero",
+    "brave",
+    "strong",
+    "rescue",
+    "cape",
+    "help"
+  ],
+  "aac_extras": [
+    "save",
+    "fly",
+    "fight",
+    "danger",
+    "proud"
+  ],
+  "ambiguous": [
+    {
+      "word": "fly",
+      "issue": "Could mean the insect (noun) or the action of flying (verb)",
+      "preferred": "fly action",
+      "reason": "In a book about heroes and superheroes, fly refers to the action of flying through the air"
+    },
+    {
+      "word": "fight",
+      "issue": "Could mean a physical altercation or a metaphorical struggle/challenge",
+      "preferred": "fight villain",
+      "reason": "In a superhero context, fight refers to battling a villain or opposing danger; use an image showing a superhero in action rather than two people arguing"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "superhero": "superhero",
+    "brave": "brave",
+    "strong": "strong",
+    "rescue": "rescue",
+    "cape": "cape",
+    "help": "help",
+    "save": "save",
+    "fly": "fly action",
+    "fight": "fight",
+    "danger": "danger",
+    "proud": "proud"
+  },
+  "notes": "Author and full title details are unknown for this book. The vocabulary is based on the common theme of heroism found in children's books with this title. If the book features a specific named hero character (e.g. a named child, animal, or superhero), the hero slot should be updated and needs_sourcing re-evaluated. The word 'help' appears in both core row 2 and fringe — consider replacing it with a more book-specific word such as 'power' or 'mask' once the actual book content is confirmed. Verify all 11 fringe words against the actual book text before printing.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

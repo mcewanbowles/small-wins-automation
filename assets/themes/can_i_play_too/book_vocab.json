@@ -1,0 +1,89 @@
+{
+  "title": "Can I Play Too?",
+  "author": "Mo Willems",
+  "hero": {
+    "name": "Gerald and Piggie (Elephant and Pig)",
+    "description": "Gerald is a large grey elephant wearing glasses, Piggie is a small pink pig — iconic Elephant and Piggie characters by Mo Willems",
+    "search_term": "elephant piggie mo willems",
+    "needs_sourcing": true,
+    "source_note": "Named/distinctive characters — source from Creative Fabrica or TPT clip art; both characters should appear together on the hero image if possible"
+  },
+  "fringe_12": [
+    "Gerald and Piggie (Elephant and Pig)",
+    "play",
+    "ball",
+    "snake",
+    "arms",
+    "catch",
+    "throw",
+    "sad",
+    "happy",
+    "friend",
+    "try",
+    "fun"
+  ],
+  "fringe_11": [
+    "play",
+    "ball",
+    "snake",
+    "arms",
+    "catch",
+    "throw",
+    "sad",
+    "happy",
+    "friend",
+    "try",
+    "fun"
+  ],
+  "activity_images": [
+    "play",
+    "ball",
+    "snake",
+    "arms",
+    "catch",
+    "throw"
+  ],
+  "aac_extras": [
+    "sad",
+    "happy",
+    "friend",
+    "try",
+    "fun"
+  ],
+  "ambiguous": [
+    {
+      "word": "arms",
+      "issue": "Could mean body part (arms) or weapons",
+      "preferred": "arms body",
+      "reason": "The central joke of the book is that Snake has no arms to catch or throw the ball — body part meaning is correct"
+    },
+    {
+      "word": "catch",
+      "issue": "Could mean catching an object or catching an illness",
+      "preferred": "catch ball",
+      "reason": "The children are playing catch with a ball in this book"
+    }
+  ],
+  "character_images_needed": [
+    "Gerald and Piggie (Elephant and Piggie)",
+    "Snake from Can I Play Too"
+  ],
+  "icon_search_terms": {
+    "play": "play",
+    "ball": "ball",
+    "snake": "snake",
+    "arms": "arm",
+    "catch": "catch",
+    "throw": "throw",
+    "sad": "sad",
+    "happy": "happy",
+    "friend": "friend",
+    "try": "try",
+    "fun": "fun"
+  },
+  "notes": "This is a Mo Willems Elephant and Piggie book. The core joke revolves around Snake wanting to join in playing catch but having no arms — 'arms' is therefore a critical fringe word. Gerald and Piggie are highly recognisable named characters and will not be adequately represented by generic Boardmaker elephant or pig symbols. The snake character is also a named recurring device but is generic enough that a standard snake PNG from the library may suffice if a sourced version is unavailable. 'Try' is included because Gerald and Piggie encourage Snake to try anyway, which is a key social-emotional message of the book.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

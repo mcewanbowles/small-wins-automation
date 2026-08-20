@@ -1,0 +1,90 @@
+{
+  "title": "The Wonky Donkey",
+  "author": "Craig Smith",
+  "hero": {
+    "name": "Wonky Donkey",
+    "description": "Cartoon donkey with one eye, three legs, and wearing sunglasses and a hat — distinctive illustrated character from cover",
+    "search_term": "wonky donkey",
+    "needs_sourcing": true,
+    "source_note": "Named/distinctive illustrated character — source from Creative Fabrica, TPT, or Teachers Pay Teachers clip art matching Craig Smith book style"
+  },
+  "fringe_12": [
+    "Wonky Donkey",
+    "donkey",
+    "silly",
+    "song",
+    "sunglasses",
+    "hat",
+    "leg",
+    "hoof",
+    "tail",
+    "ear",
+    "funny",
+    "smell"
+  ],
+  "fringe_11": [
+    "donkey",
+    "silly",
+    "song",
+    "sunglasses",
+    "hat",
+    "leg",
+    "hoof",
+    "tail",
+    "ear",
+    "funny",
+    "smell"
+  ],
+  "activity_images": [
+    "donkey",
+    "silly",
+    "song",
+    "sunglasses",
+    "hat",
+    "leg"
+  ],
+  "aac_extras": [
+    "hoof",
+    "tail",
+    "ear",
+    "funny",
+    "smell"
+  ],
+  "ambiguous": [
+    {
+      "word": "smell",
+      "issue": "Could mean the action of sniffing or the noun of an odour/stink",
+      "preferred": "smell stinky",
+      "reason": "The donkey is described as a stinky donkey in the book — the unpleasant odour meaning is correct"
+    },
+    {
+      "word": "leg",
+      "issue": "Could map to a human leg or an animal leg image",
+      "preferred": "animal leg",
+      "reason": "The donkey has three legs — an animal limb image is more appropriate than a human leg"
+    }
+  ],
+  "character_images_needed": [
+    "Wonky Donkey"
+  ],
+  "icon_search_terms": {
+    "donkey": "donkey",
+    "silly": "silly",
+    "song": "song",
+    "sunglasses": "sunglasses",
+    "hat": "hat",
+    "leg": "leg",
+    "hoof": "hoof",
+    "tail": "tail",
+    "ear": "ear",
+    "funny": "funny",
+    "smell": "smell"
+  },
+  "notes": "The Wonky Donkey is a cumulative song-book where each page adds a new descriptor for the donkey (wonky, stinky, dinky, etc.). Core vocabulary like 'same', 'more', and 'different' on the fixed rows are especially useful here given the repetitive cumulative structure. The existing activity_images vocab (donkey, song, sunglasses, hat, leg, hoof, tail, ear, eye) and aac_extras (silly, funny, cool, groovy) cover most fringe needs well — only 'smell' is a new addition. 'eye' from existing images is relevant since the donkey has only one eye but was replaced in fringe by 'smell' as more communicatively functional. Consider adding 'eye' as an optional swap if students want to discuss the one-eye feature specifically.",
+  "characters": [
+    "wonky_donkey"
+  ],
+  "code": "WD1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

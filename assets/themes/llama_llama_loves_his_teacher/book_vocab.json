@@ -1,0 +1,82 @@
+{
+  "title": "Llama Llama Loves His Teacher",
+  "author": "Anna Dewdney",
+  "hero": {
+    "name": "Llama Llama",
+    "description": "Young red llama character wearing clothes, distinctive Anna Dewdney character",
+    "search_term": "llama llama",
+    "needs_sourcing": true,
+    "source_note": "Named character — source from Creative Fabrica or TPT clip art"
+  },
+  "fringe_12": [
+    "Llama Llama",
+    "teacher",
+    "school",
+    "classroom",
+    "friend",
+    "learn",
+    "book",
+    "happy",
+    "nervous",
+    "play",
+    "sing",
+    "lunch"
+  ],
+  "fringe_11": [
+    "teacher",
+    "school",
+    "classroom",
+    "friend",
+    "learn",
+    "book",
+    "happy",
+    "nervous",
+    "play",
+    "sing",
+    "lunch"
+  ],
+  "activity_images": [
+    "teacher",
+    "school",
+    "classroom",
+    "friend",
+    "learn",
+    "book"
+  ],
+  "aac_extras": [
+    "happy",
+    "nervous",
+    "play",
+    "sing",
+    "lunch"
+  ],
+  "ambiguous": [
+    {
+      "word": "book",
+      "issue": "Could mean a physical book object or the verb to book/reserve",
+      "preferred": "book reading",
+      "reason": "Story is set in a school classroom; book as a physical reading object is the correct meaning"
+    }
+  ],
+  "character_images_needed": [
+    "Llama Llama"
+  ],
+  "icon_search_terms": {
+    "teacher": "teacher",
+    "school": "school",
+    "classroom": "classroom",
+    "friend": "friend",
+    "learn": "learn",
+    "book": "book",
+    "happy": "happy",
+    "nervous": "nervous",
+    "play": "play",
+    "sing": "sing",
+    "lunch": "lunch"
+  },
+  "notes": "This book focuses on Llama Llama's first day or days with a new teacher, covering themes of school readiness, friendship, emotions like happiness and nervousness, and classroom activities such as singing, playing, reading, and eating lunch. The word 'nervous' may need checking in the Boardmaker library as it can sometimes appear as 'worried' or 'scared' — 'worried' is an acceptable substitute if 'nervous' is not available. 'Classroom' may also appear as 'class' in some libraries.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

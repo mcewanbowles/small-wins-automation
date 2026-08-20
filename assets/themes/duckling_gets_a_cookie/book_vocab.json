@@ -1,0 +1,92 @@
+{
+  "title": "The Duckling Gets a Cookie!?",
+  "author": "Mo Willems",
+  "hero": {
+    "name": "Pigeon",
+    "description": "Mo Willems' distinctive blue-grey pigeon character with large expressive eye, simple line-art style",
+    "search_term": "pigeon mo willems",
+    "needs_sourcing": true,
+    "source_note": "Named/distinctive character — source Mo Willems Pigeon clip art from Creative Fabrica, TPT, or official Mo Willems licensed resources"
+  },
+  "fringe_12": [
+    "Pigeon",
+    "duckling",
+    "cookie",
+    "please",
+    "ask",
+    "angry",
+    "cry",
+    "nuts",
+    "give",
+    "happy",
+    "fair",
+    "plate"
+  ],
+  "fringe_11": [
+    "duckling",
+    "cookie",
+    "please",
+    "ask",
+    "angry",
+    "cry",
+    "nuts",
+    "give",
+    "happy",
+    "fair",
+    "plate"
+  ],
+  "activity_images": [
+    "duckling",
+    "cookie",
+    "please",
+    "ask",
+    "angry",
+    "cry"
+  ],
+  "aac_extras": [
+    "nuts",
+    "give",
+    "happy",
+    "fair",
+    "plate"
+  ],
+  "ambiguous": [
+    {
+      "word": "fair",
+      "issue": "Could mean a fairground/carnival event (noun) or the concept of fairness (adjective)",
+      "preferred": "fair fairness",
+      "reason": "The book centres on Pigeon's outrage that Duckling got a cookie simply by asking politely — the fairness/equity concept is the correct meaning here"
+    },
+    {
+      "word": "nuts",
+      "issue": "Could mean the food item (nuts to eat) or an exclamation of frustration ('nuts!' as slang)",
+      "preferred": "nuts food",
+      "reason": "Pigeon requests a cookie with nuts on top — the food meaning is primary, though Pigeon's frustration is also part of the story context"
+    }
+  ],
+  "character_images_needed": [
+    "Pigeon",
+    "Duckling"
+  ],
+  "icon_search_terms": {
+    "duckling": "duckling",
+    "cookie": "cookie",
+    "please": "please",
+    "ask": "ask",
+    "angry": "angry",
+    "cry": "cry",
+    "nuts": "nuts",
+    "give": "give",
+    "happy": "happy",
+    "fair": "fair",
+    "plate": "plate"
+  },
+  "notes": "Both Pigeon AND Duckling are Mo Willems' named/distinctive characters with a specific line-art style — generic Boardmaker duck and bird icons will not match the book cover. Source both from the same Mo Willems clip art pack for visual consistency. The core vocabulary already includes 'yes', 'no', 'want', and 'don't like', which are heavily used in this book (Pigeon demanding, Duckling asking politely). 'Please' is listed in aac_extras and is thematically central — Duckling gets the cookie precisely because they say please. 'Fair' may need a custom or abstract image (e.g. a balance scale or two equal items); flag for teacher review. 'Cry' and 'angry' capture Pigeon's emotional arc. 'Give' covers the key action of handing over the cookie. The existing activity_images already include duckling, cookie, pigeon, plate, crumbs, chocolate chip, jar, bowl — these can be reused on the board and in companion activities.",
+  "characters": [
+    "duckling",
+    "pigeon"
+  ],
+  "code": "DGC1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

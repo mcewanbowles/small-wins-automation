@@ -1,0 +1,88 @@
+{
+  "title": "Wilma Jean the Worry Machine",
+  "author": "Julia Cook",
+  "hero": {
+    "name": "Wilma Jean",
+    "description": "Young girl with red hair and braids, wearing a backpack, depicted as a worry machine with gears and gadgets",
+    "search_term": "wilma jean worry",
+    "needs_sourcing": true,
+    "source_note": "Named character — source from Creative Fabrica or TPT clip art; Julia Cook character"
+  },
+  "fringe_12": [
+    "Wilma Jean",
+    "worry",
+    "scared",
+    "stomach",
+    "breathe",
+    "calm",
+    "friend",
+    "school",
+    "machine",
+    "brain",
+    "better",
+    "try"
+  ],
+  "fringe_11": [
+    "worry",
+    "scared",
+    "stomach",
+    "breathe",
+    "calm",
+    "friend",
+    "school",
+    "machine",
+    "brain",
+    "better",
+    "try"
+  ],
+  "activity_images": [
+    "worry",
+    "scared",
+    "stomach",
+    "breathe",
+    "calm",
+    "friend"
+  ],
+  "aac_extras": [
+    "school",
+    "machine",
+    "brain",
+    "better",
+    "try"
+  ],
+  "ambiguous": [
+    {
+      "word": "stomach",
+      "issue": "Could refer to the organ/body part or a stomachache feeling",
+      "preferred": "stomach",
+      "reason": "In this book, stomach refers to the physical feeling of worry in the stomach (butterflies/knots); body part image is correct"
+    },
+    {
+      "word": "machine",
+      "issue": "Could be any generic machine or a specific gear/robot machine",
+      "preferred": "machine gear",
+      "reason": "Book uses a machine metaphor with gears and knobs to represent the worry machine; gear-based machine image is most relevant"
+    }
+  ],
+  "character_images_needed": [
+    "Wilma Jean"
+  ],
+  "icon_search_terms": {
+    "worry": "worried",
+    "scared": "afraid",
+    "stomach": "stomach",
+    "breathe": "breathe",
+    "calm": "calm",
+    "friend": "friend",
+    "school": "school",
+    "machine": "machine",
+    "brain": "brain",
+    "better": "better",
+    "try": "try"
+  },
+  "notes": "This book by Julia Cook addresses anxiety and worry in children. Key vocabulary centres on emotions (worry, scared, calm), body sensations (stomach, breathe), and the central metaphor of a 'worry machine' (machine, brain). The existing activity_images already include machine, school, stomach, and backpack which can be reused. 'Better' and 'try' are important as the book ends with coping strategies and reassurance. 'Breathe' is a core coping skill modelled in the book and highly useful for AAC users to communicate during anxious moments.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

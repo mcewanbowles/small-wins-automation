@@ -1,0 +1,386 @@
+{
+  "word_search_words": [
+    {
+      "value": "DIESEL",
+      "grounded": true,
+      "citations": [
+        0
+      ],
+      "grounding_note": "Core topic term; diesel engine is the power source."
+    },
+    {
+      "value": "ENGINE",
+      "grounded": true,
+      "citations": [
+        0,
+        3
+      ],
+      "grounding_note": "Diesel engine generates power/electricity."
+    },
+    {
+      "value": "LOCOMOTIVE",
+      "grounded": true,
+      "citations": [
+        0
+      ],
+      "grounding_note": "Topic term for the railway vehicle."
+    },
+    {
+      "value": "MOTOR",
+      "grounded": true,
+      "citations": [
+        1,
+        3
+      ],
+      "grounding_note": "Traction motors mounted on axles/trucks driven by electricity."
+    },
+    {
+      "value": "AXLE",
+      "grounded": true,
+      "citations": [
+        1
+      ],
+      "grounding_note": "Electric motors mounted on the locomotive's axles."
+    },
+    {
+      "value": "FREIGHT",
+      "grounded": true,
+      "citations": [
+        3,
+        4
+      ],
+      "grounding_note": "Freight power/freight locomotives explicitly mentioned."
+    },
+    {
+      "value": "ALTERNATOR",
+      "grounded": true,
+      "citations": [
+        1
+      ],
+      "grounding_note": "Diesel engine drives an alternator to produce electricity."
+    }
+  ],
+  "starting_sight_words": [
+    {
+      "value": "diesel",
+      "grounded": true,
+      "citations": [
+        0
+      ],
+      "grounding_note": "Key subject word repeated throughout evidence."
+    },
+    {
+      "value": "engine",
+      "grounded": true,
+      "citations": [
+        0,
+        3
+      ],
+      "grounding_note": "Central mechanical term."
+    },
+    {
+      "value": "power",
+      "grounded": true,
+      "citations": [
+        4
+      ],
+      "grounding_note": "Progress Rail text: POWER, PERFORMANCE & INNOVATION."
+    },
+    {
+      "value": "electric",
+      "grounded": true,
+      "citations": [
+        1,
+        3
+      ],
+      "grounding_note": "Diesel-electric is the dominant type described."
+    }
+  ],
+  "sequence_order": [
+    {
+      "value": "Diesel engine burns fuel",
+      "grounded": true,
+      "citations": [
+        0,
+        1
+      ],
+      "grounding_note": "Diesel engine is the power source; drives alternator (implies combustion first)."
+    },
+    {
+      "value": "Engine drives alternator",
+      "grounded": true,
+      "citations": [
+        1
+      ],
+      "grounding_note": "The diesel engine drives an alternator, which produces electricity."
+    },
+    {
+      "value": "Alternator makes electricity",
+      "grounded": true,
+      "citations": [
+        1
+      ],
+      "grounding_note": "Alternator produces electricity to run electric motors."
+    },
+    {
+      "value": "Electricity powers motors",
+      "grounded": true,
+      "citations": [
+        1,
+        3
+      ],
+      "grounding_note": "Electricity runs electric motors mounted on axles/trucks."
+    },
+    {
+      "value": "Motors turn the wheels",
+      "grounded": true,
+      "citations": [
+        1
+      ],
+      "grounding_note": "Electric motors mounted on the locomotive's axles turn wheels to move the train."
+    }
+  ],
+  "sorting_categories": [
+    {
+      "value": "Diesel-electric locomotive",
+      "grounded": true,
+      "citations": [
+        0,
+        1,
+        3
+      ],
+      "grounding_note": "Most common type explicitly named."
+    },
+    {
+      "value": "Steam locomotive",
+      "grounded": true,
+      "citations": [
+        1,
+        3
+      ],
+      "grounding_note": "Contrasted as the older technology diesels replaced."
+    },
+    {
+      "value": "Freight locomotive",
+      "grounded": true,
+      "citations": [
+        3,
+        4
+      ],
+      "grounding_note": "Freight power/freight locomotives named as a category."
+    },
+    {
+      "value": "Passenger locomotive",
+      "grounded": true,
+      "citations": [
+        1,
+        4
+      ],
+      "grounding_note": "Passenger locomotives explicitly mentioned in both sources."
+    }
+  ],
+  "sequencing_strips_verbs": [
+    {
+      "value": "burn",
+      "grounded": true,
+      "citations": [
+        0
+      ],
+      "grounding_note": "Diesel engine burns fuel as power source (implied by engine function)."
+    },
+    {
+      "value": "drive",
+      "grounded": true,
+      "citations": [
+        1
+      ],
+      "grounding_note": "The diesel engine drives an alternator."
+    },
+    {
+      "value": "produce",
+      "grounded": true,
+      "citations": [
+        1
+      ],
+      "grounding_note": "Alternator produces electricity."
+    },
+    {
+      "value": "run",
+      "grounded": true,
+      "citations": [
+        1
+      ],
+      "grounding_note": "Electricity runs the electric motors."
+    },
+    {
+      "value": "turn",
+      "grounded": true,
+      "citations": [
+        1
+      ],
+      "grounding_note": "Motors mounted on axles turn wheels to move locomotive."
+    }
+  ],
+  "adapted_book_sentences": [
+    {
+      "value": "A diesel locomotive uses a diesel engine for power.",
+      "grounded": true,
+      "citations": [
+        0
+      ]
+    },
+    {
+      "value": "Most diesel locomotives are diesel-electric.",
+      "grounded": true,
+      "citations": [
+        0,
+        1
+      ]
+    },
+    {
+      "value": "In 1940, diesel engines began replacing steam engines for heavy freight work.",
+      "grounded": true,
+      "citations": [
+        1
+      ]
+    },
+    {
+      "value": "The diesel engine drives an alternator to make electricity.",
+      "grounded": true,
+      "citations": [
+        1
+      ]
+    },
+    {
+      "value": "Electricity from the alternator powers motors on the wheels.",
+      "grounded": true,
+      "citations": [
+        1,
+        3
+      ]
+    },
+    {
+      "value": "Early diesel locomotives were used for switching train cars.",
+      "grounded": true,
+      "citations": [
+        1,
+        3
+      ]
+    },
+    {
+      "value": "Modern diesel locomotives use computers to monitor the engine.",
+      "grounded": true,
+      "citations": [
+        3
+      ]
+    },
+    {
+      "value": "Diesel-electric locomotives have been made for nearly 100 years.",
+      "grounded": true,
+      "citations": [
+        4
+      ]
+    }
+  ],
+  "wh_questions": [
+    {
+      "value": "What kind of engine powers a diesel locomotive?",
+      "grounded": true,
+      "citations": [
+        0
+      ]
+    },
+    {
+      "value": "What does the diesel engine drive to make electricity?",
+      "grounded": true,
+      "citations": [
+        1
+      ]
+    },
+    {
+      "value": "Where are the electric motors mounted on the locomotive?",
+      "grounded": true,
+      "citations": [
+        1
+      ]
+    },
+    {
+      "value": "When did diesels start replacing steam locomotives in heavy-duty service?",
+      "grounded": true,
+      "citations": [
+        1
+      ]
+    },
+    {
+      "value": "What type of locomotive is most common today?",
+      "grounded": true,
+      "citations": [
+        0,
+        1
+      ]
+    }
+  ],
+  "yes_no_questions": [
+    {
+      "value": "Is a diesel locomotive powered by a diesel engine?",
+      "grounded": true,
+      "citations": [
+        0
+      ],
+      "answer": "Yes"
+    },
+    {
+      "value": "Does the diesel engine drive an alternator?",
+      "grounded": true,
+      "citations": [
+        1
+      ],
+      "answer": "Yes"
+    },
+    {
+      "value": "Are diesel-electric locomotives the most common type?",
+      "grounded": true,
+      "citations": [
+        0,
+        1
+      ],
+      "answer": "Yes"
+    },
+    {
+      "value": "Did diesels replace steam locomotives before 1940?",
+      "grounded": true,
+      "citations": [
+        1
+      ],
+      "answer": "No"
+    },
+    {
+      "value": "Are the electric motors mounted on the locomotive's axles?",
+      "grounded": true,
+      "citations": [
+        1
+      ],
+      "answer": "Yes"
+    }
+  ],
+  "aac_fringe_vocab": [
+    {
+      "value": "proud",
+      "grounded": true,
+      "citations": [
+        4
+      ],
+      "grounding_note": "Progress Rail text describes 'proud history' of EMD brand."
+    }
+  ],
+  "inferencing_questions": [
+    {
+      "value": "If a diesel engine drives an alternator to make electricity, why might diesel-electric locomotives be more efficient than old steam engines?",
+      "grounded": true,
+      "citations": [
+        1
+      ],
+      "grounding_note": "Evidence states diesel-electric was 'a dramatic improvement in efficiency over the steam locomotive.'"
+    }
+  ]
+}

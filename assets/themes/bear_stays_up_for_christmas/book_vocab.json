@@ -1,0 +1,80 @@
+{
+  "title": "Bear Stays Up For Christmas",
+  "author": "Karma Wilson",
+  "hero": {
+    "name": "Bear (Bear Stays Up For Christmas)",
+    "description": "Large brown bear, the central character from Karma Wilson's Bear series, recognisable from book cover art",
+    "search_term": "bear",
+    "needs_sourcing": false,
+    "source_note": "Generic brown bear — Boardmaker 'bear' symbol should suffice; if series-specific art is preferred, source from TPT or Creative Fabrica under 'Karma Wilson Bear'"
+  },
+  "fringe_12": [
+    "BEAR",
+    "sleep",
+    "awake",
+    "friends",
+    "Christmas",
+    "gift",
+    "snow",
+    "cookies",
+    "sing",
+    "cave",
+    "surprise",
+    "happy"
+  ],
+  "fringe_11": [
+    "sleep",
+    "awake",
+    "friends",
+    "Christmas",
+    "gift",
+    "snow",
+    "cookies",
+    "sing",
+    "cave",
+    "surprise",
+    "happy"
+  ],
+  "activity_images": [
+    "sleep",
+    "awake",
+    "friends",
+    "Christmas",
+    "gift",
+    "snow"
+  ],
+  "aac_extras": [
+    "cookies",
+    "sing",
+    "cave",
+    "surprise",
+    "happy"
+  ],
+  "ambiguous": [
+    {
+      "word": "sleep",
+      "issue": "Could map to 'sleep' as action/verb or to hibernation — both relevant to bears",
+      "preferred": "sleep",
+      "reason": "The core tension of the book is Bear staying awake instead of sleeping/hibernating; standard 'sleep' symbol is correct"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "sleep": "sleep",
+    "awake": "awake",
+    "friends": "friends",
+    "Christmas": "christmas",
+    "gift": "gift",
+    "snow": "snow",
+    "cookies": "cookies",
+    "sing": "sing",
+    "cave": "cave",
+    "surprise": "surprise",
+    "happy": "happy"
+  },
+  "notes": "Bear Stays Up For Christmas by Karma Wilson features Bear's woodland friends keeping him awake through Christmas so he can celebrate with them. Key themes are staying awake vs sleeping (hibernation), friendship, Christmas traditions (gifts, cookies, singing), and the surprise of waking up to find gifts. The word 'awake' is already in the Boardmaker library ('awake', 'awake 1', 'awake e' all confirmed in the symbol list). 'Sleep' contrasts with 'awake' and is central to the plot. 'Cave' represents Bear's den/hibernation space. If a series-consistent Bear image is desired for classroom recognition, Karma Wilson Bear clip art is widely available on TPT.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

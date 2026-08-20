@@ -1,0 +1,84 @@
+{
+  "title": "Little Blue Truck",
+  "author": "Alice Schertle",
+  "hero": {
+    "name": "Little Blue Truck",
+    "description": "Small cheerful blue pickup truck with a friendly face, as illustrated by Jill McElmurry",
+    "search_term": "little blue truck",
+    "needs_sourcing": true,
+    "source_note": "Named/distinctive character with face — generic Boardmaker truck won't match; source from Creative Fabrica, TPT, or Teachers Pay Teachers clip art"
+  },
+  "fringe_12": [
+    "Little Blue Truck",
+    "truck",
+    "beep",
+    "mud",
+    "stuck",
+    "push",
+    "cow",
+    "duck",
+    "pig",
+    "goat",
+    "sheep",
+    "barn"
+  ],
+  "fringe_11": [
+    "truck",
+    "beep",
+    "mud",
+    "stuck",
+    "push",
+    "cow",
+    "duck",
+    "pig",
+    "goat",
+    "sheep",
+    "barn"
+  ],
+  "activity_images": [
+    "truck",
+    "beep",
+    "mud",
+    "stuck",
+    "push",
+    "cow"
+  ],
+  "aac_extras": [
+    "duck",
+    "pig",
+    "goat",
+    "sheep",
+    "barn"
+  ],
+  "ambiguous": [
+    {
+      "word": "duck",
+      "issue": "Could mean the bird (noun) or to duck/dodge (verb)",
+      "preferred": "duck bird",
+      "reason": "In this book duck is a farm animal character who helps push the truck"
+    }
+  ],
+  "character_images_needed": [
+    "Little Blue Truck"
+  ],
+  "icon_search_terms": {
+    "truck": "truck",
+    "beep": "beep",
+    "mud": "mud",
+    "stuck": "stuck",
+    "push": "push",
+    "cow": "cow",
+    "duck": "duck",
+    "pig": "pig",
+    "goat": "goat",
+    "sheep": "sheep",
+    "barn": "barn"
+  },
+  "notes": "All 11 fringe words exist in either activity_images/ or aac_extras already (truck, cow, goat, duck, sheep, pig, mud, fence, barn from activity_images; beep, help, stuck, push from aac_extras) — no new icon sourcing needed beyond the hero image. 'fence' and 'toad' from existing activity_images were deprioritised in favour of the most-used farm animals and core action words (beep, stuck, push) which are central to the story's repeated refrain. 'toad' could be swapped in for 'goat' or 'sheep' if the teacher prefers to highlight that character.",
+  "characters": [
+    "little_blue_truck"
+  ],
+  "code": "LBT1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

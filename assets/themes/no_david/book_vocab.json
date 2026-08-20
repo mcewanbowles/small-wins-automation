@@ -1,0 +1,90 @@
+{
+  "title": "No, David!",
+  "author": "David Shannon",
+  "hero": {
+    "name": "David",
+    "description": "Mischievous boy with round head, big teeth, and spiky hair — distinctive David Shannon illustration style",
+    "search_term": "david shannon no david",
+    "needs_sourcing": true,
+    "source_note": "Named/distinctive character — source from Creative Fabrica or TPT clip art matching David Shannon's art style"
+  },
+  "fringe_12": [
+    "David",
+    "naughty",
+    "naked",
+    "dirty",
+    "mud",
+    "food",
+    "toys",
+    "trouble",
+    "crying",
+    "sorry",
+    "mother",
+    "rules"
+  ],
+  "fringe_11": [
+    "naughty",
+    "naked",
+    "dirty",
+    "mud",
+    "food",
+    "toys",
+    "trouble",
+    "crying",
+    "sorry",
+    "mother",
+    "rules"
+  ],
+  "activity_images": [
+    "naughty",
+    "naked",
+    "dirty",
+    "mud",
+    "food",
+    "toys"
+  ],
+  "aac_extras": [
+    "trouble",
+    "crying",
+    "sorry",
+    "mother",
+    "rules"
+  ],
+  "ambiguous": [
+    {
+      "word": "dirty",
+      "issue": "Could mean morally wrong or physically unclean",
+      "preferred": "dirty unclean",
+      "reason": "David is depicted covered in mud and mess — physical dirtiness is the correct meaning"
+    },
+    {
+      "word": "crying",
+      "issue": "Could map to tears/sad face or a general emotion symbol",
+      "preferred": "crying sad tears",
+      "reason": "David cries after being sent to time out — literal depiction of tears is correct"
+    }
+  ],
+  "character_images_needed": [
+    "David (David Shannon)"
+  ],
+  "icon_search_terms": {
+    "naughty": "naughty bad behavior",
+    "naked": "naked undressed",
+    "dirty": "dirty messy",
+    "mud": "mud",
+    "food": "food",
+    "toys": "toys",
+    "trouble": "trouble",
+    "crying": "crying",
+    "sorry": "sorry",
+    "mother": "mother mom",
+    "rules": "rules"
+  },
+  "notes": "This book relies heavily on the existing aac_extras (no, stop, come back, sit down, be quiet, loved) and activity_images (david, bathtub, cookie jar, street, school, time out, hug, ball). The fringe_11 chosen here prioritises emotional and behavioural vocabulary central to the story arc: misbehaviour, consequences, and reconciliation. 'Naked' is explicitly depicted in the book and is an important, picturable concept. 'Rules' supports classroom discussion about behaviour expectations. Avoid duplicating 'no' (already in core Row 1) and 'time out', 'hug', 'school' (already in activity_images). The board pairs powerfully with the fixed core 'don't like' and 'uh oh' for student responses during read-aloud.",
+  "characters": [
+    "david"
+  ],
+  "code": "ND1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

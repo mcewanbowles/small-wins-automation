@@ -1,0 +1,82 @@
+{
+  "title": "The Snowman",
+  "author": "Raymond Briggs",
+  "hero": {
+    "name": "The Snowman",
+    "description": "Classic white snowman with scarf, hat, and carrot nose from Raymond Briggs' wordless picture book",
+    "search_term": "snowman",
+    "needs_sourcing": false,
+    "source_note": "Generic snowman icon in Boardmaker should be adequate; verify it resembles the Briggs character closely enough"
+  },
+  "fringe_12": [
+    "snowman",
+    "boy",
+    "snow",
+    "cold",
+    "fly",
+    "night",
+    "melt",
+    "scarf",
+    "hat",
+    "house",
+    "happy",
+    "sad"
+  ],
+  "fringe_11": [
+    "boy",
+    "snow",
+    "cold",
+    "fly",
+    "night",
+    "melt",
+    "scarf",
+    "hat",
+    "house",
+    "happy",
+    "sad"
+  ],
+  "activity_images": [
+    "boy",
+    "snow",
+    "cold",
+    "fly",
+    "night",
+    "melt"
+  ],
+  "aac_extras": [
+    "scarf",
+    "hat",
+    "house",
+    "happy",
+    "sad"
+  ],
+  "ambiguous": [
+    {
+      "word": "fly",
+      "issue": "Could mean insect (noun) or the action of flying through the air (verb)",
+      "preferred": "fly action",
+      "reason": "Central magical scene in the book is the boy and snowman flying together through the night sky — verb meaning is correct"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "boy": "boy",
+    "snow": "snow",
+    "cold": "cold",
+    "fly": "fly flying",
+    "night": "night",
+    "melt": "melt",
+    "scarf": "scarf",
+    "hat": "hat",
+    "house": "house",
+    "happy": "happy",
+    "sad": "sad"
+  },
+  "notes": "The Snowman is a wordless picture book, making it especially well-suited for AAC use — students can narrate the story entirely through their board. The flying scene is the emotional and narrative centrepiece and 'fly' is critical fringe vocabulary. 'Melt' and 'sad' together support discussion of the ending, which can be emotionally significant for students. Words like 'carrot nose', 'button', 'coat', and 'tree' were in existing activity_images but were deprioritised in favour of higher-utility emotional and action words given only 11 fringe slots. Consider adding a second board or extension vocabulary for the extended classroom activity set using those existing images.",
+  "characters": [
+    "snowman"
+  ],
+  "code": "TSM1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

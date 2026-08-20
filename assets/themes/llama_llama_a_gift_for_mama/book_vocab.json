@@ -1,0 +1,82 @@
+{
+  "title": "Llama Llama A Gift For Mama",
+  "author": "Anna Dewdney",
+  "hero": {
+    "name": "Llama Llama",
+    "description": "Young llama character with large expressive eyes, Anna Dewdney's distinctive style — red and cream coloured llama",
+    "search_term": "llama llama",
+    "needs_sourcing": true,
+    "source_note": "Named character — source from Creative Fabrica or TPT clip art; Anna Dewdney licensed character"
+  },
+  "fringe_12": [
+    "Llama Llama",
+    "mama",
+    "gift",
+    "love",
+    "hug",
+    "happy",
+    "make",
+    "heart",
+    "flower",
+    "special",
+    "card",
+    "give"
+  ],
+  "fringe_11": [
+    "mama",
+    "gift",
+    "love",
+    "hug",
+    "happy",
+    "make",
+    "heart",
+    "flower",
+    "special",
+    "card",
+    "give"
+  ],
+  "activity_images": [
+    "mama",
+    "gift",
+    "love",
+    "hug",
+    "happy",
+    "make"
+  ],
+  "aac_extras": [
+    "heart",
+    "flower",
+    "special",
+    "card",
+    "give"
+  ],
+  "ambiguous": [
+    {
+      "word": "love",
+      "issue": "Could be depicted as an action verb (hugging) or a noun/symbol (heart icon)",
+      "preferred": "love",
+      "reason": "In this book love is a central emotional theme — use heart-based love symbol rather than a hugging action"
+    }
+  ],
+  "character_images_needed": [
+    "Llama Llama"
+  ],
+  "icon_search_terms": {
+    "mama": "mom",
+    "gift": "gift",
+    "love": "love",
+    "hug": "hug",
+    "happy": "happy",
+    "make": "make",
+    "heart": "heart",
+    "flower": "flower",
+    "special": "special",
+    "card": "card",
+    "give": "give"
+  },
+  "notes": "This book focuses on Mother's Day or gift-giving themes where Llama Llama makes a heartfelt gift for his mama. Core vocabulary like 'give', 'make', 'happy', and 'love' are highly functional beyond just this book. 'Special' and 'card' are concrete enough for Boardmaker. 'Flower' and 'heart' are likely decorative elements in the gift Llama makes. If the classroom celebration context is Mother's Day, the board pairs well with craft activities where students can use 'make', 'give', and 'card' functionally.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

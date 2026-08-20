@@ -1,0 +1,88 @@
+{
+  "title": "Dinosaurs Love Underpants",
+  "author": "Claire Freedman",
+  "hero": {
+    "name": "T-Rex (Dinosaurs Love Underpants)",
+    "description": "Cartoon T-Rex wearing colourful underpants, as depicted on the book cover",
+    "search_term": "t-rex dinosaur underpants",
+    "needs_sourcing": true,
+    "source_note": "Book-specific cartoon dinosaur in underpants — source from Creative Fabrica or TPT clip art matching Claire Freedman illustration style"
+  },
+  "fringe_12": [
+    "T-Rex (Dinosaurs Love Underpants)",
+    "dinosaur",
+    "underpants",
+    "caveman",
+    "fight",
+    "striped",
+    "spotted",
+    "big",
+    "small",
+    "roar",
+    "laugh",
+    "clothesline"
+  ],
+  "fringe_11": [
+    "dinosaur",
+    "underpants",
+    "caveman",
+    "fight",
+    "striped",
+    "spotted",
+    "big",
+    "small",
+    "roar",
+    "laugh",
+    "clothesline"
+  ],
+  "activity_images": [
+    "dinosaur",
+    "underpants",
+    "caveman",
+    "fight",
+    "striped",
+    "spotted"
+  ],
+  "aac_extras": [
+    "big",
+    "small",
+    "roar",
+    "laugh",
+    "clothesline"
+  ],
+  "ambiguous": [
+    {
+      "word": "fight",
+      "issue": "Could map to a physical fight image or a conflict/argument symbol",
+      "preferred": "fight dinosaurs",
+      "reason": "Dinosaurs fight over underpants in the story — a physical dinosaur fight image is most relevant"
+    },
+    {
+      "word": "spotted",
+      "issue": "Could mean the pattern (polka dots / spots) or the verb 'to spot / see'",
+      "preferred": "spotted pattern",
+      "reason": "Book features spotted underpants as a key visual — the adjective describing a dot pattern is the correct meaning"
+    }
+  ],
+  "character_images_needed": [
+    "T-Rex (Dinosaurs Love Underpants)"
+  ],
+  "icon_search_terms": {
+    "dinosaur": "dinosaur",
+    "underpants": "underpants",
+    "caveman": "caveman",
+    "fight": "fight",
+    "striped": "striped",
+    "spotted": "spotted",
+    "big": "big",
+    "small": "small",
+    "roar": "roar",
+    "laugh": "laugh",
+    "clothesline": "clothesline"
+  },
+  "notes": "Several key vocab items (dinosaur, underpants, t-rex, stegosaurus, triceratops, brontosaurus, striped underpants, polka dot underpants, cave, clothesline, laugh, roar, big, small) already exist in activity_images or aac_extras — reuse these assets. 'Spotted' is chosen over 'polka dot' as a more transferable descriptive word, but 'polka dot underpants' from existing assets could substitute. 'Caveman' is a central character type driving the plot (cavemen invented underpants). 'Fight' captures the core conflict of dinosaurs battling over underpants. The hero slot should use a book-cover-style T-Rex-in-underpants image to maximise recognition.",
+  "characters": [],
+  "code": "DLU1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

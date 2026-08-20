@@ -1,0 +1,88 @@
+{
+  "title": "I Love My New Toy",
+  "author": "Unknown",
+  "hero": {
+    "name": "Piggie and Gerald",
+    "description": "Piggie (pink pig) and Gerald (grey elephant) — main characters from Mo Willems' Elephant and Piggie series",
+    "search_term": "piggie gerald elephant pig",
+    "needs_sourcing": true,
+    "source_note": "Named Mo Willems characters — source from Creative Fabrica, TPT, or Mo Willems licensed clip art"
+  },
+  "fringe_12": [
+    "Piggie and Gerald",
+    "toy",
+    "friend",
+    "play",
+    "broken",
+    "cry",
+    "happy",
+    "fix",
+    "throw",
+    "new",
+    "sorry",
+    "laugh"
+  ],
+  "fringe_11": [
+    "toy",
+    "friend",
+    "play",
+    "broken",
+    "cry",
+    "happy",
+    "fix",
+    "throw",
+    "new",
+    "sorry",
+    "laugh"
+  ],
+  "activity_images": [
+    "toy",
+    "friend",
+    "play",
+    "broken",
+    "cry",
+    "happy"
+  ],
+  "aac_extras": [
+    "fix",
+    "throw",
+    "new",
+    "sorry",
+    "laugh"
+  ],
+  "ambiguous": [
+    {
+      "word": "throw",
+      "issue": "Could mean throwing an object (action) or throwing away (discarding)",
+      "preferred": "throw",
+      "reason": "In this book Piggie throws the toy by accident during play — the physical throwing action is correct"
+    },
+    {
+      "word": "fix",
+      "issue": "Could mean repair an object or fix a problem abstractly",
+      "preferred": "fix",
+      "reason": "In this book Gerald attempts to repair the broken toy — physical repair meaning is correct"
+    }
+  ],
+  "character_images_needed": [
+    "Piggie and Gerald"
+  ],
+  "icon_search_terms": {
+    "toy": "toy",
+    "friend": "friend",
+    "play": "play",
+    "broken": "broken",
+    "cry": "cry",
+    "happy": "happy",
+    "fix": "fix",
+    "throw": "throw",
+    "new": "new",
+    "sorry": "sorry",
+    "laugh": "laugh"
+  },
+  "notes": "This is an Elephant and Piggie book by Mo Willems. The story centres on Piggie sharing a new toy with Gerald, the toy breaking accidentally during play, Gerald feeling upset, Piggie apologising, and the friends making up and laughing together. Core themes are friendship, sharing, accidents, emotions (sadness, happiness), and repair. The hero image should show both Piggie and Gerald together as they are inseparable co-protagonists on the cover. 'Broken' and 'sorry' are particularly high-value fringe words for AAC users in this social-emotional context.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

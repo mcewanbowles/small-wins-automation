@@ -1,0 +1,86 @@
+{
+  "title": "National Geographic Human Body",
+  "author": "Unknown",
+  "hero": {
+    "name": "Human Body diagram",
+    "description": "Cross-section or outline diagram of a human body as seen on National Geographic covers — generic anatomical illustration",
+    "search_term": "body human",
+    "needs_sourcing": false,
+    "source_note": "Generic human body outline — Boardmaker 'body human' or 'person outline' should suffice"
+  },
+  "fringe_12": [
+    "Human Body diagram",
+    "brain",
+    "heart",
+    "bones",
+    "muscles",
+    "blood",
+    "lungs",
+    "skin",
+    "eyes",
+    "stomach",
+    "grow",
+    "strong"
+  ],
+  "fringe_11": [
+    "brain",
+    "heart",
+    "bones",
+    "muscles",
+    "blood",
+    "lungs",
+    "skin",
+    "eyes",
+    "stomach",
+    "grow",
+    "strong"
+  ],
+  "activity_images": [
+    "brain",
+    "heart",
+    "bones",
+    "muscles",
+    "blood",
+    "lungs"
+  ],
+  "aac_extras": [
+    "skin",
+    "eyes",
+    "stomach",
+    "grow",
+    "strong"
+  ],
+  "ambiguous": [
+    {
+      "word": "heart",
+      "issue": "Could mean the anatomical organ or the emotion/love symbol",
+      "preferred": "heart organ",
+      "reason": "This is a science/anatomy book; the biological heart organ is the correct meaning"
+    },
+    {
+      "word": "grow",
+      "issue": "Could mean a plant growing or a person/body growing taller",
+      "preferred": "grow body",
+      "reason": "In this book grow refers to human body development and growth"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "brain": "brain",
+    "heart": "heart organ",
+    "bones": "bone skeleton",
+    "muscles": "muscle arm",
+    "blood": "blood",
+    "lungs": "lungs",
+    "skin": "skin",
+    "eyes": "eye",
+    "stomach": "stomach",
+    "grow": "grow",
+    "strong": "strong"
+  },
+  "notes": "This is a non-fiction National Geographic reader about the human body. Fringe vocabulary focuses on key body systems and organs that students will encounter throughout the book. 'Strong' serves as a useful descriptive/feeling word tied to muscles and body concepts. All selected words are highly picturable in standard Boardmaker symbol libraries. The hero slot uses a generic human body outline which Boardmaker covers adequately — no custom sourcing needed. Teachers may wish to supplement with actual photos from the book if students respond better to realistic images than symbols for anatomy content.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

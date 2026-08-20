@@ -1,0 +1,92 @@
+{
+  "title": "From Head to Toe",
+  "author": "Eric Carle",
+  "hero": {
+    "name": "From Head to Toe penguin",
+    "description": "The opening penguin character from the Eric Carle book cover, in Eric Carle's distinctive collage art style",
+    "search_term": "penguin",
+    "needs_sourcing": false,
+    "source_note": "Generic penguin from Boardmaker library is acceptable; Eric Carle style not required for AAC function"
+  },
+  "fringe_12": [
+    "From Head to Toe penguin",
+    "body",
+    "head",
+    "arms",
+    "legs",
+    "clap",
+    "stomp",
+    "wiggle",
+    "bend",
+    "turn",
+    "raise",
+    "can"
+  ],
+  "fringe_11": [
+    "body",
+    "head",
+    "arms",
+    "legs",
+    "clap",
+    "stomp",
+    "wiggle",
+    "bend",
+    "turn",
+    "raise",
+    "can"
+  ],
+  "activity_images": [
+    "body",
+    "head",
+    "arms",
+    "legs",
+    "clap",
+    "stomp"
+  ],
+  "aac_extras": [
+    "wiggle",
+    "bend",
+    "turn",
+    "raise",
+    "can"
+  ],
+  "ambiguous": [
+    {
+      "word": "arms",
+      "issue": "Could mean body part (arms) or weapons",
+      "preferred": "arms body part",
+      "reason": "Book is about body movements; arms refers to the limb"
+    },
+    {
+      "word": "turn",
+      "issue": "Could mean rotate body (action in book) or take a turn (game concept)",
+      "preferred": "turn body",
+      "reason": "Book uses 'turn' as a physical movement of the body or neck"
+    },
+    {
+      "word": "bend",
+      "issue": "Could mean bend a body part (action) or a curve in a road",
+      "preferred": "bend action",
+      "reason": "Book uses 'bend' as a physical movement — bending neck, knees, etc."
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "body": "body",
+    "head": "head",
+    "arms": "arm",
+    "legs": "leg",
+    "clap": "clap",
+    "stomp": "stomp",
+    "wiggle": "wiggle",
+    "bend": "bend",
+    "turn": "turn",
+    "raise": "raise",
+    "can": "can do"
+  },
+  "notes": "From Head to Toe is a participatory book where Eric Carle's animals demonstrate body movements and ask 'Can you do it?' The child responds 'I can do it!' Core vocabulary already includes 'I' and the fringe word 'can' supports the key repeating phrase. The 10 animals in the book (penguin, giraffe, buffalo, monkey, seal, gorilla, parrot, camel, donkey, elephant) are already present in activity_images so no new animal icons are needed. The fringe focuses on the body parts and movement verbs that are the real communicative content. 'clap', 'stomp', 'wiggle', 'bend', 'raise', and 'turn' are already in aac_extras so those PNGs exist. 'body', 'head', 'arms', 'legs', and 'can' will need to be sourced from the Boardmaker library.",
+  "characters": [],
+  "code": "FHT1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

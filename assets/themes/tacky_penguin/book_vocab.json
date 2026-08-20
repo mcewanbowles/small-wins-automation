@@ -1,0 +1,90 @@
+{
+  "title": "Tacky the Penguin",
+  "author": "Helen Lester",
+  "hero": {
+    "name": "Tacky the Penguin",
+    "description": "Odd-bird-out penguin wearing a loud striped shirt and bow tie, distinctive character from cover",
+    "search_term": "tacky penguin",
+    "needs_sourcing": true,
+    "source_note": "Named distinctive character — source from Creative Fabrica or TPT clip art; must show Tacky in his recognisable colourful shirt"
+  },
+  "fringe_12": [
+    "Tacky the Penguin",
+    "penguin",
+    "friends",
+    "hunter",
+    "fish",
+    "ice",
+    "march",
+    "sing",
+    "splash",
+    "loud",
+    "scared",
+    "brave"
+  ],
+  "fringe_11": [
+    "penguin",
+    "friends",
+    "hunter",
+    "fish",
+    "ice",
+    "march",
+    "sing",
+    "splash",
+    "loud",
+    "scared",
+    "brave"
+  ],
+  "activity_images": [
+    "penguin",
+    "friends",
+    "hunter",
+    "fish",
+    "ice",
+    "march"
+  ],
+  "aac_extras": [
+    "sing",
+    "splash",
+    "loud",
+    "scared",
+    "brave"
+  ],
+  "ambiguous": [
+    {
+      "word": "march",
+      "issue": "Could mean the month March or the action of marching in a line",
+      "preferred": "marching",
+      "reason": "In this book the penguins march in a neat line — the action verb is correct"
+    },
+    {
+      "word": "loud",
+      "issue": "Could be represented as a sound wave icon or a shouting person — abstract adjective",
+      "preferred": "loud",
+      "reason": "Tacky is described as loud and off-key; a shouting or noisy icon best represents this; confirm Boardmaker has a clear 'loud' adjective image rather than a volume symbol"
+    }
+  ],
+  "character_images_needed": [
+    "Tacky the Penguin"
+  ],
+  "icon_search_terms": {
+    "penguin": "penguin",
+    "friends": "friends",
+    "hunter": "hunter",
+    "fish": "fish",
+    "ice": "ice",
+    "march": "marching",
+    "sing": "sing",
+    "splash": "splash",
+    "loud": "loud",
+    "scared": "afraid",
+    "brave": "brave"
+  },
+  "notes": "Tacky is the odd-one-out penguin who saves his friends from hunters by being gloriously odd. Key story beats: the orderly companions vs chaotic Tacky, the hunters arriving and being frightened away by Tacky's antics (loud singing, cannonball splashing, wrong-words marching). 'scared' maps best to Boardmaker 'afraid' icon. 'brave' may need checking — try 'brave' or 'strong'. Existing activity_images (striped shirt, bow tie, snowflake) and aac_extras (different, silly, funny, cold) complement this board well and can be used in classroom extension activities without needing fringe slots.",
+  "characters": [
+    "tacky_penguin"
+  ],
+  "code": "TP1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

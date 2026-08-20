@@ -1,0 +1,86 @@
+{
+  "title": "The Rain Came Down",
+  "author": "David Shannon",
+  "hero": {
+    "name": "Neighbourhood scene / David Shannon rain character",
+    "description": "The book has no single named protagonist — the cover shows a frazzled man in the rain with a cat on his head; the 'hero' image should represent the rainy neighbourhood chaos central to the story",
+    "search_term": "man rain",
+    "needs_sourcing": false,
+    "source_note": "No single named character — use a generic 'man in rain' or 'rainy street' image from Boardmaker; alternatively source a cover-art style clip art from TPT if a closer match is needed"
+  },
+  "fringe_12": [
+    "Neighbourhood scene / David Shannon rain character",
+    "rain",
+    "angry",
+    "loud",
+    "neighbour",
+    "police",
+    "chicken",
+    "umbrella",
+    "puddle",
+    "sun",
+    "rainbow",
+    "calm"
+  ],
+  "fringe_11": [
+    "rain",
+    "angry",
+    "loud",
+    "neighbour",
+    "police",
+    "chicken",
+    "umbrella",
+    "puddle",
+    "sun",
+    "rainbow",
+    "calm"
+  ],
+  "activity_images": [
+    "rain",
+    "angry",
+    "loud",
+    "neighbour",
+    "police",
+    "chicken"
+  ],
+  "aac_extras": [
+    "umbrella",
+    "puddle",
+    "sun",
+    "rainbow",
+    "calm"
+  ],
+  "ambiguous": [
+    {
+      "word": "loud",
+      "issue": "Could map to a speaker/volume icon or a person shouting",
+      "preferred": "loud person shouting",
+      "reason": "In this book 'loud' refers to the escalating noise of neighbours arguing and the storm, so a shouting/noisy person image is more appropriate than a speaker icon"
+    },
+    {
+      "word": "calm",
+      "issue": "Abstract emotion — could be shown as a calm face, calm water, or a zen symbol",
+      "preferred": "calm face",
+      "reason": "The story ends with everyone calming down once the sun comes out; a calm/happy face best represents this resolution for AAC users"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "rain": "rain",
+    "angry": "angry",
+    "loud": "loud",
+    "neighbour": "neighbor",
+    "police": "police officer",
+    "chicken": "chicken",
+    "umbrella": "umbrella",
+    "puddle": "puddle",
+    "sun": "sun",
+    "rainbow": "rainbow",
+    "calm": "calm"
+  },
+  "notes": "The Rain Came Down has no single named protagonist — the story follows a whole neighbourhood of characters whose tempers flare because of relentless rain, then settle when the sun appears. The 11 fringe words capture the core narrative arc: the rain trigger, the escalating angry/loud reactions, the key community characters (neighbour, police), the inciting animal (chicken whose crowing starts the chain), props (umbrella, puddle), and the resolution (sun, rainbow, calm). 'rain', 'angry', 'sun', and 'rainbow' already exist in existing_activity_images or aac_extras and should be reused. 'umbrella' and 'puddle' also exist in activity_images and should be reused. 'police' and 'chicken' will need sourcing from the Boardmaker library. 'loud', 'neighbour', and 'calm' should be checked against the library; 'calm' may need a custom or TPT source if the Boardmaker option is too abstract for young AAC users.",
+  "characters": [],
+  "code": "TRCD1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

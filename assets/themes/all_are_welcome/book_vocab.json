@@ -1,0 +1,88 @@
+{
+  "title": "All Are Welcome",
+  "author": "Alexandra Penfold & Suzanne Kaufman",
+  "hero": {
+    "name": "Diverse classroom children (All Are Welcome)",
+    "description": "Group of children from many different backgrounds and cultures, as shown on the book cover",
+    "search_term": "children diverse",
+    "needs_sourcing": true,
+    "source_note": "Cover features a specific illustrated group of multicultural children — source a cover image or matching clip art from TPT or Creative Fabrica; generic Boardmaker 'children' icon will not match the book's distinctive art style"
+  },
+  "fringe_12": [
+    "Diverse classroom children (All Are Welcome)",
+    "welcome",
+    "friend",
+    "flag",
+    "dance",
+    "food",
+    "family",
+    "celebrate",
+    "different",
+    "together",
+    "sing",
+    "home"
+  ],
+  "fringe_11": [
+    "welcome",
+    "friend",
+    "flag",
+    "dance",
+    "food",
+    "family",
+    "celebrate",
+    "different",
+    "together",
+    "sing",
+    "home"
+  ],
+  "activity_images": [
+    "welcome",
+    "friend",
+    "flag",
+    "dance",
+    "food",
+    "family"
+  ],
+  "aac_extras": [
+    "celebrate",
+    "different",
+    "together",
+    "sing",
+    "home"
+  ],
+  "ambiguous": [
+    {
+      "word": "different",
+      "issue": "Could map to core row 2 'different' (comparison concept) or to the book's theme of being different/diverse (descriptive identity)",
+      "preferred": "different",
+      "reason": "In this book 'different' is used thematically to mean people look and come from different places — it overlaps with the core word but is so central to the book's message it earns a fringe slot; consider using a 'diverse people' icon rather than the standard comparison arrow icon to distinguish the two uses"
+    },
+    {
+      "word": "flag",
+      "issue": "Could mean a country/national flag or a generic flag shape",
+      "preferred": "flag country",
+      "reason": "The book features many different national/cultural flags representing the children's heritages; search for a world flags or multicultural flags icon"
+    }
+  ],
+  "character_images_needed": [
+    "Diverse classroom children (All Are Welcome)"
+  ],
+  "icon_search_terms": {
+    "welcome": "welcome",
+    "friend": "friend",
+    "flag": "flag",
+    "dance": "dance",
+    "food": "food",
+    "family": "family",
+    "celebrate": "celebrate",
+    "different": "different",
+    "together": "together",
+    "sing": "sing",
+    "home": "home"
+  },
+  "notes": "This book celebrates diversity, inclusion, and belonging in a school setting. Several high-value words (school, children, teacher, classroom) are already available in activity_images and the existing aac_extras cover 'welcome' and 'together' — these have been retained in fringe_12 as they are central to the book's message and students need them accessible on this specific board. 'Different' appears in core row 2 but is so thematically important here that a second fringe instance is recommended with a culturally-diverse icon to carry the book's meaning. The 11 fringe words intentionally avoid duplicating school/classroom/teacher/book which are already in the existing activity_images set. If board space is tight, 'celebrate' could be swapped for 'culture' or 'happy'.",
+  "characters": [],
+  "code": "AAW1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

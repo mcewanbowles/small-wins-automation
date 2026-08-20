@@ -1,0 +1,82 @@
+{
+  "title": "Giraffes Can't Dance",
+  "author": "Giles Andreae",
+  "hero": {
+    "name": "Gerald the Giraffe",
+    "description": "Tall, long-necked giraffe with spots, the main character who learns to dance",
+    "search_term": "gerald giraffe",
+    "needs_sourcing": true,
+    "source_note": "Named character — source from Creative Fabrica or TPT clip art as Gerald the Giraffe"
+  },
+  "fringe_12": [
+    "Gerald the Giraffe",
+    "dance",
+    "music",
+    "laugh",
+    "sad",
+    "happy",
+    "tall",
+    "jungle",
+    "moon",
+    "cricket",
+    "spin",
+    "try"
+  ],
+  "fringe_11": [
+    "dance",
+    "music",
+    "laugh",
+    "sad",
+    "happy",
+    "tall",
+    "jungle",
+    "moon",
+    "cricket",
+    "spin",
+    "try"
+  ],
+  "activity_images": [
+    "dance",
+    "music",
+    "laugh",
+    "sad",
+    "happy",
+    "tall"
+  ],
+  "aac_extras": [
+    "jungle",
+    "moon",
+    "cricket",
+    "spin",
+    "try"
+  ],
+  "ambiguous": [
+    {
+      "word": "cricket",
+      "issue": "Could mean the insect or the sport",
+      "preferred": "cricket insect",
+      "reason": "The cricket in the book is a small insect who plays music for Gerald to dance to"
+    }
+  ],
+  "character_images_needed": [
+    "Gerald the Giraffe"
+  ],
+  "icon_search_terms": {
+    "dance": "dance",
+    "music": "music",
+    "laugh": "laugh",
+    "sad": "sad",
+    "happy": "happy",
+    "tall": "tall",
+    "jungle": "jungle",
+    "moon": "moon",
+    "cricket": "cricket insect",
+    "spin": "spin",
+    "try": "try"
+  },
+  "notes": "Gerald the Giraffe is the iconic named character — a generic Boardmaker giraffe will not be recognisable enough; source a character-accurate PNG. Core emotional vocabulary (sad, happy, laugh) is central to the story arc as Gerald is mocked before finding his own rhythm. 'Try' captures the key moral message of the book and is highly functional for SPED communication. 'Spin' represents Gerald's unique dancing movement. The cricket character is a small insect who plays the violin-like music — ensure insect image is used, not the sport. 'Jungle' and 'moon' are key setting words already in the activity_images library and should be reused.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

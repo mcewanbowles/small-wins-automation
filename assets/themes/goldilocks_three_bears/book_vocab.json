@@ -1,0 +1,103 @@
+{
+  "title": "Goldilocks and the Three Bears",
+  "author": "Classic (Traditional)",
+  "hero": {
+    "name": "Goldilocks",
+    "description": "Young girl with long golden curly hair, iconic fairy tale character",
+    "search_term": "goldilocks girl",
+    "needs_sourcing": true,
+    "source_note": "Named fairy tale character with distinctive golden curly hair — generic Boardmaker girl icon will not match; source from Creative Fabrica, TPT, or fairy tale clip art pack"
+  },
+  "fringe_12": [
+    "Goldilocks",
+    "bear",
+    "porridge",
+    "chair",
+    "bed",
+    "bowl",
+    "house",
+    "broken",
+    "sleeping",
+    "hot",
+    "cold",
+    "big"
+  ],
+  "fringe_11": [
+    "bear",
+    "porridge",
+    "chair",
+    "bed",
+    "bowl",
+    "house",
+    "broken",
+    "sleeping",
+    "hot",
+    "cold",
+    "big"
+  ],
+  "activity_images": [
+    "bear",
+    "porridge",
+    "chair",
+    "bed",
+    "bowl",
+    "house"
+  ],
+  "aac_extras": [
+    "broken",
+    "sleeping",
+    "hot",
+    "cold",
+    "big"
+  ],
+  "ambiguous": [
+    {
+      "word": "bear",
+      "issue": "Could mean the animal (noun) or the verb 'to bear/carry'",
+      "preferred": "bear animal",
+      "reason": "The Three Bears are central animal characters in the story; search for brown bear or teddy bear image"
+    },
+    {
+      "word": "hot",
+      "issue": "Could mean temperature (too hot porridge) or emotional state (angry/hot-tempered)",
+      "preferred": "hot temperature",
+      "reason": "Refers to the temperature of the porridge in the story — use a bowl with steam or thermometer image"
+    },
+    {
+      "word": "cold",
+      "issue": "Could mean temperature (cold porridge) or illness (a cold)",
+      "preferred": "cold temperature",
+      "reason": "Refers to the temperature of the porridge in the story — use a bowl with ice or cold symbol"
+    },
+    {
+      "word": "big",
+      "issue": "Could mean size adjective or could be confused with 'large' or used to describe Big Bear specifically",
+      "preferred": "big size",
+      "reason": "Used to describe Papa Bear's belongings (big chair, big bowl, big bed) — use standard size comparison image"
+    }
+  ],
+  "character_images_needed": [
+    "Goldilocks"
+  ],
+  "icon_search_terms": {
+    "bear": "bear",
+    "porridge": "porridge",
+    "chair": "chair",
+    "bed": "bed",
+    "bowl": "bowl",
+    "house": "house",
+    "broken": "broken",
+    "sleeping": "sleeping",
+    "hot": "hot",
+    "cold": "cold",
+    "big": "big"
+  },
+  "notes": "Several key vocabulary items (girl, bear, porridge, chair, bed, bowl) already exist in activity_images and aac_extras (hot, cold, big, small) — these can be reused directly. 'house' replaces 'forest' and 'door/window' as a more functional single location word for this board's limited fringe slots. 'broken' is a high-value story word (broken chair) and should show a cracked or broken object. 'sleeping' captures a key story action (Goldilocks found sleeping in bed). 'small' from aac_extras was omitted from fringe since 'big' covers the size contrast and 'same/different' in core row 2 can scaffold size comparison; if a 12-slot expansion were available, 'small' would be the next addition. Consider pairing this board with a separate story sequencing strip (forest → house → porridge → chair → bed → bears return → run away) for comprehension activities.",
+  "characters": [
+    "bears",
+    "goldilocks"
+  ],
+  "code": "GTB1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

@@ -1,0 +1,82 @@
+{
+  "title": "Make Way for Ducklings",
+  "author": "Robert McCloskey",
+  "hero": {
+    "name": "Mrs. Mallard (mother duck)",
+    "description": "Brown mallard duck mother leading a line of ducklings, classic McCloskey illustration style",
+    "search_term": "duck",
+    "needs_sourcing": false,
+    "source_note": "Generic duck symbol works well — Mrs. Mallard is a realistic brown mallard, not a stylised named character"
+  },
+  "fringe_12": [
+    "duck",
+    "duckling",
+    "nest",
+    "egg",
+    "river",
+    "pond",
+    "police",
+    "bread",
+    "boat",
+    "city",
+    "walk",
+    "safe"
+  ],
+  "fringe_11": [
+    "duckling",
+    "nest",
+    "egg",
+    "river",
+    "pond",
+    "police",
+    "bread",
+    "boat",
+    "city",
+    "walk",
+    "safe"
+  ],
+  "activity_images": [
+    "duckling",
+    "nest",
+    "egg",
+    "river",
+    "pond",
+    "police"
+  ],
+  "aac_extras": [
+    "bread",
+    "boat",
+    "city",
+    "walk",
+    "safe"
+  ],
+  "ambiguous": [
+    {
+      "word": "duck",
+      "issue": "Could mean the bird (noun) or the action of ducking down (verb)",
+      "preferred": "duck bird",
+      "reason": "Book is entirely about ducks as animals; the hero and all characters are ducks"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "duckling": "duckling",
+    "nest": "nest",
+    "egg": "egg",
+    "river": "river",
+    "pond": "pond",
+    "police": "police officer",
+    "bread": "bread",
+    "boat": "boat",
+    "city": "city",
+    "walk": "walk",
+    "safe": "safe"
+  },
+  "notes": "Most fringe words already exist in activity_images or aac_extras — duck, duckling, nest, egg, river, boat, city, police, bread, pond are all pre-existing assets. Only 'walk' and 'safe' are new additions. 'Walk' is central to the climactic scene where the ducklings walk through Boston traffic. 'Safe' captures the emotional resolution and is useful for discussion. The hero slot uses the generic duck symbol since Mrs. Mallard is a realistic mallard duck well covered by standard Boardmaker libraries. 'Bridge' from existing activity_images was deprioritised in favour of 'walk' and 'safe' as more communicatively useful for students retelling the story.",
+  "characters": [
+    "duckling"
+  ],
+  "code": "MWD1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

@@ -1,0 +1,86 @@
+{
+  "title": "The Book With No Pictures",
+  "author": "B.J. Novak",
+  "hero": {
+    "name": "The Book (with no pictures)",
+    "description": "A plain book cover with large bold text — the book itself is the character/hero of the story",
+    "search_term": "book",
+    "needs_sourcing": false,
+    "source_note": "Generic book symbol from Boardmaker is appropriate — the concept is a plain text book with no illustrations"
+  },
+  "fringe_12": [
+    "The Book (with no pictures)",
+    "funny",
+    "loud",
+    "silly",
+    "words",
+    "laugh",
+    "read",
+    "robot",
+    "mouth",
+    "brain",
+    "rules",
+    "blork"
+  ],
+  "fringe_11": [
+    "funny",
+    "loud",
+    "silly",
+    "words",
+    "laugh",
+    "read",
+    "robot",
+    "mouth",
+    "brain",
+    "rules",
+    "blork"
+  ],
+  "activity_images": [
+    "funny",
+    "loud",
+    "silly",
+    "words",
+    "laugh",
+    "read"
+  ],
+  "aac_extras": [
+    "robot",
+    "mouth",
+    "brain",
+    "rules",
+    "blork"
+  ],
+  "ambiguous": [
+    {
+      "word": "read",
+      "issue": "Already appears in core row 5 of the fixed board",
+      "preferred": "reading",
+      "reason": "The act of reading is the central mechanic of this book — if 'read' is already in core it may be redundant on fringe; consider replacing with 'page' or 'voice' if board space is tight"
+    },
+    {
+      "word": "blork",
+      "issue": "Nonsense word from the book — no standard Boardmaker symbol exists",
+      "preferred": "blork",
+      "reason": "This is a key invented word from the book used for comedy; needs a custom or hand-drawn symbol — a silly face or explosion of letters would work"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "funny": "funny",
+    "loud": "loud",
+    "silly": "silly",
+    "words": "words",
+    "laugh": "laugh",
+    "read": "read",
+    "robot": "robot",
+    "mouth": "mouth",
+    "brain": "brain",
+    "rules": "rules",
+    "blork": "silly face"
+  },
+  "notes": "This book has no pictures by design — the humour comes entirely from the words the adult reader is forced to say aloud. Key vocabulary should reflect the comedy mechanics: funny/silly/loud for reactions, mouth/brain/words for the meta-reading concept, robot and blork for the specific nonsense content the book makes adults say. 'Read' already exists in core row 5 — consider swapping fringe 'read' for 'page' or 'voice' to avoid redundancy. 'Blork' and similar invented words (e.g. 'blaggity blaggity') are central to the book's appeal for students — a custom symbol using a speech bubble with nonsense letters is recommended. Existing activity_images (book, words, page, robot, mouth, sound) and aac_extras (silly, no_pictures, joke, song) cover significant overlap — these should be reused rather than duplicated.",
+  "characters": [],
+  "code": "BWN1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

@@ -1,0 +1,96 @@
+{
+  "title": "Don't Push the Button!",
+  "author": "Bill Cotter",
+  "hero": {
+    "name": "Larry the Monster",
+    "description": "Large, round, purple/pink monster with spots, googly eyes, and a big friendly grin — the main character of the book",
+    "search_term": "larry monster dont push button",
+    "needs_sourcing": true,
+    "source_note": "Named distinctive character — source from Creative Fabrica, TPT, or Teachers Pay Teachers clip art matching Bill Cotter's Larry"
+  },
+  "fringe_12": [
+    "Larry the Monster",
+    "button",
+    "push",
+    "monster",
+    "spots",
+    "stripes",
+    "purple",
+    "red",
+    "big",
+    "shake",
+    "disappear",
+    "surprise"
+  ],
+  "fringe_11": [
+    "button",
+    "push",
+    "monster",
+    "spots",
+    "stripes",
+    "purple",
+    "red",
+    "big",
+    "shake",
+    "disappear",
+    "surprise"
+  ],
+  "activity_images": [
+    "button",
+    "push",
+    "monster",
+    "spots",
+    "stripes",
+    "purple"
+  ],
+  "aac_extras": [
+    "red",
+    "big",
+    "shake",
+    "disappear",
+    "surprise"
+  ],
+  "ambiguous": [
+    {
+      "word": "big",
+      "issue": "Could map to a size concept card or to a large object image",
+      "preferred": "big",
+      "reason": "In this book 'big' describes the giant button and Larry's size changes — a simple size symbol is correct"
+    },
+    {
+      "word": "shake",
+      "issue": "Could mean shaking hands, a milkshake, or shaking/trembling body",
+      "preferred": "shake body",
+      "reason": "Larry shakes and wiggles when the button is pushed — the action/body movement meaning is correct"
+    },
+    {
+      "word": "disappear",
+      "issue": "Abstract concept — could be depicted as vanishing, invisible, or gone",
+      "preferred": "disappear",
+      "reason": "Larry disappears and reappears throughout the book; use a 'gone/vanish' style symbol"
+    }
+  ],
+  "character_images_needed": [
+    "Larry the Monster"
+  ],
+  "icon_search_terms": {
+    "button": "button",
+    "push": "push",
+    "monster": "monster",
+    "spots": "spots",
+    "stripes": "stripes",
+    "purple": "purple",
+    "red": "red",
+    "big": "big",
+    "shake": "shake",
+    "disappear": "disappear",
+    "surprise": "surprise"
+  },
+  "notes": "This is a highly interactive book — the child is directly addressed and invited to push (or not push) the button. Core words 'stop', 'don't', 'press', and 'push' from aac_extras are especially important for this title and should be highlighted during shared reading. 'Spots' and 'stripes' are visually central as Larry's appearance changes each time the button is pushed. 'Purple' and 'red' are the dominant colours for Larry and the button respectively. The existing activity_images (monster, button, red, spots, purple monster, striped monster, big button) align well with the fringe selections and should be reused where possible.",
+  "characters": [
+    "monster"
+  ],
+  "code": "DPB1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

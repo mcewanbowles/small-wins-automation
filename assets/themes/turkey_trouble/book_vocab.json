@@ -1,0 +1,88 @@
+{
+  "title": "Turkey Trouble",
+  "author": "Wendi Silvano",
+  "hero": {
+    "name": "Turkey",
+    "description": "A worried-looking farm turkey trying to disguise himself to avoid Thanksgiving dinner — distinctive illustrated character from the book cover",
+    "search_term": "turkey bird",
+    "needs_sourcing": true,
+    "source_note": "Named story character with distinctive anxious expression — source from Creative Fabrica or TPT clip art matching the book illustration style"
+  },
+  "fringe_12": [
+    "Turkey",
+    "farm",
+    "disguise",
+    "farmer",
+    "pig",
+    "cow",
+    "hide",
+    "scared",
+    "Thanksgiving",
+    "dinner",
+    "feathers",
+    "hat"
+  ],
+  "fringe_11": [
+    "farm",
+    "disguise",
+    "farmer",
+    "pig",
+    "cow",
+    "hide",
+    "scared",
+    "Thanksgiving",
+    "dinner",
+    "feathers",
+    "hat"
+  ],
+  "activity_images": [
+    "farm",
+    "disguise",
+    "farmer",
+    "pig",
+    "cow",
+    "hide"
+  ],
+  "aac_extras": [
+    "scared",
+    "Thanksgiving",
+    "dinner",
+    "feathers",
+    "hat"
+  ],
+  "ambiguous": [
+    {
+      "word": "hide",
+      "issue": "Could mean animal skin/leather (noun) or to conceal oneself (verb)",
+      "preferred": "hide action",
+      "reason": "Turkey is hiding from the farmer so the verb/action meaning is correct"
+    },
+    {
+      "word": "disguise",
+      "issue": "Could be searched as costume or mask which might return Halloween imagery",
+      "preferred": "costume",
+      "reason": "Turkey wears animal costumes to disguise himself — costume is the most picturable equivalent"
+    }
+  ],
+  "character_images_needed": [
+    "Turkey (Turkey Trouble)"
+  ],
+  "icon_search_terms": {
+    "farm": "barn",
+    "disguise": "costume",
+    "farmer": "farmer",
+    "pig": "pig",
+    "cow": "cow",
+    "hide": "hide",
+    "scared": "afraid",
+    "Thanksgiving": "thanksgiving",
+    "dinner": "dinner",
+    "feathers": "bird feathers",
+    "hat": "hat"
+  },
+  "notes": "Turkey Trouble is a Thanksgiving-themed picture book where a turkey tries on various farm animal disguises to avoid being eaten for Thanksgiving dinner. Key vocabulary centres on farm animals (pig, cow), the act of hiding and disguise, and Thanksgiving. The hero turkey has a very specific illustrated look — generic Boardmaker turkey symbols will not match the character students recognise from the cover. 'Scared' maps to the core fixed row action 'afraid' in Boardmaker. Consider adding a secondary farm animal (sheep or horse) if a 12th fringe slot adjustment is ever needed.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

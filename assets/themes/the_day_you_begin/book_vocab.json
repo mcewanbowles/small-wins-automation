@@ -1,0 +1,88 @@
+{
+  "title": "The Day You Begin",
+  "author": "Jacqueline Woodson",
+  "hero": {
+    "name": "Angelina (girl from cover)",
+    "description": "Young Black girl with natural hair, wearing a colourful dress, main narrator character from cover illustration by Rafael López",
+    "search_term": "girl child diverse",
+    "needs_sourcing": true,
+    "source_note": "Named/distinctive illustrated character — source from Creative Fabrica or TPT clip art matching Rafael López illustration style"
+  },
+  "fringe_12": [
+    "Angelina (girl from cover)",
+    "school",
+    "friend",
+    "different",
+    "brave",
+    "story",
+    "share",
+    "summer",
+    "family",
+    "alone",
+    "begin",
+    "welcome"
+  ],
+  "fringe_11": [
+    "school",
+    "friend",
+    "different",
+    "brave",
+    "story",
+    "share",
+    "summer",
+    "family",
+    "alone",
+    "begin",
+    "welcome"
+  ],
+  "activity_images": [
+    "school",
+    "friend",
+    "different",
+    "brave",
+    "story",
+    "share"
+  ],
+  "aac_extras": [
+    "summer",
+    "family",
+    "alone",
+    "begin",
+    "welcome"
+  ],
+  "ambiguous": [
+    {
+      "word": "alone",
+      "issue": "Could be pictured as a person in an empty room (lonely) or simply one person (singular/only)",
+      "preferred": "alone lonely",
+      "reason": "In this book 'alone' conveys the feeling of being isolated or left out at school, so the emotional/lonely depiction is correct"
+    },
+    {
+      "word": "begin",
+      "issue": "Could be pictured as a start button, a starting line, or an abstract arrow — many possible images",
+      "preferred": "begin start",
+      "reason": "The book's title and theme centre on beginning something new; a 'start' or 'begin' action symbol is most appropriate"
+    }
+  ],
+  "character_images_needed": [
+    "Angelina (girl from cover of The Day You Begin)"
+  ],
+  "icon_search_terms": {
+    "school": "school",
+    "friend": "friend",
+    "different": "different",
+    "brave": "brave",
+    "story": "story",
+    "share": "share",
+    "summer": "summer",
+    "family": "family",
+    "alone": "alone",
+    "begin": "begin start",
+    "welcome": "welcome"
+  },
+  "notes": "This book focuses on themes of belonging, identity, and courage when entering a new environment as an outsider. Key vocabulary prioritises social-emotional words (brave, alone, welcome, begin) alongside relationship nouns (friend, family) and the core setting (school). 'Summer' is included because children in the story share — or notably do not share — experiences of summer holidays, making it a key story discussion point. Several words (brave, different, friend, share) already exist in aac_extras and (school) in activity_images, so no new sourcing is needed for those. The hero image will require custom sourcing to match Rafael López's distinctive illustration style, as a generic Boardmaker child icon will not be recognisable to students familiar with the book cover.",
+  "characters": [],
+  "code": "DYB1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

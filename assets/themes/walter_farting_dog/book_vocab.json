@@ -1,0 +1,90 @@
+{
+  "title": "Walter the Farting Dog",
+  "author": "William Kotzwinkle and Glenn Murray",
+  "hero": {
+    "name": "Walter the Farting Dog",
+    "description": "Large white dog with a round belly, droopy expression, and visible stink lines — the titular farting dog from the cover",
+    "search_term": "walter farting dog",
+    "needs_sourcing": true,
+    "source_note": "Named/distinctive character — source from Creative Fabrica, TPT, or Teachers Pay Teachers clip art; generic Boardmaker dog will not match"
+  },
+  "fringe_12": [
+    "WALTER",
+    "fart",
+    "smell",
+    "stinky",
+    "burglars",
+    "pound",
+    "night",
+    "belly",
+    "angry",
+    "sad",
+    "happy",
+    "run"
+  ],
+  "fringe_11": [
+    "fart",
+    "smell",
+    "stinky",
+    "burglars",
+    "pound",
+    "night",
+    "belly",
+    "angry",
+    "sad",
+    "happy",
+    "run"
+  ],
+  "activity_images": [
+    "fart",
+    "smell",
+    "stinky",
+    "burglars",
+    "pound",
+    "night"
+  ],
+  "aac_extras": [
+    "belly",
+    "angry",
+    "sad",
+    "happy",
+    "run"
+  ],
+  "ambiguous": [
+    {
+      "word": "pound",
+      "issue": "Could mean dog pound/shelter (noun) or unit of weight or to hit (verb)",
+      "preferred": "dog pound",
+      "reason": "In this book the family threatens to send Walter to the dog pound — the shelter meaning is correct"
+    },
+    {
+      "word": "run",
+      "issue": "Could mean running as physical action or running away/escaping",
+      "preferred": "run action",
+      "reason": "Walter and the burglars run — physical running action is the correct image"
+    }
+  ],
+  "character_images_needed": [
+    "Walter the Farting Dog"
+  ],
+  "icon_search_terms": {
+    "fart": "fart",
+    "smell": "smell",
+    "stinky": "stinky",
+    "burglars": "burglar",
+    "pound": "dog pound",
+    "night": "night",
+    "belly": "belly",
+    "angry": "angry",
+    "sad": "sad",
+    "happy": "happy",
+    "run": "run"
+  },
+  "notes": "Core story beats: Walter farts constantly, family wants to give him away, burglars break in at night, Walter saves the family by farting at the burglars. Priority vocabulary supports retelling: the smell/fart actions, the emotional arc (angry, sad, happy), the threat of the pound, the nighttime burglary, and the running burglars. 'fart' and 'smell' are already in aac_extras so those PNGs exist. 'stinky' is a high-value descriptor central to the book's humour and should be pictured with wavy stink lines. The burglars are generic unnamed characters so no sourcing needed beyond a standard burglar icon. Consider adding a stink-lines visual overlay to Walter's hero image for immediate recognition.",
+  "characters": [
+    "walter_dog"
+  ],
+  "code": "WFD1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

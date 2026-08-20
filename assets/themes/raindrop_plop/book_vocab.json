@@ -1,0 +1,86 @@
+{
+  "title": "Raindrop, Plop!",
+  "author": "Wendy Cheyette Lewison",
+  "hero": {
+    "name": "Little girl with umbrella (Raindrop Plop girl)",
+    "description": "Young girl in yellow rain boots and raincoat holding a colourful umbrella, the counting rainy-day character from the cover",
+    "search_term": "girl umbrella rain",
+    "needs_sourcing": false,
+    "source_note": "Generic rainy-day girl — a Boardmaker 'girl umbrella' or 'girl rain' image should suffice; if cover likeness needed source from TPT"
+  },
+  "fringe_12": [
+    "Little girl with umbrella (Raindrop Plop girl)",
+    "raindrop",
+    "puddle",
+    "boots",
+    "umbrella",
+    "splash",
+    "count",
+    "wet",
+    "rainbow",
+    "cloud",
+    "rain",
+    "happy"
+  ],
+  "fringe_11": [
+    "raindrop",
+    "puddle",
+    "boots",
+    "umbrella",
+    "splash",
+    "count",
+    "wet",
+    "rainbow",
+    "cloud",
+    "rain",
+    "happy"
+  ],
+  "activity_images": [
+    "raindrop",
+    "puddle",
+    "boots",
+    "umbrella",
+    "splash",
+    "count"
+  ],
+  "aac_extras": [
+    "wet",
+    "rainbow",
+    "cloud",
+    "rain",
+    "happy"
+  ],
+  "ambiguous": [
+    {
+      "word": "splash",
+      "issue": "Could depict water splashing (action/noun) or a general water effect",
+      "preferred": "splash water",
+      "reason": "Book focuses on raindrops landing in puddles and splashing — the water-splash action/noun is correct"
+    },
+    {
+      "word": "count",
+      "issue": "Could mean Count (noun, a title) or count (verb, enumerate)",
+      "preferred": "counting numbers",
+      "reason": "The book has a counting/accumulation structure as raindrops are tallied — verb/activity meaning is correct"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "raindrop": "raindrop",
+    "puddle": "puddle",
+    "boots": "rain boots",
+    "umbrella": "umbrella",
+    "splash": "splash water",
+    "count": "counting",
+    "wet": "wet",
+    "rainbow": "rainbow",
+    "cloud": "cloud rain",
+    "rain": "rain",
+    "happy": "happy"
+  },
+  "notes": "Raindrop Plop! is a counting book built around accumulating raindrops and the sensory/emotional experience of a rainy day. The 11 fringe words cover the core concrete nouns (raindrop, puddle, boots, umbrella, cloud, rain, rainbow), the central action/concept (count, splash), a key descriptor (wet), and the emotional payoff (happy). 'coat' and 'mud' were considered but displaced in favour of 'rain' and 'count' which are more central to the book's structure. Several of these words (raindrop, puddle, boots, umbrella, splash, cloud, rainbow) already exist in activity_images or aac_extras per the existing data — mark those as reusable assets to avoid duplication.",
+  "characters": [],
+  "code": "RDP1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

@@ -1,0 +1,88 @@
+{
+  "title": "There Was an Old Lady Who Swallowed a Turkey",
+  "author": "Unknown / Traditional (adapted)",
+  "hero": {
+    "name": "Old Lady",
+    "description": "Quirky old woman with a large transparent belly, classic 'There Was an Old Lady' series character",
+    "search_term": "old lady swallow",
+    "needs_sourcing": true,
+    "source_note": "Distinctive series character with see-through stomach — source from Creative Fabrica or TPT clip art matching the Lucille Colandro/Jared Lee style"
+  },
+  "fringe_12": [
+    "OLD LADY",
+    "turkey",
+    "swallow",
+    "belly",
+    "stuffing",
+    "corn",
+    "pie",
+    "hat",
+    "boot",
+    "ball",
+    "Thanksgiving",
+    "big"
+  ],
+  "fringe_11": [
+    "turkey",
+    "swallow",
+    "belly",
+    "stuffing",
+    "corn",
+    "pie",
+    "hat",
+    "boot",
+    "ball",
+    "Thanksgiving",
+    "big"
+  ],
+  "activity_images": [
+    "turkey",
+    "swallow",
+    "belly",
+    "stuffing",
+    "corn",
+    "pie"
+  ],
+  "aac_extras": [
+    "hat",
+    "boot",
+    "ball",
+    "Thanksgiving",
+    "big"
+  ],
+  "ambiguous": [
+    {
+      "word": "swallow",
+      "issue": "Could mean the action of swallowing food OR a type of bird (swallow)",
+      "preferred": "swallow action",
+      "reason": "The book is about the old lady swallowing objects — the verb meaning is correct"
+    },
+    {
+      "word": "ball",
+      "issue": "Could mean a sports ball OR a formal dance event",
+      "preferred": "ball sport",
+      "reason": "In this book the old lady swallows a ball (round toy/sports object)"
+    }
+  ],
+  "character_images_needed": [
+    "Old Lady (There Was an Old Lady series)"
+  ],
+  "icon_search_terms": {
+    "turkey": "turkey",
+    "swallow": "swallow eat",
+    "belly": "belly stomach",
+    "stuffing": "stuffing food",
+    "corn": "corn",
+    "pie": "pie",
+    "hat": "hat",
+    "boot": "boot",
+    "ball": "ball",
+    "Thanksgiving": "thanksgiving",
+    "big": "big"
+  },
+  "notes": "This is a cumulative repetitive book ideal for AAC — the phrase 'she swallowed the ___ to catch the ___' repeats throughout. Key vocabulary follows Thanksgiving dinner items and objects the old lady swallows (turkey, stuffing, corn, pie) plus clothing/toy items used in some versions (hat, boot, ball). 'Swallow' is the central action verb and should be clearly depicted as an eating/gulping action. 'Belly' refers to her transparent stomach which is central to the visual humour. If the specific illustrated version used in class is by Lucille Colandro with art by Jared Lee, the old lady has a very distinctive look — sourced clip art will greatly aid recognition.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

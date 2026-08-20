@@ -1,0 +1,86 @@
+{
+  "title": "Jump, Frog, Jump!",
+  "author": "Robert Kalan",
+  "hero": {
+    "name": "Frog",
+    "description": "Generic green frog sitting on lily pad, simple illustration style",
+    "search_term": "frog",
+    "needs_sourcing": false,
+    "source_note": "Generic frog — standard Boardmaker symbol should work well"
+  },
+  "fringe_12": [
+    "Frog",
+    "jump",
+    "fish",
+    "snake",
+    "turtle",
+    "net",
+    "pond",
+    "basket",
+    "log",
+    "lily pad",
+    "dragonfly",
+    "catch"
+  ],
+  "fringe_11": [
+    "jump",
+    "fish",
+    "snake",
+    "turtle",
+    "net",
+    "pond",
+    "basket",
+    "log",
+    "lily pad",
+    "dragonfly",
+    "catch"
+  ],
+  "activity_images": [
+    "jump",
+    "fish",
+    "snake",
+    "turtle",
+    "net",
+    "pond"
+  ],
+  "aac_extras": [
+    "basket",
+    "log",
+    "lily pad",
+    "dragonfly",
+    "catch"
+  ],
+  "ambiguous": [
+    {
+      "word": "catch",
+      "issue": "Could depict catching an object (hands catching ball) or catching an animal (trapping)",
+      "preferred": "catch net",
+      "reason": "In this book, catching refers to humans trying to catch the frog with a net — search for a catching/grabbing action near a net or animal"
+    },
+    {
+      "word": "log",
+      "issue": "Could mean a wooden log (nature) or a log book / record",
+      "preferred": "log wood",
+      "reason": "Book features a floating log in a pond that the frog hides under — wooden log meaning is correct"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "jump": "jump",
+    "fish": "fish",
+    "snake": "snake",
+    "turtle": "turtle",
+    "net": "net",
+    "pond": "pond",
+    "basket": "basket",
+    "log": "log wood",
+    "lily pad": "lily pad",
+    "dragonfly": "dragonfly",
+    "catch": "catch"
+  },
+  "notes": "All 11 fringe words were already present in existing activity_images or aac_extras — no new icons need to be sourced. The repetitive cumulative text 'Jump, Frog, Jump!' makes 'jump' the single most important fringe word and it should be visually prominent. The story follows a frog escaping a series of predators (fish, snake, turtle) and then humans with a net and basket — this sequence maps well to the fringe layout. 'escape' and 'swim' from aac_extras are useful supplementary words but were omitted from the 11 fringe slots in favour of concrete nouns that are more picturable and story-central; they remain available as extras. 'how' from aac_extras supports the book's repeated question structure and can be used conversationally alongside the core row.",
+  "characters": [],
+  "code": "JFJ1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

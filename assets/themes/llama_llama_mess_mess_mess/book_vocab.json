@@ -1,0 +1,88 @@
+{
+  "title": "Llama Llama Mess Mess Mess",
+  "author": "Unknown",
+  "hero": {
+    "name": "Llama Llama",
+    "description": "Young llama character with cream/tan fur, distinctive Anna Dewdney character often shown in children's clothing",
+    "search_term": "llama llama",
+    "needs_sourcing": true,
+    "source_note": "Named character from Anna Dewdney series — source from Creative Fabrica or TPT clip art"
+  },
+  "fringe_12": [
+    "Llama Llama",
+    "mess",
+    "clean",
+    "toy",
+    "play",
+    "put away",
+    "room",
+    "mama",
+    "dirty",
+    "floor",
+    "block",
+    "book"
+  ],
+  "fringe_11": [
+    "mess",
+    "clean",
+    "toy",
+    "play",
+    "put away",
+    "room",
+    "mama",
+    "dirty",
+    "floor",
+    "block",
+    "book"
+  ],
+  "activity_images": [
+    "mess",
+    "clean",
+    "toy",
+    "play",
+    "put away",
+    "room"
+  ],
+  "aac_extras": [
+    "mama",
+    "dirty",
+    "floor",
+    "block",
+    "book"
+  ],
+  "ambiguous": [
+    {
+      "word": "block",
+      "issue": "Could mean a toy building block (noun) or to block/obstruct (verb)",
+      "preferred": "block toy",
+      "reason": "Book is about tidying up toys in a child's room; building blocks are a key toy item"
+    },
+    {
+      "word": "play",
+      "issue": "Could mean play (action/verb) or a theatrical play (noun)",
+      "preferred": "play action",
+      "reason": "Book is about a child playing and making a mess, so the action verb is correct"
+    }
+  ],
+  "character_images_needed": [
+    "Llama Llama"
+  ],
+  "icon_search_terms": {
+    "mess": "mess",
+    "clean": "clean",
+    "toy": "toy",
+    "play": "play",
+    "put away": "put away",
+    "room": "room",
+    "mama": "mama",
+    "dirty": "dirty",
+    "floor": "floor",
+    "block": "block",
+    "book": "book"
+  },
+  "notes": "This board focuses on the core theme of making and cleaning up a mess. 'Put away' is a critical functional phrase for classroom use and directly mirrors the book's lesson about tidying up. 'Mama' is a key character (Llama's mother) who prompts the cleanup. 'Dirty' and 'clean' provide contrast central to the story. If 'put away' is not available as a single icon, consider using a two-symbol sequence (put + away) or substituting 'tidy'. The book is part of the Llama Llama series by Anna Dewdney; confirm authorship before finalising board.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

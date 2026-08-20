@@ -1,0 +1,89 @@
+{
+  "title": "I Broke My Trunk!",
+  "author": "Mo Willems",
+  "hero": {
+    "name": "Gerald the Elephant",
+    "description": "Large grey elephant, main character from the Elephant and Piggie series by Mo Willems",
+    "search_term": "gerald elephant mo willems",
+    "needs_sourcing": true,
+    "source_note": "Named/distinctive character from Elephant and Piggie series — source from Creative Fabrica, TPT, or Mo Willems licensed clip art"
+  },
+  "fringe_12": [
+    "Gerald the Elephant",
+    "trunk",
+    "broken",
+    "elephant",
+    "pig",
+    "heavy",
+    "fell",
+    "friend",
+    "story",
+    "funny",
+    "ouch",
+    "try"
+  ],
+  "fringe_11": [
+    "trunk",
+    "broken",
+    "elephant",
+    "pig",
+    "heavy",
+    "fell",
+    "friend",
+    "story",
+    "funny",
+    "ouch",
+    "try"
+  ],
+  "activity_images": [
+    "trunk",
+    "broken",
+    "elephant",
+    "pig",
+    "heavy",
+    "fell"
+  ],
+  "aac_extras": [
+    "friend",
+    "story",
+    "funny",
+    "ouch",
+    "try"
+  ],
+  "ambiguous": [
+    {
+      "word": "trunk",
+      "issue": "Could mean elephant's trunk (body part) or a storage trunk/suitcase",
+      "preferred": "elephant trunk",
+      "reason": "The book is specifically about Gerald's elephant trunk being broken"
+    },
+    {
+      "word": "fell",
+      "issue": "Could mean the season fall/autumn or the action of falling down",
+      "preferred": "fall down",
+      "reason": "In the book, Gerald fell while carrying heavy friends on his trunk — action meaning is correct"
+    }
+  ],
+  "character_images_needed": [
+    "Gerald the Elephant",
+    "Piggie the Pig"
+  ],
+  "icon_search_terms": {
+    "trunk": "elephant trunk",
+    "broken": "broken",
+    "elephant": "elephant",
+    "pig": "pig",
+    "heavy": "heavy",
+    "fell": "fall down",
+    "friend": "friend",
+    "story": "story",
+    "funny": "funny",
+    "ouch": "ouch",
+    "try": "try"
+  },
+  "notes": "This is a Mo Willems Elephant and Piggie book. The main characters Gerald (elephant) and Piggie (pig) are highly distinctive and will not be represented accurately by generic Boardmaker symbols — custom clip art strongly recommended. The core humour involves Gerald telling an increasingly absurd story about how he broke his trunk by carrying hippos, a rhino, and Piggie on it. Key vocabulary reflects the storytelling/narrative structure of the book (story, funny, ouch, try) as well as the central characters and event. 'Ouch' captures the injury/pain concept central to the plot. 'Try' reflects the recurring Elephant and Piggie theme of perseverance.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

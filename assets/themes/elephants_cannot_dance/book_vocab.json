@@ -1,0 +1,83 @@
+{
+  "title": "Elephants Cannot Dance",
+  "author": "Mo Willems",
+  "hero": {
+    "name": "Gerald the Elephant",
+    "description": "Large grey elephant character from Mo Willems' Elephant and Piggie series, wearing glasses",
+    "search_term": "gerald elephant piggie",
+    "needs_sourcing": true,
+    "source_note": "Named/distinctive character from Mo Willems — source from TPT, Creative Fabrica, or official Mo Willems clip art"
+  },
+  "fringe_12": [
+    "Gerald the Elephant",
+    "dance",
+    "elephant",
+    "pig",
+    "teach",
+    "try",
+    "fall",
+    "laugh",
+    "happy",
+    "friend",
+    "music",
+    "move"
+  ],
+  "fringe_11": [
+    "dance",
+    "elephant",
+    "pig",
+    "teach",
+    "try",
+    "fall",
+    "laugh",
+    "happy",
+    "friend",
+    "music",
+    "move"
+  ],
+  "activity_images": [
+    "dance",
+    "elephant",
+    "pig",
+    "teach",
+    "try",
+    "fall"
+  ],
+  "aac_extras": [
+    "laugh",
+    "happy",
+    "friend",
+    "music",
+    "move"
+  ],
+  "ambiguous": [
+    {
+      "word": "fall",
+      "issue": "Could mean the season autumn or the action of falling down",
+      "preferred": "fall down",
+      "reason": "In this book Gerald falls while trying to dance — the action verb meaning is correct"
+    }
+  ],
+  "character_images_needed": [
+    "Gerald the Elephant",
+    "Piggie"
+  ],
+  "icon_search_terms": {
+    "dance": "dance",
+    "elephant": "elephant",
+    "pig": "pig",
+    "teach": "teach",
+    "try": "try",
+    "fall": "fall down",
+    "laugh": "laugh",
+    "happy": "happy",
+    "friend": "friend",
+    "music": "music",
+    "move": "move"
+  },
+  "notes": "This is a Mo Willems Elephant and Piggie book. The two main characters Gerald (elephant) and Piggie are highly distinctive and will need sourced clip art — Boardmaker generic elephant/pig icons will not match the characters children recognise from the cover. The central theme is Gerald trying (and failing) to dance while Piggie encourages him, so 'try', 'fall', 'teach', and 'dance' are all high-priority fringe words. 'Move' is included as a concrete synonym that broadens expressiveness around the dance theme. Secondary character Piggie should also be sourced as a named character image if used on the board.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

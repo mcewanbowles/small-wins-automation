@@ -1,0 +1,88 @@
+{
+  "title": "Time For School Little Blue Truck",
+  "author": "Alice Schertle",
+  "hero": {
+    "name": "Little Blue Truck",
+    "description": "Small friendly blue truck with a smiling face, main character of the Little Blue Truck series",
+    "search_term": "little blue truck",
+    "needs_sourcing": true,
+    "source_note": "Named/branded character — source from Creative Fabrica, TPT, or Teachers Pay Teachers clip art matching the book's illustrated style"
+  },
+  "fringe_12": [
+    "Little Blue Truck",
+    "school",
+    "bus",
+    "truck",
+    "backpack",
+    "friends",
+    "wave",
+    "road",
+    "animals",
+    "blue",
+    "beep",
+    "ready"
+  ],
+  "fringe_11": [
+    "school",
+    "bus",
+    "truck",
+    "backpack",
+    "friends",
+    "wave",
+    "road",
+    "animals",
+    "blue",
+    "beep",
+    "ready"
+  ],
+  "activity_images": [
+    "school",
+    "bus",
+    "truck",
+    "backpack",
+    "friends",
+    "wave"
+  ],
+  "aac_extras": [
+    "road",
+    "animals",
+    "blue",
+    "beep",
+    "ready"
+  ],
+  "ambiguous": [
+    {
+      "word": "wave",
+      "issue": "Could mean a water wave or the action of waving hello/goodbye",
+      "preferred": "wave goodbye",
+      "reason": "In this book, characters wave hello and goodbye to each other as the truck greets friends on the way to school — the greeting action is correct"
+    },
+    {
+      "word": "friends",
+      "issue": "Could map to generic people or generic animals — the friends in this book are farm animals",
+      "preferred": "friends",
+      "reason": "The farm animal friends are a key story element; a generic 'friends' symbol is appropriate as the animals are the group collectively"
+    }
+  ],
+  "character_images_needed": [
+    "Little Blue Truck"
+  ],
+  "icon_search_terms": {
+    "school": "school",
+    "bus": "bus",
+    "truck": "truck",
+    "backpack": "backpack",
+    "friends": "friends",
+    "wave": "wave goodbye",
+    "road": "road",
+    "animals": "animals",
+    "blue": "blue",
+    "beep": "beep",
+    "ready": "ready"
+  },
+  "notes": "This book follows Little Blue Truck as he picks up animal friends on the way to school, featuring repeated 'beep beep' refrains and themes of friendship and school readiness. 'Beep' is a highly functional and motivating word for this book's repeated phrase. 'Ready' supports school-readiness conversations. The core row already includes 'go' which pairs well with 'school' and 'bus' from the fringe. Consider pairing this board with a school routine visual schedule. Author confirmed as Alice Schertle based on the Little Blue Truck series; illustrator is Jill McElmurry.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

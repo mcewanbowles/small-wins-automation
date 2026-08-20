@@ -1,0 +1,86 @@
+{
+  "title": "What Do You Do With a Problem?",
+  "author": "Kobi Yamada",
+  "hero": {
+    "name": "Boy with Problem",
+    "description": "Generic boy character who carries and faces his growing problem — illustrated in Kobi Yamada style with warm tones",
+    "search_term": "boy",
+    "needs_sourcing": false,
+    "source_note": "Generic boy symbol from Boardmaker is acceptable — the problem cloud is the more distinctive visual"
+  },
+  "fringe_12": [
+    "Boy with Problem",
+    "problem",
+    "worry",
+    "grow",
+    "face",
+    "scared",
+    "big",
+    "hide",
+    "brave",
+    "idea",
+    "opportunity",
+    "cloud"
+  ],
+  "fringe_11": [
+    "problem",
+    "worry",
+    "grow",
+    "face",
+    "scared",
+    "big",
+    "hide",
+    "brave",
+    "idea",
+    "opportunity",
+    "cloud"
+  ],
+  "activity_images": [
+    "problem",
+    "worry",
+    "grow",
+    "face",
+    "scared",
+    "big"
+  ],
+  "aac_extras": [
+    "hide",
+    "brave",
+    "idea",
+    "opportunity",
+    "cloud"
+  ],
+  "ambiguous": [
+    {
+      "word": "face",
+      "issue": "Could mean a body part (face/head) or the action of confronting something",
+      "preferred": "face confront",
+      "reason": "In this book the child must face/confront his problem — the verb meaning is correct; search for 'face it' or 'confront' rather than body-part face"
+    },
+    {
+      "word": "grow",
+      "issue": "Could mean a plant growing or a person/thing getting bigger",
+      "preferred": "grow big",
+      "reason": "The problem grows larger the more it is avoided — use a symbol showing something expanding or getting bigger"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "problem": "problem",
+    "worry": "worry",
+    "grow": "grow",
+    "face": "confront",
+    "scared": "afraid",
+    "big": "big",
+    "hide": "hide",
+    "brave": "brave",
+    "idea": "idea",
+    "opportunity": "opportunity",
+    "cloud": "cloud"
+  },
+  "notes": "This book is about a child's emotional journey facing a problem rather than avoiding it. Key theme words like 'opportunity' and 'brave' are slightly abstract but central to the story message and worth including for upper-primary SPED students. The looming problem is visually represented as a dark cloud in the illustrations — the existing 'cloud' icon in activity_images/ should be reused. 'Worry' and 'scared' are emotionally concrete and picturable. 'Opportunity' may need a custom or sourced image if Boardmaker does not carry it — a lightbulb or open door symbol could substitute. 'Hide' (hiding behind or running from) should be searched as 'hide' in Boardmaker. Hero is a generic boy and Boardmaker's standard boy symbol is sufficient.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

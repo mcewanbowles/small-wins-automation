@@ -1,0 +1,82 @@
+{
+  "title": "Llama Llama Gram and Grandpa",
+  "author": "Anna Dewdney",
+  "hero": {
+    "name": "Llama Llama",
+    "description": "Young llama character with distinctive long neck and big eyes, Anna Dewdney character",
+    "search_term": "llama llama",
+    "needs_sourcing": true,
+    "source_note": "Named character — source from Creative Fabrica or TPT clip art"
+  },
+  "fringe_12": [
+    "Llama Llama",
+    "grandma",
+    "grandpa",
+    "hug",
+    "visit",
+    "house",
+    "cookie",
+    "missing",
+    "play",
+    "sleep",
+    "happy",
+    "llama"
+  ],
+  "fringe_11": [
+    "grandma",
+    "grandpa",
+    "hug",
+    "visit",
+    "house",
+    "cookie",
+    "missing",
+    "play",
+    "sleep",
+    "happy",
+    "llama"
+  ],
+  "activity_images": [
+    "grandma",
+    "grandpa",
+    "hug",
+    "visit",
+    "house",
+    "cookie"
+  ],
+  "aac_extras": [
+    "missing",
+    "play",
+    "sleep",
+    "happy",
+    "llama"
+  ],
+  "ambiguous": [
+    {
+      "word": "missing",
+      "issue": "Could mean 'absent/lost' (adjective) or 'to miss someone' (emotion/verb)",
+      "preferred": "miss",
+      "reason": "In this book, Llama Llama misses Mama while staying with grandparents — emotional longing is the correct meaning"
+    }
+  ],
+  "character_images_needed": [
+    "Llama Llama"
+  ],
+  "icon_search_terms": {
+    "grandma": "grandmother",
+    "grandpa": "grandfather",
+    "hug": "hug",
+    "visit": "visit",
+    "house": "house",
+    "cookie": "cookie",
+    "missing": "miss",
+    "play": "play",
+    "sleep": "sleep",
+    "happy": "happy",
+    "llama": "llama"
+  },
+  "notes": "Llama Llama stays overnight with Gram and Grandpa while Mama is away. Key emotional themes are missing Mama, feeling nervous in a new place, and being comforted by grandparents. 'Missing' is flagged as ambiguous because the intended meaning is the emotional verb 'to miss someone' rather than a physical absence. 'Llama' is included as a second fringe word (distinct from the hero slot) to allow the student to refer to the animal type generally. The word 'cookie' is relevant as Gram and Grandpa bake with Llama Llama in the story.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

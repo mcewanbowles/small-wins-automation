@@ -1,0 +1,82 @@
+{
+  "title": "Llama Llama Daddy's Day",
+  "author": "Anna Dewdney",
+  "hero": {
+    "name": "Llama Llama",
+    "description": "Small red llama child character, distinctive Anna Dewdney illustration style",
+    "search_term": "llama llama",
+    "needs_sourcing": true,
+    "source_note": "Named character — source from Creative Fabrica or TPT clip art; distinctive red llama design"
+  },
+  "fringe_12": [
+    "Llama Llama",
+    "daddy",
+    "hug",
+    "play",
+    "breakfast",
+    "cook",
+    "wash",
+    "garden",
+    "tool",
+    "happy",
+    "together",
+    "special"
+  ],
+  "fringe_11": [
+    "daddy",
+    "hug",
+    "play",
+    "breakfast",
+    "cook",
+    "wash",
+    "garden",
+    "tool",
+    "happy",
+    "together",
+    "special"
+  ],
+  "activity_images": [
+    "daddy",
+    "hug",
+    "play",
+    "breakfast",
+    "cook",
+    "wash"
+  ],
+  "aac_extras": [
+    "garden",
+    "tool",
+    "happy",
+    "together",
+    "special"
+  ],
+  "ambiguous": [
+    {
+      "word": "wash",
+      "issue": "Could mean washing dishes, washing hands, or doing laundry",
+      "preferred": "wash hands",
+      "reason": "General cleaning activity shown in book; washing hands is most picturable and recognisable for students"
+    }
+  ],
+  "character_images_needed": [
+    "Llama Llama"
+  ],
+  "icon_search_terms": {
+    "daddy": "dad father",
+    "hug": "hug",
+    "play": "play",
+    "breakfast": "breakfast",
+    "cook": "cook",
+    "wash": "wash hands",
+    "garden": "garden",
+    "tool": "tools",
+    "happy": "happy",
+    "together": "together",
+    "special": "special"
+  },
+  "notes": "Llama Llama Daddy's Day celebrates father-child bonding activities including cooking breakfast, gardening, playing, and hugging. 'Together' and 'special' capture the emotional theme of the book. 'Tool' covers the hands-on projects daddy and llama do together. If 'together' proves too abstract to picture clearly, consider substituting 'fix' or 'build' which are more concrete daddy-day activities shown in the book.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

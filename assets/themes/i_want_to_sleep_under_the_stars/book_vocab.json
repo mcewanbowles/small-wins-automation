@@ -1,0 +1,80 @@
+{
+  "title": "I Want To Sleep Under The Stars",
+  "author": "Unknown",
+  "hero": {
+    "name": "Child camping character",
+    "description": "Main child character from the book cover, likely a child in camping/outdoor setting looking up at night sky",
+    "search_term": "child sleeping outdoors",
+    "needs_sourcing": false,
+    "source_note": "Generic child camping character — use Boardmaker child or camping figure if specific book character is not distinctive"
+  },
+  "fringe_12": [
+    "Child camping character",
+    "stars",
+    "night",
+    "tent",
+    "sleeping bag",
+    "moon",
+    "campfire",
+    "dark",
+    "outside",
+    "sleep",
+    "sky",
+    "wish"
+  ],
+  "fringe_11": [
+    "stars",
+    "night",
+    "tent",
+    "sleeping bag",
+    "moon",
+    "campfire",
+    "dark",
+    "outside",
+    "sleep",
+    "sky",
+    "wish"
+  ],
+  "activity_images": [
+    "stars",
+    "night",
+    "tent",
+    "sleeping bag",
+    "moon",
+    "campfire"
+  ],
+  "aac_extras": [
+    "dark",
+    "outside",
+    "sleep",
+    "sky",
+    "wish"
+  ],
+  "ambiguous": [
+    {
+      "word": "dark",
+      "issue": "Could be interpreted as a colour/adjective or a noun (the dark = nighttime darkness)",
+      "preferred": "dark",
+      "reason": "In this book dark refers to the nighttime environment; use adjective meaning — night sky being dark"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "stars": "star",
+    "night": "night",
+    "tent": "tent",
+    "sleeping bag": "sleeping bag",
+    "moon": "moon",
+    "campfire": "campfire",
+    "dark": "dark",
+    "outside": "outside",
+    "sleep": "sleep",
+    "sky": "sky",
+    "wish": "wish"
+  },
+  "notes": "Author is listed as Unknown — verify book details before finalising. The book title 'I Want To Sleep Under The Stars' aligns with a camping/outdoors nighttime theme. Vocabulary focuses on camping and night-sky concepts. 'outside' is retained as a concrete locative noun/concept rather than a preposition — it functions here as a destination concept central to the book's premise. If the actual book has named characters or a specific art style, the hero may need re-evaluating for needs_sourcing. 'wish' may be abstract for some learners — substitute 'blanket' or 'tree' if a more concrete word better fits the actual story content.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

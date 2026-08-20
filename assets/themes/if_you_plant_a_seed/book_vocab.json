@@ -1,0 +1,80 @@
+{
+  "title": "If You Plant a Seed",
+  "author": "Kadir Nelson",
+  "hero": {
+    "name": "Rabbit (If You Plant a Seed)",
+    "description": "Round, soft-furred brown rabbit character from the cover, illustrated in Kadir Nelson's realistic painterly style",
+    "search_term": "rabbit",
+    "needs_sourcing": false,
+    "source_note": "Generic rabbit — Boardmaker rabbit symbol is acceptable; if a closer match to Nelson's style is desired, source from TPT or Creative Fabrica"
+  },
+  "fringe_12": [
+    "Rabbit (If You Plant a Seed)",
+    "seed",
+    "plant",
+    "grow",
+    "tomato",
+    "garden",
+    "bird",
+    "share",
+    "selfish",
+    "kind",
+    "fight",
+    "happy"
+  ],
+  "fringe_11": [
+    "seed",
+    "plant",
+    "grow",
+    "tomato",
+    "garden",
+    "bird",
+    "share",
+    "selfish",
+    "kind",
+    "fight",
+    "happy"
+  ],
+  "activity_images": [
+    "seed",
+    "plant",
+    "grow",
+    "tomato",
+    "garden",
+    "bird"
+  ],
+  "aac_extras": [
+    "share",
+    "selfish",
+    "kind",
+    "fight",
+    "happy"
+  ],
+  "ambiguous": [
+    {
+      "word": "plant",
+      "issue": "Could mean the action of planting (verb) or a living plant (noun)",
+      "preferred": "plant action",
+      "reason": "The book is centrally about the act of planting a seed, so the verb sense is primary; use a Boardmaker symbol showing a hand putting something in soil"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "seed": "seed",
+    "plant": "plant",
+    "grow": "grow",
+    "tomato": "tomato",
+    "garden": "garden",
+    "bird": "bird",
+    "share": "share",
+    "selfish": "selfish",
+    "kind": "kind",
+    "fight": "fight",
+    "happy": "happy"
+  },
+  "notes": "This book's core message is about kindness and sharing versus selfishness — 'share', 'kind', 'selfish', and 'fight' are thematically essential and give students language to discuss the social-emotional content. 'Tomato' is the main fruit that grows and is contested in the story (more specific and picturable than generic 'fruit'). 'Grow' captures the central cause-and-effect concept. The rabbit and bird are the two main characters; rabbit is chosen as hero (cover character). The bird is a secondary character included in fringe_11. 'Happy' anchors the positive resolution. Existing activity_images vocab (seed, plant, soil, pot, sun, sprout, fruit, bird, rabbit, rain, garden) overlaps well — 'seed', 'plant', 'garden', and 'bird' can reuse existing icons. 'Tomato' is preferred over 'fruit' for specificity to this book.",
+  "characters": [],
+  "code": "IYPS1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

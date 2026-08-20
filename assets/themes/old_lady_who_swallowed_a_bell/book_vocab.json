@@ -1,0 +1,88 @@
+{
+  "title": "Old Lady Who Swallowed A Bell",
+  "author": "Unknown",
+  "hero": {
+    "name": "Old Lady",
+    "description": "Eccentric old woman character from the holiday-themed swallowing series, typically depicted with wild hair and a large round belly",
+    "search_term": "old lady",
+    "needs_sourcing": true,
+    "source_note": "Specific illustrated character from the 'Old Lady Who Swallowed' series — source from Creative Fabrica or TPT clip art matching book cover art"
+  },
+  "fringe_12": [
+    "OLD LADY",
+    "bell",
+    "swallow",
+    "Christmas",
+    "stocking",
+    "candy cane",
+    "bow",
+    "reindeer",
+    "sleigh",
+    "snow",
+    "jingle",
+    "tummy"
+  ],
+  "fringe_11": [
+    "bell",
+    "swallow",
+    "Christmas",
+    "stocking",
+    "candy cane",
+    "bow",
+    "reindeer",
+    "sleigh",
+    "snow",
+    "jingle",
+    "tummy"
+  ],
+  "activity_images": [
+    "bell",
+    "swallow",
+    "Christmas",
+    "stocking",
+    "candy cane",
+    "bow"
+  ],
+  "aac_extras": [
+    "reindeer",
+    "sleigh",
+    "snow",
+    "jingle",
+    "tummy"
+  ],
+  "ambiguous": [
+    {
+      "word": "bow",
+      "issue": "Could mean a decorative ribbon bow (noun) or to bow down (verb) or bow and arrow (weapon)",
+      "preferred": "bow ribbon",
+      "reason": "In this Christmas-themed book, the old lady swallows a bow as a gift decoration, not a weapon or action"
+    },
+    {
+      "word": "jingle",
+      "issue": "Could mean the action of jingling or a jingle song/tune",
+      "preferred": "jingle bells",
+      "reason": "Used in the context of jingle bells ringing — the sound/action associated with Christmas bells in the story"
+    }
+  ],
+  "character_images_needed": [
+    "Old Lady"
+  ],
+  "icon_search_terms": {
+    "bell": "bell",
+    "swallow": "swallow eat",
+    "Christmas": "christmas",
+    "stocking": "christmas stocking",
+    "candy cane": "candy cane",
+    "bow": "bow ribbon",
+    "reindeer": "reindeer",
+    "sleigh": "sleigh",
+    "snow": "snow",
+    "jingle": "jingle bells",
+    "tummy": "tummy stomach"
+  },
+  "notes": "This is a Christmas/holiday-themed entry in the popular 'There Was an Old Lady Who Swallowed...' series. The cumulative swallowing structure is highly repetitive and predictable, making it excellent for AAC use. Key interaction points are naming each swallowed object and anticipating what comes next. 'Tummy' is included as a core story concept since the old lady's belly grows with each swallow. Consider adding visual cues for the cumulative sequence. Author is listed as Unknown but the series is commonly attributed to Lucille Colandro.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

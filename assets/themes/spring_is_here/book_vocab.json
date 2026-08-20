@@ -1,0 +1,86 @@
+{
+  "title": "Spring Is Here",
+  "author": "Will Hillenbrand",
+  "hero": {
+    "name": "Mole",
+    "description": "Small brown mole character, main protagonist who tries to wake Bear to announce spring",
+    "search_term": "mole animal",
+    "needs_sourcing": false,
+    "source_note": ""
+  },
+  "fringe_12": [
+    "Mole",
+    "bear",
+    "spring",
+    "wake",
+    "snow",
+    "flower",
+    "rain",
+    "sun",
+    "trumpet",
+    "honey",
+    "cave",
+    "butterfly"
+  ],
+  "fringe_11": [
+    "bear",
+    "spring",
+    "wake",
+    "snow",
+    "flower",
+    "rain",
+    "sun",
+    "trumpet",
+    "honey",
+    "cave",
+    "butterfly"
+  ],
+  "activity_images": [
+    "bear",
+    "spring",
+    "wake",
+    "snow",
+    "flower",
+    "rain"
+  ],
+  "aac_extras": [
+    "sun",
+    "trumpet",
+    "honey",
+    "cave",
+    "butterfly"
+  ],
+  "ambiguous": [
+    {
+      "word": "spring",
+      "issue": "Could mean the season or a coiled spring object",
+      "preferred": "spring season",
+      "reason": "Book is about the arrival of the spring season"
+    },
+    {
+      "word": "wake",
+      "issue": "Could mean to wake up (verb) or a body of water trail",
+      "preferred": "wake up",
+      "reason": "Core action in the book is waking Bear from hibernation"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "bear": "bear",
+    "spring": "spring",
+    "wake": "wake up",
+    "snow": "snow",
+    "flower": "flower",
+    "rain": "rain",
+    "sun": "sun",
+    "trumpet": "trumpet",
+    "honey": "honey",
+    "cave": "cave",
+    "butterfly": "butterfly"
+  },
+  "notes": "Mole and Bear are the two main characters; mole is generic enough for Boardmaker library using 'mole animal' search. Bear is also generic (brown bear hibernating). Key story arc is Mole trying to wake Bear to announce spring — 'wake' is a critical action verb. Trumpet is a key plot object Mole uses. Honey is Bear's motivation to wake. Butterfly signals spring arrival visually. Snow and cave represent winter setting they are leaving. Several of these words (mole, bear, honey, trumpet, rain, sun, flower) already exist in activity_images or aac_extras and can be reused directly.",
+  "characters": [],
+  "code": "SIH1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

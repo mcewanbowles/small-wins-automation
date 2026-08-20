@@ -1,0 +1,88 @@
+{
+  "title": "Pete Screams Ice Cream",
+  "author": "Unknown",
+  "hero": {
+    "name": "Pete the Cat",
+    "description": "Blue cat character, main protagonist of the Pete the Cat series",
+    "search_term": "pete cat",
+    "needs_sourcing": true,
+    "source_note": "Named character — source from Creative Fabrica or TPT clip art"
+  },
+  "fringe_12": [
+    "Pete the Cat",
+    "ice cream",
+    "scream",
+    "cone",
+    "scoop",
+    "flavour",
+    "sprinkles",
+    "cold",
+    "yummy",
+    "bowl",
+    "share",
+    "cat"
+  ],
+  "fringe_11": [
+    "ice cream",
+    "scream",
+    "cone",
+    "scoop",
+    "flavour",
+    "sprinkles",
+    "cold",
+    "yummy",
+    "bowl",
+    "share",
+    "cat"
+  ],
+  "activity_images": [
+    "ice cream",
+    "scream",
+    "cone",
+    "scoop",
+    "flavour",
+    "sprinkles"
+  ],
+  "aac_extras": [
+    "cold",
+    "yummy",
+    "bowl",
+    "share",
+    "cat"
+  ],
+  "ambiguous": [
+    {
+      "word": "scream",
+      "issue": "Could mean frightened scream or excited shout",
+      "preferred": "scream excited",
+      "reason": "In this book Pete screams with delight about ice cream, not fear"
+    },
+    {
+      "word": "cold",
+      "issue": "Could mean temperature sensation or illness",
+      "preferred": "cold temperature",
+      "reason": "Book is about ice cream which is cold to eat or hold"
+    }
+  ],
+  "character_images_needed": [
+    "Pete the Cat"
+  ],
+  "icon_search_terms": {
+    "ice cream": "ice cream",
+    "scream": "scream",
+    "cone": "ice cream cone",
+    "scoop": "scoop",
+    "flavour": "flavors",
+    "sprinkles": "sprinkles",
+    "cold": "cold",
+    "yummy": "yummy",
+    "bowl": "bowl",
+    "share": "share",
+    "cat": "cat"
+  },
+  "notes": "Pete the Cat is a well-known children's book character — generic Boardmaker cat icon will not match. Source a blue cat with Pete's distinctive look from TPT or Creative Fabrica. The word 'scream' doubles as both the title pun and a communicative action the student can use to express excitement. 'Flavour' is included as a high-utility fringe word for discussing ice cream choices, linking naturally to the core 'choose' button. If the specific book is unavailable for preview, these fringe words reflect the most probable vocabulary for an ice-cream-themed Pete the Cat story.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

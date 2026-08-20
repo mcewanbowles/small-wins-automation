@@ -1,0 +1,92 @@
+{
+  "title": "Bear Wants More",
+  "author": "Karma Wilson",
+  "hero": {
+    "name": "Bear (Bear Wants More)",
+    "description": "Large brown bear, friendly rounded style, Karma Wilson illustration by Jane Chapman",
+    "search_term": "bear",
+    "needs_sourcing": false,
+    "source_note": "Generic brown bear — Boardmaker bear icon is sufficient; no named-character sourcing needed"
+  },
+  "fringe_12": [
+    "Bear (Bear Wants More)",
+    "eat",
+    "hungry",
+    "full",
+    "food",
+    "grass",
+    "berries",
+    "honey",
+    "friends",
+    "spring",
+    "cave",
+    "wake up"
+  ],
+  "fringe_11": [
+    "eat",
+    "hungry",
+    "full",
+    "food",
+    "grass",
+    "berries",
+    "honey",
+    "friends",
+    "spring",
+    "cave",
+    "wake up"
+  ],
+  "activity_images": [
+    "eat",
+    "hungry",
+    "full",
+    "food",
+    "grass",
+    "berries"
+  ],
+  "aac_extras": [
+    "honey",
+    "friends",
+    "spring",
+    "cave",
+    "wake up"
+  ],
+  "ambiguous": [
+    {
+      "word": "bear",
+      "issue": "Could mean the animal (noun) or the verb 'to bear/carry'",
+      "preferred": "bear animal",
+      "reason": "Bear is the main character in this book; animal meaning is correct"
+    },
+    {
+      "word": "full",
+      "issue": "Could mean full (not hungry) or full (container topped up)",
+      "preferred": "full stomach",
+      "reason": "Bear eats until he is full — satiated meaning is correct; search for 'full stomach' or 'full tummy'"
+    },
+    {
+      "word": "spring",
+      "issue": "Could mean the season (spring) or a coiled spring object",
+      "preferred": "spring season",
+      "reason": "Bear wakes up from hibernation in spring — season meaning is correct"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "eat": "eat",
+    "hungry": "hungry",
+    "full": "full",
+    "food": "food",
+    "grass": "grass",
+    "berries": "berries",
+    "honey": "honey",
+    "friends": "friends",
+    "spring": "spring",
+    "cave": "cave",
+    "wake up": "awake"
+  },
+  "notes": "Bear is a generic brown bear drawn by Jane Chapman; standard Boardmaker bear icon matches well enough for classroom use. The story centres on Bear waking from hibernation in spring, foraging and eating with friends, and never feeling full — so hunger/fullness vocabulary is central. 'More' is already a fixed core word (Row 2) and does not need a fringe slot. Several words (hungry, eat, berries, honey, cave, spring, wake up, friends) already exist in the provided activity_images or aac_extras data and can be reused directly. 'Food' and 'grass' are new additions. 'Full' is the key emotional/physical payoff of the story and should be included even though it is slightly abstract — pair with a stomach/tummy image for clarity.",
+  "characters": [],
+  "code": "BWM1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

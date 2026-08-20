@@ -1,0 +1,88 @@
+{
+  "title": "Grumpy Monkey",
+  "author": "Suzanne Lang",
+  "hero": {
+    "name": "Jim Panzee the Grumpy Monkey",
+    "description": "Chimpanzee with a distinctly grumpy scowling expression, central character from cover",
+    "search_term": "grumpy monkey",
+    "needs_sourcing": true,
+    "source_note": "Named/distinctive character with specific grumpy expression — source from Creative Fabrica or TPT clip art; generic Boardmaker chimp won't match"
+  },
+  "fringe_12": [
+    "Jim Panzee (Grumpy Monkey)",
+    "grumpy",
+    "mad",
+    "happy",
+    "calm",
+    "jungle",
+    "banana",
+    "friend",
+    "face",
+    "feel",
+    "walk",
+    "smile"
+  ],
+  "fringe_11": [
+    "grumpy",
+    "mad",
+    "happy",
+    "calm",
+    "jungle",
+    "banana",
+    "friend",
+    "face",
+    "feel",
+    "walk",
+    "smile"
+  ],
+  "activity_images": [
+    "grumpy",
+    "mad",
+    "happy",
+    "calm",
+    "jungle",
+    "banana"
+  ],
+  "aac_extras": [
+    "friend",
+    "face",
+    "feel",
+    "walk",
+    "smile"
+  ],
+  "ambiguous": [
+    {
+      "word": "feel",
+      "issue": "Could mean physical touch/sensation or emotional feeling",
+      "preferred": "feel emotions",
+      "reason": "Book is entirely about emotional states and not wanting to feel happy — emotional meaning is correct"
+    },
+    {
+      "word": "face",
+      "issue": "Could mean a body part (the face) or the action 'to face something'",
+      "preferred": "face body part",
+      "reason": "The book features exaggerated facial expressions throughout; the noun meaning is correct"
+    }
+  ],
+  "character_images_needed": [
+    "Jim Panzee the Grumpy Monkey"
+  ],
+  "icon_search_terms": {
+    "grumpy": "grumpy",
+    "mad": "mad",
+    "happy": "happy",
+    "calm": "calm",
+    "jungle": "jungle",
+    "banana": "banana",
+    "friend": "friend",
+    "face": "face",
+    "feel": "feel",
+    "walk": "walk",
+    "smile": "smile"
+  },
+  "notes": "This book is heavily emotion-focused — Jim does not want to be happy and other jungle animals keep trying to cheer him up. Core vocabulary words 'like' and 'don't like' on the fixed rows are especially useful for this book. Many fringe words (grumpy, mad, happy, calm) already exist in aac_extras and can be reused directly. 'feel' is included despite being somewhat abstract because the book's central question is 'how do you feel?' — teachers may prefer to swap it for a more concrete word such as 'tree' or 'bird' if the student struggles with abstract emotion verbs. The fixed core row already includes 'colour' which pairs well if doing art extension activities around the book's warm jungle palette.",
+  "characters": [],
+  "code": "GM1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

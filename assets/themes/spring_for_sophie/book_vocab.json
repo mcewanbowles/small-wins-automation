@@ -1,0 +1,86 @@
+{
+  "title": "Spring for Sophie",
+  "author": "Yael Werber",
+  "hero": {
+    "name": "Sophie",
+    "description": "Young girl (child protagonist) eagerly waiting for and discovering spring — Sophie is a generic child character so a Boardmaker girl image may suffice, but she has a distinctive illustrated style",
+    "search_term": "girl child",
+    "needs_sourcing": false,
+    "source_note": "Sophie is a generic child character — a Boardmaker 'girl' icon is acceptable; if the classroom edition uses her specific illustrated likeness, source from publisher or TPT"
+  },
+  "fringe_12": [
+    "Sophie",
+    "spring",
+    "flower",
+    "robin",
+    "bud",
+    "rain",
+    "mud",
+    "worm",
+    "sun",
+    "wait",
+    "grow",
+    "butterfly"
+  ],
+  "fringe_11": [
+    "spring",
+    "flower",
+    "robin",
+    "bud",
+    "rain",
+    "mud",
+    "worm",
+    "sun",
+    "wait",
+    "grow",
+    "butterfly"
+  ],
+  "activity_images": [
+    "spring",
+    "flower",
+    "robin",
+    "bud",
+    "rain",
+    "mud"
+  ],
+  "aac_extras": [
+    "worm",
+    "sun",
+    "wait",
+    "grow",
+    "butterfly"
+  ],
+  "ambiguous": [
+    {
+      "word": "spring",
+      "issue": "Could mean the season (spring) or a coiled spring (object) or the action to jump/spring",
+      "preferred": "spring season",
+      "reason": "The book is entirely about the arrival of the spring season — seasonal meaning is correct"
+    },
+    {
+      "word": "bud",
+      "issue": "Could mean a flower bud (plant) or an informal term for a friend",
+      "preferred": "bud flower",
+      "reason": "The book features plant buds emerging in spring — botanical meaning is correct"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "spring": "spring season",
+    "flower": "flower",
+    "robin": "robin bird",
+    "bud": "flower bud",
+    "rain": "rain",
+    "mud": "mud",
+    "worm": "worm",
+    "sun": "sun",
+    "wait": "wait",
+    "grow": "grow plant",
+    "butterfly": "butterfly"
+  },
+  "notes": "Several fringe words (robin, bud, rain, sun, mud, worm, flower) already exist in activity_images or aac_extras — these can be reused directly. 'Spring' is the central concept and most important fringe word; a seasonal image (flowers, sunshine, green landscape) works best. 'Wait' is a key emotional/action word as Sophie waits impatiently for spring to arrive — it is picturable (child waiting) and highly communicative for this book. 'Grow' and 'butterfly' round out the transformation/nature theme central to the story. Colour words (green, yellow) were considered but 'colour' is already in core row 5, so they were not prioritised over concrete nouns.",
+  "characters": [],
+  "code": "SFS1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

@@ -1,0 +1,89 @@
+{
+  "title": "Llama Llama Mad at Mama",
+  "author": "Anna Dewdney",
+  "hero": {
+    "name": "Llama Llama",
+    "description": "Young llama character in red pajamas style; generic hero placeholder until sourced",
+    "needs_sourcing": false
+  },
+  "activity_images": [
+    "car",
+    "shopping cart",
+    "store",
+    "clothes",
+    "socks",
+    "sweater",
+    "teddy bear",
+    "shoes",
+    "ice cream",
+    "tantrum",
+    "mama"
+  ],
+  "fringe_12": [
+    "car",
+    "shopping cart",
+    "store",
+    "clothes",
+    "socks",
+    "sweater",
+    "teddy bear",
+    "shoes",
+    "ice cream",
+    "tantrum"
+  ],
+  "fringe_11": [],
+  "aac_extras": [
+    "mama",
+    "cry",
+    "wait",
+    "hug"
+  ],
+  "ambiguous": [],
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "icon_search_terms": {
+    "mama": [
+      "mama",
+      "mom",
+      "mother",
+      "mum",
+      "mummy"
+    ],
+    "mad": [
+      "mad",
+      "angry",
+      "upset",
+      "cross",
+      "frustrated"
+    ],
+    "llama": [
+      "llama",
+      "alpaca"
+    ],
+    "pajamas": [
+      "pajamas",
+      "pjs",
+      "pyjamas",
+      "sleepwear"
+    ],
+    "shopping": [
+      "shopping",
+      "grocery",
+      "market",
+      "cart",
+      "trolley"
+    ],
+    "tantrum": [
+      "tantrum",
+      "meltdown",
+      "cry",
+      "scream"
+    ],
+    "hug": [
+      "hug",
+      "cuddle",
+      "embrace"
+    ]
+  }
+}

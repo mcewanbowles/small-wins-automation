@@ -1,0 +1,88 @@
+{
+  "title": "Wemberly Worried",
+  "author": "Kevin Henkes",
+  "hero": {
+    "name": "Wemberly",
+    "description": "Small brown mouse girl with a pink dress and a ragdoll named Petal, distinctive Kevin Henkes character",
+    "search_term": "wemberly mouse",
+    "needs_sourcing": true,
+    "source_note": "Named character — source from Creative Fabrica or TPT clip art; Wemberly is a small mouse girl with a doll"
+  },
+  "fringe_12": [
+    "WEMBERLY",
+    "worried",
+    "school",
+    "mouse",
+    "doll",
+    "friend",
+    "scared",
+    "okay",
+    "belly",
+    "classroom",
+    "hug",
+    "new"
+  ],
+  "fringe_11": [
+    "worried",
+    "school",
+    "mouse",
+    "doll",
+    "friend",
+    "scared",
+    "okay",
+    "belly",
+    "classroom",
+    "hug",
+    "new"
+  ],
+  "activity_images": [
+    "worried",
+    "school",
+    "mouse",
+    "doll",
+    "friend",
+    "scared"
+  ],
+  "aac_extras": [
+    "okay",
+    "belly",
+    "classroom",
+    "hug",
+    "new"
+  ],
+  "ambiguous": [
+    {
+      "word": "scared",
+      "issue": "Could map to multiple fear-related images — afraid, scared, frightened",
+      "preferred": "afraid",
+      "reason": "Boardmaker has a well-recognised 'afraid' symbol; use this for scared/worried meaning in this book"
+    },
+    {
+      "word": "belly",
+      "issue": "Could be confused with stomach or tummy icons",
+      "preferred": "stomach",
+      "reason": "Wemberly gets a worried feeling in her belly/stomach — stomach icon is clearest picturable option"
+    }
+  ],
+  "character_images_needed": [
+    "Wemberly"
+  ],
+  "icon_search_terms": {
+    "worried": "afraid",
+    "school": "school",
+    "mouse": "mouse",
+    "doll": "baby doll",
+    "friend": "friend",
+    "scared": "afraid",
+    "okay": "all done",
+    "belly": "stomach",
+    "classroom": "art class",
+    "hug": "affection",
+    "new": "different"
+  },
+  "notes": "Wemberly Worried by Kevin Henkes focuses on anxiety about starting school. Key themes are worry, friendship, and reassurance. 'Worried' is the central emotion — use the 'afraid' Boardmaker symbol as the closest match. 'Okay' is important as a reassurance word throughout the book. 'Petal' (Wemberly's ragdoll) could replace 'doll' if a sourced image is available but 'doll' is more universally recognised in Boardmaker. Secondary character Jewel (the new friend at school) is not included as a fringe word but teachers may wish to add her name separately.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

@@ -1,0 +1,73 @@
+{
+  "title": "Llama Llama",
+  "author": "Anna Dewdney",
+  "hero": {
+    "name": "Llama Llama",
+    "description": "Young llama character, main protagonist of the Llama Llama series by Anna Dewdney",
+    "search_term": "llama llama",
+    "needs_sourcing": false,
+    "source_note": "Activity images already contains llama_llama — use that existing icon"
+  },
+  "fringe_12": [
+    "llama_llama",
+    "mama",
+    "pyjamas",
+    "cry",
+    "hug",
+    "waiting",
+    "worry",
+    "bedtime",
+    "blanket",
+    "teddy_bear",
+    "shout",
+    "sorry"
+  ],
+  "fringe_11": [
+    "mama",
+    "pyjamas",
+    "cry",
+    "hug",
+    "waiting",
+    "worry",
+    "bedtime",
+    "blanket",
+    "teddy_bear",
+    "shout",
+    "sorry"
+  ],
+  "activity_images": [
+    "mama",
+    "pyjamas",
+    "cry",
+    "hug",
+    "waiting",
+    "worry"
+  ],
+  "aac_extras": [
+    "bedtime",
+    "blanket",
+    "teddy_bear",
+    "shout",
+    "sorry"
+  ],
+  "ambiguous": [],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "mama": "mama",
+    "pyjamas": "pajamas",
+    "cry": "cry",
+    "hug": "hug",
+    "waiting": "waiting",
+    "worry": "worry",
+    "bedtime": "bedtime",
+    "blanket": "blanket",
+    "teddy_bear": "teddy bear",
+    "shout": "shout",
+    "sorry": "sorry"
+  },
+  "notes": "This board covers the core Llama Llama Red Pyjama story about bedtime anxiety and waiting for mama. All 11 fringe words already exist in the activity_images folder, so no new sourcing is required. The hero icon llama_llama is also already available. The series has multiple titles; this board is best suited to Llama Llama Red Pyjama but is broadly applicable across the series. Words like 'fret', 'tantrum', and 'stuffed_llama' are available in activity_images as bonus icons but were not selected as the 11 chosen words best cover the key communicative functions for SPED students (emotions, characters, objects, actions).",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

@@ -1,0 +1,88 @@
+{
+  "title": "Good Night, Gorilla",
+  "author": "Peggy Rathmann",
+  "hero": {
+    "name": "Gorilla",
+    "description": "Round, dark-furred cartoon gorilla with big eyes, holding stolen keys — the mischievous protagonist from the cover",
+    "search_term": "gorilla",
+    "needs_sourcing": false,
+    "source_note": "Generic gorilla symbol from Boardmaker should work; verify it reads as friendly/cartoon rather than aggressive"
+  },
+  "fringe_12": [
+    "gorilla",
+    "keys",
+    "banana",
+    "cage",
+    "zookeeper",
+    "sleep",
+    "goodnight",
+    "dark",
+    "balloon",
+    "bed",
+    "wake up",
+    "animals"
+  ],
+  "fringe_11": [
+    "keys",
+    "banana",
+    "cage",
+    "zookeeper",
+    "sleep",
+    "goodnight",
+    "dark",
+    "balloon",
+    "bed",
+    "wake up",
+    "animals"
+  ],
+  "activity_images": [
+    "keys",
+    "banana",
+    "cage",
+    "zookeeper",
+    "sleep",
+    "goodnight"
+  ],
+  "aac_extras": [
+    "dark",
+    "balloon",
+    "bed",
+    "wake up",
+    "animals"
+  ],
+  "ambiguous": [
+    {
+      "word": "dark",
+      "issue": "Could map to a colour swatch (dark shade) or to nighttime/lights-out scene",
+      "preferred": "dark night",
+      "reason": "In this book, dark refers to the nighttime zoo setting — a moon/night sky image is more appropriate than a colour chip"
+    },
+    {
+      "word": "keys",
+      "issue": "Could be a single key or a bunch of keys; also could mean piano keys",
+      "preferred": "keys bunch",
+      "reason": "The gorilla steals a ring of multiple keys from the zookeeper — a keyring image is the correct referent"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "keys": "keys",
+    "banana": "banana",
+    "cage": "cage",
+    "zookeeper": "zookeeper",
+    "sleep": "sleep",
+    "goodnight": "goodnight",
+    "dark": "dark",
+    "balloon": "balloon",
+    "bed": "bed",
+    "wake up": "awake",
+    "animals": "animals"
+  },
+  "notes": "All 11 fringe words match items already in activity_images or aac_extras per existing data — no new sourcing required for fringe. The gorilla hero is generic enough for Boardmaker but verify the symbol looks friendly and cartoon-like to match the book's tone. 'wake up' maps to 'awake' or 'awake 1' in the Boardmaker library. 'goodnight' may need to be rendered as 'good night' (two words) depending on library entry. The book features lion, elephant, giraffe, hyena, and armadillo as secondary zoo animals — these are already in activity_images but were not included in the 11 fringe slots because the generic 'animals' card covers the group concept and the 11 slots are better used for actions and key objects central to the narrative. Teachers may wish to add individual animal cards as supplementary vocabulary outside the 36-cell board.",
+  "characters": [
+    "gorilla"
+  ],
+  "code": "GNG1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

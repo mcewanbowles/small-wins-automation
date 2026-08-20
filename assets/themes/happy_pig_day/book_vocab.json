@@ -1,0 +1,88 @@
+{
+  "title": "Happy Pig Day!",
+  "author": "Mo Willems",
+  "hero": {
+    "name": "Piggie",
+    "description": "Pink cartoon pig character from the Elephant and Piggie series by Mo Willems",
+    "search_term": "piggie pig mo willems",
+    "needs_sourcing": true,
+    "source_note": "Named character from Elephant and Piggie series — source from Creative Fabrica, TPT, or Mo Willems fan clip art"
+  },
+  "fringe_12": [
+    "Piggie",
+    "pig",
+    "happy",
+    "party",
+    "friend",
+    "celebrate",
+    "pink",
+    "oink",
+    "tail",
+    "snout",
+    "dance",
+    "hug"
+  ],
+  "fringe_11": [
+    "pig",
+    "happy",
+    "party",
+    "friend",
+    "celebrate",
+    "pink",
+    "oink",
+    "tail",
+    "snout",
+    "dance",
+    "hug"
+  ],
+  "activity_images": [
+    "pig",
+    "happy",
+    "party",
+    "friend",
+    "celebrate",
+    "pink"
+  ],
+  "aac_extras": [
+    "oink",
+    "tail",
+    "snout",
+    "dance",
+    "hug"
+  ],
+  "ambiguous": [
+    {
+      "word": "happy",
+      "issue": "Could map to a generic smiley face or a specific happy expression",
+      "preferred": "happy face",
+      "reason": "Book is about happiness and celebration — a clear joyful expression icon is correct"
+    },
+    {
+      "word": "party",
+      "issue": "Could show birthday party specifically or generic celebration",
+      "preferred": "party",
+      "reason": "The book is about celebrating Pig Day as a party event — general party imagery is correct"
+    }
+  ],
+  "character_images_needed": [
+    "Piggie"
+  ],
+  "icon_search_terms": {
+    "pig": "pig",
+    "happy": "happy",
+    "party": "party",
+    "friend": "friend",
+    "celebrate": "celebrate",
+    "pink": "pink",
+    "oink": "pig sound",
+    "tail": "tail",
+    "snout": "pig nose snout",
+    "dance": "dance",
+    "hug": "hug"
+  },
+  "notes": "Happy Pig Day! is by Mo Willems and features Piggie and Gerald (Elephant). Piggie is the hero as the book centres on her love of Pig Day. Gerald is a significant secondary character but not included in fringe to avoid duplication with hero slot — teachers may wish to add Gerald as a secondary image. The word 'oink' may not have a direct Boardmaker symbol; searching 'pig sound' or using a speech bubble with pig may be needed. 'Snout' is a fun book-specific vocabulary word that may require a close-up pig nose image. Colours like pink are central to the pig identity theme. Core words like 'same' and 'like' from the fixed rows are very useful for this book's theme of shared identity.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

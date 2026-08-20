@@ -1,0 +1,97 @@
+{
+  "title": "The Paper Bag Princess",
+  "author": "Robert Munsch",
+  "hero": {
+    "name": "Princess Elizabeth",
+    "description": "Young princess wearing a paper bag, messy hair, determined expression — Robert Munsch character from cover",
+    "search_term": "paper bag princess elizabeth",
+    "needs_sourcing": true,
+    "source_note": "Named/distinctive character — source from Creative Fabrica, TPT, or Teachers Pay Teachers clip art; generic Boardmaker princess icon will not show paper bag costume"
+  },
+  "fringe_12": [
+    "Princess Elizabeth",
+    "prince",
+    "dragon",
+    "castle",
+    "fire",
+    "cave",
+    "paper bag",
+    "rescue",
+    "brave",
+    "run",
+    "burn",
+    "smart"
+  ],
+  "fringe_11": [
+    "prince",
+    "dragon",
+    "castle",
+    "fire",
+    "cave",
+    "paper bag",
+    "rescue",
+    "brave",
+    "run",
+    "burn",
+    "smart"
+  ],
+  "activity_images": [
+    "prince",
+    "dragon",
+    "castle",
+    "fire",
+    "cave",
+    "paper bag"
+  ],
+  "aac_extras": [
+    "rescue",
+    "brave",
+    "run",
+    "burn",
+    "smart"
+  ],
+  "ambiguous": [
+    {
+      "word": "fire",
+      "issue": "Could mean a campfire, fireplace, house fire, or the dragon's breath flame",
+      "preferred": "fire flames",
+      "reason": "In this book fire refers to the dragon breathing flames and burning Elizabeth's clothes — dragon-breath fire is the correct meaning"
+    },
+    {
+      "word": "run",
+      "issue": "Could mean running legs (action) or a running nose etc.",
+      "preferred": "run action",
+      "reason": "Elizabeth runs to the dragon's cave — physical running action is the correct meaning"
+    },
+    {
+      "word": "smart",
+      "issue": "Could mean clever/intelligent (adjective) or physical pain (verb: it smarts)",
+      "preferred": "smart clever",
+      "reason": "Elizabeth outsmarts the dragon with her clever tricks — intelligent meaning is correct"
+    }
+  ],
+  "character_images_needed": [
+    "Princess Elizabeth (paper bag princess)"
+  ],
+  "icon_search_terms": {
+    "prince": "prince",
+    "dragon": "dragon",
+    "castle": "castle",
+    "fire": "fire flames",
+    "cave": "cave",
+    "paper bag": "bag paper",
+    "rescue": "rescue",
+    "brave": "brave",
+    "run": "run",
+    "burn": "burn fire",
+    "smart": "smart clever"
+  },
+  "notes": "Key theme of this book is gender-role reversal — Elizabeth rescues the prince, not the other way around. The paper bag costume is central and distinctive; ensure the hero image clearly shows Elizabeth in the brown paper bag, not a traditional princess dress. 'Rescue', 'brave', and 'smart' are critical fringe words because the story's message hinges on Elizabeth's cleverness and courage. 'Burn' covers the dragon destroying the castle and Elizabeth's clothes. Secondary character Prince Ronald does not require a sourced custom image — a generic 'prince' Boardmaker symbol is sufficient. Existing activity_images (princess, prince, dragon, castle, paper bag, forest, fire, crown, cave, smoke) and aac_extras (brave, clever, rescue, roar) provide strong coverage; 'clever' from aac_extras is near-equivalent to 'smart' — consider using 'clever' instead of 'smart' to reuse existing asset.",
+  "characters": [
+    "dragon",
+    "princess"
+  ],
+  "code": "PBP1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

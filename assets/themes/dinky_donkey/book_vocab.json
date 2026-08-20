@@ -1,0 +1,84 @@
+{
+  "title": "The Dinky Donkey",
+  "author": "Craig Smith",
+  "hero": {
+    "name": "Dinky Donkey",
+    "description": "Small cartoon donkey, the titular character from Craig Smith's book, often depicted with expressive face and long ears",
+    "search_term": "donkey cartoon",
+    "needs_sourcing": true,
+    "source_note": "Named/titular character — generic Boardmaker donkey won't match the distinctive illustrated style; source from Creative Fabrica or TPT clip art"
+  },
+  "fringe_12": [
+    "Dinky Donkey",
+    "donkey",
+    "silly",
+    "little",
+    "loud",
+    "pink",
+    "ears",
+    "music",
+    "laugh",
+    "song",
+    "funny",
+    "long"
+  ],
+  "fringe_11": [
+    "donkey",
+    "silly",
+    "little",
+    "loud",
+    "pink",
+    "ears",
+    "music",
+    "laugh",
+    "song",
+    "funny",
+    "long"
+  ],
+  "activity_images": [
+    "donkey",
+    "silly",
+    "little",
+    "loud",
+    "pink",
+    "ears"
+  ],
+  "aac_extras": [
+    "music",
+    "laugh",
+    "song",
+    "funny",
+    "long"
+  ],
+  "ambiguous": [
+    {
+      "word": "long",
+      "issue": "Could mean a length measurement/adjective or the verb 'to long for' (yearn)",
+      "preferred": "long adjective",
+      "reason": "In this book 'long' describes the donkey's long ears — it is a descriptive adjective, not a verb"
+    }
+  ],
+  "character_images_needed": [
+    "Dinky Donkey"
+  ],
+  "icon_search_terms": {
+    "donkey": "donkey",
+    "silly": "silly",
+    "little": "little",
+    "loud": "loud",
+    "pink": "pink",
+    "ears": "ears",
+    "music": "music",
+    "laugh": "laugh",
+    "song": "song",
+    "funny": "funny",
+    "long": "long"
+  },
+  "notes": "The Dinky Donkey is a cumulative rhyming book built around the donkey having funny features (long ears, liking music, etc.) described with rhyming adjectives. Key vocabulary revolves around descriptive words and body parts. 'Silly', 'funny', and 'little' are already in existing aac_extras so those PNGs are available. 'Donkey' is already in activity_images so that PNG is available. The word 'dinky' itself (meaning small/cute) is represented by 'little' for clearer student comprehension. Colours like pink may appear in illustrations (earmuffs, accessories) and are worth including as they appear on the fixed core row 5 as a category tap anyway — include 'pink' as a specific fringe word because it is referenced in the rhyme scheme. Consider adding 'dance' or 'move' if a revised edition is used, as some versions include musical/movement verses.",
+  "characters": [
+    "dinky_donkey"
+  ],
+  "code": "DD1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

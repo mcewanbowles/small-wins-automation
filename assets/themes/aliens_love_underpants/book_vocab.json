@@ -1,0 +1,88 @@
+{
+  "title": "Aliens Love Underpants",
+  "author": "Claire Freedman",
+  "hero": {
+    "name": "Alien (Aliens Love Underpants)",
+    "description": "Small green alien character from the book cover, with antenna and big eyes, distinctive illustrated style",
+    "search_term": "alien",
+    "needs_sourcing": true,
+    "source_note": "Book-specific illustrated alien — generic Boardmaker alien may not match; source from Creative Fabrica or TPT clip art matching Claire Freedman's style"
+  },
+  "fringe_12": [
+    "Alien (Aliens Love Underpants)",
+    "underpants",
+    "rocket",
+    "clothesline",
+    "planet",
+    "striped",
+    "spotty",
+    "steal",
+    "fly",
+    "big",
+    "funny",
+    "Earth"
+  ],
+  "fringe_11": [
+    "underpants",
+    "rocket",
+    "clothesline",
+    "planet",
+    "striped",
+    "spotty",
+    "steal",
+    "fly",
+    "big",
+    "funny",
+    "Earth"
+  ],
+  "activity_images": [
+    "underpants",
+    "rocket",
+    "clothesline",
+    "planet",
+    "striped",
+    "spotty"
+  ],
+  "aac_extras": [
+    "steal",
+    "fly",
+    "big",
+    "funny",
+    "Earth"
+  ],
+  "ambiguous": [
+    {
+      "word": "fly",
+      "issue": "Could mean the insect (noun) or the action of flying (verb)",
+      "preferred": "fly action",
+      "reason": "In this book aliens fly their rocket through space — the verb/action meaning is correct"
+    },
+    {
+      "word": "big",
+      "issue": "Could map to a size comparison symbol or a large object",
+      "preferred": "big",
+      "reason": "Used as a size descriptor for underpants; a simple size/big adjective symbol is correct"
+    }
+  ],
+  "character_images_needed": [
+    "Alien (Aliens Love Underpants)"
+  ],
+  "icon_search_terms": {
+    "underpants": "underpants",
+    "rocket": "rocket",
+    "clothesline": "clothesline",
+    "planet": "planet",
+    "striped": "striped",
+    "spotty": "spotty",
+    "steal": "steal",
+    "fly": "fly",
+    "big": "big",
+    "funny": "funny",
+    "Earth": "earth"
+  },
+  "notes": "Several key vocab words (alien, underpants, clothesline, striped, spotty, funny) already exist in activity_images or aac_extras — reuse those assets. The hero alien is distinctive to Claire Freedman's illustration style so a book-matched clip art is strongly recommended over a generic Boardmaker alien. 'Steal' is a key story action (aliens steal underpants from clotheslines) and should be included despite being a slightly abstract verb — pair with a clear taking/grabbing image. 'Earth' represents the story setting. Colours such as striped and spotty are central to the humour and descriptions of the underpants in the book so are appropriate fringe inclusions.",
+  "characters": [],
+  "code": "ALU1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

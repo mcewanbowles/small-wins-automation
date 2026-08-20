@@ -1,0 +1,92 @@
+{
+  "title": "Various Spring Books",
+  "author": "Unknown",
+  "hero": {
+    "name": "Spring Scene / Chick",
+    "description": "Generic spring chick or flower — representative spring image suitable for a seasonal book collection board",
+    "search_term": "chick spring",
+    "needs_sourcing": false,
+    "source_note": "Generic spring chick or flower — Boardmaker library should have suitable options under 'chick', 'spring', or 'flower'"
+  },
+  "fringe_12": [
+    "Spring Scene / Chick",
+    "flower",
+    "rain",
+    "butterfly",
+    "bird",
+    "egg",
+    "worm",
+    "puddle",
+    "grow",
+    "muddy",
+    "garden",
+    "sun"
+  ],
+  "fringe_11": [
+    "flower",
+    "rain",
+    "butterfly",
+    "bird",
+    "egg",
+    "worm",
+    "puddle",
+    "grow",
+    "muddy",
+    "garden",
+    "sun"
+  ],
+  "activity_images": [
+    "flower",
+    "rain",
+    "butterfly",
+    "bird",
+    "egg",
+    "worm"
+  ],
+  "aac_extras": [
+    "puddle",
+    "grow",
+    "muddy",
+    "garden",
+    "sun"
+  ],
+  "ambiguous": [
+    {
+      "word": "grow",
+      "issue": "Could be pictured as a plant growing or a child growing taller",
+      "preferred": "grow plant",
+      "reason": "Spring books context — growing plants and gardens is the primary meaning"
+    },
+    {
+      "word": "muddy",
+      "issue": "Could show muddy boots, muddy hands, or muddy animal",
+      "preferred": "muddy boots",
+      "reason": "Spring puddle/mud context — muddy boots or muddy feet is the most recognisable spring image; activity_images already has 'muddy'"
+    },
+    {
+      "word": "butterfly",
+      "issue": "Could show a generic butterfly or a caterpillar-to-butterfly transformation",
+      "preferred": "butterfly",
+      "reason": "Spring lifecycle theme — standard butterfly image is correct; activity_images has 'caterpillar_to_butterfly' if lifecycle emphasis is needed"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "flower": "flower",
+    "rain": "rain",
+    "butterfly": "butterfly",
+    "bird": "bird",
+    "egg": "egg",
+    "worm": "worm",
+    "puddle": "puddle",
+    "grow": "grow plant",
+    "muddy": "muddy",
+    "garden": "garden",
+    "sun": "sun"
+  },
+  "notes": "This board covers a collection of spring-themed books rather than a single title. Vocabulary has been selected to span common spring book themes: life cycles (egg, butterfly, worm, bird), weather (rain, sun, puddle, muddy), and gardening/nature (flower, garden, grow). Several words already exist in activity_images/ (worm, puddle, muddy, garden, grow, sun) and should be reused. The hero slot uses a generic spring chick or flower image — consider using the existing 'garden' or 'sun' icon from activity_images/ if a dedicated spring character image is unavailable. If specific books in this collection have named characters, a dedicated board per book would be more appropriate.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

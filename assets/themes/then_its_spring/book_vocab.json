@@ -1,0 +1,86 @@
+{
+  "title": "Then It's Spring",
+  "author": "Julie Fogliano",
+  "hero": {
+    "name": "Small boy with seed",
+    "description": "Generic young child planting seeds and waiting for spring, illustrated in simple earthy tones",
+    "search_term": "child boy",
+    "needs_sourcing": false,
+    "source_note": "Generic child — use Boardmaker child/boy symbol"
+  },
+  "fringe_12": [
+    "Small boy with seed",
+    "seed",
+    "soil",
+    "rain",
+    "sun",
+    "grow",
+    "wait",
+    "brown",
+    "green",
+    "flower",
+    "bird",
+    "spring"
+  ],
+  "fringe_11": [
+    "seed",
+    "soil",
+    "rain",
+    "sun",
+    "grow",
+    "wait",
+    "brown",
+    "green",
+    "flower",
+    "bird",
+    "spring"
+  ],
+  "activity_images": [
+    "seed",
+    "soil",
+    "rain",
+    "sun",
+    "grow",
+    "wait"
+  ],
+  "aac_extras": [
+    "brown",
+    "green",
+    "flower",
+    "bird",
+    "spring"
+  ],
+  "ambiguous": [
+    {
+      "word": "spring",
+      "issue": "Could mean the season or a coiled spring object",
+      "preferred": "spring season",
+      "reason": "Book is entirely about the season of spring arriving after planting seeds"
+    },
+    {
+      "word": "grow",
+      "issue": "Could depict a plant growing upward or a child growing taller",
+      "preferred": "plant grow",
+      "reason": "Book is about seeds growing into plants, not child growth"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "seed": "seed",
+    "soil": "soil",
+    "rain": "rain",
+    "sun": "sun",
+    "grow": "grow plant",
+    "wait": "wait",
+    "brown": "brown",
+    "green": "green",
+    "flower": "flower",
+    "bird": "bird",
+    "spring": "spring season"
+  },
+  "notes": "Then It's Spring is a gentle, lyrical book about a child planting seeds and patiently waiting for spring. Core vocabulary of waiting, growing, and seasonal change is central. 'Brown' and 'green' are critical colour words — the book visually contrasts the brown dormant earth with the eventual green growth. The existing activity_images folder already contains: seed, soil, rain, sun, flower, bird — these should be used directly. 'Spring' as a season may need sourcing from the Boardmaker library using 'spring season' or a seasonal scene. 'Grow' and 'wait' are key action/state verbs central to the story's meaning and are concrete enough to be picturable.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

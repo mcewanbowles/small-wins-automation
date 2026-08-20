@@ -1,0 +1,86 @@
+{
+  "title": "Everyone Poops",
+  "author": "Taro Gomi",
+  "hero": {
+    "name": "Little boy on toilet",
+    "description": "The human child character shown on the toilet at the end of the book, central to the book's message",
+    "search_term": "boy toilet sitting",
+    "needs_sourcing": false,
+    "source_note": "Generic child-on-toilet image available in Boardmaker; use existing 'toilet' activity_image or combine 'boy' + 'toilet' symbols"
+  },
+  "fringe_12": [
+    "Little boy on toilet",
+    "poop",
+    "toilet",
+    "wipe",
+    "flush",
+    "wash",
+    "smell",
+    "big",
+    "little",
+    "animal",
+    "baby",
+    "different"
+  ],
+  "fringe_11": [
+    "poop",
+    "toilet",
+    "wipe",
+    "flush",
+    "wash",
+    "smell",
+    "big",
+    "little",
+    "animal",
+    "baby",
+    "different"
+  ],
+  "activity_images": [
+    "poop",
+    "toilet",
+    "wipe",
+    "flush",
+    "wash",
+    "smell"
+  ],
+  "aac_extras": [
+    "big",
+    "little",
+    "animal",
+    "baby",
+    "different"
+  ],
+  "ambiguous": [
+    {
+      "word": "big",
+      "issue": "Could map to a generic size symbol or to a large animal (elephant) in context",
+      "preferred": "big",
+      "reason": "Book contrasts big and little animals and their poops; the size adjective symbol is correct"
+    },
+    {
+      "word": "different",
+      "issue": "Already present in core row 2 as a fixed core word",
+      "preferred": "different",
+      "reason": "Core word conflict — consider replacing 'different' in fringe with 'brown' or 'round' to avoid duplication; kept here as it is the book's central concept but flagged for review"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "poop": "poop",
+    "toilet": "toilet",
+    "wipe": "wipe",
+    "flush": "flush",
+    "wash": "wash hands",
+    "smell": "smell",
+    "big": "big",
+    "little": "little",
+    "animal": "animal",
+    "baby": "baby",
+    "different": "different"
+  },
+  "notes": "1. 'poop', 'wash', 'wipe', and 'flush' already exist in aac_extras — use those files directly. 'toilet' exists in activity_images. 2. 'different' is already a fixed core word in Row 2; consider swapping it for 'brown' or 'round' (shapes of poop are a recurring theme) to avoid redundancy on the board. 3. The hero is best represented by the existing 'toilet' activity_image or a generic boy-on-toilet Boardmaker symbol — no custom sourcing needed. 4. The book features many animals (elephant, fish, bird, bear, cat, dog, rabbit, rhino) already in activity_images; these could be used as extension vocabulary but are not included in the 11 fringe slots to keep focus on the book's core bathroom theme. 5. This book is commonly used for toilet training goals in SPED — vocabulary strongly supports functional communication around bathroom routines.",
+  "characters": [],
+  "code": "EP1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

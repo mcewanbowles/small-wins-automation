@@ -1,0 +1,84 @@
+{
+  "title": "The Grinny Granny Donkey",
+  "author": "Craig Smith",
+  "hero": {
+    "name": "Grinny Granny Donkey",
+    "description": "Elderly grey donkey grandmother with big grin, wearing glasses, shawl and hat, from Craig Smith's Donkey series",
+    "search_term": "granny donkey",
+    "needs_sourcing": true,
+    "source_note": "Named/distinctive character from Craig Smith Donkey series — source from Creative Fabrica, TPT, or Teachers Pay Teachers clip art matching the illustrated style"
+  },
+  "fringe_12": [
+    "Grinny Granny Donkey",
+    "donkey",
+    "granny",
+    "glasses",
+    "rocking chair",
+    "knitting",
+    "tea",
+    "shawl",
+    "hat",
+    "funny",
+    "old",
+    "smile"
+  ],
+  "fringe_11": [
+    "donkey",
+    "granny",
+    "glasses",
+    "rocking chair",
+    "knitting",
+    "tea",
+    "shawl",
+    "hat",
+    "funny",
+    "old",
+    "smile"
+  ],
+  "activity_images": [
+    "donkey",
+    "granny",
+    "glasses",
+    "rocking chair",
+    "knitting",
+    "tea"
+  ],
+  "aac_extras": [
+    "shawl",
+    "hat",
+    "funny",
+    "old",
+    "smile"
+  ],
+  "ambiguous": [
+    {
+      "word": "glasses",
+      "issue": "Could mean eyewear (spectacles) or drinking glasses",
+      "preferred": "glasses eyewear",
+      "reason": "Granny Donkey wears spectacles in the book; drinking glasses are not relevant"
+    }
+  ],
+  "character_images_needed": [
+    "Grinny Granny Donkey"
+  ],
+  "icon_search_terms": {
+    "donkey": "donkey",
+    "granny": "grandmother",
+    "glasses": "glasses",
+    "rocking chair": "rocking chair",
+    "knitting": "knitting",
+    "tea": "tea",
+    "shawl": "shawl",
+    "hat": "hat",
+    "funny": "funny",
+    "old": "old",
+    "smile": "smile"
+  },
+  "notes": "The Grinny Granny Donkey is part of Craig Smith's popular Donkey series (also including The Wonky Donkey). The book uses rhyme and repetition, making it ideal for AAC modelling during read-aloud. Most fringe vocabulary was already present in activity_images or aac_extras — reuse those assets where available. 'Old' and 'smile' are added to capture granny's key descriptive traits not yet in existing vocab. The word 'silly' from aac_extras also pairs well with this book and can be added to the board if a slot becomes available. Consider adding a song/music symbol as the book is often sung.",
+  "characters": [
+    "grinny_granny_donkey"
+  ],
+  "code": "GGD1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

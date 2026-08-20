@@ -1,0 +1,86 @@
+{
+  "title": "If You Give a Mouse a Cookie",
+  "author": "Laura Numeroff",
+  "hero": {
+    "name": "Mouse",
+    "description": "Small brown cartoon mouse, the mischievous main character from the cover",
+    "search_term": "mouse",
+    "needs_sourcing": false,
+    "source_note": "Generic Boardmaker mouse icon should work well for this character"
+  },
+  "fringe_12": [
+    "MOUSE",
+    "cookie",
+    "milk",
+    "straw",
+    "napkin",
+    "mirror",
+    "scissors",
+    "broom",
+    "nap",
+    "book",
+    "crayon",
+    "hungry"
+  ],
+  "fringe_11": [
+    "cookie",
+    "milk",
+    "straw",
+    "napkin",
+    "mirror",
+    "scissors",
+    "broom",
+    "nap",
+    "book",
+    "crayon",
+    "hungry"
+  ],
+  "activity_images": [
+    "cookie",
+    "milk",
+    "straw",
+    "napkin",
+    "mirror",
+    "scissors"
+  ],
+  "aac_extras": [
+    "broom",
+    "nap",
+    "book",
+    "crayon",
+    "hungry"
+  ],
+  "ambiguous": [
+    {
+      "word": "nap",
+      "issue": "Could be confused with napping as sleep or a fabric texture",
+      "preferred": "sleep nap",
+      "reason": "The mouse asks to take a nap in a small box with a blanket — sleep action is correct"
+    },
+    {
+      "word": "straw",
+      "issue": "Could mean drinking straw or straw as in hay",
+      "preferred": "drinking straw",
+      "reason": "Mouse uses a straw to drink the glass of milk"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "cookie": "cookie",
+    "milk": "milk",
+    "straw": "drinking straw",
+    "napkin": "napkin",
+    "mirror": "mirror",
+    "scissors": "scissors",
+    "broom": "broom",
+    "nap": "sleep",
+    "book": "book",
+    "crayon": "crayon",
+    "hungry": "hungry"
+  },
+  "notes": "Mouse is a well-known generic rodent and standard Boardmaker icons should suffice. The book follows a circular cause-and-effect chain so words like 'hungry', 'napkin', 'mirror', and 'scissors' cover key moments students can narrate. 'Nap' was chosen over 'sleep' to avoid conflict with the fixed core board but both map to sleep imagery. 'Hungry' is a strong fringe word because the whole chain starts with the mouse wanting a cookie due to hunger. Existing activity_images (mouse, cookie, milk, straw, broom, bed, book, crayon) and aac_extras (ask, clean, draw, sleep) overlap well with chosen fringe — 'mirror', 'napkin', 'scissors', and 'hungry' are the net-new additions needed.",
+  "characters": [],
+  "code": "IYGMC1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

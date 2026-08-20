@@ -1,0 +1,88 @@
+{
+  "title": "David Smells",
+  "author": "David Shannon",
+  "hero": {
+    "name": "David",
+    "description": "Messy, gap-toothed boy character from David Shannon's David books, as depicted on the cover of David Smells",
+    "search_term": "david shannon boy",
+    "needs_sourcing": true,
+    "source_note": "Named/distinctive character from David Shannon series — source from Creative Fabrica or TPT clip art"
+  },
+  "fringe_12": [
+    "David",
+    "smell",
+    "nose",
+    "stinky",
+    "bath",
+    "soap",
+    "clean",
+    "dirty",
+    "baby",
+    "diaper",
+    "dog",
+    "potty"
+  ],
+  "fringe_11": [
+    "smell",
+    "nose",
+    "stinky",
+    "bath",
+    "soap",
+    "clean",
+    "dirty",
+    "baby",
+    "diaper",
+    "dog",
+    "potty"
+  ],
+  "activity_images": [
+    "smell",
+    "nose",
+    "stinky",
+    "bath",
+    "soap",
+    "clean"
+  ],
+  "aac_extras": [
+    "dirty",
+    "baby",
+    "diaper",
+    "dog",
+    "potty"
+  ],
+  "ambiguous": [
+    {
+      "word": "dirty",
+      "issue": "Could imply general messiness or soiled/soiled diaper context",
+      "preferred": "dirty",
+      "reason": "Book is a sensory board book about smells and bodily functions; dirty in the sense of unclean/soiled is correct"
+    },
+    {
+      "word": "potty",
+      "issue": "Could mean the toilet fixture or the action of using it",
+      "preferred": "potty",
+      "reason": "In context of a toddler senses board book about smells, potty as a concrete noun (the object/concept) is correct"
+    }
+  ],
+  "character_images_needed": [
+    "David"
+  ],
+  "icon_search_terms": {
+    "smell": "smell",
+    "nose": "nose",
+    "stinky": "stinky",
+    "bath": "bath",
+    "soap": "soap",
+    "clean": "clean",
+    "dirty": "dirty",
+    "baby": "baby",
+    "diaper": "diaper",
+    "dog": "dog",
+    "potty": "potty"
+  },
+  "notes": "David Smells is a chunky sensory board book for very young children, part of David Shannon's David series. It focuses on the five senses, particularly smell, and includes concepts like stinky smells, bath time, babies, diapers, dogs, and the potty. Vocabulary is deliberately concrete and sensory to match the board book's target age and the AAC user's likely developmental level. The hero David is the same distinctive gap-toothed character as in No David! and must be sourced as custom clip art.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

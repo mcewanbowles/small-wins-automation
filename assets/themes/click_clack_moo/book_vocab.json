@@ -1,0 +1,90 @@
+{
+  "title": "Click, Clack, Moo: Cows That Type",
+  "author": "Doreen Cronin",
+  "hero": {
+    "name": "Farmer Brown",
+    "description": "Overalled farmer character from the cover, distinctive Doreen Cronin/Betsy Lewin illustration style",
+    "search_term": "farmer brown click clack moo",
+    "needs_sourcing": true,
+    "source_note": "Named character with distinctive illustration style — source from Creative Fabrica or TPT clip art"
+  },
+  "fringe_12": [
+    "Farmer Brown",
+    "cow",
+    "duck",
+    "typewriter",
+    "letter",
+    "barn",
+    "farmer",
+    "hay",
+    "milk",
+    "blanket",
+    "chicken",
+    "angry"
+  ],
+  "fringe_11": [
+    "cow",
+    "duck",
+    "typewriter",
+    "letter",
+    "barn",
+    "farmer",
+    "hay",
+    "milk",
+    "blanket",
+    "chicken",
+    "angry"
+  ],
+  "activity_images": [
+    "cow",
+    "duck",
+    "typewriter",
+    "letter",
+    "barn",
+    "farmer"
+  ],
+  "aac_extras": [
+    "hay",
+    "milk",
+    "blanket",
+    "chicken",
+    "angry"
+  ],
+  "ambiguous": [
+    {
+      "word": "letter",
+      "issue": "Could mean a written letter/note (correspondence) or a letter of the alphabet",
+      "preferred": "letter correspondence",
+      "reason": "The story centres on typed letters/notes delivered between the animals and Farmer Brown — written correspondence is correct"
+    },
+    {
+      "word": "duck",
+      "issue": "Could mean the bird (animal) or the action of ducking down",
+      "preferred": "duck bird",
+      "reason": "Duck is the animal character who serves as neutral messenger in the story"
+    }
+  ],
+  "character_images_needed": [
+    "Farmer Brown"
+  ],
+  "icon_search_terms": {
+    "cow": "cow",
+    "duck": "bird",
+    "typewriter": "typewriter",
+    "letter": "letter",
+    "barn": "barn",
+    "farmer": "farmer",
+    "hay": "hay",
+    "milk": "milk",
+    "blanket": "blanket",
+    "chicken": "chicken",
+    "angry": "angry"
+  },
+  "notes": "Farmer Brown is the most recognisable cover character alongside the cows, but cows and duck are already in existing activity_images so they serve well as fringe. The word 'angry' is included because Farmer Brown's emotional response (frustration/anger) is central to the story and is picturable and communicatively useful for students retelling or responding to the story. 'Strike' is noted in aac_extras and could supplement the board as an extension word. 'Typewriter' exists in activity_images and is the single most iconic object in the book. 'Blanket' captures the animals' demand — the core conflict — making it high priority fringe vocabulary.",
+  "characters": [
+    "duck"
+  ],
+  "code": "CCM1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

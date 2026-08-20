@@ -1,0 +1,88 @@
+{
+  "title": "Knuffle Bunny Free: An Unexpected Diversion",
+  "author": "Mo Willems",
+  "hero": {
+    "name": "Knuffle Bunny",
+    "description": "Distinctive grey-and-white stuffed bunny toy, Mo Willems character featured on cover",
+    "search_term": "knuffle bunny",
+    "needs_sourcing": true,
+    "source_note": "Named character — source from Creative Fabrica or TPT clip art; distinctive floppy stuffed animal design"
+  },
+  "fringe_12": [
+    "Knuffle Bunny",
+    "airplane",
+    "baby",
+    "cry",
+    "lost",
+    "sad",
+    "happy",
+    "give",
+    "travel",
+    "sleep",
+    "find",
+    "hug"
+  ],
+  "fringe_11": [
+    "airplane",
+    "baby",
+    "cry",
+    "lost",
+    "sad",
+    "happy",
+    "give",
+    "travel",
+    "sleep",
+    "find",
+    "hug"
+  ],
+  "activity_images": [
+    "airplane",
+    "baby",
+    "cry",
+    "lost",
+    "sad",
+    "happy"
+  ],
+  "aac_extras": [
+    "give",
+    "travel",
+    "sleep",
+    "find",
+    "hug"
+  ],
+  "ambiguous": [
+    {
+      "word": "lost",
+      "issue": "Could mean lost as in emotionally distraught, or physically missing/misplaced object",
+      "preferred": "lost object",
+      "reason": "In this book Knuffle Bunny is left behind on the plane — physically misplaced"
+    },
+    {
+      "word": "find",
+      "issue": "Could mean to search, or the act of discovering something",
+      "preferred": "find",
+      "reason": "Used here as the action of discovering/locating the lost bunny; search term 'find' should depict someone discovering an object"
+    }
+  ],
+  "character_images_needed": [
+    "Knuffle Bunny"
+  ],
+  "icon_search_terms": {
+    "airplane": "airplane",
+    "baby": "baby",
+    "cry": "cry",
+    "lost": "lost",
+    "sad": "sad",
+    "happy": "happy",
+    "give": "give",
+    "travel": "travel",
+    "sleep": "sleep",
+    "find": "find",
+    "hug": "hug"
+  },
+  "notes": "Knuffle Bunny Free is the third and final book in Mo Willems' Knuffle Bunny trilogy. Trixie accidentally leaves her beloved stuffed bunny on an airplane and ultimately gives it to a younger child who needs it more. Key themes are loss, grief, letting go, travel, and growing up. The photo-illustrated New York City and international travel setting is distinctive. 'Give' is central as Trixie voluntarily gives Knuffle Bunny to a crying baby on the plane. 'Travel' and 'airplane' are critical setting words. 'Hug' captures the emotional farewell. Trixie herself is a named human character but as a generic child figure, a standard Boardmaker child symbol is acceptable and she does not need custom sourcing.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

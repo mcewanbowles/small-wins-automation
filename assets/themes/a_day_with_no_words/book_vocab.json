@@ -1,0 +1,88 @@
+{
+  "title": "A Day With No Words",
+  "author": "Tiffany Hammond",
+  "hero": {
+    "name": "Nonverbal boy with tablet AAC device",
+    "description": "Young Black boy who uses a tablet-based AAC device to communicate, seen on book cover",
+    "search_term": "boy tablet",
+    "needs_sourcing": true,
+    "source_note": "Named/distinctive character from cover — source from Creative Fabrica or TPT clip art; boy with tablet AAC device is central visual identity"
+  },
+  "fringe_12": [
+    "Nonverbal boy with tablet AAC device",
+    "tablet",
+    "talk",
+    "family",
+    "playground",
+    "hug",
+    "happy",
+    "together",
+    "listen",
+    "words",
+    "outside",
+    "smile"
+  ],
+  "fringe_11": [
+    "tablet",
+    "talk",
+    "family",
+    "playground",
+    "hug",
+    "happy",
+    "together",
+    "listen",
+    "words",
+    "outside",
+    "smile"
+  ],
+  "activity_images": [
+    "tablet",
+    "talk",
+    "family",
+    "playground",
+    "hug",
+    "happy"
+  ],
+  "aac_extras": [
+    "together",
+    "listen",
+    "words",
+    "outside",
+    "smile"
+  ],
+  "ambiguous": [
+    {
+      "word": "talk",
+      "issue": "Could mean verbal speech or AAC/device-based communication",
+      "preferred": "talk AAC",
+      "reason": "In this book, talking is done via a tablet AAC device, not verbal speech — prefer a symbol showing communication broadly, not just mouth/speaking"
+    },
+    {
+      "word": "words",
+      "issue": "Could mean printed text or spoken/communicated words",
+      "preferred": "words",
+      "reason": "In context of the book, words refers to communication and language broadly — a symbol showing speech bubbles or text is appropriate"
+    }
+  ],
+  "character_images_needed": [
+    "Nonverbal boy with tablet AAC device"
+  ],
+  "icon_search_terms": {
+    "tablet": "tablet",
+    "talk": "talk",
+    "family": "family",
+    "playground": "playground",
+    "hug": "hug",
+    "happy": "happy",
+    "together": "together",
+    "listen": "listen",
+    "words": "words",
+    "outside": "outside",
+    "smile": "smile"
+  },
+  "notes": "This book centres on a nonspeaking autistic child who communicates via a tablet AAC device and his bond with his father during a day of activities. Vocabulary is intentionally chosen to reflect AAC use, connection, and shared daily experiences. 'Tablet' is already in existing activity_images and should reuse that asset. The hero image should reflect the book cover character specifically — a young Black boy with a tablet — and will need custom sourcing. Core theme is communication and togetherness, so words like 'together', 'listen', and 'hug' are prioritised alongside concrete nouns from the story. This book is highly relevant for AAC users and can prompt rich discussion about how they themselves communicate.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

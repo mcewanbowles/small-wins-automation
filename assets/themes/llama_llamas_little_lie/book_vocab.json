@@ -1,0 +1,82 @@
+{
+  "title": "Llama Llama's Little Lie",
+  "author": "Anna Dewdney",
+  "hero": {
+    "name": "Llama Llama",
+    "description": "Young llama character from Anna Dewdney's series, distinctive illustrated style with expressive face",
+    "search_term": "llama llama",
+    "needs_sourcing": true,
+    "source_note": "Named character from Anna Dewdney series — source from Creative Fabrica or TPT clip art"
+  },
+  "fringe_12": [
+    "Llama Llama",
+    "lie",
+    "truth",
+    "sorry",
+    "scared",
+    "friend",
+    "toy",
+    "break",
+    "cry",
+    "teacher",
+    "tell",
+    "school"
+  ],
+  "fringe_11": [
+    "lie",
+    "truth",
+    "sorry",
+    "scared",
+    "friend",
+    "toy",
+    "break",
+    "cry",
+    "teacher",
+    "tell",
+    "school"
+  ],
+  "activity_images": [
+    "lie",
+    "truth",
+    "sorry",
+    "scared",
+    "friend",
+    "toy"
+  ],
+  "aac_extras": [
+    "break",
+    "cry",
+    "teacher",
+    "tell",
+    "school"
+  ],
+  "ambiguous": [
+    {
+      "word": "break",
+      "issue": "Could mean to snap/damage an object (verb) or a rest period (noun)",
+      "preferred": "break object",
+      "reason": "In this book Llama breaks a toy, so the action of damaging is the correct meaning"
+    }
+  ],
+  "character_images_needed": [
+    "Llama Llama"
+  ],
+  "icon_search_terms": {
+    "lie": "lie lying",
+    "truth": "truth honest",
+    "sorry": "sorry",
+    "scared": "scared afraid",
+    "friend": "friend",
+    "toy": "toy",
+    "break": "break broken",
+    "cry": "cry crying",
+    "teacher": "teacher",
+    "tell": "tell",
+    "school": "school"
+  },
+  "notes": "This book focuses on honesty and the consequences of telling a lie. Core emotional vocabulary (sorry, scared) and moral concept words (lie, truth, tell) are prioritised alongside concrete story nouns (toy, teacher, school, friend). 'Break' is flagged as ambiguous since the story involves Llama breaking a toy. Anna Dewdney is listed as author based on series attribution; confirm if the book is a posthumous or adapted title.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

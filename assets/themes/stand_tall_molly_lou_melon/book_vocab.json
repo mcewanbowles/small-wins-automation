@@ -1,0 +1,94 @@
+{
+  "title": "Stand Tall, Molly Lou Melon",
+  "author": "Patty Lovell",
+  "hero": {
+    "name": "Molly Lou Melon",
+    "description": "Very small girl with buck teeth, a squeaky voice, and big confidence — distinctive illustrated character from cover",
+    "search_term": "molly lou melon girl",
+    "needs_sourcing": true,
+    "source_note": "Named distinctive character — source from Creative Fabrica, TPT, or Teachers Pay Teachers clip art"
+  },
+  "fringe_12": [
+    "Molly Lou Melon",
+    "small",
+    "tall",
+    "teeth",
+    "school",
+    "bully",
+    "brave",
+    "sing",
+    "catch",
+    "stack",
+    "friend",
+    "proud"
+  ],
+  "fringe_11": [
+    "small",
+    "tall",
+    "teeth",
+    "school",
+    "bully",
+    "brave",
+    "sing",
+    "catch",
+    "stack",
+    "friend",
+    "proud"
+  ],
+  "activity_images": [
+    "small",
+    "tall",
+    "teeth",
+    "school",
+    "bully",
+    "brave"
+  ],
+  "aac_extras": [
+    "sing",
+    "catch",
+    "stack",
+    "friend",
+    "proud"
+  ],
+  "ambiguous": [
+    {
+      "word": "tall",
+      "issue": "Could mean physical height or figurative standing tall / being confident",
+      "preferred": "tall height",
+      "reason": "In this book tall refers primarily to physical stature and the contrast with Molly Lou being small; the figurative meaning is secondary"
+    },
+    {
+      "word": "catch",
+      "issue": "Could mean catching a ball (sport action) or catching something abstract",
+      "preferred": "catch ball",
+      "reason": "Molly Lou catches a football one-handed in the story, so the sports action meaning is correct"
+    },
+    {
+      "word": "stack",
+      "issue": "Could mean a pile of objects or the action of stacking pennies",
+      "preferred": "stack pennies",
+      "reason": "Molly Lou stacks pennies on her buck teeth as a trick in the book"
+    }
+  ],
+  "character_images_needed": [
+    "Molly Lou Melon"
+  ],
+  "icon_search_terms": {
+    "small": "small little tiny",
+    "tall": "tall height big",
+    "teeth": "teeth buck teeth",
+    "school": "school building",
+    "bully": "bully mean tease",
+    "brave": "brave confident proud",
+    "sing": "sing singing",
+    "catch": "catch ball",
+    "stack": "stack pile coins",
+    "friend": "friend",
+    "proud": "proud happy self"
+  },
+  "notes": "Stand Tall Molly Lou Melon is about self-confidence, embracing differences, and standing up to bullying. Molly Lou is tiny with buck teeth and a bullfrog voice but uses her unique traits as superpowers. Key vocabulary centres on size contrast (small/tall), physical traits (teeth), social themes (bully, friend, brave, proud), and the specific activities Molly Lou excels at (sing, catch, stack). 'Brave' and 'proud' are slightly abstract but are picturable emotions central to the book's message and appropriate for AAC use. 'Grandmother' could be a 12th candidate as Grandma gives Molly Lou her confidence, but 'proud' was prioritised as more communicatively generative.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

@@ -1,0 +1,88 @@
+{
+  "title": "The Rainbow Fish",
+  "author": "Marcus Pfister",
+  "hero": {
+    "name": "Rainbow Fish",
+    "description": "Shimmering silver fish with colourful rainbow scales, distinctive glittery appearance from book cover",
+    "search_term": "rainbow fish",
+    "needs_sourcing": true,
+    "source_note": "Named/distinctive character with iconic shimmering scales — source from Creative Fabrica or TPT clip art"
+  },
+  "fringe_12": [
+    "Rainbow Fish",
+    "fish",
+    "scale",
+    "shiny",
+    "share",
+    "friend",
+    "ocean",
+    "blue",
+    "swim",
+    "give",
+    "beautiful",
+    "lonely"
+  ],
+  "fringe_11": [
+    "fish",
+    "scale",
+    "shiny",
+    "share",
+    "friend",
+    "ocean",
+    "blue",
+    "swim",
+    "give",
+    "beautiful",
+    "lonely"
+  ],
+  "activity_images": [
+    "fish",
+    "scale",
+    "shiny",
+    "share",
+    "friend",
+    "ocean"
+  ],
+  "aac_extras": [
+    "blue",
+    "swim",
+    "give",
+    "beautiful",
+    "lonely"
+  ],
+  "ambiguous": [
+    {
+      "word": "scale",
+      "issue": "Could mean fish scale (body part) or weighing scale (object)",
+      "preferred": "fish scale",
+      "reason": "Book is about a fish sharing its scales — body part meaning is correct"
+    },
+    {
+      "word": "blue",
+      "issue": "Could be colour swatch or emotional state (feeling blue/sad)",
+      "preferred": "blue colour",
+      "reason": "Blue is a key colour of the rainbow fish and ocean setting — colour meaning is correct"
+    }
+  ],
+  "character_images_needed": [
+    "Rainbow Fish"
+  ],
+  "icon_search_terms": {
+    "fish": "fish",
+    "scale": "fish scale",
+    "shiny": "shiny",
+    "share": "share",
+    "friend": "friend",
+    "ocean": "ocean",
+    "blue": "blue",
+    "swim": "swim",
+    "give": "give",
+    "beautiful": "beautiful",
+    "lonely": "lonely"
+  },
+  "notes": "Rainbow Fish is the quintessential book about sharing and friendship. Key vocabulary centres on fish anatomy (scales), emotions (lonely, beautiful), social actions (share, give, friend) and the ocean setting. The hero image must show the distinctive multi-coloured shimmering fish — generic Boardmaker fish symbols will not be recognisable to students. Consider pairing 'shiny' with a glitter or sparkle icon if available. 'Lonely' may need a sad/alone composite image. The octopus and starfish appear in the story but are secondary enough to omit from the 11 fringe slots in favour of higher-utility words.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

@@ -1,0 +1,86 @@
+{
+  "title": "I Lost My Tooth",
+  "author": "Unknown",
+  "hero": {
+    "name": "Child with lost tooth",
+    "description": "A child character who has lost a tooth, likely shown with a gap-toothed smile on the cover",
+    "search_term": "child smile",
+    "needs_sourcing": false,
+    "source_note": "Generic child character — use Boardmaker child/kid symbol or gap-toothed smile if available"
+  },
+  "fringe_12": [
+    "Child with lost tooth",
+    "tooth",
+    "mouth",
+    "smile",
+    "wiggle",
+    "fall out",
+    "blood",
+    "pillow",
+    "Tooth Fairy",
+    "money",
+    "new",
+    "excited"
+  ],
+  "fringe_11": [
+    "tooth",
+    "mouth",
+    "smile",
+    "wiggle",
+    "fall out",
+    "blood",
+    "pillow",
+    "Tooth Fairy",
+    "money",
+    "new",
+    "excited"
+  ],
+  "activity_images": [
+    "tooth",
+    "mouth",
+    "smile",
+    "wiggle",
+    "fall out",
+    "blood"
+  ],
+  "aac_extras": [
+    "pillow",
+    "Tooth Fairy",
+    "money",
+    "new",
+    "excited"
+  ],
+  "ambiguous": [
+    {
+      "word": "fall out",
+      "issue": "Could mean the action of something dropping out, or autumn season, or a noun (fallout)",
+      "preferred": "fall out",
+      "reason": "In this book it refers to the tooth falling out of the mouth — search for 'tooth falling' or 'lose tooth'"
+    },
+    {
+      "word": "new",
+      "issue": "Abstract adjective — could be hard to depict; could mean 'new tooth' growing in or new item",
+      "preferred": "new tooth",
+      "reason": "Refers to the new tooth growing in after the lost tooth; search for 'new tooth' or 'grow tooth'"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "tooth": "tooth",
+    "mouth": "mouth",
+    "smile": "smile",
+    "wiggle": "wiggle",
+    "fall out": "lose tooth",
+    "blood": "blood",
+    "pillow": "pillow",
+    "Tooth Fairy": "tooth fairy",
+    "money": "money",
+    "new": "new",
+    "excited": "excited"
+  },
+  "notes": "This is a common early childhood theme book about losing a baby tooth. The Tooth Fairy symbol may not exist in all Boardmaker libraries — check for 'fairy' or source a tooth fairy clip art from TPT if needed. 'Blood' is included as it is a concrete and common reaction children have to losing a tooth, but may be substituted with 'hurt' or 'ouch' if the classroom context warrants a softer vocabulary choice. If the actual book features a specific named child character on the cover, revisit the hero field and set needs_sourcing=true with the character's name. Without confirmed book content, these 11 fringe words represent the highest-probability vocabulary for a tooth-loss narrative.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

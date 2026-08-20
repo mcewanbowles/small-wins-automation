@@ -1,0 +1,88 @@
+{
+  "title": "The Grouchy Ladybug",
+  "author": "Eric Carle",
+  "hero": {
+    "name": "The Grouchy Ladybug",
+    "description": "Red ladybug with black spots, grouchy/angry expression, distinctive Eric Carle collage art style",
+    "search_term": "grouchy ladybug eric carle",
+    "needs_sourcing": true,
+    "source_note": "Named/distinctive character in Eric Carle collage style — generic Boardmaker ladybug will not match; source from Creative Fabrica, TPT, or Eric Carle licensed clip art"
+  },
+  "fringe_12": [
+    "The Grouchy Ladybug",
+    "ladybug",
+    "aphid",
+    "fight",
+    "big",
+    "small",
+    "clock",
+    "sun",
+    "leaf",
+    "whale",
+    "grouchy",
+    "friendly"
+  ],
+  "fringe_11": [
+    "ladybug",
+    "aphid",
+    "fight",
+    "big",
+    "small",
+    "clock",
+    "sun",
+    "leaf",
+    "whale",
+    "grouchy",
+    "friendly"
+  ],
+  "activity_images": [
+    "ladybug",
+    "aphid",
+    "fight",
+    "big",
+    "small",
+    "clock"
+  ],
+  "aac_extras": [
+    "sun",
+    "leaf",
+    "whale",
+    "grouchy",
+    "friendly"
+  ],
+  "ambiguous": [
+    {
+      "word": "fight",
+      "issue": "Could map to a physical altercation image or a general conflict symbol",
+      "preferred": "fight",
+      "reason": "The grouchy ladybug repeatedly challenges other animals to a fight — action meaning is correct; search for 'fight' or 'argue' in Boardmaker"
+    },
+    {
+      "word": "big",
+      "issue": "Could be a size adjective card or depict a large object; context-dependent",
+      "preferred": "big",
+      "reason": "Used throughout to contrast the size of animals the ladybug challenges; size adjective meaning is correct"
+    }
+  ],
+  "character_images_needed": [
+    "The Grouchy Ladybug"
+  ],
+  "icon_search_terms": {
+    "ladybug": "ladybug",
+    "aphid": "aphid",
+    "fight": "fight",
+    "big": "big",
+    "small": "small",
+    "clock": "clock",
+    "sun": "sun",
+    "leaf": "leaf",
+    "whale": "whale",
+    "grouchy": "grouchy",
+    "friendly": "friendly"
+  },
+  "notes": "The Grouchy Ladybug is structured around time (clocks appear on every spread showing the hour) and size comparison (animals get progressively bigger). 'Clock' and 'sun' are already in aac_extras and existing activity_images respectively — confirm reuse. 'Ladybug', 'aphid', 'leaf', and 'whale' are already in existing activity_images vocab — reuse those assets. The core concepts students most benefit from communicating are the repeated challenge ('want to fight'), size comparison (big/small), time/clock, and the emotional contrast between grouchy and friendly. Secondary animals (stag beetle, gorilla, skunk, fox, snake, bird) are already in activity_images but were not selected for the 11 fringe slots to avoid overcrowding — the whale and the emotional vocabulary were prioritised as more communicatively generative. Consider adding a visual timer activity alongside this board to reinforce the time theme.",
+  "characters": [],
+  "code": "TGL1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

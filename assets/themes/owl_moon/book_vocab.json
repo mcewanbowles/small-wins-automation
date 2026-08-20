@@ -1,0 +1,86 @@
+{
+  "title": "Owl Moon",
+  "author": "Jane Yolen",
+  "hero": {
+    "name": "Owl",
+    "description": "Large owl perched on a branch at night, as depicted on the cover of Owl Moon — a great horned owl in a winter night scene",
+    "search_term": "owl",
+    "needs_sourcing": false,
+    "source_note": "Generic owl symbol from Boardmaker library should work well; verify it reads as a large impressive owl rather than a cartoon"
+  },
+  "fringe_12": [
+    "owl",
+    "moon",
+    "snow",
+    "tree",
+    "night",
+    "father",
+    "walk",
+    "quiet",
+    "cold",
+    "light",
+    "shadow",
+    "woods"
+  ],
+  "fringe_11": [
+    "moon",
+    "snow",
+    "tree",
+    "night",
+    "father",
+    "walk",
+    "quiet",
+    "cold",
+    "light",
+    "shadow",
+    "woods"
+  ],
+  "activity_images": [
+    "moon",
+    "snow",
+    "tree",
+    "night",
+    "father",
+    "walk"
+  ],
+  "aac_extras": [
+    "quiet",
+    "cold",
+    "light",
+    "shadow",
+    "woods"
+  ],
+  "ambiguous": [
+    {
+      "word": "light",
+      "issue": "Could mean a lamp/torch (noun), the moonlight or a beam of light (noun), or the adjective light (not heavy/not dark)",
+      "preferred": "flashlight",
+      "reason": "In Owl Moon the father shines a flashlight/torch beam up into the tree to illuminate the owl — a beam of torch light is the correct image"
+    },
+    {
+      "word": "shadow",
+      "issue": "Could mean a person's shadow on the ground or a dark shape/silhouette against the sky",
+      "preferred": "shadow",
+      "reason": "Shadows of the child and father stretch across the snow — a shadow-on-snow image is correct; avoid shadow meaning darkness/evil"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "moon": "moon",
+    "snow": "snow",
+    "tree": "tree",
+    "night": "night",
+    "father": "father",
+    "walk": "walk",
+    "quiet": "quiet",
+    "cold": "cold",
+    "light": "flashlight",
+    "shadow": "shadow",
+    "woods": "woods"
+  },
+  "notes": "Owl Moon is a quiet, poetic night-walk story with very few characters (a child and father) and no named characters beyond the owl itself. The owl is a generic great horned owl and Boardmaker's standard owl symbol is appropriate. Core fringe words — owl, moon, snow, tree, night, father, walk, quiet, cold — are the heart of the book's imagery. 'Light' is best represented as a flashlight/torch beam since the dramatic climax involves the father shining a light up at the owl. Words like 'barn', 'path', 'hat', 'scarf' from existing activity_images are good supplementary images but were deprioritised in favour of the 11 most communicatively powerful words. 'Night' may need checking in the Boardmaker library as it can sometimes render as a generic dark sky — a moon-and-stars night scene is preferable. 'Woods' may search better as 'forest'. The book's emotional core is wonder and stillness, so 'quiet' and 'cold' are retained as high-value fringe words despite being somewhat abstract — they are picturable (finger-to-lips for quiet, child shivering for cold).",
+  "characters": [],
+  "code": "OM1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

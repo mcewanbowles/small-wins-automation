@@ -1,0 +1,90 @@
+{
+  "title": "We Don't Eat Our Classmates",
+  "author": "Ryan T. Higgins",
+  "hero": {
+    "name": "Penelope Rex",
+    "description": "Small pink T-Rex dinosaur wearing a school backpack and bow, main character from the cover",
+    "search_term": "penelope rex dinosaur",
+    "needs_sourcing": true,
+    "source_note": "Named distinctive character — source from Creative Fabrica or TPT clip art; look for 'Penelope Rex' or 'We Don't Eat Our Classmates' clip art"
+  },
+  "fringe_12": [
+    "Penelope Rex",
+    "eat",
+    "classmate",
+    "scared",
+    "hungry",
+    "mouth",
+    "sorry",
+    "friend",
+    "fish",
+    "bite",
+    "class",
+    "happy"
+  ],
+  "fringe_11": [
+    "eat",
+    "classmate",
+    "scared",
+    "hungry",
+    "mouth",
+    "sorry",
+    "friend",
+    "fish",
+    "bite",
+    "class",
+    "happy"
+  ],
+  "activity_images": [
+    "eat",
+    "classmate",
+    "scared",
+    "hungry",
+    "mouth",
+    "sorry"
+  ],
+  "aac_extras": [
+    "friend",
+    "fish",
+    "bite",
+    "class",
+    "happy"
+  ],
+  "ambiguous": [
+    {
+      "word": "bite",
+      "issue": "Could mean the action of biting (verb) or a small amount of food (noun)",
+      "preferred": "bite action",
+      "reason": "In this book, biting classmates is the central problem behaviour — the action verb meaning is correct"
+    },
+    {
+      "word": "fish",
+      "issue": "Could mean the animal in water or a food item to eat",
+      "preferred": "fish animal",
+      "reason": "The teacher has a goldfish in a tank that Penelope eats — the animal/pet meaning is primary; however the eating context also applies, so either works — prefer 'goldfish' or 'fish bowl' image"
+    }
+  ],
+  "character_images_needed": [
+    "Penelope Rex"
+  ],
+  "icon_search_terms": {
+    "eat": "eat",
+    "classmate": "classmate",
+    "scared": "afraid",
+    "hungry": "hungry",
+    "mouth": "mouth",
+    "sorry": "sorry",
+    "friend": "friend",
+    "fish": "fish",
+    "bite": "bite",
+    "class": "class",
+    "happy": "happy"
+  },
+  "notes": "Core story theme: Penelope Rex is a T-Rex starting school who keeps eating her classmates (children) because they look delicious, until she understands empathy when the teacher's goldfish eats her. Key emotional vocabulary (scared, sorry, happy) is central to the story arc. 'classmate' may not exist as a single Boardmaker symbol — try 'student' or 'children' as fallback. 'eat' and 'dont' are already in aac_extras; 'class' is in activity_images. 'sorry' and 'friend' are already in aac_extras — confirm these tiles reference existing assets. The book is excellent for social-emotional learning around empathy and perspective-taking, so scared/sorry/happy are high-priority fringe choices over purely object nouns.",
+  "characters": [
+    "penelope_rex"
+  ],
+  "code": "WDEOC1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

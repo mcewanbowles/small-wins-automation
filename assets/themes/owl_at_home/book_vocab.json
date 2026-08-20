@@ -1,0 +1,86 @@
+{
+  "title": "Owl At Home",
+  "author": "Arnold Lobel",
+  "hero": {
+    "name": "Owl",
+    "description": "A friendly brown owl who lives in a cozy home, wears no clothes, main character of Arnold Lobel's easy reader",
+    "search_term": "owl",
+    "needs_sourcing": false,
+    "source_note": "Generic owl symbol from Boardmaker should suffice; if a more Lobel-specific illustration is desired, source from TPT or Creative Fabrica"
+  },
+  "fringe_12": [
+    "Owl",
+    "home",
+    "moon",
+    "wind",
+    "snow",
+    "night",
+    "door",
+    "bed",
+    "fire",
+    "winter",
+    "tear",
+    "stairs"
+  ],
+  "fringe_11": [
+    "home",
+    "moon",
+    "wind",
+    "snow",
+    "night",
+    "door",
+    "bed",
+    "fire",
+    "winter",
+    "tear",
+    "stairs"
+  ],
+  "activity_images": [
+    "home",
+    "moon",
+    "wind",
+    "snow",
+    "night",
+    "door"
+  ],
+  "aac_extras": [
+    "bed",
+    "fire",
+    "winter",
+    "tear",
+    "stairs"
+  ],
+  "ambiguous": [
+    {
+      "word": "fire",
+      "issue": "Could mean a destructive fire or a cozy fireplace fire",
+      "preferred": "fireplace",
+      "reason": "In the book Owl sits by a warm fire in his fireplace; the cozy hearth meaning is correct"
+    },
+    {
+      "word": "tear",
+      "issue": "Could mean a teardrop (crying) or to tear/rip something",
+      "preferred": "teardrop",
+      "reason": "In the story 'Tear-Water Tea', Owl collects sad tears to make tea; the crying/teardrop noun meaning is correct"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "home": "home",
+    "moon": "moon",
+    "wind": "wind",
+    "snow": "snow",
+    "night": "night",
+    "door": "door",
+    "bed": "bed",
+    "fire": "fireplace",
+    "winter": "winter",
+    "tear": "teardrop",
+    "stairs": "stairs"
+  },
+  "notes": "Owl At Home by Arnold Lobel is a classic easy reader with five gentle chapters. Key recurring themes are Owl's cozy home, the changing seasons/winter weather, night-time, the moon, and emotional moments like tear-water tea. The word 'tear' should map to a teardrop/crying image. 'Fire' should map to a fireplace rather than a destructive fire. Owl is a generic animal that Boardmaker covers well, so no special sourcing is needed for the hero unless the teacher wants a Lobel-style illustration.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

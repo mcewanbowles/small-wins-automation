@@ -1,0 +1,88 @@
+{
+  "title": "The Curious Garden",
+  "author": "Peter Brown",
+  "hero": {
+    "name": "Liam",
+    "description": "Young boy in a yellow rain jacket and boots, the curious child gardener protagonist",
+    "search_term": "liam curious garden boy",
+    "needs_sourcing": true,
+    "source_note": "Named/distinctive human character — source from Creative Fabrica or TPT clip art; alternatively use a generic 'boy with yellow raincoat' image"
+  },
+  "fringe_12": [
+    "Liam",
+    "garden",
+    "plant",
+    "grow",
+    "city",
+    "train track",
+    "rain",
+    "tree",
+    "flower",
+    "seed",
+    "climb",
+    "beautiful"
+  ],
+  "fringe_11": [
+    "garden",
+    "plant",
+    "grow",
+    "city",
+    "train track",
+    "rain",
+    "tree",
+    "flower",
+    "seed",
+    "climb",
+    "beautiful"
+  ],
+  "activity_images": [
+    "garden",
+    "plant",
+    "grow",
+    "city",
+    "train track",
+    "rain"
+  ],
+  "aac_extras": [
+    "tree",
+    "flower",
+    "seed",
+    "climb",
+    "beautiful"
+  ],
+  "ambiguous": [
+    {
+      "word": "plant",
+      "issue": "Could mean the noun (a plant/vegetation) or the verb (to plant something in soil)",
+      "preferred": "plant noun",
+      "reason": "In this book the primary reference is to plants as living things growing in the city; the noun meaning is more picturable and useful on the board"
+    },
+    {
+      "word": "climb",
+      "issue": "Could depict a person climbing stairs/ladder or vines/plants climbing a surface",
+      "preferred": "climb person",
+      "reason": "Liam climbs the elevated railway to tend the garden; a person climbing is the correct and clearest image"
+    }
+  ],
+  "character_images_needed": [
+    "Liam (boy in yellow raincoat from The Curious Garden)"
+  ],
+  "icon_search_terms": {
+    "garden": "garden",
+    "plant": "plant",
+    "grow": "grow",
+    "city": "city",
+    "train track": "train track",
+    "rain": "rain",
+    "tree": "tree",
+    "flower": "flower",
+    "seed": "seed",
+    "climb": "climb",
+    "beautiful": "beautiful"
+  },
+  "notes": "The Curious Garden follows Liam, a boy who discovers a struggling patch of plants on an abandoned elevated railway and nurtures it until it spreads across the whole grey city. Key themes are urban gardening, nature reclaiming city spaces, and the power of one person to inspire change. 'Train track' (or 'railway') is central to the setting and unusual for a garden book — flag this for teachers. 'Beautiful' is used rather than a specific colour because the book's visual power is about the transformation from grey to colourful rather than any single colour. If a Boardmaker image for 'train track' is not found, 'railway' or 'elevated railway' are good alternative search terms. Liam does not have a widely licensed clip-art presence; a boy in a yellow raincoat with boots is the most recognisable substitute if a book-specific image cannot be sourced.",
+  "characters": [],
+  "code": "CG1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

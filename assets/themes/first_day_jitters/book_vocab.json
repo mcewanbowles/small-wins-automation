@@ -1,0 +1,82 @@
+{
+  "title": "First Day Jitters",
+  "author": "Julie Danneberg",
+  "hero": {
+    "name": "Sarah Jane Hartwell",
+    "description": "Young girl with curly red hair, hiding under covers, anxious expression — main character of First Day Jitters",
+    "search_term": "sarah jane hartwell first day jitters",
+    "needs_sourcing": true,
+    "source_note": "Named character — source from Creative Fabrica or TPT clip art; also acceptable to use a generic nervous girl illustration"
+  },
+  "fringe_12": [
+    "Sarah Jane Hartwell",
+    "school",
+    "nervous",
+    "new",
+    "teacher",
+    "friend",
+    "classroom",
+    "backpack",
+    "bed",
+    "scared",
+    "happy",
+    "surprised"
+  ],
+  "fringe_11": [
+    "school",
+    "nervous",
+    "new",
+    "teacher",
+    "friend",
+    "classroom",
+    "backpack",
+    "bed",
+    "scared",
+    "happy",
+    "surprised"
+  ],
+  "activity_images": [
+    "school",
+    "nervous",
+    "new",
+    "teacher",
+    "friend",
+    "classroom"
+  ],
+  "aac_extras": [
+    "backpack",
+    "bed",
+    "scared",
+    "happy",
+    "surprised"
+  ],
+  "ambiguous": [
+    {
+      "word": "new",
+      "issue": "Could map to 'brand new object' or abstract concept of novelty",
+      "preferred": "new",
+      "reason": "In this book 'new' describes a new school and new people — use a Boardmaker symbol showing a star/sparkle or 'NEW' label on an object"
+    }
+  ],
+  "character_images_needed": [
+    "Sarah Jane Hartwell"
+  ],
+  "icon_search_terms": {
+    "school": "school",
+    "nervous": "afraid",
+    "new": "new",
+    "teacher": "teacher",
+    "friend": "friend",
+    "classroom": "classroom",
+    "backpack": "backpack",
+    "bed": "bed",
+    "scared": "afraid 1",
+    "happy": "happy",
+    "surprised": "surprised"
+  },
+  "notes": "First Day Jitters has a classic twist ending — the nervous character turns out to be the new TEACHER, not a student. Key emotional vocabulary (nervous, scared, happy, surprised) is central to the story arc and supports both retelling and personal connection for students who experience back-to-school anxiety. 'Nervous' and 'scared' are intentionally both included as they reflect different points in the emotional journey; check Boardmaker library under 'afraid' and 'afraid 1' for best match. The hero image should ideally show the girl hiding under bedcovers if possible, as that is the most iconic cover image students will recognise.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

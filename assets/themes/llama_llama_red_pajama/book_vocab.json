@@ -1,0 +1,357 @@
+{
+  "title": "Llama Llama Red Pajama",
+  "author": "Anna Dewdney",
+  "hero": {
+    "name": "Llama Llama",
+    "description": "Young llama character in red pajamas, distinctive Anna Dewdney illustration style",
+    "search_term": "llama llama red pajama",
+    "needs_sourcing": true,
+    "source_note": "Named character \u2014 source from Creative Fabrica or TPT clip art; must show llama in red pajamas to match cover recognition"
+  },
+  "fringe_12": [
+    "Llama Llama",
+    "pajamas",
+    "bed",
+    "mama",
+    "dark",
+    "cry",
+    "wait",
+    "scared",
+    "hug",
+    "night",
+    "lamp",
+    "stairs"
+  ],
+  "fringe_11": [
+    "pajamas",
+    "bed",
+    "mama",
+    "dark",
+    "cry",
+    "wait",
+    "scared",
+    "hug",
+    "night",
+    "lamp",
+    "stairs"
+  ],
+  "activity_images": [
+    "pajamas",
+    "bed",
+    "mama",
+    "dark",
+    "cry",
+    "wait"
+  ],
+  "aac_extras": [
+    "scared",
+    "hug",
+    "night",
+    "lamp",
+    "stairs"
+  ],
+  "ambiguous": [
+    {
+      "word": "dark",
+      "issue": "Could mean the colour/shade dark or the absence of light in a room at night",
+      "preferred": "dark night",
+      "reason": "Book is about bedtime fear; dark refers to the dark bedroom at night, not a colour descriptor"
+    },
+    {
+      "word": "light",
+      "issue": "Could mean a lamp/light source or the adjective light (not heavy); also overlaps with lamp already on board",
+      "preferred": "lamp",
+      "reason": "lamp is already the preferred fringe word; light was excluded to avoid duplication and ambiguity"
+    }
+  ],
+  "character_images_needed": [
+    "Llama Llama"
+  ],
+  "icon_search_terms": {
+    "pajamas": "pajamas",
+    "bed": "bed",
+    "mama": "mama",
+    "dark": "dark",
+    "cry": "cry",
+    "wait": "wait",
+    "scared": "afraid",
+    "hug": "hug",
+    "night": "night",
+    "lamp": "lamp",
+    "stairs": "stairs"
+  },
+  "notes": "Core emotional vocabulary (scared, cry, wait, hug) is especially important for this book as the story centres on separation anxiety at bedtime. 'Mama' is the child's primary communication target \u2014 llama calls for mama throughout. 'Red' was considered as a fringe word given the title, but the colour core button already covers colour labelling and the 11 slots are better used for narrative and emotional words. Existing activity_images already include llama, pajamas, bed, lamp, stairs, mama, dark \u2014 these can be reused directly.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27",
+  "word_search_words": [
+    {
+      "word": "llama",
+      "grounded": true,
+      "grounding_note": "Main character species named in title and story.",
+      "citations": [
+        0,
+        1
+      ]
+    },
+    {
+      "word": "pajama",
+      "grounded": true,
+      "grounding_note": "Referenced in title 'Red Pajama'.",
+      "citations": [
+        0
+      ]
+    },
+    {
+      "word": "mama",
+      "grounded": true,
+      "grounding_note": "Llama's mother figure central to the bedtime story.",
+      "citations": [
+        1
+      ]
+    },
+    {
+      "word": "bed",
+      "grounded": true,
+      "grounding_note": "Bedtime story setting.",
+      "citations": [
+        1
+      ]
+    }
+  ],
+  "starting_sight_words": [
+    {
+      "word": "the",
+      "grounded": true,
+      "grounding_note": "Common sight word appearing throughout rhyming picture book text.",
+      "citations": [
+        0
+      ]
+    },
+    {
+      "word": "little",
+      "grounded": true,
+      "grounding_note": "Descriptive term consistent with 'little llama' bedtime narrative.",
+      "citations": [
+        1
+      ]
+    }
+  ],
+  "sequence_order": [
+    {
+      "step": "Llama Llama is put to bed by Mama Llama.",
+      "grounded": true,
+      "grounding_note": "Story begins with bedtime routine.",
+      "citations": [
+        1
+      ]
+    },
+    {
+      "step": "Llama Llama calls out for Mama after she leaves.",
+      "grounded": true,
+      "grounding_note": "Reflects bedtime blues plot described in review.",
+      "citations": [
+        0,
+        1
+      ]
+    },
+    {
+      "step": "Llama Llama waits and becomes upset.",
+      "grounded": true,
+      "grounding_note": "Reddit discussion references Llama waiting a short time before becoming upset.",
+      "citations": [
+        2
+      ]
+    },
+    {
+      "step": "Mama Llama returns to comfort Llama Llama.",
+      "grounded": true,
+      "grounding_note": "Bedtime story resolves with Mama comforting Llama, consistent with 'face the bedtime blues' description.",
+      "citations": [
+        0
+      ]
+    }
+  ],
+  "sorting_categories": [
+    {
+      "category": "Bedtime Items",
+      "items": [
+        "bed",
+        "pajama"
+      ],
+      "grounded": true,
+      "grounding_note": "Bedtime setting and pajama theme confirmed by title and review.",
+      "citations": [
+        0,
+        1
+      ]
+    },
+    {
+      "category": "Characters",
+      "items": [
+        "llama",
+        "mama"
+      ],
+      "grounded": true,
+      "grounding_note": "Main characters confirmed across sources.",
+      "citations": [
+        0,
+        1
+      ]
+    }
+  ],
+  "sequencing_strips_verbs": [
+    {
+      "verb": "sleep",
+      "grounded": true,
+      "grounding_note": "Bedtime action central to story theme.",
+      "citations": [
+        0
+      ]
+    },
+    {
+      "verb": "call",
+      "grounded": true,
+      "grounding_note": "Llama calls out for Mama during the night, per bedtime blues narrative.",
+      "citations": [
+        0,
+        1
+      ]
+    },
+    {
+      "verb": "wait",
+      "grounded": true,
+      "grounding_note": "Reddit review specifically discusses Llama waiting.",
+      "citations": [
+        2
+      ]
+    }
+  ],
+  "adapted_book_sentences": [
+    {
+      "sentence": "Llama Llama wears red pajamas.",
+      "grounded": true,
+      "grounding_note": "Directly reflects book title 'Red Pajama'.",
+      "citations": [
+        0
+      ]
+    },
+    {
+      "sentence": "Mama Llama puts Llama Llama to bed.",
+      "grounded": true,
+      "grounding_note": "Bedtime story setup confirmed by review.",
+      "citations": [
+        1
+      ]
+    },
+    {
+      "sentence": "Llama Llama calls for Mama.",
+      "grounded": true,
+      "grounding_note": "Reflects central bedtime blues conflict.",
+      "citations": [
+        0,
+        1
+      ]
+    },
+    {
+      "sentence": "Mama Llama comes back to help.",
+      "grounded": true,
+      "grounding_note": "Story resolves with Mama returning to comfort Llama, consistent with theme description.",
+      "citations": [
+        0
+      ]
+    }
+  ],
+  "wh_questions": [
+    {
+      "question": "Who wears the red pajamas?",
+      "grounded": true,
+      "grounding_note": "Title directly names the character wearing red pajamas.",
+      "citations": [
+        0
+      ]
+    },
+    {
+      "question": "Where does Llama Llama go at the start of the story?",
+      "grounded": true,
+      "grounding_note": "Bedtime setting confirmed by review.",
+      "citations": [
+        1
+      ]
+    },
+    {
+      "question": "Who does Llama Llama call for?",
+      "grounded": true,
+      "grounding_note": "Reflects bedtime blues plot where child seeks mother.",
+      "citations": [
+        1
+      ]
+    }
+  ],
+  "yes_no_questions": [
+    {
+      "question": "Does Llama Llama wear red pajamas?",
+      "answer": "yes",
+      "grounded": true,
+      "grounding_note": "Confirmed by book title.",
+      "citations": [
+        0
+      ]
+    },
+    {
+      "question": "Is this a story about going to sleep?",
+      "answer": "yes",
+      "grounded": true,
+      "grounding_note": "Described as a bedtime story.",
+      "citations": [
+        1
+      ]
+    },
+    {
+      "question": "Does Llama Llama wait a very long time, like all night, before Mama comes?",
+      "answer": "no",
+      "grounded": true,
+      "grounding_note": "Reddit review notes the wait was actually short (less than five minutes), not all night.",
+      "citations": [
+        2
+      ]
+    }
+  ],
+  "aac_fringe_vocab": [
+    {
+      "word": "upset",
+      "grounded": true,
+      "grounding_note": "Reddit source references Llama becoming upset while waiting.",
+      "citations": [
+        2
+      ]
+    },
+    {
+      "word": "comforted",
+      "grounded": true,
+      "grounding_note": "Consistent with 'face the bedtime blues' resolution described by publisher.",
+      "citations": [
+        0
+      ]
+    }
+  ],
+  "inferencing_questions": [
+    {
+      "question": "Why might Llama Llama feel scared when Mama leaves the room?",
+      "grounded": true,
+      "grounding_note": "Inference based on 'bedtime blues' theme; not stated verbatim in text, requires reasoning about child separation anxiety.",
+      "citations": [
+        0
+      ]
+    },
+    {
+      "question": "Why does Mama Llama come back to check on Llama Llama?",
+      "grounded": true,
+      "grounding_note": "Inference from story resolution described in publisher summary; not verbatim stated.",
+      "citations": [
+        0
+      ]
+    }
+  ]
+}

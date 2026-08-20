@@ -1,0 +1,80 @@
+{
+  "title": "Bear Says Thanks",
+  "author": "Karma Wilson",
+  "hero": {
+    "name": "Bear",
+    "description": "Large brown bear, friendly expression, central character from Karma Wilson's Bear series",
+    "search_term": "bear",
+    "needs_sourcing": false,
+    "source_note": "Generic brown bear — Boardmaker bear symbol should work well"
+  },
+  "fringe_12": [
+    "Bear",
+    "friends",
+    "food",
+    "share",
+    "thankful",
+    "cave",
+    "honey",
+    "fish",
+    "berries",
+    "eat",
+    "party",
+    "sad"
+  ],
+  "fringe_11": [
+    "friends",
+    "food",
+    "share",
+    "thankful",
+    "cave",
+    "honey",
+    "fish",
+    "berries",
+    "eat",
+    "party",
+    "sad"
+  ],
+  "activity_images": [
+    "friends",
+    "food",
+    "share",
+    "thankful",
+    "cave",
+    "honey"
+  ],
+  "aac_extras": [
+    "fish",
+    "berries",
+    "eat",
+    "party",
+    "sad"
+  ],
+  "ambiguous": [
+    {
+      "word": "bear",
+      "issue": "Could mean the animal or the verb 'to bear/carry'",
+      "preferred": "bear animal",
+      "reason": "Bear is the main character animal in this book; the verb meaning is irrelevant"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "friends": "friends",
+    "food": "food",
+    "share": "share",
+    "thankful": "thankful",
+    "cave": "cave",
+    "honey": "honey",
+    "fish": "fish",
+    "berries": "berries",
+    "eat": "eat",
+    "party": "party",
+    "sad": "sad"
+  },
+  "notes": "Bear Says Thanks is about Bear wanting to share a meal with friends but having no food — his friends each bring dishes instead, and Bear shares stories. Key vocabulary focuses on social concepts (sharing, gratitude, friendship), food items central to the plot (honey, fish, berries), and Bear's emotional arc (sad when he feels he has nothing to give, thankful at the end). 'Thankful' may need checking in Boardmaker — 'grateful' or 'thank you' could substitute if symbol quality is poor. The cave is Bear's home and a key setting. 'Party' captures the celebratory gathering at the book's climax.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

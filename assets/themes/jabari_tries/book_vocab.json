@@ -1,0 +1,94 @@
+{
+  "title": "Jabari Tries",
+  "author": "Gaia Cornwall",
+  "hero": {
+    "name": "Jabari",
+    "description": "Young Black boy with determined expression, main character from Jabari Jumps series",
+    "search_term": "jabari boy",
+    "needs_sourcing": true,
+    "source_note": "Named character — source from Creative Fabrica, TPT, or Teachers Pay Teachers clip art matching Gaia Cornwall's illustration style"
+  },
+  "fringe_12": [
+    "Jabari",
+    "build",
+    "fly",
+    "crash",
+    "try",
+    "again",
+    "frustrated",
+    "proud",
+    "idea",
+    "fix",
+    "heavy",
+    "light"
+  ],
+  "fringe_11": [
+    "build",
+    "fly",
+    "crash",
+    "try",
+    "again",
+    "frustrated",
+    "proud",
+    "idea",
+    "fix",
+    "heavy",
+    "light"
+  ],
+  "activity_images": [
+    "build",
+    "fly",
+    "crash",
+    "try",
+    "again",
+    "frustrated"
+  ],
+  "aac_extras": [
+    "proud",
+    "idea",
+    "fix",
+    "heavy",
+    "light"
+  ],
+  "ambiguous": [
+    {
+      "word": "fly",
+      "issue": "Could mean insect (noun) or the action of flying (verb)",
+      "preferred": "fly action",
+      "reason": "Jabari is trying to build a flying machine, so the action of flying is the correct meaning"
+    },
+    {
+      "word": "light",
+      "issue": "Could mean a lamp or source of light (noun) vs the adjective meaning not heavy",
+      "preferred": "light adjective",
+      "reason": "In the context of building a flying machine, light refers to the weight property of objects, contrasting with heavy"
+    },
+    {
+      "word": "crash",
+      "issue": "Could mean a vehicle accident or the action of falling/failing",
+      "preferred": "crash fall",
+      "reason": "Jabari's flying machine crashes during testing — the action of something falling apart or failing is the intended meaning"
+    }
+  ],
+  "character_images_needed": [
+    "Jabari"
+  ],
+  "icon_search_terms": {
+    "build": "build",
+    "fly": "fly",
+    "crash": "crash",
+    "try": "try",
+    "again": "again",
+    "frustrated": "frustrated",
+    "proud": "proud",
+    "idea": "idea",
+    "fix": "fix",
+    "heavy": "heavy",
+    "light": "light weight"
+  },
+  "notes": "Jabari Tries is about a young boy who persists through failure while trying to build a flying machine with his little sister and dad. Key themes are perseverance, engineering, and emotional regulation. The existing activity_images vocab (machine, wings, ramp, rocket, yard, sister, tools, tape, straw, dad, cardboard, wheel) covers the concrete story objects well. The fringe_11 chosen here layers in key actions (build, fly, crash, try, fix, again), emotions (frustrated, proud), and descriptive concepts (heavy, light, idea) that support retelling and discussion. Teachers may wish to swap 'heavy' and 'light' for 'sister' or 'dad' if those characters are already covered in activity_images and displayed separately on the board.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

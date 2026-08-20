@@ -1,0 +1,89 @@
+{
+  "title": "I Want My Hat Back",
+  "author": "Jon Klassen",
+  "hero": {
+    "name": "Bear (I Want My Hat Back)",
+    "description": "Simple brown bear character from Jon Klassen's distinctive minimalist illustration style",
+    "search_term": "bear",
+    "needs_sourcing": false,
+    "source_note": "Generic brown bear from Boardmaker library should work; Klassen's style is minimalist so exact match not critical"
+  },
+  "fringe_12": [
+    "bear",
+    "hat",
+    "rabbit",
+    "fox",
+    "snake",
+    "lost",
+    "found",
+    "red",
+    "search",
+    "ask",
+    "remember",
+    "eat"
+  ],
+  "fringe_11": [
+    "hat",
+    "rabbit",
+    "fox",
+    "snake",
+    "lost",
+    "found",
+    "red",
+    "search",
+    "ask",
+    "remember",
+    "eat"
+  ],
+  "activity_images": [
+    "hat",
+    "rabbit",
+    "fox",
+    "snake",
+    "lost",
+    "found"
+  ],
+  "aac_extras": [
+    "red",
+    "search",
+    "ask",
+    "remember",
+    "eat"
+  ],
+  "ambiguous": [
+    {
+      "word": "bear",
+      "issue": "Could map to bear (animal) or bear (verb: to carry/tolerate)",
+      "preferred": "bear animal",
+      "reason": "Bear is the main character — the animal meaning is correct"
+    },
+    {
+      "word": "fox",
+      "issue": "Could mean the animal or the verb 'to fox' (deceive); also a surname",
+      "preferred": "fox animal",
+      "reason": "Fox is a secondary animal character in the story"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "hat": "hat",
+    "rabbit": "rabbit",
+    "fox": "fox",
+    "snake": "snake",
+    "lost": "lost",
+    "found": "found",
+    "red": "red",
+    "search": "search",
+    "ask": "ask",
+    "remember": "remember",
+    "eat": "eat",
+    "bear": "bear"
+  },
+  "notes": "The core story revolves around bear losing his red hat, asking various animals if they have seen it, and eventually remembering that the rabbit was wearing it. Key vocabulary priorities are: hat (central object), red (hat's defining colour), the three most plot-relevant animals (rabbit — the thief, fox, snake), and the narrative actions (lost, found, search, ask, remember). 'Eat' is included because bear ultimately eats the rabbit — a darkly humorous climax students often react strongly to and may want to comment on. 'Rabbit' and 'snake' already exist in activity_images; 'lost', 'found', and 'remember' already exist in aac_extras — these can be reused directly.",
+  "characters": [
+    "bear_klassen"
+  ],
+  "code": "IWH1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

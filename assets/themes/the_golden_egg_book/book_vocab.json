@@ -1,0 +1,98 @@
+{
+  "title": "The Golden Egg Book",
+  "author": "Margaret Wise Brown",
+  "hero": {
+    "name": "Bunny (The Golden Egg Book)",
+    "description": "Small fluffy bunny rabbit, the main character who finds and investigates a golden egg",
+    "search_term": "bunny rabbit",
+    "needs_sourcing": false,
+    "source_note": "Generic bunny rabbit — Boardmaker library should have a suitable match"
+  },
+  "fringe_12": [
+    "Bunny (The Golden Egg Book)",
+    "egg",
+    "duck",
+    "golden",
+    "tap",
+    "crack",
+    "sleep",
+    "wake",
+    "pond",
+    "alone",
+    "hatch",
+    "friend"
+  ],
+  "fringe_11": [
+    "egg",
+    "duck",
+    "golden",
+    "tap",
+    "crack",
+    "sleep",
+    "wake",
+    "pond",
+    "alone",
+    "hatch",
+    "friend"
+  ],
+  "activity_images": [
+    "egg",
+    "duck",
+    "golden",
+    "tap",
+    "crack",
+    "sleep"
+  ],
+  "aac_extras": [
+    "wake",
+    "pond",
+    "alone",
+    "hatch",
+    "friend"
+  ],
+  "ambiguous": [
+    {
+      "word": "duck",
+      "issue": "Could mean the bird (noun) or the action of ducking down (verb)",
+      "preferred": "duck bird",
+      "reason": "The story is about a duckling hatching from the golden egg — the animal meaning is correct"
+    },
+    {
+      "word": "golden",
+      "issue": "Could map to the colour gold or the adjective golden (shiny/precious)",
+      "preferred": "gold colour",
+      "reason": "The egg is described as golden — a gold/yellow colour swatch is the most picturable representation"
+    },
+    {
+      "word": "crack",
+      "issue": "Could mean a crack in an object (noun) or the action of cracking (verb)",
+      "preferred": "crack open egg",
+      "reason": "The egg cracking open is a central story event — action meaning is correct"
+    },
+    {
+      "word": "tap",
+      "issue": "Could mean a water tap/faucet (noun) or the action of tapping/knocking (verb)",
+      "preferred": "tap knock",
+      "reason": "The bunny taps on the egg — action meaning is correct"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "egg": "egg",
+    "duck": "duck",
+    "golden": "gold",
+    "tap": "tap knock",
+    "crack": "crack break",
+    "sleep": "sleep",
+    "wake": "awake",
+    "pond": "pond lake",
+    "alone": "alone lonely",
+    "hatch": "hatch egg",
+    "friend": "friend"
+  },
+  "notes": "The Golden Egg Book centres on a lonely bunny who finds a mysterious golden egg and eventually meets the duckling that hatches from it — themes of curiosity, loneliness, waiting, and friendship are central. 'Sleep' and 'wake' are already noted in aac_extras and are highly relevant as the bunny falls asleep waiting for the egg to hatch. 'Hatch' is also in aac_extras. 'Golden' is best represented by a gold colour swatch since Boardmaker is unlikely to have a book-specific golden egg icon. 'Pond' is the key setting. 'Alone' captures the emotional core of the story and is concrete enough to picture. The hero bunny is generic enough for Boardmaker's standard rabbit/bunny icon to suffice. If the existing activity_images already include bunny, egg, bird, friend, these can be reused directly on the board.",
+  "characters": [],
+  "code": "GEB1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

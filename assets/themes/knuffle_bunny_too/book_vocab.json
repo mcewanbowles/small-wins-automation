@@ -1,0 +1,88 @@
+{
+  "title": "Knuffle Bunny Too: A Case of Mistaken Identity",
+  "author": "Mo Willems",
+  "hero": {
+    "name": "Knuffle Bunny",
+    "description": "Distinctive grey-and-white stuffed bunny toy character from Mo Willems' books, shown in Mo Willems' signature mixed-media illustration style",
+    "search_term": "knuffle bunny",
+    "needs_sourcing": true,
+    "source_note": "Named character from Mo Willems — source from Teachers Pay Teachers or Mo Willems fan clip art; generic Boardmaker bunny will not match"
+  },
+  "fringe_12": [
+    "Knuffle Bunny",
+    "bunny",
+    "school",
+    "swap",
+    "cry",
+    "sleep",
+    "friend",
+    "same",
+    "lost",
+    "dad",
+    "hug",
+    "night"
+  ],
+  "fringe_11": [
+    "bunny",
+    "school",
+    "swap",
+    "cry",
+    "sleep",
+    "friend",
+    "same",
+    "lost",
+    "dad",
+    "hug",
+    "night"
+  ],
+  "activity_images": [
+    "bunny",
+    "school",
+    "swap",
+    "cry",
+    "sleep",
+    "friend"
+  ],
+  "aac_extras": [
+    "same",
+    "lost",
+    "dad",
+    "hug",
+    "night"
+  ],
+  "ambiguous": [
+    {
+      "word": "lost",
+      "issue": "Could mean emotionally lost/confused or physically missing an object",
+      "preferred": "lost object",
+      "reason": "In this book 'lost' refers to the bunnies being mixed up and misplaced — the physical object sense is correct"
+    },
+    {
+      "word": "swap",
+      "issue": "Could be interpreted as trade/exchange (action) or could be confused with similar verbs like share or give",
+      "preferred": "swap trade",
+      "reason": "The central plot involves two bunnies being accidentally swapped — trade/exchange meaning is correct"
+    }
+  ],
+  "character_images_needed": [
+    "Knuffle Bunny"
+  ],
+  "icon_search_terms": {
+    "bunny": "bunny",
+    "school": "school",
+    "swap": "trade",
+    "cry": "crying",
+    "sleep": "sleep",
+    "friend": "friend",
+    "same": "same",
+    "lost": "lost",
+    "dad": "dad",
+    "hug": "hug",
+    "night": "night"
+  },
+  "notes": "Knuffle Bunny Too centres on Trixie discovering another child (Sonja) has an identical Knuffle Bunny, the bunnies getting swapped at school, and a late-night resolution when the girls' dads swap them back. Key communicative concepts are: the bunny itself (hero), going to school, the swap/mix-up, crying/distress, nighttime, dads, and friendship. The word 'same' is a fringe inclusion here because it is the central plot trigger — both bunnies look the same — even though 'same' also appears in core row 2; consider whether to duplicate or rely on core row. Secondary character Sonja is a named child but appears only as a generic girl figure in Boardmaker so does not require sourcing. The mixed-media photographic-background art style means classroom/school images from Boardmaker will be acceptable approximations.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

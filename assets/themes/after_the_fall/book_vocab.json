@@ -1,0 +1,94 @@
+{
+  "title": "After the Fall (How Humpty Dumpty Got Back Up Again)",
+  "author": "Dan Santat",
+  "hero": {
+    "name": "Humpty Dumpty",
+    "description": "Large white egg-shaped character with face, arms and legs, as depicted in Dan Santat's illustrated version",
+    "search_term": "humpty dumpty",
+    "needs_sourcing": true,
+    "source_note": "Named nursery rhyme character with specific illustrated design — source from Creative Fabrica or TPT clip art matching Dan Santat's style"
+  },
+  "fringe_12": [
+    "Humpty Dumpty",
+    "wall",
+    "fall",
+    "egg",
+    "broken",
+    "scared",
+    "climb",
+    "bird",
+    "paper airplane",
+    "brave",
+    "fly",
+    "crack"
+  ],
+  "fringe_11": [
+    "wall",
+    "fall",
+    "egg",
+    "broken",
+    "scared",
+    "climb",
+    "bird",
+    "paper airplane",
+    "brave",
+    "fly",
+    "crack"
+  ],
+  "activity_images": [
+    "wall",
+    "fall",
+    "egg",
+    "broken",
+    "scared",
+    "climb"
+  ],
+  "aac_extras": [
+    "bird",
+    "paper airplane",
+    "brave",
+    "fly",
+    "crack"
+  ],
+  "ambiguous": [
+    {
+      "word": "fall",
+      "issue": "Could mean the season autumn (fall) or the action of falling down",
+      "preferred": "fall down",
+      "reason": "The book is about Humpty Dumpty falling off a wall — the action meaning is correct"
+    },
+    {
+      "word": "fly",
+      "issue": "Could mean an insect (fly) or the action of flying through the air",
+      "preferred": "fly action",
+      "reason": "Humpty overcomes his fear and flies his paper airplane, then ultimately flies himself — the action meaning is correct"
+    },
+    {
+      "word": "crack",
+      "issue": "Could mean a crack/break in an object (noun) or the action of cracking (verb)",
+      "preferred": "crack noun",
+      "reason": "Humpty has cracks in him from his fall — the noun/physical damage meaning is more picturable and relevant"
+    }
+  ],
+  "character_images_needed": [
+    "Humpty Dumpty"
+  ],
+  "icon_search_terms": {
+    "wall": "wall",
+    "fall": "fall down",
+    "egg": "egg",
+    "broken": "broken",
+    "scared": "scared",
+    "climb": "climb",
+    "bird": "bird",
+    "paper airplane": "paper airplane",
+    "brave": "brave",
+    "fly": "fly",
+    "crack": "crack"
+  },
+  "notes": "This book is a sequel/reimagining of Humpty Dumpty focusing on overcoming fear and resilience after trauma — key emotional vocabulary (scared, brave) is as important as the physical story vocabulary. The existing activity_images already include wall, egg, bird, wings, sky, nest, tree, paper, glue, binoculars, ladder, cast — several of these overlap well with the story. Consider supplementing the AAC board with 'wings' and 'sky' from existing assets as bonus discussion words. 'Paper airplane' is central to the plot and may need a custom image if the Boardmaker library does not have it. 'Crack' on an egg specifically may need a custom image — search 'cracked egg' for best results.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

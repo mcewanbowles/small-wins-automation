@@ -1,0 +1,82 @@
+{
+  "title": "Go Away Big Green Monster",
+  "author": "Ed Emberley",
+  "hero": {
+    "name": "Big Green Monster",
+    "description": "A scary green monster face built up and taken apart page by page, with yellow eyes, blue nose, white teeth, and scraggly orange hair — Ed Emberley's distinctive die-cut character",
+    "search_term": "big green monster emberley",
+    "needs_sourcing": true,
+    "source_note": "Distinctive Emberley character — source from Creative Fabrica, TPT, or Teachers Pay Teachers clip art; generic Boardmaker monster unlikely to match"
+  },
+  "fringe_12": [
+    "Big Green Monster",
+    "monster",
+    "face",
+    "eyes",
+    "teeth",
+    "hair",
+    "green",
+    "yellow",
+    "orange",
+    "scary",
+    "away",
+    "come back"
+  ],
+  "fringe_11": [
+    "monster",
+    "face",
+    "eyes",
+    "teeth",
+    "hair",
+    "green",
+    "yellow",
+    "orange",
+    "scary",
+    "away",
+    "come back"
+  ],
+  "activity_images": [
+    "monster",
+    "face",
+    "eyes",
+    "teeth",
+    "hair",
+    "green"
+  ],
+  "aac_extras": [
+    "yellow",
+    "orange",
+    "scary",
+    "away",
+    "come back"
+  ],
+  "ambiguous": [
+    {
+      "word": "hair",
+      "issue": "Could show human hair, animal fur, or monster scraggly hair",
+      "preferred": "hair",
+      "reason": "Monster's scraggly orange hair is a key recurring feature of the book; generic hair symbol is acceptable"
+    }
+  ],
+  "character_images_needed": [
+    "Big Green Monster"
+  ],
+  "icon_search_terms": {
+    "monster": "monster",
+    "face": "face",
+    "eyes": "eyes",
+    "teeth": "teeth",
+    "hair": "hair",
+    "green": "green",
+    "yellow": "yellow",
+    "orange": "orange",
+    "scary": "afraid",
+    "away": "away",
+    "come back": "come back"
+  },
+  "notes": "This book is built around naming and dismissing monster body parts — face, eyes, teeth, and hair are the core vocabulary alongside the colours green, yellow, and orange which are explicitly named on each page. 'Away' and 'come back' mirror the two-part structure of the book (building the monster then sending it away). 'Scary' supports emotional response vocabulary. The hero image must show the distinctive Emberley monster face; a generic Boardmaker monster will not be recognisable to students familiar with the book cover. Consider adding a nose symbol if a 13th slot were available (blue nose is named in the book), but within 11 fringe words the selections above cover the highest-frequency and most communicatively useful terms.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

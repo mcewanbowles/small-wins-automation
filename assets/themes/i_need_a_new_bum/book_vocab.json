@@ -1,0 +1,94 @@
+{
+  "title": "I Need a New Bum!",
+  "author": "Dawn McMillan",
+  "hero": {
+    "name": "Boy (I Need a New Bum protagonist)",
+    "description": "Young boy character from the cover of I Need a New Bum, typically shown looking at his bottom with a worried expression",
+    "search_term": "i need a new bum boy",
+    "needs_sourcing": true,
+    "source_note": "Named/distinctive illustrated character — source cover-matching clip art from Creative Fabrica, TPT, or scan book cover for teacher reference image"
+  },
+  "fringe_12": [
+    "Boy (I Need a New Bum protagonist)",
+    "bum",
+    "pants",
+    "rip",
+    "glue",
+    "tape",
+    "shop",
+    "robot",
+    "duck",
+    "mum",
+    "fix",
+    "new"
+  ],
+  "fringe_11": [
+    "bum",
+    "pants",
+    "rip",
+    "glue",
+    "tape",
+    "shop",
+    "robot",
+    "duck",
+    "mum",
+    "fix",
+    "new"
+  ],
+  "activity_images": [
+    "bum",
+    "pants",
+    "rip",
+    "glue",
+    "tape",
+    "shop"
+  ],
+  "aac_extras": [
+    "robot",
+    "duck",
+    "mum",
+    "fix",
+    "new"
+  ],
+  "ambiguous": [
+    {
+      "word": "duck",
+      "issue": "Could mean the bird (duck) or the action (to duck down)",
+      "preferred": "duck bird",
+      "reason": "In the book the boy considers a duck-shaped bum — this is the duck animal, not the action"
+    },
+    {
+      "word": "rip",
+      "issue": "Could mean to tear something or the sound/word RIP (rest in peace)",
+      "preferred": "rip tear",
+      "reason": "The bum has a rip/tear in it — the tearing action meaning is correct"
+    },
+    {
+      "word": "fix",
+      "issue": "Could mean repair an object or fix as in to attach/set in place",
+      "preferred": "fix repair",
+      "reason": "The boy wants to fix (repair) his bum — use a repair/mend image"
+    }
+  ],
+  "character_images_needed": [
+    "Boy (I Need a New Bum protagonist)"
+  ],
+  "icon_search_terms": {
+    "bum": "buttocks",
+    "pants": "pants",
+    "rip": "rip tear",
+    "glue": "glue",
+    "tape": "tape",
+    "shop": "shop store",
+    "robot": "robot",
+    "duck": "duck bird",
+    "mum": "mother",
+    "fix": "fix repair",
+    "new": "new"
+  },
+  "notes": "This humorous picture book is highly motivating for students — the silly topic (a boy who thinks his bum has a crack and needs a new one) generates genuine engagement and laughter. Priority vocabulary centres on the problem (rip, bum), attempted solutions (glue, tape, shop, robot bum, duck bum) and the resolution via mum. 'Robot' and 'duck' are kept as single words rather than compound phrases because slot space is limited and context makes meaning clear on the board. Existing activity_images already include bum, pants, rip, glue, tape, shop, robot bum, duck bum, store, mum — reuse those assets directly; 'robot' and 'duck' here refer to those same compound concepts and can reuse the 'robot bum' and 'duck bum' images respectively. Existing aac_extras (laugh, look, find, choose) complement this board well and can be added as supplementary vocabulary.",
+  "characters": [],
+  "code": "INB1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

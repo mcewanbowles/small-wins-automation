@@ -1,0 +1,74 @@
+{
+  "title": "Ten Black Dots",
+  "author": "Donald Crews",
+  "hero": {
+    "name": "Black Dot",
+    "description": "A single bold black circle/dot — the central recurring visual element of the book, simple geometric shape on white background",
+    "search_term": "dot circle black",
+    "needs_sourcing": false,
+    "source_note": "Generic black circle — a solid black dot PNG or Boardmaker circle shape will work well"
+  },
+  "fringe_12": [
+    "dot",
+    "one",
+    "two",
+    "three",
+    "four",
+    "five",
+    "six",
+    "seven",
+    "eight",
+    "nine",
+    "ten",
+    "black"
+  ],
+  "fringe_11": [
+    "one",
+    "two",
+    "three",
+    "four",
+    "five",
+    "six",
+    "seven",
+    "eight",
+    "nine",
+    "ten",
+    "black"
+  ],
+  "activity_images": [
+    "one",
+    "two",
+    "three",
+    "four",
+    "five",
+    "six"
+  ],
+  "aac_extras": [
+    "seven",
+    "eight",
+    "nine",
+    "ten",
+    "black"
+  ],
+  "ambiguous": [],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "dot": "dot circle",
+    "one": "1",
+    "two": "2",
+    "three": "3",
+    "four": "4",
+    "five": "5",
+    "six": "6",
+    "seven": "7",
+    "eight": "8",
+    "nine": "9",
+    "ten": "10",
+    "black": "black color"
+  },
+  "notes": "Ten Black Dots is a pure counting book — numbers 1–10 are the entire curriculum focus, making them the ideal fringe vocabulary. Each number is shown alongside a real-world object (sun, fox, buttons, etc.) made from that many dots, but the objects rotate page by page and are less consistently salient than the numbers themselves. The hero slot uses 'dot' (a solid black circle) as the iconic recurring element students will associate with the book cover and every page. The colour 'black' is included as the one consistent descriptor throughout. Pre-existing activity_images vocab (dot, hat, moon, sun, fish, flower, snake, button, eye, balloon, wheel, fox) and aac_extras (count, ten, circle, shape) nicely complement this board — consider adding them to a second page or extension board so students can label the dot-objects on each page. Number symbols 1–10 should map directly to Boardmaker numeral PNGs.",
+  "characters": [],
+  "code": "TBD1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

@@ -1,0 +1,92 @@
+{
+  "title": "Jabari Jumps",
+  "author": "Gaia Cornwall",
+  "hero": {
+    "name": "Jabari",
+    "description": "Young Black boy in swim trunks, main character of the book, shown at a pool diving board",
+    "search_term": "jabari boy swimming",
+    "needs_sourcing": true,
+    "source_note": "Named character — source from Creative Fabrica or TPT clip art; a generic 'boy' icon will not match the cover character"
+  },
+  "fringe_12": [
+    "Jabari",
+    "jump",
+    "scared",
+    "brave",
+    "try",
+    "proud",
+    "swimming pool",
+    "diving board",
+    "dad",
+    "ready",
+    "splash",
+    "deep breath"
+  ],
+  "fringe_11": [
+    "jump",
+    "scared",
+    "brave",
+    "try",
+    "proud",
+    "swimming pool",
+    "diving board",
+    "dad",
+    "ready",
+    "splash",
+    "deep breath"
+  ],
+  "activity_images": [
+    "jump",
+    "scared",
+    "brave",
+    "try",
+    "proud",
+    "swimming pool"
+  ],
+  "aac_extras": [
+    "diving board",
+    "dad",
+    "ready",
+    "splash",
+    "deep breath"
+  ],
+  "ambiguous": [
+    {
+      "word": "pool",
+      "issue": "Could mean swimming pool or billiards pool table",
+      "preferred": "swimming pool",
+      "reason": "Book is set at a swimming pool; search for 'swimming pool' to avoid billiards image"
+    },
+    {
+      "word": "dive",
+      "issue": "Could mean the action of diving or a noun; replaced with 'jump' as that is the core action in the book title and story — no ambiguity issue but noted"
+    },
+    {
+      "word": "scared",
+      "issue": "Emotion words can map to multiple faces or symbols",
+      "preferred": "scared face",
+      "reason": "Book centres on fear of jumping; a clear scared/afraid face icon is needed — search 'afraid' in Boardmaker"
+    }
+  ],
+  "character_images_needed": [
+    "Jabari"
+  ],
+  "icon_search_terms": {
+    "jump": "jump",
+    "scared": "afraid",
+    "brave": "brave",
+    "try": "try",
+    "proud": "proud",
+    "swimming pool": "swimming pool",
+    "diving board": "diving board",
+    "dad": "dad",
+    "ready": "ready",
+    "splash": "splash",
+    "deep breath": "deep breath"
+  },
+  "notes": "This book's emotional arc — fear, courage, trying, pride — is central. 'Scared' and 'brave' are high-value fringe words for discussion and retelling. 'Deep breath' is a recurring coping action in the story and also has therapeutic value for SPED classrooms. 'Dad' is already partially covered by existing activity_images but is critical to the story dynamic. 'Splash' and 'diving board' are in or adjacent to existing activity_images vocab — confirm existing icons match before sourcing new ones. The hero Jabari is a specific Black child character; a generic 'boy' Boardmaker symbol will not be recognisable from the cover and should be sourced from TPT or Creative Fabrica.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

@@ -1,0 +1,94 @@
+{
+  "title": "Inch by Inch",
+  "author": "Leo Lionni",
+  "hero": {
+    "name": "Inchworm",
+    "description": "Small bright green inchworm, the clever measuring protagonist of the story",
+    "search_term": "inchworm",
+    "needs_sourcing": true,
+    "source_note": "Lionni's inchworm is a distinctive stylised illustrated character — generic Boardmaker worm won't match the cover; source from Creative Fabrica or TPT clip art"
+  },
+  "fringe_12": [
+    "Inchworm",
+    "bird",
+    "measure",
+    "long",
+    "short",
+    "robin",
+    "flamingo",
+    "toucan",
+    "tail",
+    "beak",
+    "grass",
+    "escape"
+  ],
+  "fringe_11": [
+    "bird",
+    "measure",
+    "long",
+    "short",
+    "robin",
+    "flamingo",
+    "toucan",
+    "tail",
+    "beak",
+    "grass",
+    "escape"
+  ],
+  "activity_images": [
+    "bird",
+    "measure",
+    "long",
+    "short",
+    "robin",
+    "flamingo"
+  ],
+  "aac_extras": [
+    "toucan",
+    "tail",
+    "beak",
+    "grass",
+    "escape"
+  ],
+  "ambiguous": [
+    {
+      "word": "long",
+      "issue": "Could map to time (duration) or physical length (dimension)",
+      "preferred": "long length",
+      "reason": "In this book 'long' refers to physical measurement of body parts, not duration of time"
+    },
+    {
+      "word": "short",
+      "issue": "Could mean brief in time, small in height, or short in length",
+      "preferred": "short length",
+      "reason": "In this book 'short' is used in the context of measuring physical length of things like a tail"
+    },
+    {
+      "word": "escape",
+      "issue": "Could map to running away (action) or an abstract concept",
+      "preferred": "escape run away",
+      "reason": "The inchworm escapes by measuring into the grass and disappearing — a concrete action of sneaking away"
+    }
+  ],
+  "character_images_needed": [
+    "Inchworm"
+  ],
+  "icon_search_terms": {
+    "bird": "bird",
+    "measure": "measure ruler",
+    "long": "long",
+    "short": "short",
+    "robin": "robin bird",
+    "flamingo": "flamingo",
+    "toucan": "toucan",
+    "tail": "tail animal",
+    "beak": "beak",
+    "grass": "grass",
+    "escape": "escape run away"
+  },
+  "notes": "The core narrative arc is: robin threatens to eat the inchworm, inchworm offers to measure body parts to survive, measures many birds (robin, flamingo, toucan, heron, pheasant, hummingbird, nightingale), then escapes into the grass when asked to measure something impossible (a song). Key vocabulary priorities are measurement concepts (measure, long, short), the birds encountered, body parts measured (tail, beak, neck), and the escape climax. 'Song' was considered but is abstract and not easily picturable; 'escape' captures the crucial plot resolution. Existing activity_images assets (bird, robin, flamingo, toucan, grass) should be reused. 'Heron', 'pheasant', 'hummingbird', and 'nightingale' were candidates but flamingo and toucan are the most visually distinctive and likely already sourced; the 11-slot limit required prioritising the most recognisable story elements.",
+  "characters": [],
+  "code": "IBI1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

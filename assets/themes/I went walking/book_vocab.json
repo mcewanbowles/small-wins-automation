@@ -1,0 +1,92 @@
+{
+  "title": "I Went Walking",
+  "author": "Sue Williams",
+  "hero": {
+    "name": "Child (walking child)",
+    "description": "Generic young child walking outdoors — the unnamed narrator who walks and spots animals",
+    "search_term": "child walking",
+    "needs_sourcing": false,
+    "source_note": "Generic walking child — Boardmaker library should cover this well"
+  },
+  "fringe_12": [
+    "Child (walking child)",
+    "walking",
+    "duck",
+    "cat",
+    "dog",
+    "cow",
+    "horse",
+    "pig",
+    "black",
+    "brown",
+    "red",
+    "yellow"
+  ],
+  "fringe_11": [
+    "walking",
+    "duck",
+    "cat",
+    "dog",
+    "cow",
+    "horse",
+    "pig",
+    "black",
+    "brown",
+    "red",
+    "yellow"
+  ],
+  "activity_images": [
+    "walking",
+    "duck",
+    "cat",
+    "dog",
+    "cow",
+    "horse"
+  ],
+  "aac_extras": [
+    "pig",
+    "black",
+    "brown",
+    "red",
+    "yellow"
+  ],
+  "ambiguous": [
+    {
+      "word": "duck",
+      "issue": "Could mean the bird (noun) or to duck/dodge (verb action)",
+      "preferred": "duck bird",
+      "reason": "The book features a duck as one of the animals the child sees on the walk"
+    },
+    {
+      "word": "cat",
+      "issue": "Could be a generic cat or a specific named character cat",
+      "preferred": "cat animal",
+      "reason": "The cat in this book is a generic farm/yard cat, not a named character"
+    },
+    {
+      "word": "black",
+      "issue": "Colour word — could be interpreted as a descriptor rather than a standalone concept",
+      "preferred": "black colour",
+      "reason": "Each animal in the book is introduced by its colour; black is the colour of the cat"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "walking": "walk",
+    "duck": "duck",
+    "cat": "cat",
+    "dog": "dog",
+    "cow": "cow",
+    "horse": "horse",
+    "pig": "pig",
+    "black": "black",
+    "brown": "brown",
+    "red": "red",
+    "yellow": "yellow"
+  },
+  "notes": "I Went Walking by Sue Williams (illustrated by Julie Vivas) is a repetitive cumulative pattern book where a child goes walking and sees a series of farm animals each identified by colour: a brown horse, a red cow, a yellow duck, a green frog, a pink pig, and a black cat. The 11 fringe words prioritise the six animals plus five of the six colours (green/frog omitted to stay within 11 slots — consider swapping pig or brown for green if the class focuses on colours). The hero is a generic young child so no specialist sourcing is needed. The strong colour-animal pairing makes this board ideal for colour-matching activities alongside the book.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

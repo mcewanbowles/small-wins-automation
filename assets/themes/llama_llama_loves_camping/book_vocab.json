@@ -1,0 +1,88 @@
+{
+  "title": "Llama Llama Loves Camping",
+  "author": "Anna Dewdney",
+  "hero": {
+    "name": "Llama Llama",
+    "description": "Young llama character with distinctive large eyes and expressive face, main character from Anna Dewdney's Llama Llama series",
+    "search_term": "llama llama",
+    "needs_sourcing": true,
+    "source_note": "Named series character — source from Creative Fabrica or TPT clip art matching Anna Dewdney's illustration style"
+  },
+  "fringe_12": [
+    "Llama Llama",
+    "tent",
+    "campfire",
+    "sleeping bag",
+    "stars",
+    "dark",
+    "scared",
+    "marshmallow",
+    "friends",
+    "nature",
+    "llama",
+    "fun"
+  ],
+  "fringe_11": [
+    "tent",
+    "campfire",
+    "sleeping bag",
+    "stars",
+    "dark",
+    "scared",
+    "marshmallow",
+    "friends",
+    "nature",
+    "llama",
+    "fun"
+  ],
+  "activity_images": [
+    "tent",
+    "campfire",
+    "sleeping bag",
+    "stars",
+    "dark",
+    "scared"
+  ],
+  "aac_extras": [
+    "marshmallow",
+    "friends",
+    "nature",
+    "llama",
+    "fun"
+  ],
+  "ambiguous": [
+    {
+      "word": "stars",
+      "issue": "Could mean star shapes as decorations or stars in the night sky",
+      "preferred": "stars night sky",
+      "reason": "Book is about camping outdoors at night, stars in the sky is the correct meaning"
+    },
+    {
+      "word": "dark",
+      "issue": "Could mean dark as a colour descriptor or dark as in nighttime/absence of light",
+      "preferred": "dark night",
+      "reason": "In a camping context, dark refers to nighttime darkness which is a key story element"
+    }
+  ],
+  "character_images_needed": [
+    "Llama Llama"
+  ],
+  "icon_search_terms": {
+    "tent": "tent",
+    "campfire": "campfire",
+    "sleeping bag": "sleeping bag",
+    "stars": "stars",
+    "dark": "dark night",
+    "scared": "scared",
+    "marshmallow": "marshmallow",
+    "friends": "friends",
+    "nature": "nature",
+    "llama": "llama",
+    "fun": "fun"
+  },
+  "notes": "Anna Dewdney passed away in 2016; later Llama Llama books were completed by her estate. This camping-themed book centres on themes of trying new things, friendship, and overcoming nighttime fears outdoors. Key vocabulary focuses on camping objects and emotions. 'Llama' is included as a fringe word separate from the hero slot because students may want to refer to the animal type generally. 'Fun' and 'scared' capture the emotional arc of the story. 'Marshmallow' is a highly motivating and concrete camping-specific vocabulary word ideal for AAC use.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

@@ -1,0 +1,83 @@
+{
+  "title": "I Am Invited To A Party",
+  "author": "Mo Willems",
+  "hero": {
+    "name": "Gerald the Elephant",
+    "description": "Large grey elephant character from Mo Willems Elephant and Piggie series, wears glasses",
+    "search_term": "gerald elephant mo willems",
+    "needs_sourcing": true,
+    "source_note": "Named Mo Willems character — source from Creative Fabrica, TPT, or official Mo Willems clip art"
+  },
+  "fringe_12": [
+    "Gerald the Elephant",
+    "party",
+    "invite",
+    "costume",
+    "hat",
+    "fancy",
+    "friend",
+    "swim",
+    "excited",
+    "dress up",
+    "food",
+    "surprise"
+  ],
+  "fringe_11": [
+    "party",
+    "invite",
+    "costume",
+    "hat",
+    "fancy",
+    "friend",
+    "swim",
+    "excited",
+    "dress up",
+    "food",
+    "surprise"
+  ],
+  "activity_images": [
+    "party",
+    "invite",
+    "costume",
+    "hat",
+    "fancy",
+    "friend"
+  ],
+  "aac_extras": [
+    "swim",
+    "excited",
+    "dress up",
+    "food",
+    "surprise"
+  ],
+  "ambiguous": [
+    {
+      "word": "fancy",
+      "issue": "Could mean an adjective (elegant/dressed up) or a verb (to fancy/like something)",
+      "preferred": "fancy dress",
+      "reason": "In this book, Gerald and Piggie dress up in fancy costumes for the party — the adjective meaning is correct"
+    }
+  ],
+  "character_images_needed": [
+    "Gerald the Elephant",
+    "Piggie"
+  ],
+  "icon_search_terms": {
+    "party": "party",
+    "invite": "invitation",
+    "costume": "costume",
+    "hat": "party hat",
+    "fancy": "fancy dress",
+    "friend": "friend",
+    "swim": "swim",
+    "excited": "excited",
+    "dress up": "dress up",
+    "food": "food",
+    "surprise": "surprise"
+  },
+  "notes": "This is a Mo Willems Elephant and Piggie book. Both Gerald (elephant) and Piggie are named distinctive characters requiring sourced clip art. The story centres on Gerald being invited to a party and both characters wearing elaborate fancy dress costumes — not knowing if the party is a swimming party, a fancy party, or a costume party. Key vocabulary reflects the party theme, emotions, and dressing up. 'Piggie' could be added as a secondary fringe word if a slot were available, but the 11 chosen words prioritise the most communicatively useful concepts from the book.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

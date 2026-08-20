@@ -1,0 +1,88 @@
+{
+  "title": "When Sadness Is at Your Door",
+  "author": "Eva Eland",
+  "hero": {
+    "name": "Sadness (personified figure)",
+    "description": "Small blue humanoid figure representing the emotion Sadness, as depicted on the book cover — a gentle creature with a melancholy expression",
+    "search_term": "sadness character",
+    "needs_sourcing": true,
+    "source_note": "Named/distinctive personified emotion character — source from Creative Fabrica or TPT clip art matching Eva Eland's illustration style"
+  },
+  "fringe_12": [
+    "Sadness (personified figure)",
+    "sad",
+    "door",
+    "outside",
+    "walk",
+    "listen",
+    "draw",
+    "hug",
+    "friend",
+    "feelings",
+    "inside",
+    "name"
+  ],
+  "fringe_11": [
+    "sad",
+    "door",
+    "outside",
+    "walk",
+    "listen",
+    "draw",
+    "hug",
+    "friend",
+    "feelings",
+    "inside",
+    "name"
+  ],
+  "activity_images": [
+    "sad",
+    "door",
+    "outside",
+    "walk",
+    "listen",
+    "draw"
+  ],
+  "aac_extras": [
+    "hug",
+    "friend",
+    "feelings",
+    "inside",
+    "name"
+  ],
+  "ambiguous": [
+    {
+      "word": "outside",
+      "issue": "Could mean outdoor location or the exterior of an object",
+      "preferred": "outside outdoors",
+      "reason": "Book involves the child and Sadness going outside together for a walk — location meaning is correct"
+    },
+    {
+      "word": "draw",
+      "issue": "Could mean drawing/art or pulling/dragging",
+      "preferred": "draw art",
+      "reason": "Book features drawing pictures together as a coping activity — art meaning is correct"
+    }
+  ],
+  "character_images_needed": [
+    "Sadness (personified figure from When Sadness Is at Your Door)"
+  ],
+  "icon_search_terms": {
+    "sad": "sad",
+    "door": "door",
+    "outside": "outside",
+    "walk": "walk",
+    "listen": "listen",
+    "draw": "draw",
+    "hug": "hug",
+    "friend": "friend",
+    "feelings": "feelings",
+    "inside": "inside",
+    "name": "name"
+  },
+  "notes": "This book personifies the emotion Sadness as a small blue visitor who arrives at a child's door. Core themes are acknowledging feelings, giving them a name, and learning to coexist with difficult emotions through gentle activities like walking, drawing, and listening. The vocabulary prioritises emotional literacy words alongside concrete story actions. 'Feelings' and 'name' are included because naming emotions is the central message of the book. The hero image will need custom sourcing as Eva Eland's distinctive blue Sadness figure will not be represented accurately by generic Boardmaker emotion icons.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

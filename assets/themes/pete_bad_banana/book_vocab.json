@@ -1,0 +1,88 @@
+{
+  "title": "Pete the Bad Banana",
+  "author": "Unknown",
+  "hero": {
+    "name": "Pete the Bad Banana",
+    "description": "An anthropomorphic banana character named Pete, likely with a face and expressive features on a yellow banana",
+    "search_term": "pete bad banana",
+    "needs_sourcing": true,
+    "source_note": "Named character banana — source from Creative Fabrica, TPT, or publisher clip art; generic Boardmaker banana won't match"
+  },
+  "fringe_12": [
+    "Pete the Bad Banana",
+    "banana",
+    "yellow",
+    "bad",
+    "eat",
+    "fruit",
+    "brown",
+    "ripe",
+    "peel",
+    "yuck",
+    "throw away",
+    "happy"
+  ],
+  "fringe_11": [
+    "banana",
+    "yellow",
+    "bad",
+    "eat",
+    "fruit",
+    "brown",
+    "ripe",
+    "peel",
+    "yuck",
+    "throw away",
+    "happy"
+  ],
+  "activity_images": [
+    "banana",
+    "yellow",
+    "bad",
+    "eat",
+    "fruit",
+    "brown"
+  ],
+  "aac_extras": [
+    "ripe",
+    "peel",
+    "yuck",
+    "throw away",
+    "happy"
+  ],
+  "ambiguous": [
+    {
+      "word": "bad",
+      "issue": "Could mean morally bad (behaviour) or spoiled/rotten (food quality)",
+      "preferred": "bad food rotten",
+      "reason": "In this book 'bad' refers to a spoiled or overripe banana, not behaviour; a rotten/spoiled food image is more accurate"
+    },
+    {
+      "word": "brown",
+      "issue": "Could refer to the colour generally or specifically to a bruised/overripe banana",
+      "preferred": "brown",
+      "reason": "Brown here describes the discolouration of the bad banana; standard colour brown symbol is appropriate"
+    }
+  ],
+  "character_images_needed": [
+    "Pete the Bad Banana"
+  ],
+  "icon_search_terms": {
+    "banana": "banana",
+    "yellow": "yellow",
+    "bad": "bad",
+    "eat": "eat",
+    "fruit": "fruit",
+    "brown": "brown",
+    "ripe": "ripe",
+    "peel": "peel banana",
+    "yuck": "yuck",
+    "throw away": "throw away",
+    "happy": "happy"
+  },
+  "notes": "This book does not appear in major publisher databases and the author is unknown — it may be a self-published or classroom-created book. Vocabulary has been inferred from the title: a story about a banana named Pete who is 'bad' (likely overripe or spoiled). If the actual book text is available, fringe words should be reviewed and adjusted to match key story vocabulary. 'Ripe' may need custom sourcing if not in the Boardmaker library. 'Throw away' may search better as 'garbage' or 'trash' in Boardmaker.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

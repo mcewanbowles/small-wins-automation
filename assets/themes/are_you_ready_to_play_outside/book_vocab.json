@@ -1,0 +1,88 @@
+{
+  "title": "Are You Ready To Play Outside?",
+  "author": "Mo Willems",
+  "hero": {
+    "name": "Piggie and Gerald",
+    "description": "Piggie is a small pink pig and Gerald is a large grey elephant — the Elephant and Piggie series characters by Mo Willems",
+    "search_term": "piggie gerald elephant pig",
+    "needs_sourcing": true,
+    "source_note": "Named distinctive characters — source from Creative Fabrica or TPT clip art for Mo Willems Elephant and Piggie"
+  },
+  "fringe_12": [
+    "Piggie and Gerald",
+    "outside",
+    "rain",
+    "umbrella",
+    "puddle",
+    "jump",
+    "happy",
+    "sad",
+    "play",
+    "worm",
+    "wet",
+    "sun"
+  ],
+  "fringe_11": [
+    "outside",
+    "rain",
+    "umbrella",
+    "puddle",
+    "jump",
+    "happy",
+    "sad",
+    "play",
+    "worm",
+    "wet",
+    "sun"
+  ],
+  "activity_images": [
+    "outside",
+    "rain",
+    "umbrella",
+    "puddle",
+    "jump",
+    "happy"
+  ],
+  "aac_extras": [
+    "sad",
+    "play",
+    "worm",
+    "wet",
+    "sun"
+  ],
+  "ambiguous": [
+    {
+      "word": "jump",
+      "issue": "Could show a person jumping or a jump rope",
+      "preferred": "jump",
+      "reason": "In this book jumping in puddles is the key action — prefer a child jumping image"
+    },
+    {
+      "word": "sun",
+      "issue": "Could mean the sun in the sky or a sunflower",
+      "preferred": "sun",
+      "reason": "Book is about weather — the sun coming out after rain is the key plot resolution, celestial sun image is correct"
+    }
+  ],
+  "character_images_needed": [
+    "Piggie and Gerald (Elephant and Piggie)"
+  ],
+  "icon_search_terms": {
+    "outside": "outside",
+    "rain": "rain",
+    "umbrella": "umbrella",
+    "puddle": "puddle",
+    "jump": "jump",
+    "happy": "happy",
+    "sad": "sad",
+    "play": "play",
+    "worm": "worm",
+    "wet": "wet",
+    "sun": "sun"
+  },
+  "notes": "This is a Mo Willems Elephant and Piggie book. The story centres on Gerald and Piggie wanting to play outside but it starts raining. Worms appear as characters who celebrate the rain, providing a twist. Key emotional vocabulary (happy, sad) is central as the characters react to the weather changing. 'Wet' and 'puddle' are highly concrete and picturable story words. The author field corrects the 'Unknown' in the prompt — this book is definitively by Mo Willems.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

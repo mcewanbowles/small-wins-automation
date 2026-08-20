@@ -1,0 +1,88 @@
+{
+  "title": "A Long Walk to Water",
+  "author": "Linda Sue Park",
+  "hero": {
+    "name": "Salva Dut",
+    "description": "Young South Sudanese boy walking through harsh terrain, based on a real person",
+    "search_term": "african boy walking",
+    "needs_sourcing": true,
+    "source_note": "Real historical figure — source from Creative Fabrica or TPT clip art depicting a young South Sudanese refugee boy"
+  },
+  "fringe_12": [
+    "Salva Dut",
+    "water",
+    "walk",
+    "thirsty",
+    "village",
+    "Sudan",
+    "desert",
+    "family",
+    "danger",
+    "well",
+    "tired",
+    "hope"
+  ],
+  "fringe_11": [
+    "water",
+    "walk",
+    "thirsty",
+    "village",
+    "Sudan",
+    "desert",
+    "family",
+    "danger",
+    "well",
+    "tired",
+    "hope"
+  ],
+  "activity_images": [
+    "water",
+    "walk",
+    "thirsty",
+    "village",
+    "Sudan",
+    "desert"
+  ],
+  "aac_extras": [
+    "family",
+    "danger",
+    "well",
+    "tired",
+    "hope"
+  ],
+  "ambiguous": [
+    {
+      "word": "well",
+      "issue": "Could mean a water well (noun) or 'doing well' (adjective/adverb)",
+      "preferred": "well water",
+      "reason": "Book centres on the building of water wells in South Sudan — the noun meaning is correct"
+    },
+    {
+      "word": "desert",
+      "issue": "Could mean arid landscape (noun) or to abandon someone (verb)",
+      "preferred": "desert landscape",
+      "reason": "Salva walks through the Sahara Desert — the geographic noun meaning is correct"
+    }
+  ],
+  "character_images_needed": [
+    "Salva Dut"
+  ],
+  "icon_search_terms": {
+    "water": "water",
+    "walk": "walk",
+    "thirsty": "thirsty",
+    "village": "village",
+    "Sudan": "africa map",
+    "desert": "desert",
+    "family": "family",
+    "danger": "danger",
+    "well": "well water",
+    "tired": "tired",
+    "hope": "hope"
+  },
+  "notes": "This is a dual-narrative novel about Salva Dut, a real South Sudanese Lost Boy, and Nya, a fictional girl who walks hours each day to fetch water. Key themes are survival, displacement, thirst, and hope. 'Sudan' may be difficult to picture — an Africa map or flag icon is a reasonable substitute. 'Hope' is abstract but central to the story's emotional arc; consider using a sunrise or light beam image. The word 'danger' may be rendered as a warning sign or hazard symbol. For older SPED students this book is commonly used in middle school classrooms.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

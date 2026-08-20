@@ -1,0 +1,94 @@
+{
+  "title": "Dog Man",
+  "author": "Dav Pilkey",
+  "hero": {
+    "name": "Dog Man",
+    "description": "Half dog, half police officer character — dog head on human police officer body, distinctive Dav Pilkey character",
+    "search_term": "dog man pilkey",
+    "needs_sourcing": true,
+    "source_note": "Named character — source from Creative Fabrica, TPT, or official Dog Man clip art"
+  },
+  "fringe_12": [
+    "Dog Man",
+    "police",
+    "dog",
+    "cat",
+    "bad guy",
+    "fight",
+    "brave",
+    "save",
+    "city",
+    "book",
+    "funny",
+    "run"
+  ],
+  "fringe_11": [
+    "police",
+    "dog",
+    "cat",
+    "bad guy",
+    "fight",
+    "brave",
+    "save",
+    "city",
+    "book",
+    "funny",
+    "run"
+  ],
+  "activity_images": [
+    "police",
+    "dog",
+    "cat",
+    "bad guy",
+    "fight",
+    "brave"
+  ],
+  "aac_extras": [
+    "save",
+    "city",
+    "book",
+    "funny",
+    "run"
+  ],
+  "ambiguous": [
+    {
+      "word": "run",
+      "issue": "Could mean physical running action or running away from something",
+      "preferred": "run",
+      "reason": "Dog Man frequently chases villains — running as action is the correct meaning"
+    },
+    {
+      "word": "book",
+      "issue": "Could mean a generic book or specifically a comic book",
+      "preferred": "comic book",
+      "reason": "Dog Man is presented as a comic book within the story — comic book format is central to the narrative"
+    },
+    {
+      "word": "fight",
+      "issue": "Could be interpreted as physical fighting or conflict generally",
+      "preferred": "fight",
+      "reason": "Dog Man battles villains — physical confrontation is the correct meaning, ensure image shows action not aggression symbol"
+    }
+  ],
+  "character_images_needed": [
+    "Dog Man"
+  ],
+  "icon_search_terms": {
+    "police": "police officer",
+    "dog": "dog",
+    "cat": "cat",
+    "bad guy": "villain",
+    "fight": "fight",
+    "brave": "brave",
+    "save": "rescue",
+    "city": "city",
+    "book": "comic book",
+    "funny": "funny",
+    "run": "run"
+  },
+  "notes": "Dog Man is by Dav Pilkey (author field corrected from Unknown). The series features a comic-book-within-a-book format created by child characters Harold and George from Captain Underpants. Key themes are bravery, good vs evil, humour, and friendship. 'Bad guy' is a highly useful fringe word as the concept of villain is central to every book in the series. Consider sourcing Petey the Cat (villain) as a secondary character image if a second board is ever made for this series. The word 'funny' is important as humour and silliness are core to the book's appeal and student engagement.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

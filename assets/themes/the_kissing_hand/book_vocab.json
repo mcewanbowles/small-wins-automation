@@ -1,0 +1,88 @@
+{
+  "title": "The Kissing Hand",
+  "author": "Audrey Penn",
+  "hero": {
+    "name": "Chester Raccoon",
+    "description": "Young raccoon character from the cover, distinctive striped tail and masked face",
+    "search_term": "chester raccoon",
+    "needs_sourcing": true,
+    "source_note": "Named character — source from Creative Fabrica or TPT clip art; search 'Chester Raccoon Kissing Hand'"
+  },
+  "fringe_12": [
+    "Chester Raccoon",
+    "kiss",
+    "hand",
+    "heart",
+    "mama",
+    "school",
+    "scared",
+    "night",
+    "hug",
+    "warm",
+    "forest",
+    "owl"
+  ],
+  "fringe_11": [
+    "kiss",
+    "hand",
+    "heart",
+    "mama",
+    "school",
+    "scared",
+    "night",
+    "hug",
+    "warm",
+    "forest",
+    "owl"
+  ],
+  "activity_images": [
+    "kiss",
+    "hand",
+    "heart",
+    "mama",
+    "school",
+    "scared"
+  ],
+  "aac_extras": [
+    "night",
+    "hug",
+    "warm",
+    "forest",
+    "owl"
+  ],
+  "ambiguous": [
+    {
+      "word": "warm",
+      "issue": "Could mean temperature (adjective) or emotional feeling (abstract)",
+      "preferred": "warm",
+      "reason": "In this book warm refers to the comforting warm feeling of the kiss on the hand — a tactile/emotional sensation; use a glowing hand or sun symbol and note in board instructions"
+    },
+    {
+      "word": "night",
+      "issue": "Could map to moon/stars scene or a generic dark sky",
+      "preferred": "night",
+      "reason": "The story takes place at night when Chester goes to school; a moon-and-stars image is correct"
+    }
+  ],
+  "character_images_needed": [
+    "Chester Raccoon"
+  ],
+  "icon_search_terms": {
+    "kiss": "kiss",
+    "hand": "hand",
+    "heart": "heart",
+    "mama": "mama",
+    "school": "school",
+    "scared": "afraid",
+    "night": "night",
+    "hug": "hug",
+    "warm": "warm",
+    "forest": "forest",
+    "owl": "owl"
+  },
+  "notes": "The emotional core of this book is separation anxiety and comfort — 'scared', 'warm', 'kiss', and 'mama' are the highest-priority fringe words for student expression. 'Raccoon' and 'hand' are already in existing activity_images so they are replaced by more expressive vocabulary; 'kiss' and 'hug' are already in aac_extras and can be pulled from there. 'Owl' appears as a secondary character offering wisdom and is picturable. Consider pairing this board with a physical 'kissing hand' activity to reinforce vocabulary in context.",
+  "characters": [],
+  "code": "KH1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

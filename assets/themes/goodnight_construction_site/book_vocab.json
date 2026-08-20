@@ -1,0 +1,92 @@
+{
+  "title": "Goodnight, Goodnight, Construction Site",
+  "author": "Sherri Duskey Rinker",
+  "hero": {
+    "name": "Construction Site (generic crane truck)",
+    "description": "Yellow crane truck on a construction site at dusk, the iconic cover image — no single named character but the crane truck is the most recognisable cover image",
+    "search_term": "crane truck",
+    "needs_sourcing": false,
+    "source_note": "Use generic yellow crane or construction truck from Boardmaker library; 'crane' symbol should work"
+  },
+  "fringe_12": [
+    "Construction Site (generic crane truck)",
+    "bulldozer",
+    "dump truck",
+    "cement mixer",
+    "excavator",
+    "dark",
+    "night",
+    "loud",
+    "big",
+    "shovel",
+    "sun",
+    "moon"
+  ],
+  "fringe_11": [
+    "bulldozer",
+    "dump truck",
+    "cement mixer",
+    "excavator",
+    "dark",
+    "night",
+    "loud",
+    "big",
+    "shovel",
+    "sun",
+    "moon"
+  ],
+  "activity_images": [
+    "bulldozer",
+    "dump truck",
+    "cement mixer",
+    "excavator",
+    "dark",
+    "night"
+  ],
+  "aac_extras": [
+    "loud",
+    "big",
+    "shovel",
+    "sun",
+    "moon"
+  ],
+  "ambiguous": [
+    {
+      "word": "crane",
+      "issue": "crane can mean the construction machine or the bird",
+      "preferred": "crane truck",
+      "reason": "Book is about construction vehicles; machine meaning is correct — use construction crane search term"
+    },
+    {
+      "word": "dark",
+      "issue": "could map to colour swatch (dark shade) or to darkness/night setting",
+      "preferred": "dark night",
+      "reason": "In this book dark describes the night-time setting when the trucks go to sleep — a scene/environment meaning, not a colour chip"
+    },
+    {
+      "word": "big",
+      "issue": "big is a general adjective that could map to a size comparison symbol or a large generic object",
+      "preferred": "big",
+      "reason": "Central to the book — construction vehicles are repeatedly described as big and powerful; standard size-adjective symbol is correct"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "bulldozer": "bulldozer",
+    "dump truck": "dump truck",
+    "cement mixer": "cement mixer",
+    "excavator": "excavator",
+    "dark": "dark",
+    "night": "night",
+    "loud": "loud",
+    "big": "big",
+    "shovel": "shovel",
+    "sun": "sun",
+    "moon": "moon"
+  },
+  "notes": "This book has no single named protagonist — the five trucks (Crane Truck, Cement Mixer, Dump Truck, Excavator, Bulldozer) are all central characters. The hero slot uses the crane truck as the most cover-recognisable vehicle. Four of the five trucks (excavator, dump truck, cement mixer, bulldozer) are included as fringe words; crane is covered by the hero slot, saving a fringe slot. Key theme words chosen are night, dark, loud, big, shovel, sun and moon to support the bedtime/goodnight narrative arc. Words like 'work', 'sleep', 'tired', and 'goodnight' are already in aac_extras and do not need to be duplicated in fringe. 'Hard hat', 'dirt', 'wheel', and 'bucket' are already in activity_images and are also omitted from fringe to avoid duplication.",
+  "characters": [],
+  "code": "GGCS1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

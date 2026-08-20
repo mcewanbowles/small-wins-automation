@@ -1,0 +1,88 @@
+{
+  "title": "How The Grinch Stole Christmas",
+  "author": "Dr. Seuss",
+  "hero": {
+    "name": "The Grinch",
+    "description": "Small green furry creature with a sly grin, wearing a red Santa hat in later scenes, distinctive Dr. Seuss character",
+    "search_term": "grinch",
+    "needs_sourcing": true,
+    "source_note": "Named/distinctive Dr. Seuss character — source from Creative Fabrica, TPT, or licensed Dr. Seuss clip art"
+  },
+  "fringe_12": [
+    "Grinch",
+    "Christmas",
+    "steal",
+    "present",
+    "heart",
+    "Who",
+    "sled",
+    "tree",
+    "mean",
+    "happy",
+    "dog",
+    "mountain"
+  ],
+  "fringe_11": [
+    "Christmas",
+    "steal",
+    "present",
+    "heart",
+    "Who",
+    "sled",
+    "tree",
+    "mean",
+    "happy",
+    "dog",
+    "mountain"
+  ],
+  "activity_images": [
+    "Christmas",
+    "steal",
+    "present",
+    "heart",
+    "Who",
+    "sled"
+  ],
+  "aac_extras": [
+    "tree",
+    "mean",
+    "happy",
+    "dog",
+    "mountain"
+  ],
+  "ambiguous": [
+    {
+      "word": "mean",
+      "issue": "Could mean unkind (adjective) or average/intend (other meanings)",
+      "preferred": "mean unkind",
+      "reason": "The Grinch is described as mean/unkind throughout the book; the adjective meaning is correct"
+    },
+    {
+      "word": "Who",
+      "issue": "Could be interpreted as the question word 'who' rather than the Whos of Whoville",
+      "preferred": "Whoville person",
+      "reason": "The Whos are the townspeople of Whoville; needs a Boardmaker symbol for a person or small town character, not the question word"
+    }
+  ],
+  "character_images_needed": [
+    "The Grinch"
+  ],
+  "icon_search_terms": {
+    "Christmas": "christmas",
+    "steal": "steal",
+    "present": "present gift",
+    "heart": "heart",
+    "Who": "person village",
+    "sled": "sled",
+    "tree": "christmas tree",
+    "mean": "mean unkind",
+    "happy": "happy",
+    "dog": "dog",
+    "mountain": "mountain"
+  },
+  "notes": "The Whos of Whoville may need a generic 'person' or 'villager' symbol as no specific Boardmaker icon exists. 'Who' is listed as a fringe word to represent the Whoville townspeople — label it 'Whos' on the board to avoid confusion with the question word. The Grinch's dog Max is a secondary character worth noting; 'dog' covers Max. Consider adding 'Max' as a secondary sourced character if the educator wants named character icons. 'heart' is central to the story climax (the Grinch's heart grows three sizes) and should be prioritised.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

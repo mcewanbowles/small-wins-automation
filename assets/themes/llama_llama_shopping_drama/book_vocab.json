@@ -1,0 +1,88 @@
+{
+  "title": "Llama Llama Shopping Drama",
+  "author": "Anna Dewdney",
+  "hero": {
+    "name": "Llama Llama",
+    "description": "Young llama character in red pyjamas, distinctive Anna Dewdney character",
+    "search_term": "llama llama red pajama",
+    "needs_sourcing": true,
+    "source_note": "Named character — source from Creative Fabrica or TPT clip art; look for Anna Dewdney Llama Llama series art"
+  },
+  "fringe_12": [
+    "Llama Llama",
+    "llama",
+    "mama",
+    "store",
+    "shopping cart",
+    "wait",
+    "bored",
+    "cry",
+    "busy",
+    "list",
+    "buy",
+    "together"
+  ],
+  "fringe_11": [
+    "llama",
+    "mama",
+    "store",
+    "shopping cart",
+    "wait",
+    "bored",
+    "cry",
+    "busy",
+    "list",
+    "buy",
+    "together"
+  ],
+  "activity_images": [
+    "llama",
+    "mama",
+    "store",
+    "shopping cart",
+    "wait",
+    "bored"
+  ],
+  "aac_extras": [
+    "cry",
+    "busy",
+    "list",
+    "buy",
+    "together"
+  ],
+  "ambiguous": [
+    {
+      "word": "list",
+      "issue": "Could mean a written shopping list (noun) or to list/tilt (verb)",
+      "preferred": "shopping list",
+      "reason": "Book involves Mama consulting a shopping list at the grocery store; noun meaning is correct"
+    },
+    {
+      "word": "buy",
+      "issue": "Could be confused with the name 'bye' or the word 'by'",
+      "preferred": "buy purchase",
+      "reason": "Book is about purchasing items at a store; search for purchase or buy icon showing money exchange"
+    }
+  ],
+  "character_images_needed": [
+    "Llama Llama"
+  ],
+  "icon_search_terms": {
+    "llama": "llama",
+    "mama": "mama",
+    "store": "grocery store",
+    "shopping cart": "shopping cart",
+    "wait": "wait",
+    "bored": "bored",
+    "cry": "cry",
+    "busy": "busy",
+    "list": "shopping list",
+    "buy": "buy",
+    "together": "together"
+  },
+  "notes": "The core theme of this book is waiting and patience — Llama Llama gets bored and upset while Mama shops. Key fringe words reflect the shopping setting (store, cart, list, buy), the emotional journey (bored, cry), and the relational resolution (mama, wait, busy, together). 'Bored' and 'wait' are high-value communication targets for AAC users who may experience similar feelings. 'Together' captures the resolution and is a useful social word. The hero image must clearly be the Llama Llama series character, not a generic llama, as students will recognise the specific art style.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

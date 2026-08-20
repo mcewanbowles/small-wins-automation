@@ -1,0 +1,88 @@
+{
+  "title": "Hatchet",
+  "author": "Gary Paulsen",
+  "hero": {
+    "name": "Brian Robeson",
+    "description": "Teenage boy survivor in the wilderness, main character of Hatchet by Gary Paulsen",
+    "search_term": "brian robeson hatchet",
+    "needs_sourcing": true,
+    "source_note": "Named human character — source from Creative Fabrica, TPT clip art, or use a generic boy-in-wilderness illustration"
+  },
+  "fringe_12": [
+    "Brian Robeson",
+    "hatchet",
+    "forest",
+    "airplane",
+    "fire",
+    "hungry",
+    "lake",
+    "bird",
+    "fish",
+    "shelter",
+    "scared",
+    "survive"
+  ],
+  "fringe_11": [
+    "hatchet",
+    "forest",
+    "airplane",
+    "fire",
+    "hungry",
+    "lake",
+    "bird",
+    "fish",
+    "shelter",
+    "scared",
+    "survive"
+  ],
+  "activity_images": [
+    "hatchet",
+    "forest",
+    "airplane",
+    "fire",
+    "hungry",
+    "lake"
+  ],
+  "aac_extras": [
+    "bird",
+    "fish",
+    "shelter",
+    "scared",
+    "survive"
+  ],
+  "ambiguous": [
+    {
+      "word": "fire",
+      "issue": "Could mean campfire/survival fire or a destructive fire/emergency",
+      "preferred": "campfire",
+      "reason": "In Hatchet, fire is a survival tool Brian works hard to create — campfire meaning is correct"
+    },
+    {
+      "word": "bird",
+      "issue": "Could be a generic bird or a specific species — Brian encounters partridges and other birds",
+      "preferred": "bird",
+      "reason": "Generic bird image is appropriate; specific species not critical for AAC communication"
+    }
+  ],
+  "character_images_needed": [
+    "Brian Robeson"
+  ],
+  "icon_search_terms": {
+    "hatchet": "axe",
+    "forest": "forest",
+    "airplane": "airplane",
+    "fire": "campfire",
+    "hungry": "hungry",
+    "lake": "lake",
+    "bird": "bird",
+    "fish": "fish",
+    "shelter": "shelter",
+    "scared": "afraid",
+    "survive": "survive"
+  },
+  "notes": "Hatchet is a middle-grade survival novel by Gary Paulsen. The vocabulary reflects the core wilderness survival themes: Brian crashes in the Canadian wilderness and must survive alone using only a hatchet. Words like 'survive', 'shelter', and 'hatchet' are central and unique to this book. 'Scared' is preferred over 'afraid' for student familiarity but Boardmaker search term 'afraid' will locate the icon. If this board is used with younger or lower-level readers, consider replacing 'survive' with 'alone' or 'lost' for concreteness.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

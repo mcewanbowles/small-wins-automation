@@ -1,0 +1,90 @@
+{
+  "title": "Pete the Cat: Rocking in My School Shoes",
+  "author": "Eric Litwin",
+  "hero": {
+    "name": "Pete the Cat",
+    "description": "Blue cat wearing white school shoes, main character from Eric Litwin series",
+    "search_term": "pete cat",
+    "needs_sourcing": true,
+    "source_note": "Named character — source from Creative Fabrica or TPT clip art; must show blue cat with white shoes"
+  },
+  "fringe_12": [
+    "Pete the Cat",
+    "school",
+    "shoes",
+    "rock",
+    "sing",
+    "lunch",
+    "bus",
+    "library",
+    "class",
+    "cool",
+    "walk",
+    "teacher"
+  ],
+  "fringe_11": [
+    "school",
+    "shoes",
+    "rock",
+    "sing",
+    "lunch",
+    "bus",
+    "library",
+    "class",
+    "cool",
+    "walk",
+    "teacher"
+  ],
+  "activity_images": [
+    "school",
+    "shoes",
+    "rock",
+    "sing",
+    "lunch",
+    "bus"
+  ],
+  "aac_extras": [
+    "library",
+    "class",
+    "cool",
+    "walk",
+    "teacher"
+  ],
+  "ambiguous": [
+    {
+      "word": "rock",
+      "issue": "Could mean a stone (noun) or the action of rocking/playing rock music (verb)",
+      "preferred": "rock music",
+      "reason": "Pete rocks in his school shoes — the meaning is musical/rhythmic movement, not a stone"
+    },
+    {
+      "word": "cool",
+      "issue": "Could mean temperature (cold/chilly) or the slang adjective meaning great/awesome",
+      "preferred": "cool awesome",
+      "reason": "Pete's catchphrase is about being cool in the positive/groovy sense, not temperature"
+    }
+  ],
+  "character_images_needed": [
+    "Pete the Cat"
+  ],
+  "icon_search_terms": {
+    "school": "school",
+    "shoes": "shoes",
+    "rock": "rock music",
+    "sing": "sing",
+    "lunch": "lunch",
+    "bus": "bus",
+    "library": "library",
+    "class": "classroom",
+    "cool": "cool",
+    "walk": "walk",
+    "teacher": "teacher"
+  },
+  "notes": "All 11 fringe words already exist in activity_images or aac_extras per existing data — no new sourcing needed beyond Pete the Cat hero image. 'Rock' should use a guitar or musical note icon to convey the groovy/music meaning. 'Cool' is Pete's signature catchphrase word and is high-priority for expression. The fixed core row 5 already includes 'read', which supports the library/reading theme. Board is well suited for school arrival/routine conversations as well as book retelling.",
+  "characters": [
+    "pete_cat"
+  ],
+  "code": "PRSS1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

@@ -1,0 +1,86 @@
+{
+  "title": "Five Little Pumpkins",
+  "author": "Unknown (Traditional Rhyme)",
+  "hero": {
+    "name": "Pumpkin",
+    "description": "Round orange jack-o-lantern pumpkin, central image of the counting rhyme",
+    "search_term": "pumpkin",
+    "needs_sourcing": false,
+    "source_note": "Generic pumpkin / jack-o-lantern — Boardmaker library should have a suitable symbol"
+  },
+  "fringe_12": [
+    "PUMPKIN",
+    "five",
+    "gate",
+    "wind",
+    "run",
+    "witch",
+    "ghost",
+    "Halloween",
+    "roll",
+    "night",
+    "orange",
+    "count"
+  ],
+  "fringe_11": [
+    "five",
+    "gate",
+    "wind",
+    "run",
+    "witch",
+    "ghost",
+    "Halloween",
+    "roll",
+    "night",
+    "orange",
+    "count"
+  ],
+  "activity_images": [
+    "five",
+    "gate",
+    "wind",
+    "run",
+    "witch",
+    "ghost"
+  ],
+  "aac_extras": [
+    "Halloween",
+    "roll",
+    "night",
+    "orange",
+    "count"
+  ],
+  "ambiguous": [
+    {
+      "word": "roll",
+      "issue": "Could mean bread roll (food) or rolling motion (action)",
+      "preferred": "roll action",
+      "reason": "The pumpkins roll away down the hill — action meaning is correct"
+    },
+    {
+      "word": "run",
+      "issue": "Could mean running as a person or running as a general concept",
+      "preferred": "run",
+      "reason": "The pumpkins say 'we'd better run' — action verb meaning is correct; standard Boardmaker running figure is appropriate"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "five": "5",
+    "gate": "gate",
+    "wind": "wind",
+    "run": "run",
+    "witch": "witch",
+    "ghost": "ghost",
+    "Halloween": "halloween",
+    "roll": "roll",
+    "night": "night",
+    "orange": "orange colour",
+    "count": "count numbers"
+  },
+  "notes": "This is a traditional counting rhyme, so 'five' and 'count' are high-priority vocabulary for both comprehension and participation. The rhyme follows pumpkins sitting on a gate who respond to wind, a witch, and a ghost before rolling away — gate, wind, witch, ghost, and roll are the most story-specific fringe words. Orange is central as the defining colour of pumpkins and the Halloween theme. The hero is a generic pumpkin/jack-o-lantern which Boardmaker covers well — no specialist sourcing needed. Consider using a jack-o-lantern face variant if available to match the book's illustrated style.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

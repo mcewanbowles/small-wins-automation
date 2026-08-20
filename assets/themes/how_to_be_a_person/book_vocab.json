@@ -1,0 +1,86 @@
+{
+  "title": "How To Be A Person",
+  "author": "Unknown",
+  "hero": {
+    "name": "Person (child character)",
+    "description": "Generic child figure representing a person, likely a simple illustrated child on the cover",
+    "search_term": "child person",
+    "needs_sourcing": false,
+    "source_note": "Generic child figure — Boardmaker 'child' or 'person' symbol should work; verify against cover art"
+  },
+  "fringe_12": [
+    "Person (child character)",
+    "kind",
+    "listen",
+    "share",
+    "friend",
+    "feelings",
+    "brave",
+    "try",
+    "sorry",
+    "happy",
+    "body",
+    "rules"
+  ],
+  "fringe_11": [
+    "kind",
+    "listen",
+    "share",
+    "friend",
+    "feelings",
+    "brave",
+    "try",
+    "sorry",
+    "happy",
+    "body",
+    "rules"
+  ],
+  "activity_images": [
+    "kind",
+    "listen",
+    "share",
+    "friend",
+    "feelings",
+    "brave"
+  ],
+  "aac_extras": [
+    "try",
+    "sorry",
+    "happy",
+    "body",
+    "rules"
+  ],
+  "ambiguous": [
+    {
+      "word": "feelings",
+      "issue": "Could map to a single emotion face or a group of emotion faces",
+      "preferred": "feelings emotions",
+      "reason": "Book covers multiple feelings/emotions; a multi-face emotions symbol or 'feelings' card is preferred over a single emotion"
+    },
+    {
+      "word": "body",
+      "issue": "Could mean physical body outline or body part",
+      "preferred": "body person outline",
+      "reason": "Book likely uses 'body' to mean the whole physical self; a full-body outline symbol is correct"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "kind": "kind",
+    "listen": "listen",
+    "share": "share",
+    "friend": "friend",
+    "feelings": "feelings",
+    "brave": "brave",
+    "try": "try",
+    "sorry": "sorry",
+    "happy": "happy",
+    "body": "body",
+    "rules": "rules"
+  },
+  "notes": "Book title 'How To Be A Person' by Unknown — authorship unconfirmed so vocabulary is inferred from the title theme of social-emotional learning and life skills, which is common in SPED classroom picture books on this topic. Words selected reflect core SEL and social skills themes: emotions, empathy, friendship, self-regulation, and following rules. If the actual book content differs significantly (e.g. it is a humour/parody book), fringe vocabulary should be revised after reviewing the text. The hero image is set as a generic child/person symbol; confirm against the actual cover character. If the cover features a distinctive named character, update needs_sourcing to true and source appropriately.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

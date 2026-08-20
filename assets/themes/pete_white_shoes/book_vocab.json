@@ -1,0 +1,82 @@
+{
+  "title": "Pete the Cat: I Love My White Shoes",
+  "author": "Eric Litwin",
+  "hero": {
+    "name": "Pete the Cat",
+    "description": "Blue cat wearing white shoes, main character of the Eric Litwin series",
+    "search_term": "pete the cat",
+    "needs_sourcing": true,
+    "source_note": "Named/distinctive character — source from Creative Fabrica, TPT, or Eric Litwin official clip art"
+  },
+  "fringe_12": [
+    "Pete the Cat",
+    "shoes",
+    "walk",
+    "sing",
+    "white",
+    "red",
+    "blue",
+    "brown",
+    "puddle",
+    "strawberries",
+    "blueberries",
+    "cool"
+  ],
+  "fringe_11": [
+    "shoes",
+    "walk",
+    "sing",
+    "white",
+    "red",
+    "blue",
+    "brown",
+    "puddle",
+    "strawberries",
+    "blueberries",
+    "cool"
+  ],
+  "activity_images": [
+    "shoes",
+    "walk",
+    "sing",
+    "white",
+    "red",
+    "blue"
+  ],
+  "aac_extras": [
+    "brown",
+    "puddle",
+    "strawberries",
+    "blueberries",
+    "cool"
+  ],
+  "ambiguous": [
+    {
+      "word": "cool",
+      "issue": "Could mean temperature (cold) or an attitude/emotion (great, awesome)",
+      "preferred": "cool awesome",
+      "reason": "In this book Pete says 'Goodness no! It's all good!' and the word cool reflects Pete's laid-back attitude — the emotional/attitude meaning is correct, not temperature"
+    }
+  ],
+  "character_images_needed": [
+    "Pete the Cat"
+  ],
+  "icon_search_terms": {
+    "shoes": "shoes",
+    "walk": "walk",
+    "sing": "sing",
+    "white": "white",
+    "red": "red",
+    "blue": "blue",
+    "brown": "brown",
+    "puddle": "puddle",
+    "strawberries": "strawberries",
+    "blueberries": "blueberries",
+    "cool": "cool awesome"
+  },
+  "notes": "This is the classic Pete the Cat story where Pete's white shoes change colour as he steps in piles of strawberries (red), blueberries (blue), and mud (brown). Core repetitive elements are colour changes and Pete's song 'I love my white/red/blue/brown shoes.' Colour words are CENTRAL to the story and are high-priority fringe. 'Sing' is essential as Pete sings throughout. 'Puddle' or 'mud' represents the wet bucket — 'puddle' was chosen as more picturable and general. 'Cool' captures Pete's signature attitude ('goodness no, it's all good'). If the exact book title cannot be confirmed as Eric Litwin's, verify authorship — the slug suggests it may be a variant or classroom adaptation titled simply 'Pete White Shoes.'",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

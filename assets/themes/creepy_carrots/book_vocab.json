@@ -1,0 +1,88 @@
+{
+  "title": "Creepy Carrots",
+  "author": "Aaron Reynolds",
+  "hero": {
+    "name": "Jasper Rabbit",
+    "description": "Grey rabbit with orange carrot, main character from Creepy Carrots cover",
+    "search_term": "jasper rabbit creepy carrots",
+    "needs_sourcing": true,
+    "source_note": "Named character — source from Creative Fabrica or TPT clip art"
+  },
+  "fringe_12": [
+    "Jasper Rabbit",
+    "carrot",
+    "rabbit",
+    "scared",
+    "dark",
+    "field",
+    "run",
+    "eat",
+    "garden",
+    "orange",
+    "shadow",
+    "fence"
+  ],
+  "fringe_11": [
+    "carrot",
+    "rabbit",
+    "scared",
+    "dark",
+    "field",
+    "run",
+    "eat",
+    "garden",
+    "orange",
+    "shadow",
+    "fence"
+  ],
+  "activity_images": [
+    "carrot",
+    "rabbit",
+    "scared",
+    "dark",
+    "field",
+    "run"
+  ],
+  "aac_extras": [
+    "eat",
+    "garden",
+    "orange",
+    "shadow",
+    "fence"
+  ],
+  "ambiguous": [
+    {
+      "word": "shadow",
+      "issue": "Could be depicted as a human shadow, an object shadow, or a ghost-like shape",
+      "preferred": "shadow dark",
+      "reason": "In the book, carrot shadows appear creepy and threatening — a dark shape/shadow image is correct"
+    },
+    {
+      "word": "field",
+      "issue": "Could be a sports field or a farm/crop field",
+      "preferred": "farm field",
+      "reason": "The carrot patch is a farm-style field; agricultural crop field image is correct"
+    }
+  ],
+  "character_images_needed": [
+    "Jasper Rabbit"
+  ],
+  "icon_search_terms": {
+    "carrot": "carrot",
+    "rabbit": "rabbit",
+    "scared": "afraid",
+    "dark": "dark",
+    "field": "farm field",
+    "run": "run",
+    "eat": "eat",
+    "garden": "garden",
+    "orange": "orange colour",
+    "shadow": "shadow",
+    "fence": "fence"
+  },
+  "notes": "Creepy Carrots is a black-and-white illustrated book with orange carrots as the only colour element — 'orange' is central to the story and worth including. The core theme is Jasper imagining carrots are following and scaring him, so 'scared' and 'shadow' are high-priority fringe words. 'Fence' refers to the fence Jasper builds around the carrot patch at the end. The Boardmaker symbol for 'afraid' should be used for 'scared'. Consider adding a simple orange-tinted carrot icon to reinforce the colour connection.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

@@ -1,0 +1,87 @@
+{
+  "title": "Worm Weather & Compost Stew",
+  "author": "Jean Taft / Mary McKenna Siddals",
+  "hero": {
+    "name": "Worm (garden worm)",
+    "description": "A friendly pink-red earthworm, the central character of Worm Weather; a generic earthworm illustration",
+    "search_term": "worm",
+    "needs_sourcing": false,
+    "source_note": "Generic earthworm — Boardmaker library should have a usable worm symbol"
+  },
+  "fringe_12": [
+    "worm",
+    "rain",
+    "mud",
+    "garden",
+    "compost",
+    "soil",
+    "wiggle",
+    "puddle",
+    "shovel",
+    "bucket",
+    "crawl",
+    "cloudy"
+  ],
+  "fringe_11": [
+    "rain",
+    "mud",
+    "garden",
+    "compost",
+    "soil",
+    "wiggle",
+    "puddle",
+    "shovel",
+    "bucket",
+    "crawl",
+    "cloudy"
+  ],
+  "activity_images": [
+    "rain",
+    "mud",
+    "garden",
+    "compost",
+    "soil",
+    "wiggle"
+  ],
+  "aac_extras": [
+    "puddle",
+    "shovel",
+    "bucket",
+    "crawl",
+    "cloudy"
+  ],
+  "ambiguous": [
+    {
+      "word": "crawl",
+      "issue": "Could show a baby crawling or an insect/worm movement",
+      "preferred": "crawl worm",
+      "reason": "In this book crawl refers to a worm moving through soil — an animal locomotion action, not a baby crawling"
+    },
+    {
+      "word": "mud",
+      "issue": "Mud could map to a generic dirty-puddle image or a mud pit / mud pie",
+      "preferred": "mud",
+      "reason": "Book context is rainy-day mud that worms emerge into — standard mud puddle image is correct"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "rain": "rain",
+    "mud": "mud",
+    "garden": "garden",
+    "compost": "compost",
+    "soil": "soil",
+    "wiggle": "wiggle",
+    "puddle": "puddle",
+    "shovel": "shovel",
+    "bucket": "bucket",
+    "crawl": "crawl",
+    "cloudy": "cloudy",
+    "worm": "worm"
+  },
+  "notes": "This board covers both Worm Weather (Jean Taft) and Compost Stew (Mary McKenna Siddals), which are frequently paired in classroom garden units. Core vocabulary like rain, mud, soil, and compost covers both books. Wiggle and crawl are high-value action words for worm movement. Rain boots was deliberately excluded as it is already in existing activity_images and is not a communication priority; recycle and food waste from aac_extras were also deprioritised in favour of more concrete story-action words. If only one book is being read, consider swapping crawl for rain boots or recycle depending on which title is in use.",
+  "characters": [],
+  "code": "WW1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

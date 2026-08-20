@@ -1,0 +1,94 @@
+{
+  "title": "Room on the Broom",
+  "author": "Julia Donaldson",
+  "hero": {
+    "name": "The Witch",
+    "description": "Friendly witch with pointed black hat, long red hair, and broomstick — the main character from the cover",
+    "search_term": "witch",
+    "needs_sourcing": false,
+    "source_note": "Generic witch icon in Boardmaker should match well enough for classroom recognition"
+  },
+  "fringe_12": [
+    "The Witch",
+    "broom",
+    "cat",
+    "dog",
+    "bird",
+    "frog",
+    "hat",
+    "wand",
+    "pond",
+    "dragon",
+    "splash",
+    "happy"
+  ],
+  "fringe_11": [
+    "broom",
+    "cat",
+    "dog",
+    "bird",
+    "frog",
+    "hat",
+    "wand",
+    "pond",
+    "dragon",
+    "splash",
+    "happy"
+  ],
+  "activity_images": [
+    "broom",
+    "cat",
+    "dog",
+    "bird",
+    "frog",
+    "hat"
+  ],
+  "aac_extras": [
+    "wand",
+    "pond",
+    "dragon",
+    "splash",
+    "happy"
+  ],
+  "ambiguous": [
+    {
+      "word": "fly",
+      "issue": "Could mean insect (noun) or the action of flying through the air",
+      "preferred": "fly action",
+      "reason": "In this book fly refers to the witch and animals flying on the broom — verb meaning is correct; already listed in aac_extras so not in fringe_11"
+    },
+    {
+      "word": "fall",
+      "issue": "Could mean the season autumn or the action of falling off the broom",
+      "preferred": "fall action",
+      "reason": "The witch and her passengers fall off the broom repeatedly — verb meaning is correct; already in aac_extras as implied action so monitor if added"
+    },
+    {
+      "word": "dragon",
+      "issue": "Could be confused with dinosaur in some symbol libraries",
+      "preferred": "dragon",
+      "reason": "The dragon is a distinct antagonist in the story — search specifically for dragon not dinosaur"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "broom": "broom",
+    "cat": "cat",
+    "dog": "dog",
+    "bird": "bird",
+    "frog": "frog",
+    "hat": "witch hat",
+    "wand": "magic wand",
+    "pond": "pond",
+    "dragon": "dragon",
+    "splash": "splash",
+    "happy": "happy"
+  },
+  "notes": "The witch is the hero and is generic enough for standard Boardmaker witch icon. Key story words witch, broom, cat, dog, bird, frog, hat, wand, pond already exist in activity_images so those PNGs can be reused directly. Dragon and splash are new and will need sourcing from the Boardmaker library. The words fly, fall, friend, and help are already in aac_extras and are covered by core row 2 (help) and row 5 (go/stop) so they are deliberately excluded from fringe_11 to avoid duplication. Happy is included because the emotional resolution of the story — everyone is happy together — is a key communicative moment students should be able to express. Splash is included because the dramatic pond scene where the witch falls in is a memorable and repeatedly discussed story event. Consider laminating a second copy of the witch hero cell to also place in the dragon scene row if the board is used for sequencing activities.",
+  "characters": [
+    "witch"
+  ],
+  "code": "ROTB1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

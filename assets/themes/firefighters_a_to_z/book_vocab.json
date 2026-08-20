@@ -1,0 +1,86 @@
+{
+  "title": "Firefighters A to Z",
+  "author": "Chris L. Demarest",
+  "hero": {
+    "name": "Firefighter (generic)",
+    "description": "A firefighter in full turnout gear — yellow/tan bunker coat, helmet, and air pack — as depicted in the book's illustrations",
+    "search_term": "firefighter",
+    "needs_sourcing": false,
+    "source_note": "Generic firefighter in gear — standard Boardmaker symbol should match well enough; confirm it shows full turnout gear not just a uniform"
+  },
+  "fringe_12": [
+    "Firefighter (generic)",
+    "fire",
+    "hose",
+    "ladder",
+    "truck",
+    "helmet",
+    "smoke",
+    "rescue",
+    "water",
+    "boots",
+    "safe",
+    "alarm"
+  ],
+  "fringe_11": [
+    "fire",
+    "hose",
+    "ladder",
+    "truck",
+    "helmet",
+    "smoke",
+    "rescue",
+    "water",
+    "boots",
+    "safe",
+    "alarm"
+  ],
+  "activity_images": [
+    "fire",
+    "hose",
+    "ladder",
+    "truck",
+    "helmet",
+    "smoke"
+  ],
+  "aac_extras": [
+    "rescue",
+    "water",
+    "boots",
+    "safe",
+    "alarm"
+  ],
+  "ambiguous": [
+    {
+      "word": "alarm",
+      "issue": "Could map to a clock alarm, a fire alarm bell, or a general alert symbol",
+      "preferred": "fire alarm",
+      "reason": "Book is about firefighting; the alarm referenced is a fire alarm/alert signal"
+    },
+    {
+      "word": "rescue",
+      "issue": "Could show a general help/rescue concept or a specific rescue action (person being carried out)",
+      "preferred": "rescue person",
+      "reason": "Book depicts firefighters rescuing people from burning buildings; an action image of rescue is most meaningful"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "fire": "fire",
+    "hose": "fire hose",
+    "ladder": "ladder",
+    "truck": "fire truck",
+    "helmet": "firefighter helmet",
+    "smoke": "smoke",
+    "rescue": "rescue",
+    "water": "water",
+    "boots": "boots",
+    "safe": "safe",
+    "alarm": "fire alarm"
+  },
+  "notes": "This is an alphabet book so each page features a firefighting word beginning with a different letter — vocabulary is rich and concrete. The 11 fringe words prioritise objects and concepts a student is most likely to want to comment on or request during a read-aloud. 'Siren' and 'boots' were already in existing activity_images so 'boots' is retained for salience; 'siren' was omitted in favour of 'alarm' which is slightly more generalisable. All 8 existing activity_images words (firefighter, fire, hose, ladder, truck, helmet, boots, siren) and all 4 aac_extras (water, smoke, rescue, safe) overlap heavily with the chosen fringe — confirm which assets already exist so duplicates are not re-created. Consider adding 'siren' as a 13th if the board is ever expanded, or swapping 'alarm' for 'siren' if a siren PNG already exists in the library.",
+  "characters": [],
+  "code": "FFAZ1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

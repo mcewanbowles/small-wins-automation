@@ -1,0 +1,87 @@
+{
+  "title": "Little White Rabbit",
+  "author": "Kevin Henkes",
+  "hero": {
+    "name": "Little White Rabbit",
+    "description": "Small white rabbit character from Kevin Henkes book, shown wandering and wondering through nature",
+    "search_term": "white rabbit",
+    "needs_sourcing": false,
+    "source_note": "Generic white rabbit — Boardmaker library should have an adequate white rabbit symbol"
+  },
+  "fringe_12": [
+    "rabbit",
+    "green",
+    "grass",
+    "sky",
+    "rock",
+    "butterfly",
+    "jump",
+    "wonder",
+    "tall",
+    "small",
+    "flower",
+    "bird"
+  ],
+  "fringe_11": [
+    "green",
+    "grass",
+    "sky",
+    "rock",
+    "butterfly",
+    "jump",
+    "wonder",
+    "tall",
+    "small",
+    "flower",
+    "bird"
+  ],
+  "activity_images": [
+    "green",
+    "grass",
+    "sky",
+    "rock",
+    "butterfly",
+    "jump"
+  ],
+  "aac_extras": [
+    "wonder",
+    "tall",
+    "small",
+    "flower",
+    "bird"
+  ],
+  "ambiguous": [
+    {
+      "word": "small",
+      "issue": "Could search as adjective concept or tiny object — many libraries use size comparison charts",
+      "preferred": "small",
+      "reason": "The rabbit wonders about being small vs tall; size comparison is central to the story"
+    },
+    {
+      "word": "wonder",
+      "issue": "Could mean the emotion 'wonder/awe' or the verb 'to wonder/think about' — abstract concept",
+      "preferred": "wonder think",
+      "reason": "The rabbit wonders 'what if' throughout the book; search for thinking/wondering symbol rather than a wonder woman or wonder noun"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "green": "green",
+    "grass": "grass",
+    "sky": "sky",
+    "rock": "rock",
+    "butterfly": "butterfly",
+    "jump": "jump",
+    "wonder": "wonder",
+    "tall": "tall",
+    "small": "small",
+    "flower": "flower",
+    "bird": "bird",
+    "rabbit": "rabbit"
+  },
+  "notes": "Little White Rabbit is a quiet, contemplative book in which the rabbit wonders 'what if' about its natural surroundings — what if it were green like the grass, tall like the trees, still like a rock. Colour 'green' is thematically central (the rabbit imagines being green). 'Wonder' and 'tall'/'small' are key conceptual pairs in the story. All 8 existing activity_images and aac_extras words (rabbit, jump, green, grass, sky, rock, butterfly, shadow, cat, bird, pond, tree) were reviewed; the 11 fringe words selected prioritise the most story-central vocabulary. 'Shadow', 'cat', 'pond', and 'tree' were omitted in favour of 'wonder', 'tall', 'small', and 'flower' which better reflect the book's core 'what if' wondering theme. If space allows in a future extended board, shadow and tree are worthwhile additions. The hero is set needs_sourcing=false because a generic white rabbit Boardmaker symbol is sufficient — the rabbit in this book is not a named pop-culture character.",
+  "characters": [],
+  "code": "LWR1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

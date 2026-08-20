@@ -1,0 +1,82 @@
+{
+  "title": "Pete the Cat: Pete's School Shoes",
+  "author": "Unknown",
+  "hero": {
+    "name": "Pete the Cat",
+    "description": "Blue cat character, main character of the Pete the Cat series",
+    "search_term": "pete cat",
+    "needs_sourcing": true,
+    "source_note": "Named character — source from Creative Fabrica or TPT clip art"
+  },
+  "fringe_12": [
+    "Pete the Cat",
+    "shoes",
+    "school",
+    "new",
+    "cool",
+    "cat",
+    "walk",
+    "feet",
+    "blue",
+    "dirty",
+    "happy",
+    "friends"
+  ],
+  "fringe_11": [
+    "shoes",
+    "school",
+    "new",
+    "cool",
+    "cat",
+    "walk",
+    "feet",
+    "blue",
+    "dirty",
+    "happy",
+    "friends"
+  ],
+  "activity_images": [
+    "shoes",
+    "school",
+    "new",
+    "cool",
+    "cat",
+    "walk"
+  ],
+  "aac_extras": [
+    "feet",
+    "blue",
+    "dirty",
+    "happy",
+    "friends"
+  ],
+  "ambiguous": [
+    {
+      "word": "cool",
+      "issue": "Could mean temperature (cold) or colloquial approval/style",
+      "preferred": "cool awesome",
+      "reason": "In Pete the Cat books 'cool' is used as a positive exclamation meaning great or awesome, not temperature"
+    }
+  ],
+  "character_images_needed": [
+    "Pete the Cat"
+  ],
+  "icon_search_terms": {
+    "shoes": "shoes",
+    "school": "school",
+    "new": "new",
+    "cool": "cool",
+    "cat": "cat",
+    "walk": "walk",
+    "feet": "feet",
+    "blue": "blue",
+    "dirty": "dirty",
+    "happy": "happy",
+    "friends": "friends"
+  },
+  "notes": "This appears to be a Pete the Cat early reader about Pete getting new school shoes. Core Pete the Cat themes include the shoes staying 'cool' no matter what happens to them, so 'cool', 'new', 'dirty', and 'blue' are central story vocabulary. If the specific title cannot be confirmed, vocabulary aligns well with the Pete the Cat series style and school/shoes theme. Pete the Cat character art must be sourced externally as Boardmaker does not include licensed characters.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

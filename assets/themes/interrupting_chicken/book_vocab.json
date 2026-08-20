@@ -1,0 +1,96 @@
+{
+  "title": "Interrupting Chicken",
+  "author": "David Ezra Stein",
+  "hero": {
+    "name": "Interrupting Chicken",
+    "description": "Small red chicken chick character from cover, distinctive David Ezra Stein illustration style",
+    "search_term": "interrupting chicken",
+    "needs_sourcing": true,
+    "source_note": "Named/distinctive character — source from Creative Fabrica or TPT clip art; look for red chick with book or bedtime setting"
+  },
+  "fringe_12": [
+    "Interrupting Chicken",
+    "story",
+    "tired",
+    "red",
+    "jump in",
+    "again",
+    "warning",
+    "dark",
+    "forest",
+    "house",
+    "little",
+    "try"
+  ],
+  "fringe_11": [
+    "story",
+    "tired",
+    "red",
+    "jump in",
+    "again",
+    "warning",
+    "dark",
+    "forest",
+    "house",
+    "little",
+    "try"
+  ],
+  "activity_images": [
+    "story",
+    "tired",
+    "red",
+    "jump in",
+    "again",
+    "warning"
+  ],
+  "aac_extras": [
+    "dark",
+    "forest",
+    "house",
+    "little",
+    "try"
+  ],
+  "ambiguous": [
+    {
+      "word": "dark",
+      "issue": "Could mean the colour/absence of light (adjective) or a person's name (Dark)",
+      "preferred": "dark night",
+      "reason": "In this book dark refers to the nighttime setting and bedtime atmosphere, not a proper noun"
+    },
+    {
+      "word": "little",
+      "issue": "Could map to a size adjective icon or the word 'little' in 'Little Red Riding Hood' as a name reference",
+      "preferred": "little small",
+      "reason": "Used descriptively in the fairy tales read aloud (Little Red Riding Hood, etc.) and to describe the small chicken; size adjective is correct"
+    },
+    {
+      "word": "jump in",
+      "issue": "Could mean physically jumping into water or interrupting/jumping into a conversation",
+      "preferred": "interrupt",
+      "reason": "The chicken literally jumps into the story text on the page — the action of interrupting is the core meaning; use interrupt icon if available, otherwise jumping-in gesture"
+    }
+  ],
+  "character_images_needed": [
+    "Interrupting Chicken"
+  ],
+  "icon_search_terms": {
+    "story": "story",
+    "tired": "tired",
+    "red": "red",
+    "jump in": "interrupt",
+    "again": "again",
+    "warning": "warning",
+    "dark": "dark",
+    "forest": "forest",
+    "house": "house",
+    "little": "little",
+    "try": "try"
+  },
+  "notes": "Core vocabulary already covers several key concepts for this book: 'stop' (Papa tells chicken to stop interrupting), 'listen', 'sleep', 'interrupt' are in aac_extras; 'book', 'bed', 'father', 'chicken', 'night', 'fairy tale', 'witch', 'wolf' are in activity_images. The 11 fringe words therefore focus on gaps: the repeated action of jumping into stories, the bedtime darkness, the fairy-tale settings (forest, house), the character being little and red, tiredness (Papa grows tired), trying (Papa tries to read), and the story concept itself. 'Again' is included because Papa repeatedly attempts to read stories — it is a high-frequency communicative concept for this book even though it appears in some core sets; confirm it is absent from this board's fixed core rows before finalising. The fairy-tale characters (Hansel & Gretel, Chicken Little) are referenced but wolf and witch are already in activity_images, so no additional character sourcing is needed beyond the hero.",
+  "characters": [
+    "chicken"
+  ],
+  "code": "IC1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

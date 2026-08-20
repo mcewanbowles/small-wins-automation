@@ -1,0 +1,88 @@
+{
+  "title": "Spring Stinks",
+  "author": "Ryan T. Higgins",
+  "hero": {
+    "name": "Bruce the Bear",
+    "description": "Large grumpy grey bear character from Ryan T. Higgins' Mother Bruce series, distinctive grumpy expression",
+    "search_term": "bruce bear higgins",
+    "needs_sourcing": true,
+    "source_note": "Named/distinctive character from Mother Bruce series — source from Creative Fabrica, TPT, or Ryan T. Higgins fan art clip art"
+  },
+  "fringe_12": [
+    "Bruce the Bear",
+    "skunk",
+    "flower",
+    "bee",
+    "butterfly",
+    "mud",
+    "smell",
+    "nose",
+    "spring",
+    "stinky",
+    "outside",
+    "hide"
+  ],
+  "fringe_11": [
+    "skunk",
+    "flower",
+    "bee",
+    "butterfly",
+    "mud",
+    "smell",
+    "nose",
+    "spring",
+    "stinky",
+    "outside",
+    "hide"
+  ],
+  "activity_images": [
+    "skunk",
+    "flower",
+    "bee",
+    "butterfly",
+    "mud",
+    "smell"
+  ],
+  "aac_extras": [
+    "nose",
+    "spring",
+    "stinky",
+    "outside",
+    "hide"
+  ],
+  "ambiguous": [
+    {
+      "word": "spring",
+      "issue": "Could mean the season (spring) or the action of jumping/springing",
+      "preferred": "spring season",
+      "reason": "The book is about the season of spring and a bear who dislikes it; the season meaning is correct"
+    },
+    {
+      "word": "hide",
+      "issue": "Could mean animal hide (noun/skin) or the action of hiding",
+      "preferred": "hide action",
+      "reason": "Bruce the bear tries to avoid/hide from spring activities; the verb/action meaning is correct"
+    }
+  ],
+  "character_images_needed": [
+    "Bruce the Bear"
+  ],
+  "icon_search_terms": {
+    "skunk": "skunk",
+    "flower": "flower",
+    "bee": "bee",
+    "butterfly": "butterfly",
+    "mud": "mud",
+    "smell": "smell",
+    "nose": "nose",
+    "spring": "spring season",
+    "stinky": "stinky",
+    "outside": "outside",
+    "hide": "hide hiding"
+  },
+  "notes": "Spring Stinks features Bruce the Bear (from the Mother Bruce series) who grumpily endures the sights, smells, and creatures of spring — especially a persistent skunk. The word 'stinky' is central to the book's humour and theme and should be included even though it is slightly abstract; it is picturable (e.g. stink lines symbol). Several vocabulary items (skunk, flower, bee, butterfly, mud, smell, nose, trail) already exist in activity_images or aac_extras and can be reused. 'Spring' as a season may not have a perfect Boardmaker symbol — a sun-with-flowers or sprouting plant image may be the best match. 'Outside' covers the setting of the story. 'Hide' captures Bruce's key reaction/behaviour. Recommend checking existing activity_images assets for skunk, flower, bee, butterfly, mud before sourcing new icons.",
+  "characters": [],
+  "code": "SS1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

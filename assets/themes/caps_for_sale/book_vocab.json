@@ -1,0 +1,90 @@
+{
+  "title": "Caps for Sale",
+  "author": "Esphyr Slobodkina",
+  "hero": {
+    "name": "Peddler (Caps for Sale)",
+    "description": "The mustachioed peddler man balancing a tall stack of coloured caps on his head, as depicted on the book cover",
+    "search_term": "peddler caps sale",
+    "needs_sourcing": true,
+    "source_note": "Distinctive illustrated character — generic Boardmaker 'man' won't match; source from TPT or Creative Fabrica clip art for Caps for Sale"
+  },
+  "fringe_12": [
+    "Peddler (Caps for Sale)",
+    "cap",
+    "monkey",
+    "tree",
+    "stack",
+    "shake",
+    "throw",
+    "fall",
+    "sleep",
+    "angry",
+    "gray",
+    "red"
+  ],
+  "fringe_11": [
+    "cap",
+    "monkey",
+    "tree",
+    "stack",
+    "shake",
+    "throw",
+    "fall",
+    "sleep",
+    "angry",
+    "gray",
+    "red"
+  ],
+  "activity_images": [
+    "cap",
+    "monkey",
+    "tree",
+    "stack",
+    "shake",
+    "throw"
+  ],
+  "aac_extras": [
+    "fall",
+    "sleep",
+    "angry",
+    "gray",
+    "red"
+  ],
+  "ambiguous": [
+    {
+      "word": "fall",
+      "issue": "Could mean the season autumn (noun) or the action of falling down (verb)",
+      "preferred": "fall down",
+      "reason": "In this book the caps fall off/down from the tree when monkeys throw them — the action meaning is correct"
+    },
+    {
+      "word": "cap",
+      "issue": "Could mean a bottle cap (small circular lid) or a hat/cap worn on the head",
+      "preferred": "cap hat",
+      "reason": "The book is specifically about caps worn as hats stacked on a peddler's head — search for a hat/cap symbol"
+    }
+  ],
+  "character_images_needed": [
+    "Peddler (Caps for Sale)"
+  ],
+  "icon_search_terms": {
+    "cap": "cap hat",
+    "monkey": "monkey",
+    "tree": "tree",
+    "stack": "stack pile",
+    "shake": "shake fist",
+    "throw": "throw",
+    "fall": "fall down",
+    "sleep": "sleep",
+    "angry": "angry",
+    "gray": "gray colour",
+    "red": "red colour"
+  },
+  "notes": "Key story sequence: peddler walks, naps under tree, wakes to find monkeys have taken all his caps, shakes fist in anger, monkeys mimic and throw caps down. Colours of caps (gray own cap, then checked, red, blue, brown stacked) are central to the story — gray and red selected as most iconic/useful; 'shake' and 'throw' are the two pivotal action words. 'angry' is already in aac_extras so the PNG may exist; 'shake' is also in aac_extras. Words 'peddler', 'caps', 'tree', and 'monkeys' exist in activity_images already — corresponding fringe words here ('cap', 'monkey', 'tree') should reuse those assets where filenames match.",
+  "characters": [
+    "peddler"
+  ],
+  "code": "CFS1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

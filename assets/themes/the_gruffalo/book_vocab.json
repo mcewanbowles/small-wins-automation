@@ -1,0 +1,91 @@
+{
+  "title": "The Gruffalo",
+  "author": "Julia Donaldson",
+  "hero": {
+    "name": "The Gruffalo",
+    "description": "Large brown monster with orange eyes, black tongue, purple prickles, warts on his nose, and knobby knees — distinctive Julia Donaldson character",
+    "search_term": "gruffalo",
+    "needs_sourcing": true,
+    "source_note": "Named distinctive monster character — source from Creative Fabrica, TPT, or official Julia Donaldson licensed clip art"
+  },
+  "fringe_12": [
+    "Gruffalo",
+    "mouse",
+    "fox",
+    "owl",
+    "snake",
+    "woods",
+    "scared",
+    "clever",
+    "claws",
+    "tusks",
+    "hide",
+    "walk"
+  ],
+  "fringe_11": [
+    "mouse",
+    "fox",
+    "owl",
+    "snake",
+    "woods",
+    "scared",
+    "clever",
+    "claws",
+    "tusks",
+    "hide",
+    "walk"
+  ],
+  "activity_images": [
+    "mouse",
+    "fox",
+    "owl",
+    "snake",
+    "woods",
+    "scared"
+  ],
+  "aac_extras": [
+    "clever",
+    "claws",
+    "tusks",
+    "hide",
+    "walk"
+  ],
+  "ambiguous": [
+    {
+      "word": "claws",
+      "issue": "Could be confused with Santa Claus (homophone) or generic scratching action",
+      "preferred": "claws animal",
+      "reason": "Book refers to the Gruffalo's physical claws as a body feature — sharp animal claws image needed"
+    },
+    {
+      "word": "hide",
+      "issue": "Could mean animal skin/hide (noun) or to conceal oneself (verb)",
+      "preferred": "hide hiding",
+      "reason": "Mouse hides from predators — action verb meaning is correct for this book"
+    }
+  ],
+  "character_images_needed": [
+    "The Gruffalo"
+  ],
+  "icon_search_terms": {
+    "mouse": "mouse animal",
+    "fox": "fox animal",
+    "owl": "owl",
+    "snake": "snake",
+    "woods": "forest woods",
+    "scared": "afraid scared",
+    "clever": "clever smart",
+    "claws": "claws animal",
+    "tusks": "tusks",
+    "hide": "hide hiding",
+    "walk": "walk walking"
+  },
+  "notes": "All 11 fringe words already exist either in activity_images or aac_extras — no new sourcing needed for fringe words. The Gruffalo hero image must be sourced externally as no generic Boardmaker symbol will match the distinctive character design. 'Clever' is a key thematic word as the mouse outwits all predators including the Gruffalo. 'Tusks' may not exist in standard Boardmaker libraries — check under 'tusk' or consider an elephant tusk image if a dedicated icon is unavailable. Colours (orange, purple, black) were considered but deprioritised in favour of character and action words given only 11 fringe slots and the existing core row 5 'colour' button.",
+  "characters": [
+    "gruffalo",
+    "mouse"
+  ],
+  "code": "TG1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

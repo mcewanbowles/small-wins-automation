@@ -1,0 +1,80 @@
+{
+  "title": "The Mitten",
+  "author": "Jan Brett",
+  "hero": {
+    "name": "Nicki's Mitten",
+    "description": "Large white knitted mitten lying in snow, the central object of the story — distinctive Jan Brett illustration style",
+    "search_term": "mitten",
+    "needs_sourcing": false,
+    "source_note": "A white knitted mitten is the hero object; generic Boardmaker mitten icon should work well"
+  },
+  "fringe_12": [
+    "mitten",
+    "snow",
+    "boy",
+    "grandma",
+    "bear",
+    "rabbit",
+    "fox",
+    "owl",
+    "mole",
+    "hedgehog",
+    "squeeze",
+    "cold"
+  ],
+  "fringe_11": [
+    "snow",
+    "boy",
+    "grandma",
+    "bear",
+    "rabbit",
+    "fox",
+    "owl",
+    "mole",
+    "hedgehog",
+    "squeeze",
+    "cold"
+  ],
+  "activity_images": [
+    "snow",
+    "boy",
+    "grandma",
+    "bear",
+    "rabbit",
+    "fox"
+  ],
+  "aac_extras": [
+    "owl",
+    "mole",
+    "hedgehog",
+    "squeeze",
+    "cold"
+  ],
+  "ambiguous": [
+    {
+      "word": "bear",
+      "issue": "Could mean the animal (noun) or the verb 'to bear/carry'",
+      "preferred": "bear animal",
+      "reason": "The bear is one of the animals that crawls into the mitten in the story"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "snow": "snow",
+    "boy": "boy",
+    "grandma": "grandma",
+    "bear": "bear",
+    "rabbit": "rabbit",
+    "fox": "fox",
+    "owl": "owl",
+    "mole": "mole",
+    "hedgehog": "hedgehog",
+    "squeeze": "squeeze",
+    "cold": "cold"
+  },
+  "notes": "The mitten itself is the iconic hero object — most students will recognise it from the cover. Mouse, hedgehog, and mole are already in aac_extras; sneeze is also in aac_extras and is a key story event (the bear's sneeze blows all the animals out). Consider swapping 'squeeze' for 'sneeze' since sneeze is already sourced and is the climactic action of the story — however 'squeeze' is also very relevant as the animals squeeze into the mitten. The mouse (not listed in fringe_11 to avoid duplication) is already available. Nicki and Baba (grandmother) are the two human characters; 'boy' covers Nicki and 'grandma' covers Baba. The remaining animals from the book — badger, wild boar/pig — are lower priority and did not make the top 11. 'cold' is included as a key descriptive concept central to the winter setting.",
+  "characters": [],
+  "code": "TM1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

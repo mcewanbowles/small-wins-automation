@@ -1,0 +1,88 @@
+{
+  "title": "Ten Apples Up On Top!",
+  "author": "Theo LeSieg",
+  "hero": {
+    "name": "Lion (Ten Apples Up On Top)",
+    "description": "Upright cartoon lion balancing apples on his head, Dr. Seuss style illustration by Roy McKie",
+    "search_term": "lion",
+    "needs_sourcing": true,
+    "source_note": "Seuss-style lion is distinctive — generic Boardmaker lion won't match cover art; source from TPT or Creative Fabrica with Seuss/LeSieg styling"
+  },
+  "fringe_12": [
+    "Lion (Ten Apples Up On Top)",
+    "apple",
+    "ten",
+    "top",
+    "balance",
+    "fall",
+    "tiger",
+    "dog",
+    "bird",
+    "count",
+    "stack",
+    "try"
+  ],
+  "fringe_11": [
+    "apple",
+    "ten",
+    "top",
+    "balance",
+    "fall",
+    "tiger",
+    "dog",
+    "bird",
+    "count",
+    "stack",
+    "try"
+  ],
+  "activity_images": [
+    "apple",
+    "ten",
+    "top",
+    "balance",
+    "fall",
+    "tiger"
+  ],
+  "aac_extras": [
+    "dog",
+    "bird",
+    "count",
+    "stack",
+    "try"
+  ],
+  "ambiguous": [
+    {
+      "word": "fall",
+      "issue": "Could mean the season (autumn) or the action of falling/dropping",
+      "preferred": "fall down",
+      "reason": "In this book the apples tumble off heads — fall as an action/verb is the correct meaning"
+    },
+    {
+      "word": "top",
+      "issue": "Could mean a spinning toy (top) or the uppermost position (on top)",
+      "preferred": "on top",
+      "reason": "The book is about balancing apples on top of heads — positional meaning is correct; search 'above' or 'on top' for a positional symbol"
+    }
+  ],
+  "character_images_needed": [
+    "Lion (Ten Apples Up On Top) — Seuss/LeSieg style"
+  ],
+  "icon_search_terms": {
+    "apple": "apple",
+    "ten": "10",
+    "top": "above",
+    "balance": "balance beam",
+    "fall": "fall down",
+    "tiger": "tiger",
+    "dog": "dog",
+    "bird": "bird",
+    "count": "count",
+    "stack": "stack",
+    "try": "try"
+  },
+  "notes": "The three main animal characters are lion, tiger, and dog — all central to the story and worth naming individually on the board. 'Bird' appears in the climactic parade/chase scene and is worth including. 'Stack' and 'try' capture the core repetitive actions of the book (stacking apples, trying to balance) and support retelling. 'Ten' is thematically critical as the target number throughout. Core words 'more' and 'again' are already in core rows and do not need fringe slots. The existing activity_images already include apple, ten, count, tiger, dog, lion, balance, and fall — all of these are reused here, reducing new asset creation needed.",
+  "characters": [],
+  "code": "TAU1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

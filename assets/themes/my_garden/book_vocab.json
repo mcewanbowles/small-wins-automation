@@ -1,0 +1,86 @@
+{
+  "title": "My Garden",
+  "author": "Kevin Henkes",
+  "hero": {
+    "name": "The Girl (narrator child)",
+    "description": "Young girl with red hair and striped shirt, the imaginative child gardener narrator of the book",
+    "search_term": "girl child",
+    "needs_sourcing": false,
+    "source_note": "Generic child/girl image from Boardmaker will suffice; no distinctive named character"
+  },
+  "fringe_12": [
+    "The Girl (narrator child)",
+    "garden",
+    "flower",
+    "seed",
+    "butterfly",
+    "rabbit",
+    "weed",
+    "rain",
+    "grow",
+    "big",
+    "colorful",
+    "dig"
+  ],
+  "fringe_11": [
+    "garden",
+    "flower",
+    "seed",
+    "butterfly",
+    "rabbit",
+    "weed",
+    "rain",
+    "grow",
+    "big",
+    "colorful",
+    "dig"
+  ],
+  "activity_images": [
+    "garden",
+    "flower",
+    "seed",
+    "butterfly",
+    "rabbit",
+    "weed"
+  ],
+  "aac_extras": [
+    "rain",
+    "grow",
+    "big",
+    "colorful",
+    "dig"
+  ],
+  "ambiguous": [
+    {
+      "word": "grow",
+      "issue": "Could be mapped to a generic growth chart or a plant growing — two different images",
+      "preferred": "plant growing",
+      "reason": "In this book grow refers specifically to plants growing in the garden"
+    },
+    {
+      "word": "big",
+      "issue": "Big is a relative adjective that could map to many images",
+      "preferred": "big",
+      "reason": "Used in the book to describe oversized imaginary plants and flowers the girl wishes for; a simple size comparison image is appropriate"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "garden": "garden",
+    "flower": "flower",
+    "seed": "seed",
+    "butterfly": "butterfly",
+    "rabbit": "rabbit",
+    "weed": "weeds",
+    "rain": "rain",
+    "grow": "plant growing",
+    "big": "big",
+    "colorful": "colorful",
+    "dig": "dig"
+  },
+  "notes": "My Garden is an imaginative picture book where a girl tends her real garden and dreams of a magical one with chocolate rabbits, seashells instead of rocks, and flowers that never wilt. Core fringe prioritises the main garden-theme nouns (garden, flower, seed, weed, butterfly, rabbit) and key actions or descriptors (dig, grow, rain, big, colorful). Rabbit is included because the chocolate rabbit is a recurring imaginative element. Colorful captures the vivid, wishful nature of the garden imagery. Weeds, butterfly, and seed are already in existing aac_extras or activity_images so icons should be available. The hero is a generic unnamed girl so no special sourcing is needed — a standard Boardmaker girl image will work.",
+  "characters": [],
+  "code": "MG1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

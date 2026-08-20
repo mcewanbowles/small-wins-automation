@@ -1,0 +1,80 @@
+{
+  "title": "Clothesline Clues to Jobs People Do",
+  "author": "Kathleen Heling & Deborah Hembrook",
+  "hero": {
+    "name": "Clothesline with hanging clothes",
+    "description": "A backyard clothesline with various work uniforms and clothing items hanging on it, representing the book's central guessing-game concept",
+    "search_term": "clothesline",
+    "needs_sourcing": false,
+    "source_note": "Generic clothesline image — search Boardmaker for 'clothesline' or 'laundry line'; if unavailable, source simple clip art of clothes hanging on a line"
+  },
+  "fringe_12": [
+    "Clothesline with hanging clothes",
+    "nurse",
+    "firefighter",
+    "astronaut",
+    "chef",
+    "mail carrier",
+    "scientist",
+    "teacher",
+    "helmet",
+    "gloves",
+    "apron",
+    "uniform"
+  ],
+  "fringe_11": [
+    "nurse",
+    "firefighter",
+    "astronaut",
+    "chef",
+    "mail carrier",
+    "scientist",
+    "teacher",
+    "helmet",
+    "gloves",
+    "apron",
+    "uniform"
+  ],
+  "activity_images": [
+    "nurse",
+    "firefighter",
+    "astronaut",
+    "chef",
+    "mail carrier",
+    "scientist"
+  ],
+  "aac_extras": [
+    "teacher",
+    "helmet",
+    "gloves",
+    "apron",
+    "uniform"
+  ],
+  "ambiguous": [
+    {
+      "word": "gloves",
+      "issue": "Could mean winter/fashion gloves or work/medical/protective gloves",
+      "preferred": "work gloves",
+      "reason": "Book features protective and occupational gloves worn as part of job uniforms (e.g. chef, astronaut, nurse)"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "nurse": "nurse",
+    "firefighter": "firefighter",
+    "astronaut": "astronaut",
+    "chef": "chef",
+    "mail carrier": "mail carrier",
+    "scientist": "scientist",
+    "teacher": "teacher",
+    "helmet": "helmet",
+    "gloves": "gloves",
+    "apron": "apron",
+    "uniform": "uniform"
+  },
+  "notes": "This book uses a clothesline guessing-game format where children identify community helper jobs from clothing clues. The existing activity_images already include 'clothes', 'hat', 'doctor', 'chef', 'mail', 'painter', 'farmer', 'police', and aac_extras include 'job', 'tools', 'work', 'uniform' — so 'uniform' in fringe_11 can reuse the existing aac_extras icon. 'Chef' is already in activity_images and can be reused. 'Mail carrier' can leverage the existing 'mail' icon with a carrier/person modifier if needed. Fringe prioritises the jobs featured in the book (nurse, firefighter, astronaut, chef, mail carrier, scientist, teacher) plus key clothing/equipment items (helmet, gloves, apron, uniform) that are central to the guessing-game vocabulary. The core row already provides 'colour' and 'read' which support discussion of clothing colours and reading the clues. 'Doctor' and 'painter' and 'farmer' and 'police' from existing activity_images are relevant secondary jobs in the book and can be added to supplemental activity sheets even though they are not on the main fringe.",
+  "characters": [],
+  "code": "CCJPD1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

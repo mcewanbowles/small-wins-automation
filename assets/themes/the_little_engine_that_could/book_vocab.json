@@ -1,0 +1,94 @@
+{
+  "title": "The Little Engine That Could",
+  "author": "Watty Piper",
+  "hero": {
+    "name": "The Little Blue Engine",
+    "description": "Small blue steam locomotive with a friendly face, the determined hero of the story",
+    "search_term": "little blue engine train",
+    "needs_sourcing": true,
+    "source_note": "Named/distinctive character with face — source from Creative Fabrica or TPT clip art; generic Boardmaker train will not show the facial expression or blue colouring"
+  },
+  "fringe_12": [
+    "The Little Blue Engine",
+    "mountain",
+    "toys",
+    "children",
+    "heavy",
+    "small",
+    "loaded",
+    "happy",
+    "blue",
+    "carry",
+    "top",
+    "try"
+  ],
+  "fringe_11": [
+    "mountain",
+    "toys",
+    "children",
+    "heavy",
+    "small",
+    "loaded",
+    "happy",
+    "blue",
+    "carry",
+    "top",
+    "try"
+  ],
+  "activity_images": [
+    "mountain",
+    "toys",
+    "children",
+    "heavy",
+    "small",
+    "loaded"
+  ],
+  "aac_extras": [
+    "happy",
+    "blue",
+    "carry",
+    "top",
+    "try"
+  ],
+  "ambiguous": [
+    {
+      "word": "loaded",
+      "issue": "Could mean filled/carrying cargo (adjective) or slang meanings",
+      "preferred": "loaded train cars",
+      "reason": "In this book it means the train cars are filled with toys and goods; search for 'full' or 'heavy load' if 'loaded' yields no result"
+    },
+    {
+      "word": "top",
+      "issue": "Could mean the top of the hill/mountain (location) or a spinning toy top",
+      "preferred": "top of hill",
+      "reason": "Book climax is the engine reaching the top of the mountain; avoid toy top image"
+    },
+    {
+      "word": "carry",
+      "issue": "Could show a person carrying bags or a vehicle carrying cargo",
+      "preferred": "carry load",
+      "reason": "The engine carries toys and food over the mountain; a vehicle/train carrying cargo is the correct image"
+    }
+  ],
+  "character_images_needed": [
+    "The Little Blue Engine"
+  ],
+  "icon_search_terms": {
+    "mountain": "mountain",
+    "toys": "toys",
+    "children": "children",
+    "heavy": "heavy",
+    "small": "small",
+    "loaded": "full",
+    "happy": "happy",
+    "blue": "blue",
+    "carry": "carry",
+    "top": "hill top",
+    "try": "try"
+  },
+  "notes": "The mantra 'I think I can' is central to this book and maps beautifully onto the core words already on the board (I / think). Encourage educators to point to 'I' then 'think' on core during read-aloud. 'try' and 'help' are already in aac_extras so they do not need re-sourcing. The existing activity_images vocab (train, engine, hill, track, toys) overlaps well; 'hill' can substitute for 'mountain' if preferred. 'blue' is included as a fringe word because the Little Blue Engine is explicitly identified by colour throughout the story and students will use it to distinguish her from the other engines. Consider adding a secondary cell for 'heavy' engine / 'big' engine to contrast with the Little Engine if space allows on a companion board.",
+  "characters": [],
+  "code": "TLETC1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

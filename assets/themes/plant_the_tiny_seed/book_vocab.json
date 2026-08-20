@@ -1,0 +1,86 @@
+{
+  "title": "Plant the Tiny Seed",
+  "author": "Christie Matheson",
+  "hero": {
+    "name": "Tiny Seed (sprout/seedling)",
+    "description": "A small green sprout emerging from soil, the central growing plant character of the book",
+    "search_term": "sprout seedling",
+    "needs_sourcing": false,
+    "source_note": "Generic seedling/sprout image from Boardmaker should work well"
+  },
+  "fringe_12": [
+    "Tiny Seed (sprout/seedling)",
+    "seed",
+    "soil",
+    "pot",
+    "water",
+    "sun",
+    "flower",
+    "butterfly",
+    "bee",
+    "rain",
+    "grow",
+    "trowel"
+  ],
+  "fringe_11": [
+    "seed",
+    "soil",
+    "pot",
+    "water",
+    "sun",
+    "flower",
+    "butterfly",
+    "bee",
+    "rain",
+    "grow",
+    "trowel"
+  ],
+  "activity_images": [
+    "seed",
+    "soil",
+    "pot",
+    "water",
+    "sun",
+    "flower"
+  ],
+  "aac_extras": [
+    "butterfly",
+    "bee",
+    "rain",
+    "grow",
+    "trowel"
+  ],
+  "ambiguous": [
+    {
+      "word": "pot",
+      "issue": "Could mean cooking pot or plant pot/container",
+      "preferred": "plant pot",
+      "reason": "Book is about gardening; the pot is a planting container, not a cooking vessel"
+    },
+    {
+      "word": "grow",
+      "issue": "Could be represented as a verb action (arrow/height increase) or a plant growing upward",
+      "preferred": "grow plant",
+      "reason": "In this book context, grow specifically means a plant growing taller — search for plant growth image"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "seed": "seed",
+    "soil": "soil dirt",
+    "pot": "plant pot flower pot",
+    "water": "watering can",
+    "sun": "sun",
+    "flower": "flower",
+    "butterfly": "butterfly",
+    "bee": "bee",
+    "rain": "rain",
+    "grow": "grow plant",
+    "trowel": "trowel garden"
+  },
+  "notes": "This is an interactive gardening book where the reader is prompted to tap, blow, and wiggle the pages to help the plant grow. All 11 fringe words were already present in existing activity_images or aac_extras vocab, so no new sourcing is required. The hero slot uses a generic sprout/seedling from Boardmaker. 'Trowel' is the least common word and may need checking in the Boardmaker library — 'garden trowel' or 'spade' are fallback search terms. Consider adding 'gloves' as an alternative to 'trowel' if the trowel symbol is unavailable, as gloves is also in existing activity_images vocab.",
+  "characters": [],
+  "code": "PTS1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

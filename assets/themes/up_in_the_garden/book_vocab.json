@@ -1,0 +1,92 @@
+{
+  "title": "Up in the Garden and Down in the Dirt",
+  "author": "Kate Messner",
+  "hero": {
+    "name": "Girl gardener (unnamed child protagonist)",
+    "description": "Young girl with grandmother gardening outdoors, as shown on cover — no named distinctive character",
+    "search_term": "girl child",
+    "needs_sourcing": false,
+    "source_note": "Generic child figure — Boardmaker 'girl' or 'child' icon is acceptable; alternatively source a gardening child clip art from TPT for closer match"
+  },
+  "fringe_12": [
+    "Girl gardener (unnamed child protagonist)",
+    "garden",
+    "dirt",
+    "seed",
+    "worm",
+    "bug",
+    "plant",
+    "dig",
+    "grow",
+    "underground",
+    "leaf",
+    "root"
+  ],
+  "fringe_11": [
+    "garden",
+    "dirt",
+    "seed",
+    "worm",
+    "bug",
+    "plant",
+    "dig",
+    "grow",
+    "underground",
+    "leaf",
+    "root"
+  ],
+  "activity_images": [
+    "garden",
+    "dirt",
+    "seed",
+    "worm",
+    "bug",
+    "plant"
+  ],
+  "aac_extras": [
+    "dig",
+    "grow",
+    "underground",
+    "leaf",
+    "root"
+  ],
+  "ambiguous": [
+    {
+      "word": "bug",
+      "issue": "Could map to insect/creature (noun) or to annoy (verb) or a generic pest icon",
+      "preferred": "insect bug",
+      "reason": "Book features many garden insects and soil creatures — noun meaning referring to small creatures is correct"
+    },
+    {
+      "word": "plant",
+      "issue": "Could mean a growing plant (noun) or the action to plant something (verb)",
+      "preferred": "plant noun",
+      "reason": "Book focuses on plants growing in the garden; noun form is more picturable and central to the story, though the verb sense is also relevant"
+    },
+    {
+      "word": "dig",
+      "issue": "Could be interpreted as digging action or a slang term",
+      "preferred": "dig action shovel",
+      "reason": "Book explicitly shows digging in dirt to plant seeds and uncover underground creatures — action verb is correct"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "garden": "garden",
+    "dirt": "dirt soil",
+    "seed": "seed",
+    "worm": "worm",
+    "bug": "insect bug",
+    "plant": "plant",
+    "dig": "dig shovel",
+    "grow": "grow plant growing",
+    "underground": "underground below ground",
+    "leaf": "leaf",
+    "root": "root plant"
+  },
+  "notes": "This book has a dual above-ground / below-ground structure, so 'underground' is a key concept worth including despite being slightly abstract — it is consistently illustrated as a visible cross-section view children can recognise. The existing activity_images library already covers garden, soil, seed, worm, ladybug, shovel, watering can, root, and leaf, so those icons should be drawn from existing assets first. 'Bug' is preferred over 'beetle' or 'ladybug' as a single slot to cover the range of creatures featured (ants, beetles, centipedes, etc.). 'Dirt' is preferred over 'soil' as it matches the book title directly and is more child-accessible language. The hero is a generic unnamed child — a standard Boardmaker girl icon is sufficient, though a gardening-themed child clip art would better match the cover aesthetic.",
+  "characters": [],
+  "code": "UGD1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

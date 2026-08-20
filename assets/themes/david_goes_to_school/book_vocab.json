@@ -1,0 +1,84 @@
+{
+  "title": "David Goes to School",
+  "author": "David Shannon",
+  "hero": {
+    "name": "David",
+    "description": "Spiky-haired boy with big round eyes and gap-toothed grin, distinctive David Shannon art style",
+    "search_term": "david shannon boy",
+    "needs_sourcing": true,
+    "source_note": "Named/distinctive character from David Shannon series — source from Creative Fabrica, TPT, or Teachers Pay Teachers clip art matching Shannon's iconic illustration style"
+  },
+  "fringe_12": [
+    "David",
+    "school",
+    "teacher",
+    "sit down",
+    "listen",
+    "sorry",
+    "recess",
+    "lunch",
+    "rules",
+    "timeout",
+    "messy",
+    "clean up"
+  ],
+  "fringe_11": [
+    "school",
+    "teacher",
+    "sit down",
+    "listen",
+    "sorry",
+    "recess",
+    "lunch",
+    "rules",
+    "timeout",
+    "messy",
+    "clean up"
+  ],
+  "activity_images": [
+    "school",
+    "teacher",
+    "sit down",
+    "listen",
+    "sorry",
+    "recess"
+  ],
+  "aac_extras": [
+    "lunch",
+    "rules",
+    "timeout",
+    "messy",
+    "clean up"
+  ],
+  "ambiguous": [
+    {
+      "word": "recess",
+      "issue": "Could map to a generic outdoor play image or a school-break concept card",
+      "preferred": "playground",
+      "reason": "In this book recess means outdoor school playtime; playground image will be more recognisable to students and is already in activity_images"
+    }
+  ],
+  "character_images_needed": [
+    "David (David Shannon)"
+  ],
+  "icon_search_terms": {
+    "school": "school",
+    "teacher": "teacher",
+    "sit down": "sit down",
+    "listen": "listen",
+    "sorry": "sorry",
+    "recess": "playground",
+    "lunch": "lunch",
+    "rules": "rules",
+    "timeout": "time out",
+    "messy": "messy",
+    "clean up": "clean up"
+  },
+  "notes": "Core theme is classroom behaviour and rules — David is repeatedly told 'No, David!' and 'Sit down!', so action-command words are central. 'sorry' and 'listen' are already in aac_extras and can be reused. 'school' and 'teacher' are already in activity_images. 'recess' has been mapped to 'playground' (also in activity_images) for better symbol availability. 'timeout' and 'rules' are high-value fringe words for this book and will likely need sourcing from Boardmaker. 'messy' and 'clean up' reflect key story moments (David eating messily, being sent to clean up). This board is especially useful for social-emotional learning discussions about classroom expectations.",
+  "characters": [
+    "david"
+  ],
+  "code": "DGS1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

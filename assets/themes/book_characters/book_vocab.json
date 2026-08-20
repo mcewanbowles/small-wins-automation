@@ -1,0 +1,88 @@
+{
+  "title": "Book Characters",
+  "author": "Unknown",
+  "hero": {
+    "name": "Book Characters Collage",
+    "description": "A collection of well-known children's book characters — no single hero; use a collage or representative character from the cover",
+    "search_term": "book characters",
+    "needs_sourcing": true,
+    "source_note": "This appears to be a compilation/activity book about multiple book characters — source a collage image or use the most prominent cover character; check activity_images/ for existing character icons"
+  },
+  "fringe_12": [
+    "Book Characters Collage",
+    "cat",
+    "bear",
+    "caterpillar",
+    "fish",
+    "hungry",
+    "wild",
+    "grumpy",
+    "book",
+    "friend",
+    "hat",
+    "dance"
+  ],
+  "fringe_11": [
+    "cat",
+    "bear",
+    "caterpillar",
+    "fish",
+    "hungry",
+    "wild",
+    "grumpy",
+    "book",
+    "friend",
+    "hat",
+    "dance"
+  ],
+  "activity_images": [
+    "cat",
+    "bear",
+    "caterpillar",
+    "fish",
+    "hungry",
+    "wild"
+  ],
+  "aac_extras": [
+    "grumpy",
+    "book",
+    "friend",
+    "hat",
+    "dance"
+  ],
+  "ambiguous": [
+    {
+      "word": "wild",
+      "issue": "Could mean the adjective wild (unruly/fierce) or a wild animal/place",
+      "preferred": "wild",
+      "reason": "Refers to Where the Wild Things Are — the concept of wildness/wild creatures; search for 'wild' as an adjective or wild animal scene"
+    },
+    {
+      "word": "grumpy",
+      "issue": "Could map to the emotion grumpy or to the character Grumpy (e.g. Grouchy Ladybug / Grumpy dwarf)",
+      "preferred": "grumpy face",
+      "reason": "Used here as a descriptive adjective referencing grouchy/grumpy book characters such as the Grouchy Ladybug; search for grumpy emotion symbol"
+    }
+  ],
+  "character_images_needed": [
+    "Book Characters Collage"
+  ],
+  "icon_search_terms": {
+    "cat": "cat",
+    "bear": "bear",
+    "caterpillar": "caterpillar",
+    "fish": "fish",
+    "hungry": "hungry",
+    "wild": "wild",
+    "grumpy": "grumpy",
+    "book": "book",
+    "friend": "friend",
+    "hat": "hat",
+    "dance": "dance"
+  },
+  "notes": "This book appears to be a compilation or activity resource about multiple well-known children's book characters (Pete the Cat, The Very Hungry Caterpillar, Where the Wild Things Are, Rainbow Fish, The Gruffalo, etc.). The fringe vocabulary has been chosen to span the most commonly referenced characters and themes across the genre rather than one specific narrative. Several character-specific images already exist in activity_images/ (e.g. pete_the_cat, hungry_caterpillar, grouchy_ladybug, gruffalo, rainbow_fish, curious_george, cat_in_hat, wild_things_are) and these should be considered for supplementary visual supports on the board or as companion cards. The hero slot should use a collage or the most prominent character from the actual book cover — verify with the teacher which character is most recognisable to their students.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

@@ -1,0 +1,90 @@
+{
+  "title": "Dragons Love Tacos",
+  "author": "Adam Rubin",
+  "hero": {
+    "name": "Dragon (Dragons Love Tacos)",
+    "description": "Friendly cartoon dragon, green/scaly, from Adam Rubin's book cover — not a generic dragon",
+    "search_term": "dragon",
+    "needs_sourcing": true,
+    "source_note": "Named/distinctive illustrated character — source Adam Rubin style dragon from Creative Fabrica, TPT, or use book cover art with permission"
+  },
+  "fringe_12": [
+    "Dragon (Dragons Love Tacos)",
+    "taco",
+    "salsa",
+    "spicy",
+    "fire",
+    "eat",
+    "party",
+    "yum",
+    "bowl",
+    "chip",
+    "hot",
+    "big"
+  ],
+  "fringe_11": [
+    "taco",
+    "salsa",
+    "spicy",
+    "fire",
+    "eat",
+    "party",
+    "yum",
+    "bowl",
+    "chip",
+    "hot",
+    "big"
+  ],
+  "activity_images": [
+    "taco",
+    "salsa",
+    "spicy",
+    "fire",
+    "eat",
+    "party"
+  ],
+  "aac_extras": [
+    "yum",
+    "bowl",
+    "chip",
+    "hot",
+    "big"
+  ],
+  "ambiguous": [
+    {
+      "word": "hot",
+      "issue": "Could mean temperature (adjective) or spicy flavour sensation",
+      "preferred": "hot temperature",
+      "reason": "In the book, hot refers primarily to the burning fire consequence of spicy salsa — a temperature/heat meaning; 'spicy' already covers the flavour sense separately"
+    },
+    {
+      "word": "fire",
+      "issue": "Could mean campfire/fireplace (noun object) or the action of breathing fire",
+      "preferred": "fire flames",
+      "reason": "Dragons breathe fire when they eat spicy salsa — the flames/fire-breathing image is correct; search for fire or flames symbol"
+    }
+  ],
+  "character_images_needed": [
+    "Dragon (Dragons Love Tacos)"
+  ],
+  "icon_search_terms": {
+    "taco": "taco",
+    "salsa": "salsa",
+    "spicy": "spicy",
+    "fire": "fire",
+    "eat": "eat",
+    "party": "party",
+    "yum": "yum",
+    "bowl": "bowl",
+    "chip": "chip",
+    "hot": "hot",
+    "big": "big"
+  },
+  "notes": "Core story beats: dragons love tacos (especially mild ones), hate spicy salsa, breathe fire when salsa is too hot, and love taco parties. Key vocabulary tension is mild vs spicy — 'spicy' and 'hot' together cover this well. 'chip' refers to tortilla chips served alongside tacos at the party. 'bowl' refers to the salsa bowl central to the plot. Several existing activity_images (dragon, taco, salsa, party, house, fire, table, plate) and aac_extras (spicy, yum, eat, dance) overlap well with the fringe — reuse those assets. 'dance' from aac_extras was not included in the 11 fringe slots as it is less central than the food/fire vocabulary, but could substitute for 'big' if the teacher prefers. The hero dragon image needs to match the Adam Rubin illustrated style to be recognisable to students familiar with the book cover.",
+  "characters": [
+    "dragon"
+  ],
+  "code": "DLT1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

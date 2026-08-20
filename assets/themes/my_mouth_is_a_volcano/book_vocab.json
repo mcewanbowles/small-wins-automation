@@ -1,0 +1,88 @@
+{
+  "title": "My Mouth Is a Volcano!",
+  "author": "Julia Cook",
+  "hero": {
+    "name": "Louis",
+    "description": "Young boy with dark hair, open mouth, words erupting like a volcano — main character from the cover",
+    "search_term": "louis volcano boy",
+    "needs_sourcing": true,
+    "source_note": "Named character — source from Creative Fabrica or TPT clip art matching Julia Cook book art style"
+  },
+  "fringe_12": [
+    "Louis",
+    "interrupt",
+    "wait",
+    "talking",
+    "listening",
+    "erupt",
+    "excited",
+    "friends",
+    "hand",
+    "quiet",
+    "turn",
+    "feelings"
+  ],
+  "fringe_11": [
+    "interrupt",
+    "wait",
+    "talking",
+    "listening",
+    "erupt",
+    "excited",
+    "friends",
+    "hand",
+    "quiet",
+    "turn",
+    "feelings"
+  ],
+  "activity_images": [
+    "interrupt",
+    "wait",
+    "talking",
+    "listening",
+    "erupt",
+    "excited"
+  ],
+  "aac_extras": [
+    "friends",
+    "hand",
+    "quiet",
+    "turn",
+    "feelings"
+  ],
+  "ambiguous": [
+    {
+      "word": "hand",
+      "issue": "Could mean body part (hand) or the action of raising your hand to speak",
+      "preferred": "raise hand",
+      "reason": "In this book, raising your hand is the key social skill taught — action meaning is correct"
+    },
+    {
+      "word": "turn",
+      "issue": "Could mean rotating/spinning or taking a turn (waiting your turn to speak)",
+      "preferred": "my turn",
+      "reason": "Book is about taking turns in conversation — 'my turn' / 'your turn' is the correct meaning"
+    }
+  ],
+  "character_images_needed": [
+    "Louis"
+  ],
+  "icon_search_terms": {
+    "interrupt": "interrupt",
+    "wait": "wait",
+    "talking": "talking",
+    "listening": "listening",
+    "erupt": "volcano",
+    "excited": "excited",
+    "friends": "friends",
+    "hand": "raise hand",
+    "quiet": "quiet",
+    "turn": "my turn",
+    "feelings": "feelings"
+  },
+  "notes": "This book by Julia Cook teaches impulse control and turn-taking in conversation. The central metaphor is that Louis's thoughts 'erupt' like a volcano when he interrupts. Key vocabulary centres on social communication skills: waiting, listening, raising your hand, and taking turns. 'Erupt' is best represented by the volcano image already in activity_images. 'Feelings' is included because the book explicitly addresses why Louis feels compelled to blurt out — emotional literacy is a core theme. The word 'interrupt' may need to be sourced as a custom image (person tapping another on shoulder / speech bubble cutting in) as Boardmaker coverage varies. Secondary characters (classmates, teacher) are generic and do not need sourcing.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

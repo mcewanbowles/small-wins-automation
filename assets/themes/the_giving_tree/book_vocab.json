@@ -1,0 +1,94 @@
+{
+  "title": "The Giving Tree",
+  "author": "Shel Silverstein",
+  "hero": {
+    "name": "The Giving Tree",
+    "description": "A large green apple tree with a face, the central character of the book — the tree is the hero students will recognise from the cover",
+    "search_term": "tree",
+    "needs_sourcing": true,
+    "source_note": "The Giving Tree is a distinctive illustrated character with a face; source from Creative Fabrica or TPT clip art matching Shel Silverstein style"
+  },
+  "fringe_12": [
+    "The Giving Tree",
+    "boy",
+    "apple",
+    "tree",
+    "leaves",
+    "swing",
+    "money",
+    "house",
+    "boat",
+    "old",
+    "give",
+    "happy"
+  ],
+  "fringe_11": [
+    "boy",
+    "apple",
+    "tree",
+    "leaves",
+    "swing",
+    "money",
+    "house",
+    "boat",
+    "old",
+    "give",
+    "happy"
+  ],
+  "activity_images": [
+    "boy",
+    "apple",
+    "tree",
+    "leaves",
+    "swing",
+    "money"
+  ],
+  "aac_extras": [
+    "house",
+    "boat",
+    "old",
+    "give",
+    "happy"
+  ],
+  "ambiguous": [
+    {
+      "word": "old",
+      "issue": "Could map to a clock/time symbol or an elderly person — in this book it refers to the boy growing old over time",
+      "preferred": "old man",
+      "reason": "The boy grows into an old man by the end of the book; an elderly person image is correct"
+    },
+    {
+      "word": "give",
+      "issue": "Could map to a gift box or a hand giving an object — action verb with multiple visual representations",
+      "preferred": "give hand",
+      "reason": "The tree gives parts of itself to the boy; a hand offering something is the clearest picturable representation"
+    },
+    {
+      "word": "swing",
+      "issue": "Could mean a playground swing (noun) or the action of swinging",
+      "preferred": "swing playground",
+      "reason": "The boy swings on the tree's branches early in the story; the playground swing image is most recognisable"
+    }
+  ],
+  "character_images_needed": [
+    "The Giving Tree"
+  ],
+  "icon_search_terms": {
+    "boy": "boy",
+    "apple": "apple",
+    "tree": "tree",
+    "leaves": "leaves",
+    "swing": "swing playground",
+    "money": "bills",
+    "house": "house",
+    "boat": "boat",
+    "old": "old man",
+    "give": "give",
+    "happy": "happy"
+  },
+  "notes": "The Giving Tree by Shel Silverstein follows a boy and a tree across a lifetime. Key vocabulary reflects the objects the tree gives (apples, branches for a house, trunk for a boat) and the emotional arc (happy, give). The tree itself is the hero and needs custom sourcing as its illustrated face is distinctive. 'Old' is included because the passage of time and the boy ageing is central to the story. 'Money' is included because the boy sells apples for money in middle story stages. All 11 fringe words are concrete and picturable.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

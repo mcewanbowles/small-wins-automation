@@ -1,0 +1,86 @@
+{
+  "title": "Mouse's First Spring",
+  "author": "Lauren Thompson",
+  "hero": {
+    "name": "Mouse (Lauren Thompson)",
+    "description": "Small brown mouse character from Lauren Thompson's Mouse series, often shown exploring outdoors with Mama",
+    "search_term": "mouse animal",
+    "needs_sourcing": false,
+    "source_note": "Generic brown mouse from Boardmaker library should suffice; the character is a simple illustrated mouse without highly distinctive features"
+  },
+  "fringe_12": [
+    "Mouse (Lauren Thompson)",
+    "flower",
+    "butterfly",
+    "bee",
+    "bird",
+    "wind",
+    "rain",
+    "puddle",
+    "worm",
+    "bud",
+    "nest",
+    "warm"
+  ],
+  "fringe_11": [
+    "flower",
+    "butterfly",
+    "bee",
+    "bird",
+    "wind",
+    "rain",
+    "puddle",
+    "worm",
+    "bud",
+    "nest",
+    "warm"
+  ],
+  "activity_images": [
+    "flower",
+    "butterfly",
+    "bee",
+    "bird",
+    "wind",
+    "rain"
+  ],
+  "aac_extras": [
+    "puddle",
+    "worm",
+    "bud",
+    "nest",
+    "warm"
+  ],
+  "ambiguous": [
+    {
+      "word": "bud",
+      "issue": "Could mean a flower bud (noun) or informal term for a friend",
+      "preferred": "flower bud",
+      "reason": "Book is about spring nature discoveries; bud refers to a plant bud about to bloom"
+    },
+    {
+      "word": "warm",
+      "issue": "Could be a temperature adjective or a verb (to warm something)",
+      "preferred": "warm temperature",
+      "reason": "Book celebrates the warmth of spring; used as a descriptive sensation word"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "flower": "flower",
+    "butterfly": "butterfly",
+    "bee": "bee",
+    "bird": "bird",
+    "wind": "wind",
+    "rain": "rain",
+    "puddle": "puddle",
+    "worm": "worm",
+    "bud": "flower bud",
+    "nest": "nest",
+    "warm": "warm"
+  },
+  "notes": "All 11 fringe words are drawn directly from spring nature elements Mouse and Mama discover in the book (flowers, butterfly, bee, bird, wind, rain, puddle, worm, bud, nest, warm). Several (puddle, worm, nest, bud) are already in existing aac_extras and activity_images vocab, so icons may already be available. 'Warm' is the only abstract descriptor but is very concrete as a tactile sensation and central to the spring theme. The hero mouse is a generic illustrated brown mouse — standard Boardmaker mouse symbol should be recognisable without custom sourcing, though a Lauren Thompson-style image would be ideal if available.",
+  "characters": [],
+  "code": "MFS1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

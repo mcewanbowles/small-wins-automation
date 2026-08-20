@@ -1,0 +1,94 @@
+{
+  "title": "There Was an Old Lady Who Swallowed a Fly",
+  "author": "Traditional / Simms Taback (popular illustrated edition)",
+  "hero": {
+    "name": "Old Lady",
+    "description": "The old woman from the cover — wide-eyed, distinctive silhouette with transparent stomach showing swallowed animals",
+    "search_term": "old woman lady",
+    "needs_sourcing": true,
+    "source_note": "Named/distinctive character from cover — the transparent-stomach old lady is iconic; source from Creative Fabrica or TPT clip art for Simms Taback version"
+  },
+  "fringe_12": [
+    "OLD LADY",
+    "fly",
+    "spider",
+    "bird",
+    "cat",
+    "dog",
+    "cow",
+    "horse",
+    "swallow",
+    "eat",
+    "belly",
+    "dead"
+  ],
+  "fringe_11": [
+    "fly",
+    "spider",
+    "bird",
+    "cat",
+    "dog",
+    "cow",
+    "horse",
+    "swallow",
+    "eat",
+    "belly",
+    "dead"
+  ],
+  "activity_images": [
+    "fly",
+    "spider",
+    "bird",
+    "cat",
+    "dog",
+    "cow"
+  ],
+  "aac_extras": [
+    "horse",
+    "swallow",
+    "eat",
+    "belly",
+    "dead"
+  ],
+  "ambiguous": [
+    {
+      "word": "fly",
+      "issue": "Could mean the insect (noun) or the action of flying (verb)",
+      "preferred": "fly insect",
+      "reason": "The fly in this book is the first animal swallowed — it is a small insect, not the action of flying"
+    },
+    {
+      "word": "swallow",
+      "issue": "Could mean the action of swallowing (verb) or the bird species (noun)",
+      "preferred": "swallow action verb",
+      "reason": "The repeated refrain is 'she swallowed' — the action is central; the bird in the story is called 'bird' not 'swallow'"
+    },
+    {
+      "word": "dead",
+      "issue": "Could be represented by a tombstone, skull, or wilted figure — imagery varies widely",
+      "preferred": "dead person died",
+      "reason": "The repeated refrain ends 'she died of course' — 'dead' captures the humorous punchline students respond to; use a clear but age-appropriate symbol such as a tombstone or Xs for eyes"
+    }
+  ],
+  "character_images_needed": [
+    "Old Lady (transparent stomach, Simms Taback style)"
+  ],
+  "icon_search_terms": {
+    "fly": "fly insect",
+    "spider": "spider",
+    "bird": "bird",
+    "cat": "cat",
+    "dog": "dog",
+    "cow": "cow",
+    "horse": "horse",
+    "swallow": "swallow eat gulp",
+    "eat": "eat",
+    "belly": "belly stomach tummy",
+    "dead": "dead died"
+  },
+  "notes": "This is a cumulative repetitive book — ideal for AAC use as students can anticipate and sequence the animals in order. The 11 fringe words prioritise the six swallowed animals (fly, spider, bird, cat, dog, cow, horse — note horse is 7th animal and causes her death) plus the key actions and punchline vocabulary. 'Belly' supports pointing to the stomach visual common in illustrated versions. 'Dead' is intentionally included as the story's repeated dark-humour punchline is highly memorable and motivating for students. Some editions also include a duck or goat — if using those editions, consider swapping 'belly' or 'dead' for the additional animal. The author credit varies widely; Simms Taback's Caldecott-winning 1997 version is most common in classrooms.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

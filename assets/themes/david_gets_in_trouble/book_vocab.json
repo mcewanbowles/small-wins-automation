@@ -1,0 +1,88 @@
+{
+  "title": "David Gets In Trouble",
+  "author": "David Shannon",
+  "hero": {
+    "name": "David",
+    "description": "Young boy with spiky hair, big eyes, and gap-toothed grin — distinctive David Shannon character from the No David series",
+    "search_term": "david shannon boy",
+    "needs_sourcing": true,
+    "source_note": "Named/distinctive character from David Shannon's series — source from Creative Fabrica or TPT clip art"
+  },
+  "fringe_12": [
+    "David",
+    "trouble",
+    "sorry",
+    "accident",
+    "cry",
+    "bad",
+    "ball",
+    "dog",
+    "run",
+    "break",
+    "school",
+    "blame"
+  ],
+  "fringe_11": [
+    "trouble",
+    "sorry",
+    "accident",
+    "cry",
+    "bad",
+    "ball",
+    "dog",
+    "run",
+    "break",
+    "school",
+    "blame"
+  ],
+  "activity_images": [
+    "trouble",
+    "sorry",
+    "accident",
+    "cry",
+    "bad",
+    "ball"
+  ],
+  "aac_extras": [
+    "dog",
+    "run",
+    "break",
+    "school",
+    "blame"
+  ],
+  "ambiguous": [
+    {
+      "word": "break",
+      "issue": "Could mean to smash/destroy something (verb) or a rest period (noun)",
+      "preferred": "break smash",
+      "reason": "In the book David breaks things accidentally, so the action of smashing/destroying is the correct meaning"
+    },
+    {
+      "word": "bad",
+      "issue": "Could be a general adjective or could be confused with 'bad' as in naughty/misbehaving",
+      "preferred": "bad naughty",
+      "reason": "Context is misbehaviour — search for a symbol showing naughty or misbehaving rather than a generic thumbs-down bad"
+    }
+  ],
+  "character_images_needed": [
+    "David (David Shannon)"
+  ],
+  "icon_search_terms": {
+    "trouble": "trouble",
+    "sorry": "sorry",
+    "accident": "accident",
+    "cry": "cry",
+    "bad": "bad",
+    "ball": "ball",
+    "dog": "dog",
+    "run": "run",
+    "break": "break",
+    "school": "school",
+    "blame": "blame"
+  },
+  "notes": "David Gets In Trouble is part of David Shannon's No David series. The core theme is a child making excuses and deflecting blame before ultimately feeling remorseful and saying sorry — making 'trouble', 'sorry', 'accident', 'blame', and 'cry' particularly high-value fringe words for comprehension and retell. 'Blame' may not have a direct Boardmaker symbol — consider 'point' or 'not me' as fallback search terms. The fixed core already includes 'finished', 'uh oh', 'I don't know', and 'no', which all appear frequently in this book and will support participation without needing fringe slots.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

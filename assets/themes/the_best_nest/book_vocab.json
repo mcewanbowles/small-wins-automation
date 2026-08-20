@@ -1,0 +1,88 @@
+{
+  "title": "The Best Nest",
+  "author": "P.D. Eastman",
+  "hero": {
+    "name": "Mr. Bird",
+    "description": "Small cheerful bird character from P.D. Eastman's The Best Nest, distinct illustrated style",
+    "search_term": "mr bird eastman",
+    "needs_sourcing": true,
+    "source_note": "Named/distinctive P.D. Eastman character — source from TPT or Creative Fabrica clip art matching book illustration style"
+  },
+  "fringe_12": [
+    "Mr. Bird",
+    "nest",
+    "egg",
+    "tree",
+    "house",
+    "fly",
+    "build",
+    "feather",
+    "twig",
+    "best",
+    "sing",
+    "baby"
+  ],
+  "fringe_11": [
+    "nest",
+    "egg",
+    "tree",
+    "house",
+    "fly",
+    "build",
+    "feather",
+    "twig",
+    "best",
+    "sing",
+    "baby"
+  ],
+  "activity_images": [
+    "nest",
+    "egg",
+    "tree",
+    "house",
+    "fly",
+    "build"
+  ],
+  "aac_extras": [
+    "feather",
+    "twig",
+    "best",
+    "sing",
+    "baby"
+  ],
+  "ambiguous": [
+    {
+      "word": "fly",
+      "issue": "Could mean insect (noun) or the action of flying (verb)",
+      "preferred": "fly action",
+      "reason": "In this book, flying refers to Mr. Bird's movement through the air — the verb meaning is correct"
+    },
+    {
+      "word": "best",
+      "issue": "Could be interpreted as a superlative adjective or a trophy/award image",
+      "preferred": "best award",
+      "reason": "Central to the book's theme of finding the best nest — use a Boardmaker symbol showing 1st place or best ribbon if available, otherwise the word card"
+    }
+  ],
+  "character_images_needed": [
+    "Mr. Bird"
+  ],
+  "icon_search_terms": {
+    "nest": "nest",
+    "egg": "egg",
+    "tree": "tree",
+    "house": "house",
+    "fly": "fly bird flying",
+    "build": "build",
+    "feather": "feather",
+    "twig": "twig stick",
+    "best": "best 1st place",
+    "sing": "sing",
+    "baby": "baby"
+  },
+  "notes": "The story centres on Mr. Bird and Mrs. Bird searching for the best nest, eventually returning to their original tree nest when Mrs. Bird lays an egg. Key vocabulary supports retelling the journey: nest-building materials (twig, feather), locations (tree, house), and the resolution (egg, baby, best). 'Sing' is included because Mr. Bird sings 'I love my house' — a repeated refrain central to the book. Mrs. Bird could be added as a secondary character image if the board is extended. Existing activity_images (bird, nest, egg, tree, house) and aac_extras (fly, build, feather, twig) overlap well with recommended fringe — reuse those assets where possible.",
+  "characters": [],
+  "code": "TBN1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

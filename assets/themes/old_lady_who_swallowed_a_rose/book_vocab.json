@@ -1,0 +1,86 @@
+{
+  "title": "Old Lady Who Swallowed A Rose",
+  "author": "Unknown",
+  "hero": {
+    "name": "Old Lady",
+    "description": "The distinctive old lady character from the classic cumulative swallowing song/book series, typically depicted as a stout elderly woman in a dress",
+    "search_term": "old lady",
+    "needs_sourcing": false,
+    "source_note": "Generic elderly woman — Boardmaker 'old lady' or 'woman' symbol should suffice; if using the Lucille Colandro series illustration style, source from TPT"
+  },
+  "fringe_12": [
+    "Old Lady",
+    "rose",
+    "bow",
+    "snow",
+    "bow tie",
+    "wreath",
+    "sweater",
+    "swallow",
+    "Christmas",
+    "inside",
+    "belly",
+    "cold"
+  ],
+  "fringe_11": [
+    "rose",
+    "bow",
+    "snow",
+    "bow tie",
+    "wreath",
+    "sweater",
+    "swallow",
+    "Christmas",
+    "inside",
+    "belly",
+    "cold"
+  ],
+  "activity_images": [
+    "rose",
+    "bow",
+    "snow",
+    "bow tie",
+    "wreath",
+    "sweater"
+  ],
+  "aac_extras": [
+    "swallow",
+    "Christmas",
+    "inside",
+    "belly",
+    "cold"
+  ],
+  "ambiguous": [
+    {
+      "word": "bow",
+      "issue": "Could mean a decorative ribbon bow, a bow (archery), or to bow (action)",
+      "preferred": "bow ribbon",
+      "reason": "The book is Christmas-themed and involves the old lady swallowing decorative items; a ribbon bow is the correct meaning"
+    },
+    {
+      "word": "cold",
+      "issue": "Could mean temperature (adjective) or a sickness/cold",
+      "preferred": "cold temperature",
+      "reason": "The book is set in winter/Christmas context; cold refers to the winter weather"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "rose": "rose",
+    "bow": "bow ribbon",
+    "snow": "snow",
+    "bow tie": "bow tie",
+    "wreath": "wreath",
+    "sweater": "sweater",
+    "swallow": "swallow eat",
+    "Christmas": "christmas",
+    "inside": "inside",
+    "belly": "belly stomach",
+    "cold": "cold winter"
+  },
+  "notes": "This appears to be a Christmas-themed variant of the classic 'There Was an Old Lady Who Swallowed a Fly' cumulative song, likely the Lucille Colandro version 'There Was an Old Lady Who Swallowed a Rose.' The old lady swallows a series of Christmas-related items (rose, bow, wreath, sweater, etc.) which ultimately combine inside her belly to make a Christmas outfit. Key vocabulary focuses on the swallowed objects and the Christmas/winter theme. 'Swallow' is the core repeated action verb essential to the cumulative structure. If this is specifically the Colandro illustrated version, consider sourcing the distinctive illustrated old lady character from TPT for better student recognition.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

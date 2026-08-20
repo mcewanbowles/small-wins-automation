@@ -1,0 +1,82 @@
+{
+  "title": "It's Christmas, David!",
+  "author": "David Shannon",
+  "hero": {
+    "name": "David",
+    "description": "Mischievous round-headed boy with gap-toothed grin, distinctive David Shannon character from the No David series",
+    "search_term": "david shannon boy",
+    "needs_sourcing": true,
+    "source_note": "Named character — source from Creative Fabrica or TPT clip art; David Shannon's distinctive art style"
+  },
+  "fringe_12": [
+    "David",
+    "Christmas",
+    "Santa",
+    "present",
+    "naughty",
+    "nice",
+    "tree",
+    "snow",
+    "cookie",
+    "stocking",
+    "ornament",
+    "excited"
+  ],
+  "fringe_11": [
+    "Christmas",
+    "Santa",
+    "present",
+    "naughty",
+    "nice",
+    "tree",
+    "snow",
+    "cookie",
+    "stocking",
+    "ornament",
+    "excited"
+  ],
+  "activity_images": [
+    "Christmas",
+    "Santa",
+    "present",
+    "naughty",
+    "nice",
+    "tree"
+  ],
+  "aac_extras": [
+    "snow",
+    "cookie",
+    "stocking",
+    "ornament",
+    "excited"
+  ],
+  "ambiguous": [
+    {
+      "word": "present",
+      "issue": "Could mean a gift (noun) or to be present/here (adjective/verb)",
+      "preferred": "gift",
+      "reason": "Book is about Christmas and David receiving gifts; gift/wrapped present meaning is correct"
+    }
+  ],
+  "character_images_needed": [
+    "David (David Shannon)"
+  ],
+  "icon_search_terms": {
+    "Christmas": "christmas",
+    "Santa": "santa claus",
+    "present": "gift wrapped",
+    "naughty": "naughty",
+    "nice": "nice",
+    "tree": "christmas tree",
+    "snow": "snow",
+    "cookie": "cookie",
+    "stocking": "christmas stocking",
+    "ornament": "christmas ornament",
+    "excited": "excited"
+  },
+  "notes": "David Shannon's 'It's Christmas, David!' follows the beloved No David series character through Christmas mischief. Key themes include being naughty vs nice, anticipating Santa, decorating the tree, and receiving gifts. 'Naughty' and 'nice' are central opposites in the book and highly useful for discussion. The word 'present' is flagged as ambiguous but in context always means a wrapped gift. Students can use this board to retell David's mishaps and express excitement about Christmas traditions shown in the book.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

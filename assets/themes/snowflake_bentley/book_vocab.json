@@ -1,0 +1,88 @@
+{
+  "title": "Snowflake Bentley",
+  "author": "Jacqueline Briggs Martin",
+  "hero": {
+    "name": "Willie Bentley (Snowflake Bentley)",
+    "description": "Young boy in 19th-century farm clothing, later shown as adult man with camera and microscope, based on real historical figure Wilson Bentley",
+    "search_term": "snowflake bentley boy farmer",
+    "needs_sourcing": true,
+    "source_note": "Historical named figure — source period-appropriate boy or farmer illustration from Creative Fabrica or TPT clip art; book cover image may be usable with permission"
+  },
+  "fringe_12": [
+    "Willie Bentley (Snowflake Bentley)",
+    "snowflake",
+    "camera",
+    "microscope",
+    "snow",
+    "photograph",
+    "cold",
+    "farm",
+    "winter",
+    "beautiful",
+    "melt",
+    "study"
+  ],
+  "fringe_11": [
+    "snowflake",
+    "camera",
+    "microscope",
+    "snow",
+    "photograph",
+    "cold",
+    "farm",
+    "winter",
+    "beautiful",
+    "melt",
+    "study"
+  ],
+  "activity_images": [
+    "snowflake",
+    "camera",
+    "microscope",
+    "snow",
+    "photograph",
+    "cold"
+  ],
+  "aac_extras": [
+    "farm",
+    "winter",
+    "beautiful",
+    "melt",
+    "study"
+  ],
+  "ambiguous": [
+    {
+      "word": "beautiful",
+      "issue": "Abstract adjective — could map to a smiley face, a star, flowers, or other generic 'beautiful' images",
+      "preferred": "beautiful",
+      "reason": "Central to the book's theme — Bentley calls snowflakes beautiful; use a generic 'beautiful' or 'pretty' symbol showing sparkle or admiring face"
+    },
+    {
+      "word": "study",
+      "issue": "Could mean studying at a desk (school action) or examining something closely (scientific observation)",
+      "preferred": "study science",
+      "reason": "In this book 'study' means scientific observation of snowflakes; prefer a symbol showing person examining/observing rather than school desk"
+    }
+  ],
+  "character_images_needed": [
+    "Willie Bentley (Snowflake Bentley)"
+  ],
+  "icon_search_terms": {
+    "snowflake": "snowflake",
+    "camera": "camera",
+    "microscope": "microscope",
+    "snow": "snow",
+    "photograph": "photograph",
+    "cold": "cold",
+    "farm": "farm",
+    "winter": "winter",
+    "beautiful": "beautiful",
+    "melt": "melt",
+    "study": "study"
+  },
+  "notes": "Snowflake Bentley is a Caldecott Medal picture book biography of Wilson 'Snowflake' Bentley, a Vermont farmer who became the first person to photograph individual snowflakes. Key themes are scientific curiosity, persistence, winter/cold, and the beauty of nature. The word 'melt' is critical — Bentley had to work fast before snowflakes melted, which drives the story's tension. 'Photograph' is preferred over 'picture' to be book-specific and avoid confusion with the broader word 'picture'. The hero image will need sourcing as Boardmaker has no representation of this historical character; a period farm boy or Victorian-era man with camera would work. Activity images already in the library (boy, camera, snow, snowflake, barn, microscope) cover several fringe slots well and should be reused. 'Farm' and 'barn' are both relevant but 'farm' is chosen as the broader setting word to conserve slots.",
+  "characters": [],
+  "code": "SFB1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

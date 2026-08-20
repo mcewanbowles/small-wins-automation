@@ -1,0 +1,90 @@
+{
+  "title": "Silly Sally",
+  "author": "Audrey Wood",
+  "hero": {
+    "name": "Silly Sally",
+    "description": "Red-haired girl walking upside down backwards to town, distinctive Audrey Wood character",
+    "search_term": "silly sally girl",
+    "needs_sourcing": true,
+    "source_note": "Named character — source from Creative Fabrica or TPT clip art"
+  },
+  "fringe_12": [
+    "Silly Sally",
+    "silly",
+    "upside down",
+    "walk",
+    "town",
+    "sleep",
+    "pig",
+    "dog",
+    "loon",
+    "sheep",
+    "leap",
+    "sing"
+  ],
+  "fringe_11": [
+    "silly",
+    "upside down",
+    "walk",
+    "town",
+    "sleep",
+    "pig",
+    "dog",
+    "loon",
+    "sheep",
+    "leap",
+    "sing"
+  ],
+  "activity_images": [
+    "silly",
+    "upside down",
+    "walk",
+    "town",
+    "sleep",
+    "pig"
+  ],
+  "aac_extras": [
+    "dog",
+    "loon",
+    "sheep",
+    "leap",
+    "sing"
+  ],
+  "ambiguous": [
+    {
+      "word": "loon",
+      "issue": "Could mean a diving bird (loon) or informal word for a silly person",
+      "preferred": "loon bird",
+      "reason": "In the book a loon is one of the animals Sally meets on the road — the bird meaning is correct"
+    },
+    {
+      "word": "leap",
+      "issue": "Could be interpreted as a frog action (leap) or the general verb to jump",
+      "preferred": "leap jump",
+      "reason": "Sally and the pig play leapfrog in the book — action verb meaning is correct; use a leaping/jumping image"
+    }
+  ],
+  "character_images_needed": [
+    "Silly Sally"
+  ],
+  "icon_search_terms": {
+    "silly": "silly funny face",
+    "upside down": "upside down",
+    "walk": "walk",
+    "town": "town",
+    "sleep": "sleep",
+    "pig": "pig",
+    "dog": "dog",
+    "loon": "loon bird",
+    "sheep": "sheep",
+    "leap": "leap jump",
+    "sing": "sing"
+  },
+  "notes": "Silly Sally is a cumulative, repetitive story ideal for AAC use — Sally walks backwards and upside down to town, meeting a pig (leapfrog), a loon (singing), a sheep (dancing), and a dog (tickling) along the way. The words 'silly' and 'upside down' are already in aac_extras and should be reused. The existing activity_images include girl, pig, dog, road, and town which can be repurposed. 'Loon' may not exist in standard Boardmaker libraries — a generic bird image labelled 'loon' or a sourced clip art may be needed. The repetitive phrase structure ('Sally went to town, walking backwards, upside down') makes this book excellent for aided language stimulation during shared reading.",
+  "characters": [
+    "sally"
+  ],
+  "code": "SSY1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

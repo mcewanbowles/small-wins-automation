@@ -1,0 +1,86 @@
+{
+  "title": "The Gas We Pass: The Story of Farts",
+  "author": "Shinta Cho",
+  "hero": {
+    "name": "Generic child character",
+    "description": "Simple cartoon child figure used throughout the book to demonstrate farting and digestion concepts",
+    "search_term": "child",
+    "needs_sourcing": false,
+    "source_note": "Generic child figure — standard Boardmaker child symbol is suitable"
+  },
+  "fringe_12": [
+    "Generic child character",
+    "fart",
+    "tummy",
+    "food",
+    "beans",
+    "smell",
+    "funny",
+    "body",
+    "gas",
+    "animal",
+    "eat",
+    "burp"
+  ],
+  "fringe_11": [
+    "fart",
+    "tummy",
+    "food",
+    "beans",
+    "smell",
+    "funny",
+    "body",
+    "gas",
+    "animal",
+    "eat",
+    "burp"
+  ],
+  "activity_images": [
+    "fart",
+    "tummy",
+    "food",
+    "beans",
+    "smell",
+    "funny"
+  ],
+  "aac_extras": [
+    "body",
+    "gas",
+    "animal",
+    "eat",
+    "burp"
+  ],
+  "ambiguous": [
+    {
+      "word": "gas",
+      "issue": "Could mean flatulence (body gas), gasoline, or cooking gas",
+      "preferred": "gas body",
+      "reason": "Book is specifically about intestinal gas — the body meaning is correct"
+    },
+    {
+      "word": "smell",
+      "issue": "Could mean the act of smelling (verb) or a bad odour (noun)",
+      "preferred": "smell bad",
+      "reason": "Book context is about the unpleasant odour of farts — the noun/adjective sense of a bad smell is most useful"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "fart": "fart",
+    "tummy": "tummy",
+    "food": "food",
+    "beans": "beans",
+    "smell": "smell",
+    "funny": "funny",
+    "body": "body",
+    "gas": "gas",
+    "animal": "animal",
+    "eat": "eat",
+    "burp": "burp"
+  },
+  "notes": "This nonfiction picture book explains digestion and flatulence in simple terms. Most key vocabulary already exists in activity_images and aac_extras (body, stomach, burp, food, beans, tummy, laugh, fart, funny). Priority fringe words focus on the digestive process and sensory/social aspects of the topic. The word 'gas' is central to the title and concept. 'Animal' is useful as the book compares human and animal flatulence. Avoid 'laugh' as a fringe word since the core row already covers emotional reactions adequately; 'funny' is retained as it is more concrete and picturable. The book has no named character so a generic child symbol suffices for the hero slot.",
+  "characters": [],
+  "code": "GWP1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

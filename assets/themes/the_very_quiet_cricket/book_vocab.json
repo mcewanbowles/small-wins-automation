@@ -1,0 +1,94 @@
+{
+  "title": "The Very Quiet Cricket",
+  "author": "Eric Carle",
+  "hero": {
+    "name": "The Very Quiet Cricket",
+    "description": "Small brown cricket character from Eric Carle's book, distinctive Eric Carle collage art style",
+    "search_term": "cricket insect",
+    "needs_sourcing": true,
+    "source_note": "Eric Carle's distinctive collage-style cricket — generic Boardmaker cricket won't match; source from Creative Fabrica or TPT Eric Carle clip art"
+  },
+  "fringe_12": [
+    "cricket",
+    "chirp",
+    "quiet",
+    "hello",
+    "wing",
+    "night",
+    "moon",
+    "bug",
+    "rub",
+    "loud",
+    "firefly",
+    "meet"
+  ],
+  "fringe_11": [
+    "chirp",
+    "quiet",
+    "hello",
+    "wing",
+    "night",
+    "moon",
+    "bug",
+    "rub",
+    "loud",
+    "firefly",
+    "meet"
+  ],
+  "activity_images": [
+    "chirp",
+    "quiet",
+    "hello",
+    "wing",
+    "night",
+    "moon"
+  ],
+  "aac_extras": [
+    "bug",
+    "rub",
+    "loud",
+    "firefly",
+    "meet"
+  ],
+  "ambiguous": [
+    {
+      "word": "wing",
+      "issue": "Could refer to bird wing, butterfly wing, or insect wing",
+      "preferred": "insect wing",
+      "reason": "The cricket rubs its wings together to try to chirp — insect wing is the correct meaning"
+    },
+    {
+      "word": "bug",
+      "issue": "Could mean insect (noun) or software error or to annoy (verb)",
+      "preferred": "bug insect",
+      "reason": "Book features many insects — bug as insect/creepy crawly is correct"
+    },
+    {
+      "word": "meet",
+      "issue": "Could mean 'meet a person' (greet) or meat (food homophone)",
+      "preferred": "meet greet",
+      "reason": "Cricket meets many insects throughout the story — social greeting meaning is correct"
+    }
+  ],
+  "character_images_needed": [
+    "The Very Quiet Cricket (Eric Carle)"
+  ],
+  "icon_search_terms": {
+    "chirp": "chirp",
+    "quiet": "quiet",
+    "hello": "hello",
+    "wing": "wing",
+    "night": "night",
+    "moon": "moon",
+    "bug": "bug insect",
+    "rub": "rub",
+    "loud": "loud",
+    "firefly": "firefly",
+    "meet": "meet greet"
+  },
+  "notes": "The central story mechanic is the cricket trying and failing to chirp (rub wings) until the final page when it succeeds — 'chirp', 'quiet', 'loud', and 'rub' are essential for retelling. The book features a parade of insects (locust, praying mantis, worm, cicada, bumblebee, dragonfly, spittlebug, luna moth, fireflies) but only 'firefly' is included as the most visually memorable secondary character and the one present at the climactic chirp. 'Night' and 'moon' are important as the story ends at night. Several insect fringe words (cricket, firefly, moth, praying_mantis, spider, katydid, dragonfly, locust) already exist in activity_images and can be reused on an extended board if desired. The sound chip/audio element of the book (cricket chirping on last page) is a great engagement hook for students — 'sound' from aac_extras is also relevant.",
+  "characters": [],
+  "code": "TVQC1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

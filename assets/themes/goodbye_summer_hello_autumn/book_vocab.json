@@ -1,0 +1,92 @@
+{
+  "title": "Goodbye Summer Hello Autumn",
+  "author": "Unknown",
+  "hero": {
+    "name": "Child in autumn scene",
+    "description": "Generic child character walking through autumn landscape, likely on book cover",
+    "search_term": "child walking",
+    "needs_sourcing": false,
+    "source_note": "Generic child figure — standard Boardmaker child symbol should suffice"
+  },
+  "fringe_12": [
+    "Child in autumn scene",
+    "autumn",
+    "leaves",
+    "wind",
+    "trees",
+    "harvest",
+    "cold",
+    "orange",
+    "apple",
+    "goodbye",
+    "change",
+    "animals"
+  ],
+  "fringe_11": [
+    "autumn",
+    "leaves",
+    "wind",
+    "trees",
+    "harvest",
+    "cold",
+    "orange",
+    "apple",
+    "goodbye",
+    "change",
+    "animals"
+  ],
+  "activity_images": [
+    "autumn",
+    "leaves",
+    "wind",
+    "trees",
+    "harvest",
+    "cold"
+  ],
+  "aac_extras": [
+    "orange",
+    "apple",
+    "goodbye",
+    "change",
+    "animals"
+  ],
+  "ambiguous": [
+    {
+      "word": "fall",
+      "issue": "Could mean the season autumn or the action of falling down",
+      "preferred": "autumn",
+      "reason": "Book is about the season transition; 'autumn' is used instead to avoid ambiguity"
+    },
+    {
+      "word": "change",
+      "issue": "Could mean coins (noun) or transformation (verb/noun)",
+      "preferred": "change seasons",
+      "reason": "Book is about seasonal change — transformation meaning is correct; search for 'change' as transformation"
+    },
+    {
+      "word": "orange",
+      "issue": "Could mean the colour orange or the fruit orange",
+      "preferred": "orange colour",
+      "reason": "Autumn leaves are orange — colour meaning is primary, though fruit orange is also relevant to harvest theme"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "autumn": "autumn",
+    "leaves": "leaves",
+    "wind": "wind",
+    "trees": "tree",
+    "harvest": "harvest",
+    "cold": "cold",
+    "orange": "orange colour",
+    "apple": "apple",
+    "goodbye": "goodbye",
+    "change": "change",
+    "animals": "animals"
+  },
+  "notes": "Author listed as unknown — this may be 'Kenard Pak' (a known edition) or a similar seasonal picture book. The book follows a child observing nature saying goodbye to summer and welcoming autumn, with themes of seasonal change, falling leaves, harvest, cooler temperatures, and animal behaviour changes. 'Orange' is used as a colour word central to the autumn palette. 'Goodbye' is included as a key thematic/language word directly from the title. If the actual author is confirmed, update the author field. If the hero character is a distinctively illustrated named child, consider sourcing a custom image.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

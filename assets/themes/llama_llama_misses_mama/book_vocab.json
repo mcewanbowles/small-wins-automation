@@ -1,0 +1,82 @@
+{
+  "title": "Llama Llama Misses Mama",
+  "author": "Anna Dewdney",
+  "hero": {
+    "name": "Llama Llama",
+    "description": "Young red llama character, distinctive Anna Dewdney illustration style with expressive face",
+    "search_term": "llama llama",
+    "needs_sourcing": true,
+    "source_note": "Named character — source from Creative Fabrica or TPT clip art; must match Anna Dewdney's distinctive red llama design"
+  },
+  "fringe_12": [
+    "Llama Llama",
+    "mama",
+    "school",
+    "cry",
+    "friend",
+    "play",
+    "hug",
+    "sad",
+    "happy",
+    "teacher",
+    "miss",
+    "okay"
+  ],
+  "fringe_11": [
+    "mama",
+    "school",
+    "cry",
+    "friend",
+    "play",
+    "hug",
+    "sad",
+    "happy",
+    "teacher",
+    "miss",
+    "okay"
+  ],
+  "activity_images": [
+    "mama",
+    "school",
+    "cry",
+    "friend",
+    "play",
+    "hug"
+  ],
+  "aac_extras": [
+    "sad",
+    "happy",
+    "teacher",
+    "miss",
+    "okay"
+  ],
+  "ambiguous": [
+    {
+      "word": "miss",
+      "issue": "Could mean to miss a person (emotional longing) or to miss/fail to hit something",
+      "preferred": "miss person",
+      "reason": "Book is about separation anxiety — missing mama emotionally is the correct meaning"
+    }
+  ],
+  "character_images_needed": [
+    "Llama Llama"
+  ],
+  "icon_search_terms": {
+    "mama": "mama",
+    "school": "school",
+    "cry": "cry",
+    "friend": "friend",
+    "play": "play",
+    "hug": "hug",
+    "sad": "sad",
+    "happy": "happy",
+    "teacher": "teacher",
+    "miss": "miss person",
+    "okay": "okay"
+  },
+  "notes": "Core theme is separation anxiety at school drop-off — vocabulary focuses on emotions and reassurance rather than objects. 'sad', 'hug', and 'miss' are the emotional core of the story. 'okay' is important as the resolution word ('Mama will come back, everything is okay'). Existing activity_images already include llama, mama, school, teacher so those PNGs can be reused. Existing aac_extras include sad, happy, hug which can also be reused. 'cry' and 'miss' are the key new emotional words. 'friend' and 'play' reflect the classroom resolution arc where Llama Llama makes friends.",
+  "characters": [],
+  "code": "LLMM1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

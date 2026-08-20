@@ -1,0 +1,88 @@
+{
+  "title": "Llama Llama Trick Or Treat",
+  "author": "Anna Dewdney",
+  "hero": {
+    "name": "Llama Llama",
+    "description": "Young llama character from Anna Dewdney's series, distinctive red-pyjama style character with expressive face",
+    "search_term": "llama llama",
+    "needs_sourcing": true,
+    "source_note": "Named series character — source from Creative Fabrica or TPT clip art matching Anna Dewdney style"
+  },
+  "fringe_12": [
+    "Llama Llama",
+    "Halloween",
+    "costume",
+    "candy",
+    "trick or treat",
+    "scary",
+    "pumpkin",
+    "ghost",
+    "witch",
+    "bag",
+    "knock",
+    "night"
+  ],
+  "fringe_11": [
+    "Halloween",
+    "costume",
+    "candy",
+    "trick or treat",
+    "scary",
+    "pumpkin",
+    "ghost",
+    "witch",
+    "bag",
+    "knock",
+    "night"
+  ],
+  "activity_images": [
+    "Halloween",
+    "costume",
+    "candy",
+    "trick or treat",
+    "scary",
+    "pumpkin"
+  ],
+  "aac_extras": [
+    "ghost",
+    "witch",
+    "bag",
+    "knock",
+    "night"
+  ],
+  "ambiguous": [
+    {
+      "word": "bat",
+      "issue": "Could mean Halloween bat (flying animal) or baseball bat (sport equipment)",
+      "preferred": "bat animal",
+      "reason": "Book is a Halloween story — bat as spooky flying creature is the relevant meaning; however 'bat' was not selected as a fringe word; flagged for awareness if added"
+    },
+    {
+      "word": "bag",
+      "issue": "Could be a generic bag, shopping bag, or trick-or-treat candy bag",
+      "preferred": "trick or treat bag",
+      "reason": "In this Halloween context, the bag is specifically a candy collection bag used while trick-or-treating"
+    }
+  ],
+  "character_images_needed": [
+    "Llama Llama"
+  ],
+  "icon_search_terms": {
+    "Halloween": "halloween",
+    "costume": "costume",
+    "candy": "candy",
+    "trick or treat": "trick or treat",
+    "scary": "scary",
+    "pumpkin": "pumpkin",
+    "ghost": "ghost",
+    "witch": "witch",
+    "bag": "bag",
+    "knock": "knock",
+    "night": "night"
+  },
+  "notes": "This is a Halloween-themed Llama Llama book. The core vocabulary of trick-or-treating (costumes, candy, pumpkins, knocking on doors) is central to the story. 'Trick or treat' may need to be represented as a phrase card rather than a single-word symbol. 'Scary' is a key emotional/descriptive word throughout. Llama Llama is a named, distinctive character from the Anna Dewdney series and will not be adequately represented by a generic llama Boardmaker symbol — sourcing a style-matched PNG is recommended.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

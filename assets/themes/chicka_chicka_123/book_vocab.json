@@ -1,0 +1,86 @@
+{
+  "title": "Chicka Chicka 1, 2, 3",
+  "author": "Bill Martin Jr & Michael Sampson",
+  "hero": {
+    "name": "Apple Tree with numbers",
+    "description": "The central apple tree from the cover, shown with numbers climbing up it — the iconic image students will recognise from the book cover",
+    "search_term": "apple tree",
+    "needs_sourcing": false,
+    "source_note": "Generic apple tree symbol available in Boardmaker; no named character — use apple tree PNG"
+  },
+  "fringe_12": [
+    "Apple Tree with numbers",
+    "number",
+    "climb",
+    "apple",
+    "fall",
+    "hundred",
+    "bee",
+    "sun",
+    "up",
+    "down",
+    "count",
+    "again"
+  ],
+  "fringe_11": [
+    "number",
+    "climb",
+    "apple",
+    "fall",
+    "hundred",
+    "bee",
+    "sun",
+    "up",
+    "down",
+    "count",
+    "again"
+  ],
+  "activity_images": [
+    "number",
+    "climb",
+    "apple",
+    "fall",
+    "hundred",
+    "bee"
+  ],
+  "aac_extras": [
+    "sun",
+    "up",
+    "down",
+    "count",
+    "again"
+  ],
+  "ambiguous": [
+    {
+      "word": "fall",
+      "issue": "Could mean the season autumn (noun) or the action of falling down (verb)",
+      "preferred": "fall down",
+      "reason": "In Chicka Chicka 1,2,3 the numbers fall down from the apple tree — the action meaning is correct"
+    },
+    {
+      "word": "number",
+      "issue": "Could map to a generic number symbol, a numeral, or a telephone number",
+      "preferred": "numbers",
+      "reason": "Book is about counting numerals 1–100 climbing a tree — a numeral/digit image is correct"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "number": "numbers",
+    "climb": "climb",
+    "apple": "apple",
+    "fall": "fall down",
+    "hundred": "100",
+    "bee": "bee",
+    "sun": "sun",
+    "up": "up",
+    "down": "down",
+    "count": "count",
+    "again": "again"
+  },
+  "notes": "Chicka Chicka 1,2,3 is a counting/number concept book where numerals 1-100 climb an apple tree and then fall down, with a bee character appearing throughout. Core vocabulary already covers 'more' and fixed rows cover 'stop' and 'go' which are useful for this book. The hero slot uses a generic apple tree which Boardmaker covers well — no named or distinctive character exists in this book. 'hundred' (100) is a key concept as the numbers go all the way to 100 and '100' numeral symbols are available in Boardmaker. 'again' is already listed in existing aac_extras so its icon may already be available. 'up' and 'down' are in existing aac_extras as well — confirm these are included in the printed board layout even if sourced from aac_extras folder.",
+  "characters": [],
+  "code": "CC1231",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

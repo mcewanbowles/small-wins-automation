@@ -1,0 +1,86 @@
+{
+  "title": "The Very Busy Spider",
+  "author": "Eric Carle",
+  "hero": {
+    "name": "The Very Busy Spider",
+    "description": "A small brown spider spinning an intricate web — the iconic Eric Carle collage-art style spider on a white web",
+    "search_term": "spider",
+    "needs_sourcing": false,
+    "source_note": "Generic spider icon from Boardmaker is sufficient; if collage-art style is preferred source from Eric Carle licensed clip art"
+  },
+  "fringe_12": [
+    "The Very Busy Spider",
+    "web",
+    "spin",
+    "busy",
+    "farm",
+    "horse",
+    "pig",
+    "cow",
+    "sheep",
+    "rooster",
+    "fly",
+    "tired"
+  ],
+  "fringe_11": [
+    "web",
+    "spin",
+    "busy",
+    "farm",
+    "horse",
+    "pig",
+    "cow",
+    "sheep",
+    "rooster",
+    "fly",
+    "tired"
+  ],
+  "activity_images": [
+    "web",
+    "spin",
+    "busy",
+    "farm",
+    "horse",
+    "pig"
+  ],
+  "aac_extras": [
+    "cow",
+    "sheep",
+    "rooster",
+    "fly",
+    "tired"
+  ],
+  "ambiguous": [
+    {
+      "word": "fly",
+      "issue": "Could mean the housefly insect character that opens the book, or the action of flying",
+      "preferred": "fly insect",
+      "reason": "The fly in this book is the housefly that first speaks to the spider — the insect noun is the correct meaning"
+    },
+    {
+      "word": "spin",
+      "issue": "Could mean spinning around (dizzy action) or spinning a web (crafting action)",
+      "preferred": "spin web",
+      "reason": "In this book spin refers specifically to the spider spinning her web — a crafting/making action"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "web": "spider web",
+    "spin": "spin",
+    "busy": "busy",
+    "farm": "farm",
+    "horse": "horse",
+    "pig": "pig",
+    "cow": "cow",
+    "sheep": "sheep",
+    "rooster": "rooster",
+    "fly": "fly insect",
+    "tired": "tired"
+  },
+  "notes": "The Very Busy Spider has a strong repetitive structure — each farm animal invites the spider to play and she ignores them, spinning her web. The 11 fringe words cover the main animals (horse, pig, cow, sheep, rooster), the key objects (web, farm), the central action (spin), a key descriptor (busy), the opening character (fly as insect), and the resolution emotion (tired). Duck, dog, cat and goat also appear in the book but are lower priority given the 11-slot limit — duck, dog, cat and rooster already exist in aac_extras so rooster is retained as the most book-distinctive animal. If space allows in a future expanded board, add goat and duck. The spider itself is a generic enough image that Boardmaker's standard spider icon will be recognisable; no sourcing needed.",
+  "characters": [],
+  "code": "VBS1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

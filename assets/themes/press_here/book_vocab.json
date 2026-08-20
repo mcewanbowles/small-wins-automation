@@ -1,0 +1,92 @@
+{
+  "title": "Press Here",
+  "author": "Hervé Tullet",
+  "hero": {
+    "name": "Yellow Dot",
+    "description": "Simple yellow circle on white background — the main interactive dot character from the cover",
+    "search_term": "yellow dot circle",
+    "needs_sourcing": false,
+    "source_note": "A plain yellow filled circle — can be created or sourced as a simple geometric shape; Boardmaker 'yellow dot' or similar circle symbol may suffice"
+  },
+  "fringe_12": [
+    "Yellow Dot",
+    "dot",
+    "press",
+    "shake",
+    "blow",
+    "clap",
+    "yellow",
+    "red",
+    "blue",
+    "big",
+    "little",
+    "again"
+  ],
+  "fringe_11": [
+    "dot",
+    "press",
+    "shake",
+    "blow",
+    "clap",
+    "yellow",
+    "red",
+    "blue",
+    "big",
+    "little",
+    "again"
+  ],
+  "activity_images": [
+    "dot",
+    "press",
+    "shake",
+    "blow",
+    "clap",
+    "yellow"
+  ],
+  "aac_extras": [
+    "red",
+    "blue",
+    "big",
+    "little",
+    "again"
+  ],
+  "ambiguous": [
+    {
+      "word": "press",
+      "issue": "Could mean press with finger (action verb) or a printing press (noun) or press/squeeze an object",
+      "preferred": "press finger",
+      "reason": "Book is entirely about pressing dots with your finger — finger-press action is the correct meaning"
+    },
+    {
+      "word": "blow",
+      "issue": "Could mean blow with mouth (action) or wind blowing (weather phenomenon)",
+      "preferred": "blow mouth",
+      "reason": "Book asks child to blow on the page — blowing with mouth is the correct meaning"
+    },
+    {
+      "word": "little",
+      "issue": "Could map to 'small' adjective or to a young child ('little one')",
+      "preferred": "small little",
+      "reason": "Book contrasts big and little dots — size adjective is the correct meaning"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "dot": "dot circle",
+    "press": "press finger push button",
+    "shake": "shake",
+    "blow": "blow mouth",
+    "clap": "clap hands",
+    "yellow": "yellow",
+    "red": "red",
+    "blue": "blue",
+    "big": "big large",
+    "little": "little small",
+    "again": "again"
+  },
+  "notes": "Press Here has no named character — the hero is the yellow dot itself, which is a simple geometric shape easily recreated as a filled yellow circle. The book's vocabulary is unusually action-heavy (press, shake, blow, clap, tilt) reflecting its interactive nature. 'Again' is a high-priority word because the book's core invitation is to repeat actions — note that 'again' overlaps conceptually with 'more' in core row 2, but 'again' is sufficiently distinct (repeat this specific action vs want more of something) to justify inclusion. Colours yellow, red, and blue are central to the story as the dots change and multiply in these three colours. 'Big' and 'little' are core size concepts repeatedly demonstrated as dots grow and shrink. Words already in core rows (more, stop, go, finished) have been intentionally excluded from fringe.",
+  "characters": [],
+  "code": "PH1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

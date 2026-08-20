@@ -1,0 +1,87 @@
+{
+  "title": "The Garden That We Grew",
+  "author": "Joan Holub",
+  "hero": {
+    "name": "Pumpkin (giant pumpkin)",
+    "description": "Large round orange pumpkin, the central growing object of the story — children plant a seed and grow a giant pumpkin",
+    "search_term": "pumpkin",
+    "needs_sourcing": false,
+    "source_note": "Generic pumpkin icon available in Boardmaker library"
+  },
+  "fringe_12": [
+    "pumpkin",
+    "seed",
+    "dig",
+    "water",
+    "grow",
+    "garden",
+    "orange",
+    "big",
+    "pick",
+    "vine",
+    "rain",
+    "earth"
+  ],
+  "fringe_11": [
+    "seed",
+    "dig",
+    "water",
+    "grow",
+    "garden",
+    "orange",
+    "big",
+    "pick",
+    "vine",
+    "rain",
+    "earth"
+  ],
+  "activity_images": [
+    "seed",
+    "dig",
+    "water",
+    "grow",
+    "garden",
+    "orange"
+  ],
+  "aac_extras": [
+    "big",
+    "pick",
+    "vine",
+    "rain",
+    "earth"
+  ],
+  "ambiguous": [
+    {
+      "word": "pick",
+      "issue": "Could mean to choose (verb) or to harvest/pull from plant (verb)",
+      "preferred": "pick harvest",
+      "reason": "Book is about harvesting a pumpkin from the garden; harvesting meaning is correct"
+    },
+    {
+      "word": "earth",
+      "issue": "Could mean the planet Earth or soil/dirt",
+      "preferred": "dirt soil",
+      "reason": "Book context is gardening; soil/dirt meaning is correct — use 'dirt' or 'soil' search term"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "seed": "seed",
+    "dig": "dig",
+    "water": "water plant",
+    "grow": "grow",
+    "garden": "garden",
+    "orange": "orange color",
+    "big": "big large",
+    "pick": "pick harvest",
+    "vine": "vine",
+    "rain": "rain",
+    "earth": "dirt soil",
+    "pumpkin": "pumpkin"
+  },
+  "notes": "This rhyming picture book follows a group of children planting a pumpkin seed through to harvest. The pumpkin itself is the most recognisable central object and makes a strong hero icon — it is already in the existing activity_images vocab which is ideal. Several existing vocab items (seed, vine) are reused from the existing library. 'Water' here refers to the action of watering plants, not water as a drink — the icon_search_term 'water plant' clarifies this. 'Big' is included because the pumpkin growing to giant size is a core narrative payoff students will want to comment on. 'Orange' is included as a colour because naming the pumpkin's colour is a key concrete communication opportunity. 'Earth/dirt' replaces a more abstract word to keep vocabulary concrete and picturable.",
+  "characters": [],
+  "code": "TGTWG1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

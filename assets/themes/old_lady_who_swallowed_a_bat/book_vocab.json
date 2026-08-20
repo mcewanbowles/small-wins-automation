@@ -1,0 +1,88 @@
+{
+  "title": "Old Lady Who Swallowed A Bat",
+  "author": "Unknown",
+  "hero": {
+    "name": "Old Lady",
+    "description": "Quirky old woman in Halloween costume, same style as 'There Was an Old Lady Who Swallowed a Fly' series by Lucille Colandro — typically illustrated with wild hair and open mouth",
+    "search_term": "old woman lady",
+    "needs_sourcing": true,
+    "source_note": "Distinctive illustrated character from the Old Lady series — generic Boardmaker 'old woman' won't match cover art; source from TPT or Creative Fabrica"
+  },
+  "fringe_12": [
+    "Old Lady",
+    "bat",
+    "owl",
+    "ghost",
+    "cat",
+    "witch",
+    "swallow",
+    "fly",
+    "night",
+    "scary",
+    "silly",
+    "Halloween"
+  ],
+  "fringe_11": [
+    "bat",
+    "owl",
+    "ghost",
+    "cat",
+    "witch",
+    "swallow",
+    "fly",
+    "night",
+    "scary",
+    "silly",
+    "Halloween"
+  ],
+  "activity_images": [
+    "bat",
+    "owl",
+    "ghost",
+    "cat",
+    "witch",
+    "swallow"
+  ],
+  "aac_extras": [
+    "fly",
+    "night",
+    "scary",
+    "silly",
+    "Halloween"
+  ],
+  "ambiguous": [
+    {
+      "word": "bat",
+      "issue": "Could mean baseball bat (sports equipment) or bat (flying animal)",
+      "preferred": "bat animal",
+      "reason": "The old lady swallows a bat — the Halloween flying mammal, not a sports bat"
+    },
+    {
+      "word": "fly",
+      "issue": "Could mean housefly (insect) or the action of flying",
+      "preferred": "fly insect",
+      "reason": "In the Old Lady series the fly is the classic first swallowed creature — it is the insect, not the action"
+    }
+  ],
+  "character_images_needed": [
+    "Old Lady"
+  ],
+  "icon_search_terms": {
+    "bat": "bat",
+    "owl": "owl",
+    "ghost": "ghost",
+    "cat": "cat",
+    "witch": "witch",
+    "swallow": "swallow eat",
+    "fly": "fly insect",
+    "night": "night",
+    "scary": "afraid scared",
+    "silly": "silly",
+    "Halloween": "halloween"
+  },
+  "notes": "This Halloween-themed retelling follows the cumulative 'Old Lady Who Swallowed a Fly' pattern with spooky animals (bat, owl, ghost, cat, witch) swallowed in sequence. The cumulative repetitive structure makes this ideal for AAC — students can anticipate and fill in each animal. 'Swallow' is a key action verb central to every page turn. 'Scary' and 'silly' support emotional commentary on the Halloween theme. 'Night' provides setting. If the specific Lucille Colandro / Jared Lee edition is used, the character art is very distinctive and worth sourcing a matching clip art image.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

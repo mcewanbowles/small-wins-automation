@@ -1,0 +1,82 @@
+{
+  "title": "Pete At The Beach",
+  "author": "Unknown",
+  "hero": {
+    "name": "Pete the Cat",
+    "description": "Blue cat character, likely same Pete the Cat from Eric Litwin/James Dean series, at the beach",
+    "search_term": "pete cat",
+    "needs_sourcing": true,
+    "source_note": "Named character — source from Creative Fabrica or TPT clip art; likely Pete the Cat by James Dean"
+  },
+  "fringe_12": [
+    "Pete the Cat",
+    "beach",
+    "wave",
+    "sand",
+    "water",
+    "swim",
+    "sun",
+    "shell",
+    "boat",
+    "jump",
+    "wet",
+    "happy"
+  ],
+  "fringe_11": [
+    "beach",
+    "wave",
+    "sand",
+    "water",
+    "swim",
+    "sun",
+    "shell",
+    "boat",
+    "jump",
+    "wet",
+    "happy"
+  ],
+  "activity_images": [
+    "beach",
+    "wave",
+    "sand",
+    "water",
+    "swim",
+    "sun"
+  ],
+  "aac_extras": [
+    "shell",
+    "boat",
+    "jump",
+    "wet",
+    "happy"
+  ],
+  "ambiguous": [
+    {
+      "word": "wave",
+      "issue": "Could mean a water wave (noun) or waving hello (greeting action)",
+      "preferred": "wave water",
+      "reason": "Book is set at the beach; ocean wave is the correct meaning"
+    }
+  ],
+  "character_images_needed": [
+    "Pete the Cat"
+  ],
+  "icon_search_terms": {
+    "beach": "beach",
+    "wave": "wave",
+    "sand": "sand",
+    "water": "water",
+    "swim": "swim",
+    "sun": "sun",
+    "shell": "shell",
+    "boat": "boat",
+    "jump": "jump",
+    "wet": "wet",
+    "happy": "happy"
+  },
+  "notes": "Book title 'Pete At The Beach' matches the Pete the Cat universe by James Dean. Core beach vocabulary prioritised. 'wave' flagged as ambiguous — water wave preferred for beach context. 'wet' and 'happy' included as key descriptive/emotional words likely central to the story. If the book features a surfboard or specific sea creatures, those could replace lower-priority words like 'boat' upon review of actual text.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

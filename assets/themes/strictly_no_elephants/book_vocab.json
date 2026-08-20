@@ -1,0 +1,80 @@
+{
+  "title": "Strictly No Elephants",
+  "author": "Lisa Mantchev",
+  "hero": {
+    "name": "Little Elephant",
+    "description": "Small, round, cute elephant character — the boy's pet elephant from the book cover",
+    "search_term": "elephant",
+    "needs_sourcing": false,
+    "source_note": "Generic elephant symbol from Boardmaker should work well for this character"
+  },
+  "fringe_12": [
+    "Little Elephant",
+    "pet",
+    "friend",
+    "club",
+    "house",
+    "door",
+    "small",
+    "together",
+    "include",
+    "welcome",
+    "walk",
+    "different"
+  ],
+  "fringe_11": [
+    "pet",
+    "friend",
+    "club",
+    "house",
+    "door",
+    "small",
+    "together",
+    "include",
+    "welcome",
+    "walk",
+    "different"
+  ],
+  "activity_images": [
+    "pet",
+    "friend",
+    "club",
+    "house",
+    "door",
+    "small"
+  ],
+  "aac_extras": [
+    "together",
+    "include",
+    "welcome",
+    "walk",
+    "different"
+  ],
+  "ambiguous": [
+    {
+      "word": "different",
+      "issue": "Already exists in fixed core row 2 as a core word",
+      "preferred": "belong",
+      "reason": "The book's central theme is belonging and being included; 'belong' is more book-specific and avoids duplication with core. Swap 'different' for 'belong' in fringe."
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "pet": "pet",
+    "friend": "friend",
+    "club": "club",
+    "house": "house",
+    "door": "door",
+    "small": "small",
+    "together": "together",
+    "include": "include",
+    "welcome": "welcome",
+    "walk": "walk",
+    "belong": "belong"
+  },
+  "notes": "The book's core themes are inclusion, belonging, and friendship — a pet elephant is excluded from Pet Club because he is different, then the boy and his elephant start their own inclusive club. Key vocabulary should reflect these social-emotional themes. 'Different' appears in fixed core row 2 so 'belong' is recommended as a replacement fringe word. The existing activity_images already include 'elephant' which can serve double duty as the hero image. Secondary animal characters (penguin, skunk, bat, whale) are already in activity_images and may be used as supporting fringe if the board is expanded. The 11 chosen words prioritise the book's social narrative over character names.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

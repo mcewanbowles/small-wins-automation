@@ -1,0 +1,94 @@
+{
+  "title": "The Tiny Seed",
+  "author": "Eric Carle",
+  "hero": {
+    "name": "Tiny Seed",
+    "description": "Small brown seed character from Eric Carle's book, distinctive tiny seed among larger seeds",
+    "search_term": "seed plant tiny",
+    "needs_sourcing": true,
+    "source_note": "Specific Eric Carle illustration style seed — source from Creative Fabrica or TPT Eric Carle clip art"
+  },
+  "fringe_12": [
+    "Tiny Seed",
+    "wind",
+    "fly",
+    "fall",
+    "snow",
+    "mountain",
+    "ocean",
+    "desert",
+    "bird",
+    "flower",
+    "grow",
+    "big"
+  ],
+  "fringe_11": [
+    "wind",
+    "fly",
+    "fall",
+    "snow",
+    "mountain",
+    "ocean",
+    "desert",
+    "bird",
+    "flower",
+    "grow",
+    "big"
+  ],
+  "activity_images": [
+    "wind",
+    "fly",
+    "fall",
+    "snow",
+    "mountain",
+    "ocean"
+  ],
+  "aac_extras": [
+    "desert",
+    "bird",
+    "flower",
+    "grow",
+    "big"
+  ],
+  "ambiguous": [
+    {
+      "word": "fly",
+      "issue": "Could mean insect (noun) or the action of flying (verb)",
+      "preferred": "fly action",
+      "reason": "In The Tiny Seed, seeds are carried through the air by the wind — fly refers to the action of seeds flying/travelling through the sky"
+    },
+    {
+      "word": "fall",
+      "issue": "Could mean the season autumn (fall) or the action of falling down",
+      "preferred": "fall action",
+      "reason": "Seeds fall to the ground in the story — the physical action of falling is the correct meaning here"
+    },
+    {
+      "word": "big",
+      "issue": "Could be interpreted as a general size adjective but in this book it specifically contrasts the tiny seed with enormous objects and the giant flower it eventually becomes",
+      "preferred": "big large",
+      "reason": "Central contrast in the book is tiny vs big — big refers to size comparison and the giant flower at the end"
+    }
+  ],
+  "character_images_needed": [
+    "Tiny Seed"
+  ],
+  "icon_search_terms": {
+    "wind": "wind",
+    "fly": "fly bird flying",
+    "fall": "fall drop",
+    "snow": "snow",
+    "mountain": "mountain",
+    "ocean": "ocean sea",
+    "desert": "desert hot sand",
+    "bird": "bird",
+    "flower": "flower",
+    "grow": "grow plant",
+    "big": "big large"
+  },
+  "notes": "The Tiny Seed follows a seed through seasons and landscapes. Core vocabulary already contains 'small' (aac_extras) and 'cold/hot' (aac_extras) which complement this board well. The hero image needs to be specifically the Eric Carle tiny seed illustration as a generic seed PNG will not be recognisable as the book character. The journey through seasons (fall, snow, desert, ocean, mountain) is central to the plot and provides strong fringe vocabulary. 'grow' and 'big' capture the triumphant ending where the tiny seed becomes a giant flower. 'fly' and 'wind' capture the opening sequence. All 11 fringe words are high-utility for retelling and discussing this book.",
+  "characters": [],
+  "code": "TS1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

@@ -1,0 +1,87 @@
+{
+  "title": "From Seed to Plant",
+  "author": "Gail Gibbons",
+  "hero": {
+    "name": "Seed packet / sprouting seedling",
+    "description": "A small green seedling sprouting from soil, representing the central subject of the book — the journey from seed to plant",
+    "search_term": "seedling",
+    "needs_sourcing": false,
+    "source_note": "Generic seedling / sprout image available in Boardmaker symbol libraries"
+  },
+  "fringe_12": [
+    "Seed packet / sprouting seedling",
+    "seed",
+    "root",
+    "stem",
+    "leaf",
+    "flower",
+    "pollen",
+    "bee",
+    "fruit",
+    "soil",
+    "water",
+    "sun"
+  ],
+  "fringe_11": [
+    "seed",
+    "root",
+    "stem",
+    "leaf",
+    "flower",
+    "pollen",
+    "bee",
+    "fruit",
+    "soil",
+    "water",
+    "sun"
+  ],
+  "activity_images": [
+    "seed",
+    "root",
+    "stem",
+    "leaf",
+    "flower",
+    "pollen"
+  ],
+  "aac_extras": [
+    "bee",
+    "fruit",
+    "soil",
+    "water",
+    "sun"
+  ],
+  "ambiguous": [
+    {
+      "word": "fruit",
+      "issue": "Could mean the general category of sweet food or the botanical fruit (seed-bearing structure) as used in the book",
+      "preferred": "fruit botanical",
+      "reason": "Gibbons uses 'fruit' in the botanical sense — the part of the plant that contains seeds (e.g. apple, tomato, bean pod); a simple fruit image such as an apple works well and is concrete"
+    },
+    {
+      "word": "stem",
+      "issue": "Could refer to a plant stem or the STEM academic acronym",
+      "preferred": "plant stem",
+      "reason": "Book is about plant anatomy; search for 'stem plant' to avoid unrelated results"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "seed": "seed",
+    "root": "root plant",
+    "stem": "stem plant",
+    "leaf": "leaf",
+    "flower": "flower",
+    "pollen": "pollen",
+    "bee": "bee",
+    "fruit": "fruit apple",
+    "soil": "soil dirt",
+    "water": "water",
+    "sun": "sun",
+    "HERO": "seedling sprout"
+  },
+  "notes": "This is a non-fiction informational book about plant life cycles. All 11 fringe words directly match key vocabulary Gibbons introduces and labels with diagrams. Several words (seed, root, stem, leaf, flower, pollen, bee, fruit, soil) already exist in activity_images or aac_extras — icons can be reused directly. 'Water' and 'sun' are in aac_extras. The hero is a generic seedling/sprout rather than a named character; a standard Boardmaker sprout symbol is appropriate. Consider pairing this board with a hands-on plant-growing activity where students can point to 'soil', 'seed', 'water', and 'sun' as they work.",
+  "characters": [],
+  "code": "FSTP1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

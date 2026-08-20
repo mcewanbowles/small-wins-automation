@@ -1,0 +1,86 @@
+{
+  "title": "A Seed Is Sleepy",
+  "author": "Dianna Hutts Aston",
+  "hero": {
+    "name": "Seed (sleepy seed)",
+    "description": "A large, beautifully illustrated seed — the central motif of the book, depicted in detailed botanical style on the cover",
+    "search_term": "seed",
+    "needs_sourcing": false,
+    "source_note": "Generic seed image available in Boardmaker; use existing activity_images/seed if already present"
+  },
+  "fringe_12": [
+    "Seed (sleepy seed)",
+    "grow",
+    "plant",
+    "tree",
+    "rain",
+    "bee",
+    "fruit",
+    "bird",
+    "dig",
+    "earth",
+    "tiny",
+    "big"
+  ],
+  "fringe_11": [
+    "grow",
+    "plant",
+    "tree",
+    "rain",
+    "bee",
+    "fruit",
+    "bird",
+    "dig",
+    "earth",
+    "tiny",
+    "big"
+  ],
+  "activity_images": [
+    "grow",
+    "plant",
+    "tree",
+    "rain",
+    "bee",
+    "fruit"
+  ],
+  "aac_extras": [
+    "bird",
+    "dig",
+    "earth",
+    "tiny",
+    "big"
+  ],
+  "ambiguous": [
+    {
+      "word": "plant",
+      "issue": "Could mean the noun (a plant/organism) or the verb (to plant something in the ground)",
+      "preferred": "plant verb",
+      "reason": "The book focuses on the action of seeds being planted and growing; verb meaning is more communicatively useful for this board"
+    },
+    {
+      "word": "earth",
+      "issue": "Could mean the planet Earth or soil/ground",
+      "preferred": "soil ground",
+      "reason": "In this book context, earth refers to the ground/soil in which seeds are buried; search for 'soil' or 'ground' for correct image"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "grow": "grow plant",
+    "plant": "plant seed ground",
+    "tree": "tree",
+    "rain": "rain",
+    "bee": "bee",
+    "fruit": "fruit",
+    "bird": "bird",
+    "dig": "dig shovel",
+    "earth": "soil ground",
+    "tiny": "tiny small little",
+    "big": "big large"
+  },
+  "notes": "This is a lyrical nonfiction picture book about the life cycle of seeds. Existing activity_images (seed, sprout, root, stem, leaf, pod, shell, wind, soil, flower) and aac_extras (water, sun, sleep, wake) already cover many core book concepts and should be incorporated into the broader board activity materials. The 11 fringe words chosen here complement those existing assets by adding growth actions, living things that interact with seeds (bee, bird), and size descriptors (tiny, big) which are central to the book's language. 'Sleepy' is used metaphorically in the title but sleep/wake are already in aac_extras. The hero image uses the existing 'seed' asset since no named character appears — the seed itself is the protagonist.",
+  "characters": [],
+  "code": "ASIS1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

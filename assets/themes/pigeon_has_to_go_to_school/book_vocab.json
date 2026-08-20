@@ -1,0 +1,82 @@
+{
+  "title": "Pigeon Has To Go To School",
+  "author": "Mo Willems",
+  "hero": {
+    "name": "Pigeon",
+    "description": "Mo Willems' distinctive cartoon pigeon character — simple blue-grey bird with one large eye and expressive beak, iconic from the Don't Let the Pigeon series",
+    "search_term": "pigeon mo willems",
+    "needs_sourcing": true,
+    "source_note": "Named/distinctive character — source from Creative Fabrica, TPT, or Teachers Pay Teachers Mo Willems clip art sets"
+  },
+  "fringe_12": [
+    "PIGEON",
+    "school",
+    "nervous",
+    "learn",
+    "teacher",
+    "bus",
+    "friend",
+    "book",
+    "cry",
+    "new",
+    "fun",
+    "ready"
+  ],
+  "fringe_11": [
+    "school",
+    "nervous",
+    "learn",
+    "teacher",
+    "bus",
+    "friend",
+    "book",
+    "cry",
+    "new",
+    "fun",
+    "ready"
+  ],
+  "activity_images": [
+    "school",
+    "nervous",
+    "learn",
+    "teacher",
+    "bus",
+    "friend"
+  ],
+  "aac_extras": [
+    "book",
+    "cry",
+    "new",
+    "fun",
+    "ready"
+  ],
+  "ambiguous": [
+    {
+      "word": "new",
+      "issue": "Could be interpreted abstractly; visually tricky — 'new' as a concept vs a specific new object",
+      "preferred": "new",
+      "reason": "In this book 'new' refers to new school, new experiences — use the Boardmaker 'new' symbol which typically shows a starburst/tag indicating newness"
+    }
+  ],
+  "character_images_needed": [
+    "Pigeon"
+  ],
+  "icon_search_terms": {
+    "school": "school",
+    "nervous": "nervous",
+    "learn": "learn",
+    "teacher": "teacher",
+    "bus": "bus",
+    "friend": "friend",
+    "book": "book",
+    "cry": "cry",
+    "new": "new",
+    "fun": "fun",
+    "ready": "ready"
+  },
+  "notes": "This book is by Mo Willems (the Don't Let the Pigeon series author), not 'Unknown'. The Pigeon character is highly distinctive and beloved — sourcing an accurate clip art image is important for student recognition. Key themes are school anxiety, new experiences, and ultimately finding school enjoyable. 'Nervous' and 'ready' are high-value emotional/state words for back-to-school discussions. The bus is a concrete recurring story element. Avoid using a generic pigeon/bird Boardmaker symbol as students will not recognise it as THE Pigeon.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

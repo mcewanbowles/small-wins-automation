@@ -1,0 +1,86 @@
+{
+  "title": "Scarecrow",
+  "author": "Unknown",
+  "hero": {
+    "name": "Scarecrow",
+    "description": "Classic scarecrow figure with straw hat, patched clothes, and straw stuffing, standing in a field",
+    "search_term": "scarecrow",
+    "needs_sourcing": false,
+    "source_note": "Generic scarecrow image should be available in Boardmaker or standard clip art libraries"
+  },
+  "fringe_12": [
+    "Scarecrow",
+    "field",
+    "bird",
+    "crow",
+    "hat",
+    "straw",
+    "farm",
+    "stand",
+    "scary",
+    "clothes",
+    "wind",
+    "autumn"
+  ],
+  "fringe_11": [
+    "field",
+    "bird",
+    "crow",
+    "hat",
+    "straw",
+    "farm",
+    "stand",
+    "scary",
+    "clothes",
+    "wind",
+    "autumn"
+  ],
+  "activity_images": [
+    "field",
+    "bird",
+    "crow",
+    "hat",
+    "straw",
+    "farm"
+  ],
+  "aac_extras": [
+    "stand",
+    "scary",
+    "clothes",
+    "wind",
+    "autumn"
+  ],
+  "ambiguous": [
+    {
+      "word": "stand",
+      "issue": "Could mean the action of standing upright or a market/display stand",
+      "preferred": "stand upright",
+      "reason": "A scarecrow stands on a post in the field — the action/posture meaning is correct"
+    },
+    {
+      "word": "crow",
+      "issue": "Could mean the bird (crow) or the verb 'to crow' (rooster crowing)",
+      "preferred": "crow bird",
+      "reason": "Scarecrow books feature crows as the birds being scared away from crops"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "field": "field",
+    "bird": "bird",
+    "crow": "crow",
+    "hat": "hat",
+    "straw": "straw",
+    "farm": "barn",
+    "stand": "stand",
+    "scary": "afraid",
+    "clothes": "clothes",
+    "wind": "wind",
+    "autumn": "autumn"
+  },
+  "notes": "Author is listed as unknown — if a specific edition is identified, vocabulary may need refining. Core scarecrow story vocabulary is fairly consistent across versions: field/farm setting, birds/crows being scared away, scarecrow's clothing and straw, and seasonal autumn context. 'Scary' is used here to capture the scarecrow's purpose and emotional concept; 'afraid' is a close Boardmaker match. If the specific book has named characters or unique plot elements, fringe words should be revisited.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

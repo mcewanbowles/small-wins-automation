@@ -1,0 +1,89 @@
+{
+  "title": "I Am Going!",
+  "author": "Mo Willems",
+  "hero": {
+    "name": "Gerald the Elephant",
+    "description": "Large grey elephant, main character from the Elephant and Piggie series by Mo Willems",
+    "search_term": "elephant piggie gerald",
+    "needs_sourcing": true,
+    "source_note": "Named character from Elephant and Piggie series — source from Creative Fabrica or TPT clip art"
+  },
+  "fringe_12": [
+    "Gerald the Elephant",
+    "Piggie",
+    "sad",
+    "cry",
+    "leaving",
+    "lunch",
+    "bird",
+    "friend",
+    "wait",
+    "wave",
+    "alone",
+    "come back"
+  ],
+  "fringe_11": [
+    "Piggie",
+    "sad",
+    "cry",
+    "leaving",
+    "lunch",
+    "bird",
+    "friend",
+    "wait",
+    "wave",
+    "alone",
+    "come back"
+  ],
+  "activity_images": [
+    "Piggie",
+    "sad",
+    "cry",
+    "leaving",
+    "lunch",
+    "bird"
+  ],
+  "aac_extras": [
+    "friend",
+    "wait",
+    "wave",
+    "alone",
+    "come back"
+  ],
+  "ambiguous": [
+    {
+      "word": "wave",
+      "issue": "Could mean water wave or greeting/farewell gesture",
+      "preferred": "wave goodbye",
+      "reason": "In this book characters wave farewell as Piggie announces she is leaving"
+    },
+    {
+      "word": "leaving",
+      "issue": "Could be pictured as a person walking out a door or an abstract concept",
+      "preferred": "leaving",
+      "reason": "Central action of the book — Piggie announces she is going, so depict as character walking away"
+    }
+  ],
+  "character_images_needed": [
+    "Gerald the Elephant",
+    "Piggie"
+  ],
+  "icon_search_terms": {
+    "Piggie": "pig",
+    "sad": "sad",
+    "cry": "cry",
+    "leaving": "goodbye",
+    "lunch": "lunch",
+    "bird": "bird",
+    "friend": "friend",
+    "wait": "wait",
+    "wave": "wave",
+    "alone": "alone",
+    "come back": "come back"
+  },
+  "notes": "I Am Going! is from Mo Willems' Elephant and Piggie series. The story centres on Piggie announcing she is leaving for lunch, causing Gerald (the elephant) to become distraught. Key emotional vocabulary (sad, cry, alone) is central to the humour and meaning of the book. Both Gerald and Piggie are named distinctive characters and will need sourced clip art rather than generic Boardmaker symbols. 'Come back' is treated as a two-word phrase critical to Gerald's repeated pleading and should appear as a single cell if the board software allows compound labels.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

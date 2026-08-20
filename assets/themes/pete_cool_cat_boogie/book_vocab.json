@@ -1,0 +1,75 @@
+{
+  "title": "Pete Cool Cat Boogie",
+  "author": "Unknown",
+  "hero": {
+    "name": "Pete the Cat",
+    "description": "Blue cat with a cool attitude, likely dancing or in a boogie pose",
+    "search_term": "pete cat",
+    "needs_sourcing": true,
+    "source_note": "Named character — source from Creative Fabrica or TPT clip art; look for Pete dancing/boogie pose if available"
+  },
+  "fringe_12": [
+    "Pete the Cat",
+    "cat",
+    "dance",
+    "music",
+    "cool",
+    "sing",
+    "feet",
+    "happy",
+    "jump",
+    "fast",
+    "shake",
+    "friend"
+  ],
+  "fringe_11": [
+    "cat",
+    "dance",
+    "music",
+    "cool",
+    "sing",
+    "feet",
+    "happy",
+    "jump",
+    "fast",
+    "shake",
+    "friend"
+  ],
+  "activity_images": [
+    "cat",
+    "dance",
+    "music",
+    "cool",
+    "sing",
+    "feet"
+  ],
+  "aac_extras": [
+    "happy",
+    "jump",
+    "fast",
+    "shake",
+    "friend"
+  ],
+  "ambiguous": [],
+  "character_images_needed": [
+    "Pete the Cat"
+  ],
+  "icon_search_terms": {
+    "cat": "cat",
+    "dance": "dance",
+    "music": "music",
+    "cool": "cool",
+    "sing": "sing",
+    "feet": "feet",
+    "happy": "happy",
+    "jump": "jump",
+    "fast": "fast",
+    "shake": "shake",
+    "friend": "friend"
+  },
+  "notes": "All 11 fringe words are already available across activity_images and aac_extras so no new sourcing is needed beyond the hero image. The book is a music-and-movement title centred on dancing and rhythm, so action verbs like dance, jump, shake, and fast are highly relevant alongside emotional and social words like happy, cool, and friend. No ambiguous words identified in this set.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

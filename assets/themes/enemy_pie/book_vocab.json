@@ -1,0 +1,92 @@
+{
+  "title": "Enemy Pie",
+  "author": "Derek Munson",
+  "hero": {
+    "name": "Boy (narrator)",
+    "description": "Young boy protagonist, generic child character from the book cover",
+    "search_term": "boy child",
+    "needs_sourcing": false,
+    "source_note": "Generic child character — Boardmaker 'boy' or 'child' symbol should suffice"
+  },
+  "fringe_12": [
+    "Boy (narrator)",
+    "pie",
+    "friend",
+    "enemy",
+    "summer",
+    "garden",
+    "trampoline",
+    "laugh",
+    "secret",
+    "neighbourhood",
+    "dad",
+    "wish"
+  ],
+  "fringe_11": [
+    "pie",
+    "friend",
+    "enemy",
+    "summer",
+    "garden",
+    "trampoline",
+    "laugh",
+    "secret",
+    "neighbourhood",
+    "dad",
+    "wish"
+  ],
+  "activity_images": [
+    "pie",
+    "friend",
+    "enemy",
+    "summer",
+    "garden",
+    "trampoline"
+  ],
+  "aac_extras": [
+    "laugh",
+    "secret",
+    "neighbourhood",
+    "dad",
+    "wish"
+  ],
+  "ambiguous": [
+    {
+      "word": "enemy",
+      "issue": "Abstract concept — could be confused with 'bad person' generically or a villain image",
+      "preferred": "enemy",
+      "reason": "Central concept of the book; search for 'enemy' or 'bully' in Boardmaker; contextual label 'enemy' is best"
+    },
+    {
+      "word": "secret",
+      "issue": "Abstract concept — could map to a locked box, whisper, or sealed lips image",
+      "preferred": "secret whisper",
+      "reason": "In the book the secret is a whispered recipe/plan; a 'shh' or whisper image is most picturable"
+    },
+    {
+      "word": "wish",
+      "issue": "Could map to a birthday wish, a wishing well, or a star",
+      "preferred": "wish star",
+      "reason": "The boy makes a wish at the start of the story; a wishing star or person wishing is most recognisable"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "pie": "pie",
+    "friend": "friend",
+    "enemy": "enemy",
+    "summer": "summer",
+    "garden": "garden",
+    "trampoline": "trampoline",
+    "laugh": "laugh",
+    "secret": "secret",
+    "neighbourhood": "neighborhood",
+    "dad": "dad",
+    "wish": "wish"
+  },
+  "notes": "Enemy Pie is about a boy who learns that spending a day with his 'enemy' Jeremy Ross turns him into a friend. Key themes are friendship, enemies, and the magic 'enemy pie' his dad bakes. The existing activity_images already include 'pie', 'garden', 'trampoline', and 'summer' which align perfectly. 'Enemy' and 'secret' are central abstract concepts worth including despite being harder to picture — use 'enemy' (angry face / opposing figures) and 'secret' (shh / whisper symbol). 'Neighbourhood' may not have a strong Boardmaker match; try 'neighborhood', 'street', or 'houses'. 'Laugh' is a key emotional action in the friendship-building climax. 'Dad' is a pivotal character who bakes the pie and gives advice. 'Wish' reflects the boy's opening wish for a good summer without enemies.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

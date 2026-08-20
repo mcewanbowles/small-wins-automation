@@ -1,0 +1,86 @@
+{
+  "title": "The Thankful Book",
+  "author": "Unknown",
+  "hero": {
+    "name": "Thankful Child (generic)",
+    "description": "A child character expressing gratitude — likely a simple illustrated child on the cover",
+    "search_term": "child happy",
+    "needs_sourcing": false,
+    "source_note": "Generic child — use Boardmaker 'child happy' or 'boy' / 'girl' as appropriate once cover art is confirmed"
+  },
+  "fringe_12": [
+    "Thankful Child (generic)",
+    "thankful",
+    "family",
+    "friend",
+    "food",
+    "home",
+    "sun",
+    "book",
+    "dog",
+    "hug",
+    "happy",
+    "night"
+  ],
+  "fringe_11": [
+    "thankful",
+    "family",
+    "friend",
+    "food",
+    "home",
+    "sun",
+    "book",
+    "dog",
+    "hug",
+    "happy",
+    "night"
+  ],
+  "activity_images": [
+    "thankful",
+    "family",
+    "friend",
+    "food",
+    "home",
+    "sun"
+  ],
+  "aac_extras": [
+    "book",
+    "dog",
+    "hug",
+    "happy",
+    "night"
+  ],
+  "ambiguous": [
+    {
+      "word": "book",
+      "issue": "Could be confused with the action 'read' already in core, or a generic object",
+      "preferred": "book object",
+      "reason": "The Thankful Book is about things to be grateful for including books — use the noun/object image, not the reading action"
+    },
+    {
+      "word": "light",
+      "issue": "Not included but if added: could mean lamp/sunlight (noun) or lightweight (adjective)",
+      "preferred": "sun",
+      "reason": "Replaced with 'sun' to avoid ambiguity — sun is a concrete, picturable thankful item in the story"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "thankful": "thankful",
+    "family": "family",
+    "friend": "friend",
+    "food": "food",
+    "home": "home",
+    "sun": "sun",
+    "book": "book",
+    "dog": "dog",
+    "hug": "hug",
+    "happy": "happy",
+    "night": "night"
+  },
+  "notes": "Author listed as unknown — this may be a generic or public domain title, or could be a student-made book. Vocabulary is based on the common theme of a gratitude picture book covering family, food, home, nature, pets, and feelings. If the actual book is identified and has specific named characters or unique story elements, fringe words should be revised accordingly. The hero is set as a generic happy child; update if cover art shows a distinctive named character. 'Thankful' is included as a fringe word because while it is a key concept, it is not in core and is highly relevant and picturable in context.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

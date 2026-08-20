@@ -1,0 +1,86 @@
+{
+  "title": "Red Leaf Yellow Leaf",
+  "author": "Lois Ehlert",
+  "hero": {
+    "name": "Maple Tree",
+    "description": "A large maple tree with red and yellow autumn leaves, central image of the book",
+    "search_term": "tree",
+    "needs_sourcing": false,
+    "source_note": "Generic tree symbol from Boardmaker should work; specify autumn/maple if available"
+  },
+  "fringe_12": [
+    "Maple Tree",
+    "leaf",
+    "red",
+    "yellow",
+    "tree",
+    "fall",
+    "seed",
+    "root",
+    "bird",
+    "grow",
+    "water",
+    "wind"
+  ],
+  "fringe_11": [
+    "leaf",
+    "red",
+    "yellow",
+    "tree",
+    "fall",
+    "seed",
+    "root",
+    "bird",
+    "grow",
+    "water",
+    "wind"
+  ],
+  "activity_images": [
+    "leaf",
+    "red",
+    "yellow",
+    "tree",
+    "fall",
+    "seed"
+  ],
+  "aac_extras": [
+    "root",
+    "bird",
+    "grow",
+    "water",
+    "wind"
+  ],
+  "ambiguous": [
+    {
+      "word": "fall",
+      "issue": "Could mean the season autumn or the action of falling down",
+      "preferred": "autumn",
+      "reason": "The book is about autumn/fall season and leaves changing colour; seasonal meaning is correct"
+    },
+    {
+      "word": "root",
+      "issue": "Could mean plant root (underground) or the verb to root/cheer",
+      "preferred": "root plant",
+      "reason": "The book describes how a tree grows from roots; plant anatomy meaning is correct"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "leaf": "leaf",
+    "red": "red",
+    "yellow": "yellow",
+    "tree": "tree",
+    "fall": "autumn",
+    "seed": "seed",
+    "root": "root",
+    "bird": "bird",
+    "grow": "grow",
+    "water": "water",
+    "wind": "wind"
+  },
+  "notes": "Red Leaf Yellow Leaf by Lois Ehlert is a non-fiction picture book about the life cycle of a sugar maple tree through the seasons. The hero slot uses a generic tree image since the maple tree is a natural object well-covered by Boardmaker. Key vocabulary centres on autumn colours (red, yellow), plant parts (seed, root), and environmental elements (water, wind, bird). 'Fall' is flagged as ambiguous — use an autumn/falling-leaves image rather than a person falling. The book's strong colour theme makes red and yellow essential fringe words. Consider pairing this board with a real leaf sensory activity for engagement.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

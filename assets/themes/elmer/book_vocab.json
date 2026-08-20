@@ -1,0 +1,90 @@
+{
+  "title": "Elmer",
+  "author": "David McKee",
+  "hero": {
+    "name": "Elmer",
+    "description": "Patchwork elephant in bright multicoloured squares — the distinctive named character from the cover",
+    "search_term": "elmer patchwork elephant",
+    "needs_sourcing": true,
+    "source_note": "Named character with unique patchwork colouring — source from Creative Fabrica, TPT clip art, or David McKee licensed resources"
+  },
+  "fringe_12": [
+    "ELMER",
+    "elephant",
+    "patchwork",
+    "jungle",
+    "colour",
+    "laugh",
+    "grey",
+    "flower",
+    "berry",
+    "friends",
+    "parade",
+    "happy"
+  ],
+  "fringe_11": [
+    "elephant",
+    "patchwork",
+    "jungle",
+    "colour",
+    "laugh",
+    "grey",
+    "flower",
+    "berry",
+    "friends",
+    "parade",
+    "happy"
+  ],
+  "activity_images": [
+    "elephant",
+    "patchwork",
+    "jungle",
+    "colour",
+    "laugh",
+    "grey"
+  ],
+  "aac_extras": [
+    "flower",
+    "berry",
+    "friends",
+    "parade",
+    "happy"
+  ],
+  "ambiguous": [
+    {
+      "word": "grey",
+      "issue": "Could map to a colour swatch, an elephant, or a grey sky image",
+      "preferred": "grey colour swatch",
+      "reason": "In Elmer, grey is the colour Elmer wants to be to blend in — a plain colour tile is most useful on an AAC board"
+    },
+    {
+      "word": "colour",
+      "issue": "Could mean the action of colouring or the noun concept of colour/hue",
+      "preferred": "colour noun — spectrum or paint palette",
+      "reason": "Elmer is about being colourful and different; used here as a descriptor concept, not the act of colouring with crayons — note this word also appears in core row 5 so consider whether to replace with a more book-specific word such as 'rainbow'"
+    }
+  ],
+  "character_images_needed": [
+    "Elmer"
+  ],
+  "icon_search_terms": {
+    "elephant": "elephant",
+    "patchwork": "patchwork",
+    "jungle": "jungle",
+    "colour": "color",
+    "laugh": "laugh",
+    "grey": "gray",
+    "flower": "flower",
+    "berry": "berry",
+    "friends": "friends",
+    "parade": "parade",
+    "happy": "happy"
+  },
+  "notes": "Elmer's core theme is being different and being proud of it — 'different' is already in the fixed core row 2 which is ideal for this book. 'colour' also appears in core row 5; consider swapping fringe slot for 'rainbow' if duplication is a concern. The word 'joke' is in existing aac_extras and is relevant (Elmer plays jokes on the other animals) — it was not included in fringe_11 as the 11 chosen words cover higher-frequency communication targets, but it can be added as an extension. 'Rain' is in existing activity_images and is relevant to the ending scene where rain washes Elmer back to his true colours. The patchwork pattern is central to the story and the word supports both the character and the theme of uniqueness.",
+  "characters": [
+    "elmer"
+  ],
+  "code": "ELM1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

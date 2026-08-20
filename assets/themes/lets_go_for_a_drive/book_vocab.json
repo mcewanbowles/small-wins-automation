@@ -1,0 +1,83 @@
+{
+  "title": "Let's Go For A Drive",
+  "author": "Unknown",
+  "hero": {
+    "name": "Elephant and Piggie (Gerald and Piggie)",
+    "description": "Gerald the grey elephant and Piggie the pink pig, Mo Willems characters from the Elephant and Piggie series",
+    "search_term": "elephant piggie mo willems",
+    "needs_sourcing": true,
+    "source_note": "Named Mo Willems characters — source from Creative Fabrica or TPT clip art; this is an Elephant and Piggie book"
+  },
+  "fringe_12": [
+    "Elephant and Piggie (Gerald and Piggie)",
+    "car",
+    "drive",
+    "bag",
+    "sunglasses",
+    "map",
+    "ready",
+    "excited",
+    "problem",
+    "find",
+    "road",
+    "fun"
+  ],
+  "fringe_11": [
+    "car",
+    "drive",
+    "bag",
+    "sunglasses",
+    "map",
+    "ready",
+    "excited",
+    "problem",
+    "find",
+    "road",
+    "fun"
+  ],
+  "activity_images": [
+    "car",
+    "drive",
+    "bag",
+    "sunglasses",
+    "map",
+    "ready"
+  ],
+  "aac_extras": [
+    "excited",
+    "problem",
+    "find",
+    "road",
+    "fun"
+  ],
+  "ambiguous": [
+    {
+      "word": "find",
+      "issue": "Could mean physically locating an object or discovering information",
+      "preferred": "find object",
+      "reason": "In this book the characters keep finding they are missing items they need for the drive; concrete searching action"
+    }
+  ],
+  "character_images_needed": [
+    "Gerald the Elephant (Mo Willems)",
+    "Piggie the Pig (Mo Willems)"
+  ],
+  "icon_search_terms": {
+    "car": "car",
+    "drive": "drive car",
+    "bag": "bag",
+    "sunglasses": "sunglasses",
+    "map": "map",
+    "ready": "ready",
+    "excited": "excited",
+    "problem": "problem",
+    "find": "find",
+    "road": "road",
+    "fun": "fun"
+  },
+  "notes": "This is an Elephant and Piggie book by Mo Willems. The core joke of the story is that Gerald and Piggie keep realising they are missing something needed for the drive (sunglasses, a bag, a map), so problem-solving vocabulary is central. 'Excited' and 'ready' capture the emotional arc. 'Fun' is a key word as the drive itself represents desired fun. The hero slot should show both Gerald and Piggie together if possible, as both characters are equally central. Boardmaker generic elephant/pig icons will not match the distinctive Mo Willems art style — sourced clip art is strongly recommended.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

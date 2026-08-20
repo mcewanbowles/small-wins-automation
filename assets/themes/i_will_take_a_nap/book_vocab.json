@@ -1,0 +1,89 @@
+{
+  "title": "I Will Take A Nap",
+  "author": "Mo Willems",
+  "hero": {
+    "name": "Gerald the Elephant",
+    "description": "Large grey elephant in glasses, main character from the Elephant and Piggie series by Mo Willems",
+    "search_term": "gerald elephant mo willems",
+    "needs_sourcing": true,
+    "source_note": "Named character from Elephant and Piggie series — source from Creative Fabrica, TPT, or Mo Willems licensed clip art"
+  },
+  "fringe_12": [
+    "Gerald the Elephant",
+    "nap",
+    "sleep",
+    "tired",
+    "angry",
+    "hat",
+    "pillow",
+    "bed",
+    "quiet",
+    "wake",
+    "grumpy",
+    "friend"
+  ],
+  "fringe_11": [
+    "nap",
+    "sleep",
+    "tired",
+    "angry",
+    "hat",
+    "pillow",
+    "bed",
+    "quiet",
+    "wake",
+    "grumpy",
+    "friend"
+  ],
+  "activity_images": [
+    "nap",
+    "sleep",
+    "tired",
+    "angry",
+    "hat",
+    "pillow"
+  ],
+  "aac_extras": [
+    "bed",
+    "quiet",
+    "wake",
+    "grumpy",
+    "friend"
+  ],
+  "ambiguous": [
+    {
+      "word": "wake",
+      "issue": "Could mean to wake up from sleep (verb) or a funeral wake (noun)",
+      "preferred": "wake up",
+      "reason": "Book is about Gerald trying to nap and being woken — action of waking from sleep is correct"
+    },
+    {
+      "word": "hat",
+      "issue": "Gerald uses his hat as a do-not-disturb signal for napping — could be confused with a general clothing item",
+      "preferred": "hat",
+      "reason": "The hat is a central prop in the story used to signal nap time; standard hat image is correct"
+    }
+  ],
+  "character_images_needed": [
+    "Gerald the Elephant",
+    "Piggie"
+  ],
+  "icon_search_terms": {
+    "nap": "nap",
+    "sleep": "sleep",
+    "tired": "tired",
+    "angry": "angry",
+    "hat": "hat",
+    "pillow": "pillow",
+    "bed": "bed",
+    "quiet": "quiet",
+    "wake": "awake",
+    "grumpy": "grumpy",
+    "friend": "friend"
+  },
+  "notes": "This is a Mo Willems Elephant and Piggie book. Gerald the elephant wants to take a nap but is repeatedly interrupted, mostly by Piggie. Key themes are tiredness, anger/grumpiness, and the concept of rest. The hat serves as a plot device (Gerald uses it to signal he is napping). Piggie should be added to character_images_needed as she is the main secondary character who interrupts the nap. Both characters need Mo Willems licensed or TPT-sourced clip art as Boardmaker generics will not match student recognition from the book cover.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

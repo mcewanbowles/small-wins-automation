@@ -1,0 +1,81 @@
+{
+  "title": "The Napping House",
+  "author": "Audrey Wood",
+  "hero": {
+    "name": "Napping House",
+    "description": "Cozy house at night with warm glowing window in the rain, as depicted on the book cover",
+    "search_term": "house",
+    "needs_sourcing": false,
+    "source_note": "Generic house symbol works well; the setting is the central image students recognise from the cover"
+  },
+  "fringe_12": [
+    "house",
+    "sleep",
+    "snore",
+    "wake",
+    "bed",
+    "grandma",
+    "boy",
+    "dog",
+    "cat",
+    "mouse",
+    "flea",
+    "rain"
+  ],
+  "fringe_11": [
+    "sleep",
+    "snore",
+    "wake",
+    "bed",
+    "grandma",
+    "boy",
+    "dog",
+    "cat",
+    "mouse",
+    "flea",
+    "rain"
+  ],
+  "activity_images": [
+    "sleep",
+    "snore",
+    "wake",
+    "bed",
+    "grandma",
+    "boy"
+  ],
+  "aac_extras": [
+    "dog",
+    "cat",
+    "mouse",
+    "flea",
+    "rain"
+  ],
+  "ambiguous": [
+    {
+      "word": "flea",
+      "issue": "Could be confused with 'flee' (run away) — similar pronunciation, different meaning",
+      "preferred": "flea insect",
+      "reason": "The flea is the tiny insect character that bites the mouse and starts the chain reaction of waking"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "sleep": "sleep",
+    "snore": "snore",
+    "wake": "awake",
+    "bed": "bed",
+    "grandma": "grandma",
+    "boy": "boy",
+    "dog": "dog",
+    "cat": "cat",
+    "mouse": "mouse",
+    "flea": "flea",
+    "rain": "rain",
+    "house": "house"
+  },
+  "notes": "All 11 fringe words are already present in either activity_images or aac_extras, so no new icons need to be sourced. The hero slot uses 'house' which is also in activity_images. The book's core vocabulary is a stacking/cumulative sequence — the fringe words map directly to each character in the pile (grandma, boy, dog, cat, mouse, flea) plus the key setting and action words (sleep, snore, wake, bed, rain). The word 'quilt' from existing activity_images was not included as the 11 most communicatively useful slots were filled by the characters and actions; consider swapping 'rain' for 'quilt' if the teacher wants to focus on the cosy bedding imagery. The fixed core row 5 already includes 'go' and 'stop' which pair well with the waking-up sequence in this book.",
+  "characters": [],
+  "code": "TNH1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

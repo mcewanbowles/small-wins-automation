@@ -1,0 +1,80 @@
+{
+  "title": "Do You Know Which Ones Will Grow?",
+  "author": "Susan A. Shea",
+  "hero": {
+    "name": "Child (boy with dog)",
+    "description": "A curious young boy with his dog, exploring what grows and what does not — generic child character from cover illustration",
+    "search_term": "boy child",
+    "needs_sourcing": false,
+    "source_note": "Generic child character — Boardmaker boy or child symbol should suffice"
+  },
+  "fringe_12": [
+    "Child (boy with dog)",
+    "grow",
+    "baby",
+    "seed",
+    "egg",
+    "plant",
+    "animal",
+    "big",
+    "small",
+    "flower",
+    "tree",
+    "puppy"
+  ],
+  "fringe_11": [
+    "grow",
+    "baby",
+    "seed",
+    "egg",
+    "plant",
+    "animal",
+    "big",
+    "small",
+    "flower",
+    "tree",
+    "puppy"
+  ],
+  "activity_images": [
+    "grow",
+    "baby",
+    "seed",
+    "egg",
+    "plant",
+    "animal"
+  ],
+  "aac_extras": [
+    "big",
+    "small",
+    "flower",
+    "tree",
+    "puppy"
+  ],
+  "ambiguous": [
+    {
+      "word": "plant",
+      "issue": "Could mean a factory/building (noun) or the action of planting (verb)",
+      "preferred": "plant flower",
+      "reason": "Book is about things that grow; plant as a living green organism is the correct meaning"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "grow": "grow",
+    "baby": "baby",
+    "seed": "seed",
+    "egg": "egg",
+    "plant": "plant flower",
+    "animal": "animal",
+    "big": "big",
+    "small": "small",
+    "flower": "flower",
+    "tree": "tree",
+    "puppy": "puppy"
+  },
+  "notes": "This book pairs living things that grow (seeds, eggs, puppies, babies, plants, trees) with non-living things that do not grow (toys, shoes, cars). The core concept is the grow/no grow distinction, making 'grow', 'big', 'small', 'baby', and 'seed' high-priority fringe words. 'Puppy' is chosen over 'dog' because the book specifically shows young animals growing into adults. The fixed core words 'same' and 'different' are especially useful for this book's compare-and-contrast concept and should be highlighted during reading sessions.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

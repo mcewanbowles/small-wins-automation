@@ -1,0 +1,88 @@
+{
+  "title": "The Bad Guys",
+  "author": "Aaron Blabey",
+  "hero": {
+    "name": "Mr. Wolf",
+    "description": "Tall black wolf in suit, main character and leader of the Bad Guys gang from Aaron Blabey series",
+    "search_term": "wolf suit bad guys",
+    "needs_sourcing": true,
+    "source_note": "Named/distinctive character — source from Creative Fabrica or TPT clip art for Aaron Blabey Bad Guys series"
+  },
+  "fringe_12": [
+    "Mr. Wolf",
+    "bad",
+    "good",
+    "scared",
+    "friend",
+    "shark",
+    "snake",
+    "spider",
+    "catch",
+    "run",
+    "help",
+    "funny"
+  ],
+  "fringe_11": [
+    "bad",
+    "good",
+    "scared",
+    "friend",
+    "shark",
+    "snake",
+    "spider",
+    "catch",
+    "run",
+    "help",
+    "funny"
+  ],
+  "activity_images": [
+    "bad",
+    "good",
+    "scared",
+    "friend",
+    "shark",
+    "snake"
+  ],
+  "aac_extras": [
+    "spider",
+    "catch",
+    "run",
+    "help",
+    "funny"
+  ],
+  "ambiguous": [
+    {
+      "word": "bad",
+      "issue": "Could mean morally bad (villain) or feeling bad (unwell)",
+      "preferred": "bad",
+      "reason": "In this book 'bad' refers to the villain identity/reputation of the characters — use the standard Boardmaker 'bad' symbol showing thumbs down or negative expression"
+    },
+    {
+      "word": "catch",
+      "issue": "Could mean catching a ball (sport) or catching a person/animal (chase/grab)",
+      "preferred": "catch",
+      "reason": "In this book catching refers to grabbing/capturing characters — use the action catch/grab symbol rather than a sports ball symbol"
+    }
+  ],
+  "character_images_needed": [
+    "Mr. Wolf (The Bad Guys)"
+  ],
+  "icon_search_terms": {
+    "bad": "bad",
+    "good": "good",
+    "scared": "afraid",
+    "friend": "friend",
+    "shark": "shark",
+    "snake": "snake",
+    "spider": "spider",
+    "catch": "catch",
+    "run": "run",
+    "help": "help",
+    "funny": "funny"
+  },
+  "notes": "The Bad Guys by Aaron Blabey is a humorous early chapter book about a wolf, shark, piranha, and snake who want to be heroes. Key themes are good vs bad, friendship, helping others, and comedy. 'help' appears in both fixed core row 2 and fringe — consider swapping 'help' in fringe for 'laugh' or 'hero' since help is already a core word. Suggested replacement: swap 'help' for 'hero' to better reflect the book's central theme of the bad guys trying to do good deeds. Secondary characters (Mr. Shark, Mr. Snake, Mr. Piranha) are all named characters but are represented by their animal type words in the fringe rather than sourced images, which is appropriate for this board. The piranha was omitted from the fringe animal list in favour of the more picturable/searchable animals — consider swapping 'spider' for 'piranha' if the teacher prioritises book accuracy over symbol availability.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

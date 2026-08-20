@@ -1,0 +1,88 @@
+{
+  "title": "Llama Llama Holiday Drama",
+  "author": "Anna Dewdney",
+  "hero": {
+    "name": "Llama Llama",
+    "description": "Young llama character in red pajamas, distinctive Anna Dewdney illustration style",
+    "search_term": "llama llama",
+    "needs_sourcing": true,
+    "source_note": "Named character — source from Creative Fabrica or TPT clip art"
+  },
+  "fringe_12": [
+    "Llama Llama",
+    "Christmas",
+    "present",
+    "tree",
+    "wait",
+    "Mama",
+    "excited",
+    "shopping",
+    "lights",
+    "hug",
+    "worried",
+    "red"
+  ],
+  "fringe_11": [
+    "Christmas",
+    "present",
+    "tree",
+    "wait",
+    "Mama",
+    "excited",
+    "shopping",
+    "lights",
+    "hug",
+    "worried",
+    "red"
+  ],
+  "activity_images": [
+    "Christmas",
+    "present",
+    "tree",
+    "wait",
+    "Mama",
+    "excited"
+  ],
+  "aac_extras": [
+    "shopping",
+    "lights",
+    "hug",
+    "worried",
+    "red"
+  ],
+  "ambiguous": [
+    {
+      "word": "lights",
+      "issue": "Could mean lamp/light fixture or holiday string lights",
+      "preferred": "Christmas lights",
+      "reason": "Book is set during Christmas holiday preparation; string lights on a tree or house is the relevant image"
+    },
+    {
+      "word": "tree",
+      "issue": "Could be a generic tree or a Christmas tree",
+      "preferred": "Christmas tree",
+      "reason": "The story centres on holiday preparations including decorating a Christmas tree"
+    }
+  ],
+  "character_images_needed": [
+    "Llama Llama"
+  ],
+  "icon_search_terms": {
+    "Christmas": "christmas",
+    "present": "present",
+    "tree": "christmas tree",
+    "wait": "wait",
+    "Mama": "mama",
+    "excited": "excited",
+    "shopping": "shopping",
+    "lights": "christmas lights",
+    "hug": "hug",
+    "worried": "worried",
+    "red": "red"
+  },
+  "notes": "Story follows Llama Llama's impatience and anxiety during holiday preparations leading up to Christmas. Key emotional vocabulary (excited, worried, wait) is central to the narrative arc. 'Mama' is a high-frequency word in the Llama Llama series and is critical for this book's theme of reassurance. 'Red' is included as Llama Llama's iconic red pajamas appear throughout. The book's author is Anna Dewdney, not unknown.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

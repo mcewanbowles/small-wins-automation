@@ -1,0 +1,88 @@
+{
+  "title": "Pete Four Buttons",
+  "author": "Unknown",
+  "hero": {
+    "name": "Pete",
+    "description": "Main character Pete, a child or animal with four buttons on clothing — central to the story",
+    "search_term": "pete four buttons",
+    "needs_sourcing": true,
+    "source_note": "Named character — source from Creative Fabrica or TPT clip art; confirm whether Pete is a child or animal based on book cover"
+  },
+  "fringe_12": [
+    "Pete",
+    "button",
+    "coat",
+    "count",
+    "lost",
+    "found",
+    "sew",
+    "hole",
+    "sad",
+    "happy",
+    "friend",
+    "four"
+  ],
+  "fringe_11": [
+    "button",
+    "coat",
+    "count",
+    "lost",
+    "found",
+    "sew",
+    "hole",
+    "sad",
+    "happy",
+    "friend",
+    "four"
+  ],
+  "activity_images": [
+    "button",
+    "coat",
+    "count",
+    "lost",
+    "found",
+    "sew"
+  ],
+  "aac_extras": [
+    "hole",
+    "sad",
+    "happy",
+    "friend",
+    "four"
+  ],
+  "ambiguous": [
+    {
+      "word": "lost",
+      "issue": "Could mean emotionally lost/confused or an object that has gone missing",
+      "preferred": "lost object",
+      "reason": "In this book, buttons are lost/missing from Pete's coat — the object meaning is correct"
+    },
+    {
+      "word": "hole",
+      "issue": "Could mean a hole in the ground or a hole in fabric/clothing",
+      "preferred": "hole fabric",
+      "reason": "The holes in this book refer to missing button holes in Pete's coat"
+    }
+  ],
+  "character_images_needed": [
+    "Pete"
+  ],
+  "icon_search_terms": {
+    "button": "button sewing",
+    "coat": "coat jacket",
+    "count": "count number",
+    "lost": "lost missing",
+    "found": "found object",
+    "sew": "sewing needle thread",
+    "hole": "hole fabric",
+    "sad": "sad face",
+    "happy": "happy face",
+    "friend": "friend",
+    "four": "4 number"
+  },
+  "notes": "Limited bibliographic data available for this title — author is unknown. The story likely centres on Pete losing and finding buttons from his coat, making counting, emotions, and clothing repair key vocabulary. Confirm book details before finalising board. If 'four' overlaps with number symbols already in the library, use the digit '4' symbol directly. The word 'count' may also serve double duty as a math/literacy connection for the classroom.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

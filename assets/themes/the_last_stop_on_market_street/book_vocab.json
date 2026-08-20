@@ -1,0 +1,82 @@
+{
+  "title": "Last Stop on Market Street",
+  "author": "Matt de la Peña",
+  "hero": {
+    "name": "CJ",
+    "description": "Young Black boy with short hair, wears casual clothes, main character of the story",
+    "search_term": "CJ boy last stop market street",
+    "needs_sourcing": true,
+    "source_note": "Named character — source from Creative Fabrica or TPT clip art; alternatively use existing 'boy' icon from activity_images if CJ-specific art unavailable"
+  },
+  "fringe_12": [
+    "CJ",
+    "bus",
+    "grandma",
+    "soup kitchen",
+    "rain",
+    "rainbow",
+    "city",
+    "guitar",
+    "butterfly",
+    "jar",
+    "window",
+    "beautiful"
+  ],
+  "fringe_11": [
+    "bus",
+    "grandma",
+    "soup kitchen",
+    "rain",
+    "rainbow",
+    "city",
+    "guitar",
+    "butterfly",
+    "jar",
+    "window",
+    "beautiful"
+  ],
+  "activity_images": [
+    "bus",
+    "grandma",
+    "soup kitchen",
+    "rain",
+    "rainbow",
+    "city"
+  ],
+  "aac_extras": [
+    "guitar",
+    "butterfly",
+    "jar",
+    "window",
+    "beautiful"
+  ],
+  "ambiguous": [
+    {
+      "word": "jar",
+      "issue": "Could be a generic container or refer to the blind man's jar/cup in the story",
+      "preferred": "jar",
+      "reason": "In the book it refers to the jar the blind man uses; a simple jar/cup icon works"
+    }
+  ],
+  "character_images_needed": [
+    "CJ"
+  ],
+  "icon_search_terms": {
+    "bus": "bus",
+    "grandma": "grandma",
+    "soup kitchen": "soup kitchen",
+    "rain": "rain",
+    "rainbow": "rainbow",
+    "city": "city",
+    "guitar": "guitar",
+    "butterfly": "butterfly",
+    "jar": "jar",
+    "window": "window",
+    "beautiful": "beautiful"
+  },
+  "notes": "Most fringe words already exist in activity_images (bus, grandma, guitar, jar, butterfly, soup kitchen, rain, rainbow, city) — only 'window' and 'beautiful' are new. The book's central theme is finding beauty in everyday things; 'beautiful' is a key word CJ uses throughout. The hero CJ can fall back to the existing 'boy' icon if a CJ-specific PNG cannot be sourced. 'Grandma' (Nana) is the secondary character but uses a generic grandma icon so does not need separate sourcing.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

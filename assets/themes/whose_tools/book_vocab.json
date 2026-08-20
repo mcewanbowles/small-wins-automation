@@ -1,0 +1,86 @@
+{
+  "title": "Whose Tools?",
+  "author": "Toni Buzzeo",
+  "hero": {
+    "name": "Construction Worker (generic)",
+    "description": "A friendly adult construction worker in hard hat and work gear, as depicted on the book cover",
+    "search_term": "construction worker",
+    "needs_sourcing": false,
+    "source_note": "Generic construction worker — Boardmaker should have a suitable symbol"
+  },
+  "fringe_12": [
+    "Construction Worker (generic)",
+    "hammer",
+    "saw",
+    "wrench",
+    "drill",
+    "tape_measure",
+    "hard_hat",
+    "build",
+    "fix",
+    "worker",
+    "tool",
+    "ladder"
+  ],
+  "fringe_11": [
+    "hammer",
+    "saw",
+    "wrench",
+    "drill",
+    "ladder",
+    "tape_measure",
+    "hard_hat",
+    "build",
+    "fix",
+    "worker",
+    "tool"
+  ],
+  "activity_images": [
+    "hammer",
+    "saw",
+    "wrench",
+    "drill",
+    "tape_measure",
+    "hard_hat"
+  ],
+  "aac_extras": [
+    "build",
+    "fix",
+    "worker",
+    "tool",
+    "ladder"
+  ],
+  "ambiguous": [
+    {
+      "word": "drill",
+      "issue": "Could map to a hand drill, power drill, or a practice/repetition activity",
+      "preferred": "power drill",
+      "reason": "Book is about construction tools; the power drill used by workers is the correct meaning"
+    },
+    {
+      "word": "saw",
+      "issue": "Could mean the tool (noun) or past tense of 'see' (verb)",
+      "preferred": "saw tool",
+      "reason": "Book is about tools; the cutting tool meaning is correct"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "hammer": "hammer",
+    "saw": "saw",
+    "wrench": "wrench",
+    "drill": "drill",
+    "ladder": "ladder",
+    "tape_measure": "tape measure",
+    "hard_hat": "hard hat",
+    "build": "build",
+    "fix": "fix",
+    "worker": "construction worker",
+    "tool": "tools"
+  },
+  "notes": "'Whose Tools?' introduces children to common construction and trade tools. The existing activity_images vocab covers most key tools (hammer, saw, wrench, drill, ladder, tape_measure, pliers, hard_hat) and aac_extras cover build, fix, worker, job — all reusable here. 'tool' (generic) is added as a unifying concept word. 'pliers' and 'job' from existing assets were deprioritised in favour of 'tool' and 'ladder' for broader communicative utility on the board, but could substitute if preferred. The hero is a generic construction worker so no custom sourcing is needed.",
+  "characters": [],
+  "code": "WT1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

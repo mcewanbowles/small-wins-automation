@@ -1,0 +1,88 @@
+{
+  "title": "Each Kindness",
+  "author": "Jacqueline Woodson",
+  "hero": {
+    "name": "Maya",
+    "description": "Young girl with braids, the new student in the story who offers kindness that is rejected",
+    "search_term": "girl braids",
+    "needs_sourcing": true,
+    "source_note": "Named character from Jacqueline Woodson book — source from Creative Fabrica or TPT clip art"
+  },
+  "fringe_12": [
+    "Maya",
+    "kindness",
+    "stone",
+    "pond",
+    "ripple",
+    "girl",
+    "friend",
+    "sad",
+    "sorry",
+    "share",
+    "school",
+    "never"
+  ],
+  "fringe_11": [
+    "kindness",
+    "stone",
+    "pond",
+    "ripple",
+    "girl",
+    "friend",
+    "sad",
+    "sorry",
+    "share",
+    "school",
+    "never"
+  ],
+  "activity_images": [
+    "kindness",
+    "stone",
+    "pond",
+    "ripple",
+    "girl",
+    "friend"
+  ],
+  "aac_extras": [
+    "sad",
+    "sorry",
+    "share",
+    "school",
+    "never"
+  ],
+  "ambiguous": [
+    {
+      "word": "ripple",
+      "issue": "Could mean water ripple (noun) or to spread outward (verb/abstract concept)",
+      "preferred": "ripple water",
+      "reason": "The stone-in-pond ripple is the central metaphor of the book — the image of water rings spreading outward is the correct visual"
+    },
+    {
+      "word": "never",
+      "issue": "Abstract concept — could be hard to pictorialize; may map to a crossed-out clock or a no-future symbol",
+      "preferred": "never",
+      "reason": "The word 'never' is central to the emotional climax — Maya leaves and the narrator can never undo the unkindness. Worth including with a clear symbol showing finality or a crossed-out action."
+    }
+  ],
+  "character_images_needed": [
+    "Maya"
+  ],
+  "icon_search_terms": {
+    "kindness": "kindness",
+    "stone": "stone",
+    "pond": "pond",
+    "ripple": "ripple water",
+    "girl": "girl",
+    "friend": "friend",
+    "sad": "sad",
+    "sorry": "sorry",
+    "share": "share",
+    "school": "school",
+    "never": "never"
+  },
+  "notes": "Each Kindness by Jacqueline Woodson is a story about a girl named Chloe who repeatedly ignores and rejects Maya, the new student, and later regrets her unkindness when Maya moves away. The central metaphor is a teacher dropping a stone in a pond to show how kindness (or unkindness) ripples outward. Key emotional vocabulary (sad, sorry) is critical for SEL discussions. 'Never' is emotionally significant but abstract — consider pairing with a visual of a door closing or a crossed-out symbol. Stone, pond, and ripple are already in activity_images and should be reused. 'Girl' is also in activity_images. The hero Maya is a specific named character of colour with braids — generic Boardmaker girl icons will not match the book's illustration style; sourcing from TPT or Creative Fabrica is recommended.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

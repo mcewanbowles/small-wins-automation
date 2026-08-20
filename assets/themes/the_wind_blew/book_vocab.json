@@ -1,0 +1,82 @@
+{
+  "title": "The Wind Blew",
+  "author": "Pat Hutchins",
+  "hero": {
+    "name": "The Wind (personified)",
+    "description": "The wind as a swirling, cloud-faced character blowing across the sky — distinctive Pat Hutchins illustration style",
+    "search_term": "wind blowing",
+    "needs_sourcing": true,
+    "source_note": "The wind is illustrated as a personified cloud face blowing — source a stylised wind/cloud face from Creative Fabrica or TPT clip art matching the book cover aesthetic"
+  },
+  "fringe_12": [
+    "The Wind (personified)",
+    "hat",
+    "umbrella",
+    "kite",
+    "balloon",
+    "scarf",
+    "flag",
+    "shirt",
+    "newspaper",
+    "blow",
+    "fly",
+    "away"
+  ],
+  "fringe_11": [
+    "hat",
+    "umbrella",
+    "kite",
+    "balloon",
+    "scarf",
+    "flag",
+    "shirt",
+    "newspaper",
+    "blow",
+    "fly",
+    "away"
+  ],
+  "activity_images": [
+    "hat",
+    "umbrella",
+    "kite",
+    "balloon",
+    "scarf",
+    "flag"
+  ],
+  "aac_extras": [
+    "shirt",
+    "newspaper",
+    "blow",
+    "fly",
+    "away"
+  ],
+  "ambiguous": [
+    {
+      "word": "fly",
+      "issue": "Could mean an insect (noun) or the action of flying through the air (verb)",
+      "preferred": "fly action",
+      "reason": "In this book objects are blown through the air and fly away — the verb/action meaning is correct"
+    }
+  ],
+  "character_images_needed": [
+    "The Wind (personified cloud face)"
+  ],
+  "icon_search_terms": {
+    "hat": "hat",
+    "umbrella": "umbrella",
+    "kite": "kite",
+    "balloon": "balloon",
+    "scarf": "scarf",
+    "flag": "flag",
+    "shirt": "shirt",
+    "newspaper": "newspaper",
+    "blow": "blow wind",
+    "fly": "fly flying",
+    "away": "away go"
+  },
+  "notes": "Most key objects (hat, umbrella, kite, balloon, scarf, flag, shirt, newspaper) already exist in activity_images or aac_extras — confirm these files are present before building the board. The wig and cloud icons also exist in activity_images but were dropped from fringe_11 in favour of blow, fly, and away which give students more communicative power to describe the core action of the story. If the teacher wants maximum object coverage, wig or cloud could replace blow or away. The wind itself is the only 'character' in the book — there is no named human or animal protagonist, so the hero image requires custom sourcing. Consider using the book cover wind illustration as reference.",
+  "characters": [],
+  "code": "TWB1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

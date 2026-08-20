@@ -1,0 +1,82 @@
+{
+  "title": "Lola Plants a Garden",
+  "author": "Anna McQuinn",
+  "hero": {
+    "name": "Lola",
+    "description": "Young Black girl with natural hair, wearing overalls or gardening clothes, main character of the Lola series by Anna McQuinn",
+    "search_term": "lola girl gardening",
+    "needs_sourcing": true,
+    "source_note": "Named series character — source from Creative Fabrica, TPT, or Anna McQuinn publisher resources; generic Boardmaker girl won't match the recognisable Lola character"
+  },
+  "fringe_12": [
+    "LOLA",
+    "seed",
+    "flower",
+    "garden",
+    "plant",
+    "watering can",
+    "trowel",
+    "pot",
+    "gloves",
+    "bee",
+    "butterfly",
+    "sun"
+  ],
+  "fringe_11": [
+    "seed",
+    "flower",
+    "garden",
+    "plant",
+    "watering can",
+    "trowel",
+    "pot",
+    "gloves",
+    "bee",
+    "butterfly",
+    "sun"
+  ],
+  "activity_images": [
+    "seed",
+    "flower",
+    "garden",
+    "plant",
+    "watering can",
+    "trowel"
+  ],
+  "aac_extras": [
+    "pot",
+    "gloves",
+    "bee",
+    "butterfly",
+    "sun"
+  ],
+  "ambiguous": [
+    {
+      "word": "plant",
+      "issue": "Could mean the noun (a plant/living thing) or the verb (to plant/dig in)",
+      "preferred": "plant noun",
+      "reason": "In this book context a student is most likely to label the object they are growing; the verb sense is partially covered by core word 'go' and the action is shown in context with trowel and seed"
+    }
+  ],
+  "character_images_needed": [
+    "Lola"
+  ],
+  "icon_search_terms": {
+    "seed": "seed",
+    "flower": "flower",
+    "garden": "garden",
+    "plant": "plant",
+    "watering can": "watering can",
+    "trowel": "trowel",
+    "pot": "pot flower",
+    "gloves": "gloves",
+    "bee": "bee",
+    "butterfly": "butterfly",
+    "sun": "sun"
+  },
+  "notes": "All 11 fringe words exist in the existing activity_images vocabulary for this book, so no new icons need sourcing beyond the Lola hero image. The board covers the core gardening narrative arc: preparation (gloves, trowel, pot), planting (seed, plant), care (watering can, sun), and nature rewards (bee, butterfly, flower, garden). 'Rake' and 'hose' from aac_extras are deprioritised in favour of words more central to Lola's specific story. If a secondary character such as Lola's mother appears prominently in classroom discussions, consider adding 'mum' as a swap-in for a less-used fringe word.",
+  "characters": [],
+  "code": "LPG1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

@@ -1,0 +1,88 @@
+{
+  "title": "Grow Up David",
+  "author": "David Shannon",
+  "hero": {
+    "name": "David",
+    "description": "Young boy David Shannon character, familiar from No David! series, with messy hair and wide eyes",
+    "search_term": "david shannon boy",
+    "needs_sourcing": true,
+    "source_note": "Named character from David Shannon series — source from Creative Fabrica, TPT, or Teachers Pay Teachers clip art matching David Shannon illustration style"
+  },
+  "fringe_12": [
+    "David",
+    "baby",
+    "boy",
+    "grow",
+    "big",
+    "little",
+    "mad",
+    "share",
+    "cry",
+    "play",
+    "toy",
+    "brother"
+  ],
+  "fringe_11": [
+    "baby",
+    "boy",
+    "grow",
+    "big",
+    "little",
+    "mad",
+    "share",
+    "cry",
+    "play",
+    "toy",
+    "brother"
+  ],
+  "activity_images": [
+    "baby",
+    "boy",
+    "grow",
+    "big",
+    "little",
+    "mad"
+  ],
+  "aac_extras": [
+    "share",
+    "cry",
+    "play",
+    "toy",
+    "brother"
+  ],
+  "ambiguous": [
+    {
+      "word": "big",
+      "issue": "Could map to a size concept symbol or a large object; abstract size adjective",
+      "preferred": "big",
+      "reason": "Central theme of growing up and being big versus little — use standard size comparison symbol"
+    },
+    {
+      "word": "grow",
+      "issue": "Could depict a plant growing or a child growing taller",
+      "preferred": "grow child",
+      "reason": "Book is about a boy growing up, not plant growth — search for child growing or person getting taller"
+    }
+  ],
+  "character_images_needed": [
+    "David Shannon boy character"
+  ],
+  "icon_search_terms": {
+    "baby": "baby",
+    "boy": "boy",
+    "grow": "grow",
+    "big": "big",
+    "little": "little",
+    "mad": "angry",
+    "share": "share",
+    "cry": "cry",
+    "play": "play",
+    "toy": "toy",
+    "brother": "brother"
+  },
+  "notes": "Grow Up David is part of the David Shannon series. The story follows David being told to grow up by his older brother, exploring themes of sibling rivalry, emotions, and childhood behaviour. Core vocabulary around size (big/little), emotions (mad, cry), and social actions (share, play) are highly relevant. The hero image must match David Shannon's distinctive illustration style — the generic Boardmaker boy symbol will not be recognisable to students familiar with the book. Consider adding a sibling or family symbol if board space allows in future iterations.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

@@ -1,0 +1,82 @@
+{
+  "title": "I Will Surprise My Friend",
+  "author": "Mo Willems",
+  "hero": {
+    "name": "Gerald and Piggie",
+    "description": "Gerald is a large grey elephant and Piggie is a small pink pig, the iconic Elephant and Piggie duo by Mo Willems",
+    "search_term": "elephant piggie mo willems",
+    "needs_sourcing": true,
+    "source_note": "Named/distinctive characters — source from Creative Fabrica or TPT clip art; look for 'Elephant and Piggie' clipart sets"
+  },
+  "fringe_12": [
+    "Gerald and Piggie",
+    "surprise",
+    "friend",
+    "hide",
+    "find",
+    "elephant",
+    "pig",
+    "happy",
+    "wait",
+    "scared",
+    "together",
+    "play"
+  ],
+  "fringe_11": [
+    "surprise",
+    "friend",
+    "hide",
+    "find",
+    "elephant",
+    "pig",
+    "happy",
+    "wait",
+    "scared",
+    "together",
+    "play"
+  ],
+  "activity_images": [
+    "surprise",
+    "friend",
+    "hide",
+    "find",
+    "elephant",
+    "pig"
+  ],
+  "aac_extras": [
+    "happy",
+    "wait",
+    "scared",
+    "together",
+    "play"
+  ],
+  "ambiguous": [
+    {
+      "word": "find",
+      "issue": "Could map to a magnifying glass search image or a hand picking something up",
+      "preferred": "find",
+      "reason": "In this book 'find' means locating a hidden friend; a magnifying glass or searching person image works best"
+    }
+  ],
+  "character_images_needed": [
+    "Gerald and Piggie (Elephant and Piggie)"
+  ],
+  "icon_search_terms": {
+    "surprise": "surprise",
+    "friend": "friend",
+    "hide": "hide",
+    "find": "find",
+    "elephant": "elephant",
+    "pig": "pig",
+    "happy": "happy",
+    "wait": "wait",
+    "scared": "scared",
+    "together": "together",
+    "play": "play"
+  },
+  "notes": "This is part of Mo Willems' beloved Elephant and Piggie series. The story centres on Gerald and Piggie trying to surprise each other by hiding, creating a comedic loop. Core emotional vocabulary (happy, scared) and action words (hide, find, wait) are highly relevant. 'Together' is thematically important as the book ends with the friends reuniting. The hero image should feature both Gerald (elephant) and Piggie (pig) together if possible, as they are always a pair; if only one can be used, Piggie is the more visually distinctive and recognisable character on the cover.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

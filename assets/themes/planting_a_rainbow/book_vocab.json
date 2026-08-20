@@ -1,0 +1,80 @@
+{
+  "title": "Planting A Rainbow",
+  "author": "Lois Ehlert",
+  "hero": {
+    "name": "Rainbow garden / colourful flowers",
+    "description": "The book has no single named character — the hero concept is a vibrant rainbow of garden flowers growing from bulbs and seeds. A generic flower or rainbow image works well.",
+    "search_term": "flower rainbow",
+    "needs_sourcing": false,
+    "source_note": "Generic colourful flower cluster — a Boardmaker flower or rainbow image is sufficient"
+  },
+  "fringe_12": [
+    "Rainbow garden / colourful flowers",
+    "flower",
+    "seed",
+    "bulb",
+    "garden",
+    "rainbow",
+    "grow",
+    "red",
+    "yellow",
+    "orange",
+    "purple",
+    "water"
+  ],
+  "fringe_11": [
+    "flower",
+    "seed",
+    "bulb",
+    "garden",
+    "rainbow",
+    "grow",
+    "red",
+    "yellow",
+    "orange",
+    "purple",
+    "water"
+  ],
+  "activity_images": [
+    "flower",
+    "seed",
+    "bulb",
+    "garden",
+    "rainbow",
+    "grow"
+  ],
+  "aac_extras": [
+    "red",
+    "yellow",
+    "orange",
+    "purple",
+    "water"
+  ],
+  "ambiguous": [
+    {
+      "word": "water",
+      "issue": "Could mean the liquid noun or the action verb (to water plants)",
+      "preferred": "watering can",
+      "reason": "In this book watering plants is the key action — a watering can image captures both the act and the gardening context clearly"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "flower": "flower",
+    "seed": "seed",
+    "bulb": "bulb",
+    "garden": "garden",
+    "rainbow": "rainbow",
+    "grow": "grow",
+    "red": "red",
+    "yellow": "yellow",
+    "orange": "orange",
+    "purple": "purple",
+    "water": "watering can"
+  },
+  "notes": "Planting A Rainbow by Lois Ehlert is a concept book centred on colours and the gardening cycle (bulbs, seeds, seedlings, blooms). Several icons are already available in activity_images (seed, seedling, soil, plant, watering_can, flower, rain, sunny) and should be reused where possible. The fringe prioritises the six colours featured in the book's rainbow sequence (red, orange, yellow — the three listed here plus green, blue, violet could fill a larger board) alongside key gardening nouns and the single key action 'grow'. Because the book has no named character, the hero cell is best filled with a bright composite flower/rainbow image to anchor the book visually for students.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

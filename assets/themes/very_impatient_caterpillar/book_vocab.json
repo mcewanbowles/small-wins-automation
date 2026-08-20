@@ -1,0 +1,90 @@
+{
+  "title": "The Very Impatient Caterpillar",
+  "author": "Ross Burach",
+  "hero": {
+    "name": "The Very Impatient Caterpillar",
+    "description": "Expressive cartoon caterpillar with wide eyes and impatient expression, distinctive Ross Burach character from cover",
+    "search_term": "impatient caterpillar",
+    "needs_sourcing": true,
+    "source_note": "Named/distinctive character — source from Creative Fabrica or TPT clip art; search 'Very Impatient Caterpillar Ross Burach'"
+  },
+  "fringe_12": [
+    "The Very Impatient Caterpillar",
+    "caterpillar",
+    "cocoon",
+    "butterfly",
+    "wait",
+    "metamorphosis",
+    "wiggle",
+    "sleep",
+    "transform",
+    "impatient",
+    "leaf",
+    "fly"
+  ],
+  "fringe_11": [
+    "caterpillar",
+    "cocoon",
+    "butterfly",
+    "wait",
+    "metamorphosis",
+    "wiggle",
+    "sleep",
+    "transform",
+    "impatient",
+    "leaf",
+    "fly"
+  ],
+  "activity_images": [
+    "caterpillar",
+    "cocoon",
+    "butterfly",
+    "wait",
+    "metamorphosis",
+    "wiggle"
+  ],
+  "aac_extras": [
+    "sleep",
+    "transform",
+    "impatient",
+    "leaf",
+    "fly"
+  ],
+  "ambiguous": [
+    {
+      "word": "fly",
+      "issue": "Could mean the insect (noun) or the action of flying (verb)",
+      "preferred": "fly action",
+      "reason": "In this book 'fly' refers to what the butterfly does — it is used as an action/verb, not as an insect"
+    },
+    {
+      "word": "transform",
+      "issue": "Abstract concept that could be hard to represent; may conflict with general 'change' icon",
+      "preferred": "transform change",
+      "reason": "Central concept of metamorphosis — search for 'change' or 'transform' in Boardmaker; a before/after caterpillar-to-butterfly icon is ideal"
+    }
+  ],
+  "character_images_needed": [
+    "The Very Impatient Caterpillar"
+  ],
+  "icon_search_terms": {
+    "caterpillar": "caterpillar",
+    "cocoon": "cocoon",
+    "butterfly": "butterfly",
+    "wait": "wait",
+    "metamorphosis": "metamorphosis",
+    "wiggle": "wiggle",
+    "sleep": "sleep",
+    "transform": "change",
+    "impatient": "impatient",
+    "leaf": "leaf",
+    "fly": "fly"
+  },
+  "notes": "Core theme is patience and metamorphosis. 'Wait' and 'impatient' are high-priority fringe words because they are the central emotional/behavioural concepts of the book and have strong carry-over value for SPED students (waiting is a common IEP goal). 'Metamorphosis' may be replaced with 'change' if Boardmaker does not have a clear icon — the concept is critical to the story. 'Wiggle' supports the caterpillar's movement inside the cocoon and is fun/motivating for students. Existing activity_images (cocoon, butterfly, leaf) and aac_extras (wait, change, grow) align well with this book's vocabulary — reuse where possible to reduce production work.",
+  "characters": [
+    "impatient_caterpillar"
+  ],
+  "code": "VIC1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

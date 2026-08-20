@@ -1,0 +1,86 @@
+{
+  "title": "Chicka Chicka Boom Boom",
+  "author": "Bill Martin Jr. & John Archambault",
+  "hero": {
+    "name": "Coconut Tree",
+    "description": "The tall green palm tree central to the story — all the alphabet letters climb up it and it bends and falls under their weight. Distinctive illustrated style from Lois Ehlert.",
+    "search_term": "palm tree",
+    "needs_sourcing": false,
+    "source_note": "A generic palm tree symbol from Boardmaker is acceptable; the tree is a setting/object, not a named character"
+  },
+  "fringe_12": [
+    "Coconut Tree",
+    "letter",
+    "climb",
+    "fall",
+    "coconut",
+    "moon",
+    "alphabet",
+    "full",
+    "crowded",
+    "bend",
+    "up",
+    "down"
+  ],
+  "fringe_11": [
+    "letter",
+    "climb",
+    "fall",
+    "coconut",
+    "moon",
+    "alphabet",
+    "full",
+    "crowded",
+    "bend",
+    "up",
+    "down"
+  ],
+  "activity_images": [
+    "letter",
+    "climb",
+    "fall",
+    "coconut",
+    "moon",
+    "alphabet"
+  ],
+  "aac_extras": [
+    "full",
+    "crowded",
+    "bend",
+    "up",
+    "down"
+  ],
+  "ambiguous": [
+    {
+      "word": "fall",
+      "issue": "Could mean the season autumn (fall) or the action of falling down",
+      "preferred": "fall down",
+      "reason": "In this book the letters fall down from the tree — the action meaning is correct"
+    },
+    {
+      "word": "bend",
+      "issue": "Could mean a body movement exercise or an object bending/flexing",
+      "preferred": "bend tree",
+      "reason": "The tree bends under the weight of all the letters — object bending is the correct meaning; search for 'bend' or 'bending'"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "letter": "letter alphabet",
+    "climb": "climb",
+    "fall": "fall down",
+    "coconut": "coconut",
+    "moon": "moon",
+    "alphabet": "alphabet",
+    "full": "full",
+    "crowded": "crowded",
+    "bend": "bend",
+    "up": "up",
+    "down": "down"
+  },
+  "notes": "This book is fundamentally about the alphabet letters as characters, so 'letter' and 'alphabet' are the highest-priority fringe words. The core actions are climbing up and falling down, already reinforced by the fixed core row containing 'go' and 'stop', plus the aac_extras 'up', 'down', 'climb', 'fall' which are already in the existing data — these have been kept in fringe_11 because they are so central to this specific story. 'Full' and 'crowded' capture the key story problem (too many letters). 'Moon' is the nighttime witness to the whole event and appears prominently in Lois Ehlert's illustrations. The hero slot uses the palm tree rather than a letter character because no single letter is the protagonist — the tree is the single most recognisable visual anchor of the book's cover and story. If a more stylised Lois Ehlert-style palm tree image is desired, source from TPT or Creative Fabrica with search 'chicka chicka boom boom tree clip art'.",
+  "characters": [],
+  "code": "CCBB1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

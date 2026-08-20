@@ -1,0 +1,80 @@
+{
+  "title": "I Went Walking",
+  "author": "Sue Williams",
+  "hero": {
+    "name": "Child walker (boy in red shirt)",
+    "description": "Generic young child walking outdoors, as depicted on the book cover — not a named character",
+    "search_term": "child walking",
+    "needs_sourcing": false,
+    "source_note": "Generic child walking image — Boardmaker 'child walking' or 'walk' icon is sufficient"
+  },
+  "fringe_12": [
+    "Child walker (boy in red shirt)",
+    "cat",
+    "horse",
+    "pig",
+    "dog",
+    "duck",
+    "cow",
+    "black",
+    "brown",
+    "pink",
+    "yellow",
+    "green"
+  ],
+  "fringe_11": [
+    "cat",
+    "horse",
+    "pig",
+    "dog",
+    "duck",
+    "cow",
+    "black",
+    "brown",
+    "pink",
+    "yellow",
+    "green"
+  ],
+  "activity_images": [
+    "cat",
+    "horse",
+    "pig",
+    "dog",
+    "duck",
+    "cow"
+  ],
+  "aac_extras": [
+    "black",
+    "brown",
+    "pink",
+    "yellow",
+    "green"
+  ],
+  "ambiguous": [
+    {
+      "word": "duck",
+      "issue": "Could mean the bird (noun) or the action of ducking down (verb)",
+      "preferred": "duck bird",
+      "reason": "The book features a green duck as one of the animals the child encounters while walking"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "cat": "cat",
+    "horse": "horse",
+    "pig": "pig",
+    "dog": "dog",
+    "duck": "duck",
+    "cow": "cow",
+    "black": "black",
+    "brown": "brown",
+    "pink": "pink",
+    "yellow": "yellow",
+    "green": "green"
+  },
+  "notes": "This book is built around six animals (black cat, brown horse, pink pig, yellow dog, green duck, red cow) following a child on a walk. All six animal names and their associated colours are the core fringe vocabulary. Note: 'red' (for the red cow) is intentionally omitted from fringe_11 as it is already present in the existing activity_images vocab ('red cow') and 'red' as a standalone colour is available in core row 5 via the 'colour' prompt. The 11 fringe slots are fully occupied by the six animals and five of their colours — the most communicatively useful set for retelling and interacting with this highly repetitive, pattern-based book. The existing aac_extras (walk, see, following) complement this board well and can be referenced during shared reading.",
+  "characters": [],
+  "code": "IWW1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

@@ -1,0 +1,272 @@
+{
+  "word_search_words": [
+    {
+      "value": "AIRPLANE",
+      "grounded": true,
+      "citations": [
+        7
+      ],
+      "grounding_note": "Central topic entity, tied to runway/takeoff evidence."
+    },
+    {
+      "value": "RUNWAY",
+      "grounded": true,
+      "citations": [
+        7
+      ],
+      "grounding_note": "Directly defined in evidence as surface for landing and takeoff."
+    },
+    {
+      "value": "TAKEOFF",
+      "grounded": true,
+      "citations": [
+        1,
+        7
+      ],
+      "grounding_note": "Core topic term appearing across multiple sources."
+    },
+    {
+      "value": "LANDING",
+      "grounded": true,
+      "citations": [
+        1,
+        4,
+        6,
+        7
+      ],
+      "grounding_note": "Core topic term appearing across multiple sources."
+    },
+    {
+      "value": "AIRPORT",
+      "grounded": true,
+      "citations": [
+        4,
+        5,
+        6
+      ],
+      "grounding_note": "Location referenced in video titles about planes landing/taking off."
+    },
+    {
+      "value": "HELICOPTER",
+      "grounded": true,
+      "citations": [
+        1
+      ],
+      "grounding_note": "Named as an aircraft capable of vertical takeoff/landing."
+    }
+  ],
+  "starting_sight_words": [
+    {
+      "value": "plane",
+      "grounded": true,
+      "citations": [
+        7
+      ],
+      "grounding_note": "Shortened form of airplane, core topic word."
+    },
+    {
+      "value": "up",
+      "grounded": true,
+      "citations": [
+        1
+      ],
+      "grounding_note": "Supports concept of taking off/going up, implied by takeoff facts."
+    },
+    {
+      "value": "down",
+      "grounded": true,
+      "citations": [
+        7
+      ],
+      "grounding_note": "Supports concept of landing, implied by runway/landing facts."
+    }
+  ],
+  "sequence_order": [
+    {
+      "value": "Plane taxis to the runway.",
+      "grounded": true,
+      "citations": [
+        7
+      ],
+      "grounding_note": "Runway is the surface used before takeoff, informational stage."
+    },
+    {
+      "value": "Plane speeds up on the runway.",
+      "grounded": true,
+      "citations": [
+        1,
+        7
+      ],
+      "grounding_note": "Short takeoff fact implies speed buildup before leaving ground."
+    },
+    {
+      "value": "Plane takes off into the air.",
+      "grounded": true,
+      "citations": [
+        1,
+        7
+      ],
+      "grounding_note": "Directly grounded in takeoff evidence."
+    },
+    {
+      "value": "Plane flies and later lands on the runway.",
+      "grounded": true,
+      "citations": [
+        4,
+        6,
+        7
+      ],
+      "grounding_note": "Landing occurs on runway per evidence."
+    }
+  ],
+  "sorting_categories": [
+    {
+      "value": "Types Of Aircraft",
+      "items": [
+        "airplane",
+        "helicopter",
+        "jet"
+      ],
+      "grounded": true,
+      "citations": [
+        1
+      ],
+      "grounding_note": "Helicopters and jump jets named as aircraft types in evidence."
+    }
+  ],
+  "sequencing_strips_verbs": [
+    {
+      "value": "speed up",
+      "grounded": true,
+      "citations": [
+        1
+      ],
+      "grounding_note": "Short takeoff fact implies speeding up before flight."
+    },
+    {
+      "value": "take off",
+      "grounded": true,
+      "citations": [
+        1,
+        7
+      ],
+      "grounding_note": "Directly grounded takeoff action."
+    },
+    {
+      "value": "land",
+      "grounded": true,
+      "citations": [
+        4,
+        6,
+        7
+      ],
+      "grounding_note": "Directly grounded landing action."
+    }
+  ],
+  "adapted_book_sentences": [
+    {
+      "value": "A runway is a long, flat surface for planes.",
+      "grounded": true,
+      "citations": [
+        7
+      ],
+      "grounding_note": "Paraphrase of runway definition."
+    },
+    {
+      "value": "Planes use the runway to take off and land.",
+      "grounded": true,
+      "citations": [
+        7
+      ],
+      "grounding_note": "Direct paraphrase of runway's stated purpose."
+    },
+    {
+      "value": "Some planes can take off at a slow speed.",
+      "grounded": true,
+      "citations": [
+        1
+      ],
+      "grounding_note": "Short takeoff fact."
+    },
+    {
+      "value": "Helicopters can take off straight up.",
+      "grounded": true,
+      "citations": [
+        1
+      ],
+      "grounding_note": "Vertical takeoff fact about helicopters."
+    },
+    {
+      "value": "Big planes take off and land at busy airports.",
+      "grounded": true,
+      "citations": [
+        4,
+        5,
+        6
+      ],
+      "grounding_note": "Video evidence shows big planes landing/taking off at named airports."
+    }
+  ],
+  "wh_questions": [
+    {
+      "value": "What is a runway used for?",
+      "grounded": true,
+      "citations": [
+        7
+      ],
+      "grounding_note": "Directly answerable from runway definition."
+    },
+    {
+      "value": "Where do planes take off and land?",
+      "grounded": true,
+      "citations": [
+        7
+      ],
+      "grounding_note": "Runway named as the place for these actions."
+    },
+    {
+      "value": "Which aircraft can take off straight up?",
+      "grounded": true,
+      "citations": [
+        1
+      ],
+      "grounding_note": "Helicopters and jump jets named for vertical takeoff."
+    }
+  ],
+  "yes_no_questions": [
+    {
+      "value": "Is a runway a flat surface?",
+      "grounded": true,
+      "citations": [
+        7
+      ],
+      "grounding_note": "Directly stated as elongated, rectangular surface."
+    },
+    {
+      "value": "Can a helicopter take off straight up?",
+      "grounded": true,
+      "citations": [
+        1
+      ],
+      "grounding_note": "Directly stated vertical takeoff capability."
+    },
+    {
+      "value": "Do all planes need a long runway to take off?",
+      "grounded": true,
+      "citations": [
+        1
+      ],
+      "grounding_note": "Short takeoff fact shows not all planes need long runway, single-fact yes/no."
+    }
+  ],
+  "inferencing_questions": [
+    {
+      "value": "If a plane can take off at low speed, why might it need a shorter runway?",
+      "grounded": true,
+      "citations": [
+        1
+      ],
+      "grounding_note": "Requires inference connecting low speed takeoff to runway length, based on stated fact."
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "title": "Hello Spring",
+  "author": "Shelley Rotner",
+  "hero": {
+    "name": "Spring child (girl with magnifying glass)",
+    "description": "Generic child observing nature in spring — cover shows a real photograph of a child outdoors in spring setting",
+    "search_term": "child outside",
+    "needs_sourcing": false,
+    "source_note": "Photo-illustrated book with no named character — use generic Boardmaker child/outside image"
+  },
+  "fringe_12": [
+    "Spring child (girl with magnifying glass)",
+    "flower",
+    "bird",
+    "butterfly",
+    "bee",
+    "frog",
+    "rain",
+    "sun",
+    "mud",
+    "nest",
+    "bloom",
+    "warm"
+  ],
+  "fringe_11": [
+    "flower",
+    "bird",
+    "butterfly",
+    "bee",
+    "frog",
+    "rain",
+    "sun",
+    "mud",
+    "nest",
+    "bloom",
+    "warm"
+  ],
+  "activity_images": [
+    "flower",
+    "bird",
+    "butterfly",
+    "bee",
+    "frog",
+    "rain"
+  ],
+  "aac_extras": [
+    "sun",
+    "mud",
+    "nest",
+    "bloom",
+    "warm"
+  ],
+  "ambiguous": [],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "flower": "flower",
+    "bird": "bird",
+    "butterfly": "butterfly",
+    "bee": "bee",
+    "frog": "frog",
+    "rain": "rain",
+    "sun": "sun",
+    "mud": "mud",
+    "nest": "nest",
+    "bloom": "bloom",
+    "warm": "warm"
+  },
+  "notes": "Hello Spring is a photo-illustrated non-fiction picture book celebrating signs of spring — animals waking up, flowers blooming, rain and mud, sunshine and warmth. All 11 fringe words are already present in either activity_images or aac_extras, so no new icons need to be sourced. The hero slot uses a generic child-outdoors image since the book features real photographs of children rather than a named illustrated character. Words like 'snow', 'rainbow', 'puddle', 'boot', 'melt', 'cold', and 'outside' were considered but ranked lower in book centrality; the 11 chosen words appear most frequently and are most central to the spring theme. 'Bloom' is an action-as-noun that is highly picturable and book-specific.",
+  "characters": [],
+  "code": "HS1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

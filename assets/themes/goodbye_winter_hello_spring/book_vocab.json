@@ -1,0 +1,92 @@
+{
+  "title": "Goodbye Winter, Hello Spring",
+  "author": "Kenard Pak",
+  "hero": {
+    "name": "Boy with dog (Kenard Pak style)",
+    "description": "A young child walking with a small dog through seasonal landscape, soft watercolour illustration style by Kenard Pak",
+    "search_term": "boy walking dog",
+    "needs_sourcing": false,
+    "source_note": "Generic child and dog — Boardmaker 'boy' or 'child walking dog' should suffice; if style match needed source from TPT Kenard Pak clip art"
+  },
+  "fringe_12": [
+    "Boy with dog (Kenard Pak style)",
+    "spring",
+    "winter",
+    "flower",
+    "snow",
+    "wind",
+    "walk",
+    "grow",
+    "warm",
+    "cold",
+    "bird",
+    "stream"
+  ],
+  "fringe_11": [
+    "spring",
+    "winter",
+    "flower",
+    "snow",
+    "wind",
+    "walk",
+    "grow",
+    "warm",
+    "cold",
+    "bird",
+    "stream"
+  ],
+  "activity_images": [
+    "spring",
+    "winter",
+    "flower",
+    "snow",
+    "wind",
+    "walk"
+  ],
+  "aac_extras": [
+    "grow",
+    "warm",
+    "cold",
+    "bird",
+    "stream"
+  ],
+  "ambiguous": [
+    {
+      "word": "spring",
+      "issue": "Could mean the season or a coiled spring (mechanical object)",
+      "preferred": "spring season",
+      "reason": "Book is explicitly about the season of spring arriving"
+    },
+    {
+      "word": "cold",
+      "issue": "Could mean temperature (adjective) or illness (noun)",
+      "preferred": "cold temperature",
+      "reason": "Book contrasts cold winter with warm spring; temperature meaning is correct"
+    },
+    {
+      "word": "warm",
+      "issue": "Could mean temperature adjective or the verb to warm something",
+      "preferred": "warm sunny",
+      "reason": "Describing the arriving warmth of spring; adjective/weather meaning is correct"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "spring": "spring season",
+    "winter": "winter",
+    "flower": "flower",
+    "snow": "snow",
+    "wind": "wind",
+    "walk": "walk",
+    "grow": "grow plant",
+    "warm": "warm sunny",
+    "cold": "cold temperature",
+    "bird": "bird",
+    "stream": "stream water"
+  },
+  "notes": "This is a gentle conversational book in which a child and dog walk through the landscape greeting signs of seasonal change — melting snow, budding trees, returning birds, flowing streams, blooming flowers. The vocabulary skews toward nature nouns and simple descriptors. 'Bird' is already in the existing activity_images vocab which is convenient. 'Stream' is the most book-specific water word (the child converses with a brook/stream). 'Grow' captures the central theme of plants and life returning. Colours (green, yellow) were considered but spring/flower/grow communicate the theme more functionally for AAC use. The hero is a generic unnamed child with a dog drawn in Pak's soft watercolour style — a standard Boardmaker child+dog image is acceptable, though it will not precisely match the illustration aesthetic.",
+  "characters": [],
+  "code": "GWHS1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

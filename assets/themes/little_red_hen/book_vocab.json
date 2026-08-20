@@ -1,0 +1,88 @@
+{
+  "title": "The Little Red Hen",
+  "author": "Classic (Traditional)",
+  "hero": {
+    "name": "Little Red Hen",
+    "description": "Red hen character, classic illustrated farmyard bird protagonist",
+    "search_term": "hen",
+    "needs_sourcing": false,
+    "source_note": "Generic hen/chicken image from Boardmaker library should suffice for this traditional tale character"
+  },
+  "fringe_12": [
+    "Little Red Hen",
+    "wheat",
+    "seed",
+    "flour",
+    "bread",
+    "cat",
+    "dog",
+    "duck",
+    "plant",
+    "cut",
+    "bake",
+    "eat"
+  ],
+  "fringe_11": [
+    "wheat",
+    "seed",
+    "flour",
+    "bread",
+    "cat",
+    "dog",
+    "duck",
+    "plant",
+    "cut",
+    "bake",
+    "eat"
+  ],
+  "activity_images": [
+    "wheat",
+    "seed",
+    "flour",
+    "bread",
+    "cat",
+    "dog"
+  ],
+  "aac_extras": [
+    "duck",
+    "plant",
+    "cut",
+    "bake",
+    "eat"
+  ],
+  "ambiguous": [
+    {
+      "word": "duck",
+      "issue": "Could mean the bird (noun) or the action of ducking down (verb)",
+      "preferred": "duck bird",
+      "reason": "Duck is one of the three lazy animal characters in the story; bird meaning is correct"
+    },
+    {
+      "word": "cut",
+      "issue": "Could mean cutting with scissors, a wound/injury, or cutting grain/wheat with a scythe",
+      "preferred": "cut harvest",
+      "reason": "In this story the hen cuts/harvests the wheat; a harvesting or cutting grain image is most accurate"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "wheat": "wheat",
+    "seed": "seed",
+    "flour": "flour",
+    "bread": "bread",
+    "cat": "cat",
+    "dog": "dog",
+    "duck": "duck",
+    "plant": "plant",
+    "cut": "cut",
+    "bake": "bake",
+    "eat": "eat"
+  },
+  "notes": "All 11 fringe words plus the hero hen are well-represented in standard Boardmaker/PCS libraries. The story's core repetitive sequence — plant seeds, cut wheat, grind flour, bake bread, eat bread — is captured in the fringe. The three animal characters (cat, dog, duck) are included so students can identify who refuses to help. 'work' from existing aac_extras is already covered by core 'help'; 'bake' and 'eat' from aac_extras are reused here as primary fringe words. The existing activity_images icons (hen, wheat, seed, flour, bread, cat, dog, duck) should be used directly rather than re-sourced. 'plant' and 'cut' are the only new symbols needed beyond existing assets.",
+  "characters": [
+    "little_red_hen"
+  ],
+  "code": "LRH1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

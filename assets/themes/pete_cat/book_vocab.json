@@ -1,0 +1,90 @@
+{
+  "title": "Pete the Cat: I Love My White Shoes",
+  "author": "Eric Litwin",
+  "hero": {
+    "name": "Pete the Cat",
+    "description": "Blue cat with white shoes, distinctive Eric Litwin character — must be the recognisable blue cat from the book cover",
+    "search_term": "pete cat",
+    "needs_sourcing": true,
+    "source_note": "Named character — source from Creative Fabrica, TPT, or official Pete the Cat clip art pack"
+  },
+  "fringe_12": [
+    "Pete the Cat",
+    "shoes",
+    "white",
+    "red",
+    "blue",
+    "brown",
+    "wet",
+    "puddle",
+    "strawberries",
+    "mud",
+    "bucket",
+    "sing"
+  ],
+  "fringe_11": [
+    "shoes",
+    "white",
+    "red",
+    "blue",
+    "brown",
+    "wet",
+    "puddle",
+    "strawberries",
+    "mud",
+    "bucket",
+    "sing"
+  ],
+  "activity_images": [
+    "shoes",
+    "white",
+    "red",
+    "blue",
+    "brown",
+    "wet"
+  ],
+  "aac_extras": [
+    "puddle",
+    "strawberries",
+    "mud",
+    "bucket",
+    "sing"
+  ],
+  "ambiguous": [
+    {
+      "word": "blue",
+      "issue": "Could mean the colour blue or the emotion feeling blue/sad",
+      "preferred": "blue colour",
+      "reason": "In this book blue refers to Pete turning blue after stepping in the blueberry bucket — it is a colour, not an emotion"
+    },
+    {
+      "word": "wet",
+      "issue": "Could be represented as wet hair, wet clothes, or a puddle — multiple valid images",
+      "preferred": "wet",
+      "reason": "Pete's shoes get wet — any clear depiction of wetness is acceptable, prefer wet shoes or wet object"
+    }
+  ],
+  "character_images_needed": [
+    "Pete the Cat"
+  ],
+  "icon_search_terms": {
+    "shoes": "shoes",
+    "white": "white",
+    "red": "red",
+    "blue": "blue",
+    "brown": "brown",
+    "wet": "wet",
+    "puddle": "puddle",
+    "strawberries": "strawberries",
+    "mud": "mud",
+    "bucket": "bucket",
+    "sing": "sing"
+  },
+  "notes": "The central story mechanic is Pete stepping in puddles of strawberries, blueberries, mud, and water, changing his shoes colour each time — the colours red, blue, brown, and wet are all story-critical and worth including as fringe. The repeated refrain 'I love my shoes' and Pete singing throughout make 'sing' and 'shoes' high-priority. 'Goodness' from the existing aac_extras is Pete's mild exclamation and is already covered. Colours white, red, blue, and brown map directly to the four shoe states in the book. The existing activity_images (shoes, puddle, strawberries, mud, bucket) and aac_extras (walk, sing, cool, goodness, squish) align well — all fringe choices here prioritise the most visually concrete and story-central vocabulary.",
+  "characters": [
+    "pete_cat"
+  ],
+  "code": "PC1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

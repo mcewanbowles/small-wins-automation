@@ -1,0 +1,80 @@
+{
+  "title": "Freight Train",
+  "author": "Donald Crews",
+  "hero": {
+    "name": "Freight Train",
+    "description": "Colorful freight train with multiple cars in different colors, as depicted on the book cover",
+    "search_term": "train",
+    "needs_sourcing": false,
+    "source_note": "Generic train icon from Boardmaker should work; the book's train is iconic but not a named character"
+  },
+  "fringe_12": [
+    "Freight Train",
+    "red",
+    "orange",
+    "yellow",
+    "green",
+    "blue",
+    "purple",
+    "black",
+    "tunnel",
+    "bridge",
+    "fast",
+    "dark"
+  ],
+  "fringe_11": [
+    "red",
+    "orange",
+    "yellow",
+    "green",
+    "blue",
+    "purple",
+    "black",
+    "tunnel",
+    "bridge",
+    "fast",
+    "dark"
+  ],
+  "activity_images": [
+    "red",
+    "orange",
+    "yellow",
+    "green",
+    "blue",
+    "purple"
+  ],
+  "aac_extras": [
+    "black",
+    "tunnel",
+    "bridge",
+    "fast",
+    "dark"
+  ],
+  "ambiguous": [
+    {
+      "word": "dark",
+      "issue": "Could mean the colour/absence of light (adjective) or nighttime (noun/setting)",
+      "preferred": "dark",
+      "reason": "In Freight Train, the train goes through a dark tunnel — the adjective/descriptor meaning is correct; search for 'dark' as a descriptor"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "red": "red",
+    "orange": "orange color",
+    "yellow": "yellow",
+    "green": "green color",
+    "blue": "blue color",
+    "purple": "purple",
+    "black": "black color",
+    "tunnel": "tunnel",
+    "bridge": "bridge",
+    "fast": "fast",
+    "dark": "dark"
+  },
+  "notes": "Freight Train is fundamentally a colour-concept book — each car of the train is a different colour, making the seven colours (red, orange, yellow, green, blue, purple, black) the most critical fringe vocabulary. The existing activity_images already cover train, engine, boxcar, tank car, caboose, bridge, tunnel, track, hopper car, and steam, and aac_extras cover station, whistle, slow, and fast, so those do not need to be duplicated here unless space allows. Bridge and tunnel are retained in fringe_12 because they are the two key setting/event words in the narrative beyond colour. 'Fast' is kept as it is not in core and describes the train's movement in the climax. 'Dark' captures the tunnel experience. The full rainbow sequence of colours is the pedagogical heart of this book and should dominate the fringe slots.",
+  "characters": [],
+  "code": "FT1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-26"
+}

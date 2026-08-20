@@ -1,0 +1,96 @@
+{
+  "title": "The Mixed-Up Chameleon",
+  "author": "Eric Carle",
+  "hero": {
+    "name": "The Mixed-Up Chameleon",
+    "description": "A chameleon that changes colour and shape by taking on body parts from zoo animals, ending up as a funny patchwork creature — Eric Carle collage art style",
+    "search_term": "mixed up chameleon eric carle",
+    "needs_sourcing": true,
+    "source_note": "Eric Carle distinctive collage-style chameleon — source from Creative Fabrica, TPT, or Eric Carle licensed clip art"
+  },
+  "fringe_12": [
+    "The Mixed-Up Chameleon",
+    "chameleon",
+    "change",
+    "colors",
+    "zoo",
+    "fish",
+    "bird",
+    "bear",
+    "fox",
+    "deer",
+    "wish",
+    "hungry"
+  ],
+  "fringe_11": [
+    "chameleon",
+    "change",
+    "colors",
+    "zoo",
+    "fish",
+    "bird",
+    "bear",
+    "fox",
+    "deer",
+    "wish",
+    "hungry"
+  ],
+  "activity_images": [
+    "chameleon",
+    "change",
+    "colors",
+    "zoo",
+    "fish",
+    "bird"
+  ],
+  "aac_extras": [
+    "bear",
+    "fox",
+    "deer",
+    "wish",
+    "hungry"
+  ],
+  "ambiguous": [
+    {
+      "word": "bear",
+      "issue": "Could mean the animal or the verb 'to bear/carry'",
+      "preferred": "bear animal",
+      "reason": "The chameleon wishes to be like a polar bear — animal meaning is correct"
+    },
+    {
+      "word": "fish",
+      "issue": "Could mean the animal or the action of fishing",
+      "preferred": "fish animal",
+      "reason": "The chameleon wishes it could swim like a fish — noun/animal meaning is correct"
+    },
+    {
+      "word": "deer",
+      "issue": "Could be confused with 'dear' (homophone) when spoken aloud by a voice output device",
+      "preferred": "deer animal",
+      "reason": "The chameleon wishes for antlers like a deer — animal meaning is correct"
+    }
+  ],
+  "character_images_needed": [
+    "The Mixed-Up Chameleon (Eric Carle)"
+  ],
+  "icon_search_terms": {
+    "chameleon": "chameleon",
+    "change": "change",
+    "colors": "colors",
+    "zoo": "zoo",
+    "fish": "fish",
+    "bird": "bird",
+    "bear": "bear",
+    "fox": "fox",
+    "deer": "deer",
+    "wish": "wish",
+    "hungry": "hungry"
+  },
+  "notes": "Central themes are wishing to be different, changing appearance, and self-acceptance. 'Change' and 'wish' are key story verbs. The book features many zoo animals (flamingo, elephant, seal, giraffe, polar bear, fox, deer, fish, bird) — the 11 fringe words prioritise the most frequently shown and most picturable animals plus the two core story concepts (change, wish) and the emotional state (hungry) that opens and closes the narrative. 'Colors' is already listed in existing activity_images and is central to a chameleon's identity. 'Chameleon' from existing activity_images should be used; the HERO slot should use a sourced Eric Carle-style image. Secondary animals like flamingo, elephant, seal, and giraffe were omitted to keep within 11 slots — consider a supplementary board if the class focuses on specific animals.",
+  "characters": [
+    "chameleon"
+  ],
+  "code": "MUC1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

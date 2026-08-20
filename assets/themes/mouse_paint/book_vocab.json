@@ -1,0 +1,73 @@
+{
+  "title": "Mouse Paint",
+  "author": "Ellen Stoll Walsh",
+  "hero": {
+    "name": "Mouse (white mouse)",
+    "description": "Small white mouse character from the cover, one of three white mice who play in paint",
+    "search_term": "mouse",
+    "needs_sourcing": false,
+    "source_note": "Generic white mouse — Boardmaker library mouse symbol should work; note the mouse should ideally be white/plain"
+  },
+  "fringe_12": [
+    "mouse",
+    "paint",
+    "red",
+    "blue",
+    "yellow",
+    "orange",
+    "green",
+    "purple",
+    "mix",
+    "jar",
+    "spill",
+    "wash"
+  ],
+  "fringe_11": [
+    "paint",
+    "red",
+    "blue",
+    "yellow",
+    "orange",
+    "green",
+    "purple",
+    "mix",
+    "jar",
+    "spill",
+    "wash"
+  ],
+  "activity_images": [
+    "paint",
+    "red",
+    "blue",
+    "yellow",
+    "orange",
+    "green"
+  ],
+  "aac_extras": [
+    "purple",
+    "mix",
+    "jar",
+    "spill",
+    "wash"
+  ],
+  "ambiguous": [],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "paint": "paint",
+    "red": "red",
+    "blue": "blue",
+    "yellow": "yellow",
+    "orange": "orange",
+    "green": "green",
+    "purple": "purple",
+    "mix": "mix",
+    "jar": "jar",
+    "spill": "spill",
+    "wash": "wash"
+  },
+  "notes": "Mouse Paint is fundamentally a colour-mixing book, so all three primary colours (red, blue, yellow) and their resulting secondary colours (orange, green, purple) are essential fringe vocabulary. 'mix' captures the core action of the story. 'jar' is the paint container central to the narrative. 'spill' and 'wash' cover the key dramatic moments. 'brush' and 'paper' were considered but displaced by colour words which are more central; if the board is extended they would be good additions. Several words (paint, red, blue, yellow, orange, green, purple, spill, wash) already exist in activity_images or aac_extras per the existing data — these can be reused directly.",
+  "characters": [],
+  "code": "MP1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

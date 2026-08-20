@@ -1,0 +1,88 @@
+{
+  "title": "Swimmy",
+  "author": "Leo Lionni",
+  "hero": {
+    "name": "Swimmy",
+    "description": "Small black fish among red fish, distinctive Leo Lionni character with eye detail",
+    "search_term": "swimmy fish",
+    "needs_sourcing": true,
+    "source_note": "Named character — source from Creative Fabrica or TPT clip art; must be black fish distinct from red schoolmates"
+  },
+  "fringe_12": [
+    "Swimmy",
+    "fish",
+    "swim",
+    "scared",
+    "together",
+    "big",
+    "small",
+    "red",
+    "black",
+    "hide",
+    "ocean",
+    "tuna"
+  ],
+  "fringe_11": [
+    "fish",
+    "swim",
+    "scared",
+    "together",
+    "big",
+    "small",
+    "red",
+    "black",
+    "hide",
+    "ocean",
+    "tuna"
+  ],
+  "activity_images": [
+    "fish",
+    "swim",
+    "scared",
+    "together",
+    "big",
+    "small"
+  ],
+  "aac_extras": [
+    "red",
+    "black",
+    "hide",
+    "ocean",
+    "tuna"
+  ],
+  "ambiguous": [
+    {
+      "word": "big",
+      "issue": "Could be size adjective or a generic concept card",
+      "preferred": "big",
+      "reason": "Used to describe the large tuna that threatens the fish; size adjective meaning is correct"
+    },
+    {
+      "word": "black",
+      "issue": "Could map to colour swatch or to a black object/animal",
+      "preferred": "black",
+      "reason": "Refers to Swimmy's distinctive black colour; colour swatch is the correct image"
+    }
+  ],
+  "character_images_needed": [
+    "Swimmy"
+  ],
+  "icon_search_terms": {
+    "fish": "fish",
+    "swim": "swim",
+    "scared": "afraid",
+    "together": "together",
+    "big": "big",
+    "small": "small",
+    "red": "red",
+    "black": "black",
+    "hide": "hide",
+    "ocean": "ocean",
+    "tuna": "tuna"
+  },
+  "notes": "Swimmy by Leo Lionni is a story about a small black fish who loses his school to a large tuna, explores the deep ocean alone, and ultimately leads a new school of red fish to swim together in the shape of a giant fish to scare away predators. Key themes are courage, teamwork, and being different. 'Together' is a critical concept word for the climax. 'Scared' and 'hide' support emotional and action vocabulary central to the plot. Red and black are story-critical colours (the red fish vs Swimmy's black). The existing activity_images already include fish, tuna, and ocean which can be reused. 'Tuna' represents the antagonist/danger. Consider adding a secondary 'eye' card if the teacher wants to discuss Swimmy's role as the eye of the big fish formation.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

@@ -1,0 +1,86 @@
+{
+  "title": "Polar Bear, Polar Bear, What Do You Hear?",
+  "author": "Bill Martin Jr",
+  "hero": {
+    "name": "Polar Bear",
+    "description": "White polar bear — generic animal but must be clearly white/arctic, not a brown bear; standard Boardmaker polar bear should suffice",
+    "search_term": "polar bear",
+    "needs_sourcing": false,
+    "source_note": "Use Boardmaker polar bear symbol; verify it is clearly white to distinguish from brown bear"
+  },
+  "fringe_12": [
+    "polar bear",
+    "flamingo",
+    "peacock",
+    "walrus",
+    "elephant",
+    "hippopotamus",
+    "boa constrictor",
+    "lion",
+    "zebra",
+    "hear",
+    "roar",
+    "zookeeper"
+  ],
+  "fringe_11": [
+    "flamingo",
+    "peacock",
+    "walrus",
+    "elephant",
+    "hippopotamus",
+    "boa constrictor",
+    "lion",
+    "zebra",
+    "hear",
+    "roar",
+    "zookeeper"
+  ],
+  "activity_images": [
+    "flamingo",
+    "peacock",
+    "walrus",
+    "elephant",
+    "hippopotamus",
+    "boa constrictor"
+  ],
+  "aac_extras": [
+    "lion",
+    "zebra",
+    "hear",
+    "roar",
+    "zookeeper"
+  ],
+  "ambiguous": [
+    {
+      "word": "hear",
+      "issue": "Could map to ear anatomy image or the action of hearing",
+      "preferred": "hear",
+      "reason": "Book is built around the repeating question 'What do you hear?' — the listening/hearing action is correct"
+    },
+    {
+      "word": "roar",
+      "issue": "Could be shown as sound waves, open mouth, or lion specifically",
+      "preferred": "roar",
+      "reason": "Multiple animals roar in this book; a generic roar/loud sound image is preferred over a lion-specific one"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "flamingo": "flamingo",
+    "peacock": "peacock",
+    "walrus": "walrus",
+    "elephant": "elephant",
+    "hippopotamus": "hippopotamus",
+    "boa constrictor": "snake",
+    "lion": "lion",
+    "zebra": "zebra",
+    "hear": "hear",
+    "roar": "roar",
+    "zookeeper": "zookeeper"
+  },
+  "notes": "This book uses the same animals as Brown Bear Brown Bear but adds audio/sound vocabulary. The repeating structure 'X, X, what do you hear? I hear Y roaring/trumpeting/whistling at me' makes HEAR and animal sound words (roar, trumpet, whistle, growl, snort) highly functional — several are already in aac_extras and can be pulled from there. ZOOKEEPER replaces TEACHER from the final page spread where children imitate animals for the zookeeper; existing activity_images already has TEACHER which could substitute if zookeeper is unavailable. All 10 animals (polar bear, flamingo, peacock, walrus, elephant, hippopotamus, boa constrictor, lion, zebra, plus the children/teacher scene) are already in activity_images — only zookeeper and hear/roar need checking. BOA CONSTRICTOR may be labelled as SNAKE in Boardmaker; verify the image is a large constricting snake not a small generic snake for age-appropriate accuracy.",
+  "characters": [],
+  "code": "PB1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

@@ -1,0 +1,88 @@
+{
+  "title": "Pigeon Stays Up Late",
+  "author": "Unknown",
+  "hero": {
+    "name": "Pigeon",
+    "description": "Blue cartoon pigeon with one large eye and orange beak, Mo Willems' distinctive character",
+    "search_term": "pigeon mo willems",
+    "needs_sourcing": true,
+    "source_note": "Named character — source from Creative Fabrica or TPT clip art; Mo Willems' Pigeon has a very distinctive minimalist style"
+  },
+  "fringe_12": [
+    "PIGEON",
+    "night",
+    "sleep",
+    "tired",
+    "stars",
+    "moon",
+    "bed",
+    "awake",
+    "dark",
+    "late",
+    "yawn",
+    "bus driver"
+  ],
+  "fringe_11": [
+    "night",
+    "sleep",
+    "tired",
+    "stars",
+    "moon",
+    "bed",
+    "awake",
+    "dark",
+    "late",
+    "yawn",
+    "bus driver"
+  ],
+  "activity_images": [
+    "night",
+    "sleep",
+    "tired",
+    "stars",
+    "moon",
+    "bed"
+  ],
+  "aac_extras": [
+    "awake",
+    "dark",
+    "late",
+    "yawn",
+    "bus driver"
+  ],
+  "ambiguous": [
+    {
+      "word": "dark",
+      "issue": "Could mean a dark colour or absence of light",
+      "preferred": "dark (no light)",
+      "reason": "Book is about nighttime; dark refers to the absence of light, not a colour shade"
+    },
+    {
+      "word": "late",
+      "issue": "Could mean tardy/behind schedule or staying up past bedtime",
+      "preferred": "late (staying up past bedtime)",
+      "reason": "Central theme of the book is the pigeon refusing to go to bed and staying up late at night"
+    }
+  ],
+  "character_images_needed": [
+    "Pigeon"
+  ],
+  "icon_search_terms": {
+    "night": "night",
+    "sleep": "sleep",
+    "tired": "tired",
+    "stars": "star",
+    "moon": "moon",
+    "bed": "bed",
+    "awake": "awake",
+    "dark": "dark",
+    "late": "late night",
+    "yawn": "yawn",
+    "bus driver": "bus driver"
+  },
+  "notes": "This is a Mo Willems 'Pigeon' book. The Pigeon character is highly distinctive and will not be found in standard Boardmaker libraries — sourcing a clip art PNG is essential for student recognition. The book centres on bedtime resistance, so vocabulary around tiredness, nighttime, and staying awake is most functional. 'Bus driver' is included as the secondary named human character who interacts with Pigeon in this series. If the exact title cannot be confirmed as a Mo Willems book, verify authorship before finalising — the slug and theme are consistent with the Pigeon series.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

@@ -1,0 +1,88 @@
+{
+  "title": "Just Ask! Be Different, Be Brave, Be You",
+  "author": "Sonia Sotomayor",
+  "hero": {
+    "name": "Sonia (child character)",
+    "description": "Young Latina girl in a garden setting, main character of Just Ask! by Sonia Sotomayor",
+    "search_term": "girl child",
+    "needs_sourcing": true,
+    "source_note": "Named/distinctive child character from a specific book — source from TPT or Creative Fabrica clip art matching book cover art style"
+  },
+  "fringe_12": [
+    "Sonia (child character)",
+    "garden",
+    "seed",
+    "flower",
+    "wheelchair",
+    "glasses",
+    "hearing_aid",
+    "ask",
+    "different",
+    "friend",
+    "plant",
+    "together"
+  ],
+  "fringe_11": [
+    "garden",
+    "seed",
+    "flower",
+    "wheelchair",
+    "glasses",
+    "hearing_aid",
+    "ask",
+    "different",
+    "friend",
+    "plant",
+    "together"
+  ],
+  "activity_images": [
+    "garden",
+    "seed",
+    "flower",
+    "wheelchair",
+    "glasses",
+    "hearing_aid"
+  ],
+  "aac_extras": [
+    "ask",
+    "different",
+    "friend",
+    "plant",
+    "together"
+  ],
+  "ambiguous": [
+    {
+      "word": "different",
+      "issue": "Could map to a comparison concept (abstract) or a person/thing being unique",
+      "preferred": "different person",
+      "reason": "The book celebrates children with different disabilities and abilities — difference as a positive identity concept; note that 'different' also appears in core row 2, so consider replacing with 'unique' or 'disability' if board space allows"
+    },
+    {
+      "word": "glasses",
+      "issue": "Could mean eyeglasses (visual aid) or drinking glasses",
+      "preferred": "glasses eyewear",
+      "reason": "Book features a child character who wears glasses as a disability/difference — eyewear meaning is correct"
+    }
+  ],
+  "character_images_needed": [
+    "Sonia (child character from Just Ask!)"
+  ],
+  "icon_search_terms": {
+    "garden": "garden",
+    "seed": "seed",
+    "flower": "flower",
+    "wheelchair": "wheelchair",
+    "glasses": "glasses",
+    "hearing_aid": "hearing aid",
+    "ask": "ask me a question",
+    "different": "different",
+    "friend": "friend",
+    "plant": "plant",
+    "together": "together"
+  },
+  "notes": "Just Ask! by Sonia Sotomayor features a diverse group of children with various disabilities (autism, ADHD, hearing loss, mobility differences, visual impairment, diabetes, dyslexia, selective mutism) who each contribute to a community garden. The existing activity_images set (garden, seed, wheelchair, glasses, hearing_aid, rake, flower, pot, bee, tomato, watering_can, shovel) is an excellent match for this book. The fringe selection prioritises the book's central themes: disability inclusion (wheelchair, glasses, hearing_aid), the garden setting (garden, seed, flower, plant), and the social-emotional core (ask, different, friend, together). Note that 'different' appears in both core row 2 and fringe — if the board tool flags duplicates, substitute 'disability' or 'brave' (from the book subtitle) for the fringe slot. 'Ask' is the title concept and critically important for AAC users as a meta-communication word.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

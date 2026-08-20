@@ -1,0 +1,82 @@
+{
+  "title": "Leonardo The Terrible Monster",
+  "author": "Mo Willems",
+  "hero": {
+    "name": "Leonardo the Monster",
+    "description": "Small, wide-eyed purple monster with scraggly fur and small horns — distinctive Mo Willems character from cover",
+    "search_term": "leonardo terrible monster",
+    "needs_sourcing": true,
+    "source_note": "Named Mo Willems character — source from Creative Fabrica or TPT clip art"
+  },
+  "fringe_12": [
+    "Leonardo the Monster",
+    "monster",
+    "scared",
+    "friend",
+    "cry",
+    "scary",
+    "roar",
+    "sad",
+    "teeth",
+    "hide",
+    "boy",
+    "happy"
+  ],
+  "fringe_11": [
+    "monster",
+    "scared",
+    "friend",
+    "cry",
+    "scary",
+    "roar",
+    "sad",
+    "teeth",
+    "hide",
+    "boy",
+    "happy"
+  ],
+  "activity_images": [
+    "monster",
+    "scared",
+    "friend",
+    "cry",
+    "scary",
+    "roar"
+  ],
+  "aac_extras": [
+    "sad",
+    "teeth",
+    "hide",
+    "boy",
+    "happy"
+  ],
+  "ambiguous": [
+    {
+      "word": "hide",
+      "issue": "Could mean animal hide (skin/leather) or the action of concealing oneself",
+      "preferred": "hide action",
+      "reason": "Leonardo tries to hide and be sneaky to scare children — action verb meaning is correct"
+    }
+  ],
+  "character_images_needed": [
+    "Leonardo the Monster"
+  ],
+  "icon_search_terms": {
+    "monster": "monster",
+    "scared": "scared",
+    "friend": "friend",
+    "cry": "cry",
+    "scary": "scary",
+    "roar": "roar",
+    "sad": "sad",
+    "teeth": "teeth",
+    "hide": "hide",
+    "boy": "boy",
+    "happy": "happy"
+  },
+  "notes": "Story centres on Leonardo who cannot scare anyone and eventually becomes a true friend to a sad boy named Sam. Key emotional vocabulary (scared, sad, happy, cry) is central. 'Scary' and 'roar' reflect Leonardo's attempts to frighten. 'Boy' refers to Sam, the child character. 'Teeth' features prominently in monster imagery. The emotional arc from failure to friendship is the heart of the book.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

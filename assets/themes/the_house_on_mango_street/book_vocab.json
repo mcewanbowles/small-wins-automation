@@ -1,0 +1,88 @@
+{
+  "title": "The House on Mango Street",
+  "author": "Sandra Cisneros",
+  "hero": {
+    "name": "Esperanza",
+    "description": "Young Latina girl, the narrator and protagonist of The House on Mango Street",
+    "search_term": "esperanza girl mango street",
+    "needs_sourcing": true,
+    "source_note": "Named literary character — source from Creative Fabrica or TPT clip art; a young Latina girl illustration is needed"
+  },
+  "fringe_12": [
+    "Esperanza",
+    "house",
+    "street",
+    "family",
+    "friend",
+    "dream",
+    "neighbourhood",
+    "name",
+    "window",
+    "garden",
+    "sad",
+    "belong"
+  ],
+  "fringe_11": [
+    "house",
+    "street",
+    "family",
+    "friend",
+    "dream",
+    "neighbourhood",
+    "name",
+    "window",
+    "garden",
+    "sad",
+    "belong"
+  ],
+  "activity_images": [
+    "house",
+    "street",
+    "family",
+    "friend",
+    "dream",
+    "neighbourhood"
+  ],
+  "aac_extras": [
+    "name",
+    "window",
+    "garden",
+    "sad",
+    "belong"
+  ],
+  "ambiguous": [
+    {
+      "word": "belong",
+      "issue": "Could mean ownership (this belongs to me) or feeling of fitting in/identity",
+      "preferred": "belong fit in",
+      "reason": "Central theme of the book is Esperanza's longing to belong to a place and community; the emotional/identity meaning is correct"
+    },
+    {
+      "word": "dream",
+      "issue": "Could mean a sleeping dream (noun) or an aspiration/hope (noun/verb)",
+      "preferred": "dream wish aspiration",
+      "reason": "In this book dream refers to Esperanza's hopes and aspirations for her future, not a sleeping dream"
+    }
+  ],
+  "character_images_needed": [
+    "Esperanza"
+  ],
+  "icon_search_terms": {
+    "house": "house",
+    "street": "street",
+    "family": "family",
+    "friend": "friend",
+    "dream": "dream wish",
+    "neighbourhood": "neighborhood",
+    "name": "name",
+    "window": "window",
+    "garden": "garden",
+    "sad": "sad",
+    "belong": "belong"
+  },
+  "notes": "The House on Mango Street is a coming-of-age novel told in vignettes; vocabulary chosen reflects its central themes of identity, place, belonging, and family. 'Belong' and 'dream' are abstract but highly relevant and picturable with the right symbols. For younger or lower-verbal students, consider substituting 'belong' with 'home' and 'dream' with 'wish' if Boardmaker symbols for those are clearer. The hero image will require custom sourcing as Esperanza is a specific named literary character with a distinct Latina identity important to represent accurately.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

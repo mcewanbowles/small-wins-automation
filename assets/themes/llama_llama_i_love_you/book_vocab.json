@@ -1,0 +1,82 @@
+{
+  "title": "Llama Llama I Love You",
+  "author": "Anna Dewdney",
+  "hero": {
+    "name": "Llama Llama",
+    "description": "Young llama character from Anna Dewdney's Llama Llama series, appears as a small brown/tan llama with expressive eyes",
+    "search_term": "llama llama",
+    "needs_sourcing": true,
+    "source_note": "Named character from popular series — source from Creative Fabrica or TPT clip art matching Anna Dewdney's distinctive illustration style"
+  },
+  "fringe_12": [
+    "Llama Llama",
+    "llama",
+    "love",
+    "hug",
+    "kiss",
+    "mama",
+    "friend",
+    "heart",
+    "happy",
+    "family",
+    "baby",
+    "wave"
+  ],
+  "fringe_11": [
+    "llama",
+    "love",
+    "hug",
+    "kiss",
+    "mama",
+    "friend",
+    "heart",
+    "happy",
+    "family",
+    "baby",
+    "wave"
+  ],
+  "activity_images": [
+    "llama",
+    "love",
+    "hug",
+    "kiss",
+    "mama",
+    "friend"
+  ],
+  "aac_extras": [
+    "heart",
+    "happy",
+    "family",
+    "baby",
+    "wave"
+  ],
+  "ambiguous": [
+    {
+      "word": "wave",
+      "issue": "Could mean water wave or greeting/waving action",
+      "preferred": "wave hello",
+      "reason": "Book is about expressing love and affection to others — waving as a greeting gesture is the correct meaning"
+    }
+  ],
+  "character_images_needed": [
+    "Llama Llama"
+  ],
+  "icon_search_terms": {
+    "llama": "llama",
+    "love": "love",
+    "hug": "hug",
+    "kiss": "kiss",
+    "mama": "mama",
+    "friend": "friend",
+    "heart": "heart",
+    "happy": "happy",
+    "family": "family",
+    "baby": "baby",
+    "wave": "wave hello"
+  },
+  "notes": "This Valentine's Day themed board focuses on affection and social-emotional vocabulary central to the book. 'Love' and 'heart' are core concepts throughout. 'Baby' refers to Baby Llama, the main character. The book celebrates expressions of love to family and friends, so social words like hug, kiss, friend, and family are prioritised. Llama Llama is a highly distinctive named character — generic Boardmaker llama images will not match the beloved series illustration style.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

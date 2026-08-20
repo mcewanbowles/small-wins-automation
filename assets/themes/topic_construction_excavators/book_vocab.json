@@ -1,0 +1,290 @@
+{
+  "word_search_words": [
+    {
+      "value": "boom",
+      "grounded": true,
+      "grounding_note": "Part of excavator structure.",
+      "citations": [
+        1
+      ]
+    },
+    {
+      "value": "dipper",
+      "grounded": true,
+      "grounding_note": "Part of excavator structure, also called stick.",
+      "citations": [
+        1
+      ]
+    },
+    {
+      "value": "bucket",
+      "grounded": true,
+      "grounding_note": "Excavator digging attachment.",
+      "citations": [
+        1
+      ]
+    },
+    {
+      "value": "cab",
+      "grounded": true,
+      "grounding_note": "Operator compartment on excavator.",
+      "citations": [
+        1
+      ]
+    },
+    {
+      "value": "crawler",
+      "grounded": true,
+      "grounding_note": "Common excavator type.",
+      "citations": [
+        5
+      ]
+    },
+    {
+      "value": "dragline",
+      "grounded": true,
+      "grounding_note": "Common excavator type.",
+      "citations": [
+        5
+      ]
+    },
+    {
+      "value": "hydraulics",
+      "grounded": true,
+      "grounding_note": "Excavators use intelligent hydraulics.",
+      "citations": [
+        3
+      ]
+    },
+    {
+      "value": "dealer",
+      "grounded": true,
+      "grounding_note": "CASE dealers provide equipment support.",
+      "citations": [
+        3
+      ]
+    }
+  ],
+  "sequence_order": [
+    {
+      "value": "Boom lifts and lowers.",
+      "grounded": true,
+      "grounding_note": "Boom is a main structural part enabling movement.",
+      "citations": [
+        1
+      ]
+    },
+    {
+      "value": "Dipper extends outward.",
+      "grounded": true,
+      "grounding_note": "Dipper (stick) connects boom to bucket for reach.",
+      "citations": [
+        1
+      ]
+    },
+    {
+      "value": "Bucket digs into ground.",
+      "grounded": true,
+      "grounding_note": "Bucket is the digging attachment.",
+      "citations": [
+        1
+      ]
+    },
+    {
+      "value": "House rotates to move material.",
+      "grounded": true,
+      "grounding_note": "The house is the rotating platform that turns.",
+      "citations": [
+        1
+      ]
+    }
+  ],
+  "sorting_categories": [
+    {
+      "value": "Excavator parts: boom, dipper, bucket, cab",
+      "grounded": true,
+      "grounding_note": "Listed structural components.",
+      "citations": [
+        1
+      ]
+    },
+    {
+      "value": "Excavator types: crawler, dragline, wheeled",
+      "grounded": true,
+      "grounding_note": "Common excavator types named.",
+      "citations": [
+        5
+      ]
+    },
+    {
+      "value": "Excavator sizes: mini, midi, large",
+      "grounded": true,
+      "grounding_note": "CASE lists mini, midi, large excavators.",
+      "citations": [
+        3
+      ]
+    }
+  ],
+  "sequencing_strips_verbs": [
+    {
+      "value": "lift",
+      "grounded": true,
+      "grounding_note": "Boom action to raise the arm.",
+      "citations": [
+        1
+      ]
+    },
+    {
+      "value": "dig",
+      "grounded": true,
+      "grounding_note": "Bucket digs into ground; core excavator function.",
+      "citations": [
+        1
+      ]
+    },
+    {
+      "value": "rotate",
+      "grounded": true,
+      "grounding_note": "House rotates on platform.",
+      "citations": [
+        1
+      ]
+    },
+    {
+      "value": "extend",
+      "grounded": true,
+      "grounding_note": "Dipper/arm extends for reach.",
+      "citations": [
+        1
+      ]
+    }
+  ],
+  "adapted_book_sentences": [
+    {
+      "value": "An excavator has a boom, a dipper, a bucket, and a cab.",
+      "grounded": true,
+      "grounding_note": "Direct structural description.",
+      "citations": [
+        1
+      ]
+    },
+    {
+      "value": "The cab sits on a rotating platform called the house.",
+      "grounded": true,
+      "grounding_note": "Direct structural description.",
+      "citations": [
+        1
+      ]
+    },
+    {
+      "value": "Crawler excavators move on tracks instead of wheels.",
+      "grounded": true,
+      "grounding_note": "Crawler is a listed common excavator type.",
+      "citations": [
+        5
+      ]
+    },
+    {
+      "value": "CASE makes mini, midi, and large excavators.",
+      "grounded": true,
+      "grounding_note": "CASE product line description.",
+      "citations": [
+        3
+      ]
+    },
+    {
+      "value": "Long reach excavators dig deep into canals and ponds.",
+      "grounded": true,
+      "grounding_note": "Long reach booms used for canal, pond, river work.",
+      "citations": [
+        6
+      ]
+    },
+    {
+      "value": "Volvo also builds electric excavators.",
+      "grounded": true,
+      "grounding_note": "Volvo lists Electric Machines and Excavators.",
+      "citations": [
+        4
+      ]
+    }
+  ],
+  "wh_questions": [
+    {
+      "value": "What part of the excavator digs into the ground?",
+      "grounded": true,
+      "grounding_note": "Bucket is the digging part.",
+      "citations": [
+        1
+      ]
+    },
+    {
+      "value": "What is the rotating platform on an excavator called?",
+      "grounded": true,
+      "grounding_note": "The house is the rotating platform.",
+      "citations": [
+        1
+      ]
+    },
+    {
+      "value": "What type of excavator is used for canal cleaning?",
+      "grounded": true,
+      "grounding_note": "Long reach excavators suit canal cleaning.",
+      "citations": [
+        6
+      ]
+    },
+    {
+      "value": "What company makes electric excavators?",
+      "grounded": true,
+      "grounding_note": "Volvo lists Electric Machines category.",
+      "citations": [
+        4
+      ]
+    }
+  ],
+  "yes_no_questions": [
+    {
+      "value": "Does an excavator have a bucket?",
+      "grounded": true,
+      "grounding_note": "Bucket is a listed part.",
+      "citations": [
+        1
+      ]
+    },
+    {
+      "value": "Is the cab part of the excavator?",
+      "grounded": true,
+      "grounding_note": "Cab is a listed part.",
+      "citations": [
+        1
+      ]
+    },
+    {
+      "value": "Is a dragline a type of excavator?",
+      "grounded": true,
+      "grounding_note": "Dragline listed as common type.",
+      "citations": [
+        5
+      ]
+    },
+    {
+      "value": "Does CASE make large excavators?",
+      "grounded": true,
+      "grounding_note": "CASE lists large excavators.",
+      "citations": [
+        3
+      ]
+    }
+  ],
+  "inferencing_questions": [
+    {
+      "value": "If an excavator needs to dig deep in a canal, which type would work best?",
+      "grounded": true,
+      "grounding_note": "Inference from long reach excavator use case.",
+      "citations": [
+        6
+      ]
+    }
+  ]
+}

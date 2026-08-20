@@ -1,0 +1,82 @@
+{
+  "title": "Llama Llama Back To School",
+  "author": "Anna Dewdney",
+  "hero": {
+    "name": "Llama Llama",
+    "description": "Young llama character with large ears and expressive face, Anna Dewdney's distinctive illustrated style",
+    "search_term": "llama llama",
+    "needs_sourcing": true,
+    "source_note": "Named/branded character — source from Creative Fabrica, TPT, or official Llama Llama clip art"
+  },
+  "fringe_12": [
+    "Llama Llama",
+    "school",
+    "backpack",
+    "friend",
+    "teacher",
+    "nervous",
+    "new",
+    "learn",
+    "classroom",
+    "pencil",
+    "happy",
+    "sit"
+  ],
+  "fringe_11": [
+    "school",
+    "backpack",
+    "friend",
+    "teacher",
+    "nervous",
+    "new",
+    "learn",
+    "classroom",
+    "pencil",
+    "happy",
+    "sit"
+  ],
+  "activity_images": [
+    "school",
+    "backpack",
+    "friend",
+    "teacher",
+    "nervous",
+    "new"
+  ],
+  "aac_extras": [
+    "learn",
+    "classroom",
+    "pencil",
+    "happy",
+    "sit"
+  ],
+  "ambiguous": [
+    {
+      "word": "new",
+      "issue": "Could be interpreted abstractly; in this context means unfamiliar/first-time experience",
+      "preferred": "new",
+      "reason": "Central concept of the book — first day at school, everything is new; use Boardmaker 'new' symbol showing novelty/first"
+    }
+  ],
+  "character_images_needed": [
+    "Llama Llama"
+  ],
+  "icon_search_terms": {
+    "school": "school",
+    "backpack": "backpack",
+    "friend": "friend",
+    "teacher": "teacher",
+    "nervous": "nervous",
+    "new": "new",
+    "learn": "learn",
+    "classroom": "classroom",
+    "pencil": "pencil",
+    "happy": "happy",
+    "sit": "sit"
+  },
+  "notes": "Llama Llama Back To School centres on first-day anxiety and excitement about starting school. Key emotional vocabulary (nervous, happy) is important for supporting student self-expression about school feelings. 'Classroom' may not have a direct Boardmaker symbol — try 'class' or 'room' as alternates. 'Learn' may appear as 'learning' in some libraries. The book is by Anna Dewdney (not unknown); she is the established author of the Llama Llama series. Hero image must be sourced externally as the Llama Llama character has a very specific illustrated look not replicated in generic Boardmaker llama symbols.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

@@ -1,0 +1,83 @@
+{
+  "title": "I Really Like Slop!",
+  "author": "Mo Willems",
+  "hero": {
+    "name": "Gerald the Elephant",
+    "description": "Large grey elephant in glasses, main character from Elephant and Piggie series by Mo Willems",
+    "search_term": "gerald elephant piggie",
+    "needs_sourcing": true,
+    "source_note": "Named Mo Willems character — source from Creative Fabrica, TPT, or Mo Willems licensed clip art"
+  },
+  "fringe_12": [
+    "Gerald the Elephant",
+    "slop",
+    "eat",
+    "pig",
+    "elephant",
+    "yucky",
+    "delicious",
+    "try",
+    "friend",
+    "bowl",
+    "smell",
+    "happy"
+  ],
+  "fringe_11": [
+    "slop",
+    "eat",
+    "pig",
+    "elephant",
+    "yucky",
+    "delicious",
+    "try",
+    "friend",
+    "bowl",
+    "smell",
+    "happy"
+  ],
+  "activity_images": [
+    "slop",
+    "eat",
+    "pig",
+    "elephant",
+    "yucky",
+    "delicious"
+  ],
+  "aac_extras": [
+    "try",
+    "friend",
+    "bowl",
+    "smell",
+    "happy"
+  ],
+  "ambiguous": [
+    {
+      "word": "try",
+      "issue": "Could mean attempt (verb) or taste/sample (verb) — visually very different images",
+      "preferred": "taste try",
+      "reason": "In this book Gerald tries/tastes Piggie's slop, so the tasting action is correct"
+    }
+  ],
+  "character_images_needed": [
+    "Gerald the Elephant",
+    "Piggie the Pig"
+  ],
+  "icon_search_terms": {
+    "slop": "slop food pig",
+    "eat": "eat",
+    "pig": "pig",
+    "elephant": "elephant",
+    "yucky": "yucky disgusting",
+    "delicious": "delicious yummy",
+    "try": "try taste",
+    "friend": "friend",
+    "bowl": "bowl",
+    "smell": "smell sniff",
+    "happy": "happy"
+  },
+  "notes": "This is a Mo Willems Elephant and Piggie book. The central concept is Piggie sharing her favourite food (slop) with Gerald, who is reluctant but tries it. Key vocabulary revolves around food, tasting, reactions (yucky vs delicious), and friendship. Both Gerald (elephant) and Piggie are named Mo Willems characters and will need sourced clip art — generic Boardmaker elephant/pig icons will not match student recognition from the book cover. Consider adding Piggie as a secondary fringe image if space allows on an expanded board.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

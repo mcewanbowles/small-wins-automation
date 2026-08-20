@@ -1,0 +1,88 @@
+{
+  "title": "Pete the Cat: 12 Groovy Days of Christmas",
+  "author": "James Dean",
+  "hero": {
+    "name": "Pete the Cat",
+    "description": "Blue cat wearing sunglasses, distinctive James Dean character",
+    "search_term": "pete cat",
+    "needs_sourcing": true,
+    "source_note": "Named character — source from Creative Fabrica or TPT clip art"
+  },
+  "fringe_12": [
+    "Pete the Cat",
+    "Christmas",
+    "gift",
+    "tree",
+    "sing",
+    "cool",
+    "guitar",
+    "twelve",
+    "drum",
+    "star",
+    "groovy",
+    "day"
+  ],
+  "fringe_11": [
+    "Christmas",
+    "gift",
+    "tree",
+    "sing",
+    "cool",
+    "guitar",
+    "twelve",
+    "drum",
+    "star",
+    "groovy",
+    "day"
+  ],
+  "activity_images": [
+    "Christmas",
+    "gift",
+    "tree",
+    "sing",
+    "cool",
+    "guitar"
+  ],
+  "aac_extras": [
+    "twelve",
+    "drum",
+    "star",
+    "groovy",
+    "day"
+  ],
+  "ambiguous": [
+    {
+      "word": "cool",
+      "issue": "Could mean temperature (cold) or slang for great/awesome",
+      "preferred": "cool awesome",
+      "reason": "In Pete the Cat books, 'cool' is Pete's signature expression meaning great/groovy, not a temperature"
+    },
+    {
+      "word": "star",
+      "issue": "Could mean a star shape/Christmas tree topper or a celebrity/star performer",
+      "preferred": "star Christmas",
+      "reason": "Book is Christmas-themed; star refers to the Christmas star or tree topper"
+    }
+  ],
+  "character_images_needed": [
+    "Pete the Cat"
+  ],
+  "icon_search_terms": {
+    "Christmas": "christmas",
+    "gift": "gift",
+    "tree": "christmas tree",
+    "sing": "sing",
+    "cool": "cool awesome",
+    "guitar": "guitar",
+    "twelve": "12",
+    "drum": "drum",
+    "star": "star",
+    "groovy": "groovy",
+    "day": "day"
+  },
+  "notes": "This is a parody of '12 Days of Christmas' featuring Pete the Cat. Key vocabulary centres on the song structure (counting, days, gifts), Pete's signature 'groovy' and 'cool' expressions, and Christmas-themed items. 'Groovy' may not have a direct Boardmaker symbol — consider a thumbs-up or happy face as a substitute, or source a custom icon. 'Twelve' maps to the numeral 12 in the library. The repetitive song structure makes 'day' and counting words very useful for following along page by page.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}

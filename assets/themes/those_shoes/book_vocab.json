@@ -1,0 +1,82 @@
+{
+  "title": "Those Shoes",
+  "author": "Maribeth Boelts",
+  "hero": {
+    "name": "Jeremy (boy from Those Shoes)",
+    "description": "Young Black boy, the main character who desperately wants the popular shoes",
+    "search_term": "boy those shoes",
+    "needs_sourcing": true,
+    "source_note": "Named/distinctive character — source from Teachers Pay Teachers or Creative Fabrica clip art for 'Those Shoes Maribeth Boelts'"
+  },
+  "fringe_12": [
+    "Jeremy (boy from Those Shoes)",
+    "shoes",
+    "boots",
+    "feet",
+    "small",
+    "tight",
+    "money",
+    "wish",
+    "give",
+    "friend",
+    "cold",
+    "grandmother"
+  ],
+  "fringe_11": [
+    "shoes",
+    "boots",
+    "feet",
+    "small",
+    "tight",
+    "money",
+    "wish",
+    "give",
+    "friend",
+    "cold",
+    "grandmother"
+  ],
+  "activity_images": [
+    "shoes",
+    "boots",
+    "feet",
+    "small",
+    "tight",
+    "money"
+  ],
+  "aac_extras": [
+    "wish",
+    "give",
+    "friend",
+    "cold",
+    "grandmother"
+  ],
+  "ambiguous": [
+    {
+      "word": "tight",
+      "issue": "Could mean emotionally close (adjective) or physically too small/constricting",
+      "preferred": "tight small fit",
+      "reason": "In this book, tight refers to the shoes being too small for Jeremy's feet — a physical fit issue"
+    }
+  ],
+  "character_images_needed": [
+    "Jeremy (boy from Those Shoes)"
+  ],
+  "icon_search_terms": {
+    "shoes": "shoes",
+    "boots": "boots",
+    "feet": "feet",
+    "small": "small",
+    "tight": "tight",
+    "money": "money",
+    "wish": "wish",
+    "give": "give",
+    "friend": "friend",
+    "cold": "cold",
+    "grandmother": "grandmother"
+  },
+  "notes": "Those Shoes is a story about want vs need, generosity, and empathy. Jeremy desperately wants the trendy shoes all the kids have, but his grandmother can only afford winter boots. He eventually finds a too-small pair at a thrift store and ultimately gives them to a classmate who needs them more. Key vocabulary themes: footwear, size/fit, money/affordability, sharing and giving. 'tight' and 'small' are central concepts as the shoes do not fit Jeremy. 'wish' captures the longing theme. 'give' captures the climactic act of generosity. Existing activity_images (shoes, boots, grandmother, feet) align well — confirm those PNGs are already present and avoid duplication.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

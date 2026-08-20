@@ -1,0 +1,86 @@
+{
+  "title": "Snowmen at Night",
+  "author": "Caralyn Buehner",
+  "hero": {
+    "name": "Snowman",
+    "description": "Classic round snowman with carrot nose, coal eyes, scarf and top hat — the main character of the book",
+    "search_term": "snowman",
+    "needs_sourcing": false,
+    "source_note": "Generic snowman is well represented in Boardmaker symbol libraries"
+  },
+  "fringe_12": [
+    "Snowman",
+    "snow",
+    "night",
+    "carrot",
+    "hat",
+    "scarf",
+    "snowball",
+    "cold",
+    "melt",
+    "moon",
+    "stars",
+    "sleep"
+  ],
+  "fringe_11": [
+    "snow",
+    "night",
+    "carrot",
+    "hat",
+    "scarf",
+    "snowball",
+    "cold",
+    "melt",
+    "moon",
+    "stars",
+    "sleep"
+  ],
+  "activity_images": [
+    "snow",
+    "night",
+    "carrot",
+    "hat",
+    "scarf",
+    "snowball"
+  ],
+  "aac_extras": [
+    "cold",
+    "melt",
+    "moon",
+    "stars",
+    "sleep"
+  ],
+  "ambiguous": [
+    {
+      "word": "cold",
+      "issue": "Could mean temperature sensation (adjective) or illness (noun)",
+      "preferred": "cold temperature",
+      "reason": "Book is about snowmen outside in winter — cold refers to the weather/temperature"
+    },
+    {
+      "word": "melt",
+      "issue": "Could be confused with general liquid concepts",
+      "preferred": "melt snowman",
+      "reason": "Central to the story — snowmen melt, so pairing with snowman image clarifies meaning"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "snow": "snow",
+    "night": "night",
+    "carrot": "carrot",
+    "hat": "hat",
+    "scarf": "scarf",
+    "snowball": "snowball",
+    "cold": "cold",
+    "melt": "melt",
+    "moon": "moon",
+    "stars": "star",
+    "sleep": "sleep"
+  },
+  "notes": "Snowmen at Night imagines what snowmen do when no one is watching — they play, eat carrots, have snowball fights, and stay up under the moon and stars. The fringe prioritises the key sensory and story elements a student can comment on: the snowy setting, the snowman accessories (carrot nose, hat, scarf), key actions (snowball, melt, sleep), and the nighttime sky (moon, stars). The hero snowman is generic enough for standard Boardmaker. Consider adding action words like 'play' or 'eat' from core if the student is ready to combine. 'cold' should be represented by a thermometer or shivering figure, not a sick face.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-06-27"
+}

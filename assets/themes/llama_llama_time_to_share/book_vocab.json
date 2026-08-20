@@ -1,0 +1,88 @@
+{
+  "title": "Llama Llama Time to Share",
+  "author": "Anna Dewdney",
+  "hero": {
+    "name": "Llama Llama",
+    "description": "Young llama character in red pyjamas, distinctive Anna Dewdney character from cover",
+    "search_term": "llama llama",
+    "needs_sourcing": true,
+    "source_note": "Named character — activity_images/llama_llama already exists; use that asset"
+  },
+  "fringe_12": [
+    "LLAMA LLAMA",
+    "share",
+    "toy",
+    "friend",
+    "cry",
+    "mine",
+    "angry",
+    "take turns",
+    "sorry",
+    "new",
+    "play",
+    "hug"
+  ],
+  "fringe_11": [
+    "share",
+    "toy",
+    "friend",
+    "cry",
+    "mine",
+    "angry",
+    "take turns",
+    "sorry",
+    "new",
+    "play",
+    "hug"
+  ],
+  "activity_images": [
+    "share",
+    "toy",
+    "friend",
+    "cry",
+    "mine",
+    "angry"
+  ],
+  "aac_extras": [
+    "take turns",
+    "sorry",
+    "new",
+    "play",
+    "hug"
+  ],
+  "ambiguous": [
+    {
+      "word": "mine",
+      "issue": "Could mean possessive pronoun or the noun (a mine/excavation)",
+      "preferred": "mine possessive",
+      "reason": "Book is about ownership and sharing; 'mine' is used as a possessive claim by the child character"
+    },
+    {
+      "word": "new",
+      "issue": "Could mean brand-new object or the adjective new (unfamiliar)",
+      "preferred": "new",
+      "reason": "Nelly Gnu is a new friend/new toy in the story; adjective meaning is correct"
+    }
+  ],
+  "character_images_needed": [
+    "Llama Llama"
+  ],
+  "icon_search_terms": {
+    "share": "share",
+    "toy": "toy",
+    "friend": "friend",
+    "cry": "crying",
+    "mine": "mine",
+    "angry": "angry",
+    "take turns": "take turns",
+    "sorry": "sorry",
+    "new": "new",
+    "play": "play",
+    "hug": "hug"
+  },
+  "notes": "activity_images folder already contains: llama_llama, nelly_gnu, share, sorry, friends, crying — these should be prioritised over Boardmaker library symbols where they exist. 'Nelly Gnu' is the new neighbour/friend character and could replace 'friend' as a named fringe word if a second named character slot is desired, but 'friend' is more generalisable for AAC use. 'take turns' may need a two-word cell or an activity image; search Boardmaker for 'take turns' as a compound. 'mine' may not exist as a possessive symbol — search for 'mine possessive' or use a child pointing to self with object.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-08-01"
+}
