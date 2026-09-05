@@ -1,0 +1,110 @@
+{
+  "title": "Pete the Cat: Rocking in My School Shoes",
+  "author": "Eric Litwin",
+  "hero": {
+    "name": "Pete the Cat",
+    "description": "Blue cartoon cat with wide yellow eyes, wears red high-top sneakers ('school shoes') and a backpack; plays a red electric guitar. A named, highly distinctive character from the Eric Litwin/James Dean series.",
+    "search_term": "pete the cat",
+    "needs_sourcing": true,
+    "source_note": "Named, highly distinctive character — generic Boardmaker cat won't match; source blue cat with red shoes/guitar from Creative Fabrica, TPT Pete the Cat clip art, or official Pete the Cat books site."
+  },
+  "fringe_12": [
+    "Pete the Cat",
+    "shoes",
+    "guitar",
+    "backpack",
+    "bird",
+    "library",
+    "book",
+    "lunch",
+    "playground",
+    "bus",
+    "sing",
+    "rock"
+  ],
+  "fringe_11": [
+    "shoes",
+    "guitar",
+    "backpack",
+    "bird",
+    "library",
+    "book",
+    "lunch",
+    "playground",
+    "bus",
+    "sing",
+    "rock"
+  ],
+  "activity_images": [
+    "shoes",
+    "guitar",
+    "backpack",
+    "bird",
+    "library",
+    "book"
+  ],
+  "aac_extras": [
+    "lunch",
+    "playground",
+    "bus",
+    "sing",
+    "rock"
+  ],
+  "ambiguous": [
+    {
+      "word": "rock",
+      "issue": "Could mean a rock/stone (noun) or the action of rocking/rocking out musically (verb, as in 'rockin')",
+      "preferred": "rock (music/dancing action)",
+      "reason": "In this book 'rock' always refers to Pete grooving and playing guitar/singing, not a stone — search for 'rock and roll' or 'dancing' imagery, not a rock/stone icon."
+    },
+    {
+      "word": "bat",
+      "issue": "Not used in this book, but flagged generally as a common AAC confusion word (animal vs sports equipment)",
+      "preferred": "N/A - not applicable to this book",
+      "reason": "Included as a caution note only; 'bat' does not appear in Rocking in My School Shoes."
+    }
+  ],
+  "character_images_needed": [
+    "Pete the Cat"
+  ],
+  "icon_search_terms": {
+    "shoes": "red sneakers shoes",
+    "guitar": "electric guitar",
+    "backpack": "backpack",
+    "bird": "yellow bird",
+    "library": "library",
+    "book": "book",
+    "lunch": "lunchroom cafeteria",
+    "playground": "playground",
+    "bus": "school bus",
+    "sing": "sing singing",
+    "rock": "rock and roll dancing"
+  },
+  "notes": "All 11 fringe words already exist in activity_images or aac_extras per existing data — no new sourcing needed beyond Pete the Cat hero image. 'Rock' should use a guitar or musical note icon to convey the groovy/music meaning. 'Cool' is Pete's signature catchphrase word and is high-priority for expression. The fixed core row 5 already includes 'read', which supports the library/reading theme. Board is well suited for school arrival/routine conversations as well as book retelling.",
+  "characters": [
+    "pete_cat"
+  ],
+  "code": "PRSS1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-09-05",
+  "pub_year": "2011",
+  "book_summary": "Pete the Cat heads off for his first day of school wearing his red school shoes (which match his electric guitar), and discovers new places like the library, the lunchroom, and the playground. <cite index=\"3-1,3-2\">Pete discovers the library, the lunch room, the playground, and lots of other cool places at school, and no matter where he goes, Pete never stops moving and grooving and singing his song...because it's all good.</cite> <cite index=\"9-6,9-7\">Pete was originally a black cat adopted by artist James Dean, who painted him blue instead of black for the series.</cite>",
+  "fringe_justifications": {
+    "shoes": "The whole book centers on Pete's red 'school shoes,' shown on every page as he moves through the school — the title itself is built around this object.",
+    "guitar": "Pete stands next to the school bus playing his electric guitar, and the guitar's red color is described as matching his red shoes, tying the object directly to a specific illustrated scene.",
+    "backpack": "Pete carries an orange backpack throughout the book, with a little yellow bird perched on top of it as he walks to school.",
+    "bird": "A little yellow bird sits atop Pete's backpack looking at him and follows him along the sidewalk in a recurring visual through the book.",
+    "library": "Pete visits the library for the first time and is shown reading a book called 'Wild Wild West' there, a distinct named scene.",
+    "book": "In the library scene Pete finds his favorite book and reads about a cowboy cat riding a horse, a specific pictured object in that scene.",
+    "lunch": "Pete is shown sitting with his cat friends in the lunchroom, one of the specific school locations he discovers.",
+    "playground": "Pete discovers the playground and is shown playing at recess, one of the distinct new places highlighted in the story.",
+    "bus": "Pete boards the Cat City school bus holding his backpack, lunchbox, and guitar, with a bus driver cat and his schoolmates peering out the windows.",
+    "sing": "Pete sings his signature song ('rockin' in my school shoes') throughout every scene of the school day, the book's central repeated refrain.",
+    "rock": "The title and refrain center on Pete 'rocking' — dancing/grooving with his guitar — as his unflappable response to every new school experience."
+  },
+  "grounded": true,
+  "grounding_note": "Confirmed via multiple search results (Publishers Weekly, Goodreads, official Pete the Cat books site, and a detailed picture-description transcript from Great Expectations) that this is the genuine Eric Litwin/James Dean book about Pete's first day of school, featuring the library, lunchroom, playground, school bus, red school shoes/guitar, backpack, and a small yellow bird companion.",
+  "searches_used": 2,
+  "guardrail_warnings": [],
+  "vocab_status": "pending_human_review"
+}

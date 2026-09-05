@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "title": "Stick and Stone",
+  "author": "Beth Ferry",
+  "status": "demand_candidate",
+  "vocab_status": "pending_human_review",
+  "production_blocked": true,
+  "demand_candidate": {
+    "campaign": "september_back_to_school_2026",
+    "rank": 16,
+    "evidence_level": "public_tpt_and_seasonal_proxy",
+    "rationale": "Short friendship and anti-bullying story with concrete object characters, simple emotions, and strong classroom-community bundle potential.",
+    "tpt_keyword_finder_verified": false,
+    "rights_review": "required"
+  },
+  "hero": {
+    "name": "Stick and Stone",
+    "description": "A thin stick character and a round stone character, each drawn with simple stick-figure-style faces and limbs (pencil and watercolor illustrations by Tom Lichtenheld); they are the title duo shown together on the cover.",
+    "search_term": "stick and stone book characters",
+    "needs_sourcing": true,
+    "source_note": "Distinctive illustrated characters with faces/expressions specific to this book — generic Boardmaker 'stick' (tree branch) and 'stone' (rock) images will not match Lichtenheld's character art; source from publisher site or TPT/Creative Fabrica clip art."
+  },
+  "fringe_12": [
+    "Stick and Stone",
+    "Stone",
+    "Pinecone",
+    "storm",
+    "puddle",
+    "swing",
+    "splash",
+    "friend",
+    "alone",
+    "rescue",
+    "ocean",
+    "sorry"
+  ],
+  "fringe_11": [
+    "Stone",
+    "Pinecone",
+    "storm",
+    "puddle",
+    "swing",
+    "splash",
+    "friend",
+    "alone",
+    "rescue",
+    "ocean",
+    "sorry"
+  ],
+  "activity_images": [
+    "Stone",
+    "Pinecone",
+    "storm",
+    "puddle",
+    "swing",
+    "splash"
+  ],
+  "aac_extras": [
+    "friend",
+    "alone",
+    "rescue",
+    "ocean",
+    "sorry"
+  ],
+  "ambiguous": [
+    {
+      "word": "Stone",
+      "issue": "Could be read as a generic rock/geology noun rather than the named character",
+      "preferred": "Stone (round stick-figure character with face)",
+      "reason": "In this book Stone is always the illustrated round character with a face, not a plain rock"
+    },
+    {
+      "word": "swing",
+      "issue": "Could mean the playground swing set (noun) or a swinging motion (verb)",
+      "preferred": "playground swing (noun)",
+      "reason": "The book scene shows Stone trying to sit on a literal playground swing"
+    },
+    {
+      "word": "storm",
+      "issue": "Could be depicted as a rain storm vs. a wind/hurricane storm",
+      "preferred": "windstorm/hurricane blowing objects",
+      "reason": "The book's storm is specifically a windstorm/hurricane that carries Stick away, not just rain"
+    }
+  ],
+  "character_images_needed": [
+    "Stick",
+    "Stone",
+    "Pinecone"
+  ],
+  "icon_search_terms": {
+    "Stone": "stick and stone book stone character",
+    "Pinecone": "stick and stone book pinecone character",
+    "storm": "windstorm hurricane wind",
+    "puddle": "puddle water",
+    "swing": "playground swing",
+    "splash": "splash water",
+    "friend": "friends holding hands",
+    "alone": "alone lonely",
+    "rescue": "rescue save",
+    "ocean": "ocean seashore waves",
+    "sorry": "sorry apologize"
+  },
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-09-05",
+  "notes": "Demand candidate only. Complete Keyword Finder, rights, vocabulary, and icon review before production.",
+  "pub_year": "2015",
+  "book_summary": "Stick and Stone are each lonely until Stick stands up for Stone when a bullying Pinecone teases him at the playground, and the two become inseparable best friends. They explore, play, and blow bubbles together until a storm blows Stick out to sea; Stone searches everywhere and finally rescues Stick, who is stuck upside down in a puddle, proving the pair make 'a perfect 10' together.",
+  "fringe_justifications": {
+    "Stone": "Stone is the second title character, round and lonely at first, who later searches for and rescues Stick — a co-lead of the entire story.",
+    "Pinecone": "Pinecone is the prickly antagonist who mocks Stone at the playground until Stick stands up to him, driving the story's central conflict.",
+    "storm": "A windstorm/hurricane blows through partway in the book and carries Stick away, separating the two friends and starting the second half of the plot.",
+    "puddle": "Stone finally finds Stick stuck upside down in a puddle after searching everywhere, the key discovery scene near the book's end.",
+    "swing": "Pinecone teases Stone specifically because he cannot balance on the playground swing, the scene that sparks Stick's defense of Stone.",
+    "splash": "Stone rescues Stick by leaping into the puddle with a big splash that dislodges him, the climactic rescue action.",
+    "friend": "Becoming friends is the book's central theme, marked by the line describing Stick standing up for Stone as 'what sticks (stick up for people) do.'",
+    "alone": "The book opens with both Stick and Stone feeling very alone before they meet, the emotional starting point of the story.",
+    "rescue": "Stone must search for and rescue Stick after the storm carries him away, the main event of the story's second half.",
+    "ocean": "The hurricane carries Stick out to sea near the ocean/seashore where the pair earlier watched dolphins together.",
+    "sorry": "At the end, Pinecone apologizes to Stone, saying he is sorry for teasing him, resolving the bullying subplot."
+  },
+  "grounded": true,
+  "grounding_note": "Confirmed via multiple sources (Kirkus, BookPage, Goodreads, Books4Learning, publisher/retailer copy) that this is the 2015 Beth Ferry / Tom Lichtenheld picture book in which Stick defends Stone from bullying Pinecone, the two become friends, a storm separates them, and Stone rescues Stick from a puddle. Plot details are consistent across all sources, so confidence is high.",
+  "searches_used": 2,
+  "guardrail_warnings": []
+}

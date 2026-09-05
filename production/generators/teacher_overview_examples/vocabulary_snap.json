@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "product_name": "Vocabulary Snap",
+  "theme_name": "Llama Llama Red Pajama",
+  "product_code": "LLRP-VWW-LAUNCH",
+  "version": "2026-09-05",
+  "source_build_result": "assets/themes/llama_llama_red_pajama/OUTPUT/LLRP-VWW-LAUNCH_WordSnap_BuildResult.json",
+  "page_counts": {
+    "color": 3,
+    "bw": 3
+  },
+  "formats": [
+    "Color",
+    "B&W"
+  ],
+  "levels": [],
+  "included": [
+    "Sixteen game cards across three pages",
+    "Two copies of each vocabulary card",
+    "Eight approved symbol-supported words",
+    "Separate symbol-only and text-only decks"
+  ],
+  "best_for": [
+    "Vocabulary instruction",
+    "Snap and memory-style games",
+    "Small-group practice",
+    "Speech-language sessions"
+  ],
+  "access": [
+    "Symbol and printed-word pairing",
+    "Cards can be introduced in smaller sets",
+    "AAC-compatible vocabulary modelling"
+  ],
+  "preparation": {
+    "label": "Print, cut and select a card set",
+    "materials": "Card stock; optional laminate and storage pouch",
+    "time": "10–15 minutes"
+  },
+  "teaching_steps": [
+    {
+      "title": "Teach",
+      "detail": "Introduce a small group of vocabulary cards."
+    },
+    {
+      "title": "Match",
+      "detail": "Find identical symbols and printed words."
+    },
+    {
+      "title": "Play",
+      "detail": "Use duplicate cards for Snap or memory practice."
+    }
+  ],
+  "scarborough": {
+    "strands": [
+      "Vocabulary",
+      "Sight Recognition"
+    ],
+    "tier": "both",
+    "statement": "Builds repeated recognition of topic words and their visual referents."
+  },
+  "preview_image": "assets/themes/llama_llama_red_pajama/OUTPUT/LLRP-VWW-LAUNCH_WordSnap_SymbolText_COLOR.pdf",
+  "hero_image": "assets/themes/llama_llama_red_pajama/hero.png",
+  "pcs_used": true,
+  "book_companion": true,
+  "book_not_included": true
+}

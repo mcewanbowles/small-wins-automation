@@ -1,0 +1,114 @@
+{
+  "title": "Time For School Little Blue Truck",
+  "author": "Alice Schertle",
+  "hero": {
+    "name": "Little Blue Truck",
+    "description": "A small blue anthropomorphic pickup truck with cartoon eyes on the windshield/grille, the recurring star of the Little Blue Truck series",
+    "search_term": "little blue truck",
+    "needs_sourcing": true,
+    "source_note": "Distinctive, well-known branded character from a bestselling series — generic Boardmaker 'truck' clipart will not match; source from Little Blue Truck licensed clip art or TPT/Creative Fabrica."
+  },
+  "fringe_12": [
+    "Little Blue Truck",
+    "Toad",
+    "bus",
+    "Piggy",
+    "cry",
+    "woods",
+    "stream",
+    "backpack",
+    "beep",
+    "late",
+    "cheer",
+    "school"
+  ],
+  "fringe_11": [
+    "Toad",
+    "bus",
+    "Piggy",
+    "cry",
+    "woods",
+    "stream",
+    "backpack",
+    "beep",
+    "late",
+    "cheer",
+    "school"
+  ],
+  "activity_images": [
+    "Toad",
+    "bus",
+    "Piggy",
+    "cry",
+    "woods",
+    "stream"
+  ],
+  "aac_extras": [
+    "backpack",
+    "beep",
+    "late",
+    "cheer",
+    "school"
+  ],
+  "ambiguous": [
+    {
+      "word": "bus",
+      "issue": "Could be depicted as a generic city/public bus rather than a school bus",
+      "preferred": "school bus",
+      "reason": "The book's bus is specifically a bright yellow school bus carrying farm animal students"
+    },
+    {
+      "word": "cheer",
+      "issue": "Could be interpreted as 'cheerleader' pom-poms rather than the act of cheering/celebrating",
+      "preferred": "cheering (celebration)",
+      "reason": "In the book it refers to the animals cheering 'Good job, Blue!' at the story's happy ending"
+    },
+    {
+      "word": "Piggy",
+      "issue": "Could be confused with a generic pig noun rather than the specific character",
+      "preferred": "pig (crying piglet)",
+      "reason": "Piggy is a specific named character in this book who missed the bus, not a generic farm pig image"
+    }
+  ],
+  "character_images_needed": [
+    "Little Blue Truck"
+  ],
+  "icon_search_terms": {
+    "Toad": "toad",
+    "bus": "school bus yellow",
+    "Piggy": "pig crying",
+    "cry": "crying child",
+    "woods": "forest woods",
+    "stream": "stream water crossing",
+    "backpack": "backpack",
+    "beep": "beep honk horn",
+    "late": "late clock",
+    "cheer": "cheering celebrate",
+    "school": "school building"
+  },
+  "notes": "This book follows Little Blue Truck as he picks up animal friends on the way to school, featuring repeated 'beep beep' refrains and themes of friendship and school readiness. 'Beep' is a highly functional and motivating word for this book's repeated phrase. 'Ready' supports school-readiness conversations. The core row already includes 'go' which pairs well with 'school' and 'bus' from the fringe. Consider pairing this board with a school routine visual schedule. Author confirmed as Alice Schertle based on the Little Blue Truck series; illustrator is Jill McElmurry.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-09-05",
+  "pub_year": "2021",
+  "book_summary": "<cite index=\"14-1,14-2,14-3\">Little Blue Truck is driving along the country road early one morning when he and driver friend Toad come across a big, yellow, shiny school bus, and when Little Blue Truck wishes aloud he could do an important job like hers, the school bus says only a bus of her size and features can do this job.</cite> <cite index=\"14-4,14-5\">Little Blue Truck continues along, a bit envious, and finds Piggy crying by the side of the road, having missed the bus, so Little Blue tells Piggy to climb in and takes a creative path to the school that the bus couldn't navigate, getting Piggy there right on time.</cite> <cite index=\"15-11\">And everyone cheers, \"Good job, Blue!\"</cite>",
+  "fringe_justifications": {
+    "Toad": "Toad is Little Blue Truck's driver and good friend who rides along with him the whole story, as noted repeatedly: 'Little Blue Truck and his good friend Toad are excited to meet a bright yellow school bus on the road.'",
+    "bus": "The big yellow school bus is the second major character — Blue meets her on the road and admires the important job she does carrying the animal passengers to school.",
+    "Piggy": "Piggy is the piglet found crying by the roadside after oversleeping and missing the school bus — the central problem Blue solves in the story.",
+    "cry": "Piggy is described as crying by the side of the road after missing the bus, the emotional turning point that prompts Blue's rescue mission.",
+    "woods": "Blue takes a shortcut 'through the woods' that the big school bus is too large to navigate, showing off his special talent.",
+    "stream": "Part of Blue's clever shortcut route involves crossing a stream, a specific plot detail distinguishing his path from the bus's route.",
+    "backpack": "Piggy and the other animal students are shown heading to school with backpacks, a key back-to-school image throughout the illustrations.",
+    "beep": "Blue's signature 'Beep! Beep!' sound effect is used repeatedly in the text, including right before he tells Piggy 'climb in.'",
+    "late": "Piggy has overslept and is late, having missed the school bus — the specific reason Blue needs to help.",
+    "cheer": "At the end of the story everyone cheers 'Good job, Blue!' when he successfully delivers Piggy to school on time.",
+    "school": "School is the destination of the whole journey — the title event and the place all the animal characters are headed."
+  },
+  "grounded": true,
+  "grounding_note": "Confirmed via multiple retailer and review sources (Amazon, Barnes & Noble, Goodreads, Kirkus, School Library Journal/Booklist via BTSB, illustrator's own site) describing the same plot: Little Blue Truck and Toad meet a school bus, then help Piggy who missed the bus reach school via a woods/stream shortcut, ending with a cheer. Publication year 2021 confirmed via Wikipedia bibliography of Alice Schertle.",
+  "searches_used": 2,
+  "guardrail_warnings": [],
+  "vocab_status": "pending_human_review"
+}

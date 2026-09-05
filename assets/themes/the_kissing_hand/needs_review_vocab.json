@@ -1,0 +1,109 @@
+{
+  "title": "The Kissing Hand",
+  "author": "Audrey Penn",
+  "hero": {
+    "name": "Chester Raccoon",
+    "description": "A young raccoon character, the central figure of the book, shown clinging to his mother at the forest's edge and later scampering off to nighttime school",
+    "search_term": "chester raccoon",
+    "needs_sourcing": true,
+    "source_note": "Named, illustration-specific character (distinctive Ruth Harper/Nancy Leak art style) — generic Boardmaker raccoon clipart won't match; source from TPT/Creative Fabrica Kissing Hand sets"
+  },
+  "fringe_12": [
+    "Chester Raccoon",
+    "forest",
+    "school",
+    "scared",
+    "mama",
+    "kiss",
+    "hand",
+    "heart",
+    "warm",
+    "hug",
+    "night",
+    "owl"
+  ],
+  "fringe_11": [
+    "forest",
+    "school",
+    "scared",
+    "mama",
+    "kiss",
+    "hand",
+    "heart",
+    "warm",
+    "hug",
+    "night",
+    "owl"
+  ],
+  "activity_images": [
+    "forest",
+    "school",
+    "scared",
+    "mama",
+    "kiss",
+    "hand"
+  ],
+  "aac_extras": [
+    "heart",
+    "warm",
+    "hug",
+    "night",
+    "owl"
+  ],
+  "ambiguous": [
+    {
+      "word": "school",
+      "issue": "Could mean an educational institution/building or a 'school of fish'",
+      "preferred": "school building/classroom",
+      "reason": "In this book, school refers to Chester's nighttime forest school in a tree, not a group of fish"
+    },
+    {
+      "word": "owl",
+      "issue": "Could be confused with generic bird icons or an unrelated species",
+      "preferred": "hoot owl",
+      "reason": "The hoot owl specifically signals the start of the nocturnal forest school in the story"
+    }
+  ],
+  "character_images_needed": [
+    "Chester Raccoon",
+    "Mrs. Raccoon"
+  ],
+  "icon_search_terms": {
+    "forest": "forest trees",
+    "school": "school building",
+    "scared": "scared child",
+    "mama": "mother animal",
+    "kiss": "kiss cheek",
+    "hand": "hand palm",
+    "heart": "heart love",
+    "warm": "warm cozy",
+    "hug": "hug embrace",
+    "night": "night moon",
+    "owl": "hoot owl"
+  },
+  "notes": "The emotional core of this book is separation anxiety and comfort — 'scared', 'warm', 'kiss', and 'mama' are the highest-priority fringe words for student expression. 'Raccoon' and 'hand' are already in existing activity_images so they are replaced by more expressive vocabulary; 'kiss' and 'hug' are already in aac_extras and can be pulled from there. 'Owl' appears as a secondary character offering wisdom and is picturable. Consider pairing this board with a physical 'kissing hand' activity to reinforce vocabulary in context.",
+  "characters": [],
+  "code": "KH1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-09-05",
+  "pub_year": "1993",
+  "book_summary": "Chester Raccoon is anxious about starting nighttime school in the forest and doesn't want to leave his mother. Mrs. Raccoon shares a family secret called the Kissing Hand — she kisses his palm and tells him to press it to his cheek whenever he feels lonely, so he'll always feel her love with him. Comforted, Chester goes off to join the other nocturnal animals at school (signaled by the hoot owl), and shares the secret with his new, homesick friends.",
+  "fringe_justifications": {
+    "forest": "Chester Raccoon stood at the edge of the forest and cried about not wanting to go to school, and the forest is the story's setting where the nighttime school tree stands.",
+    "school": "The entire conflict centers on nighttime school starting in the forest and Chester not wanting to go, per the book's recurring line that school is starting but Chester does not want to attend.",
+    "scared": "Chester is anxious and afraid about being separated from his mother for his first day/night of school, the central emotional conflict of the story.",
+    "mama": "Mrs. Raccoon is the one who comforts Chester and shares the family secret of the Kissing Hand with him.",
+    "kiss": "The titular gesture — Mrs. Raccoon opens Chester's palm and plants a kiss on it, the story's central magical device.",
+    "hand": "Chester's palm is where his mother places the kiss, the literal 'kissing hand' that gives the book its title and central image.",
+    "heart": "The kiss's warmth is described as traveling up Chester's arm and straight into his heart, filling it with love.",
+    "warm": "The Kissing Hand kiss is repeatedly described as a warm, gentle kiss whose warmth reassures Chester whenever he presses it to his cheek.",
+    "hug": "Mrs. Raccoon takes Chester by the hand and nuzzles/hugs him on the ear to comfort him when he is crying about school.",
+    "night": "Because raccoons are nocturnal, the forest school takes place at nighttime, a key detail distinguishing this story's setting.",
+    "owl": "The hoot owl rings in the new school year as Chester enters school, marking the start of the nighttime school day/night in the story."
+  },
+  "grounded": true,
+  "grounding_note": "Confirmed via multiple sources (Wikipedia, Goodreads, Scholastic, HeadStart.gov, Storyline Online) that this is the 1993 Audrey Penn picture book about Chester Raccoon and Mrs. Raccoon's 'Kissing Hand' secret, set at a nocturnal forest school signaled by a hoot owl. The 11 existing vocab/extras words (kiss, hand, heart, mama, school, scared, night, hug, warm, forest, owl) all map cleanly onto specific confirmed scenes, so they were retained as the fringe_11 set.",
+  "searches_used": 2,
+  "guardrail_warnings": [],
+  "vocab_status": "pending_human_review"
+}

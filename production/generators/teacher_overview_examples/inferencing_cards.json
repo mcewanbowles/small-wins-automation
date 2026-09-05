@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "product_name": "Clue, Think, Infer: Inferencing Cards",
+  "theme_name": "Llama Llama Red Pajama",
+  "product_code": "LLRP-INF-LAUNCH",
+  "version": "2026-09-05",
+  "source_build_result": "assets/themes/llama_llama_red_pajama/OUTPUT/LLRP-INF-LAUNCH_Inferencing_BuildResult.json",
+  "page_counts": {
+    "color": 6,
+    "bw": 6
+  },
+  "formats": [
+    "Color",
+    "B&W"
+  ],
+  "levels": [],
+  "included": [
+    "Four reviewed inference cards",
+    "Visual clue and two supported choices",
+    "Notice–know–infer reasoning routine",
+    "Teacher discussion guide"
+  ],
+  "best_for": [
+    "Verbal reasoning instruction",
+    "Evidence-based comprehension",
+    "Small-group discussion",
+    "Written, spoken or AAC responses"
+  ],
+  "access": [
+    "Visual clue on every card",
+    "Two choices before open explanation",
+    "I think…because… response frame"
+  ],
+  "preparation": {
+    "label": "Print or display one reasoning card",
+    "materials": "Paper, pencil or an alternative response method",
+    "time": "Under 5 minutes"
+  },
+  "teaching_steps": [
+    {
+      "title": "Notice",
+      "detail": "Identify information shown in the visual clue."
+    },
+    {
+      "title": "Connect",
+      "detail": "Connect the clue with relevant background knowledge."
+    },
+    {
+      "title": "Infer",
+      "detail": "Choose an inference and explain it using because."
+    }
+  ],
+  "scarborough": {
+    "strands": [
+      "Verbal Reasoning",
+      "Background Knowledge"
+    ],
+    "tier": "upper",
+    "statement": "Builds evidence-based explanations by connecting clues with prior knowledge."
+  },
+  "preview_image": "assets/themes/llama_llama_red_pajama/OUTPUT/LLRP-INF-LAUNCH_Inferencing_COLOR.pdf",
+  "hero_image": "assets/themes/llama_llama_red_pajama/hero.png",
+  "pcs_used": true,
+  "book_companion": true,
+  "book_not_included": true
+}

@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "product_name": "Yes/No Questions",
+  "theme_name": "Llama Llama Red Pajama",
+  "product_code": "LLRP-YN-LAUNCH",
+  "version": "2026-09-05",
+  "source_build_result": "assets/themes/llama_llama_red_pajama/OUTPUT/LLRP-YN-LAUNCH_YesNoQuestions_BuildResult.json",
+  "page_counts": {
+    "color": 5,
+    "bw": 5
+  },
+  "formats": [
+    "Color",
+    "B&W"
+  ],
+  "levels": [],
+  "included": [
+    "Eight reviewed yes/no question cards",
+    "Two symbol-supported question pages",
+    "Reusable yes and no response choices",
+    "Cut-out response tokens and teacher answer key"
+  ],
+  "best_for": [
+    "Listening comprehension",
+    "Early question answering",
+    "Small-group instruction",
+    "Speech-language sessions"
+  ],
+  "access": [
+    "Large symbol-supported response areas",
+    "Pointing, eye gaze, AAC or spoken responses",
+    "Balanced yes and no answers"
+  ],
+  "preparation": {
+    "label": "Print and choose a response method",
+    "materials": "Paper or card stock; optional laminate and cut-out tokens",
+    "time": "5–10 minutes"
+  },
+  "teaching_steps": [
+    {
+      "title": "Read",
+      "detail": "Read one question and allow processing time."
+    },
+    {
+      "title": "Respond",
+      "detail": "Accept pointing, AAC, speech or a token response."
+    },
+    {
+      "title": "Check",
+      "detail": "Confirm the answer using the picture, then check the key."
+    }
+  ],
+  "scarborough": {
+    "strands": [
+      "Vocabulary",
+      "Verbal Reasoning"
+    ],
+    "tier": "upper",
+    "statement": "Supports understanding questions and reasoning from visual and story information."
+  },
+  "preview_image": "assets/themes/llama_llama_red_pajama/OUTPUT/LLRP-YN-LAUNCH_YesNoQuestions_COLOR.pdf",
+  "hero_image": "assets/themes/llama_llama_red_pajama/hero.png",
+  "pcs_used": true,
+  "book_companion": true,
+  "book_not_included": true
+}

@@ -1,0 +1,102 @@
+{
+  "title": "The Day You Begin",
+  "author": "Jacqueline Woodson",
+  "hero": {
+    "name": "Angelina",
+    "description": "Young African-American girl with big curly hair and brown skin, the book's main narrator/protagonist who feels different on her first day of school",
+    "search_term": "girl curly hair brown skin",
+    "needs_sourcing": true,
+    "source_note": "Named, recurring protagonist with a distinctive look (curly hair) central to the story's theme of feeling different — generic Boardmaker 'girl' likely won't match the illustration style; consider sourcing from Rafael López-style clip art or TPT."
+  },
+  "fringe_12": [
+    "Angelina",
+    "friend",
+    "story",
+    "share",
+    "brave",
+    "school",
+    "lunch",
+    "kimchi",
+    "laugh",
+    "sister",
+    "classmates",
+    "alone"
+  ],
+  "fringe_11": [
+    "friend",
+    "story",
+    "share",
+    "brave",
+    "school",
+    "lunch",
+    "kimchi",
+    "laugh",
+    "sister",
+    "classmates",
+    "alone"
+  ],
+  "activity_images": [
+    "friend",
+    "story",
+    "share",
+    "brave",
+    "school",
+    "lunch"
+  ],
+  "aac_extras": [
+    "kimchi",
+    "laugh",
+    "sister",
+    "classmates",
+    "alone"
+  ],
+  "ambiguous": [
+    {
+      "word": "story",
+      "issue": "Could be interpreted as a narrative/tale or as a floor/level of a building",
+      "preferred": "story book/tale",
+      "reason": "In this book, 'story' always refers to personal stories characters share about themselves, not a building level"
+    }
+  ],
+  "character_images_needed": [
+    "Angelina"
+  ],
+  "icon_search_terms": {
+    "friend": "two children friends",
+    "story": "storybook tale",
+    "share": "share sharing",
+    "brave": "brave courage",
+    "school": "school classroom",
+    "lunch": "lunch tray food",
+    "kimchi": "kimchi asian food",
+    "laugh": "laughing child",
+    "sister": "little sister",
+    "classmates": "classmates group children",
+    "alone": "alone_2"
+  },
+  "notes": "This book focuses on themes of belonging, identity, and courage when entering a new environment as an outsider. Key vocabulary prioritises social-emotional words (brave, alone, welcome, begin) alongside relationship nouns (friend, family) and the core setting (school). 'Summer' is included because children in the story share — or notably do not share — experiences of summer holidays, making it a key story discussion point. Several words (brave, different, friend, share) already exist in aac_extras and (school) in activity_images, so no new sourcing is needed for those. The hero image will require custom sourcing to match Rafael López's distinctive illustration style, as a generic Boardmaker child icon will not be recognisable to students familiar with the book cover.",
+  "characters": [],
+  "code": "DYB1",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-09-05",
+  "pub_year": "2018",
+  "book_summary": "A young Black girl named Angelina feels like an outsider on the first day of school because she spent her summer at home caring for her little sister instead of traveling like her classmates. Alongside her, Rigoberto (a recent immigrant from Venezuela) is laughed at for his accent, a girl is embarrassed by her kimchi lunch, and a boy is left out of playground games — until they find the courage to share their own stories and begin to connect with one another.",
+  "fringe_justifications": {
+    "friend": "By the end of the book, Rigoberto and Angelina discover they share a connection and begin a friendship — the book's resolving image.",
+    "story": "The refrain 'until the day you begin to share your stories' is the book's central turning point and title theme.",
+    "share": "Woodson repeats that the world opens up 'the day you begin to share your stories' — sharing is the act that resolves each character's isolation.",
+    "brave": "The book is framed around finding a well of courage/bravery within each isolated child to connect with others.",
+    "school": "The story opens with children entering the classroom on the first day of school, the setting for every character's experience.",
+    "lunch": "At a lunch table, an Asian girl notices classmates reacting to her food, a key scene of feeling different.",
+    "kimchi": "The specific food named in the lunch-table scene — a girl is self-conscious that classmates wrinkle their noses at her kimchi.",
+    "laugh": "When Rigoberto tells the class he's from Venezuela, classmates laugh because they don't understand him — a pivotal scene of otherness.",
+    "sister": "Angelina spent her summer at home caring for her little sister, which is why she stays quiet during the class's travel show-and-tell.",
+    "classmates": "The recurring group of peers whose comments and reactions (laughing, wrinkling noses, not picking a boy for teams) drive each character's feelings of difference.",
+    "alone": "The opening line describes 'the world feels like a place that you're standing all the way outside of,' capturing the central feeling of isolation for all four children."
+  },
+  "grounded": true,
+  "grounding_note": "Confirmed via multiple sources (BookPage, Kirkus, Goodreads, Kenton County Library, Rafael López's own blog) that the book centers on Angelina, a girl with curly hair who feels isolated on the first day of school, alongside Rigoberto (immigrant from Venezuela), a girl embarrassed by her kimchi lunch, and a boy left out of games — resolving as they share their stories and connect. Illustrated by Rafael López, published 2018 by Nancy Paulsen Books.",
+  "searches_used": 2,
+  "guardrail_warnings": [],
+  "vocab_status": "pending_human_review"
+}

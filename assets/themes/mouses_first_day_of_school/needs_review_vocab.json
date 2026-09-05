@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "title": "Mouse's First Day of School",
+  "author": "Lauren Thompson",
+  "status": "demand_candidate",
+  "vocab_status": "pending_human_review",
+  "production_blocked": true,
+  "demand_candidate": {
+    "campaign": "september_back_to_school_2026",
+    "rank": 15,
+    "evidence_level": "public_tpt_and_seasonal_proxy",
+    "rationale": "Simple first-day concepts, school objects, colours, and shapes are highly picturable and suitable for emergent communicators and early SPED learners.",
+    "tpt_keyword_finder_verified": false,
+    "rights_review": "required"
+  },
+  "hero": {
+    "name": "Mouse",
+    "description": "A small, simply-named cartoon mouse, shown in bright pastel illustrations exploring a preschool classroom",
+    "search_term": "mouse",
+    "needs_sourcing": false,
+    "source_note": "Generic, unbranded mouse character — standard Boardmaker mouse symbol will match the simple illustration style"
+  },
+  "fringe_12": [
+    "Mouse",
+    "backpack",
+    "blocks",
+    "car",
+    "crayons",
+    "hat",
+    "drum",
+    "book",
+    "puzzle",
+    "snack",
+    "friend",
+    "paint"
+  ],
+  "fringe_11": [
+    "backpack",
+    "blocks",
+    "car",
+    "crayons",
+    "hat",
+    "drum",
+    "book",
+    "puzzle",
+    "snack",
+    "friend",
+    "paint"
+  ],
+  "activity_images": [
+    "backpack",
+    "blocks",
+    "car",
+    "crayons",
+    "hat",
+    "drum"
+  ],
+  "aac_extras": [
+    "book",
+    "puzzle",
+    "snack",
+    "friend",
+    "paint"
+  ],
+  "ambiguous": [
+    {
+      "word": "drum",
+      "issue": "Could mean a musical drum instrument or a storage/oil drum container",
+      "preferred": "musical drum",
+      "reason": "In the book, drum refers to a musical instrument Mouse bangs on in the classroom ('Thump, boom, bump a drum!')"
+    },
+    {
+      "word": "blocks",
+      "issue": "Could mean building blocks (toy) or the verb 'to block'",
+      "preferred": "building blocks",
+      "reason": "Mouse encounters wooden/plastic building blocks as the first classroom station"
+    },
+    {
+      "word": "paint",
+      "issue": "Could be the noun (tubes of paint/color) or the verb (action of painting)",
+      "preferred": "paint (tube/color noun)",
+      "reason": "The book shows tubes of paint as an object Mouse finds, not the act of painting"
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "backpack": "backpack",
+    "blocks": "blocks",
+    "car": "toy car",
+    "crayons": "crayons",
+    "hat": "hat",
+    "drum": "drum",
+    "book": "book",
+    "puzzle": "puzzle",
+    "snack": "snack",
+    "friend": "friends",
+    "paint": "paint"
+  },
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-09-05",
+  "notes": "Demand candidate only. Complete Keyword Finder, rights, vocabulary, and icon review before production.",
+  "pub_year": "2003",
+  "book_summary": "Mouse hides inside a bright red backpack and ends up at school, where he explores a classroom full of blocks, toy cars, crayons, paints, hats, and a drum, discovering colors, letters, numbers, and finally making new friends. The book uses rhythmic, onomatopoeic phrases like 'Squiggle, scribble, dot crayons!' as Mouse moves from station to station in the classroom.",
+  "fringe_justifications": {
+    "backpack": "Mouse decides to hide inside a bright red backpack, which carries him to school and is the opening image of the whole story.",
+    "blocks": "Blocks are the first station Mouse explores upon arriving in the classroom.",
+    "car": "The page 'Vrim, vrum, vroom a car!' shows Mouse encountering a toy car, one of the book's signature sound-effect lines.",
+    "crayons": "The line 'Squiggle, scribble, dot crayons!' has Mouse marching across the page carrying a big yellow crayon.",
+    "hat": "The phrase 'Feathery, floppy, boppy hats!' describes a dress-up station with hats that Mouse discovers.",
+    "drum": "The line 'Thump, boom, bump a drum!' describes Mouse finding a drum among the classroom instruments.",
+    "book": "Books are among the classroom stations/wonders Mouse finds, per multiple plot summaries of the story.",
+    "puzzle": "Puzzles are listed among the specific classroom items Mouse discovers on his exploration, alongside blocks and books.",
+    "snack": "Snack time is one of the classroom wonders described in the story as Mouse explores the room.",
+    "friend": "The story ends with Mouse finding new friends, described as 'best of all' in the publisher's summary of the ending.",
+    "paint": "Kirkus notes Mouse finds tubes of paint at the paint station right after the blocks and toy car."
+  },
+  "grounded": true,
+  "grounding_note": "Confirmed via multiple sources (Amazon editorial review, Kirkus Reviews, Simon & Schuster publisher page, Bookroo, Brooklyn Public Library) that Mouse hides in a red backpack, ends up at a preschool/classroom, and encounters blocks, a toy car, crayons, paint, hats, a drum, books, puzzles, snacks, and friends. Kirkus and the Amazon editorial review both independently list the same sequence of classroom stations, giving high confidence in the specific object list.",
+  "searches_used": 2,
+  "guardrail_warnings": []
+}

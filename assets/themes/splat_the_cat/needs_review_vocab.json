@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "title": "Splat the Cat",
+  "author": "Rob Scotton",
+  "status": "demand_candidate",
+  "vocab_status": "pending_human_review",
+  "production_blocked": true,
+  "demand_candidate": {
+    "campaign": "september_back_to_school_2026",
+    "rank": 17,
+    "evidence_level": "public_tpt_and_seasonal_proxy",
+    "rationale": "Recognisable first-day story with anxiety, friendship, and school routines; suitable for visual feelings supports and sequencing but carries higher character-brand risk.",
+    "tpt_keyword_finder_verified": false,
+    "rights_review": "required"
+  },
+  "hero": {
+    "name": "Splat the Cat",
+    "description": "A fuzzy black cat with a distinctive wildly crooked, quivering tail that moves with worry or excitement; bulging apprehensive eyes; created and illustrated by Rob Scotton in a signature off-kilter blue-gray palette style",
+    "search_term": "splat the cat",
+    "needs_sourcing": true,
+    "source_note": "Named, visually distinctive character (specific black cat design, crooked tail) — source from Creative Fabrica, TPT, or official Splat the Cat clip art rather than generic Boardmaker cat"
+  },
+  "fringe_12": [
+    "Splat the Cat",
+    "Seymour",
+    "lunchbox",
+    "school",
+    "teacher",
+    "friends",
+    "chase",
+    "milk",
+    "worried",
+    "scared",
+    "excited",
+    "tail"
+  ],
+  "fringe_11": [
+    "Seymour",
+    "lunchbox",
+    "school",
+    "teacher",
+    "friends",
+    "chase",
+    "milk",
+    "worried",
+    "scared",
+    "excited",
+    "tail"
+  ],
+  "activity_images": [
+    "Seymour",
+    "lunchbox",
+    "school",
+    "teacher",
+    "friends",
+    "chase"
+  ],
+  "aac_extras": [
+    "milk",
+    "worried",
+    "scared",
+    "excited",
+    "tail"
+  ],
+  "ambiguous": [],
+  "character_images_needed": [
+    "Splat the Cat",
+    "Seymour"
+  ],
+  "icon_search_terms": {
+    "Seymour": "pet mouse",
+    "lunchbox": "lunchbox",
+    "school": "school building",
+    "teacher": "teacher woman",
+    "friends": "friends",
+    "chase": "chase run after",
+    "milk": "milk",
+    "worried": "worried",
+    "scared": "afraid",
+    "excited": "excited",
+    "tail": "animal tail"
+  },
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-09-05",
+  "notes": "Demand candidate only. Complete Keyword Finder, rights, vocabulary, and icon review before production.",
+  "pub_year": "2008",
+  "book_summary": "It's Splat's first day of Cat School and he's terrified he won't make friends, so he secretly smuggles his pet mouse Seymour into his lunchbox for courage. When Seymour escapes during lunchtime, the cat classmates instinctively chase him, throwing the room into chaos and reviving Splat's worries about fitting in. Seymour ends up saving the day by squeezing into a stuck milk cupboard to free the milk, turning him into a classroom hero and leaving Splat excited to return to school the next day.",
+  "fringe_justifications": {
+    "Seymour": "Splat's pet mouse who he secretly brings to Cat School for courage, and who becomes the hero of the story by unlocking the milk cupboard.",
+    "lunchbox": "Splat hides Seymour inside his lunchbox to sneak him into school, and Seymour later pops out of it at lunchtime, triggering the chase.",
+    "school": "The entire story takes place at Cat School on Splat's first day, the central setting driving his worry and later his excitement.",
+    "teacher": "Mrs. Wimpydimple, Splat's teacher, introduces him to the class and later takes charge to resolve the chaos when Seymour escapes.",
+    "friends": "Splat's core fear throughout the book is that he won't make any new friends at his first day of Cat School.",
+    "chase": "When Seymour escapes the lunchbox, the cat classmates instinctively chase him because 'cats chase mice,' the story's big comic set-piece.",
+    "milk": "The teacher tries to calm the chaos with the promise of milk, and the stuck milk cupboard door becomes the problem Seymour solves.",
+    "worried": "Splat's tail moves with worry at the start of the book as he dreads his first day of Cat School.",
+    "scared": "Splat is described as scared/nervous about going to Cat School and tries to think of excuses to avoid it.",
+    "excited": "By day two, Splat's tail moves with excitement, showing his complete change of heart about school.",
+    "tail": "Splat's wildly crooked, quivering tail is a signature illustrated detail that visibly shows his worry at the start and his excitement at the end."
+  },
+  "grounded": true,
+  "grounding_note": "Confirmed via multiple sources (Wikipedia, HarperCollins/Amazon jacket copy, Publishers Weekly review, Scholastic, and a classroom blog beginning/middle/end summary) that Splat the Cat (2008) is about a black cat named Splat who is nervous for his first day of Cat School, sneaks his pet mouse Seymour into his lunchbox for courage, causes classroom chaos when Seymour escapes and is chased by the other cats, and is saved when Seymour unlocks a stuck milk cupboard, ending the day happily and excited for day two.",
+  "searches_used": 2,
+  "guardrail_warnings": []
+}

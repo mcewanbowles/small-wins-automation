@@ -1,0 +1,108 @@
+{
+  "title": "My Mouth Is a Volcano!",
+  "author": "Julia Cook",
+  "hero": {
+    "name": "Louis",
+    "description": "A young elementary-school boy with orange hair, illustrated by Carrie Hartman, whose mouth is depicted as a volcano when he interrupts",
+    "search_term": "Louis boy volcano mouth Julia Cook",
+    "needs_sourcing": true,
+    "source_note": "Louis is a specific named character illustrated in a distinctive style by Carrie Hartman; generic 'boy' Boardmaker art will not match the volcano-mouth visual gag, so a custom or publisher-matched image is recommended."
+  },
+  "fringe_12": [
+    "Louis",
+    "volcano",
+    "erupt",
+    "interrupt",
+    "wiggle",
+    "jiggle",
+    "rumble",
+    "mouth",
+    "words",
+    "raise hand",
+    "teacher",
+    "mom"
+  ],
+  "fringe_11": [
+    "volcano",
+    "erupt",
+    "interrupt",
+    "wiggle",
+    "jiggle",
+    "rumble",
+    "mouth",
+    "words",
+    "raise hand",
+    "teacher",
+    "mom"
+  ],
+  "activity_images": [
+    "volcano",
+    "erupt",
+    "interrupt",
+    "wiggle",
+    "jiggle",
+    "rumble"
+  ],
+  "aac_extras": [
+    "mouth",
+    "words",
+    "raise hand",
+    "teacher",
+    "mom"
+  ],
+  "ambiguous": [
+    {
+      "word": "erupt",
+      "issue": "Could depict a literal volcano eruption image or an emotional/angry outburst",
+      "preferred": "volcano erupting",
+      "reason": "In this book 'erupt' specifically illustrates Louis's mouth/volcano metaphor bursting with words, not anger — a volcano-eruption graphic best matches the book's visual gag"
+    },
+    {
+      "word": "mouth",
+      "issue": "Could be a static body-part icon or an action icon (talking/open mouth)",
+      "preferred": "open mouth talking",
+      "reason": "The book repeatedly shows Louis's open mouth mid-eruption, so an animated/open-mouth image fits better than a neutral closed-mouth body-part icon"
+    }
+  ],
+  "character_images_needed": [
+    "Louis"
+  ],
+  "icon_search_terms": {
+    "volcano": "volcano erupting",
+    "erupt": "volcano eruption",
+    "interrupt": "interrupt talking",
+    "wiggle": "wiggle",
+    "jiggle": "jiggle wiggle",
+    "rumble": "tummy rumble",
+    "mouth": "mouth open talking",
+    "words": "speech bubble words",
+    "raise hand": "raise hand classroom",
+    "teacher": "teacher",
+    "mom": "mom"
+  },
+  "notes": "This book by Julia Cook teaches impulse control and turn-taking in conversation. The central metaphor is that Louis's thoughts 'erupt' like a volcano when he interrupts. Key vocabulary centres on social communication skills: waiting, listening, raising your hand, and taking turns. 'Erupt' is best represented by the volcano image already in activity_images. 'Feelings' is included because the book explicitly addresses why Louis feels compelled to blurt out — emotional literacy is a core theme. The word 'interrupt' may need to be sourced as a custom image (person tapping another on shoulder / speech bubble cutting in) as Boardmaker coverage varies. Secondary characters (classmates, teacher) are generic and do not need sourcing.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-09-05",
+  "pub_year": "2005",
+  "book_summary": "Told from young Louis's perspective, the book follows a boy whose thoughts feel so important that his words \"rumble and grumble\" in his tummy, \"wiggle and jiggle\" on his tongue, and then erupt out of his mouth, causing him to interrupt his teacher, daycare lady, and mom. When classmates Richard and Courtney interrupt Louis while he is presenting his Student Star poster at school, he finally understands how it feels to be interrupted, and his mom teaches him a breathing strategy to hold his words until it's his turn to speak.",
+  "fringe_justifications": {
+    "volcano": "Louis describes his mouth as a volcano, the book's central metaphor for his inability to hold back his words.",
+    "erupt": "The recurring key verb in the story: Louis's words 'push on his teeth' right before he ERUPTS, or interrupts, other people.",
+    "interrupt": "The book's core lesson word — Louis 'always interrupts' his teacher, daycare lady, and mom, and later gets interrupted himself by Richard and Courtney.",
+    "wiggle": "Described as one of the physical stages of his outburst: his words 'wiggle and jiggle on his tongue' before erupting.",
+    "jiggle": "Paired with 'wiggle' as the second physical stage of Louis's words moving toward eruption on his tongue.",
+    "rumble": "The first stage of Louis's eruption process — his words 'rumble and grumble in his tummy' before working their way up.",
+    "mouth": "The title object and central image of the book — Louis's mouth is repeatedly depicted erupting like a volcano.",
+    "words": "Louis's 'very important' words are the recurring subject that rumble, wiggle, jiggle, and finally erupt throughout the story.",
+    "raise hand": "The classroom strategy Louis is taught — to look at the teacher, raise his hand, and wait to be called on instead of blurting out.",
+    "teacher": "Louis interrupts his teacher repeatedly at school and is scolded by her, a recurring scene throughout the book.",
+    "mom": "Louis's mom is the one who tells him about the breathing strategy at the end of the book to help him manage interrupting."
+  },
+  "grounded": true,
+  "grounding_note": "Confirmed via multiple publisher (Boys Town Press, NCYI, Redleaf Press) and review sources that this is Julia Cook's 2005 picture book about a boy named Louis whose 'words rumble and grumble... wiggle and jiggle... right before he ERUPTS (or interrupts)'. Scene details (Richard/Courtney interrupting his Student Star poster presentation, mom's breathing strategy) were confirmed via a detailed blog summary and a student book review.",
+  "searches_used": 2,
+  "guardrail_warnings": [],
+  "vocab_status": "pending_human_review"
+}

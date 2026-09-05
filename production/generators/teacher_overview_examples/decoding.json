@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "product_name": "CVC Decode & Build",
+  "theme_name": "Llama Llama Red Pajama",
+  "product_code": "LLRP-DEC-LAUNCH",
+  "version": "2026-09-05",
+  "source_build_result": "assets/themes/llama_llama_red_pajama/OUTPUT/LLRP-DEC-LAUNCH_Decoding_BuildResult.json",
+  "page_counts": {
+    "color": 6,
+    "bw": 6
+  },
+  "formats": [
+    "Color",
+    "B&W"
+  ],
+  "levels": [],
+  "included": [
+    "Eight explicitly mapped CVC words",
+    "Four short-vowel practice sets",
+    "Sound, blend and write routine",
+    "Teacher grapheme check"
+  ],
+  "best_for": [
+    "Beginning decoding practice",
+    "Explicit phonics follow-up",
+    "Small-group instruction",
+    "Read-and-write reinforcement"
+  ],
+  "access": [
+    "One grapheme per large tile",
+    "Consistent say–blend–write routine",
+    "No picture naming required"
+  ],
+  "preparation": {
+    "label": "Print and select a taught vowel pattern",
+    "materials": "Paper and pencil or letter tiles",
+    "time": "Under 5 minutes"
+  },
+  "teaching_steps": [
+    {
+      "title": "Sound",
+      "detail": "Say the sound represented by each grapheme."
+    },
+    {
+      "title": "Blend",
+      "detail": "Blend from left to right and read the word."
+    },
+    {
+      "title": "Write",
+      "detail": "Build or write the complete word."
+    }
+  ],
+  "scarborough": {
+    "strands": [
+      "Decoding"
+    ],
+    "tier": "lower",
+    "statement": "Provides explicit CVC grapheme-to-word blending practice."
+  },
+  "preview_image": "assets/themes/llama_llama_red_pajama/OUTPUT/LLRP-DEC-LAUNCH_Decoding_COLOR.pdf",
+  "hero_image": "assets/themes/llama_llama_red_pajama/hero.png",
+  "pcs_used": false,
+  "book_companion": true,
+  "book_not_included": true
+}

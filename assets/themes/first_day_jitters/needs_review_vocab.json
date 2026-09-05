@@ -1,0 +1,108 @@
+{
+  "title": "First Day Jitters",
+  "author": "Julie Danneberg",
+  "hero": {
+    "name": "Sarah Jane Hartwell",
+    "description": "An ordinary-looking woman who spends almost the entire book hidden under bed covers or slumped down out of view so her face is never shown; the book's surprise is that she is revealed as the new teacher on the final page, not a child.",
+    "search_term": "girl hiding under blanket",
+    "needs_sourcing": true,
+    "source_note": "Because the visual joke of the book depends on her being obscured (buried under covers, slumped in the car seat) until the last page, a generic Boardmaker 'girl' or 'woman' symbol won't capture this — best sourced from a 'person hiding under blanket' clipart or the book's own cover art."
+  },
+  "fringe_12": [
+    "Sarah Jane Hartwell",
+    "bed",
+    "breakfast",
+    "lunchbox",
+    "car",
+    "principal",
+    "cat",
+    "dog",
+    "stomach ache",
+    "desk",
+    "classroom",
+    "teacher"
+  ],
+  "fringe_11": [
+    "bed",
+    "breakfast",
+    "lunchbox",
+    "car",
+    "principal",
+    "cat",
+    "dog",
+    "stomach ache",
+    "desk",
+    "classroom",
+    "teacher"
+  ],
+  "activity_images": [
+    "bed",
+    "breakfast",
+    "lunchbox",
+    "car",
+    "principal",
+    "cat"
+  ],
+  "aac_extras": [
+    "dog",
+    "stomach ache",
+    "desk",
+    "classroom",
+    "teacher"
+  ],
+  "ambiguous": [
+    {
+      "word": "principal",
+      "issue": "Homophone with 'principle'; could also be confused with generic 'boss' or 'office worker' images",
+      "preferred": "school principal",
+      "reason": "In this book the word refers specifically to Mrs. Burton, the school principal who greets Sarah at the car"
+    },
+    {
+      "word": "stomach ache",
+      "issue": "Could be illustrated as a digestive illness rather than a symptom of nervous anxiety",
+      "preferred": "nervous stomach / sick to stomach",
+      "reason": "In the book this represents anxiety symptoms (jitters), not an actual illness"
+    }
+  ],
+  "character_images_needed": [
+    "Sarah Jane Hartwell"
+  ],
+  "icon_search_terms": {
+    "bed": "bed covers",
+    "breakfast": "breakfast",
+    "lunchbox": "lunchbox",
+    "car": "car",
+    "principal": "school principal",
+    "cat": "cat",
+    "dog": "dog",
+    "stomach ache": "nervous stomach ache",
+    "desk": "school desk",
+    "classroom": "classroom",
+    "teacher": "teacher"
+  },
+  "notes": "First Day Jitters has a classic twist ending — the nervous character turns out to be the new TEACHER, not a student. Key emotional vocabulary (nervous, scared, happy, surprised) is central to the story arc and supports both retelling and personal connection for students who experience back-to-school anxiety. 'Nervous' and 'scared' are intentionally both included as they reflect different points in the emotional journey; check Boardmaker library under 'afraid' and 'afraid 1' for best match. The hero image should ideally show the girl hiding under bedcovers if possible, as that is the most iconic cover image students will recognise.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-09-05",
+  "pub_year": "2000",
+  "book_summary": "Sarah Jane Hartwell refuses to get out of bed on the morning of the first day at her new school, complaining that she doesn't know anybody and it will be awful, while Mr. Hartwell coaxes her through breakfast and into the car. The principal, Mrs. Burton, walks the reluctant, nervous Sarah into a bright classroom full of children — and the story's twist ending reveals that Sarah Jane is not a new student at all, but the school's new teacher.",
+  "fringe_justifications": {
+    "bed": "Opening scene: Sarah refuses to get out of bed, hiding under the covers when Mr. Hartwell comes to wake her.",
+    "breakfast": "Mr. Hartwell finally gets Sarah moving and meets her in the kitchen with breakfast before school.",
+    "lunchbox": "Mr. Hartwell hands Sarah her lunchbox along with breakfast as she reluctantly prepares to leave for school.",
+    "car": "Sarah rides to school in the car, crouching down in her seat as they pull up to the building.",
+    "principal": "Mrs. Burton, the school principal, meets Sarah at the car and walks her through the crowded hallway to class.",
+    "cat": "A recurring illustrated subplot shows the family cat and dog having their own contest of wills while Sarah gets ready.",
+    "dog": "The dog appears throughout the illustrations alongside the cat, comically following Sarah around the house and into the car.",
+    "stomach ache": "Sarah describes a sinking feeling in her stomach and feels sick as they drive to school, a recurring symptom of her jitters.",
+    "desk": "When Sarah finally reaches her classroom, the reader sees neatly arranged desks and a pristine chalkboard.",
+    "classroom": "The climax of the book takes place as Sarah is walked into her brightly decorated new classroom.",
+    "teacher": "The book's surprise twist ending reveals that Sarah Jane Hartwell is not a nervous new student but the class's new teacher."
+  },
+  "grounded": true,
+  "grounding_note": "Confirmed via multiple search results (Charlesbridge publisher page, Plugged In summary, Goodreads reviews, Penguin Random House page) that the book follows Sarah Jane Hartwell, who hides under her covers refusing to go to her new school, is coaxed by Mr. Hartwell through breakfast and a car ride, is greeted by principal Mrs. Burton, and is revealed on the last page to be the new teacher, not a student. A recurring cat-and-dog subplot in the illustrations was also confirmed.",
+  "searches_used": 2,
+  "guardrail_warnings": [],
+  "vocab_status": "pending_human_review"
+}

@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "product_name": "Adapted Reading Companion",
+  "theme_name": "Llama Llama Red Pajama",
+  "product_code": "LLRP-ADPT-LAUNCH",
+  "version": "2026-09-05",
+  "source_build_result": "assets/themes/llama_llama_red_pajama/OUTPUT/LLRP-ADPT-LAUNCH_AdaptedBook_BuildResult.json",
+  "page_counts": {"color": 10, "bw": 10},
+  "formats": ["Color", "B&W"],
+  "levels": [],
+  "included": ["Eight grounded mini-book story pages", "Four two-up printing sheets", "Matching story pieces and review page", "How-to and storage-label pages"],
+  "best_for": ["Shared reading participation", "Emergent literacy instruction", "Symbol-supported retell", "Special education classrooms"],
+  "access": ["Short original paraphrased sentences", "Large matching and placement areas", "Pointing, placing, speech, sign or AAC"],
+  "preparation": {"label": "Print, cut, assemble and add fasteners", "materials": "Card stock, laminate, hook-and-loop dots and binder rings", "time": "15–25 minutes"},
+  "teaching_steps": [
+    {"title": "Read", "detail": "Read the purchased source book together."},
+    {"title": "Match", "detail": "Read each companion sentence and place its matching piece."},
+    {"title": "Retell", "detail": "Use the review page to revisit the sequence."}
+  ],
+  "scarborough": {"strands": ["Vocabulary", "Language Structures", "Literacy Knowledge"], "tier": "upper", "statement": "Supports shared reading, concise sentence comprehension and organized retell."},
+  "preview_image": "assets/themes/llama_llama_red_pajama/OUTPUT/LLRP-ADPT-LAUNCH_AdaptedBook_COLOR.pdf",
+  "hero_image": "assets/themes/llama_llama_red_pajama/hero.png",
+  "pcs_used": true,
+  "book_companion": true,
+  "book_not_included": true
+}

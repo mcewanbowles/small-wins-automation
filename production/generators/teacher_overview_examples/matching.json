@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "product_name": "Matching Cards",
+  "theme_name": "Llama Llama Red Pajama",
+  "product_code": "LLRP-MATCH-REVIEW",
+  "version": "2026-09-05",
+  "page_counts": {
+    "color": 19,
+    "bw": 19
+  },
+  "formats": [
+    "Color",
+    "B&W"
+  ],
+  "levels": [
+    "Errorless",
+    "Easy",
+    "Medium",
+    "Hard"
+  ],
+  "included": [
+    "Four differentiated levels",
+    "Sixteen matching boards using four approved targets",
+    "Cutout matching pieces",
+    "Two storage-label pages"
+  ],
+  "best_for": [
+    "Special education classrooms",
+    "Visual matching practice",
+    "Independent work systems",
+    "Speech-language sessions"
+  ],
+  "access": [
+    "Errorless-to-independent progression",
+    "Large symbol-supported response areas",
+    "AAC, pointing, eye gaze or hand placement"
+  ],
+  "preparation": {
+    "label": "Print, cut and choose a level",
+    "materials": "Card stock; optional laminate and hook-and-loop dots",
+    "time": "10–15 minutes"
+  },
+  "teaching_steps": [
+    {
+      "title": "Choose",
+      "detail": "Select the level that offers successful practice."
+    },
+    {
+      "title": "Model",
+      "detail": "Demonstrate matching one piece to its target."
+    },
+    {
+      "title": "Practice",
+      "detail": "Fade prompts as accuracy and independence grow."
+    }
+  ],
+  "scarborough": {
+    "strands": [
+      "Vocabulary"
+    ],
+    "tier": "upper",
+    "statement": "Supports meaningful vocabulary practice through visual matching."
+  },
+  "preview_image": "assets/themes/llama_llama_red_pajama/OUTPUT/LLRP-MATCH-REVIEW_Matching_COLOR.pdf",
+  "hero_image": "assets/themes/llama_llama_red_pajama/hero.png",
+  "pcs_used": true,
+  "book_companion": true,
+  "book_not_included": true
+}

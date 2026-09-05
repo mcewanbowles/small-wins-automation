@@ -1,0 +1,108 @@
+{
+  "title": "Pigeon Has To Go To School",
+  "author": "Mo Willems",
+  "hero": {
+    "name": "Pigeon",
+    "description": "Mo Willems' signature cranky pigeon character — round grey body, single large expressive eye, thin legs, recognizable line-drawn illustration style",
+    "search_term": "mo willems pigeon",
+    "needs_sourcing": true,
+    "source_note": "Iconic, highly distinctive Willems character design (single giant eye, specific line style) — generic Boardmaker 'bird' or 'pigeon' will not match and will confuse students who know the book from the cover."
+  },
+  "fringe_12": [
+    "Pigeon",
+    "math",
+    "alphabet",
+    "backpack",
+    "birds",
+    "scared",
+    "morning",
+    "excited",
+    "head",
+    "question",
+    "wings",
+    "eye"
+  ],
+  "fringe_11": [
+    "math",
+    "alphabet",
+    "backpack",
+    "birds",
+    "scared",
+    "morning",
+    "excited",
+    "head",
+    "question",
+    "wings",
+    "eye"
+  ],
+  "activity_images": [
+    "math",
+    "alphabet",
+    "backpack",
+    "birds",
+    "scared",
+    "morning"
+  ],
+  "aac_extras": [
+    "excited",
+    "head",
+    "question",
+    "wings",
+    "eye"
+  ],
+  "ambiguous": [
+    {
+      "word": "head",
+      "issue": "Could be interpreted as the body part (Pigeon's head) or the directional verb 'head to school'",
+      "preferred": "head (body part)",
+      "reason": "The book's joke is specifically about Pigeon's physical head popping off from learning too much, not about heading somewhere"
+    },
+    {
+      "word": "birds",
+      "issue": "Could be illustrated as generic songbirds rather than pigeons/similar birds matching the book's cast",
+      "preferred": "birds (pigeon-like flock)",
+      "reason": "In-story it refers to other pigeons/birds at school judging Pigeon, so bird-flock imagery matching Pigeon's species reads best"
+    }
+  ],
+  "character_images_needed": [
+    "Pigeon"
+  ],
+  "icon_search_terms": {
+    "math": "math numbers",
+    "alphabet": "alphabet letters",
+    "backpack": "backpack",
+    "birds": "birds flock",
+    "scared": "scared afraid",
+    "morning": "morning sunrise",
+    "excited": "excited happy",
+    "head": "head body part",
+    "question": "question mark",
+    "wings": "wings bird",
+    "eye": "eye"
+  },
+  "notes": "This book is by Mo Willems (the Don't Let the Pigeon series author), not 'Unknown'. The Pigeon character is highly distinctive and beloved — sourcing an accurate clip art image is important for student recognition. Key themes are school anxiety, new experiences, and ultimately finding school enjoyable. 'Nervous' and 'ready' are high-value emotional/state words for back-to-school discussions. The bus is a concrete recurring story element. Avoid using a generic pigeon/bird Boardmaker symbol as students will not recognise it as THE Pigeon.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-09-05",
+  "pub_year": "2019",
+  "book_summary": "Pigeon, the cranky bird star of Mo Willems' series, learns he has to start school and spends the book listing every objection he can think of — worrying about math, the alphabet, a heavy backpack, and whether the teacher and other birds will like him — while his bravado ('I already know EVERYTHING!') crumbles into visible fear. By the end, spotting the school bus flips his mood entirely, an inside joke for readers of the original 'Don't Let the Pigeon Drive the Bus!'",
+  "fringe_justifications": {
+    "math": "One of Pigeon's core fears listed in the book is having to learn math at school, as confirmed across multiple sources describing the plot.",
+    "alphabet": "Alongside math, Pigeon frets specifically about having to learn the alphabet as part of going to school.",
+    "backpack": "Pigeon worries about wearing a hefty backpack to school, one of his repeated concrete objections.",
+    "birds": "Pigeon is anxious about 'what the teacher and other birds would think of him,' making meeting other birds a specific plot point.",
+    "scared": "In a key illustrated sequence, Pigeon's confident posture collapses and he visibly shrinks in size as he admits he's scared of the unknown.",
+    "morning": "Pigeon objects that school might 'start in the morning' and warns readers what he's like in the morning, a specific quoted joke from the book.",
+    "excited": "At the story's climax Pigeon's whole attitude flips to excitement the moment he realizes a school bus will take him there, referencing the original Pigeon book.",
+    "head": "Pigeon's absurd worry that if he 'learns too much,' his head might pop off is a specific, illustrated joke line from the book.",
+    "question": "Pigeon repeatedly dares the reader to 'ask him a question, any question' to prove he already knows everything, a recurring refrain.",
+    "wings": "Pigeon flaps his wings in desperation at the book's opening and later scowls with wings crossed defiantly over his chest.",
+    "eye": "Willems draws Pigeon's single expressive eye shrinking to 'a little dot of fear' during his nervous moments, a signature visual device of this book."
+  },
+  "grounded": true,
+  "grounding_note": "Confirmed via Wikipedia, Publishers Weekly, School Library Journal excerpt, Common Sense Media, and Bookroo that this is the real 2019 Mo Willems Pigeon book about first-day-of-school anxiety, worrying about math, alphabet, backpack, and other birds/teacher, resolving when Pigeon gets excited about the school bus. Note: one lower-quality source (Medium) claimed the book features a bus driver, librarian, and duckling character, but this contradicts every other higher-quality source (Wikipedia, PW, SLJ, Common Sense Media) which describe the book as almost entirely Pigeon's solo internal monologue with no such named side characters — that Medium claim was treated as unreliable and excluded from vocabulary.",
+  "searches_used": 2,
+  "guardrail_warnings": [],
+  "vocab_status": "pending_human_review"
+}

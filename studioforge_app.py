@@ -17,6 +17,7 @@ import urllib.parse
 import urllib.request
 import html
 import hashlib
+import time
 
 from utils.sws_design import DPI, NAVY_HEX, apply_small_wins_frame, hex_to_rgb
 
@@ -35,6 +36,10 @@ try:
     import anthropic
 except Exception:
     anthropic = None
+try:
+    from Studioforge.boardready.modules import qa_logic as icon_qa_logic
+except Exception:
+    icon_qa_logic = None
 
 
 def project_root() -> Path:
@@ -115,29 +120,28 @@ def save_today_cache(data: dict) -> None:
 
 
 def get_today_recommendations(display_map: dict, season: str, force: bool = False) -> list[str]:
-    """Return up to 3 recommended picks for the Today screen, daily cached.
-    If Anthropic API key is present, prefer AI-generated picks; otherwise use seasonal heuristics.
-    """
+    """Return fast local picks by default; request AI picks only on an explicit refresh."""
     try:
         today = _now_iso_date()
-        ai_on = (anthropic is not None) and bool(os.environ.get("ANTHROPIC_API_KEY", "").strip())
+        ai_available = (anthropic is not None) and bool(os.environ.get("ANTHROPIC_API_KEY", "").strip())
+        use_ai = bool(force and ai_available)
         if not force:
             data = load_today_cache()
             if (
                 isinstance(data, dict)
                 and data.get("date") == today
                 and data.get("season") == season
-                and bool(data.get("ai")) == bool(ai_on)
+                and bool(data.get("ai")) is False
                 and isinstance(data.get("picks"), list)
             ):
                 return [str(x) for x in data.get("picks")][:3]
-        if ai_on:
+        if use_ai:
             picks = ai_today_recommendations(display_map, season)
             if not picks:
                 picks = season_recommendations(display_map, season)
         else:
             picks = season_recommendations(display_map, season)
-        save_today_cache({"date": today, "season": season, "ai": ai_on, "picks": picks})
+        save_today_cache({"date": today, "season": season, "ai": use_ai, "picks": picks})
         return [str(x) for x in picks][:3]
     except Exception:
         # Absolute fallback
@@ -362,13 +366,17 @@ def render_tracker_screen(display_map: dict[str, str]):
     st.header("Upload Tracker")
     records = read_upload_tracker()
     stats = tracker_stats(records)
-    c1, c2, c3 = st.columns(3)
+    c1, c2, c3, c4, c5 = st.columns(5)
     with c1:
         st.metric("Uploaded", stats.get("uploaded", 0))
     with c2:
         st.metric("Ready", stats.get("ready", 0))
     with c3:
         st.metric("Not started", stats.get("not_started", 0))
+    with c4:
+        st.metric("Needs update", stats.get("needs_update", 0))
+    with c5:
+        st.metric("Paused", stats.get("paused", 0))
 
     st.divider()
 
@@ -547,7 +555,7 @@ def render_tracker_screen(display_map: dict[str, str]):
 
         row = st.container()
         with row:
-            a, b, c, d, e = st.columns([3, 1, 2, 2, 2])
+            a, b, c, d, e = st.columns([3, 2, 1.5, 2, 2])
             with a:
                 sel_key = f"trk_sel_{rid}"
                 checked = st.checkbox("Select", value=(rid in st.session_state.get("trk_sel", [])), key=sel_key)
@@ -563,19 +571,21 @@ def render_tracker_screen(display_map: dict[str, str]):
                 st.markdown(f"**{book_title}**")
                 st.caption(f"{pack} - {pt}")
             with b:
+                new_s = tracker_status_cycle(status)
+                status_labels = {"not_started": "Not started", "ready": "Ready", "uploaded": "Uploaded", "needs_update": "Needs update", "paused": "Paused"}
                 if st.button(
-                    {"not_started": "o", "ready": ">", "uploaded": "*", "needs_update": "!", "paused": "||"}.get(status, "o"),
+                    f"{status_labels.get(status, 'Not started')} -> {status_labels.get(new_s, 'Ready')}",
                     key=f"trk_cycle_{rid}",
-                    help="Cycle status",
+                    help=f"Change this product from {status_labels.get(status, 'Not started')} to {status_labels.get(new_s, 'Ready')}",
+                    use_container_width=True,
                 ):
-                    new_s = tracker_status_cycle(status)
                     patch = {"status": new_s}
                     if new_s == "uploaded" and not r.get("uploaded_date"):
                         patch["uploaded_date"] = _now_iso_date()
                     update_tracker_record(rid, patch)
                     show_toast("success", f"Status -> {new_s}")
                     safe_rerun()
-                st.caption(status)
+                st.caption(status_labels.get(status, status.replace("_", " ").title()))
             with c:
                 st.caption("Uploaded")
                 st.write(uploaded_date or "-")
@@ -707,22 +717,471 @@ def discover_books() -> list[str]:
 def get_display_map(slugs: list[str], titles_map: dict) -> dict:
     disp = {}
     for s in slugs:
-        disp[s] = titles_map.get(s) or decode_slug(s)
+        profile = load_project_profile(s)
+        disp[s] = titles_map.get(s) or profile.get("title") or decode_slug(s)
     return disp
 
 
-def show_toast(kind: str, msg: str, duration: int | None = None):
-    if hasattr(st, "toast"):
-        st.toast(msg)
+def project_profile_path(slug: str) -> Path | None:
+    book_dir = find_book_dir(slug)
+    return (book_dir / "config" / "project_profile.json") if book_dir else None
+
+
+def default_project_profile(slug: str, title: str | None = None) -> dict:
+    is_topic = str(slug).startswith("topic_")
+    return {
+        "schema_version": 1,
+        "slug": slug,
+        "title": title or decode_slug(slug),
+        "pathway": "topic" if is_topic else "book_companion",
+        "topic": (title or decode_slug(slug)) if is_topic else "",
+        "age_band": "Years 7–10 (teen SPED)" if is_topic else "Book-dependent",
+        "instructional_reading_level": "Emergent to functional literacy",
+        "communication_modes": ["Speech", "AAC", "Pointing"],
+        "support_level": "Differentiated",
+        "learning_targets": [],
+        "curriculum_framework": "",
+        "sensitive_content": False,
+        "sensitive_review_notes": "",
+        "seed_keywords": [],
+        "content_review": {"status": "pending" if is_topic else "grandfathered"},
+        "boardready_review": {"status": "pending" if is_topic else "grandfathered"},
+    }
+
+
+def load_project_profile(slug: str) -> dict:
+    path = project_profile_path(slug)
+    if path and path.exists():
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+            if isinstance(data, dict):
+                return {**default_project_profile(slug), **data}
+        except Exception:
+            pass
+    return default_project_profile(slug)
+
+
+def save_project_profile(slug: str, profile: dict) -> bool:
+    path = project_profile_path(slug)
+    if path is None:
+        return False
+    try:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(profile, ensure_ascii=False, indent=2), encoding="utf-8")
+        return True
+    except Exception:
+        return False
+
+
+def validate_project_profile(profile: dict) -> list[str]:
+    errors = []
+    if profile.get("pathway") not in {"topic", "book_companion", "teen_dignity"}:
+        errors.append("Choose a supported project pathway")
+    for key, label in (("title", "title"), ("age_band", "age band"), ("instructional_reading_level", "instructional reading level"), ("support_level", "support level")):
+        if not str(profile.get(key) or "").strip():
+            errors.append(f"Enter a {label}")
+    if not profile.get("communication_modes"):
+        errors.append("Choose at least one communication mode")
+    if profile.get("pathway") in {"topic", "teen_dignity"} and not str(profile.get("topic") or "").strip():
+        errors.append("Enter a topic or student interest")
+    if profile.get("sensitive_content") and not str(profile.get("sensitive_review_notes") or "").strip():
+        errors.append("Add safeguarding notes for sensitive content")
+    return errors
+
+
+def workflow_gate_status(slug: str) -> dict:
+    profile = load_project_profile(slug)
+    strict = profile.get("pathway") in {"topic", "teen_dignity"} or str(slug).startswith("topic_")
+    vocab_pending = book_vocab_review_required(slug)
+    return {
+        "strict": strict,
+        "setup": not validate_project_profile(profile),
+        "content": not vocab_pending and ((not strict) or (profile.get("content_review") or {}).get("status") == "approved"),
+        "boardready": (not strict) or (profile.get("boardready_review") or {}).get("status") == "approved",
+        "profile": profile,
+    }
+
+
+def create_topic_project(profile: dict) -> tuple[bool, str, str | None]:
+    topic = str(profile.get("topic") or profile.get("title") or "").strip()
+    slug = "topic_" + re.sub(r"[^a-z0-9]+", "_", topic.lower()).strip("_")
+    if slug == "topic_":
+        return False, "Enter a valid topic name.", None
+    root = Path(os.environ.get("SF_THEMES_ROOT", "").strip() or (project_root() / "assets" / "themes"))
+    book_dir = root / slug
+    if book_dir.exists():
+        return False, f"A project named {slug} already exists.", slug
+    try:
+        (book_dir / "config").mkdir(parents=True)
+        data = {**default_project_profile(slug, topic), **profile, "slug": slug, "title": topic, "topic": topic, "pathway": "topic", "created_at": datetime.now().isoformat(timespec="seconds")}
+        (book_dir / "config" / "project_profile.json").write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+        (book_dir / "book_vocab.json").write_text(json.dumps({"schema_version": 1, "slug": slug, "title": topic, "fringe_12": [], "activity_images": []}, ensure_ascii=False, indent=2), encoding="utf-8")
+        return True, f"Created {topic}. Review setup, then generate the grounded content draft.", slug
+    except Exception as exc:
+        return False, f"Could not create topic: {exc}", None
+
+
+def topic_content_ready(slug: str) -> bool:
+    book_dir = find_book_dir(slug)
+    if not book_dir:
+        return False
+    path = book_dir / "book_vocab.json"
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+        meaningful = [key for key, value in data.items() if key not in {"schema_version", "slug", "title"} and value]
+        return len(meaningful) >= 2
+    except Exception:
+        return False
+
+
+def run_topic_content_builder(slug: str) -> tuple[bool, str]:
+    profile = load_project_profile(slug)
+    if profile.get("pathway") not in {"topic", "teen_dignity"}:
+        return False, "Grounded topic generation is only used for topic pathways."
+    errors = validate_project_profile(profile)
+    if errors:
+        return False, "; ".join(errors)
+    book_dir = find_book_dir(slug)
+    script = project_root() / "Studioforge" / "TOPIC_CONTENT_BUILDER.py"
+    if not book_dir or not script.exists():
+        return False, "Topic builder or project folder was not found."
+    keywords = ", ".join(str(value) for value in profile.get("seed_keywords", []) if str(value).strip())
+    command = [sys.executable, str(script), "--topic", str(profile.get("topic")), "--slug", slug, "--themes-root", str(book_dir.parent)]
+    if keywords:
+        command.extend(["--keywords", keywords])
+    try:
+        result = subprocess.run(command, cwd=str(script.parent), capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=600)
+    except Exception as exc:
+        return False, f"Topic generation failed: {exc}"
+    if result.returncode != 0 or not topic_content_ready(slug):
+        detail = (result.stderr or result.stdout or "No grounded content was produced.").strip()
+        return False, detail[-2000:]
+    vocab_path = book_dir / "book_vocab.json"
+    try:
+        vocab = json.loads(vocab_path.read_text(encoding="utf-8"))
+        if not vocab.get("fringe_12"):
+            raw_fringe = vocab.get("aac_fringe_vocab") or []
+            fringe = []
+            for item in raw_fringe:
+                value = item.get("value") if isinstance(item, dict) else item
+                if str(value or "").strip():
+                    fringe.append(str(value).strip())
+            vocab["fringe_12"] = list(dict.fromkeys(fringe))[:12]
+        vocab.setdefault("slug", slug)
+        vocab.setdefault("title", profile.get("title"))
+        vocab_path.write_text(json.dumps(vocab, ensure_ascii=False, indent=2), encoding="utf-8")
+    except Exception:
+        pass
+    profile["content_review"] = {"status": "pending", "generated_at": datetime.now().isoformat(timespec="seconds")}
+    profile["boardready_review"] = {"status": "pending", "reason": "Content draft regenerated"}
+    save_project_profile(slug, profile)
+    return True, "Grounded draft created. Complete the human content review next."
+
+
+VOCAB_FOCUS_MANIFEST = "september_2026_sped_book_focus.json"
+VOCAB_REVIEW_FILENAME = "needs_review_vocab.json"
+VOCAB_BLOCKED_WORDS = {
+    "between", "there", "here", "under", "over", "above", "below", "next to", "behind", "in front of", "through", "around", "across", "beside", "inside", "outside", "near", "far", "up", "down", "and", "but", "or", "nor", "so", "yet", "the", "a", "an", "it", "this", "that", "these", "those", "he", "she", "they", "we", "me", "him", "her", "them", "us", "my", "your", "his", "their", "our", "of", "to", "for", "with", "at", "by", "on", "in", "from", "as", "if", "is", "am", "are", "was", "were", "be", "been", "being", "has", "had", "does", "did", "can", "could", "would", "should", "will", "i", "you", "want", "see", "yes", "no", "same", "different", "more", "help", "like", "don't like", "dont like", "go", "stop", "choose", "colour", "color", "read", "think", "uh oh", "what", "where", "why", "i don't know", "i dont know", "don't know", "dont know", "finished", "thing", "things", "stuff", "something", "anything", "everything", "feel", "feeling", "good", "nice", "fun", "idea", "way", "time", "do", "make", "get", "have", "very", "really", "special",
+}
+
+
+def vocab_focus_manifest_path() -> Path:
+    return project_root() / "assets" / "config" / VOCAB_FOCUS_MANIFEST
+
+
+def load_vocab_focus_records() -> list[dict]:
+    data = _read_json_safe(vocab_focus_manifest_path(), {})
+    records = data.get("focus_books") if isinstance(data, dict) else []
+    return [record for record in records if isinstance(record, dict) and str(record.get("slug") or "").strip()]
+
+
+def book_vocab_review_required(slug: str) -> bool:
+    book_dir = find_book_dir(slug)
+    data = _read_json_safe(book_dir / "book_vocab.json", {}) if book_dir else {}
+    return data.get("status") == "demand_candidate" and data.get("vocab_status") != "human_approved"
+
+
+def run_vocab_builder_command(arguments: list[str], timeout: int = 1800) -> tuple[bool, str]:
+    script = project_root() / "AAC_VOCAB_BUILDER.py"
+    if not script.exists():
+        return False, "AAC vocabulary builder was not found at the repository root."
+    env = os.environ.copy()
+    env.setdefault("PYTHONIOENCODING", "utf-8")
+    try:
+        result = subprocess.run([sys.executable, str(script), *arguments], cwd=str(project_root()), capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=timeout, env=env)
+    except Exception as exc:
+        return False, f"Vocabulary builder failed: {exc}"
+    output = "\n".join(value.strip() for value in (result.stdout, result.stderr) if value and value.strip())
+    return result.returncode == 0, output[-5000:] or ("Vocabulary operation completed." if result.returncode == 0 else "Vocabulary operation failed.")
+
+
+def _clean_vocab_word(value) -> str:
+    return " ".join(str(value or "").strip().lower().replace("’", "'").split())
+
+
+def vocab_review_issues(data: dict) -> list[str]:
+    issues = []
+    hero = data.get("hero") if isinstance(data.get("hero"), dict) else {}
+    hero_name = str(hero.get("name") or "").strip()
+    words = data.get("fringe_11") if isinstance(data.get("fringe_11"), list) else []
+    cleaned = [_clean_vocab_word(word) for word in words]
+    if not str(data.get("title") or "").strip():
+        issues.append("Confirm the book title.")
+    if not str(data.get("author") or "").strip() or str(data.get("author")).strip().casefold() == "unknown":
+        issues.append("Confirm the author.")
+    if not str(data.get("pub_year") or "").strip():
+        issues.append("Confirm the publication year.")
+    if len(str(data.get("book_summary") or "").strip()) < 40:
+        issues.append("Add a specific grounded book summary.")
+    if not hero_name:
+        issues.append("Choose a recognisable hero or central subject.")
+    if len(words) != 11 or any(not value for value in cleaned):
+        issues.append("Provide exactly 11 non-blank fringe words.")
+    if len(cleaned) != len(set(cleaned)):
+        issues.append("Remove duplicate fringe words.")
+    blocked = [str(word) for word, value in zip(words, cleaned) if value in VOCAB_BLOCKED_WORDS]
+    if blocked:
+        issues.append("Replace unsuitable core, function, positional, or vague words: " + ", ".join(blocked))
+    if data.get("fringe_12") != [hero_name] + words:
+        issues.append("The twelve-word board must contain the hero followed by the eleven fringe words.")
+    justifications = data.get("fringe_justifications") if isinstance(data.get("fringe_justifications"), dict) else {}
+    search_terms = data.get("icon_search_terms") if isinstance(data.get("icon_search_terms"), dict) else {}
+    for word in words:
+        justification = " ".join(str(justifications.get(word) or "").strip().split())
+        if len(justification) < 20 or any(phrase in justification.casefold() for phrase in ("important in the story", "used throughout the book", "used in the story")):
+            issues.append(f"Add a story-specific justification for '{word}'.")
+        if not str(search_terms.get(word) or "").strip():
+            issues.append(f"Add a concrete icon search term for '{word}'.")
+    if data.get("grounded") is not True:
+        issues.append("Regenerate or verify the draft because it is not grounded.")
+    try:
+        searches_used = int(data.get("searches_used", 0))
+    except (TypeError, ValueError):
+        searches_used = 0
+    if searches_used < 1:
+        issues.append("The generator must record at least one grounding search.")
+    return list(dict.fromkeys(issues))
+
+
+def _vocab_queue_status(slug: str) -> str:
+    book_dir = find_book_dir(slug)
+    if not book_dir:
+        return "Theme missing"
+    vocab = _read_json_safe(book_dir / "book_vocab.json", {})
+    if vocab.get("vocab_status") == "human_approved":
+        return "Human approved"
+    if (book_dir / VOCAB_REVIEW_FILENAME).exists():
+        return "Review draft ready"
+    fringe_12 = vocab.get("fringe_12") if isinstance(vocab.get("fringe_12"), list) else []
+    fringe_11 = vocab.get("fringe_11") if isinstance(vocab.get("fringe_11"), list) else fringe_12[1:]
+    if not fringe_12:
+        return "Needs vocabulary"
+    if len(fringe_11) < 11:
+        missing = 11 - len(fringe_11)
+        return f"Needs {missing} more {'word' if missing == 1 else 'words'}"
+    if len(fringe_11) > 11:
+        extra = len(fringe_11) - 11
+        return f"Remove {extra} extra {'word' if extra == 1 else 'words'}"
+    blocked = [str(word) for word in fringe_11 if _clean_vocab_word(word) in VOCAB_BLOCKED_WORDS]
+    if blocked:
+        return "Replace unsuitable: " + ", ".join(blocked[:3])
+    justifications = vocab.get("fringe_justifications") if isinstance(vocab.get("fringe_justifications"), dict) else {}
+    search_terms = vocab.get("icon_search_terms") if isinstance(vocab.get("icon_search_terms"), dict) else {}
+    if any(not str(justifications.get(word) or "").strip() or not str(search_terms.get(word) or "").strip() for word in fringe_11):
+        return "Guardrail refresh recommended"
+    return "Existing vocab - human review needed"
+
+
+def render_vocabulary_queue(slug: str):
+    records = load_vocab_focus_records()
+    if not records:
+        return
+    with st.expander("September vocabulary queue", expanded=book_vocab_review_required(slug)):
+        st.caption("Generate missing drafts as a controlled batch. To refresh an existing book with missing, extra, or unsuitable words, open that book and generate a guarded review draft. Nothing is replaced until one book is reviewed and approved.")
+        st.dataframe([{"Rank": record.get("rank"), "Book": record.get("title"), "Status": _vocab_queue_status(str(record.get("slug")))} for record in records], hide_index=True, use_container_width=True)
+        c1, c2 = st.columns(2)
+        with c1:
+            if st.button("Check identities for missing books", key=f"vocab_identity_batch_{slug}", use_container_width=True):
+                with st.spinner("Checking titles, authors, and summaries..."):
+                    ok, message = run_vocab_builder_command(["--focus-file", str(vocab_focus_manifest_path()), "--missing-only", "--identity-check"])
+                show_toast("success" if ok else "error", "Identity check completed." if ok else message)
+                if message:
+                    st.code(message)
+        with c2:
+            if st.button("Generate drafts for missing books", type="primary", key=f"vocab_generate_batch_{slug}", use_container_width=True):
+                with st.spinner("Generating grounded vocabulary drafts. Real vocabulary will not be changed..."):
+                    ok, message = run_vocab_builder_command(["--focus-file", str(vocab_focus_manifest_path()), "--missing-only"])
+                show_toast("success" if ok else "error", "Vocabulary drafts generated. Review each book separately." if ok else message)
+                if message:
+                    st.code(message)
+                if ok:
+                    safe_rerun()
+        identity_report = project_root() / "AAC_IDENTITY_CHECK.md"
+        if identity_report.exists():
+            with st.expander("Latest identity-check report"):
+                st.markdown(identity_report.read_text(encoding="utf-8"))
+
+    book_dir = find_book_dir(slug)
+    if not book_dir:
+        return
+    vocab_path = book_dir / "book_vocab.json"
+    review_path = book_dir / VOCAB_REVIEW_FILENAME
+    canonical = _read_json_safe(vocab_path, {})
+    st.markdown("#### Book vocabulary")
+    if canonical.get("vocab_status") == "human_approved":
+        st.success("This book's grounded vocabulary has been human approved.")
+    elif canonical.get("fringe_12"):
+        st.info("This book has existing vocabulary. You can create a fresh guarded review draft without replacing it.")
     else:
-        if kind == "success":
-            st.success(msg)
-        elif kind == "warning":
-            st.warning(msg)
-        elif kind == "error":
-            st.error(msg)
+        st.warning("This candidate cannot move to icon review until its vocabulary draft is generated and approved.")
+    generate_label = "Regenerate guarded review draft" if review_path.exists() or canonical.get("fringe_12") else "Generate guarded review draft"
+    if st.button(generate_label, key=f"generate_vocab_{slug}"):
+        arguments = ["--book", slug]
+        if review_path.exists() or canonical.get("fringe_12"):
+            arguments.append("--overwrite")
+        with st.spinner("Researching the book and generating a review draft..."):
+            ok, message = run_vocab_builder_command(arguments)
+        show_toast("success" if ok else "error", "Review draft generated." if ok else message)
+        if message:
+            st.code(message)
+        if ok:
+            safe_rerun()
+    if not review_path.exists():
+        return
+
+    review = _read_json_safe(review_path, {})
+    st.warning("Draft only: inspect the identity, every word, justification, ambiguity, and icon search term before approval.")
+    st.caption(f"Grounded: {'Yes' if review.get('grounded') is True else 'No'} | Searches recorded: {review.get('searches_used', 0)}")
+    with st.form(f"vocab_review_form_{slug}"):
+        title = st.text_input("Confirmed book title", value=str(review.get("title") or canonical.get("title") or ""))
+        author = st.text_input("Confirmed author", value=str(review.get("author") or canonical.get("author") or ""))
+        pub_year = st.text_input("First publication year", value=str(review.get("pub_year") or ""))
+        summary = st.text_area("Grounded plot summary", value=str(review.get("book_summary") or ""), height=120)
+        hero = review.get("hero") if isinstance(review.get("hero"), dict) else {}
+        hero_name = st.text_input("Hero or central subject", value=str(hero.get("name") or ""))
+        hero_search = st.text_input("Hero icon search term", value=str(hero.get("search_term") or ""))
+        hero_needs_sourcing = st.checkbox("Hero needs a separately licensed or approved visual", value=bool(hero.get("needs_sourcing")))
+        words = review.get("fringe_11") if isinstance(review.get("fringe_11"), list) else []
+        justifications = review.get("fringe_justifications") if isinstance(review.get("fringe_justifications"), dict) else {}
+        search_terms = review.get("icon_search_terms") if isinstance(review.get("icon_search_terms"), dict) else {}
+        rows = []
+        for index in range(11):
+            word = str(words[index]) if index < len(words) else ""
+            rows.append({"Word": word, "Icon search term": str(search_terms.get(word) or ""), "Why it belongs in this book": str(justifications.get(word) or "")})
+        edited = st.data_editor(rows, hide_index=True, num_rows="fixed", use_container_width=True, key=f"vocab_rows_{slug}")
+        edited_rows = edited.to_dict(orient="records") if hasattr(edited, "to_dict") else list(edited)
+        edited_words = [str(row.get("Word") or "").strip() for row in edited_rows]
+        edited_data = dict(review)
+        edited_data.update({
+            "title": title.strip(),
+            "author": author.strip(),
+            "pub_year": pub_year.strip(),
+            "book_summary": summary.strip(),
+            "hero": {**hero, "name": hero_name.strip(), "search_term": hero_search.strip(), "needs_sourcing": hero_needs_sourcing},
+            "fringe_11": edited_words,
+            "fringe_12": [hero_name.strip()] + edited_words,
+            "fringe_justifications": {word: str(row.get("Why it belongs in this book") or "").strip() for word, row in zip(edited_words, edited_rows) if word},
+            "icon_search_terms": {word: str(row.get("Icon search term") or "").strip() for word, row in zip(edited_words, edited_rows) if word},
+            "activity_images": edited_words[:6],
+            "aac_extras": edited_words[6:],
+            "vocab_status": "pending_human_review",
+        })
+        issues = vocab_review_issues(edited_data)
+        edited_data["guardrail_warnings"] = [] if not issues else issues
+        if issues:
+            st.error("Resolve before approval:\n- " + "\n- ".join(issues))
+        if review.get("ambiguous"):
+            with st.expander("Ambiguous words flagged by the generator"):
+                st.json(review.get("ambiguous"))
+        confirmed = st.checkbox("I checked the book identity, concrete word meanings, story-specific reasons, icon searches, ambiguities, and rights warnings.")
+        save_col, approve_col = st.columns(2)
+        with save_col:
+            save_clicked = st.form_submit_button("Save review edits", use_container_width=True)
+        with approve_col:
+            approve_clicked = st.form_submit_button("Approve this vocabulary", type="primary", disabled=bool(issues) or not confirmed, use_container_width=True)
+    if save_clicked or approve_clicked:
+        edited_data["review_edited_at"] = datetime.now().isoformat(timespec="seconds")
+        review_path.write_text(json.dumps(edited_data, ensure_ascii=False, indent=2), encoding="utf-8")
+    if save_clicked:
+        show_toast("success", "Vocabulary review edits saved. Canonical vocabulary was not changed.")
+        safe_rerun()
+    if approve_clicked:
+        edited_data["human_review"] = {"status": "approved", "reviewed_at": datetime.now().isoformat(timespec="seconds"), "reviewer": "human"}
+        review_path.write_text(json.dumps(edited_data, ensure_ascii=False, indent=2), encoding="utf-8")
+        ok, message = run_vocab_builder_command(["--promote", slug], timeout=120)
+        promoted = _read_json_safe(vocab_path, {})
+        if ok and promoted.get("vocab_status") == "human_approved":
+            show_toast("success", "Vocabulary approved and promoted. Continue to icon review.")
+            safe_rerun()
         else:
-            st.info(msg)
+            show_toast("error", message or "Promotion was refused by the vocabulary guardrails.")
+
+
+def content_review_checks(profile: dict) -> list[tuple[str, str]]:
+    checks = [
+        ("accuracy", "Facts and teaching content are accurate and supported by the recorded sources."),
+        ("dignity", "Language and visuals respect the chronological age and access needs of learners."),
+        ("safety", "Safety, safeguarding, and implementation guidance are appropriate."),
+        ("copyright", "Copyrighted text, images, trademarks, and licensing have been checked."),
+        ("curriculum", "Curriculum and educational claims are specific and not overstated."),
+        ("iep", "Any IEP or progress-monitoring wording matches the actual activity and contains no fabricated criteria."),
+        ("flagged", "Items in needs_review.json have been amended or will remain excluded from production."),
+    ]
+    if profile.get("sensitive_content"):
+        checks.append(("safeguarding", "A human safeguarding review has been completed for this sensitive topic."))
+    return checks
+
+
+def topic_fringe_words(slug: str) -> list[str]:
+    _path, data = theme_vocab_source(slug)
+    raw = data.get("fringe_12") or data.get("aac_fringe_vocab") or []
+    words = []
+    for item in raw:
+        value = item.get("value") if isinstance(item, dict) else item
+        text = str(value or "").strip()
+        if text and text.casefold() not in {word.casefold() for word in words}:
+            words.append(text)
+    return words[:12]
+
+
+def boardready_output_files(slug: str) -> list[Path]:
+    book_dir = find_book_dir(slug)
+    if not book_dir:
+        return []
+    roots = [book_dir / "aac_boards", book_dir / "OUTPUT"]
+    files = []
+    for root in roots:
+        if root.exists():
+            files.extend(path for path in root.rglob("*.pdf") if path.is_file() and any(token in path.name.lower() for token in ("aac", "board", "highvis")))
+    return list(dict.fromkeys(files))
+
+
+def run_boardready_generator(slug: str) -> tuple[bool, str]:
+    images = images_dir_for_book(slug)
+    if not images:
+        return False, "The topic image folder is unavailable."
+    if len(topic_fringe_words(slug)) != 12:
+        return False, "BoardReady requires exactly 12 reviewed fringe words."
+    try:
+        module = importlib.import_module("Generators.aac_book_board")
+        ok = bool(module.generate_aac_board_pack(str(images), default_pack_code(slug), load_project_profile(slug).get("title") or decode_slug(slug)))
+    except Exception as exc:
+        return False, f"BoardReady generation failed: {exc}"
+    outputs = boardready_output_files(slug)
+    return (True, f"BoardReady generated {len(outputs)} PDF file(s).") if ok and outputs else (False, "BoardReady did not produce a detectable PDF output.")
+
+
+def show_toast(kind: str, msg: str, duration: int | None = None):
+    if kind == "error":
+        st.error(msg)
+    elif kind == "warning":
+        st.warning(msg)
+    elif hasattr(st, "toast"):
+        st.toast(msg)
+    elif kind == "success":
+        st.success(msg)
+    else:
+        st.info(msg)
 
 
 # Compatibility helpers for Streamlit query params and rerun
@@ -741,6 +1200,10 @@ def qp_get(name: str) -> str | None:
         return None
 
 
+ICON_SUGGEST_SCORE = 0.55
+ICON_AUTO_ACCEPT_SCORE = 0.85
+
+
 def symbols_root() -> Path:
     env = os.environ.get("SF_SYMBOLS_ROOT", "").strip()
     if env and Path(env).exists():
@@ -750,6 +1213,41 @@ def symbols_root() -> Path:
     if expanded.exists():
         return expanded
     return project_root() / "assets" / "symbols"
+
+
+def icon_labeler_url(path: str = "/", slug: str | None = None, port: int = 5053) -> str:
+    route = "/" + str(path or "/").strip("/") if str(path or "/").strip("/") else "/"
+    query = f"?book={urllib.parse.quote(str(slug))}" if slug else ""
+    return f"http://127.0.0.1:{int(port)}{route}{query}"
+
+
+def icon_labeler_is_running(port: int = 5053) -> bool:
+    try:
+        with urllib.request.urlopen(f"http://127.0.0.1:{int(port)}/api/ping", timeout=0.5) as response:
+            return int(getattr(response, "status", 200)) == 200
+    except Exception:
+        return False
+
+
+def ensure_icon_labeler_running(port: int = 5053) -> tuple[bool, str]:
+    if icon_labeler_is_running(port):
+        return True, "Icon Labeller is ready."
+    script = project_root() / "Studioforge" / "ICON_LABELER.py"
+    if not script.exists():
+        return False, f"Icon Labeller entrypoint not found: {script}"
+    python = project_root() / ".venv" / "Scripts" / "python.exe"
+    if not python.exists():
+        python = Path(sys.executable)
+    try:
+        flags = subprocess.CREATE_NO_WINDOW if os.name == "nt" and hasattr(subprocess, "CREATE_NO_WINDOW") else 0
+        subprocess.Popen([str(python), str(script), str(int(port))], cwd=str(script.parent), creationflags=flags)
+    except Exception as exc:
+        return False, f"Could not start Icon Labeller: {exc}"
+    for _ in range(30):
+        if icon_labeler_is_running(port):
+            return True, "Icon Labeller started."
+        time.sleep(0.2)
+    return False, "Icon Labeller did not become ready."
 
 
 def parse_vocab_for_slug(slug: str) -> list[str]:
@@ -818,6 +1316,221 @@ def sanitise_symbol_name(raw: str) -> str:
     return s.strip("_")
 
 
+def icon_candidates_for_word(word: str, slug: str, limit: int = 6) -> list[dict]:
+    terms = []
+    try:
+        _source, vocab = theme_vocab_source(slug)
+        configured = (vocab.get("icon_search_terms") or {}).get(word)
+        if isinstance(configured, list):
+            terms.extend(str(value).strip() for value in configured if str(value).strip())
+        elif configured:
+            terms.append(str(configured).strip())
+    except Exception:
+        pass
+    terms.append(str(word).strip())
+    terms = list(dict.fromkeys(term.casefold() for term in terms if term))
+    if icon_qa_logic is not None:
+        try:
+            by_path = {}
+            for term in terms:
+                for candidate in icon_qa_logic.search_png_library(term, book_key=slug, top_k=limit) or []:
+                    path = str(candidate.get("path") or "")
+                    if path and float(candidate.get("score", 0)) > float(by_path.get(path, {}).get("score", 0)):
+                        by_path[path] = candidate
+            return sorted(by_path.values(), key=lambda item: float(item.get("score", 0)), reverse=True)[:limit]
+        except Exception:
+            pass
+    match = find_symbol_for_word(word, slug)
+    return [{"label": match.stem, "path": str(match), "score": 1.0}] if match else []
+
+
+@st.cache_data(ttl=300, show_spinner=False)
+def cached_icon_candidate_map(slug: str, words: tuple[str, ...], limit: int = 5) -> dict[str, list[dict]]:
+    if icon_qa_logic is None:
+        return {word: icon_candidates_for_word(word, slug, limit) for word in words}
+    try:
+        shared_paths = icon_qa_logic._library_paths(slug)
+    except Exception:
+        shared_paths = None
+    _source, vocab = theme_vocab_source(slug)
+    configured_terms = vocab.get("icon_search_terms") or {}
+    labelled_paths = []
+    seen_paths = set()
+    try:
+        banned = icon_qa_logic._banned_set()
+    except Exception:
+        banned = set()
+    for path in shared_paths or []:
+        path_key = str(path)
+        if path_key in seen_paths:
+            continue
+        seen_paths.add(path_key)
+        try:
+            if icon_qa_logic._is_banned(path, banned):
+                continue
+            labelled_paths.append((path, icon_qa_logic._filename_label(path)))
+        except Exception:
+            continue
+    results: dict[str, list[dict]] = {}
+    for word in words:
+        configured = configured_terms.get(word) if isinstance(configured_terms, dict) else None
+        terms = list(configured) if isinstance(configured, list) else ([configured] if configured else [])
+        terms.append(word)
+        terms.extend(token for token in re.split(r"[^a-z0-9]+", word.casefold()) if len(token) >= 3)
+        terms = list(dict.fromkeys(str(term).strip().casefold() for term in terms if str(term).strip()))
+        scored = []
+        for path, label in labelled_paths:
+            score = max((icon_qa_logic._score_label(label, term) for term in terms), default=0.0)
+            if score > 0:
+                scored.append((float(score), path, label))
+        scored.sort(key=lambda item: item[0], reverse=True)
+        results[word] = [{"label": label, "path": str(path), "score": round(score, 4)} for score, path, label in scored[:limit]]
+    return results
+
+
+def clear_icon_candidate_cache() -> None:
+    try:
+        cached_icon_candidate_map.clear()
+    except Exception:
+        pass
+
+
+def quarantine_library_icon(path: str) -> tuple[bool, str, str | None]:
+    try:
+        source = Path(path).resolve()
+        library = symbols_root().resolve()
+        source.relative_to(library)
+    except Exception:
+        return False, "Only images in the shared PNG library can be quarantined.", None
+    if not source.is_file():
+        return False, "The library image no longer exists.", None
+    try:
+        if icon_qa_logic is not None:
+            icon_qa_logic.add_to_banlist(str(source))
+        quarantine = project_root() / "Studioforge" / "_QUARANTINE" / "icons"
+        quarantine.mkdir(parents=True, exist_ok=True)
+        destination = quarantine / source.name
+        if destination.exists():
+            destination = quarantine / f"{source.stem}_{datetime.now().strftime('%Y%m%d_%H%M%S')}{source.suffix}"
+        shutil.move(str(source), str(destination))
+        if icon_qa_logic is not None:
+            try:
+                icon_qa_logic._PNG_DIR_CACHE.clear()
+            except Exception:
+                pass
+        clear_icon_candidate_cache()
+        return True, f"Quarantined {source.name}", str(destination)
+    except Exception as exc:
+        return False, f"Could not quarantine {source.name}: {exc}", None
+
+
+def icon_word_decision(slug: str, word: str) -> dict:
+    state = read_book_state(slug)
+    stored = (state.get("icon_decisions") or {}).get(word, {})
+    result = dict(stored) if isinstance(stored, dict) else {}
+    if icon_qa_logic is not None:
+        try:
+            qa = icon_qa_logic.load_qa_log()
+            words = ((qa.get(slug) or {}).get("words") or {}) if isinstance(qa, dict) else {}
+            external = words.get(word, {}) if isinstance(words.get(word), dict) else {}
+            status = str(external.get("status") or "").lower()
+            if status in {"keep", "kept", "replaced"}:
+                result.setdefault("status", "approved")
+                result.setdefault("source_path", external.get("path"))
+            elif status == "skip":
+                result["status"] = "skipped"
+            elif status == "missing" and not result:
+                result["status"] = "missing"
+        except Exception:
+            pass
+    return result
+
+
+def set_icon_word_status(slug: str, word: str, status: str) -> None:
+    state = read_book_state(slug)
+    decisions = state.setdefault("icon_decisions", {})
+    current = decisions.get(word, {}) if isinstance(decisions.get(word), dict) else {}
+    decisions[word] = {
+        **current,
+        "status": status,
+        "updated_at": datetime.now().isoformat(timespec="seconds"),
+    }
+    write_book_state(slug, state)
+    if icon_qa_logic is not None:
+        try:
+            mapped = "skip" if status == "skipped" else status
+            icon_qa_logic.save_decision(slug, word, mapped, current.get("source_path"))
+        except Exception:
+            pass
+
+
+def accepted_icon_for_word(slug: str, word: str) -> Path | None:
+    decision = icon_word_decision(slug, word)
+    filename = str(decision.get("filename") or "").strip()
+    base = images_dir_for_book(slug)
+    if filename and base and (base / filename).is_file():
+        return base / filename
+    source_path = str(decision.get("source_path") or "").strip()
+    if str(decision.get("status") or "").lower() == "approved" and source_path and Path(source_path).is_file():
+        return Path(source_path)
+    desired = sanitise_symbol_name(word)
+    if not desired or base is None:
+        return None
+    for path in base.glob("*.*"):
+        if path.is_file() and path.stem.casefold() == desired.casefold():
+            return path
+    return None
+
+
+def accept_icon_candidate(slug: str, word: str, source_path: str, target_label: str | None = None) -> tuple[bool, str]:
+    source = Path(source_path)
+    if not source.is_file():
+        return False, "The selected icon is no longer available."
+    label = str(target_label or word).strip()
+    filename = f"{sanitise_symbol_name(label)}.png"
+    if filename == ".png":
+        return False, "Enter a valid icon label."
+    destination_dir = images_dir_for_book(slug)
+    if destination_dir is None:
+        return False, "The book image folder is unavailable."
+    destination = destination_dir / filename
+    try:
+        if source.resolve() != destination.resolve():
+            image = Image.open(str(source)).convert("RGBA")
+            image.save(str(destination), "PNG")
+        normalize_icon_file(destination, target_px=512, margin=0.06, white_cutoff=245)
+        state = read_book_state(slug)
+        decisions = state.setdefault("icon_decisions", {})
+        decisions[word] = {
+            "status": "approved",
+            "filename": filename,
+            "label": label,
+            "source_path": str(source.resolve()),
+            "updated_at": datetime.now().isoformat(timespec="seconds"),
+        }
+        kit_names = list(dict.fromkeys([*(state.get("icons_kit") or []), filename]))
+        state["icons_kit"] = kit_names
+        if not state.get("hero_icon"):
+            state["hero_icon"] = filename
+        write_book_state(slug, state)
+        profile = load_project_profile(slug)
+        if profile.get("pathway") in {"topic", "teen_dignity"}:
+            profile["boardready_review"] = {"status": "pending", "reason": "Topic icon changed"}
+            save_project_profile(slug, profile)
+        if icon_qa_logic is not None:
+            try:
+                icon_qa_logic.save_decision(slug, word, "replaced", str(destination.resolve()))
+            except Exception:
+                pass
+        kit_key = get_kit_key(slug)
+        current = [str(Path(path)) for path in st.session_state.get(kit_key, [])]
+        if str(destination) not in current:
+            st.session_state[kit_key] = current + [str(destination)]
+        return True, f"Approved {filename} for {word}."
+    except Exception as exc:
+        return False, f"Could not approve the icon: {exc}"
+
+
 def normalize_icon_file(path: Path, target_px: int = 512, margin: float = 0.06, alpha_threshold: int = 1, white_cutoff: int = 250) -> bool:
     """Normalize an icon PNG by cropping margins (transparent OR white), centering on a square canvas, and resizing.
     - If the image has transparency, use the alpha channel to crop.
@@ -854,6 +1567,163 @@ def normalize_icon_file(path: Path, target_px: int = 512, margin: float = 0.06, 
         return True
     except Exception:
         return False
+
+
+def extract_boardmaker_grid(pdf_data: bytes, rows: int, cols: int, padding_percent: float = 2.0, zoom: float = 2.0) -> list[dict]:
+    if fitz is None:
+        raise RuntimeError("PDF extraction requires PyMuPDF.")
+    row_count = int(rows)
+    col_count = int(cols)
+    if row_count < 1 or col_count < 1:
+        raise ValueError("Rows and columns must both be at least 1.")
+    document = fitz.open(stream=pdf_data, filetype="pdf")
+    tiles = []
+    pad_fraction = max(0.0, min(float(padding_percent), 20.0)) / 100.0
+    for page_index in range(document.page_count):
+        page = document.load_page(page_index)
+        pixmap = page.get_pixmap(matrix=fitz.Matrix(zoom, zoom), alpha=False)
+        page_image = Image.frombytes("RGB", [pixmap.width, pixmap.height], pixmap.samples)
+        cell_width = page_image.width / col_count
+        cell_height = page_image.height / row_count
+        pdf_cell_width = page.rect.width / col_count
+        pdf_cell_height = page.rect.height / row_count
+        words = page.get_text("words") or []
+        for row in range(row_count):
+            for col in range(col_count):
+                left = int(col * cell_width)
+                top = int(row * cell_height)
+                right = int((col + 1) * cell_width)
+                bottom = int((row + 1) * cell_height)
+                pad_x = int((right - left) * pad_fraction)
+                pad_y = int((bottom - top) * pad_fraction)
+                crop = page_image.crop((left + pad_x, top + pad_y, right - pad_x, bottom - pad_y))
+                buffer = io.BytesIO()
+                crop.save(buffer, format="PNG")
+                pdf_left = col * pdf_cell_width
+                pdf_top = row * pdf_cell_height
+                pdf_right = (col + 1) * pdf_cell_width
+                pdf_bottom = (row + 1) * pdf_cell_height
+                cell_words = [
+                    item for item in words
+                    if pdf_left <= (float(item[0]) + float(item[2])) / 2 < pdf_right
+                    and pdf_top <= (float(item[1]) + float(item[3])) / 2 < pdf_bottom
+                ]
+                cell_words.sort(key=lambda item: (round(float(item[1]) / 4), float(item[0])))
+                detected_label = " ".join(str(item[4]).strip() for item in cell_words if str(item[4]).strip())
+                tiles.append({
+                    "page": page_index + 1,
+                    "row": row + 1,
+                    "col": col + 1,
+                    "image": buffer.getvalue(),
+                    "detected_label": detected_label,
+                })
+    document.close()
+    return tiles
+
+
+def save_boardmaker_tiles_for_later(slug: str, source_name: str, tiles: list[dict], rows: int, cols: int, labels: list[str] | None = None) -> tuple[bool, str, Path | None]:
+    book_dir = find_book_dir(slug)
+    if not book_dir:
+        return False, "The book folder could not be found.", None
+    created_at = datetime.now()
+    source_stem = sanitise_symbol_name(Path(source_name or "boardmaker").stem) or "boardmaker"
+    batch_id = f"{created_at.strftime('%Y%m%d_%H%M%S_%f')}_{source_stem}"
+    batch_dir = book_dir / "icon_imports" / "waiting_for_labels" / batch_id
+    try:
+        batch_dir.mkdir(parents=True, exist_ok=False)
+        manifest_tiles = []
+        for index, tile in enumerate(tiles, start=1):
+            filename = f"cell_{index:03d}.png"
+            (batch_dir / filename).write_bytes(bytes(tile["image"]))
+            label = str((labels or [])[index - 1]).strip() if index <= len(labels or []) else ""
+            manifest_tiles.append({
+                "filename": filename,
+                "page": int(tile.get("page", 1)),
+                "row": int(tile.get("row", 1)),
+                "col": int(tile.get("col", 1)),
+                "label": label,
+            })
+        manifest = {
+            "schema_version": 1,
+            "batch_id": batch_id,
+            "source_name": Path(source_name or "boardmaker.pdf").name,
+            "created_at": created_at.isoformat(timespec="seconds"),
+            "rows": int(rows),
+            "cols": int(cols),
+            "status": "waiting_for_labels",
+            "tiles": manifest_tiles,
+        }
+        (batch_dir / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
+        return True, f"Saved {len(manifest_tiles)} cells for labelling later.", batch_dir
+    except Exception as exc:
+        return False, f"Could not save the extracted cells: {exc}", None
+
+
+def boardmaker_batches_waiting_for_labels(slug: str) -> list[dict]:
+    book_dir = find_book_dir(slug)
+    root = (book_dir / "icon_imports" / "waiting_for_labels") if book_dir else None
+    if root is None or not root.exists():
+        return []
+    batches = []
+    for manifest_path in sorted(root.glob("*/manifest.json"), reverse=True):
+        try:
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+            if manifest.get("status") != "complete":
+                manifest["manifest_path"] = str(manifest_path)
+                batches.append(manifest)
+        except Exception:
+            continue
+    return batches
+
+
+def load_boardmaker_pending_tiles(manifest: dict) -> list[dict]:
+    manifest_path = Path(str(manifest.get("manifest_path") or ""))
+    tiles = []
+    for item in manifest.get("tiles") or []:
+        image_path = manifest_path.parent / str(item.get("filename") or "")
+        if image_path.is_file():
+            tiles.append({**item, "image": image_path.read_bytes()})
+    return tiles
+
+
+def save_boardmaker_batch_labels(manifest_path: str, labels: list[str], complete: bool = False) -> None:
+    path = Path(manifest_path)
+    data = json.loads(path.read_text(encoding="utf-8"))
+    for item, label in zip(data.get("tiles") or [], labels):
+        item["label"] = label
+    data["status"] = "complete" if complete else "waiting_for_labels"
+    data["updated_at"] = datetime.now().isoformat(timespec="seconds")
+    if complete:
+        data["completed_at"] = data["updated_at"]
+    path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+def save_labelled_boardmaker_tiles(slug: str, tiles: list[dict], labels: list[str], add_to_kit: bool) -> tuple[int, int]:
+    saved = 0
+    approved = 0
+    seen_labels = set()
+    for tile, stem in zip(tiles, labels):
+        if not stem or stem in seen_labels:
+            continue
+        seen_labels.add(stem)
+        first = stem[0].lower()
+        bucket = first if "a" <= first <= "z" else "#"
+        out_dir = symbols_root() / "Alpha" / bucket
+        out_dir.mkdir(parents=True, exist_ok=True)
+        out_path = out_dir / f"{stem}.png"
+        Image.open(io.BytesIO(tile["image"])).convert("RGBA").save(str(out_path))
+        normalize_icon_file(out_path, target_px=512, margin=0.06, white_cutoff=245)
+        saved += 1
+        if add_to_kit:
+            accepted_ok, _message = accept_icon_candidate(slug, stem.replace("_", " "), str(out_path), stem)
+            approved += int(accepted_ok)
+    clear_icon_candidate_cache()
+    if icon_qa_logic is not None:
+        try:
+            icon_qa_logic._PNG_DIR_CACHE.clear()
+        except Exception:
+            pass
+    return saved, approved
 
 
 def suggest_vocab_for_book(book_title: str) -> list[str]:
@@ -955,32 +1825,195 @@ def _fmt_secs(n: int) -> str:
 
 # Phase 5 â€” Product tokens and specs
 BUILT_PRODUCT_TOKENS: dict[str, list[str]] = {
-    "Adapted Book":       ["adaptedbook", "AdaptedBook", "adapted_book", "Adapted_Book"],
+    "Book Participation Pieces":       ["bookparticipation", "BookParticipation", "Book_Participation", "BPP"],
     "Matching":            ["matching", "Matching"],
     "Find & Cover":        ["find_and_cover", "Find_and_Cover", "FindCover", "find-and-cover", "FindAndCover"],
     "Word Search":         ["word_search", "Word_Search", "WordSearch"],
-    "AAC Sentence Strips": ["sentence_strips", "AAC_Sentence", "aac_strips", "AAC_SentenceStrips"],
+    "AAC Sentence Building": ["sentence_strips", "AAC_Sentence", "aac_strips", "AAC_SentenceStrips"],
     "AAC Board":           ["aac_board", "aacboard", "AAC_Board", "AACBoard"],
     "Sequencing":          ["sequencing", "sequence", "story_strip", "storystrips", "story_strips"],
     "Sorting Cards":       ["sorting_cards", "Sorting_Cards", "SortingCards"],
     "Bingo":               ["bingo", "Bingo"],
     "Spin & Cover":         ["spincov", "spincover", "spin_cover", "spin-cover", "SpinCover", "SpinCover"],
     "Yes/No Questions":    ["yesno", "yes_no", "yes-no", "YesNo", "YesNoQuestions"],
+    "Inferencing Cards":    ["inferencing", "Inferencing_Cards", "InferencingCards"],
+    "Vocabulary Snap":      ["wordsnap", "WordSnap", "Vocabulary_Snap", "VocabularySnap"],
+    "Syllable Awareness":    ["syllable", "Syllable_Cards", "SyllableCards"],
+    "CVC Decode & Build":    ["decoding", "Decoding", "Decode_Build"],
+    "Story Grammar & Retell": ["story_elements", "Story_Elements", "StoryGrammar", "Story_Grammar"],
+    "Print Detective":       ["print_detective", "PrintDetective", "Print_Detective", "PD-LAUNCH"],
 }
 
 PRODUCT_SPECS = [
-    {"name": "Adapted Book", "module": "generators.ADAPTED_BOOK_ADAPTER", "func": "generate_adapted_book_pack", "pages": 13},
-    {"name": "Matching", "module": "generators.MATCHING_GENERATOR", "func": "generate_matching_pack", "pages": 19},
-    {"name": "Find & Cover", "module": "generators.FIND_AND_COVER_GENERATOR", "func": "generate_find_and_cover_pack", "pages": 15},
-    {"name": "Word Search", "module": "generators.WORD_SEARCH_GENERATOR", "func": "generate_word_search", "pages": 5},
-    {"name": "AAC Sentence Strips", "module": "generators.SENTENCE_STRIPS_AAC", "func": "generate_aac_pack", "pages": 10},
-    {"name": "AAC Board", "module": "generators.aac_book_board", "func": "generate_aac_board_pack", "pages": 1},
-    {"name": "Sequencing", "module": "generators.STORY_STRIPS_SEQUENCE", "func": "generate_story_strips", "pages": 7},
-    {"name": "Sorting Cards", "module": "generators.SORTING_CARDS", "func": "generate_sorting_cards", "pages": 2},
-    {"name": "Bingo", "module": "generators.BINGO_GENERATOR", "func": "generate_bingo_pack", "pages": 36},
-    {"name": "Spin & Cover", "module": "generators.SPIN_COVER_GENERATOR", "func": "generate_spin_cover_pack", "pages": 10},
-    {"name": "Yes/No Questions", "module": "generators.YES_NO_GENERATOR", "func": "generate_yes_no_pack", "pages": 4},
+    {"name": "Book Participation Pieces", "display_name": "Interactive Book Participation Pieces", "module": "production.generators.generate_book_participation_pieces", "func": "generate_book_participation_pack", "pages": 9, "min_icons": 8, "production_status": "pilot_review", "build_enabled": True, "status_reason": "Edition-neutral trade-book insert pieces use reviewed vocabulary and flexible prompts; human icon and visual approval remain required."},
+    {"name": "Matching", "display_name": "Matching Cards", "module": "Generators.MATCHING_GENERATOR", "func": "generate_matching_pack", "pages": 19, "min_icons": 4, "production_status": "active"},
+    {"name": "Find & Cover", "module": "production.generators.generators.FIND_AND_COVER_GENERATOR", "func": "generate_find_and_cover_pack", "pages": 15, "min_icons": 4, "production_status": "review", "status_reason": "Candidate implementation is not wired to the canonical build path."},
+    {"name": "Word Search", "display_name": "Differentiated Word Search", "module": "production.generators.generators.WORD_SEARCH_GENERATOR", "func": "generate_word_search", "pages": 6, "min_icons": 6, "production_status": "pilot_review", "build_enabled": True, "status_reason": "Six reviewed words, four differentiated grids and an answer key have clean branded output; final human visual approval remains required."},
+    {"name": "AAC Sentence Building", "module": "Generators.SENTENCE_BUILDING_GENERATOR", "func": "generate_sentence_building_pack", "pages": 7, "min_icons": 4, "production_status": "pilot_review", "build_enabled": True, "status_reason": "Four reviewed communication patterns use curated theme vocabulary; human AAC and visual approval remain required."},
+    {"name": "AAC Board", "display_name": "AAC Communication Board", "module": "Generators.aac_book_board", "func": "generate_aac_board_pack", "pages": 2, "min_icons": 4, "production_status": "external", "status_reason": "Canonical BoardReady layout; current review set passes all 36 icon checks and includes verified grayscale and high-visibility variants."},
+    {"name": "Sequencing", "display_name": "Story Sequencing", "module": "Generators.GROUNDED_SEQUENCING_GENERATOR", "func": "generate_grounded_sequence_pack", "pages": 5, "min_icons": 5, "production_status": "pilot_review", "build_enabled": True, "status_reason": "Uses a four-event reviewed sequence from book_vocab.json; final human story-order approval remains required."},
+    {"name": "Sorting Cards", "display_name": "Reason & Sort: Category Sorting", "module": "production.generators.generate_grounded_sorting", "func": "generate_grounded_sorting_pack", "pages": 11, "min_icons": 6, "production_status": "pilot_review", "build_enabled": True, "status_reason": "Guided sorts, open mats, reusable headers and create-a-rule options have complete branded output; final human approval remains required."},
+    {"name": "Bingo", "display_name": "Differentiated Bingo", "module": "production.generators.generators.BINGO_GENERATOR", "func": "generate_bingo_pack", "pages": 18, "min_icons": 8, "production_status": "pilot_review", "build_enabled": True, "status_reason": "Four differentiated levels use eight unique reviewed concepts without within-board repeats; final human visual approval remains required."},
+    {"name": "Spin & Cover", "module": "production.generators.generators.SPIN_COVER_GENERATOR", "func": "generate_spin_cover_pack", "pages": 10, "min_icons": 6, "production_status": "review", "status_reason": "Candidate implementation is not wired to the canonical build path."},
+    {"name": "Yes/No Questions", "module": "production.generators.generators.YES_NO_GENERATOR", "func": "generate_yes_no_pack", "pages": 5, "min_icons": 4, "production_status": "pilot_review", "build_enabled": True, "status_reason": "Clean four-page pilot generated with eight explicitly mapped questions; human launch approval remains required."},
+    {"name": "Inferencing Cards", "display_name": "Clue, Think, Infer: Inferencing Cards", "module": "production.generators.generate_inferencing_reasoning", "func": "generate_inferencing_reasoning_pack", "pages": 6, "min_icons": 4, "production_status": "pilot_review", "build_enabled": True, "status_reason": "Four clue-based reasoning cards and a discussion guide are generated from reviewed content; final human approval remains required."},
+    {"name": "Vocabulary Snap", "module": "Generators.VOCABULARY_SNAP_GENERATOR", "func": "generate_vocabulary_snap_pack", "pages": 3, "min_icons": 4, "production_status": "pilot_review", "build_enabled": True, "status_reason": "Clean three-page pilot uses eight approved local symbols; final activity and packaging approval remain required."},
+    {"name": "Syllable Awareness", "module": "Generators.SYLLABLE_AWARENESS_GENERATOR", "func": "generate_syllable_awareness_pack", "pages": 3, "min_icons": 4, "production_status": "pilot_review", "build_enabled": True, "status_reason": "Uses explicit reviewed syllable counts and segmentation; human literacy approval remains required."},
+    {"name": "Print Detective", "display_name": "Print Detective: Letters, Words & First Sounds", "module": "production.generators.generate_print_detective", "func": "generate_print_detective_pack", "pages": 9, "min_icons": 7, "production_status": "pilot_review", "build_enabled": True, "status_reason": "Print concepts + alphabet knowledge linked to reviewed LLRP vocabulary and icons; human literacy approval remains required."},
+    {"name": "CVC Decode & Build", "module": "production.generators.generate_decoding_extension", "func": "generate_decoding_pack", "pages": 6, "min_icons": 0, "production_status": "pilot_review", "build_enabled": True, "status_reason": "Explicit CVC grapheme mappings replace unreliable phoneme heuristics; human phonics approval remains required."},
+    {"name": "Story Grammar & Retell", "module": "production.generators.generators.STORY_ELEMENTS_MAT", "func": "generate_story_elements_mat_pack", "pages": 2, "min_icons": 4, "production_status": "pilot_review", "build_enabled": True, "status_reason": "Six-part retell mat has clean pilot output; human visual and literacy approval remain required."},
 ]
+
+BUILD_STAGES = [
+    ("setup", "1  Setup"),
+    ("content", "2  Content"),
+    ("icons", "3  Icons"),
+    ("boardready", "4  BoardReady"),
+    ("qa", "5  Visual QA"),
+    ("build", "6  Activities"),
+    ("listing", "7  Listing"),
+    ("promote", "8  Promote"),
+]
+BUILD_STAGE_KEYS = {key for key, _label in BUILD_STAGES}
+
+PRODUCTION_STAGE_GUIDANCE = {
+    "setup": {
+        "purpose": "Confirm the project pathway and anonymous learner-access settings.",
+        "action": "Review age band, instructional level, communication access, support, targets, and sensitive-content classification.",
+        "done": "All required project fields are complete and the profile is saved.",
+        "tip": "Describe access needs without storing a student name or other identifying information.",
+    },
+    "content": {
+        "purpose": "Review generated or supplied content before it reaches any product renderer.",
+        "action": "Check accuracy, dignity, safety, copyright, curriculum claims, source evidence, and any IEP wording.",
+        "done": "Every mandatory review check is confirmed and the content review is explicitly approved.",
+        "tip": "Sensitive topics require safeguarding notes and human approval; AI output is never self-approving.",
+    },
+    "icons": {
+        "purpose": "Choose and approve the exact topic images that generators may use.",
+        "action": "Resolve missing or ambiguous vocabulary first, then check the final icon kit.",
+        "done": "Every required word is approved or intentionally skipped, with a suitable hero image selected.",
+        "tip": "Use Extract and label a PDF only when the shared library does not already contain a suitable image.",
+    },
+    "qa": {
+        "purpose": "Perform a final visual check before any products are generated.",
+        "action": "Accept suitable icons, replace incorrect ones, and mark genuinely unavailable images as Missing.",
+        "done": "Every displayed icon has a decision and QA is explicitly marked as passed.",
+        "tip": "Accept all high-confidence icons first, then concentrate on the smaller exception set.",
+    },
+    "build": {
+        "purpose": "Generate only products whose icon and QA requirements are satisfied.",
+        "action": "Use Build all ready for a first run, or Rebuild Stale after changing icons or source content.",
+        "done": "Required Color, B&W, Preview, Quick Start, and upload files exist without unresolved warnings.",
+        "tip": "Preview one representative output before rebuilding the entire product set.",
+    },
+    "listing": {
+        "purpose": "Prepare accurate buyer-facing copy for the products you actually generated.",
+        "action": "Generate the draft, verify contents and claims against the PDFs, then save the approved listing.",
+        "done": "The title, description, bullets, tags, and price are reviewed and saved.",
+        "tip": "Describe the teaching problem solved; do not rely on a list of files alone.",
+    },
+    "promote": {
+        "purpose": "Create a reviewed Pinterest campaign that sends teachers to the exact TPT product page.",
+        "action": "Enter the published TPT product URL, generate six fresh Pin designs, and review the local upload pack.",
+        "done": "Every Pin has an approved image, title, description, alt text, board and exact destination URL.",
+        "tip": "Upload the images through Tailwind as drafts first; schedule them only after checking every link.",
+    },
+    "boardready": {
+        "purpose": "Confirm the canonical BoardReady communication board and topic fringe vocabulary.",
+        "action": "Check the fixed core positions, twelve fringe words, icon meanings, and output variants.",
+        "done": "The BoardReady board has passed visual review in Color, B&W, and high-visibility formats where required.",
+        "tip": "Embedded response strips support an activity but never replace the complete 6×6 BoardReady board.",
+    },
+}
+
+
+def production_stage_guidance(stage: str) -> dict:
+    return dict(PRODUCTION_STAGE_GUIDANCE.get(normalize_build_stage(stage), PRODUCTION_STAGE_GUIDANCE["setup"]))
+
+
+def normalize_build_stage(stage: str | None) -> str:
+    value = str(stage or "").strip().lower()
+    return value if value in BUILD_STAGE_KEYS else "setup"
+
+
+def product_readiness(icon_count: int, qa_passed: bool) -> dict[str, dict]:
+    count = max(0, int(icon_count or 0))
+    readiness = {}
+    for spec in PRODUCT_SPECS:
+        required = max(0, int(spec.get("min_icons", 0) or 0))
+        missing = max(0, required - count)
+        production_ready = spec.get("production_status", "review") == "active"
+        build_enabled = bool(spec.get("build_enabled", production_ready))
+        readiness[spec["name"]] = {
+            "ready": bool(build_enabled and qa_passed and missing == 0),
+            "icons": count,
+            "required_icons": required,
+            "missing_icons": missing,
+            "qa_passed": bool(qa_passed),
+            "build_enabled": build_enabled,
+            "production_ready": production_ready,
+            "status_reason": spec.get("status_reason", ""),
+        }
+    return readiness
+
+
+def product_preflight(slug: str, product_name: str) -> tuple[bool, str]:
+    book_dir = find_book_dir(slug)
+    if not book_dir:
+        return False, "Book folder not found"
+    required_configs = {
+        "Book Participation Pieces": book_dir / "config" / "book_participation_pieces.json",
+        "AAC Sentence Building": book_dir / "config" / "sentence_building.json",
+        "Syllable Awareness": book_dir / "config" / "syllables.json",
+        "CVC Decode & Build": book_dir / "config" / "decoding.json",
+    }
+    required = required_configs.get(product_name)
+    if required is not None and not required.exists():
+        return False, f"Missing reviewed content: {required.name}"
+    vocab_path = book_dir / "book_vocab.json"
+    if product_name in {"Sequencing", "Inferencing Cards"}:
+        if not vocab_path.exists():
+            return False, "Missing reviewed book_vocab.json"
+        try:
+            vocab = json.loads(vocab_path.read_text(encoding="utf-8"))
+        except Exception:
+            return False, "book_vocab.json could not be read"
+        if product_name == "Sequencing":
+            sequence = vocab.get("story_sequence") or []
+            captions = vocab.get("story_event_captions") or {}
+            if len(sequence) != 4 or any(not captions.get(key) for key in sequence):
+                return False, "Add four reviewed story events and captions"
+        if product_name == "Inferencing Cards" and not vocab.get("inferencing_questions"):
+            return False, "Add reviewed inferencing questions"
+    return True, "Ready"
+
+
+def required_builds_complete(built: dict) -> bool:
+    required = [spec["name"] for spec in PRODUCT_SPECS if spec.get("production_status") == "active"]
+    return bool(required) and all(bool((built or {}).get(name)) for name in required)
+
+
+def next_production_stage(icon_count: int, qa_passed: bool, built: dict, listing_saved: bool, icon_review_complete: bool | None = None, setup_complete: bool = True, content_approved: bool = True, boardready_confirmed: bool = True, promotion_ready: bool = True) -> str:
+    if not setup_complete:
+        return "setup"
+    if not content_approved:
+        return "content"
+    if int(icon_count or 0) < min(int(spec.get("min_icons", 0) or 0) for spec in PRODUCT_SPECS if spec.get("production_status") == "active"):
+        return "icons"
+    if icon_review_complete is False:
+        return "icons"
+    if not boardready_confirmed:
+        return "boardready"
+    if not qa_passed:
+        return "qa"
+    if not required_builds_complete(built):
+        return "build"
+    if not listing_saved:
+        return "listing"
+    if not promotion_ready:
+        return "promote"
+    return "tracker"
 
 
 # Phase 5 â€” Book state persistence
@@ -1055,6 +2088,10 @@ def default_pack_code(slug: str) -> str:
     parts = [w for w in name.split() if w]
     abbr = "".join(p[0] for p in parts)[:3].upper() or slug[:3].upper()
     return f"{abbr}01"
+
+
+def sanitise_pack_code(value: str) -> str:
+    return re.sub(r"[^A-Z0-9_-]", "", str(value or "").strip().upper())[:12]
 
 
 def hydrate_book_session_from_state(slug: str):
@@ -1291,7 +2328,7 @@ def build_cover_csv(
     try:
         if thumb_dir.exists():
             # Prefer Adapted Book, Matching, Find & Cover, AAC Board order
-            pref = ["Adapted Book", "Matching", "Find & Cover", "AAC Board", "Word Search", "AAC Sentence Strips", "Sorting Cards", "Bingo", "Spin & Cover", "Yes/No Questions"]
+            pref = [spec["name"] for spec in PRODUCT_SPECS]
             for name in pref:
                 if not built_info.get(name, {}).get("built"):
                     continue
@@ -1314,37 +2351,33 @@ def build_cover_csv(
         return _pdf_page_count(p) if p else 0
 
     bullet_templates = {
-        "Adapted Book": "[x] Adapted Book - {pages} pages",
+        "Book Participation Pieces": "[x] Book Participation Pieces - {pages} pages",
         "Matching": "[x] Matching Activities - {pages} pages (4 levels)",
         "Find & Cover": "[x] Find & Cover - {pages} pages (3 levels)",
         "AAC Board": "[x] AAC Communication Board - {pages} pages",
         "Word Search": "[x] Word Search - {pages} pages",
-        "AAC Sentence Strips": "[x] AAC Sentence Strips - {pages} pages",
+        "AAC Sentence Building": "[x] AAC Sentence Strips - {pages} pages",
         "Sorting Cards": "[x] Sorting Cards - {pages} pages",
     }
     bullets: list[str] = []
-    for name in [
-        "Adapted Book",
-        "Matching",
-        "Find & Cover",
-        "AAC Board",
-        "Word Search",
-        "AAC Sentence Strips",
-        "Sorting Cards",
-    ]:
-        if built_info.get(name, {}).get("built") and name in bullet_templates:
+    for spec in PRODUCT_SPECS:
+        name = spec["name"]
+        if built_info.get(name, {}).get("built"):
             pages = _pages_for_product(name)
             if pages > 0:
-                bullets.append(bullet_templates[name].format(pages=pages))
+                template = bullet_templates.get(name, f"[x] {name} - {{pages}} pages")
+                bullets.append(template.format(pages=pages))
+    bullets = bullets[:7]
     while len(bullets) < 7:
         bullets.append("")
 
     total_pages = 0
     built_count = 0
-    for n in ["Adapted Book", "Matching", "Find & Cover", "AAC Board", "Word Search", "AAC Sentence Strips", "Sorting Cards", "Bingo", "Spin & Cover", "Yes/No Questions"]:
-        if built_info.get(n, {}).get("built"):
+    for spec in PRODUCT_SPECS:
+        name = spec["name"]
+        if built_info.get(name, {}).get("built"):
             built_count += 1
-            total_pages += _pages_for_product(n)
+            total_pages += _pages_for_product(name)
     product_count_str = f"{built_count} Products - {total_pages}+ Pages"
 
     how_to = [
@@ -1458,6 +2491,252 @@ def _compose_grid(images: list[Image.Image], size: int = 1200, gap: int = 12, bg
         return Image.new("RGB", (size, size), bg)
 
 
+def _tpt_font(size: int, bold: bool = False) -> ImageFont.ImageFont:
+    names = [
+        "C:/Windows/Fonts/arialbd.ttf" if bold else "C:/Windows/Fonts/arial.ttf",
+        "C:/Windows/Fonts/segoeuib.ttf" if bold else "C:/Windows/Fonts/segoeui.ttf",
+    ]
+    for name in names:
+        try:
+            return ImageFont.truetype(name, size)
+        except Exception:
+            continue
+    return ImageFont.load_default()
+
+
+def _tpt_wrap(draw: ImageDraw.ImageDraw, text: str, font: ImageFont.ImageFont, width: int, max_lines: int = 3) -> list[str]:
+    words = str(text or "").split()
+    lines: list[str] = []
+    current = ""
+    for word in words:
+        candidate = f"{current} {word}".strip()
+        if not current or draw.textlength(candidate, font=font) <= width:
+            current = candidate
+        else:
+            lines.append(current)
+            current = word
+            if len(lines) == max_lines:
+                break
+    if current and len(lines) < max_lines:
+        lines.append(current)
+    if len(lines) == max_lines and " ".join(lines) != " ".join(words):
+        while lines[-1] and draw.textlength(lines[-1] + "...", font=font) > width:
+            lines[-1] = lines[-1][:-1].rstrip()
+        lines[-1] += "..."
+    return lines
+
+
+def _tpt_fitted_lines(draw: ImageDraw.ImageDraw, text: str, width: int, max_lines: int, start: int, minimum: int, bold: bool = True):
+    for size in range(start, minimum - 1, -2):
+        font = _tpt_font(size, bold)
+        lines = _tpt_wrap(draw, text, font, width, max_lines)
+        if not lines or "..." not in lines[-1]:
+            return font, lines
+    font = _tpt_font(minimum, bold)
+    return font, _tpt_wrap(draw, text, font, width, max_lines)
+
+
+def _tpt_draw_lines(draw: ImageDraw.ImageDraw, lines: list[str], xy: tuple[int, int], font: ImageFont.ImageFont, fill, gap: int = 8) -> int:
+    x, y = xy
+    for line in lines:
+        draw.text((x, y), line, font=font, fill=fill)
+        box = draw.textbbox((x, y), line, font=font)
+        y = box[3] + gap
+    return y
+
+
+def _pdf_page_image(pdf_path: Path, page_index: int = 0, scale: float = 1.7) -> Image.Image | None:
+    try:
+        if fitz is None or not pdf_path or not pdf_path.exists():
+            return None
+        doc = fitz.open(str(pdf_path))
+        if not len(doc):
+            doc.close()
+            return None
+        page = doc.load_page(min(max(0, page_index), len(doc) - 1))
+        pix = page.get_pixmap(matrix=fitz.Matrix(scale, scale), alpha=False)
+        image = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
+        doc.close()
+        return image
+    except Exception:
+        return None
+
+
+def _tpt_paste_page(canvas: Image.Image, image: Image.Image | None, box: tuple[int, int, int, int], label: str = "") -> None:
+    x1, y1, x2, y2 = box
+    draw = ImageDraw.Draw(canvas)
+    draw.rounded_rectangle((x1 + 10, y1 + 12, x2 + 10, y2 + 12), radius=24, fill="#D7E1E3")
+    draw.rounded_rectangle(box, radius=24, fill="white", outline="#D4DEDF", width=3)
+    label_h = 62 if label else 20
+    if image is not None:
+        fitted = image.copy()
+        fitted.thumbnail((x2 - x1 - 36, y2 - y1 - label_h - 24), Image.LANCZOS)
+        px = x1 + (x2 - x1 - fitted.width) // 2
+        py = y1 + 18 + (y2 - y1 - label_h - 24 - fitted.height) // 2
+        canvas.paste(fitted, (px, py))
+    if label:
+        font, lines = _tpt_fitted_lines(draw, label, x2 - x1 - 30, 1, 26, 18)
+        tw = draw.textlength(lines[0], font=font)
+        draw.text((x1 + (x2 - x1 - tw) / 2, y2 - 48), lines[0], font=font, fill="#0D2545")
+
+
+def _tpt_base(eyebrow: str, heading: str, subtitle: str = "") -> Image.Image:
+    canvas = Image.new("RGB", (1200, 1200), "#FDFCF8")
+    draw = ImageDraw.Draw(canvas)
+    draw.rounded_rectangle((28, 28, 1172, 1172), radius=42, fill="#FDFCF8", outline="#31A8A0", width=8)
+    draw.rounded_rectangle((54, 52, 1146, 142), radius=28, fill="#0D2545")
+    draw.text((86, 76), eyebrow.upper(), font=_tpt_font(34, True), fill="white")
+    font, lines = _tpt_fitted_lines(draw, heading, 1030, 2, 66, 42)
+    y = _tpt_draw_lines(draw, lines, (84, 174), font, "#0D2545", 6)
+    if subtitle:
+        sub_font, sub_lines = _tpt_fitted_lines(draw, subtitle, 1030, 2, 30, 22, False)
+        _tpt_draw_lines(draw, sub_lines, (86, y + 8), sub_font, "#52606D", 4)
+    draw.line((70, 1122, 1130, 1122), fill="#C9DDDC", width=2)
+    draw.text((82, 1138), "SMALL WINS STUDIO", font=_tpt_font(25, True), fill="#0D2545")
+    footer = "Clear • practical • accessible"
+    fw = draw.textlength(footer, font=_tpt_font(23))
+    draw.text((1118 - fw, 1140), footer, font=_tpt_font(23), fill="#39736F")
+    return canvas
+
+
+def _tpt_chip(draw: ImageDraw.ImageDraw, x: int, y: int, text: str, fill: str = "#E8F5F4") -> int:
+    font = _tpt_font(24, True)
+    width = int(draw.textlength(text, font=font)) + 42
+    draw.rounded_rectangle((x, y, x + width, y + 52), radius=20, fill=fill, outline="#31A8A0", width=2)
+    draw.text((x + 21, y + 12), text, font=font, fill="#0D2545")
+    return x + width + 14
+
+
+def _tpt_best_product_page(source: Path, page_count: int) -> Image.Image | None:
+    candidates: list[tuple[float, Image.Image]] = []
+    for page_index in range(1 if page_count > 1 else 0, min(page_count, 6)):
+        image = _pdf_page_image(source, page_index)
+        if image is None:
+            continue
+        sample = image.copy()
+        sample.thumbnail((180, 180), Image.LANCZOS)
+        histogram = sample.convert("L").histogram()
+        non_white = sum(histogram[:242]) / max(1, sum(histogram))
+        candidates.append((non_white, image))
+    return max(candidates, key=lambda item: item[0])[1] if candidates else None
+
+
+def _tpt_product_samples(out_dir: Path, built_info: dict) -> tuple[list[dict], list[tuple[Image.Image, str]]]:
+    order = ["Matching", "Find & Cover", "AAC Sentence Building", "Book Participation Pieces", "Sorting Cards", "Bingo", "Spin & Cover", "AAC Board", "Word Search", "Yes/No Questions", "Sequencing"]
+    products: list[dict] = []
+    samples: list[tuple[Image.Image, str]] = []
+    for name in order:
+        if not built_info.get(name, {}).get("built"):
+            continue
+        files = _product_output_files(out_dir, name)
+        source = files.get("color") or files.get("bw")
+        pages = _pdf_page_count(source) if source else 0
+        if not source or pages < 1:
+            continue
+        products.append({"name": name, "pages": pages, "files": files, "source": source})
+        image = _tpt_best_product_page(source, pages)
+        if image is not None:
+            samples.append((image, name))
+    for product in products:
+        for page_index in range(2, min(product["pages"], 5)):
+            if len(samples) >= 6:
+                break
+            image = _pdf_page_image(product["source"], page_index)
+            if image is not None:
+                samples.append((image, product["name"]))
+        if len(samples) >= 6:
+            break
+    return products, samples
+
+
+def generate_tpt_marketing_pages(slug: str, pack_code: str, out_dir: Path, built_info: dict, title: str | None = None) -> list[Path]:
+    products, samples = _tpt_product_samples(out_dir, built_info)
+    if not products or not samples:
+        return []
+    title = (title or decode_slug(slug)).strip()
+    total_pages = sum(item["pages"] for item in products)
+    formats = []
+    if any(item["files"].get("color") for item in products):
+        formats.append("Color")
+    if any(item["files"].get("bw") for item in products):
+        formats.append("B&W")
+    if any(item["files"].get("preview") for item in products):
+        formats.append("Preview")
+    pages: list[tuple[str, str, Image.Image]] = []
+
+    cover = _tpt_base("Special Education Resource", title, "Visual, practical activities ready for real classrooms")
+    draw = ImageDraw.Draw(cover)
+    _tpt_paste_page(cover, samples[0][0], (270, 370, 930, 1010), samples[0][1])
+    chips = [f"{total_pages} pages", f"{len(products)} resource{'s' if len(products) != 1 else ''}"] + formats[:1]
+    x = 84
+    for chip in chips:
+        x = _tpt_chip(draw, x, 1040, chip)
+    pages.append(("1_cover", "Cover", cover))
+
+    included = _tpt_base("See exactly what you get", "What’s included", f"{len(products)} classroom resources • {total_pages} total pages")
+    draw = ImageDraw.Draw(included)
+    y = 390
+    for item in products[:7]:
+        draw.ellipse((82, y + 8, 112, y + 38), fill="#31A8A0")
+        draw.line((90, y + 23, 99, y + 32), fill="white", width=4)
+        draw.line((99, y + 32, 108, y + 15), fill="white", width=4)
+        font, lines = _tpt_fitted_lines(draw, f"{item['name']} — {item['pages']} pages", 450, 2, 31, 23)
+        y = _tpt_draw_lines(draw, lines, (132, y), font, "#0D2545", 4) + 18
+    grid_samples = samples[:4]
+    boxes = [(625, 390, 860, 705), (880, 390, 1115, 705), (625, 730, 860, 1045), (880, 730, 1115, 1045)]
+    for (image, label), box in zip(grid_samples, boxes):
+        _tpt_paste_page(included, image, box, label)
+    pages.append(("2_whats_included", "What’s included", included))
+
+    closer = _tpt_base("Actual resource pages", "Take a closer look", "Preview the layout, visual supports, and student response demands")
+    for (image, label), box in zip(samples[:3], [(70, 385, 425, 1035), (423, 385, 778, 1035), (776, 385, 1131, 1035)]):
+        _tpt_paste_page(closer, image, box, label)
+    pages.append(("3_closer_look", "A closer look", closer))
+
+    confidence = _tpt_base("Designed for flexible teaching", "Ready for your learners", "The practical details teachers check before purchasing")
+    draw = ImageDraw.Draw(confidence)
+    sections = [
+        ("FILES", " • ".join(formats) + " PDF" if formats else "Printable PDF"),
+        ("USE", "Whole group • small group • 1:1 support"),
+        ("PREP", "Print • choose pages • laminate or cut only as needed"),
+        ("BEST FOR", "Special education • intervention • visual learning"),
+    ]
+    y = 390
+    for heading, body in sections:
+        draw.rounded_rectangle((76, y, 650, y + 132), radius=22, fill="#E8F5F4")
+        draw.text((102, y + 18), heading, font=_tpt_font(24, True), fill="#278A84")
+        font, lines = _tpt_fitted_lines(draw, body, 520, 2, 29, 22, False)
+        _tpt_draw_lines(draw, lines, (102, y + 58), font, "#0D2545", 3)
+        y += 153
+    _tpt_paste_page(confidence, samples[min(1, len(samples) - 1)][0], (700, 390, 1115, 1028), samples[min(1, len(samples) - 1)][1])
+    pages.append(("4_teacher_confidence", "Teacher confidence", confidence))
+
+    images_dir = out_dir / "TPT_UPLOAD" / "IMAGES" / pack_code
+    images_dir.mkdir(parents=True, exist_ok=True)
+    results: list[Path] = []
+    captions: list[dict] = []
+    for stem, caption, image in pages:
+        path = images_dir / f"{pack_code}_{stem}.png"
+        image.save(path, format="PNG", optimize=True)
+        results.append(path)
+        captions.append({"filename": path.name, "caption": caption})
+    with open(images_dir / f"{pack_code}_captions.csv", "w", newline="", encoding="utf-8-sig") as handle:
+        writer = csv.DictWriter(handle, fieldnames=["filename", "caption"])
+        writer.writeheader()
+        writer.writerows(captions)
+    try:
+        from reportlab.pdfgen import canvas
+        from reportlab.lib.utils import ImageReader
+        preview = canvas.Canvas(str(images_dir / f"{pack_code}_preview.pdf"), pagesize=(1200, 1200))
+        for path in results:
+            preview.drawImage(ImageReader(str(path)), 0, 0, width=1200, height=1200)
+            preview.showPage()
+        preview.save()
+    except Exception:
+        pass
+    return results
+
+
 def generate_listing_images(slug: str, pack_code: str, out_dir: Path, built_info: dict) -> list[Path]:
     """Generate up to 6 listing JPGs (1200x1200) into OUTPUT/TPT_UPLOAD/IMAGES/[pack_code]/.
     Also writes a captions CSV and a multi-page preview PDF into the same folder.
@@ -1489,7 +2768,7 @@ def generate_listing_images(slug: str, pack_code: str, out_dir: Path, built_info
         except Exception:
             pass
     # Slides 2–4: sample activity pages
-    sample_targets = ["Matching", "AAC Sentence Strips", "Word Search"]
+    sample_targets = ["Matching", "AAC Sentence Building", "Word Search"]
     sample_pairs: list[tuple[Image.Image, str]] = []
     for name in sample_targets:
         try:
@@ -1596,7 +2875,8 @@ def generate_listing_images(slug: str, pack_code: str, out_dir: Path, built_info
                     fnt = ImageFont.truetype("C:/Windows/Fonts/arialbd.ttf", 64)
                 except Exception:
                     fnt = ImageFont.load_default()
-                tw, th = dr.textsize(txt, font=fnt)
+                bbox = dr.textbbox((0, 0), txt, font=fnt)
+                tw, th = bbox[2] - bbox[0], bbox[3] - bbox[1]
                 dr.text(((1200 - tw) // 2, (1200 - th) // 2), txt, fill=(0x00, 0x63, 0x79), font=fnt)
         else:
             dr = ImageDraw.Draw(end)
@@ -1605,7 +2885,8 @@ def generate_listing_images(slug: str, pack_code: str, out_dir: Path, built_info
                 fnt = ImageFont.truetype("C:/Windows/Fonts/arialbd.ttf", 64)
             except Exception:
                 fnt = ImageFont.load_default()
-            tw, th = dr.textsize(txt, font=fnt)
+            bbox = dr.textbbox((0, 0), txt, font=fnt)
+            tw, th = bbox[2] - bbox[0], bbox[3] - bbox[1]
             dr.text(((1200 - tw) // 2, (1200 - th) // 2), txt, fill=(0x00, 0x63, 0x79), font=fnt)
         idx = len(results) + 1
         p6 = images_dir / f"{pack_code}_{idx}_more_from_sws.jpg"
@@ -1678,6 +2959,145 @@ def generate_pinterest_csv(slug: str, pack_code: str, out_dir: Path, listing: di
         return None
 
 
+def is_tpt_product_url(value: str) -> bool:
+    try:
+        parsed = urllib.parse.urlparse(str(value or "").strip())
+        host = (parsed.hostname or "").lower()
+        return parsed.scheme == "https" and (host == "teacherspayteachers.com" or host.endswith(".teacherspayteachers.com")) and "/product/" in parsed.path.lower()
+    except Exception:
+        return False
+
+
+def _render_guided_pin(source: Path, destination: Path, headline: str, subhead: str, badge: str, accent: str) -> None:
+    canvas = Image.new("RGB", (1000, 1500), "#F4F7F8")
+    draw = ImageDraw.Draw(canvas)
+    draw.rectangle((0, 0, 1000, 300), fill=hex_to_rgb("#1E3A5F"))
+    draw.rectangle((0, 290, 1000, 310), fill=hex_to_rgb(accent))
+    headline_font, headline_lines = _tpt_fitted_lines(draw, headline, 860, 2, 72, 44, True)
+    headline_widths = [draw.textbbox((0, 0), line, font=headline_font)[2] for line in headline_lines]
+    y = 48
+    for line, line_width in zip(headline_lines, headline_widths):
+        draw.text(((1000 - line_width) // 2, y), line, font=headline_font, fill="white")
+        y += draw.textbbox((0, 0), line, font=headline_font)[3] + 8
+    sub_font, sub_lines = _tpt_fitted_lines(draw, subhead, 860, 2, 38, 26, False)
+    y = max(y + 8, 190)
+    for line in sub_lines:
+        line_width = draw.textbbox((0, 0), line, font=sub_font)[2]
+        draw.text(((1000 - line_width) // 2, y), line, font=sub_font, fill="#DDEAF2")
+        y += draw.textbbox((0, 0), line, font=sub_font)[3] + 5
+
+    image = Image.open(source).convert("RGB")
+    image.thumbnail((850, 820), Image.Resampling.LANCZOS)
+    card = Image.new("RGB", (890, 870), "white")
+    card_x, card_y = 55, 350
+    canvas.paste(card, (card_x, card_y))
+    canvas.paste(image, ((1000 - image.width) // 2, card_y + (870 - image.height) // 2))
+
+    draw.rounded_rectangle((80, 1260, 920, 1360), radius=28, fill=hex_to_rgb(accent))
+    badge_font, badge_lines = _tpt_fitted_lines(draw, badge, 760, 2, 42, 28, True)
+    badge_y = 1280
+    for line in badge_lines:
+        line_width = draw.textbbox((0, 0), line, font=badge_font)[2]
+        draw.text(((1000 - line_width) // 2, badge_y), line, font=badge_font, fill="white")
+        badge_y += draw.textbbox((0, 0), line, font=badge_font)[3] + 4
+    footer_font = _tpt_font(28, True)
+    footer = "Small Wins Studio  |  View on TPT"
+    footer_width = draw.textbbox((0, 0), footer, font=footer_font)[2]
+    draw.text(((1000 - footer_width) // 2, 1415), footer, font=footer_font, fill="#1E3A5F")
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    canvas.save(destination, "PNG", optimize=True)
+
+
+def generate_guided_pinterest_campaign(slug: str, pack_code: str, out_dir: Path, listing: dict, images_dir: Path, destination_url: str, default_board: str) -> tuple[bool, str, Path | None]:
+    if not is_tpt_product_url(destination_url):
+        return False, "Enter the exact published TPT product URL, not the general store URL.", None
+    source_images = sorted(
+        [path for path in images_dir.iterdir() if path.is_file() and path.suffix.lower() in {".png", ".jpg", ".jpeg"}],
+        key=lambda path: path.name.lower(),
+    ) if images_dir.exists() else []
+    if not source_images:
+        return False, "Generate the TPT marketing pages before creating a Pinterest campaign.", None
+
+    title = str(listing.get("tpt_title") or f"{decode_slug(slug)} visual learning resource").strip()
+    description = str(listing.get("description") or "").split("\n\n")[0].strip()
+    book_title = decode_slug(slug)
+    angles = [
+        ("Teacher problem", "LOW-PREP VISUAL SUPPORT", "Make read-aloud participation easier", "Practical SPED resource", "#31A8A0", "Visual Supports for Special Education"),
+        ("Student outcome", "SUPPORT ACTIVE PARTICIPATION", "Accessible choices for diverse communicators", "AAC-friendly learning", "#7B61A8", "AAC and Communication Boards"),
+        ("Differentiation", "BUILT FOR DIFFERENTIATION", "Clear visuals and flexible response modes", "Support every learner", "#D9822B", "Autism Classroom Resources"),
+        ("Contents", "SEE WHAT IS INCLUDED", "A coordinated, ready-to-use resource pack", "Preview the complete pack", "#2E7D5B", "Adapted Books and Book Companions"),
+        ("Classroom use", "PRINT, PREP, TEACH", "Designed for real SPED classrooms", "Low-prep classroom use", "#3F6FA0", "Special Education Classroom Ideas"),
+        ("Teacher time", "SAVE TEACHER PREP TIME", "Consistent visuals in one organised pack", "View it on TPT", "#A64B6A", "Low Prep Special Education Resources"),
+    ]
+    campaign_dir = out_dir / "TPT_UPLOAD" / "PROMOTE" / pack_code
+    campaign_dir.mkdir(parents=True, exist_ok=True)
+    rows = []
+    for index, (angle, headline, subhead, badge, accent, suggested_board) in enumerate(angles, start=1):
+        source = source_images[(index - 1) % len(source_images)]
+        pin_path = campaign_dir / f"{pack_code}_pin_{index:02d}_{sanitise_symbol_name(angle)}.png"
+        _render_guided_pin(source, pin_path, headline, book_title, badge, accent)
+        pin_title = _truncate(f"{book_title}: {subhead}", 100)
+        pin_description = _truncate(
+            f"{subhead}. {description or title} Designed for special education, visual learning and accessible classroom participation. View the complete resource on TPT.",
+            500,
+        )
+        rows.append({
+            "filename": pin_path.name,
+            "pin_title": pin_title,
+            "pin_description": pin_description,
+            "alt_text": _truncate(f"Preview of {book_title} teaching resource showing {angle.lower()} benefits from Small Wins Studio.", 500),
+            "destination_url": destination_url,
+            "suggested_board": default_board.strip() or suggested_board,
+            "creative_angle": angle,
+            "suggested_day_offset": (index - 1) * 4,
+            "review_status": "Needs review",
+        })
+
+    csv_path = campaign_dir / f"{pack_code}_guided_upload_review.csv"
+    with csv_path.open("w", newline="", encoding="utf-8-sig") as handle:
+        writer = csv.DictWriter(handle, fieldnames=list(rows[0]))
+        writer.writeheader()
+        writer.writerows(rows)
+    manifest = {
+        "schema_version": 1,
+        "campaign_type": "guided_tailwind_upload",
+        "status": "review_required",
+        "slug": slug,
+        "pack_code": pack_code,
+        "destination_url": destination_url,
+        "created_at": datetime.now().isoformat(timespec="seconds"),
+        "pins": rows,
+    }
+    manifest_path = campaign_dir / f"{pack_code}_campaign.json"
+    manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
+    cards = "".join(
+        f"<article><img src='{html.escape(row['filename'])}' alt='{html.escape(row['alt_text'])}'><h2>{html.escape(row['pin_title'])}</h2><p>{html.escape(row['pin_description'])}</p><p><b>Board:</b> {html.escape(row['suggested_board'])}</p><p><b>Link:</b> {html.escape(row['destination_url'])}</p></article>"
+        for row in rows
+    )
+    review_html = f"<!doctype html><html><head><meta charset='utf-8'><title>{html.escape(book_title)} Pinterest Review</title><style>body{{font-family:Segoe UI,Arial;background:#f4f7f8;color:#17324d;margin:24px}}main{{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}}article{{background:white;border:1px solid #cbd8df;border-radius:12px;padding:16px}}img{{width:100%;height:auto}}h1{{margin-bottom:6px}}h2{{font-size:18px}}p{{line-height:1.45}}</style></head><body><h1>{html.escape(book_title)} guided Pinterest campaign</h1><p>Review every image, title, description, board and TPT destination before uploading to Tailwind.</p><main>{cards}</main></body></html>"
+    (campaign_dir / "REVIEW_CAMPAIGN.html").write_text(review_html, encoding="utf-8")
+    zip_path = campaign_dir / f"{pack_code}_guided_tailwind_upload.zip"
+    with zipfile.ZipFile(zip_path, "w", compression=zipfile.ZIP_DEFLATED) as archive:
+        for path in campaign_dir.iterdir():
+            if path.is_file() and path != zip_path:
+                archive.write(path, arcname=path.name)
+    return True, f"Created {len(rows)} fresh Pin drafts for guided Tailwind upload.", campaign_dir
+
+
+def marketing_campaign_ready(slug: str) -> bool:
+    out_dir = output_dir_for_book(slug)
+    if not out_dir:
+        return False
+    manifests = list((out_dir / "TPT_UPLOAD" / "PROMOTE").rglob("*_campaign.json"))
+    for path in manifests:
+        try:
+            if json.loads(path.read_text(encoding="utf-8")).get("status") == "approved":
+                return True
+        except Exception:
+            continue
+    return False
+
+
 def _extract_pages_pdf(src: Path, pages: list[int], dst: Path) -> bool:
     try:
         try:
@@ -1728,7 +3148,8 @@ def _create_freebie_cover_pdf(*, out_path: Path, theme_name: str, pack_code: str
         except Exception:
             fnt = ImageFont.load_default()
         txt = "FREE SAMPLE"
-        tw, th = d.textsize(txt, font=fnt)
+        bbox = d.textbbox((0, 0), txt, font=fnt)
+        tw, th = bbox[2] - bbox[0], bbox[3] - bbox[1]
         d.text(((w - tw) // 2, (banner_h - th) // 2), txt, fill=(255, 255, 255), font=fnt)
 
         # Notes
@@ -1826,7 +3247,7 @@ def generate_freebie_zip(slug: str, product_name: str, out_dir: Path, pack_code:
         freebie_dir = upload_dir / "FREEBIE"
         freebie_dir.mkdir(parents=True, exist_ok=True)
         final_pdf = freebie_dir / f"{pack_code}_{_safe_name(product_name)}_FREEBIE.pdf"
-        script = project_root() / "generators" / "PDF_MERGER.py"
+        script = project_root() / "production" / "generators" / "generators" / "PDF_MERGER.py"
         chain = [cover_pdf, sample_pdf] + ([tou] if tou and tou.exists() else []) + [upsell_pdf]
         cur = chain[0]
         tmps: list[Path] = []
@@ -1937,6 +3358,55 @@ def _terms_of_use_pdf() -> Path | None:
     return p if p.exists() else None
 
 
+def _aac_top_tips_pdf() -> Path | None:
+    candidates = [
+        project_root() / "assets" / "global" / "standard_docs" / "SWS_Top_Tips_AAC_Communication_Partners.pdf",
+        project_root() / "SWS_Support_Docs_Handoff" / "01_reference_pdfs" / "SWS_Top_Tips_AAC_Communication_Partners.pdf",
+    ]
+    return next((path for path in candidates if path.exists()), None)
+
+
+def _fallback_quick_start_pdf(product_name: str) -> Path | None:
+    names = {
+        "Matching": "SWS_Quick_Start_Matching.pdf",
+        "AAC Board": "SWS_Quick_Start_AAC_Board.pdf",
+        "AAC Sentence Building": "SWS_Quick_Start_AAC_Sentence_Strips.pdf",
+    }
+    name = names.get(product_name)
+    path = project_root() / "assets" / "global" / "standard_docs" / str(name or "")
+    return path if name and path.exists() else None
+
+
+def support_documents_for_product(slug: str, product_name: str, quick_start: Path | None = None) -> tuple[list[tuple[Path, str]], list[str]]:
+    documents: list[tuple[Path, str]] = []
+    warnings: list[str] = []
+    tou = _terms_of_use_pdf()
+    if tou:
+        documents.append((tou, "Terms of Use.pdf"))
+    else:
+        warnings.append("Canonical Terms of Use is missing")
+    if not quick_start or not quick_start.exists():
+        quick_start = _fallback_quick_start_pdf(product_name)
+    if quick_start and quick_start.exists():
+        documents.append((quick_start, quick_start.name))
+    else:
+        warnings.append(f"{product_name}: product-specific Quick Start is missing")
+    if product_name in {"AAC Board", "AAC Sentence Building"}:
+        tips = _aac_top_tips_pdf()
+        if tips:
+            documents.append((tips, "SWS_Top_Tips_AAC_Communication_Partners.pdf"))
+        else:
+            warnings.append(f"{product_name}: AAC Communication Partner Top Tips is missing")
+    profile = load_project_profile(slug)
+    approved_docs = profile.get("approved_support_documents") or {}
+    for key, archive_name in (("scarborough", "Scarborough Alignment.pdf"), ("iep_data", "IEP Data Sheet.pdf")):
+        entry = approved_docs.get(key, {}) if isinstance(approved_docs, dict) else {}
+        path = Path(str(entry.get("path") or "")) if isinstance(entry, dict) else Path("")
+        if isinstance(entry, dict) and entry.get("verified") is True and path.is_file():
+            documents.append((path, archive_name))
+    return documents, warnings
+
+
 def _product_output_files(out_dir: Path, product_name: str) -> dict[str, Path]:
     """Return best-effort mapping: color/bw/preview for a product."""
     tokens = [t.lower() for t in (BUILT_PRODUCT_TOKENS.get(product_name) or [])]
@@ -2020,7 +3490,7 @@ def _create_product_cover_pdf(*, out_path: Path, theme_name: str, pack_code: str
 def _product_quick_start_func(product_name: str):
     """Return callable from generators.generate_quick_start_professional for this product, if available."""
     try:
-        mod = importlib.import_module("generators.generate_quick_start_professional")
+        mod = importlib.import_module("generate_quick_start_professional")
     except Exception:
         return None
     mapping = {
@@ -2055,11 +3525,11 @@ def finalize_and_package_book(slug: str) -> tuple[bool, str]:
 
     # Best-effort bullet points; keep short and consistent.
     product_bullets: dict[str, list[str]] = {
-        "Adapted Book": ["Read-aloud companion", "Velcro-friendly pieces", "Color + black & white"],
+        "Book Participation Pieces": ["Read-aloud companion", "Velcro-friendly pieces", "Color + black & white"],
         "Matching": ["Differentiated activity pages", "Print & go", "Color + black & white"],
         "Find & Cover": ["Differentiated levels", "Interactive covers", "Color + black & white"],
         "Word Search": ["Vocabulary practice", "Printable pages", "Preview included"],
-        "AAC Sentence Strips": ["Sentence building", "Core + book vocabulary", "Color + black & white"],
+        "AAC Sentence Building": ["Sentence building", "Core + book vocabulary", "Color + black & white"],
         "AAC Board": ["Core + book vocabulary", "BoardReady layout", "Color + black & white"],
         "Sequencing": ["Beginning/Middle/End + 4-step + 5-step", "Cut-out cards included", "Color + black & white"],
         "Sorting Cards": ["Interchangeable headers", "Sort and discuss", "Print & cut"],
@@ -2073,6 +3543,10 @@ def finalize_and_package_book(slug: str) -> tuple[bool, str]:
 
     for spec in PRODUCT_SPECS:
         product_name = spec["name"]
+        if spec.get("production_status") != "active":
+            if built_info.get(product_name, {}).get("built"):
+                warnings.append(f"{product_name}: excluded from packaging while its generator is under review")
+            continue
         if not built_info.get(product_name, {}).get("built"):
             continue
 
@@ -2111,7 +3585,7 @@ def finalize_and_package_book(slug: str) -> tuple[bool, str]:
 
         merged_ok = False
         try:
-            from generators.PDF_MERGER import merge_pdfs  # type: ignore
+            from production.generators.generators.PDF_MERGER import merge_pdfs  # type: ignore
             merged_ok = bool(merge_pdfs(cover_pdf, color_pdf, merged_color))
             if bw_pdf:
                 merge_pdfs(cover_pdf, bw_pdf, merged_bw)
@@ -2150,7 +3624,7 @@ def finalize_and_package_book(slug: str) -> tuple[bool, str]:
                 warnings.append(f"{product_name}: quick start generation failed: {e}")
         if not generated_qs:
             try:
-                mod_g = importlib.import_module("generators.generate_quick_start_instructions")
+                mod_g = importlib.import_module("generate_quick_start_instructions")
                 if hasattr(mod_g, "generate_quick_start_pdf"):
                     mod_g.generate_quick_start_pdf(quick_start_pdf, pack_code=pack_code, theme_name=theme_name)
                     generated_qs = quick_start_pdf.exists()
@@ -2160,6 +3634,8 @@ def finalize_and_package_book(slug: str) -> tuple[bool, str]:
                 warnings.append(f"{product_name}: fallback Quick Start failed: {e}")
 
         # ZIP per product
+        support_documents, support_warnings = support_documents_for_product(slug, product_name, quick_start_pdf)
+        warnings.extend(support_warnings)
         zip_path = upload_dir / f"{pack_code}_{product_name.replace(' ', '_')}_TPT.zip"
         try:
             with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as z:
@@ -2168,19 +3644,35 @@ def finalize_and_package_book(slug: str) -> tuple[bool, str]:
                     z.write(merged_bw, merged_bw.name)
                 if preview_pdf and preview_pdf.exists():
                     z.write(preview_pdf, preview_pdf.name)
-                z.write(tou, "Terms of Use.pdf")
-                if quick_start_pdf.exists():
-                    z.write(quick_start_pdf, quick_start_pdf.name)
+                for support_path, archive_name in support_documents:
+                    z.write(support_path, archive_name)
         except Exception as e:
             warnings.append(f"{product_name}: zip failed: {e}")
 
+    boardready_files = boardready_output_files(slug)
+    if boardready_files:
+        board_support, board_warnings = support_documents_for_product(slug, "AAC Board", None)
+        warnings.extend(board_warnings)
+        board_zip = upload_dir / f"{pack_code}_AAC_Board_TPT.zip"
+        try:
+            with zipfile.ZipFile(board_zip, "w", zipfile.ZIP_DEFLATED) as archive:
+                for board_file in boardready_files:
+                    archive.write(board_file, board_file.name)
+                for support_path, archive_name in board_support:
+                    archive.write(support_path, archive_name)
+            merged_any = True
+        except Exception as exc:
+            warnings.append(f"AAC Board: zip failed: {exc}")
+
     if not merged_any:
-        return False, "No built products found to finalize"
+        return False, "No approved built products or BoardReady files found to finalize"
 
     # Seed Upload Tracker records for this pack (built products only)
     tracker_created = 0
     try:
-        product_types = [spec["name"] for spec in PRODUCT_SPECS if built_info.get(spec["name"], {}).get("built")]
+        product_types = [spec["name"] for spec in PRODUCT_SPECS if spec.get("production_status") == "active" and built_info.get(spec["name"], {}).get("built")]
+        if boardready_files:
+            product_types.append("AAC Board")
         if product_types:
             tracker_created = int(init_tracker_pack(book_slug=slug, book_title=theme_name, pack_code=pack_code, product_types=product_types) or 0)
         st.session_state[f"sf_finalize_created_{slug}"] = tracker_created
@@ -2280,6 +3772,12 @@ def run_product_build(slug: str, product_name: str, display_name: str) -> tuple[
     spec = next((s for s in PRODUCT_SPECS if s["name"] == product_name), None)
     if not spec:
         return False, f"Unknown product: {product_name}"
+    if not spec.get("build_enabled", spec.get("production_status") == "active"):
+        reason = spec.get("status_reason") or "This generator has not passed canonical review."
+        return False, f"{product_name} is not enabled for normal production. {reason}"
+    preflight_ok, preflight_message = product_preflight(slug, product_name)
+    if not preflight_ok:
+        return False, preflight_message
 
     try:
         delete_existing_product_outputs(slug, product_name)
@@ -2410,8 +3908,16 @@ def render_build_tab(slug: str, display_name: str):
     # Gates
     state = read_book_state(slug)
     kit = st.session_state.get(get_kit_key(slug)) or [str((images_dir_for_book(slug) or Path('')) / fn) for fn in state.get("icons_kit", [])]
-    icons_gate = len(kit) >= 6
     qa_label, qa_pass = read_qa_status(slug)
+    gates = workflow_gate_status(slug)
+    prerequisites_passed = bool(gates["setup"] and gates["content"] and gates["boardready"])
+    readiness = product_readiness(len(kit), qa_pass and prerequisites_passed)
+    for name, info in readiness.items():
+        preflight_ok, preflight_message = product_preflight(slug, name)
+        info["preflight_ok"] = preflight_ok
+        info["preflight_message"] = preflight_message
+        info["ready"] = bool(info["ready"] and preflight_ok)
+    ready_names = {name for name, info in readiness.items() if info["ready"]}
     # Ensure 'ok' exists for any later conditional checks
     ok = False
     # Toolbar toggle keys
@@ -2453,13 +3959,17 @@ def render_build_tab(slug: str, display_name: str):
         rb = None
     if rb:
         try:
-            if not st.session_state.get("sf_building") and icons_gate and qa_pass:
+            name = str(rb)
+            if not st.session_state.get("sf_building") and name in ready_names:
                 st.session_state.sf_building = True
-                name = str(rb)
                 with st.spinner(f"Building {name}..."):
                     ok, msg = run_product_build(slug, name, display_name)
                 st.session_state.sf_building = False
                 show_toast("success" if ok else "error", msg)
+            elif name not in ready_names:
+                info = readiness.get(name, {})
+                reason = "QA is not passed" if not qa_pass else f"{info.get('missing_icons', 0)} more icons required"
+                show_toast("warning", f"{name} is not ready: {reason}")
         except Exception:
             pass
         qp_update(rebuild=None)
@@ -2549,13 +4059,30 @@ def render_build_tab(slug: str, display_name: str):
         except Exception:
             pass
 
-    if not (icons_gate and qa_pass):
-        missing = []
-        if not icons_gate:
-            missing.append("Icons (>=6)")
-        if not qa_pass:
-            missing.append("QA")
-        st.info("Complete before building: " + ", ".join(missing))
+    if not ready_names:
+        if not prerequisites_passed:
+            missing_gates = [label for key, label in (("setup", "Setup"), ("content", "Content review"), ("boardready", "BoardReady review")) if not gates[key]]
+            st.info("Complete " + ", ".join(missing_gates) + " before generating activities.")
+        elif not qa_pass:
+            st.info("Complete icon review and pass visual QA to unlock activities.")
+        else:
+            available = [spec for spec in PRODUCT_SPECS if spec.get("build_enabled", spec.get("production_status") == "active")]
+            minimums = [int(spec.get("min_icons", 0) or 0) for spec in available if int(spec.get("min_icons", 0) or 0) > 0]
+            minimum = min(minimums) if minimums else 0
+            if len(kit) < minimum:
+                st.info(f"Add {minimum - len(kit)} more approved icons to unlock the first activities.")
+            else:
+                missing_content = sorted({info.get("preflight_message") for info in readiness.values() if info.get("build_enabled") and not info.get("preflight_ok")})
+                st.info("Complete the required product content: " + "; ".join(message for message in missing_content if message))
+    elif len(ready_names) < len(PRODUCT_SPECS):
+        blocked = [
+            f"{name} (+{info['missing_icons']} icons)"
+            for name, info in readiness.items()
+            if not info["ready"] and info["missing_icons"]
+        ]
+        if blocked:
+            st.caption("Ready now: " + ", ".join(sorted(ready_names)))
+            st.caption("Needs more icons: " + ", ".join(blocked))
 
     built_info = detect_products_in_output(slug)
 
@@ -2596,6 +4123,9 @@ def render_build_tab(slug: str, display_name: str):
             st.info(f"Building: {building_name or '...'}")
 
     st.subheader(f"Build products for {display_name}")
+    pilot_names = [spec["name"] for spec in PRODUCT_SPECS if spec.get("build_enabled") and spec.get("production_status") == "pilot_review"]
+    if pilot_names:
+        st.info("Pilot products can be generated for visual review, but they are excluded from final customer packaging until you approve their launch status.")
 
     # Build toolbar - compact actions
     st.markdown(
@@ -2615,17 +4145,25 @@ def render_build_tab(slug: str, display_name: str):
         sc1, sc2 = st.columns([4, 1])
         with sc2:
             if st.button("Save", key=f"tb_pack_save_{slug}", help="Save pack code"):
-                st_data = read_book_state(slug)
-                b = st_data.get("build", {}) if isinstance(st_data.get("build"), dict) else {}
-                b["pack_code"] = st.session_state.get(f"tb_pack_{slug}", pack_code)
-                st_data["build"] = b
-                write_book_state(slug, st_data, toast_ok=True)
-                show_toast("success", "Pack code saved")
-                safe_rerun()
+                raw_pack_code = st.session_state.get(f"tb_pack_{slug}", pack_code)
+                clean_pack_code = sanitise_pack_code(raw_pack_code)
+                if not clean_pack_code:
+                    st.error("Enter at least one letter or number for the pack code.")
+                else:
+                    st_data = read_book_state(slug)
+                    b = st_data.get("build", {}) if isinstance(st_data.get("build"), dict) else {}
+                    b["pack_code"] = clean_pack_code
+                    st_data["build"] = b
+                    write_book_state(slug, st_data, toast_ok=True)
+                    if clean_pack_code != str(raw_pack_code or ""):
+                        show_toast("warning", f"Pack code cleaned and saved as {clean_pack_code}")
+                    else:
+                        show_toast("success", "Pack code saved")
+                    safe_rerun()
     with tb1:
         # Rebuild all (top)
-        unlocked_tb = [s for s in PRODUCT_SPECS if (icons_gate and qa_pass)]
-        if st.button("Rebuild all", key=f"tb_rebuild_all_{slug}", disabled=st.session_state.get("sf_building", False) or not unlocked_tb, help=(None if unlocked_tb else "Complete Icons and QA first.")):
+        unlocked_tb = [s for s in PRODUCT_SPECS if s["name"] in ready_names]
+        if st.button("Build all ready", key=f"tb_rebuild_all_{slug}", disabled=st.session_state.get("sf_building", False) or not unlocked_tb, help=(None if unlocked_tb else "Complete icon review and QA first.")):
             st.session_state.sf_building = True
             all_ok = True
             st.session_state.sf_build_total = len(unlocked_tb)
@@ -2716,40 +4254,6 @@ def render_build_tab(slug: str, display_name: str):
         if st.button("Diagnostics" + (" (ON)" if dg else ""), key=f"tb_diag_{slug}", help=("Hide build diagnostics" if dg else "Show build diagnostics")):
             st.session_state[diag_key] = not dg
             safe_rerun()
-    if ok:
-                show_toast("success", "Finalize complete")
-                st.success(msg)
-                try:
-                    if isinstance(msg, str) and msg.startswith("Finalize complete with warnings:"):
-                        warn_text = "\n".join(msg.split("\n")[1:])
-                        with st.expander("Warnings", expanded=False):
-                            st.text_area("Warnings", value=warn_text, height=180)
-                            try:
-                                st.download_button("Download warnings", data=warn_text, file_name=f"{pack_code}_finalize_warnings.txt", key=f"tb_dl_warn_{slug}")
-                            except Exception:
-                                pass
-                except Exception:
-                    pass
-                with c1:
-                    if st.button("Open Tracker", key=f"tb_fin_open_trk_{slug}"):
-                        st.session_state.view = "tracker"
-                        qp_update(view="tracker")
-                        safe_rerun()
-                with c2:
-                    if st.button("Open TPT_UPLOAD", key=f"tb_fin_open_upload_{slug}"):
-                        out = output_dir_for_book(slug)
-                        up = (out / "TPT_UPLOAD") if out else None
-                        if up and up.exists():
-                            open_folder(up)
-                        else:
-                            show_toast("info", "TPT_UPLOAD not found")
-                    if st.button("Open FINAL", key=f"tb_fin_open_final_{slug}"):
-                        out = output_dir_for_book(slug)
-                        fi = (out / "FINAL") if out else None
-                        if fi and fi.exists():
-                            open_folder(fi)
-                        else:
-                            show_toast("info", "FINAL not found")
     st.markdown('</div>', unsafe_allow_html=True)
 
     # Horizontal filmstrip of product thumbnails (preview-only)
@@ -2823,7 +4327,6 @@ def render_build_tab(slug: str, display_name: str):
                 st.multiselect(
                     "Rebuild selected",
                     options=[s["name"] for s in PRODUCT_SPECS],
-                    default=st.session_state.get(f"fs_sel_{slug}", []),
                     key=f"fs_sel_{slug}",
                 )
                 qs1, qs2, qs3, qs4 = st.columns([1, 1, 1, 1])
@@ -2858,10 +4361,12 @@ def render_build_tab(slug: str, display_name: str):
                         write_book_state(slug, st_data, toast_ok=True)
                         show_toast("success", "Selection saved")
             with rs2:
-                dis_sel = bool(st.session_state.get("sf_building", False) or not (icons_gate and qa_pass) or not st.session_state.get(f"fs_sel_{slug}", []))
-                if st.button("Rebuild Selected", key=f"tb_rebuild_selected_{slug}", disabled=dis_sel, help="Rebuild only the selected products"):
+                selected_names = list(st.session_state.get(f"fs_sel_{slug}", []))
+                selected_ready = [name for name in selected_names if name in ready_names]
+                dis_sel = bool(st.session_state.get("sf_building", False) or not selected_ready)
+                if st.button("Rebuild Selected", key=f"tb_rebuild_selected_{slug}", disabled=dis_sel, help="Rebuild selected activities that have enough approved icons"):
                     names = list(st.session_state.get(f"fs_sel_{slug}", []))
-                    unlocked_list = [s for s in PRODUCT_SPECS if s["name"] in names]
+                    unlocked_list = [s for s in PRODUCT_SPECS if s["name"] in names and s["name"] in ready_names]
                     if not unlocked_list:
                         show_toast("info", "No products selected")
                     else:
@@ -3073,12 +4578,12 @@ def render_build_tab(slug: str, display_name: str):
                         if p and p.exists():
                             try:
                                 if p.suffix.lower() in {".png", ".jpg", ".jpeg", ".webp"}:
-                                    st.image(str(p), use_column_width=True)
+                                    st.image(str(p), width="stretch")
                                 elif p.suffix.lower() == ".pdf" and fitz is not None:
                                     pg = fitz.open(str(p)).load_page(0)
                                     pix = pg.get_pixmap(matrix=fitz.Matrix(1.3, 1.3), alpha=False)
                                     img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
-                                    st.image(img, use_column_width=True)
+                                    st.image(img, width="stretch")
                                 else:
                                     pass
                             except Exception:
@@ -3091,7 +4596,7 @@ def render_build_tab(slug: str, display_name: str):
                         st.markdown('<div class="sf-prev-actions">', unsafe_allow_html=True)
                         ac1, ac2, ac3 = st.columns([1, 1, 1])
                         with ac1:
-                            if st.button("Rebuild", key=f"gal_rebuild_{i}_{slug}", help=f"Rebuild {name}") and (icons_gate and qa_pass) and not st.session_state.get("sf_building"):
+                            if st.button("Rebuild", key=f"gal_rebuild_{i}_{slug}", help=f"Rebuild {name}", disabled=name not in ready_names) and not st.session_state.get("sf_building"):
                                 st.session_state.sf_building = True
                                 st.session_state.sf_building_product = name
                                 with st.spinner(f"Building {name}..."):
@@ -3160,7 +4665,9 @@ def render_build_tab(slug: str, display_name: str):
                         except Exception:
                             pass
 
-    for spec in PRODUCT_SPECS:
+    available_specs = [spec for spec in PRODUCT_SPECS if spec.get("build_enabled", spec.get("production_status") == "active")]
+    review_specs = [spec for spec in PRODUCT_SPECS if not spec.get("build_enabled", spec.get("production_status") == "active")]
+    for spec in available_specs:
         name = spec["name"]
         info = built_info.get(name, {"built": False, "mtime": None})
         built = bool(info.get("built"))
@@ -3169,17 +4676,23 @@ def render_build_tab(slug: str, display_name: str):
         c1, c2, c3 = st.columns([3, 1, 1])
         with c1:
             status = "Built" if built else ("Building..." if building and building_name == name else "Not built")
-            st.markdown(f"**{name}**  -  {spec['pages']} pages  -  {status}{'  -  ' + last if last and built else ''}")
+            release_label = "Canonical" if spec.get("production_status") == "active" else "Pilot - review output"
+            st.markdown(f"**{name}**  |  {spec['pages']} pages  |  {status}  |  {release_label}{'  |  ' + last if last and built else ''}")
         with c2:
-            disabled = building or (not icons_gate) or (not qa_pass)
+            ready = readiness[name]
+            disabled = building or not ready["ready"]
             label = "Rebuild" if built else "Build"
             help_txt = None
-            if disabled and not building and (not icons_gate or not qa_pass):
+            if disabled and not building:
                 needs = []
-                if not icons_gate:
-                    needs.append("Icons (>=6)")
-                if not qa_pass:
-                    needs.append("QA")
+                if not ready.get("build_enabled", True):
+                    needs.append(ready.get("status_reason") or "generator review")
+                if not ready.get("preflight_ok", True):
+                    needs.append(ready.get("preflight_message") or "reviewed product content")
+                if ready["missing_icons"]:
+                    needs.append(f"{ready['missing_icons']} more approved icons")
+                if not ready["qa_passed"]:
+                    needs.append("workflow gates and visual QA")
                 help_txt = "Complete " + " and ".join(needs) + " first."
             if st.button(label, key=f"build_{name}", disabled=disabled, help=help_txt):
                 st.session_state.sf_building = True
@@ -3203,6 +4716,12 @@ def render_build_tab(slug: str, display_name: str):
                     else:
                         show_toast("info", "OUTPUT folder not found")
 
+    if review_specs:
+        with st.expander(f"Products not available yet ({len(review_specs)})", expanded=False):
+            st.caption("These generators remain disabled until their content and visual baselines are approved.")
+            for spec in review_specs:
+                st.markdown(f"**{spec['name']}** — {spec.get('status_reason', 'Canonical review required.')}")
+
     pass
 
 
@@ -3210,7 +4729,8 @@ def render_build_tab(slug: str, display_name: str):
     # Phase 5B â€” Covers section (Canva Bulk Create + merge helper)
     # â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     st.divider()
-    st.markdown("### Covers")
+    st.markdown("### TPT Marketing")
+    st.info("Recommended order: generate the 4 automatic TPT pages, preview them, create an optional freebie, then Finalize & Package. Skip the Canva controls unless you specifically want the purchased Canva design.")
 
     out_dir = output_dir_for_book(slug)
     if not out_dir or not out_dir.exists():
@@ -3224,12 +4744,12 @@ def render_build_tab(slug: str, display_name: str):
     total_pages = 0
     built_count = 0
     order = [
-        "Adapted Book",
+        "Book Participation Pieces",
         "Matching",
         "Find & Cover",
         "AAC Board",
         "Word Search",
-        "AAC Sentence Strips",
+        "AAC Sentence Building",
         "Sorting Cards",
         "Bingo",
         "Spin & Cover",
@@ -3250,7 +4770,7 @@ def render_build_tab(slug: str, display_name: str):
     st.caption(f"Total: {total_pages} pages across {built_count} products")
 
     st.divider()
-    st.markdown("#### Canva Bulk Create")
+    st.markdown("#### Legacy Canva Bulk Create (optional)")
     csv_key = f"covers_csv_{slug}"
     if st.button("Generate Cover CSV", key=csv_key):
         try:
@@ -3265,11 +4785,11 @@ def render_build_tab(slug: str, display_name: str):
             )
         except Exception as e:
             st.error(f"CSV generation failed: {e}")
-    st.info("Import this CSV into Canva Bulk Create using your 4 cover templates to generate all 4 cover images at once.")
+    st.caption("Optional fallback: import this CSV into Canva Bulk Create if you want to use the purchased templates instead of StudioForge’s automatic pages.")
 
     st.divider()
-    st.markdown("#### Covers built?")
-    st.caption("Check each box once you've exported from Canva and saved to the covers/ folder.")
+    st.markdown("#### Optional Canva files")
+    st.caption("Only use these checks if you choose the legacy Canva workflow.")
     cstate = load_cover_state(slug)
     all_done = True
     labels = [
@@ -3309,15 +4829,17 @@ def render_build_tab(slug: str, display_name: str):
             rel = os.path.relpath(m, start=str(project_root())) if project_root().exists() else m
         except Exception:
             rel = m
-        st.warning(f"Missing: {rel.replace('\\\\', '/')}" )
+        st.caption(f"Optional Canva file not found: {rel.replace(chr(92), '/')}" )
 
     # Optional: Generate listing images (requires covers or content PDFs)
-    st.markdown("#### Generate Listing Images")
-    if st.button("Generate Listing Images (1200x1200)", key=f"gen_imgs_{slug}"):
+    st.markdown("#### Generate Final TPT Marketing Pages")
+    st.caption("Creates the cover plus all three supporting thumbnails as upload-ready 1200 × 1200 PNG files.")
+    if st.button("Generate 4 TPT Marketing Pages", key=f"gen_imgs_{slug}", type="primary"):
         try:
-            imgs = generate_listing_images(slug, pack_code, out_dir, built_info)
+            title = display_name or decode_slug(slug)
+            imgs = generate_tpt_marketing_pages(slug, pack_code, out_dir, built_info, title)
             if imgs:
-                st.success(f"Created {len(imgs)} images under TPT_UPLOAD/IMAGES/{pack_code}/")
+                st.success(f"Created {len(imgs)} upload-ready images under TPT_UPLOAD/IMAGES/{pack_code}/")
                 # Preview grid
                 cols_prev = st.columns(3)
                 for i, p in enumerate(imgs[:8]):
@@ -3355,28 +4877,7 @@ def render_build_tab(slug: str, display_name: str):
     # Pinterest CSV (uses listing + images dir if present)
     imgs_dir = out_dir / "TPT_UPLOAD" / "IMAGES" / pack_code
     if imgs_dir.exists():
-        lst = (read_book_state(slug).get("listing") or {}) if isinstance(read_book_state(slug), dict) else {}
-        # Defaults per user preference
-        pin_board_default = st.text_input("Pinterest Board", value="SmallWinsStudios", key=f"pin_board_{slug}")
-        # Try prefill from Upload Tracker if a TPT URL exists for this pack
-        try:
-            recs = read_upload_tracker()
-            tpt_urls = [str(r.get("tpt_url")) for r in recs if isinstance(r, dict) and (r.get("book_slug") == slug) and (str(r.get("pack_code")) == str(pack_code)) and r.get("tpt_url")]
-            prefill_link = tpt_urls[0] if tpt_urls else "https://www.teacherspayteachers.com/Store/SmallWinsStudios"
-        except Exception:
-            prefill_link = "https://www.teacherspayteachers.com/Store/SmallWinsStudios"
-        pin_link_default = st.text_input("Link base (TPT Store/Product URL)", value=prefill_link, key=f"pin_link_{slug}")
-        if st.button("Generate Pinterest CSV (5 pins)", key=f"gen_pin_{slug}"):
-            try:
-                pth = generate_pinterest_csv(slug, pack_code, out_dir, lst, imgs_dir, default_board=pin_board_default, link_base=pin_link_default)
-                if pth and pth.exists():
-                    st.success(f"Pinterest CSV ready: {pth.name}")
-                    try:
-                        st.download_button("Download CSV", data=pth.read_bytes(), file_name=pth.name, mime="text/csv", key=f"dl_pin_{slug}")
-                    except Exception:
-                        pass
-            except Exception as e:
-                st.error(f"Pinterest CSV failed: {e}")
+        st.info("Pinterest and Tailwind campaigns are prepared in Step 8: Promote, after the exact published TPT product URL is available.")
 
     # Freebie Generator
     st.markdown("#### Freebie")
@@ -3418,7 +4919,7 @@ def render_build_tab(slug: str, display_name: str):
             f"{pack_code}_how_to_use.pdf",
         ]
         cover_files = [covers_root / fn for fn in cover_order if (covers_root / fn).exists()]
-        script = project_root() / "generators" / "PDF_MERGER.py"
+        script = project_root() / "production" / "generators" / "generators" / "PDF_MERGER.py"
         merged = 0
         copied = 0
         errs: list[str] = []
@@ -3497,6 +4998,41 @@ def render_build_tab(slug: str, display_name: str):
         st.success(summary)
 
 
+    st.divider()
+    st.markdown("#### Finalize and Package")
+    st.caption("Run this after reviewing products and marketing pages. It creates the final PDFs, upload ZIPs, and tracker records.")
+    if st.button("Finalize & Package for TPT", type="primary", key=f"finalize_package_{slug}", disabled=built_count == 0):
+        with st.spinner("Creating final files and upload packages..."):
+            final_ok, final_message = finalize_and_package_book(slug)
+        st.session_state[f"finalize_result_{slug}"] = {"ok": final_ok, "message": final_message}
+    final_result = st.session_state.get(f"finalize_result_{slug}")
+    if isinstance(final_result, dict):
+        final_message = str(final_result.get("message") or "")
+        if final_result.get("ok"):
+            st.success(final_message)
+        else:
+            st.error(final_message or "Finalization failed.")
+        if "warnings:" in final_message.lower():
+            warning_text = "\n".join(final_message.splitlines()[1:]) or final_message
+            st.warning("The package was created with warnings. Resolve these before uploading to TPT.")
+            st.download_button("Download warnings", data=warning_text, file_name=f"{pack_code}_finalize_warnings.txt", key=f"finalize_warning_download_{slug}")
+        f1, f2, f3 = st.columns(3)
+        with f1:
+            if st.button("Open FINAL", key=f"finalize_open_final_{slug}"):
+                final_folder = out_dir / "FINAL"
+                if final_folder.exists():
+                    open_folder(final_folder)
+        with f2:
+            if st.button("Open TPT_UPLOAD", key=f"finalize_open_upload_{slug}"):
+                upload_folder = out_dir / "TPT_UPLOAD"
+                if upload_folder.exists():
+                    open_folder(upload_folder)
+        with f3:
+            if st.button("Open Tracker", key=f"finalize_open_tracker_{slug}"):
+                st.session_state.view = "tracker"
+                qp_update(view="tracker")
+                safe_rerun()
+
     # Post-Finalize Resolve Warnings helper
     st.divider()
     with st.expander("Resolve Warnings (post-finalize)", expanded=False):
@@ -3538,16 +5074,17 @@ def render_build_tab(slug: str, display_name: str):
         # Suggest generating listing images if missing
         try:
             images_dir_local = out_dir / "TPT_UPLOAD" / "IMAGES" / pack_code
-            have_imgs = images_dir_local.exists() and any(images_dir_local.glob("*.jpg"))
+            have_imgs = images_dir_local.exists() and any(path.suffix.lower() in {".png", ".jpg", ".jpeg"} for path in images_dir_local.iterdir() if path.is_file())
             prev_pdf = images_dir_local / f"{pack_code}_preview.pdf"
             need_imgs = (not have_imgs) or (not prev_pdf.exists())
         except Exception:
             need_imgs = True
         if need_imgs:
             st.warning("Listing images or preview PDF missing.")
-            if st.button("Generate Listing Images now", key=f"fix_gen_imgs_{slug}"):
+            if st.button("Generate 4 TPT Marketing Pages now", key=f"fix_gen_imgs_{slug}"):
                 try:
-                    imgs = generate_listing_images(slug, pack_code, out_dir, built_info)
+                    title = display_name or decode_slug(slug)
+                    imgs = generate_tpt_marketing_pages(slug, pack_code, out_dir, built_info, title)
                     if imgs:
                         show_toast("success", f"Created {len(imgs)} images under TPT_UPLOAD/IMAGES/{pack_code}/")
                         try:
@@ -3580,7 +5117,7 @@ def render_build_tab(slug: str, display_name: str):
                 try:
                     final_dir = find_book_dir(slug) / "FINAL"
                     final_dir.mkdir(parents=True, exist_ok=True)
-                    script = project_root() / "generators" / "PDF_MERGER.py"
+                    script = project_root() / "production" / "generators" / "generators" / "PDF_MERGER.py"
                     # Build ordered list of available cover PDFs
                     cover_order = [
                         f"{pack_code}_cover.pdf",
@@ -3719,7 +5256,7 @@ def generate_listing_template(book_title: str, built_products: list[str], total_
         "Matching": "across 4 levels for easy differentiation",
         "Find & Cover": "builds visual scanning and attention",
         "Word Search": "targets letter recognition and vocabulary",
-        "AAC Sentence Strips": "for core words and sentence building",
+        "AAC Sentence Building": "for core words and sentence building",
         "Sorting Cards": "for classification and category skills",
     }
     bullets = []
@@ -3907,8 +5444,8 @@ def render_listing_tab(slug: str, display_name: str):
 
     grade_opts = ["PreK", "Kindergarten", "1st Grade", "2nd Grade", "3rd Grade", "Special Education", "Not Grade Specific"]
     subj_opts = ["Special Education", "Speech Therapy", "Life Skills", "Reading", "Literacy", "ELA"]
-    grades = st.multiselect("Grade / Level Tags", options=grade_opts, default=lst["grade_tags"]) if not lst.get("grade_tags_missing") else st.multiselect("Grade / Level Tags", options=grade_opts)
-    subjects = st.multiselect("Subject Tags", options=subj_opts, default=lst["subject_tags"]) if not lst.get("subject_tags_missing") else st.multiselect("Subject Tags", options=subj_opts)
+    grades = st.multiselect("Grade / Level Tags", options=grade_opts, default=[value for value in lst.get("grade_tags", []) if value in grade_opts], key=f"listing_grades_{slug}")
+    subjects = st.multiselect("Subject Tags", options=subj_opts, default=[value for value in lst.get("subject_tags", []) if value in subj_opts], key=f"listing_subjects_{slug}")
     price = st.number_input("Price (informational)", min_value=0.0, step=0.25, value=float(lst["price"]))
     seed_kw_raw = st.text_input("Seed keywords (comma-separated)", value=", ".join(lst.get("seed_keywords", [])), key=f"seed_kw_{slug}")
     seed_list = [t.strip() for t in str(seed_kw_raw or "").split(",") if t.strip()]
@@ -4005,7 +5542,7 @@ def render_listing_tab(slug: str, display_name: str):
                             except Exception:
                                 pass
     with c2:
-        if st.button("Save to listing.json"):
+        if st.button("Save listing"):
             # Gather latest values from inputs
             data = {
                 "tpt_title": title,
@@ -4210,14 +5747,16 @@ def render_aac_board_tab(slug: str, display_name: str):
                 st.session_state.pop(sel_key, None)
                 safe_rerun()
             return
-        new_label = st.text_input("Label", value=str(cell.get("label", "")), key=f"aac_lbl_{slug}")
+        label_key = f"aac_lbl_{slug}_{r}_{cc}"
+        symbol_key = f"aac_sym_{slug}_{r}_{cc}"
+        new_label = st.text_input("Label", value=str(cell.get("label", "")), key=label_key)
         sym_root = symbols_root()
-        sym_query = st.text_input("Search symbols", value="", key=f"aac_q_{slug}")
+        sym_query = st.text_input("Search symbols", value="", key=f"aac_q_{slug}_{r}_{cc}")
         sym_files: list[str] = []
         if sym_root.exists():
             try:
                 for p in sym_root.glob("**/*.png"):
-                    nm = p.name
+                    nm = p.relative_to(sym_root).as_posix()
                     if (not sym_query) or (sym_query.lower() in nm.lower()):
                         sym_files.append(nm)
                         if len(sym_files) >= 200:
@@ -4229,7 +5768,7 @@ def render_aac_board_tab(slug: str, display_name: str):
         idx = 0
         if curr_sym and curr_sym in sym_files:
             idx = opts.index(curr_sym) if curr_sym in opts else 0
-        sym_choice = st.selectbox("Symbol filename", options=opts, index=idx, key=f"aac_sym_{slug}")
+        sym_choice = st.selectbox("Symbol filename", options=opts, index=idx, key=symbol_key)
         pv1, pv2 = st.columns([1, 3])
         with pv1:
             if sym_choice != "(none)":
@@ -4241,13 +5780,22 @@ def render_aac_board_tab(slug: str, display_name: str):
                     pass
         b1, b2, _ = st.columns([1, 1, 2])
         with b1:
-            if st.button("Clear", key=f"aac_clear_{slug}"):
-                new_label = ""
-                sym_choice = "(none)"
-                st.session_state[f"aac_lbl_{slug}"] = new_label
-                st.session_state[f"aac_sym_{slug}"] = sym_choice
+            if st.button("Clear", key=f"aac_clear_{slug}_{r}_{cc}"):
+                for idx2, ccx in enumerate(cells):
+                    if int(ccx.get("row", -1)) == r and int(ccx.get("col", -1)) == cc:
+                        cells[idx2]["label"] = ""
+                        cells[idx2]["symbol_filename"] = None
+                        break
+                data["cells"] = cells
+                try:
+                    cfg.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+                    show_toast("success", "AAC cell cleared.")
+                except Exception as e:
+                    st.error(f"Failed to save: {e}")
+                st.session_state.pop(sel_key, None)
+                safe_rerun()
         with b2:
-            if st.button("Save", key=f"aac_save_{slug}"):
+            if st.button("Save", key=f"aac_save_{slug}_{r}_{cc}"):
                 updated = False
                 for idx2, ccx in enumerate(cells):
                     if int(ccx.get("row", -1)) == r and int(ccx.get("col", -1)) == cc:
@@ -4334,7 +5882,8 @@ def render_aac_board_tab(slug: str, display_name: str):
                                     fnt = ImageFont.truetype("C:/Windows/Fonts/arialbd.ttf", 14)
                                 except Exception:
                                     fnt = ImageFont.load_default()
-                                tw, th = dr.textsize(lbl, font=fnt)
+                                bbox = dr.textbbox((0, 0), lbl, font=fnt)
+                                tw, th = bbox[2] - bbox[0], bbox[3] - bbox[1]
                                 tx = x + (cell_size - tw) // 2
                                 ty = y + cell_size - label_h + (label_h - th) // 2
                                 col = (255, 255, 255) if lbl_key in {"yes", "no"} else (26, 26, 26)
@@ -4348,7 +5897,8 @@ def render_aac_board_tab(slug: str, display_name: str):
                         foot_font = ImageFont.truetype("C:/Windows/Fonts/arial.ttf", 12)
                     except Exception:
                         foot_font = ImageFont.load_default()
-                    ftw, fth = dr.textsize(foot_txt, font=foot_font)
+                    bbox = dr.textbbox((0, 0), foot_txt, font=foot_font)
+                    ftw, fth = bbox[2] - bbox[0], bbox[3] - bbox[1]
                     fx = (w - ftw) // 2
                     fy = h - footer_h + (footer_h - fth) // 2
                     dr.text((fx, fy), foot_txt, fill=(120, 120, 120), font=foot_font)
@@ -4408,7 +5958,7 @@ def load_global_prefs() -> dict:
             return json.loads(p.read_text(encoding="utf-8"))
     except Exception:
         pass
-    return {"ui": {"readable_width": False, "large_text": False, "high_contrast": False, "show_tips": True}, "last_tool": "settings", "last_book": None}
+    return {"ui": {"readable_width": False, "large_text": False, "high_contrast": False, "show_tips": True, "home_planning": False}, "last_tool": "settings", "last_book": None, "recent_books": []}
 
 
 def save_global_prefs(prefs: dict):
@@ -4427,6 +5977,7 @@ def ensure_global_prefs():
             "large_text": bool(ui.get("large_text", False)),
             "high_contrast": bool(ui.get("high_contrast", False)),
             "show_tips": bool(ui.get("show_tips", True)),
+            "home_planning": bool(ui.get("home_planning", False)),
         }
     if "sf_last_tool" not in st.session_state:
         data = load_global_prefs()
@@ -4434,6 +5985,9 @@ def ensure_global_prefs():
     if "sf_last_book" not in st.session_state:
         data = load_global_prefs()
         st.session_state.sf_last_book = data.get("last_book")
+    if "sf_recent_books" not in st.session_state:
+        data = load_global_prefs()
+        st.session_state.sf_recent_books = list(data.get("recent_books") or [])[:5]
 
 
 def persist_session_prefs():
@@ -4442,6 +5996,7 @@ def persist_session_prefs():
     data["ui"] = ui
     data["last_tool"] = st.session_state.get("sf_last_tool", data.get("last_tool", "settings"))
     data["last_book"] = st.session_state.get("sf_last_book", data.get("last_book"))
+    data["recent_books"] = list(st.session_state.get("sf_recent_books", data.get("recent_books", [])))[:5]
     save_global_prefs(data)
 
 
@@ -4723,6 +6278,68 @@ def render_priorities_panel(display_map: dict):
         st.markdown(chips_html, unsafe_allow_html=True)
 
 
+def next_required_stage_for_slug(slug: str) -> str:
+    icons = count_icons_for_book(slug)
+    built = detect_built_products(slug)
+    _qa_label, qa_pass = read_qa_status(slug)
+    listing_saved = read_listing_status(slug).startswith("Saved")
+    review = icon_review_summary(slug)
+    gates = workflow_gate_status(slug)
+    return next_production_stage(icons, qa_pass, built, listing_saved, review["complete"], gates["setup"], gates["content"], gates["boardready"], marketing_campaign_ready(slug))
+
+
+def book_last_activity_label(slug: str) -> str:
+    path = book_state_path(slug)
+    try:
+        if path and path.exists():
+            changed = datetime.fromtimestamp(path.stat().st_mtime)
+            return changed.strftime("%d %b %Y at %H:%M")
+    except Exception:
+        pass
+    return "No saved activity yet"
+
+
+def render_start_here(slug: str, display_name: str):
+    next_stage = next_required_stage_for_slug(slug)
+    labels = dict(BUILD_STAGES)
+    next_label = "Tracker" if next_stage == "tracker" else labels[next_stage]
+    guidance = production_stage_guidance(next_stage if next_stage != "tracker" else "listing")
+    gates = workflow_gate_status(slug)
+    review = icon_review_summary(slug)
+    _qa_label, qa_passed = read_qa_status(slug)
+    built = detect_built_products(slug)
+    listing_saved = read_listing_status(slug).startswith("Saved")
+    stage_done = [gates["setup"], gates["content"], review["complete"], gates["boardready"], qa_passed, required_builds_complete(built), listing_saved, marketing_campaign_ready(slug)]
+    completed = sum(bool(value) for value in stage_done)
+
+    st.markdown("## Welcome back")
+    with st.container(border=True):
+        st.caption(f"CURRENT PROJECT  |  Last saved {book_last_activity_label(slug)}")
+        st.markdown(f"### {display_name}")
+        st.progress(completed / len(BUILD_STAGES), text=f"{completed} of {len(BUILD_STAGES)} production steps complete")
+        st.markdown(f"#### Next: {next_label}")
+        st.write(guidance["purpose"] if next_stage != "tracker" else "This project is ready to review in the upload tracker.")
+        if next_stage != "tracker":
+            st.info(f"Do this now: {guidance['action']}\n\nYou are finished when: {guidance['done']}")
+        if st.button(f"Continue where I left off - {next_label}", type="primary", use_container_width=True, key=f"start_continue_{slug}"):
+            if next_stage == "tracker":
+                st.session_state.view = "tracker"
+                qp_update(view="tracker", tab=None)
+            else:
+                open_build_screen(slug, next_stage)
+            safe_rerun()
+
+        quick_icons, whole_workflow = st.columns(2)
+        with quick_icons:
+            if st.button("Go directly to icons", use_container_width=True, key=f"start_find_icons_{slug}"):
+                open_build_screen(slug, "icons")
+                safe_rerun()
+        with whole_workflow:
+            if st.button("View all production steps", use_container_width=True, key=f"start_workflow_{slug}"):
+                open_build_screen(slug, next_stage if next_stage != "tracker" else "listing")
+                safe_rerun()
+
+
 def render_status_card(slug: str, display_name: str):
     # Compute basic stats
     icons = count_icons_for_book(slug)
@@ -4730,18 +6347,21 @@ def render_status_card(slug: str, display_name: str):
     qa_label, qa_pass = read_qa_status(slug)
     listing_label = read_listing_status(slug)
     zip_label = read_zip_status(slug)
-    any_built = any(built.values())
 
     # Gates bar thresholds: 6 (Matching etc.), 8 (Word Search), 20 (Bingo)
-    gate_6 = min(icons, 6) / 20.0 * 100
-    gate_8 = min(max(icons, 6), 8) / 20.0 * 100
-    gate_20 = min(icons, 20) / 20.0 * 100
+    gates = workflow_gate_status(slug)
+    readiness = product_readiness(icons, qa_pass and gates["setup"] and gates["content"] and gates["boardready"])
+    review = icon_review_summary(slug)
+    icon_ready = sum(1 for info in readiness.values() if info.get("build_enabled") and info["missing_icons"] == 0)
+    active_product_count = sum(1 for spec in PRODUCT_SPECS if spec.get("build_enabled", spec.get("production_status") == "active"))
+    quality_goal = 15
 
     with st.container(border=True):
         st.markdown(f"### {display_name}")
         # Icon gates
         st.markdown("Icons")
-        pb = st.progress(min(icons, 20) / 20.0, text=f"{icons} icons - gates: 6, 8, 20")
+        st.progress(min(icons, quality_goal) / quality_goal, text=f"{icons} approved icons - {icon_ready} of {active_product_count} available activities have enough icons")
+        st.caption(f"Topic review: {len(review['approved'])} approved, {len(review['skipped'])} intentionally skipped, {len(review['unresolved'])} still to review")
 
         # Built products row
         cols = st.columns(5)
@@ -4760,12 +6380,15 @@ def render_status_card(slug: str, display_name: str):
             st.markdown(f"**ZIP:** {zip_label}")
 
         # Next Action
-        label, enabled, target = compute_next_action(icons, qa_pass, any_built, listing_label.startswith("Saved"))
-        if st.button(label, disabled=not enabled):
-            if target in {"icons", "qa", "build", "listing"}:
-                open_build_screen(slug, target)
+        target = next_production_stage(icons, qa_pass, built, listing_label.startswith("Saved"), review["complete"], gates["setup"], gates["content"], gates["boardready"], marketing_campaign_ready(slug))
+        labels = dict(BUILD_STAGES)
+        label = "Open Tracker" if target == "tracker" else f"Continue to {labels[target]}"
+        if st.button(label, type="primary", use_container_width=True):
+            if target == "tracker":
+                st.session_state.view = "tracker"
+                qp_update(view="tracker", tab=None)
             else:
-                show_toast("success", "Marked done - pick next book from the selector above")
+                open_build_screen(slug, target)
 
 
 def render_recent_books_chips(active_slug: str, display_map: dict):
@@ -4775,6 +6398,7 @@ def render_recent_books_chips(active_slug: str, display_map: dict):
         # update MRU
         recent = [active_slug] + [s for s in recent if s != active_slug]
         st.session_state.sf_recent_books = recent[:5]
+        persist_session_prefs()
     if not recent:
         return
     st.markdown("#### Recent books")
@@ -4790,16 +6414,17 @@ def render_recent_books_chips(active_slug: str, display_map: dict):
 
 # â”€â”€ Phase 3: Build screen & routing â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
-def open_build_screen(slug: str, tab: str = "icons"):
+def open_build_screen(slug: str, tab: str = "setup"):
+    stage = normalize_build_stage(tab)
     st.session_state.active_book = slug
     st.session_state.view = "build"
-    st.session_state.build_tab = tab
-    qp_update(active_book=slug, view="build", tab=tab)
+    st.session_state.build_tab = stage
+    st.session_state[f"sf_requested_stage_{slug}"] = stage
+    qp_update(active_book=slug, view="build", tab=stage)
 
 
 def get_build_tab_from_qp() -> str:
-    t = qp_get("tab") or "icons"
-    return t if t in {"icons", "qa", "build", "listing", "aac"} else "icons"
+    return normalize_build_stage(qp_get("tab"))
 
 
 def load_suggestions(slug: str, limit: int = 60) -> list[Path]:
@@ -4850,10 +6475,25 @@ def vocab_state_key(slug: str) -> str:
 def ensure_vocab_state(slug: str):
     k = vocab_state_key(slug)
     if k not in st.session_state:
-        st.session_state[k] = {"skipped": set(), "show_skipped": False, "swap_word": None, "uploaded": set()}
+        decisions = read_book_state(slug).get("icon_decisions") or {}
+        skipped = {word for word, info in decisions.items() if isinstance(info, dict) and info.get("status") == "skipped"}
+        if icon_qa_logic is not None:
+            try:
+                qa_words = ((icon_qa_logic.load_qa_log().get(slug) or {}).get("words") or {})
+                skipped.update(word for word, info in qa_words.items() if isinstance(info, dict) and info.get("status") == "skip")
+            except Exception:
+                pass
+        st.session_state[k] = {"skipped": skipped, "show_skipped": False, "swap_word": None, "uploaded": set(), "ban_candidate": None}
 
 
-def find_symbol_for_word(word: str) -> Path | None:
+def find_symbol_for_word(word: str, slug: str | None = None) -> Path | None:
+    if icon_qa_logic is not None:
+        try:
+            candidates = icon_qa_logic.search_png_library(word, book_key=slug, top_k=1)
+            if candidates:
+                return Path(str(candidates[0]["path"]))
+        except Exception:
+            pass
     root = symbols_root()
     if not root.exists():
         return None
@@ -4876,28 +6516,135 @@ def find_symbol_for_word(word: str) -> Path | None:
     return None
 
 
+def theme_vocab_source(slug: str) -> tuple[Path | None, dict]:
+    book_dir = find_book_dir(slug)
+    if not book_dir:
+        return None, {}
+    for path in (book_dir / "book_vocab.json", book_dir / "config" / "book_vocab.json"):
+        try:
+            if path.exists():
+                data = json.loads(path.read_text(encoding="utf-8"))
+                if isinstance(data, dict):
+                    return path, data
+        except Exception:
+            continue
+    return None, {}
+
+
+def theme_vocab_words(data: dict) -> list[str]:
+    words = []
+    for key in ("fringe_12", "fringe_11", "aac_fringe_vocab", "activity_images", "aac_extras", "book_words"):
+        values = data.get(key)
+        if isinstance(values, list):
+            words.extend(str(value).strip() for value in values if str(value).strip())
+    seen = set()
+    result = []
+    for word in words:
+        normalized = word.casefold()
+        if normalized not in seen:
+            seen.add(normalized)
+            result.append(word)
+    return result
+
+
+def theme_ambiguous_words(data: dict) -> set[str]:
+    result = set()
+    for item in data.get("ambiguous") or []:
+        if isinstance(item, dict):
+            word = str(item.get("word") or "").strip()
+        else:
+            word = str(item or "").strip()
+        if word:
+            result.add(word.casefold())
+    return result
+
+
+def icon_review_summary(slug: str) -> dict:
+    vocab = extract_book_vocab(slug)
+    words = list((vocab or {}).get("book_words") or [])
+    approved = []
+    skipped = []
+    unresolved = []
+    for word in words:
+        info = icon_word_decision(slug, word)
+        if accepted_icon_for_word(slug, word) is not None:
+            approved.append(word)
+        elif info.get("status") == "skipped":
+            skipped.append(word)
+        else:
+            unresolved.append(word)
+    if not words:
+        state = read_book_state(slug)
+        kit = [str(name) for name in (state.get("icons_kit") or []) if str(name).strip()]
+        if not kit:
+            image_dir = images_dir_for_book(slug)
+            kit = [path.name for path in image_dir.glob("*.png")] if image_dir and image_dir.exists() else []
+        approved = kit
+    return {
+        "total": len(words) if words else len(approved),
+        "approved": approved,
+        "skipped": skipped,
+        "unresolved": unresolved,
+        "complete": bool(approved) and not unresolved,
+    }
+
+
+def replace_theme_vocab_word(slug: str, old_word: str, new_word: str) -> tuple[bool, str]:
+    old_value = str(old_word or "").strip()
+    new_value = str(new_word or "").strip()
+    if not old_value or not new_value:
+        return False, "Both the current and replacement words are required."
+    path, data = theme_vocab_source(slug)
+    if path is None:
+        return False, "No editable book vocabulary file was found."
+    changed = False
+    for key in ("fringe_12", "fringe_11", "aac_fringe_vocab", "activity_images", "aac_extras", "book_words"):
+        values = data.get(key)
+        if not isinstance(values, list):
+            continue
+        revised = [new_value if str(value).strip().casefold() == old_value.casefold() else value for value in values]
+        if revised != values:
+            data[key] = revised
+            changed = True
+    terms = data.get("icon_search_terms")
+    if isinstance(terms, dict):
+        matched_key = next((key for key in terms if str(key).strip().casefold() == old_value.casefold()), None)
+        if matched_key is not None:
+            terms.pop(matched_key, None)
+            terms[new_value] = new_value
+            changed = True
+    ambiguous = data.get("ambiguous")
+    if isinstance(ambiguous, list):
+        for item in ambiguous:
+            if isinstance(item, dict) and str(item.get("word", "")).strip().casefold() == old_value.casefold():
+                item["word"] = new_value
+                changed = True
+    if not changed:
+        return False, f"{old_value} was not found in the book vocabulary."
+    try:
+        path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+        return True, f"Changed {old_value} to {new_value}."
+    except Exception as exc:
+        return False, f"Could not update vocabulary: {exc}"
+
+
 def extract_book_vocab(slug: str) -> dict | None:
     """Extract vocab words from the AAC board PDF (ZIP) if present for this book.
     Returns dict with keys: book_title, core_words, book_words, all_words, source_file; or None.
     """
     # Check manual vocab first
     try:
-        d0 = find_book_dir(slug)
-        if d0:
-            cfg = d0 / "config" / "book_vocab.json"
-            if cfg.exists():
-                try:
-                    data = json.loads(cfg.read_text(encoding="utf-8"))
-                    bwords = [w.strip() for w in data.get("book_words", []) if str(w).strip()]
-                    return {
-                        "book_title": decode_slug(data.get("slug", slug)),
-                        "core_words": [],
-                        "book_words": bwords,
-                        "all_words": bwords,
-                        "source_file": str(cfg),
-                    }
-                except Exception:
-                    pass
+        source, data = theme_vocab_source(slug)
+        if source is not None:
+            bwords = theme_vocab_words(data)
+            if bwords:
+                return {
+                    "book_title": str(data.get("title") or decode_slug(data.get("slug", slug))),
+                    "core_words": [],
+                    "book_words": bwords,
+                    "all_words": bwords,
+                    "source_file": str(source),
+                }
     except Exception:
         pass
     # Canonical source: BoardReady/boardready/vocab/book_vocab.json (activity_images + aac_extras)
@@ -4969,12 +6716,55 @@ def extract_book_vocab(slug: str) -> dict | None:
 
 
 def render_icons_tab(slug: str, display_name: str):
+    gates = workflow_gate_status(slug)
+    if not gates["content"]:
+        st.warning("Complete and approve the human content or vocabulary review before selecting production icons.")
+        if st.button("Go to Content review", type="primary", key=f"icons_to_content_{slug}"):
+            open_build_screen(slug, "content")
+            safe_rerun()
+        return
     ensure_kit(slug)
     kit_key = get_kit_key(slug)
     hero_key = get_hero_key(slug)
     kit: list[str] = st.session_state[kit_key]
     ensure_vocab_state(slug)
     vstate = st.session_state[vocab_state_key(slug)]
+    st.markdown("### Complete icons in three steps")
+    st.info("**1. Review suggestions** for each required word.  **2. Fill gaps** from the library, a PDF, or an upload.  **3. Check the final kit** and choose one hero image.")
+    workspace_key = f"icon_workspace_{slug}"
+    requested_workspace = st.session_state.pop(f"icon_workspace_request_{slug}", None)
+    if requested_workspace in {"review", "extract", "library"}:
+        st.session_state[workspace_key] = requested_workspace
+    workspace = st.radio(
+        "Choose how to review or find icons",
+        options=["review", "library", "extract"],
+        format_func=lambda value: {
+            "review": "1  Review required icons",
+            "library": "2  Browse the full library",
+            "extract": "3  Extract from Boardmaker PDF",
+        }[value],
+        horizontal=True,
+        key=workspace_key,
+    )
+    if workspace in {"extract", "library"}:
+        ready, message = ensure_icon_labeler_running()
+        if not ready:
+            st.error(message)
+            if st.button("Try starting Icon Labeller again", key=f"retry_icon_labeler_{slug}"):
+                safe_rerun()
+            return
+        route = "/pdf" if workspace == "extract" else "/"
+        st.caption("This is the canonical Icon Labeller embedded inside StudioForge. Saved icons and review decisions are shared with BoardReady.")
+        components.iframe(icon_labeler_url(route, slug), height=1050, scrolling=True)
+        if st.button("Refresh StudioForge icon status", key=f"refresh_integrated_icons_{slug}"):
+            st.session_state.pop(vocab_state_key(slug), None)
+            if icon_qa_logic is not None:
+                try:
+                    icon_qa_logic._PNG_DIR_CACHE.clear()
+                except Exception:
+                    pass
+            safe_rerun()
+        return
     if st.session_state.get(f"sf_add_icon_{slug}") or st.session_state.get(f"kit_replace_target_{slug}") or vstate.get("swap_word"):
         if st.button("Back to icons", key=f"icons_back_{slug}"):
             st.session_state[f"sf_add_icon_{slug}"] = False
@@ -4989,13 +6779,23 @@ def render_icons_tab(slug: str, display_name: str):
 
     # Gate indicator
     icons_count = len(kit)
-    st.markdown(f"**{icons_count} icons** - gates: 6, 8, 20")
-    st.progress(min(icons_count, 20) / 20.0)
+    icon_readiness = product_readiness(icons_count, True)
+    icon_ready = sum(1 for info in icon_readiness.values() if info["ready"])
+    active_products = sum(1 for spec in PRODUCT_SPECS if spec.get("build_enabled", spec.get("production_status") == "active"))
+    st.markdown(f"**{icons_count} approved icons** - {icon_ready} of {active_products} available activities have enough icons")
+    st.progress(min(icons_count, 15) / 15.0, text="Quality goal: 15 curated icons")
+    review_summary = icon_review_summary(slug)
+    if review_summary["complete"]:
+        st.success("Every required vocabulary item has an approved icon or an intentional Skip decision.")
+    else:
+        st.warning(f"{len(review_summary['unresolved'])} required vocabulary items still need your decision. Work down the list below.")
 
     # SECTION 1 â€” Book vocabulary icons (AAC/manual preferred)
-    st.markdown(f"### Icons for {display_name}")
+    st.markdown(f"### Step 1: Review required words for {display_name}")
     vocab_data = extract_book_vocab(slug)
     words: list[str] = []
+    _vocab_path, topic_vocab = theme_vocab_source(slug)
+    ambiguous_words = theme_ambiguous_words(topic_vocab)
     src_path_lc = str((vocab_data or {}).get("source_file", "")).lower()
     manual_cfg = bool(vocab_data and ("/config/book_vocab.json" in src_path_lc or "\\config\\book_vocab.json" in src_path_lc))
     aac_src = (vocab_data or {}).get("source_file") if vocab_data else None
@@ -5073,7 +6873,8 @@ def render_icons_tab(slug: str, display_name: str):
                 st.session_state[f"sf_edit_vocab_{slug}"] = True
         else:
             src_lbl = f" - {Path(aac_src).name}" if aac_src else ""
-            st.caption(f"Book-specific vocabulary from AAC board{src_lbl}")
+            source_name = "API-prepared book vocabulary" if aac_src and Path(aac_src).name == "book_vocab.json" else "Book-specific vocabulary from AAC board"
+            st.caption(f"{source_name}{src_lbl}")
             # AAC board preview (only for PDFs)
             if aac_src and str(aac_src).lower().endswith(".pdf"):
                 with st.expander("AAC Board Preview"):
@@ -5085,7 +6886,7 @@ def render_icons_tab(slug: str, display_name: str):
                             pg = doc.load_page(0)
                             pix = pg.get_pixmap(matrix=fitz.Matrix(1.5, 1.5), alpha=False)
                             img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
-                            st.image(img, use_column_width=True)
+                            st.image(img, width="stretch")
                         except Exception:
                             st.caption("Could not preview PDF")
     else:
@@ -5104,13 +6905,13 @@ def render_icons_tab(slug: str, display_name: str):
                                 pg = doc.load_page(0)
                                 pix = pg.get_pixmap(matrix=fitz.Matrix(1.5, 1.5), alpha=False)
                                 img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
-                                st.image(img, use_column_width=True)
+                                st.image(img, width="stretch")
                             except Exception:
                                 st.caption("Could not preview PDF")
             else:
                 st.caption("Fallback: Essential words from vocab master file")
     # AAC diagnostics panel
-    with st.expander("AAC Diagnostics"):
+    with st.expander("Advanced: vocabulary source diagnostics"):
         diag = st.session_state.get(f"sf_aac_diag_{slug}")
         if diag:
             st.write({
@@ -5188,48 +6989,45 @@ def render_icons_tab(slug: str, display_name: str):
                             show_toast("error", f"Could not add: {e}")
     else:
         # Accept all matched
-        if st.button("Accept all matched icons"):
+        unresolved_words = tuple(word for word in words if word not in vstate["skipped"] and accepted_icon_for_word(slug, word) is None)
+        with st.spinner(f"Searching the icon library for {len(unresolved_words)} required words. The first search can take a little longer; later searches are cached."):
+            candidate_map = cached_icon_candidate_map(slug, unresolved_words, 6)
+        refresh_col, _ = st.columns([1, 2])
+        with refresh_col:
+            if st.button("Refresh suggestions", key=f"refresh_icon_candidates_{slug}"):
+                clear_icon_candidate_cache()
+                if icon_qa_logic is not None:
+                    try:
+                        icon_qa_logic._PNG_DIR_CACHE.clear()
+                    except Exception:
+                        pass
+                safe_rerun()
+        high_confidence = []
+        for word in words:
+            if word in vstate["skipped"] or word.casefold() in ambiguous_words or accepted_icon_for_word(slug, word) is not None:
+                continue
+            matches = candidate_map.get(word, [])
+            if matches and float(matches[0].get("score", 0)) >= ICON_AUTO_ACCEPT_SCORE:
+                high_confidence.append((word, matches[0]))
+        if st.button(f"Accept {len(high_confidence)} high-confidence icon{'s' if len(high_confidence) != 1 else ''}", disabled=not high_confidence):
             added = 0
-            dest_dir = images_dir_for_book(slug) or Path("")
-            dest_dir.mkdir(parents=True, exist_ok=True)
-            before_count = len(kit)
-            for w in words:
-                if w in vstate["skipped"]:
-                    continue
-                match = find_symbol_for_word(w)
-                if not match:
-                    continue
-                dest = dest_dir / Path(match).name
-                try:
-                    if not dest.exists():
-                        shutil.copy2(str(match), str(dest))
-                    if auto_norm and dest.exists():
-                        try:
-                            normalize_icon_file(dest, target_px=int(auto_norm_size), margin=float(auto_norm_margin), white_cutoff=int(auto_norm_white))
-                        except Exception:
-                            pass
-                    target_path = str(dest)
-                    if target_path not in kit:
-                        kit.append(target_path)
-                        added += 1
-                        if before_count == 0 and added == 1:
-                            st.session_state[hero_key] = Path(dest).name
-                except Exception:
-                    continue
-            st.session_state[kit_key] = kit
-            persist_icons_hero(slug, toast_ok=True)
-            show_toast("success", f"Accepted {added} matched icons")
+            for word, candidate in high_confidence:
+                accepted_ok, _message = accept_icon_candidate(slug, word, str(candidate.get("path") or ""), word)
+                added += int(accepted_ok)
+            show_toast("success", f"Approved {added} high-confidence icons. Lower-confidence matches remain for review.")
+            safe_rerun()
 
         def _row_status(word: str) -> str:
-            desired = sanitise_symbol_name(word)
-            is_accepted = bool(desired) and any(Path(p).stem.lower() == desired for p in kit)
+            is_accepted = accepted_icon_for_word(slug, word) is not None
             is_skipped = word in vstate["skipped"]
             if is_accepted:
                 return "accepted"
             if is_skipped:
                 return "skipped"
-            m = find_symbol_for_word(word)
-            if m:
+            if word.casefold() in ambiguous_words:
+                return "ambiguous"
+            candidates = candidate_map.get(word, [])
+            if candidates and float(candidates[0].get("score", 0)) >= ICON_SUGGEST_SCORE:
                 return "suggested"
             return "missing"
 
@@ -5238,6 +7036,7 @@ def render_icons_tab(slug: str, display_name: str):
             "accepted": sum(1 for s in statuses.values() if s == "accepted"),
             "suggested": sum(1 for s in statuses.values() if s == "suggested"),
             "missing": sum(1 for s in statuses.values() if s == "missing"),
+            "ambiguous": sum(1 for s in statuses.values() if s == "ambiguous"),
             "skipped": sum(1 for s in statuses.values() if s == "skipped"),
         }
         total = max(len(words), 1)
@@ -5246,13 +7045,14 @@ def render_icons_tab(slug: str, display_name: str):
             f"Accepted: {counts['accepted']} | "
             f"Suggested: {counts['suggested']} | "
             f"Missing: {counts['missing']} | "
+            f"Ambiguous: {counts['ambiguous']} | "
             f"Skipped: {counts['skipped']}  "
             f"(Total: {len(words)})"
         )
 
         view_mode = st.radio(
-            "Show",
-            options=["Missing", "Missing + Suggested", "All"],
+            "Show required words",
+            options=["Needs review", "All required", "Accepted"],
             index=0,
             horizontal=True,
             key=f"icons_view_mode_{slug}",
@@ -5263,7 +7063,7 @@ def render_icons_tab(slug: str, display_name: str):
         if missing_words:
             with st.expander(f"Missing words list ({len(missing_words)})", expanded=False):
                 txt = "\n".join(missing_words)
-                st.text_area("", value=txt, height=160, key=f"missing_words_ta_{slug}")
+                st.text_area("Missing vocabulary words", value=txt, height=160, key=f"missing_words_ta_{slug}", label_visibility="collapsed")
                 st.download_button(
                     "Download missing words (.txt)",
                     data=txt.encode("utf-8"),
@@ -5273,17 +7073,21 @@ def render_icons_tab(slug: str, display_name: str):
                 )
         # Rows per vocab word
         for idx, w in enumerate(words):
+            if vstate.get("swap_word") and w != vstate.get("swap_word"):
+                continue
             stt = statuses.get(w) or "missing"
             if (stt == "skipped") and (not vstate["show_skipped"]):
                 continue
-            if view_mode == "Missing" and stt != "missing":
+            if view_mode == "Needs review" and stt in ("accepted", "skipped"):
                 continue
-            if view_mode == "Missing + Suggested" and stt not in ("missing", "suggested"):
+            if view_mode == "Accepted" and stt != "accepted":
                 continue
             cols = st.columns([1, 2, 3])
-            match = find_symbol_for_word(w)
-            desired_stem = sanitise_symbol_name(w)
-            accepted = bool(desired_stem) and any(Path(p).stem.lower() == desired_stem for p in kit)
+            row_candidates = candidate_map.get(w, [])
+            match = Path(str(row_candidates[0]["path"])) if row_candidates and float(row_candidates[0].get("score", 0)) >= ICON_SUGGEST_SCORE else None
+            accepted_path = accepted_icon_for_word(slug, w)
+            accepted = accepted_path is not None
+            display_icon = accepted_path or match
             skipped = w in vstate["skipped"]
             uploaded_set = vstate.get("uploaded", set())
             uploaded = w in uploaded_set
@@ -5293,13 +7097,15 @@ def render_icons_tab(slug: str, display_name: str):
                     st.caption("Accepted")
                 elif skipped:
                     st.caption("Skipped")
+                elif stt == "ambiguous":
+                    st.caption("Needs manual review")
                 elif match:
                     st.caption("Suggested")
                 else:
                     st.caption("Missing")
-                if match and Path(match).exists():
+                if display_icon and Path(display_icon).exists():
                     try:
-                        st.image(str(match), caption="", width=60)
+                        st.image(str(display_icon), caption="", width=100)
                     except Exception:
                         st.write(" ")
 
@@ -5319,43 +7125,28 @@ def render_icons_tab(slug: str, display_name: str):
                 with a1:
                     show_accept = (not accepted) and (not skipped) and (match is not None)
                     if show_accept and st.button("Accept", key=f"voc_acc_{idx}"):
-                        dest_dir = images_dir_for_book(slug) or Path("")
-                        try:
-                            dest_dir.mkdir(parents=True, exist_ok=True)
-                            dest = dest_dir / Path(match).name
-                            if not dest.exists():
-                                shutil.copy2(str(match), str(dest))
-                            if auto_norm and dest.exists():
-                                try:
-                                    normalize_icon_file(dest, target_px=int(auto_norm_size), margin=float(auto_norm_margin), white_cutoff=int(auto_norm_white))
-                                except Exception:
-                                    pass
-                            target_path = str(dest)
-                            if target_path not in kit:
-                                was_empty = len(kit) == 0
-                                st.session_state[kit_key] = kit + [target_path]
-                                if was_empty:
-                                    st.session_state[hero_key] = Path(dest).name
-                                persist_icons_hero(slug)
-                        except Exception as e:
-                            show_toast("error", f"Could not add: {e}")
+                        ok, message = accept_icon_candidate(slug, w, str(match), w)
+                        show_toast("success" if ok else "error", message)
+                        if ok:
+                            safe_rerun()
                 with a2:
                     show_replace = (not skipped)
-                    if show_replace and st.button("Replace", key=f"voc_swap_{idx}"):
+                    if show_replace and st.button("Choose another", key=f"voc_swap_{idx}"):
                         vstate["swap_word"] = w
                         safe_rerun()
                 with a3:
                     show_skip = (not accepted) and (not skipped)
-                    if show_skip and st.button("Skip", key=f"voc_skip_{idx}"):
+                    if show_skip and st.button("Not needed", key=f"voc_skip_{idx}"):
                         vstate["skipped"].add(w)
+                        set_icon_word_status(slug, w, "skipped")
                         safe_rerun()
                 with a4:
                     up_key = f"voc_up_{idx}"
-                    if st.button("Upload", key=f"voc_btn_up_{idx}"):
+                    if st.button("Upload PNG", key=f"voc_btn_up_{idx}"):
                         vstate["uploading"] = w
                         safe_rerun()
                     if vstate.get("uploading") == w:
-                        up = st.file_uploader("", type=["png","jpg","jpeg","webp"], key=up_key)
+                        up = st.file_uploader(f"Upload an icon for {w}", type=["png","jpg","jpeg","webp"], key=up_key, label_visibility="collapsed")
                         if up is not None:
                             try:
                                 default_lbl = sanitise_symbol_name(Path(up.name).stem) or sanitise_symbol_name(w)
@@ -5370,28 +7161,15 @@ def render_icons_tab(slug: str, display_name: str):
                                         stem = sanitise_symbol_name(cur_lbl)
                                         out = symbols_root() / f"{stem}.png"
                                         out.parent.mkdir(parents=True, exist_ok=True)
-                                        img = Image.open(io.BytesIO(up.read())).convert("RGBA")
+                                        img = Image.open(io.BytesIO(up.getvalue())).convert("RGBA")
                                         img.save(str(out))
-                                        dest_dir = images_dir_for_book(slug) or Path("")
-                                        dest_dir.mkdir(parents=True, exist_ok=True)
-                                        dest = dest_dir / out.name
-                                        if not dest.exists():
-                                            shutil.copy2(str(out), str(dest))
-                                        if auto_norm and dest.exists():
-                                            try:
-                                                normalize_icon_file(dest, target_px=int(auto_norm_size), margin=float(auto_norm_margin), white_cutoff=int(auto_norm_white))
-                                            except Exception:
-                                                pass
-                                        target_path = str(dest)
-                                        if target_path not in kit:
-                                            was_empty = len(kit) == 0
-                                            st.session_state[kit_key] = kit + [target_path]
-                                            if was_empty:
-                                                st.session_state[hero_key] = Path(dest).name
-                                            persist_icons_hero(slug)
+                                        normalize_icon_file(out, target_px=int(auto_norm_size), margin=float(auto_norm_margin), white_cutoff=int(auto_norm_white))
+                                        ok, message = accept_icon_candidate(slug, w, str(out), cur_lbl)
+                                        if not ok:
+                                            raise RuntimeError(message)
                                         vstate.setdefault("uploaded", set()).add(w)
                                         vstate["uploading"] = None
-                                        show_toast("success", f"Saved {out.name} to Symbol Library")
+                                        show_toast("success", f"Saved {out.name} to the library and approved it for {w}")
                                         safe_rerun()
                                     except Exception as e:
                                         show_toast("error", f"Upload failed: {e}")
@@ -5401,87 +7179,76 @@ def render_icons_tab(slug: str, display_name: str):
                                     safe_rerun()
 
             # Inline suggestions (quick swap) under this row
-            if (not accepted) and view_mode != "Missing":
-                try:
-                    token = sanitise_symbol_name(w).replace("_", " ")
-                    if token:
-                        cands = [p for p in symbols_root().rglob("*.png") if token in p.stem.lower()]
-                        cands = sorted(cands, key=lambda p: p.stem.lower())[:3]
-                    else:
-                        cands = []
-                except Exception:
-                    cands = []
-                if cands:
-                    scols = st.columns(len(cands))
-                    for jj, pp in enumerate(cands):
-                        with scols[jj]:
-                            try:
-                                st.image(str(pp), caption=pp.stem.replace('_',' ')[:14], width=90)
-                            except Exception:
-                                st.write(pp.stem.replace('_',' '))
-                            if st.button("Use", key=f"voc_sug_use_{idx}_{jj}"):
-                                dest_dir = images_dir_for_book(slug) or Path("")
-                                try:
-                                    dest_dir.mkdir(parents=True, exist_ok=True)
-                                    dest = dest_dir / Path(pp).name
-                                    if not dest.exists():
-                                        shutil.copy2(str(pp), str(dest))
-                                    if auto_norm and dest.exists():
-                                        try:
-                                            normalize_icon_file(dest, target_px=int(auto_norm_size), margin=float(auto_norm_margin), white_cutoff=int(auto_norm_white))
-                                        except Exception:
-                                            pass
-                                    target_path = str(dest)
-                                    if target_path not in kit:
-                                        was_empty = len(kit) == 0
-                                        st.session_state[kit_key] = kit + [target_path]
-                                        if was_empty:
-                                            st.session_state[hero_key] = Path(dest).name
-                                        persist_icons_hero(slug)
-                                    show_toast("success", f"Added {pp.stem} to kit")
-                                    safe_rerun()
-                                except Exception as e:
-                                    show_toast("error", f"Could not add: {e}")
+            if not accepted and candidate_map.get(w):
+                st.caption("Select Choose another to compare the best library alternatives.")
 
         # Swap panel
         if vstate.get("swap_word"):
             def _swap_ui():
-                q = st.text_input("Search symbols...", value="", key="swap_q")
-                files = [p for p in symbols_root().rglob("*.png")]
-                files = sorted(files, key=lambda p: p.stem.lower())
-                if q.strip():
-                    files = [p for p in files if q.lower() in p.stem.lower()]
-                cols = st.columns(6)
-                for i, p in enumerate(files[:60]):
-                    with cols[i % 6]:
+                active_word = str(vstate.get("swap_word") or "").strip()
+                word_key = sanitise_symbol_name(active_word)
+                controls = st.columns(2)
+                with controls[0]:
+                    q = st.text_input("Search the complete icon library", value=active_word, key=f"swap_q_{slug}_{word_key}")
+                with controls[1]:
+                    target_label = st.text_input("Save selected icon as", value=active_word, key=f"swap_label_{slug}_{word_key}")
+                st.caption("Changing the saved label renames the copy used by this topic. It does not rename the shared library file.")
+
+                revise_word = st.text_input("Use a different vocabulary word", value=active_word, key=f"swap_vocab_{slug}_{word_key}")
+                revise_col, extract_col = st.columns(2)
+                with revise_col:
+                    if st.button("Replace vocabulary word", use_container_width=True, key=f"swap_vocab_save_{slug}"):
+                        ok, message = replace_theme_vocab_word(slug, active_word, revise_word)
+                        show_toast("success" if ok else "error", message)
+                        if ok:
+                            vstate["swap_word"] = revise_word.strip()
+                            safe_rerun()
+                with extract_col:
+                    if st.button("Extract more icons from PDF", use_container_width=True, key=f"swap_pdf_{slug}"):
+                        st.session_state[f"icon_workspace_request_{slug}"] = "extract"
+                        safe_rerun()
+
+                candidates = icon_candidates_for_word(q.strip() or active_word, slug, limit=12)
+                if not candidates:
+                    st.info("No library candidates found. Try another search phrase, upload a PNG, or extract icons from a Boardmaker PDF.")
+                cols = st.columns(4)
+                for i, candidate in enumerate(candidates):
+                    p = Path(str(candidate.get("path") or ""))
+                    with cols[i % 4]:
                         try:
-                            st.image(str(p), caption=p.stem[:12], width=100)
+                            st.image(str(p), caption=str(candidate.get("label") or p.stem).replace("_", " "), width=120)
                         except Exception:
-                            st.write(p.stem)
-                        if st.button("Use", key=f"swap_use_{i}"):
-                            dest_dir = images_dir_for_book(slug) or Path("")
-                            try:
-                                dest_dir.mkdir(parents=True, exist_ok=True)
-                                dest = dest_dir / Path(p).name
-                                if not dest.exists():
-                                    shutil.copy2(str(p), str(dest))
-                                if auto_norm and dest.exists():
-                                    try:
-                                        normalize_icon_file(dest, target_px=int(auto_norm_size), margin=float(auto_norm_margin), white_cutoff=int(auto_norm_white))
-                                    except Exception:
-                                        pass
-                                target_path = str(dest)
-                                if target_path not in kit:
-                                    was_empty = len(kit) == 0
-                                    st.session_state[kit_key] = kit + [target_path]
-                                    if was_empty:
-                                        st.session_state[hero_key] = Path(dest).name
-                                    persist_icons_hero(slug)
+                            st.write(str(candidate.get("label") or p.stem))
+                        st.caption(f"Match {round(float(candidate.get('score', 0)) * 100)}%")
+                        if st.button("Use this icon", key=f"swap_use_{i}_{slug}", use_container_width=True):
+                            ok, message = accept_icon_candidate(slug, active_word, str(p), target_label)
+                            show_toast("success" if ok else "error", message)
+                            if ok:
                                 vstate["swap_word"] = None
-                                show_toast("success", "Swapped and added to kit")
                                 safe_rerun()
-                            except Exception as e:
-                                show_toast("error", f"Swap failed: {e}")
+                        try:
+                            is_library_image = p.resolve().is_relative_to(symbols_root().resolve())
+                        except Exception:
+                            is_library_image = False
+                        if is_library_image and st.button("Bin library image", key=f"swap_bin_{i}_{slug}", use_container_width=True):
+                            vstate["ban_candidate"] = {"word": active_word, "path": str(p)}
+                            safe_rerun()
+
+                pending_ban = vstate.get("ban_candidate")
+                if isinstance(pending_ban, dict) and pending_ban.get("path"):
+                    ban_path = Path(str(pending_ban["path"]))
+                    st.warning(f"Ban and quarantine {ban_path.name}? It will disappear from future searches but can be restored from Studioforge/_QUARANTINE/icons.")
+                    confirm_col, cancel_col = st.columns(2)
+                    with confirm_col:
+                        if st.button("Confirm ban and quarantine", type="primary", use_container_width=True, key=f"swap_bin_confirm_{slug}"):
+                            ok, message, _destination = quarantine_library_icon(str(ban_path))
+                            vstate["ban_candidate"] = None
+                            show_toast("success" if ok else "error", message)
+                            safe_rerun()
+                    with cancel_col:
+                        if st.button("Cancel", use_container_width=True, key=f"swap_bin_cancel_{slug}"):
+                            vstate["ban_candidate"] = None
+                            safe_rerun()
 
                 # Also allow choosing from recently extracted files
                 with st.expander("Use from extracted selection"):
@@ -5499,29 +7266,11 @@ def render_icons_tab(slug: str, display_name: str):
                                 except Exception:
                                     st.write(ep.stem)
                                 if st.button("Use", key=f"swap_ex_use_{j}"):
-                                    dest_dir = images_dir_for_book(slug) or Path("")
-                                    try:
-                                        dest_dir.mkdir(parents=True, exist_ok=True)
-                                        dest = dest_dir / Path(ep).name
-                                        if not dest.exists():
-                                            shutil.copy2(str(ep), str(dest))
-                                        if bool(st.session_state.get("ex_norm_on_add", True)):
-                                            try:
-                                                normalize_icon_file(dest)
-                                            except Exception:
-                                                pass
-                                        target_path = str(dest)
-                                        if target_path not in kit:
-                                            was_empty = len(kit) == 0
-                                            st.session_state[kit_key] = kit + [target_path]
-                                            if was_empty:
-                                                st.session_state[hero_key] = Path(dest).name
-                                            persist_icons_hero(slug)
+                                    ok, message = accept_icon_candidate(slug, active_word, str(ep), target_label)
+                                    show_toast("success" if ok else "error", message)
+                                    if ok:
                                         vstate["swap_word"] = None
-                                        show_toast("success", "Used extracted icon and added to kit")
                                         safe_rerun()
-                                    except Exception as e:
-                                        show_toast("error", f"Use failed: {e}")
 
             # Inline swap panel for broad Streamlit compatibility
             st.markdown(f"#### Swap icon for: {vstate['swap_word']}")
@@ -5552,114 +7301,144 @@ def render_icons_tab(slug: str, display_name: str):
                     except Exception:
                         continue
                 if added_n:
+                    clear_icon_candidate_cache()
+                    if icon_qa_logic is not None:
+                        try:
+                            icon_qa_logic._PNG_DIR_CACHE.clear()
+                        except Exception:
+                            pass
                     show_toast("success", f"Added {added_n} icons to Symbol Library")
                     safe_rerun()
 
-        with st.expander("Import Boardmaker PDF icons (4x4 grid)", expanded=False):
-            st.caption("Upload a Boardmaker PDF with a 4x4 grid. Provide 16 labels per page (row-major). Extracted icons are saved to the Symbol Library and can be added to this book's kit.")
+        with st.expander("Import icons from a Boardmaker PDF", expanded=False):
+            st.caption("Upload the PDF, match the row and column count, then preview every cell. Check or edit the detected labels before saving anything.")
             if fitz is None:
                 st.info("PDF import requires PyMuPDF (fitz).")
             else:
+                pending_batches = boardmaker_batches_waiting_for_labels(slug)
+                if pending_batches:
+                    with st.container(border=True):
+                        st.markdown(f"#### Waiting for labels ({len(pending_batches)} saved batch{'es' if len(pending_batches) != 1 else ''})")
+                        st.caption("These cells were extracted earlier but have not entered the shared icon library.")
+                        pending_by_id = {str(batch["batch_id"]): batch for batch in pending_batches}
+                        pending_id = st.selectbox(
+                            "Choose a saved extraction",
+                            options=list(pending_by_id),
+                            format_func=lambda value: f"{pending_by_id[value].get('source_name', 'Boardmaker PDF')} - {pending_by_id[value].get('created_at', value)}",
+                            key=f"bm_pending_batch_{slug}",
+                        )
+                        pending_manifest = pending_by_id[pending_id]
+                        pending_tiles = load_boardmaker_pending_tiles(pending_manifest)
+                        pending_labels = []
+                        pending_cols = st.columns(min(int(pending_manifest.get("cols") or 4), 6))
+                        for index, tile in enumerate(pending_tiles):
+                            with pending_cols[index % len(pending_cols)]:
+                                st.image(tile["image"], width="stretch")
+                                pending_label = st.text_input(
+                                    f"Saved cell {index + 1}",
+                                    value=str(tile.get("label") or ""),
+                                    key=f"bm_pending_label_{slug}_{pending_id}_{index}",
+                                    placeholder="Type a label or leave blank",
+                                )
+                                pending_labels.append(sanitise_symbol_name(pending_label))
+                        pending_labelled = sum(bool(label) for label in pending_labels)
+                        st.write(f"**{pending_labelled} of {len(pending_tiles)} cells currently have labels.**")
+                        pending_progress, pending_finish = st.columns(2)
+                        with pending_progress:
+                            if st.button("Save label progress", use_container_width=True, key=f"bm_pending_progress_{slug}_{pending_id}"):
+                                save_boardmaker_batch_labels(str(pending_manifest["manifest_path"]), pending_labels)
+                                show_toast("success", "Label progress saved. You can safely return later.")
+                                safe_rerun()
+                        with pending_finish:
+                            if st.button(
+                                f"Finish and save {pending_labelled} labelled icon{'s' if pending_labelled != 1 else ''}",
+                                type="primary",
+                                use_container_width=True,
+                                disabled=pending_labelled == 0,
+                                key=f"bm_pending_finish_{slug}_{pending_id}",
+                            ):
+                                saved, approved = save_labelled_boardmaker_tiles(slug, pending_tiles, pending_labels, True)
+                                save_boardmaker_batch_labels(str(pending_manifest["manifest_path"]), pending_labels, complete=True)
+                                show_toast("success", f"Saved {saved} icons to the library and approved {approved} for this book. Blank cells were ignored.")
+                                safe_rerun()
+                        st.divider()
+
                 pdf = st.file_uploader("Boardmaker PDF", type=["pdf"], key=f"bm_pdf_{slug}")
                 c_bm1, c_bm2, c_bm3, c_bm4 = st.columns([1, 1, 1, 1])
                 with c_bm1:
                     bm_rows = st.number_input("Rows", min_value=1, max_value=10, value=4, step=1, key=f"bm_rows_{slug}")
                 with c_bm2:
-                    bm_cols = st.number_input("Cols", min_value=1, max_value=10, value=4, step=1, key=f"bm_cols_{slug}")
+                    bm_cols = st.number_input("Columns", min_value=1, max_value=10, value=4, step=1, key=f"bm_cols_{slug}")
                 with c_bm3:
                     bm_pad = st.number_input("Inner padding %", min_value=0.0, max_value=20.0, value=2.0, step=0.5, key=f"bm_pad_{slug}")
                 with c_bm4:
-                    add_to_kit = st.checkbox("Also add to this book's kit", value=True, key=f"bm_addkit_{slug}")
+                    add_to_kit = st.checkbox("Approve labelled icons for this book", value=True, key=f"bm_addkit_{slug}")
 
-                st.caption("Labels (one per line). Use 16 labels per page. Leave a line blank to skip a cell.")
-                labels_raw = st.text_area("", value="", height=140, key=f"bm_labels_{slug}")
+                preview_key = f"bm_preview_{slug}"
+                if pdf is None:
+                    st.info("Choose a PDF to begin.")
+                else:
+                    pdf_data = pdf.getvalue()
+                    signature = hashlib.sha1(pdf_data + f"{bm_rows}:{bm_cols}:{bm_pad}".encode("utf-8")).hexdigest()[:12]
+                    if st.button("Preview grid", type="primary", key=f"bm_preview_btn_{slug}"):
+                        try:
+                            with st.spinner(f"Creating a {int(bm_rows)} by {int(bm_cols)} preview..."):
+                                tiles = extract_boardmaker_grid(pdf_data, int(bm_rows), int(bm_cols), float(bm_pad))
+                            st.session_state[preview_key] = {"signature": signature, "tiles": tiles}
+                            show_toast("success", f"Previewed {len(tiles)} cells. Check the labels below before saving.")
+                        except Exception as exc:
+                            st.session_state.pop(preview_key, None)
+                            show_toast("error", f"Could not preview this PDF: {exc}")
 
-                if pdf is not None and st.button("Extract icons", key=f"bm_extract_{slug}"):
-                    try:
-                        data = pdf.read()
-                        doc = fitz.open(stream=data, filetype="pdf")
-                        labels = [sanitise_symbol_name(t.strip()) for t in str(labels_raw or "").splitlines()]
-                        labels = [t for t in labels if t is not None]
+                    preview = st.session_state.get(preview_key) or {}
+                    if preview.get("signature") != signature:
+                        preview = {}
+                    tiles = list(preview.get("tiles") or [])
+                    if tiles:
+                        st.markdown(f"#### Check {len(tiles)} extracted cells")
+                        st.caption("Detected text is only a starting point. Correct each label, and leave decorative or unwanted cells blank.")
+                        labels = []
+                        preview_cols = st.columns(min(int(bm_cols), 6))
+                        for index, tile in enumerate(tiles):
+                            with preview_cols[index % len(preview_cols)]:
+                                st.image(tile["image"], width="stretch")
+                                detected = sanitise_symbol_name(tile.get("label") or tile.get("detected_label") or "")
+                                label = st.text_input(
+                                    f"Page {tile['page']}, row {tile['row']}, column {tile['col']}",
+                                    value=detected,
+                                    key=f"bm_tile_label_{slug}_{signature}_{index}",
+                                    placeholder="Leave blank to skip",
+                                )
+                                labels.append(sanitise_symbol_name(label))
 
-                        dest_dir = images_dir_for_book(slug) or Path("")
-                        if add_to_kit:
-                            dest_dir.mkdir(parents=True, exist_ok=True)
-
-                        extracted = 0
-                        saved = 0
-                        k = list(st.session_state.get(kit_key, []))
-
-                        zoom = 2.0
-                        pad_frac = float(bm_pad) / 100.0
-                        per_page = int(bm_rows) * int(bm_cols)
-
-                        for page_idx in range(doc.page_count):
-                            page = doc.load_page(page_idx)
-                            pix = page.get_pixmap(matrix=fitz.Matrix(zoom, zoom), alpha=False)
-                            img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
-                            w_px, h_px = img.size
-                            cell_w = w_px / float(bm_cols)
-                            cell_h = h_px / float(bm_rows)
-
-                            for r in range(int(bm_rows)):
-                                for c in range(int(bm_cols)):
-                                    cell_idx = page_idx * per_page + (r * int(bm_cols) + c)
-                                    if cell_idx >= len(labels):
-                                        continue
-                                    stem = labels[cell_idx]
-                                    if not stem:
-                                        continue
-                                    left = int(c * cell_w)
-                                    top = int(r * cell_h)
-                                    right = int((c + 1) * cell_w)
-                                    bottom = int((r + 1) * cell_h)
-                                    pad_x = int((right - left) * pad_frac)
-                                    pad_y = int((bottom - top) * pad_frac)
-                                    crop = img.crop((left + pad_x, top + pad_y, right - pad_x, bottom - pad_y))
-
-                                    lib_root = symbols_root() / "Alpha"
-                                    first = stem[0].lower() if stem else "#"
-                                    bucket = first if ("a" <= first <= "z") else "#"
-                                    out_dir = lib_root / bucket
-                                    out_dir.mkdir(parents=True, exist_ok=True)
-                                    out_path = out_dir / f"{stem}.png"
-
-                                    crop_rgba = crop.convert("RGBA")
-                                    crop_rgba.save(str(out_path))
-                                    try:
-                                        normalize_icon_file(out_path, target_px=512, margin=0.06, white_cutoff=245)
-                                    except Exception:
-                                        pass
-
-                                    saved += 1
-                                    extracted += 1
-
-                                    if add_to_kit and dest_dir and dest_dir.exists():
-                                        dest = dest_dir / out_path.name
-                                        try:
-                                            if not dest.exists():
-                                                shutil.copy2(str(out_path), str(dest))
-                                            try:
-                                                normalize_icon_file(dest, target_px=512, margin=0.06, white_cutoff=245)
-                                            except Exception:
-                                                pass
-                                            if str(dest) not in k:
-                                                k.append(str(dest))
-                                        except Exception:
-                                            pass
-
-                        if add_to_kit:
-                            st.session_state[kit_key] = k
-                            if len(k) == 1:
-                                st.session_state[hero_key] = Path(k[0]).name
-                            persist_icons_hero(slug, toast_ok=True)
-                        show_toast("success", f"Extracted {extracted} icons. Saved {saved} to Symbol Library." + (" Added to kit." if add_to_kit else ""))
-                        safe_rerun()
-                    except Exception as e:
-                        show_toast("error", f"PDF extract failed: {e}")
+                        labelled_count = sum(bool(label) for label in labels)
+                        st.write(f"**{labelled_count} of {len(tiles)} cells are labelled and ready to save.**")
+                        if labelled_count == 0:
+                            st.warning("Nothing will be saved yet. Enter at least one label beneath a preview image.")
+                        save_now, save_later = st.columns(2)
+                        with save_now:
+                            if st.button(
+                                f"Save {labelled_count} labelled icon{'s' if labelled_count != 1 else ''}",
+                                type="primary",
+                                disabled=labelled_count == 0,
+                                key=f"bm_save_{slug}_{signature}",
+                                use_container_width=True,
+                            ):
+                                saved, approved = save_labelled_boardmaker_tiles(slug, tiles, labels, add_to_kit)
+                                show_toast("success", f"Saved {saved} icons to the library." + (f" Approved {approved} for this book." if add_to_kit else ""))
+                                st.session_state.pop(preview_key, None)
+                                safe_rerun()
+                        with save_later:
+                            if st.button("Save all cells for labelling later", key=f"bm_later_{slug}_{signature}", use_container_width=True):
+                                ok, message, _batch_dir = save_boardmaker_tiles_for_later(slug, pdf.name, tiles, int(bm_rows), int(bm_cols), labels)
+                                show_toast("success" if ok else "error", message)
+                                if ok:
+                                    st.session_state.pop(preview_key, None)
+                                    safe_rerun()
 
     # Current kit grid
-    st.markdown("### Icons in this kit")
+    st.markdown("### Step 3: Check the final icon kit")
+    st.caption("These are the approved files generators will use. Remove duplicates, replace weak images, then choose the strongest hero below.")
     cadd1, cadd2 = st.columns([3, 1])
     with cadd2:
         if st.button("+ Add icon", key=f"add_icon_{slug}"):
@@ -5726,12 +7505,12 @@ def render_icons_tab(slug: str, display_name: str):
             unsafe_allow_html=True,
         )
         st.markdown('<div class="sf-icons-grid">', unsafe_allow_html=True)
-        cols2 = st.columns(6)
+        cols2 = st.columns(3)
         for i, path in enumerate(kit):
-            with cols2[i % 6]:
+            with cols2[i % 3]:
                 try:
                     nm = Path(path).stem
-                    st.image(path, use_column_width=True)
+                    st.image(path, width="stretch")
                 except Exception:
                     nm = Path(path).stem
                 # Name under thumbnail
@@ -5876,7 +7655,7 @@ def render_icons_tab(slug: str, display_name: str):
             safe_rerun()
 
     # Hero picker
-    st.markdown("### Hero icon")
+    st.markdown("#### Finish Step 3: Choose the hero icon")
     hero_options = [Path(p).name for p in st.session_state[kit_key]]
     current_idx = 0
     if hero_options:
@@ -5981,10 +7760,39 @@ def update_qa_log(slug: str, reviewed: bool):
 
 
 def render_qa_tab(slug: str, display_name: str):
+    gates = workflow_gate_status(slug)
+    if gates["strict"] and not gates["boardready"]:
+        st.warning("Confirm the canonical BoardReady vocabulary and output before final visual QA.")
+        if st.button("Go to BoardReady review", type="primary", key=f"qa_to_boardready_{slug}"):
+            open_build_screen(slug, "boardready")
+            safe_rerun()
+        return
+    saved_qa = read_book_state(slug).get("qa") or {}
+    unlock_key = f"qa_unlocked_{slug}"
+    if saved_qa.get("status") == "passed" and not st.session_state.get(unlock_key):
+        reviewed_at = str(saved_qa.get("reviewed_at") or "previously")
+        st.success(f"Visual QA passed {reviewed_at}. The decisions are locked to prevent accidental changes.")
+        continue_col, reopen_col = st.columns(2)
+        with continue_col:
+            if st.button("Continue to Activities", type="primary", use_container_width=True, key=f"qa_continue_build_{slug}"):
+                open_build_screen(slug, "build")
+                safe_rerun()
+        with reopen_col:
+            if st.button("Reopen QA review", use_container_width=True, key=f"qa_reopen_{slug}"):
+                st.session_state[unlock_key] = True
+                safe_rerun()
+        return
     ensure_vocab_state(slug)
     vstate = st.session_state[vocab_state_key(slug)]
     kit_key = get_kit_key(slug)
     kit: list[str] = st.session_state.get(kit_key, [])
+    review = icon_review_summary(slug)
+    if review["total"] and not review["complete"]:
+        st.warning(f"Review all topic icons before QA. {len(review['unresolved'])} vocabulary items still need an approved icon or an intentional Skip decision.")
+        if st.button("Return to icon exceptions", type="primary", key=f"qa_return_icons_{slug}"):
+            open_build_screen(slug, "icons")
+            safe_rerun()
+        return
 
     vocab_data = extract_book_vocab(slug)
     words: list[str] = []
@@ -5997,11 +7805,11 @@ def render_qa_tab(slug: str, display_name: str):
         for w in words:
             if w in skipped_set:
                 continue
-            desired = sanitise_symbol_name(w)
-            accepted = bool(desired) and any(Path(p).stem.lower() == desired for p in kit)
+            accepted = accepted_icon_for_word(slug, w) is not None
             if accepted:
                 continue
-            if find_symbol_for_word(w):
+            candidates = icon_candidates_for_word(w, slug, limit=1)
+            if candidates and float(candidates[0].get("score", 0)) >= ICON_SUGGEST_SCORE:
                 suggested_words.append(w)
             else:
                 missing_words.append(w)
@@ -6014,7 +7822,7 @@ def render_qa_tab(slug: str, display_name: str):
             if missing_words:
                 txt = "\n".join(missing_words)
                 st.caption("Missing")
-                st.text_area("", value=txt, height=140, key=f"qa_missing_words_{slug}")
+                st.text_area("Missing QA items", value=txt, height=140, key=f"qa_missing_words_{slug}", label_visibility="collapsed")
                 st.download_button(
                     "Download missing words (.txt)",
                     data=txt.encode("utf-8"),
@@ -6025,7 +7833,7 @@ def render_qa_tab(slug: str, display_name: str):
             if suggested_words:
                 txt2 = "\n".join(suggested_words)
                 st.caption("Suggested")
-                st.text_area(" ", value=txt2, height=140, key=f"qa_suggested_words_{slug}")
+                st.text_area("Suggested QA items", value=txt2, height=140, key=f"qa_suggested_words_{slug}", label_visibility="collapsed")
                 st.download_button(
                     "Download suggested words (.txt)",
                     data=txt2.encode("utf-8"),
@@ -6043,15 +7851,21 @@ def render_qa_tab(slug: str, display_name: str):
 
     total = len(state)
     resolved = sum(1 for v in state.values() if v.get("status") in {"accepted", "missing", "replaced"})
+    if total == 0:
+        st.info("No approved icons are available for visual QA yet. Return to Icons and approve, upload, or extract at least one image.")
+        if st.button("Return to Icons", type="primary", key=f"qa_empty_to_icons_{slug}"):
+            open_build_screen(slug, "icons")
+            safe_rerun()
+        return
     st.markdown(f"**QA Progress:** {resolved}/{total}")
     st.progress((resolved / total) if total else 0.0)
 
     c1, c2 = st.columns([1, 2])
     with c1:
-        if st.button("Accept all high-confidence (>= 0.85)"):
+        if st.button("Accept all pending icons"):
             n = 0
             for sp, v in state.items():
-                if v.get("status") == "pending" and float(v.get("confidence", 0)) >= 0.85:
+                if v.get("status") == "pending":
                     v["status"] = "accepted"
                     n += 1
             try:
@@ -6071,7 +7885,7 @@ def render_qa_tab(slug: str, display_name: str):
                 st.image(sp, caption=Path(sp).stem[:20], width=160)
             except Exception:
                 st.write(Path(sp).name)
-            st.caption(f"conf {float(v.get('confidence', 0)):.2f} - {v.get('status')}")
+            st.caption(str(v.get("status") or "pending").replace("_", " ").title())
             a_key = f"qa_acc_{i}"
             m_key = f"qa_miss_{i}"
             r_key = f"qa_rep_{i}"
@@ -6108,6 +7922,11 @@ def render_qa_tab(slug: str, display_name: str):
                         raise ValueError("Upload was empty. Try selecting the file again.")
                     img = Image.open(io.BytesIO(raw)).convert("RGBA")
                     dest.parent.mkdir(parents=True, exist_ok=True)
+                    if dest.exists():
+                        backup_dir = dest.parent / "_backup" / "qa_replacements"
+                        backup_dir.mkdir(parents=True, exist_ok=True)
+                        backup = backup_dir / f"{dest.stem}_{datetime.now().strftime('%Y%m%d_%H%M%S')}{dest.suffix}"
+                        shutil.copy2(str(dest), str(backup))
                     img.save(str(dest))
                     try:
                         normalize_icon_file(dest, target_px=512, margin=0.06, white_cutoff=245)
@@ -6129,40 +7948,473 @@ def render_qa_tab(slug: str, display_name: str):
         if st.button("Mark QA as Passed and go to Build"):
             persist_qa_pass(slug)
             update_qa_log(slug, True)
+            st.session_state[f"qa_unlocked_{slug}"] = False
             show_toast("success", "QA marked as passed")
             open_build_screen(slug, "build")
 
 
-def render_build_screen(slug: str, display_name: str):
-    st.header(f"Build - {display_name}")
-    tab_names = ["Icons", "QA", "Build", "Listing", "AAC Board"]
-    default_tab = {"icons": 0, "qa": 1, "build": 2, "listing": 3, "aac": 4}.get(st.session_state.get("build_tab", "icons"), 0)
-    tabs = st.tabs(tab_names)
+def render_new_topic_panel():
+    with st.expander("Create a new topic or student-interest project", expanded=False):
+        st.caption("Creates an anonymous project profile first. Grounded content generation and human review happen in the next stages.")
+        with st.form("new_topic_project"):
+            topic = st.text_input("Topic or student interest", placeholder="e.g. Motorsport pit stops")
+            keywords = st.text_input("Optional search keywords", placeholder="teamwork, safety, communication")
+            age_band = st.selectbox("Chronological age band", ["Years 7–10 (teen SPED)", "Upper primary", "Post-school transition / adult"])
+            reading_level = st.selectbox("Instructional reading level", ["Emergent to functional literacy", "Early reader", "Developing reader"])
+            communication_modes = st.multiselect("Communication access", ["Speech", "AAC", "Pointing", "Eye gaze", "Typing", "Writing"], default=["Speech", "AAC", "Pointing"])
+            support_level = st.selectbox("Support profile", ["Differentiated", "Highly supported", "Developing independence", "Independent"])
+            targets = st.text_area("Learning targets", placeholder="One target per line; do not enter a student name")
+            curriculum = st.text_input("Curriculum or functional framework", placeholder="Optional")
+            sensitive = st.checkbox("This topic includes sensitive, safeguarding, personal-care, legal, clinical, or sexual-safety content")
+            safeguarding = st.text_area("Safeguarding notes", placeholder="Required for sensitive topics") if sensitive else ""
+            submitted = st.form_submit_button("Create topic project", type="primary")
+        if submitted:
+            profile = {
+                "topic": topic,
+                "title": topic,
+                "age_band": age_band,
+                "instructional_reading_level": reading_level,
+                "communication_modes": communication_modes,
+                "support_level": support_level,
+                "learning_targets": [line.strip() for line in targets.splitlines() if line.strip()],
+                "curriculum_framework": curriculum.strip(),
+                "sensitive_content": sensitive,
+                "sensitive_review_notes": safeguarding.strip(),
+                "seed_keywords": [value.strip() for value in keywords.split(",") if value.strip()],
+            }
+            errors = validate_project_profile({**default_project_profile("topic_new"), **profile, "pathway": "topic"})
+            if errors:
+                st.error("Please fix: " + "; ".join(errors))
+            else:
+                created, message, slug = create_topic_project(profile)
+                if created and slug:
+                    st.session_state.active_book = slug
+                    st.session_state.view = "build"
+                    st.session_state[f"sf_requested_stage_{slug}"] = "setup"
+                    show_toast("success", message)
+                    safe_rerun()
+                else:
+                    st.error(message)
 
-    with tabs[0]:
-        render_icons_tab(slug, display_name)
 
-    with tabs[1]:
-        render_qa_tab(slug, display_name)
+def render_setup_stage(slug: str, display_name: str):
+    profile = load_project_profile(slug)
+    st.subheader("Project and learner-access setup")
+    st.caption("Store only anonymous access needs—never a student name, date of birth, school, or other identifying information.")
+    with st.form(f"project_setup_{slug}"):
+        pathway = st.selectbox("Project pathway", ["book_companion", "topic", "teen_dignity"], index=["book_companion", "topic", "teen_dignity"].index(profile.get("pathway", "book_companion")))
+        topic = st.text_input("Book, topic, or student interest", value=str(profile.get("topic") or display_name))
+        age_band = st.text_input("Chronological age band", value=str(profile.get("age_band") or ""))
+        reading_level = st.text_input("Instructional reading level", value=str(profile.get("instructional_reading_level") or ""))
+        modes = st.multiselect("Communication access", ["Speech", "AAC", "Pointing", "Eye gaze", "Typing", "Writing"], default=[value for value in profile.get("communication_modes", []) if value in {"Speech", "AAC", "Pointing", "Eye gaze", "Typing", "Writing"}])
+        support = st.selectbox("Support profile", ["Differentiated", "Highly supported", "Developing independence", "Independent"], index=["Differentiated", "Highly supported", "Developing independence", "Independent"].index(profile.get("support_level", "Differentiated")) if profile.get("support_level") in ["Differentiated", "Highly supported", "Developing independence", "Independent"] else 0)
+        targets = st.text_area("Learning targets", value="\n".join(profile.get("learning_targets", [])))
+        curriculum = st.text_input("Curriculum or functional framework", value=str(profile.get("curriculum_framework") or ""))
+        sensitive = st.checkbox("Sensitive-content safeguards required", value=bool(profile.get("sensitive_content")))
+        sensitive_notes = st.text_area("Safeguarding and implementation notes", value=str(profile.get("sensitive_review_notes") or ""))
+        save_setup = st.form_submit_button("Save setup", type="primary")
+    if save_setup:
+        revised = {
+            **profile,
+            "pathway": pathway,
+            "topic": topic.strip(),
+            "age_band": age_band.strip(),
+            "instructional_reading_level": reading_level.strip(),
+            "communication_modes": modes,
+            "support_level": support,
+            "learning_targets": [line.strip() for line in targets.splitlines() if line.strip()],
+            "curriculum_framework": curriculum.strip(),
+            "sensitive_content": sensitive,
+            "sensitive_review_notes": sensitive_notes.strip(),
+            "updated_at": datetime.now().isoformat(timespec="seconds"),
+        }
+        critical_fields = ("pathway", "topic", "age_band", "instructional_reading_level", "communication_modes", "support_level", "learning_targets", "curriculum_framework", "sensitive_content", "sensitive_review_notes")
+        if any(revised.get(key) != profile.get(key) for key in critical_fields) and revised.get("pathway") in {"topic", "teen_dignity"}:
+            revised["content_review"] = {"status": "pending", "reason": "Project setup changed"}
+            revised["boardready_review"] = {"status": "pending", "reason": "Project setup changed"}
+        errors = validate_project_profile(revised)
+        if errors:
+            st.error("Please fix: " + "; ".join(errors))
+        elif save_project_profile(slug, revised):
+            show_toast("success", "Project setup saved")
+            safe_rerun()
+    if profile.get("pathway") in {"topic", "teen_dignity"}:
+        st.divider()
+        st.markdown("#### Grounded content draft")
+        if topic_content_ready(slug):
+            st.success("A structured content draft is available.")
+        else:
+            st.warning("The topic scaffold exists, but grounded teaching content has not been generated yet.")
+        if st.button("Generate grounded content draft", type="primary", key=f"generate_topic_content_{slug}"):
+            with st.spinner("Researching sources and generating structured content..."):
+                ok, message = run_topic_content_builder(slug)
+            show_toast("success" if ok else "error", message)
+            if ok:
+                st.session_state[f"sf_requested_stage_{slug}"] = "content"
+                safe_rerun()
 
-    with tabs[2]:
-        render_build_tab(slug, display_name)
 
-    with tabs[3]:
-        render_listing_tab(slug, display_name)
+def render_content_review_stage(slug: str, display_name: str):
+    profile = load_project_profile(slug)
+    strict = workflow_gate_status(slug)["strict"]
+    st.subheader("Human content review")
+    if profile.get("pathway") == "book_companion":
+        render_vocabulary_queue(slug)
+        if book_vocab_review_required(slug):
+            return
+        st.divider()
+    if not strict:
+        st.info("This existing book companion is grandfathered into the production workflow. Use this review when revising source content or claims.")
+    book_dir = find_book_dir(slug)
+    vocab_path = (book_dir / "book_vocab.json") if book_dir else None
+    needs_path = (book_dir / "needs_review.json") if book_dir else None
+    research_path = (book_dir / "config" / "topic_research.json") if book_dir else None
+    evidence_ready = not strict
+    if not topic_content_ready(slug) and strict:
+        st.warning("Generate a grounded content draft in Setup before approving this stage.")
+        if st.button("Return to Setup and generate the draft", type="primary", key=f"content_to_setup_{slug}"):
+            open_build_screen(slug, "setup")
+            safe_rerun()
+        return
+    if research_path and research_path.exists():
+        try:
+            research = json.loads(research_path.read_text(encoding="utf-8"))
+            evidence_ready = len(research.get("facts", [])) >= 3 and bool(research.get("sources"))
+            st.markdown(f"**Evidence:** {len(research.get('facts', []))} grounded facts from {len(research.get('sources', []))} sources")
+            with st.expander("Review evidence and sources"):
+                for index, source in enumerate(research.get("sources", []), start=1):
+                    st.write(f"{index}. {source}")
+        except Exception:
+            st.warning("The research evidence file could not be read.")
+    if strict and not evidence_ready:
+        st.error("At least three grounded facts and one recorded source are required before approval.")
+    if vocab_path and vocab_path.exists():
+        with st.expander("Review structured content"):
+            st.json(json.loads(vocab_path.read_text(encoding="utf-8")))
+    if needs_path and needs_path.exists():
+        try:
+            flagged = json.loads(needs_path.read_text(encoding="utf-8"))
+        except Exception:
+            flagged = {}
+        if any(flagged.values()) if isinstance(flagged, dict) else bool(flagged):
+            st.warning("Some generated items were not sufficiently grounded and remain excluded unless manually amended.")
+            with st.expander("Review excluded or flagged items"):
+                st.json(flagged)
+    checks = content_review_checks(profile)
+    saved_review = profile.get("content_review") if isinstance(profile.get("content_review"), dict) else {}
+    saved_checks = saved_review.get("checks") if isinstance(saved_review.get("checks"), dict) else {}
+    saved_values = {key: bool(saved_checks.get(key)) for key, _label in checks}
+    values = {}
+    for key, label in checks:
+        values[key] = st.checkbox(label, value=saved_values[key], key=f"content_review_{slug}_{key}")
+    if values != saved_values:
+        profile["content_review"] = {
+            **saved_review,
+            "status": "pending",
+            "checks": values,
+            "updated_at": datetime.now().isoformat(timespec="seconds"),
+        }
+        save_project_profile(slug, profile)
+    can_approve = all(values.values()) and (topic_content_ready(slug) or not strict) and evidence_ready
+    if st.button("Approve content for production", type="primary", disabled=not can_approve, key=f"approve_content_{slug}"):
+        reviewed_at = datetime.now().isoformat(timespec="seconds")
+        profile["content_review"] = {"status": "approved", "reviewed_at": reviewed_at, "reviewer": "human", "checks": values}
+        save_project_profile(slug, profile)
+        if vocab_path and vocab_path.exists():
+            vocab = json.loads(vocab_path.read_text(encoding="utf-8"))
+            vocab["review_status"] = "human_approved"
+            vocab["reviewed_at"] = reviewed_at
+            vocab_path.write_text(json.dumps(vocab, ensure_ascii=False, indent=2), encoding="utf-8")
+        show_toast("success", "Content review approved")
+        st.session_state[f"sf_requested_stage_{slug}"] = "icons"
+        safe_rerun()
 
-    with tabs[4]:
+
+def render_boardready_stage(slug: str, display_name: str):
+    profile = load_project_profile(slug)
+    strict = workflow_gate_status(slug)["strict"]
+    fringe = topic_fringe_words(slug)
+    boardready_review = profile.get("boardready_review") if isinstance(profile.get("boardready_review"), dict) else {}
+    draft_fringe = boardready_review.get("draft_fringe") if isinstance(boardready_review.get("draft_fringe"), list) else fringe
+    st.subheader("Canonical BoardReady review")
+    st.caption("Core-word positions stay fixed. Review exactly twelve topic words, then generate and inspect the canonical BoardReady files.")
+    fringe_text = st.text_area("Twelve fringe words - one per line", value="\n".join(draft_fringe), height=220, key=f"boardready_fringe_{slug}")
+    edited_fringe = list(dict.fromkeys(line.strip() for line in fringe_text.splitlines() if line.strip()))
+    if edited_fringe != draft_fringe:
+        profile["boardready_review"] = {
+            **boardready_review,
+            "draft_fringe": edited_fringe,
+            "updated_at": datetime.now().isoformat(timespec="seconds"),
+        }
+        save_project_profile(slug, profile)
+    st.markdown(f"**Topic fringe vocabulary:** {len(edited_fringe)}/12")
+    if len(edited_fringe) != 12:
+        st.error("Exactly 12 unique fringe words are required.")
+    if st.button("Save fringe vocabulary", disabled=len(edited_fringe) != 12, key=f"save_boardready_fringe_{slug}"):
+        path, data = theme_vocab_source(slug)
+        if path is None:
+            st.error("No editable topic vocabulary file was found.")
+        else:
+            data["fringe_12"] = edited_fringe
+            path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+            profile["boardready_review"] = {"status": "pending"}
+            save_project_profile(slug, profile)
+            show_toast("success", "Fringe vocabulary saved")
+            safe_rerun()
+    outputs = boardready_output_files(slug)
+    if st.button("Generate canonical BoardReady files", type="primary", disabled=len(edited_fringe) != 12, key=f"generate_boardready_{slug}"):
+        with st.spinner("Generating the fixed 6×6 BoardReady board..."):
+            ok, message = run_boardready_generator(slug)
+        show_toast("success" if ok else "error", message)
+        safe_rerun()
+    if outputs:
+        st.success(f"Found {len(outputs)} BoardReady PDF output(s).")
+        with st.expander("BoardReady output files"):
+            for output in outputs:
+                st.write(output.name)
+    else:
+        st.warning("No BoardReady PDF output has been detected yet.")
+    with st.expander("Edit or preview the board layout", expanded=True):
         render_aac_board_tab(slug, display_name)
+    ready = (not strict) or (len(fringe) == 12 and bool(outputs))
+    if st.button("Confirm BoardReady vocabulary and output", type="primary", disabled=not ready, key=f"confirm_boardready_{slug}"):
+        profile["boardready_review"] = {"status": "approved", "reviewed_at": datetime.now().isoformat(timespec="seconds"), "fringe_12": fringe, "layout": "6x6", "preserve_core_positions": True, "outputs": [str(path) for path in outputs]}
+        save_project_profile(slug, profile)
+        show_toast("success", "BoardReady review confirmed")
+        st.session_state[f"sf_requested_stage_{slug}"] = "qa"
+        safe_rerun()
+
+
+def render_promote_stage(slug: str, display_name: str):
+    state = read_book_state(slug)
+    listing = state.get("listing") if isinstance(state.get("listing"), dict) else {}
+    if not listing.get("saved_at"):
+        st.warning("Save the approved TPT listing before preparing a campaign.")
+        if st.button("Return to Listing", type="primary", key=f"promote_to_listing_{slug}"):
+            open_build_screen(slug, "listing")
+            safe_rerun()
+        return
+    out_dir = output_dir_for_book(slug)
+    if out_dir is None:
+        st.error("The book output folder is unavailable.")
+        return
+    pack_code = str((state.get("build") or {}).get("pack_code") or default_pack_code(slug))
+    images_dir = out_dir / "TPT_UPLOAD" / "IMAGES" / pack_code
+    records = read_upload_tracker()
+    tracked_urls = [
+        str(record.get("tpt_url") or "").strip()
+        for record in records
+        if isinstance(record, dict) and record.get("book_slug") == slug and is_tpt_product_url(str(record.get("tpt_url") or ""))
+    ]
+    default_url = tracked_urls[0] if tracked_urls else ""
+
+    st.subheader("Guided Pinterest and Tailwind campaign")
+    st.caption("This creates local draft files only. StudioForge will not connect to, schedule, or publish on any external account.")
+    destination_url = st.text_input(
+        "Exact published TPT product URL",
+        value=default_url,
+        key=f"promote_tpt_url_{slug}",
+        placeholder="https://www.teacherspayteachers.com/Product/...",
+    )
+    default_board = st.text_input(
+        "Preferred Pinterest board (optional)",
+        value="",
+        key=f"promote_board_{slug}",
+        placeholder="Leave blank to use an angle-specific suggestion",
+    )
+    if destination_url and not is_tpt_product_url(destination_url):
+        st.error("Use the exact HTTPS product listing URL. A general store URL is too broad for an effective campaign.")
+
+    if not images_dir.exists() or not any(path.suffix.lower() in {".png", ".jpg", ".jpeg"} for path in images_dir.glob("*")):
+        st.info("Generate the four TPT marketing pages before creating vertical Pinterest designs.")
+        if st.button("Generate TPT marketing pages", type="primary", key=f"promote_generate_images_{slug}"):
+            built_info = detect_products_in_output(slug)
+            images = generate_tpt_marketing_pages(slug, pack_code, out_dir, built_info, display_name)
+            show_toast("success" if images else "error", f"Created {len(images)} marketing pages." if images else "No marketing pages could be created. Build and preview a product first.")
+            safe_rerun()
+    else:
+        if st.button(
+            "Generate six reviewed Pin drafts",
+            type="primary",
+            disabled=not is_tpt_product_url(destination_url),
+            key=f"promote_generate_{slug}",
+        ):
+            ok, message, _campaign_dir = generate_guided_pinterest_campaign(
+                slug,
+                pack_code,
+                out_dir,
+                listing,
+                images_dir,
+                destination_url,
+                default_board,
+            )
+            show_toast("success" if ok else "error", message)
+            safe_rerun()
+
+    campaign_root = out_dir / "TPT_UPLOAD" / "PROMOTE" / pack_code
+    manifest_path = campaign_root / f"{pack_code}_campaign.json"
+    if manifest_path.exists():
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        st.success(f"Campaign ready for review: {len(manifest.get('pins') or [])} fresh Pin drafts")
+        st.caption("Review every title, description, board and link. Then upload the PNG files through Tailwind's Pin Scheduler as drafts.")
+        pin_paths = [campaign_root / str(row.get("filename") or "") for row in manifest.get("pins") or []]
+        cols = st.columns(3)
+        for index, (row, pin_path) in enumerate(zip(manifest.get("pins") or [], pin_paths)):
+            with cols[index % 3]:
+                if pin_path.exists():
+                    st.image(str(pin_path), width="stretch")
+                st.markdown(f"**{row.get('creative_angle', 'Pin')}**")
+                st.caption(str(row.get("pin_title") or ""))
+                st.caption(f"Board: {row.get('suggested_board') or 'Choose in Tailwind'}")
+        zip_path = campaign_root / f"{pack_code}_guided_tailwind_upload.zip"
+        csv_path = campaign_root / f"{pack_code}_guided_upload_review.csv"
+        dl_zip, dl_csv, open_review = st.columns(3)
+        with dl_zip:
+            if zip_path.exists():
+                st.download_button("Download complete campaign", data=zip_path.read_bytes(), file_name=zip_path.name, mime="application/zip", use_container_width=True)
+        with dl_csv:
+            if csv_path.exists():
+                st.download_button("Download review CSV", data=csv_path.read_bytes(), file_name=csv_path.name, mime="text/csv", use_container_width=True)
+        with open_review:
+            if st.button("Open campaign folder", use_container_width=True, key=f"promote_open_{slug}"):
+                open_folder(campaign_root)
+        st.info("Tailwind: open Pin Scheduler, choose Upload, select the six PNG files, keep them as drafts, then use the review CSV to copy the approved title, description, board and product link.")
+        if manifest.get("status") == "approved":
+            st.success(f"Campaign approved {manifest.get('reviewed_at', '')}. You can continue to Tracker.")
+        elif st.button("Mark campaign reviewed", type="primary", key=f"promote_approve_{slug}"):
+            manifest["status"] = "approved"
+            manifest["reviewed_at"] = datetime.now().isoformat(timespec="seconds")
+            manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
+            show_toast("success", "Campaign marked as reviewed.")
+            safe_rerun()
+
+
+def render_build_screen(slug: str, display_name: str):
+    icons = count_icons_for_book(slug)
+    built = detect_built_products(slug)
+    _qa_label, qa_passed = read_qa_status(slug)
+    listing_saved = read_listing_status(slug).startswith("Saved")
+    review = icon_review_summary(slug)
+    gates = workflow_gate_status(slug)
+    next_stage = next_production_stage(icons, qa_passed, built, listing_saved, review["complete"], gates["setup"], gates["content"], gates["boardready"], marketing_campaign_ready(slug))
+    requested_key = f"sf_requested_stage_{slug}"
+    stage_key = f"sf_build_stage_{slug}"
+    requested = st.session_state.pop(requested_key, None)
+    if requested is not None:
+        st.session_state[stage_key] = normalize_build_stage(requested)
+    elif stage_key not in st.session_state:
+        st.session_state[stage_key] = normalize_build_stage(st.session_state.get("build_tab"))
+
+    st.header(display_name)
+    stage_done = {
+        "setup": bool(gates["setup"]),
+        "content": bool(gates["content"]),
+        "icons": bool(review["complete"]),
+        "boardready": bool(gates["boardready"]),
+        "qa": bool(qa_passed),
+        "build": required_builds_complete(built),
+        "listing": bool(listing_saved),
+        "promote": marketing_campaign_ready(slug),
+    }
+    complete = sum(stage_done.values())
+    st.progress(complete / len(BUILD_STAGES), text=f"Production progress: {complete} of {len(BUILD_STAGES)} stages complete")
+    if st.session_state.get("sf_ui_prefs", {}).get("show_tips", True):
+        with st.expander("Quick start: the eight-step workflow", expanded=complete == 0):
+            st.markdown(
+                "1. **Setup:** define the pathway and anonymous access profile.  \n"
+                "2. **Content:** complete human accuracy, dignity, safety, and copyright review.  \n"
+                "3. **Icons:** approve the exact visuals.  \n"
+                "4. **BoardReady:** confirm twelve fringe words and the canonical AAC board.  \n"
+                "5. **Visual QA:** inspect the final icon set.  \n"
+                "6. **Activities:** generate and preview products.  \n"
+                "7. **Listing:** verify and save buyer-facing copy.  \n"
+                "8. **Promote:** prepare a reviewed Pinterest and Tailwind upload campaign."
+            )
+            st.caption("Complete the highlighted next requirement first. You can inspect later stages at any time, but locked actions remain unavailable until their prerequisites pass.")
+
+    def _stage_label(key: str) -> str:
+        label = dict(BUILD_STAGES)[key]
+        if stage_done.get(key):
+            return f"✓  {label}"
+        if key == next_stage:
+            return f"→  {label}"
+        return label
+
+    stage = st.selectbox(
+        "Jump to a production step",
+        options=[key for key, _label in BUILD_STAGES],
+        format_func=_stage_label,
+        key=stage_key,
+    )
+    stage = normalize_build_stage(stage)
+    if st.session_state.get("build_tab") != stage:
+        st.session_state.build_tab = stage
+        qp_update(active_book=slug, view="build", tab=stage)
+
+    stage_labels = dict(BUILD_STAGES)
+    guidance = production_stage_guidance(stage)
+    stage_number = [key for key, _label in BUILD_STAGES].index(stage) + 1
+    st.markdown(f"### Step {stage_number} of {len(BUILD_STAGES)}: {stage_labels[stage].split('  ', 1)[-1]}")
+    st.write(guidance["purpose"])
+    st.info(f"Do this now: {guidance['action']}\n\nYou are finished when: {guidance['done']}")
+    if st.session_state.get("sf_ui_prefs", {}).get("show_tips", True):
+        with st.expander("Helpful tip", expanded=False):
+            st.write(guidance["tip"])
+
+    if next_stage == "tracker":
+        cta_text = "All production stages are complete."
+        cta_label = "Open Tracker"
+    elif next_stage == stage:
+        cta_text = f"Current priority: {stage_labels[next_stage]} — complete the ‘Done when’ requirement above."
+        cta_label = None
+    else:
+        cta_text = f"Next required stage: {stage_labels[next_stage]}"
+        cta_label = f"Continue to {stage_labels[next_stage]}"
+    cta_col, action_col = st.columns([4, 2])
+    with cta_col:
+        st.markdown(f"**{cta_text}**")
+    with action_col:
+        if cta_label and st.button(cta_label, type="primary", use_container_width=True, key=f"sf_continue_{slug}"):
+            if next_stage == "tracker":
+                st.session_state.view = "tracker"
+                qp_update(view="tracker", tab=None)
+            else:
+                st.session_state[requested_key] = next_stage
+                st.session_state.build_tab = next_stage
+                qp_update(active_book=slug, view="build", tab=next_stage)
+            safe_rerun()
+
+    st.divider()
+    if book_vocab_review_required(slug) and stage not in {"setup", "content"}:
+        st.warning("This candidate is locked until its grounded vocabulary review is approved.")
+        if st.button("Go to required Content review", type="primary", key=f"locked_to_content_{slug}"):
+            open_build_screen(slug, "content")
+            safe_rerun()
+        return
+    if stage == "setup":
+        render_setup_stage(slug, display_name)
+    elif stage == "content":
+        render_content_review_stage(slug, display_name)
+    elif stage == "icons":
+        render_icons_tab(slug, display_name)
+    elif stage == "boardready":
+        render_boardready_stage(slug, display_name)
+    elif stage == "qa":
+        render_qa_tab(slug, display_name)
+    elif stage == "build":
+        render_build_tab(slug, display_name)
+    elif stage == "listing":
+        render_listing_tab(slug, display_name)
+    else:
+        render_promote_stage(slug, display_name)
 
 
 def render_top_bar(display_map: dict, active_slug: str | None) -> str | None:
     prefs = st.session_state.get("sf_ui_prefs", {})
-    readable_width = 800 if prefs.get("readable_width") else 960
+    readable_width = 800 if prefs.get("readable_width") else 1180
     large_text_px = "18px" if prefs.get("large_text") else "16px"
     hc = bool(prefs.get("high_contrast"))
     topbar_bg = "#1E3A5F"
-    brand_col = "#F5C518"
-    txt_col = "white"
     dim = "0.35" if st.session_state.get("sf_tools_open") else "1.0"
     css = f"""
         <style>
@@ -6180,30 +8432,25 @@ def render_top_bar(display_map: dict, active_slug: str | None) -> str | None:
             --aac-no: #F44336;
         }}
         .sf-shell {{background:#F3F3F3; padding:0;}}
-        .sf-topbar-wrap {{position:fixed; top:0; left:0; right:0; z-index:999; background:{topbar_bg}; border-bottom:1px solid #0f2947;}}
-        .sf-topbar-inner {{max-width:{readable_width}px; margin:0 auto; padding:6px 16px 8px 16px;}}
-        .sf-topbar-inner * {{color:{txt_col} !important;}}
-        .sf-brand {{font-weight:800; color:{brand_col}; font-size:18px; letter-spacing:0.2px; text-shadow: 0 1px 1px rgba(0,0,0,0.35); margin-top:2px;}}
-        .sf-logo {{margin-top:-6px; margin-bottom:-6px;}}
+        .sf-topbar-accent {{height:6px; background:{topbar_bg}; border-radius:6px 6px 0 0; margin-bottom:10px;}}
+        .sf-topbar-divider {{height:1px; background:#D8E0E5; margin:8px 0 14px;}}
+        .sf-brand {{font-weight:800; color:#0D2545; font-size:24px; letter-spacing:0.2px; margin-top:8px;}}
         .sf-logo img {{display:block;}}
-        .sf-topbar-inner [data-testid="stImage"] {{margin-top:-8px !important; margin-bottom:-8px !important;}}
-        .sf-topbar-inner [data-testid="stSelectbox"] label {{display:none;}}
-        .sf-topbar-inner [data-testid="stSelectbox"] > div {{background: rgba(255,255,255,0.10) !important; border: 1px solid rgba(255,255,255,0.25) !important;}}
-        .sf-topbar-inner [data-testid="stSelectbox"] svg {{color:white !important;}}
-        .sf-topbar-inner .stButton > button {{background: rgba(255,255,255,0.10) !important; border: 1px solid rgba(255,255,255,0.25) !important; white-space: nowrap !important; padding: 6px 12px !important; min-width: 76px !important; font-size: 12px !important;}}
-        .sf-topbar-inner .stButton > button:hover {{background: rgba(255,255,255,0.16) !important;}}
-        .sf-topbar-inner [data-testid="stToggle"] label, .sf-topbar-inner .stCheckbox label {{font-size:12px !important; line-height:1.1 !important; white-space: normal !important;}}
-        .sf-content {{max-width:{readable_width}px; margin:120px auto 16px auto; opacity:{dim}; transition: opacity 120ms ease;}}
+        .sf-content {{max-width:{readable_width}px; margin:8px auto 16px auto; opacity:{dim}; transition:opacity 120ms ease;}}
         html, body, [data-testid="stAppViewContainer"] * {{font-size:{large_text_px};}}
         .sf-tools-btn {{opacity:1;}}
+        @media (max-width: 900px) {{
+            .sf-brand {{font-size:20px;}}
+            .sf-content {{margin-top:4px; padding:0 8px;}}
+        }}
         </style>
     """
     st.markdown(css, unsafe_allow_html=True)
 
     chosen_slug_val = active_slug
     with st.container():
-        st.markdown('<div class="sf-topbar-wrap"><div class="sf-topbar-inner">', unsafe_allow_html=True)
-        cols = st.columns([2, 4, 4])
+        st.markdown('<div class="sf-topbar-accent"></div>', unsafe_allow_html=True)
+        cols = st.columns([1.5, 4.5, 4])
         with cols[0]:
             logo_path = project_root() / "assets" / "branding" / "logos" / "small_wins_logo_with_text.png"
             lc1, lc2 = st.columns([1, 2])
@@ -6233,28 +8480,30 @@ def render_top_bar(display_map: dict, active_slug: str | None) -> str | None:
                 chosen_slug_val = labels[chosen]
         with cols[2]:
             # Right rail: nav + AI + Tools (left) and compact vertical UI toggles (right)
-            ncol, tcol = st.columns([3, 1])
+            ncol = st.container()
             with ncol:
                 ai_on = (anthropic is not None) and bool(os.environ.get("ANTHROPIC_API_KEY", "").strip())
 
                 # Primary nav
                 nav1, nav2, nav3 = st.columns(3)
                 with nav1:
-                    if st.button("Today", key="sf_nav_today"):
+                    if st.button("Home", key="sf_nav_today", use_container_width=True):
                         st.session_state.view = "today"
                         qp_update(view="today")
                         safe_rerun()
                 with nav2:
-                    if st.button("Build", key="sf_nav_build"):
-                        st.session_state.view = "build"
-                        qp_update(view="build")
+                    if st.button("Continue", type="primary", key="sf_nav_build", use_container_width=True) and chosen_slug_val:
+                        target = next_required_stage_for_slug(chosen_slug_val)
+                        if target == "tracker":
+                            st.session_state.view = "tracker"
+                            qp_update(view="tracker")
+                        else:
+                            open_build_screen(chosen_slug_val, target)
                         safe_rerun()
                 with nav3:
-                    if st.button("Tracker", key="sf_nav_tracker"):
-                        st.session_state.view = "tracker"
-                        qp_update(view="tracker")
+                    if st.button("Icons", key="sf_nav_icons", use_container_width=True) and chosen_slug_val:
+                        open_build_screen(chosen_slug_val, "icons")
                         safe_rerun()
-
                 def render_ai_badge(api_key_present: bool) -> str:
                     if api_key_present:
                         return """<a href=\"?tools=1\" style=\"text-decoration:none;\"><span style="
@@ -6274,21 +8523,17 @@ def render_top_bar(display_map: dict, active_slug: str | None) -> str | None:
                 AI: Off
             </span></a>"""
 
-                st.markdown(render_ai_badge(ai_on), unsafe_allow_html=True)
-                if st.button("Tools", key="sf_open_tools"):
-                    st.session_state.sf_tools_open = True
-                    qp_update(tools="1")
-            with tcol:
-                _prefs = dict(st.session_state.get("sf_ui_prefs", {}))
-                _prefs["readable_width"] = st.toggle("Readable width", value=_prefs.get("readable_width", False), key="sf_tb_rw")
-                _prefs["large_text"] = st.toggle("Large text", value=_prefs.get("large_text", False), key="sf_tb_lt")
-                _prefs["high_contrast"] = st.toggle("High contrast", value=_prefs.get("high_contrast", False), key="sf_tb_hc")
-                st.session_state.sf_ui_prefs = _prefs
-                try:
-                    persist_session_prefs()
-                except Exception:
-                    pass
-            st.markdown('</div></div>', unsafe_allow_html=True)
+                tracker_col, settings_col = st.columns(2)
+                with tracker_col:
+                    if st.button("Tracker", key="sf_nav_tracker", use_container_width=True):
+                        st.session_state.view = "tracker"
+                        qp_update(view="tracker")
+                        safe_rerun()
+                with settings_col:
+                    if st.button("Settings", key="sf_open_tools", use_container_width=True):
+                        st.session_state.sf_tools_open = True
+                        qp_update(tools="1")
+            st.markdown('<div class="sf-topbar-divider"></div>', unsafe_allow_html=True)
     return chosen_slug_val
 
 
@@ -6418,9 +8663,9 @@ header[data-testid="stHeader"] * {
     background-color: #F3F3F3 !important;
 }
 .main .block-container {
-    padding-top: 1.5rem;
+    padding-top: 0.75rem;
     padding-bottom: 2rem;
-    max-width: 960px;
+    max-width: 1280px;
 }
 
 /* â”€â”€ CARDS â€” white surfaces on grey background â”€â”€ */
@@ -6434,23 +8679,40 @@ div[data-testid="stVerticalBlock"] > div[data-testid="stVerticalBlock"] {
 }
 
 /* â”€â”€ HEADINGS â”€â”€ */
-h1 { font-size: 22px !important; font-weight: 700 !important; color: #1A1A1A !important; }
-h2 { font-size: 16px !important; font-weight: 600 !important; color: #1A1A1A !important; }
-h3 { font-size: 14px !important; font-weight: 500 !important; color: #1A1A1A !important; }
+h1 { font-size: 30px !important; line-height: 1.2 !important; font-weight: 750 !important; color: #0D2545 !important; }
+h2 { font-size: 24px !important; line-height: 1.25 !important; font-weight: 700 !important; color: #0D2545 !important; }
+h3 { font-size: 19px !important; line-height: 1.3 !important; font-weight: 650 !important; color: #163A59 !important; }
 
 /* â”€â”€ PRIMARY BUTTONS â”€â”€ */
-.stButton > button[kind="primary"],
 .stButton > button {
-    background-color: #006379 !important;
-    color: white !important;
-    border: none !important;
+    background-color: #FFFFFF !important;
+    color: #0D2545 !important;
+    border: 1px solid #AFC4C7 !important;
     border-radius: 6px !important;
-    font-weight: 500 !important;
-    height: 36px !important;
-    transition: background 150ms ease !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    min-height: 42px !important;
+    padding: 0.5rem 0.85rem !important;
+    white-space: nowrap !important;
+    transition: background 150ms ease, border-color 150ms ease !important;
 }
 .stButton > button:hover {
+    background-color: #E8F5F4 !important;
+    border-color: #31A8A0 !important;
+}
+.stButton > button[kind="primary"] {
+    background-color: #006379 !important;
+    color: #FFFFFF !important;
+    border-color: #006379 !important;
+}
+.stButton > button[kind="primary"]:hover {
     background-color: #005268 !important;
+    border-color: #005268 !important;
+}
+.stButton > button:disabled {
+    background-color: #F2F4F5 !important;
+    color: #879398 !important;
+    border-color: #D9E0E2 !important;
 }
 
 /* â”€â”€ SELECTBOX (book selector) â”€â”€ */
@@ -6474,14 +8736,18 @@ div[data-testid="stMetric"] {
 .stTabs [data-baseweb="tab-list"] {
     background: white !important;
     border-bottom: 1px solid #E0E0E0 !important;
-    gap: 0 !important;
+    gap: 6px !important;
+    overflow-x: auto !important;
 }
 .stTabs [data-baseweb="tab"] {
-    height: 44px !important;
-    color: #595959 !important;
-    font-weight: 400 !important;
-    border-bottom: 2px solid transparent !important;
-    padding: 0 20px !important;
+    min-width: 128px !important;
+    height: 48px !important;
+    color: #425466 !important;
+    font-weight: 600 !important;
+    border-bottom: 3px solid transparent !important;
+    padding: 0 18px !important;
+    white-space: nowrap !important;
+    justify-content: center !important;
 }
 .stTabs [aria-selected="true"] {
     color: #006379 !important;
@@ -6613,7 +8879,7 @@ hr {
     if "view" not in st.session_state:
         st.session_state.view = qp_view if qp_view in {"today", "build", "tracker"} else "today"
     if "build_tab" not in st.session_state:
-        st.session_state.build_tab = qp_tab if qp_tab in {"icons", "qa", "build", "listing", "aac"} else "icons"
+        st.session_state.build_tab = qp_tab if qp_tab in BUILD_STAGE_KEYS else "setup"
     # Tools drawer auto-open via query param
     if qp_tools and str(qp_tools).lower() in {"1", "true", "yes"}:
         st.session_state.sf_tools_open = True
@@ -6645,24 +8911,36 @@ hr {
             render_build_screen(st.session_state.active_book, display_map.get(st.session_state.active_book, ""))
         else:
             # Today Screen
-            season = season_us(datetime.now())
-            # Phase 11 (stub): daily-cached heuristic recommendations; refresh button to force recalc
-            c1, c2 = st.columns([3, 1])
-            with c2:
-                if st.button("Refresh picks"):
-                    try:
-                        # Force recompute and cache update
-                        _ = get_today_recommendations(display_map, season, force=True)
-                    except Exception:
-                        pass
-                    safe_rerun()
-            recs = get_today_recommendations(display_map, season)
-            ai_on = (anthropic is not None) and bool(os.environ.get("ANTHROPIC_API_KEY", "").strip())
-            season_icon = {"Spring": "", "Summer": "", "Autumn": "", "Winter": ""}.get(season, "")
-            picks_label = f"{season} picks:" if season else "Picks:"
-            picks = " | ".join(recs)
-            st.markdown(
-                f"""
+            active = st.session_state.active_book
+            render_start_here(active, display_map.get(active, decode_slug(active)))
+            render_recent_books_chips(active, display_map)
+            with st.expander("Detailed project status", expanded=False):
+                render_status_card(active, display_map.get(active, decode_slug(active)))
+            planning_default = bool(st.session_state.get("sf_ui_prefs", {}).get("home_planning", False))
+            planning_visible = st.toggle("Show future planning and new-project tools", value=planning_default, key="sf_home_planning")
+            if planning_visible != planning_default:
+                st.session_state.sf_ui_prefs["home_planning"] = planning_visible
+                persist_session_prefs()
+            if planning_visible:
+                render_new_topic_panel()
+                season = season_us(datetime.now())
+                # Phase 11 (stub): daily-cached heuristic recommendations; refresh button to force recalc
+                c1, c2 = st.columns([3, 1])
+                with c2:
+                    if st.button("Refresh picks"):
+                        try:
+                            # Force recompute and cache update
+                            _ = get_today_recommendations(display_map, season, force=True)
+                        except Exception:
+                            pass
+                        safe_rerun()
+                recs = get_today_recommendations(display_map, season)
+                ai_on = (anthropic is not None) and bool(os.environ.get("ANTHROPIC_API_KEY", "").strip())
+                season_icon = {"Spring": "", "Summer": "", "Autumn": "", "Winter": ""}.get(season, "")
+                picks_label = f"{season} picks:" if season else "Picks:"
+                picks = " | ".join(recs)
+                st.markdown(
+                    f"""
 <div style="
     background: #FFF8E0;
     border: 1px solid #F5C518;
@@ -6676,17 +8954,14 @@ hr {
     {picks}
 </div>
 """,
-                unsafe_allow_html=True,
-            )
-            if not ai_on:
-                try:
-                    st.caption("AI off: showing seasonal picks. Add ANTHROPIC_API_KEY in Settings to enable intelligent recommendations.")
-                except Exception:
-                    pass
-            render_priorities_panel(display_map)
-            active = st.session_state.active_book
-            render_status_card(active, display_map.get(active, decode_slug(active)))
-            render_recent_books_chips(active, display_map)
+                    unsafe_allow_html=True,
+                )
+                if not ai_on:
+                    try:
+                        st.caption("AI off: showing seasonal picks. Add ANTHROPIC_API_KEY in Settings to enable intelligent recommendations.")
+                    except Exception:
+                        pass
+                render_priorities_panel(display_map)
     st.markdown('</div>', unsafe_allow_html=True)
 
     # Phase 1/7 â€” Tools drawer overlay (best-effort without pushing content)
@@ -6749,7 +9024,7 @@ hr {
             if st.button("Save titles"):
                 compact = {s: v for s, v in edited.items() if v and v != decode_slug(s)}
                 write_theme_titles(root_local, compact)
-                st.experimental_rerun() if hasattr(st, "experimental_rerun") else None
+                safe_rerun()
 
         with st.expander("Themes root folder", expanded=False):
             current_root = os.environ.get("SF_THEMES_ROOT", str(project_root() / "assets" / "themes"))
@@ -7085,7 +9360,7 @@ April 2026""")
                 show_toast("success", msg)
                 safe_rerun()
 
-        with st.expander("Advanced normalisation", expanded=False):
+        with st.expander("Library filters", expanded=False):
             fb1, fb2, fb3 = st.columns([1, 1, 1])
             with fb1:
                 hide_blanks_lib = st.checkbox("Hide suspected blanks", value=True, key="symlib_hide_blanks")
@@ -7143,7 +9418,7 @@ April 2026""")
         with pc3:
             st.caption(f"Page {cur_page}/{max_page} - {total} symbols")
 
-        with st.expander("Advanced normalisation", expanded=False):
+        with st.expander("Normalize visible symbols", expanded=False):
             if st.button("Normalize this page", key="symlib_norm_page"):
                 done = 0
                 for p in page_files:
@@ -8067,16 +10342,15 @@ April 2026""")
                 pass
             last = st.session_state.get("sf_last_tool", "settings")
             tool = st.radio(
-                "",
-                options=["symbol_library", "import_icons", "pdf_extractor", "pipeline", "settings"],
+                "Choose a tool",
+                options=["symbol_library", "import_icons", "pipeline", "settings"],
                 format_func=lambda k: {
                     "symbol_library": "Symbol Library",
                     "import_icons": "Import Icons",
-                    "pdf_extractor": "PDF Extractor",
                     "pipeline": "Pipeline",
                     "settings": "Settings",
                 }[k],
-                index=["symbol_library", "import_icons", "pdf_extractor", "pipeline", "settings"].index(last) if last in {"symbol_library","import_icons","pdf_extractor","pipeline","settings"} else 4,
+                index=["symbol_library", "import_icons", "pipeline", "settings"].index(last) if last in {"symbol_library","import_icons","pipeline","settings"} else 3,
             )
             st.session_state.sf_last_tool = tool
             try:
@@ -8091,8 +10365,6 @@ April 2026""")
                 render_tool_symbol_library()
             elif tool == "import_icons":
                 render_tool_import_icons()
-            elif tool == "pdf_extractor":
-                render_tool_pdf_extractor()
             elif tool == "pipeline":
                 render_tool_pipeline()
 

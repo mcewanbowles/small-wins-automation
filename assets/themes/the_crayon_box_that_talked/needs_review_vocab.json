@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "title": "The Crayon Box That Talked",
+  "author": "Shane DeRolf",
+  "status": "demand_candidate",
+  "vocab_status": "pending_human_review",
+  "production_blocked": true,
+  "demand_candidate": {
+    "campaign": "september_back_to_school_2026",
+    "rank": 14,
+    "evidence_level": "public_tpt_and_seasonal_proxy",
+    "rationale": "Concrete colours and classroom objects combine with belonging and cooperation themes, producing strong matching, sorting, AAC, and September community activities.",
+    "tpt_keyword_finder_verified": false,
+    "rights_review": "required"
+  },
+  "hero": {
+    "name": "The Crayon Box (talking crayons)",
+    "description": "A box of anthropomorphic, pointy-headed crayons with faces who bicker at the start and reconcile by the end; illustrated by Michael Letzig in bright rainbow hues",
+    "search_term": "talking crayon box characters",
+    "needs_sourcing": true,
+    "source_note": "Standard Boardmaker crayon icons are plain drawing tools without faces/personality; this book's hero is a box of crayons with faces and expressions, so a custom or TPT/Creative Fabrica image is needed to match the cover"
+  },
+  "fringe_12": [
+    "The Crayon Box (talking crayons)",
+    "red",
+    "orange",
+    "yellow",
+    "green",
+    "blue",
+    "purple",
+    "girl",
+    "toy store",
+    "draw",
+    "picture",
+    "together"
+  ],
+  "fringe_11": [
+    "red",
+    "orange",
+    "yellow",
+    "green",
+    "blue",
+    "purple",
+    "girl",
+    "toy store",
+    "draw",
+    "picture",
+    "together"
+  ],
+  "activity_images": [
+    "red",
+    "orange",
+    "yellow",
+    "green",
+    "blue",
+    "purple"
+  ],
+  "aac_extras": [
+    "girl",
+    "toy store",
+    "draw",
+    "picture",
+    "together"
+  ],
+  "ambiguous": [
+    {
+      "word": "orange",
+      "issue": "Orange could be pictured as the fruit or as the color/crayon in a standard symbol library",
+      "preferred": "orange crayon",
+      "reason": "In this book Orange refers to the disliked crayon character, not the fruit"
+    },
+    {
+      "word": "draw",
+      "issue": "Draw could be confused with 'draw' meaning to pull or a tie/draw in a game",
+      "preferred": "draw picture / crayon drawing",
+      "reason": "In this book draw refers to the girl using crayons to create a picture"
+    },
+    {
+      "word": "picture",
+      "issue": "Picture could be interpreted as a photograph rather than a hand-drawn crayon scene",
+      "preferred": "crayon drawing / picture drawn with crayons",
+      "reason": "The book's 'picture' is the crayon drawing the girl creates using all the colors"
+    }
+  ],
+  "character_images_needed": [
+    "The Crayon Box (anthropomorphic crayon characters with faces)"
+  ],
+  "icon_search_terms": {
+    "red": "red crayon character",
+    "orange": "orange crayon character",
+    "yellow": "yellow crayon character",
+    "green": "green crayon character",
+    "blue": "blue crayon character",
+    "purple": "purple crayon character angry",
+    "girl": "girl toy store",
+    "toy store": "toy store shelf",
+    "draw": "draw with crayons",
+    "picture": "crayon drawing picture",
+    "together": "together group hug"
+  },
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-09-05",
+  "notes": "Demand candidate only. Complete Keyword Finder, rights, vocabulary, and icon review before production.",
+  "pub_year": "1997",
+  "book_summary": "A girl in a toy store overhears a box of crayons arguing — Yellow and Green dislike Red, and no one likes Orange. She buys the box, takes it home, and uses every crayon to draw a picture, and as the crayons watch her combine all the colors together they realize each of them was needed to make the picture complete.",
+  "fringe_justifications": {
+    "red": "Red is the crayon disliked by Yellow and Green at the start of the story: <cite index=\"2-1\">Yellow hates Red, so does Green, and no one likes Orange!</cite>",
+    "orange": "Orange is singled out as the crayon disliked by everyone in the box: <cite index=\"2-1\">Yellow hates Red, so does Green, and no one likes Orange!</cite>",
+    "yellow": "Yellow is named as the crayon who starts the conflict by hating Red: <cite index=\"2-1\">Yellow hates Red, so does Green, and no one likes Orange!</cite>",
+    "green": "Green joins Yellow in disliking Red at the outset of the story: <cite index=\"2-1\">Yellow hates Red, so does Green, and no one likes Orange!</cite>",
+    "blue": "Blue is one of the crayons the girl uses as she colors her picture: <cite index=\"17-2,17-3\">They watched me as I coloured · with Red and Blue and Green. And Black and White and Orange, and every colour in between.</cite>",
+    "purple": "The purple crayon is shown with a distinct angry expression, covering his ears and frowning, used to discuss feelings during the story.",
+    "girl": "A girl overhears the crayons arguing in the toy store and is the one who buys the box and resolves the conflict: <cite index=\"4-5\">In The Crayon Box that Talked, a girl goes in a toy store and is drawn to a crayon box that doesn't get along.</cite>",
+    "toy store": "The story opens with the crayons bickering while sitting on a shelf in a toy store, before the girl overhears and buys them: <cite index=\"12-1\">The various colors lodged on the toy-store shelf express their dislike for one another and lament that \"Something here is wrong!\"</cite>",
+    "draw": "The girl lays out the crayons and draws a full scene using every color, which is the turning point of the story: <cite index=\"3-6\">She lays out her new drawing tools and creates a scene using all the colors, until the crayons realize, \"when we get together.../ The picture is complete.\"</cite>",
+    "picture": "The finished picture, made from all the colors together, is what convinces the crayons to get along: <cite index=\"13-15\">But when we get together…The picture is complete.</cite>",
+    "together": "The crayons' realization that being together makes the picture whole is the book's central message: <cite index=\"13-14,13-15\">We are a box of crayons, each one of us unique. But when we get together…The picture is complete.</cite>"
+  },
+  "grounded": true,
+  "grounding_note": "Confirmed via multiple sources (Publishers Weekly, Penguin Random House, Prindle Institute, Goodreads reviews, and a full poem-text PDF) that this is the 1997 Shane DeRolf/Michael Letzig picture book about a box of anthropomorphic crayons (Yellow, Green, Red, Orange, Blue, Black, White, etc.) who argue in a toy store until a girl buys them and draws a picture using all the colors together, teaching a lesson about diversity and unity. Exact page-by-page sequence of every crayon's dialogue was not fully retrieved, but the core plot, characters, and ending message are consistently corroborated across sources.",
+  "searches_used": 2,
+  "guardrail_warnings": []
+}

@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "product_name": "AAC Communication Board",
+  "theme_name": "Llama Llama Red Pajama",
+  "product_code": "LLRP-AAC-REVIEW",
+  "version": "2026-09-05",
+  "source_build_result": "assets/themes/llama_llama_red_pajama/OUTPUT/LLRP-AAC-REVIEW_AAC_Board_BuildResult.json",
+  "page_counts": {
+    "color": 2,
+    "bw": 2,
+    "high_vis": 2
+  },
+  "formats": [
+    "Color",
+    "B&W",
+    "High visibility"
+  ],
+  "levels": [],
+  "included": [
+    "One product cover and one 6 × 6 board",
+    "Twenty-four fixed core-word positions",
+    "Twelve locked book-specific fringe positions",
+    "True grayscale and two high-visibility options"
+  ],
+  "best_for": [
+    "Shared reading",
+    "AAC modelling",
+    "Classroom discussion",
+    "Home–school communication"
+  ],
+  "access": [
+    "Consistent core positions support motor planning",
+    "Pointing, eye gaze, touch or partner scanning",
+    "Use alongside the learner’s robust AAC system"
+  ],
+  "preparation": {
+    "label": "Print or display the board",
+    "materials": "Paper or card stock; optional laminate or digital display",
+    "time": "Under 5 minutes"
+  },
+  "teaching_steps": [
+    {
+      "title": "Model",
+      "detail": "Point to core and fringe words while speaking naturally."
+    },
+    {
+      "title": "Pause",
+      "detail": "Allow processing time without requiring imitation."
+    },
+    {
+      "title": "Respond",
+      "detail": "Honor every intentional communication mode."
+    }
+  ],
+  "scarborough": {
+    "strands": [
+      "Vocabulary",
+      "Language Structures"
+    ],
+    "tier": "upper",
+    "statement": "Provides access for modelling words and combining language during shared reading."
+  },
+  "preview_image": "assets/themes/llama_llama_red_pajama/OUTPUT/LLRP-AAC-REVIEW_AAC_Board_preview.png",
+  "hero_image": "assets/themes/llama_llama_red_pajama/hero.png",
+  "pcs_used": true,
+  "book_companion": true,
+  "book_not_included": true
+}

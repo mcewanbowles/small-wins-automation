@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "title": "There Was an Old Lady Who Swallowed Some Books!",
+  "author": "Lucille Colandro",
+  "status": "demand_candidate",
+  "vocab_status": "pending_human_review",
+  "production_blocked": true,
+  "demand_candidate": {
+    "campaign": "september_back_to_school_2026",
+    "rank": 9,
+    "evidence_level": "public_tpt_and_seasonal_proxy",
+    "rationale": "Cumulative school-themed structure is highly suitable for AAC prediction, sequencing, repeated participation, and concrete icon vocabulary.",
+    "tpt_keyword_finder_verified": false,
+    "rights_review": "required"
+  },
+  "hero": {
+    "name": "The Old Lady",
+    "description": "Recurring cheerful, bug-eyed, big-mouthed cartoon old lady from the Colandro/Jared Lee series who swallows increasingly strange objects; in this book she is shown swallowing school supplies before popping out a backpack.",
+    "search_term": "old lady swallowed",
+    "needs_sourcing": true,
+    "source_note": "Generic 'old woman' Boardmaker icons won't match this specific series' distinctive cartoon illustration style (bug-eyed, big-mouthed, cheerful) that children recognise from the book cover — recommend sourcing a clip-art image matching the Jared Lee illustration style or a close cartoon-old-lady equivalent from TPT/Creative Fabrica."
+  },
+  "fringe_12": [
+    "The Old Lady",
+    "books",
+    "pen",
+    "pencil case",
+    "ruler",
+    "folder",
+    "chalk",
+    "bag",
+    "backpack",
+    "bus",
+    "school",
+    "swallow"
+  ],
+  "fringe_11": [
+    "books",
+    "pen",
+    "pencil case",
+    "ruler",
+    "folder",
+    "chalk",
+    "bag",
+    "backpack",
+    "bus",
+    "school",
+    "swallow"
+  ],
+  "activity_images": [
+    "books",
+    "pen",
+    "pencil case",
+    "ruler",
+    "folder",
+    "chalk"
+  ],
+  "aac_extras": [
+    "bag",
+    "backpack",
+    "bus",
+    "school",
+    "swallow"
+  ],
+  "ambiguous": [
+    {
+      "word": "swallow",
+      "issue": "Could mean the bird (swallow) or the act of swallowing/eating something",
+      "preferred": "swallow action (gulping/eating gesture)",
+      "reason": "This book, like the whole series, centers on the old lady swallowing objects — the action meaning, not the bird, is correct here"
+    },
+    {
+      "word": "bag",
+      "issue": "Could be read as a generic shopping/grocery bag or specifically a school supply bag/pouch",
+      "preferred": "school bag/pouch",
+      "reason": "In context it's the last small school-supply item she swallows before the backpack pops out, so a school-supply-style bag image is most accurate"
+    },
+    {
+      "word": "chalk",
+      "issue": "Could be interpreted as sidewalk/playground chalk or classroom blackboard chalk",
+      "preferred": "classroom chalk (blackboard stick)",
+      "reason": "The book's supply list is explicitly school/classroom themed, so blackboard chalk is the correct image, not sidewalk chalk"
+    }
+  ],
+  "character_images_needed": [
+    "The Old Lady (Colandro/Jared Lee illustration style)"
+  ],
+  "icon_search_terms": {
+    "books": "stack of books",
+    "pen": "pen school supply",
+    "pencil case": "pencil case school",
+    "ruler": "ruler school supply",
+    "folder": "file folder school",
+    "chalk": "chalk stick classroom",
+    "bag": "school bag pouch",
+    "backpack": "backpack school",
+    "bus": "school bus",
+    "school": "school building",
+    "swallow": "swallow eat gulp"
+  },
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-09-05",
+  "notes": "Demand candidate only. Complete Keyword Finder, rights, vocabulary, and icon review before production.",
+  "pub_year": "2012",
+  "book_summary": "In this back-to-school entry in Colandro's cumulative 'Old Lady' rhyme series, the old lady swallows a stack of books, then a pen, a pencil case, a ruler, a folder, some chalk, and a bag, one after another in classic 'I don't know why' fashion. The twist ending reveals she's been swallowing school supplies on purpose: when the yellow school bus arrives, she cheers and out pops a brand-new backpack, ready for the first day of school.",
+  "fringe_justifications": {
+    "books": "The title item — the old lady's very first swallow of the story, a stack of books, kicking off the cumulative rhyme.",
+    "pen": "One of the school supplies she swallows in sequence, part of the list confirmed as pen, pencil case, ruler, folder, chalk, and a bag.",
+    "pencil case": "The second item swallowed after books, part of the escalating list of school supplies in the story.",
+    "ruler": "A specific swallowed item in the sequence, listed among the school items she gobbles up on each page turn.",
+    "folder": "A specific swallowed item in the sequence, appearing between the ruler and the chalk in her list of gulps.",
+    "chalk": "A specific swallowed item in the sequence, tying to the classroom/school supply theme just before the bag.",
+    "bag": "The final small item she swallows before the story's twist reveal, right before the bus arrives and backpack pops out.",
+    "backpack": "The surprise pay-off of the whole story — when the bus appears she cheers and a brand-new backpack pops out, resolving why she swallowed everything.",
+    "bus": "The big yellow school bus arriving is the story's climax and the moment that explains the old lady's plan all along.",
+    "school": "The entire book is framed around the first day of school, with the old lady swallowing supplies to be ready for it.",
+    "swallow": "The core repeated action of the entire 'Old Lady' series — she swallows something new on every single page, driving the cumulative structure."
+  },
+  "grounded": true,
+  "grounding_note": "Confirmed via multiple retailer/library sources (Scholastic Book Clubs, Barnes & Noble, Goodreads, Internet Archive) that this 2012 Colandro/Jared Lee title has the old lady swallowing books, a pen, a pencil case, a ruler, a folder, chalk, and a bag, then popping out a backpack when the school bus arrives — a back-to-school twist on the classic 'Swallowed a Fly' rhyme. Reviews independently corroborate the same item sequence and ending, so plot details are well-corroborated across sources.",
+  "searches_used": 2,
+  "guardrail_warnings": []
+}

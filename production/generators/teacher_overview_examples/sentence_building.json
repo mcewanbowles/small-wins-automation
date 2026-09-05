@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "product_name": "AAC Sentence Building",
+  "theme_name": "Llama Llama Red Pajama",
+  "product_code": "LLRP-SENT-LAUNCH",
+  "version": "2026-09-05",
+  "source_build_result": "assets/themes/llama_llama_red_pajama/OUTPUT/LLRP-SENT-LAUNCH_AAC_SentenceStrips_BuildResult.json",
+  "page_counts": {
+    "color": 7,
+    "bw": 7
+  },
+  "formats": [
+    "Color",
+    "B&W"
+  ],
+  "levels": [],
+  "included": [
+    "Four reviewed sentence patterns",
+    "Sixteen ready-to-cut sentence strips",
+    "Five core pieces and eight theme-word pieces",
+    "Cut-out and storage-label pages"
+  ],
+  "best_for": [
+    "AAC modelling",
+    "Expressive-language practice",
+    "Shared-reading follow-up",
+    "Structured sentence building"
+  ],
+  "access": [
+    "Consistent core-word symbols",
+    "Pointing, eye gaze, speech, sign or AAC",
+    "Four larger strips per page support legibility"
+  ],
+  "preparation": {
+    "label": "Print, cut and choose one pattern",
+    "materials": "Card stock; optional laminate and hook-and-loop",
+    "time": "10–15 minutes"
+  },
+  "teaching_steps": [
+    {
+      "title": "Model",
+      "detail": "Model the complete sentence without requiring imitation."
+    },
+    {
+      "title": "Choose",
+      "detail": "Offer reviewed theme words that fit the pattern."
+    },
+    {
+      "title": "Respond",
+      "detail": "Honor every intentional communication mode."
+    }
+  ],
+  "scarborough": {
+    "strands": [
+      "Language Structures",
+      "Vocabulary"
+    ],
+    "tier": "upper",
+    "statement": "Supports combining known words into meaningful sentence structures."
+  },
+  "preview_image": "assets/themes/llama_llama_red_pajama/OUTPUT/LLRP-SENT-LAUNCH_AAC_SentenceStrips_COLOR.pdf",
+  "hero_image": "assets/themes/llama_llama_red_pajama/hero.png",
+  "pcs_used": true,
+  "book_companion": true,
+  "book_not_included": true
+}

@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "product_name": "Syllable Awareness",
+  "theme_name": "Llama Llama Red Pajama",
+  "product_code": "LLRP-SYL-LAUNCH",
+  "version": "2026-09-05",
+  "source_build_result": "assets/themes/llama_llama_red_pajama/OUTPUT/LLRP-SYL-LAUNCH_Syllable_Cards_BuildResult.json",
+  "page_counts": {
+    "color": 3,
+    "bw": 3
+  },
+  "formats": [
+    "Color",
+    "B&W"
+  ],
+  "levels": [],
+  "included": [
+    "Eight reviewed picture-word cards",
+    "One verified syllable count per word",
+    "Visible syllable segmentation",
+    "Two practice pages"
+  ],
+  "best_for": [
+    "Phonological-awareness practice",
+    "Small-group instruction",
+    "Speech-language sessions",
+    "Multimodal movement activities"
+  ],
+  "access": [
+    "Clap, tap, point or move an object",
+    "Large symbols and high-contrast count chips",
+    "Adult modelling supports emerging learners"
+  ],
+  "preparation": {
+    "label": "Print and select a response movement",
+    "materials": "Paper or card stock; optional counters",
+    "time": "Under 5 minutes"
+  },
+  "teaching_steps": [
+    {
+      "title": "Say",
+      "detail": "Say the whole word naturally."
+    },
+    {
+      "title": "Segment",
+      "detail": "Clap or tap once for each syllable."
+    },
+    {
+      "title": "Blend",
+      "detail": "Say the complete word again."
+    }
+  ],
+  "scarborough": {
+    "strands": [
+      "Phonological Awareness"
+    ],
+    "tier": "lower",
+    "statement": "Builds awareness of syllables in spoken words; it does not claim decoding instruction."
+  },
+  "preview_image": "assets/themes/llama_llama_red_pajama/OUTPUT/LLRP-SYL-LAUNCH_Syllable_Cards_COLOR.pdf",
+  "hero_image": "assets/themes/llama_llama_red_pajama/hero.png",
+  "pcs_used": true,
+  "book_companion": true,
+  "book_not_included": true
+}

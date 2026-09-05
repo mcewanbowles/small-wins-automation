@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "title": "Lola Goes to School",
+  "author": "Anna McQuinn",
+  "status": "demand_candidate",
+  "vocab_status": "pending_human_review",
+  "production_blocked": true,
+  "demand_candidate": {
+    "campaign": "september_back_to_school_2026",
+    "rank": 7,
+    "evidence_level": "public_tpt_and_seasonal_proxy",
+    "rationale": "Simple preschool first-day narrative, diverse representation, concrete routines, and confirmed inclusion in existing SPED back-to-school companion offers.",
+    "tpt_keyword_finder_verified": false,
+    "rights_review": "required"
+  },
+  "hero": {
+    "name": "Lola",
+    "description": "Young Black girl with braided/pigtail hair, the recurring star of Anna McQuinn's Lola Reads series, shown here starting school and carrying her stuffed cat Dinah",
+    "search_term": "lola goes to school character",
+    "needs_sourcing": true,
+    "source_note": "Lola is a distinctive, recognizable named character illustrated by Rosalind Beardshaw across the whole Lola Reads series; generic Boardmaker girl icons won't match her look or be recognizable from the cover."
+  },
+  "fringe_12": [
+    "Lola",
+    "backpack",
+    "pencils",
+    "water bottle",
+    "dress",
+    "cubby",
+    "kitty",
+    "teacher",
+    "friend",
+    "castle",
+    "snack",
+    "song"
+  ],
+  "fringe_11": [
+    "backpack",
+    "pencils",
+    "water bottle",
+    "dress",
+    "cubby",
+    "kitty",
+    "teacher",
+    "friend",
+    "castle",
+    "snack",
+    "song"
+  ],
+  "activity_images": [
+    "backpack",
+    "pencils",
+    "water bottle",
+    "dress",
+    "cubby",
+    "kitty"
+  ],
+  "aac_extras": [
+    "teacher",
+    "friend",
+    "castle",
+    "snack",
+    "song"
+  ],
+  "ambiguous": [
+    {
+      "word": "kitty",
+      "issue": "Could be interpreted as a real cat/animal versus a stuffed toy",
+      "preferred": "stuffed kitty toy",
+      "reason": "In this book, 'kitty' refers specifically to Lola's stuffed toy cat named Dinah that she packs in her bag, not a live animal"
+    },
+    {
+      "word": "dress",
+      "issue": "Could refer to the noun (a dress/clothing item) or the verb 'to dress' (getting dressed/dress-up play)",
+      "preferred": "party dress (clothing)",
+      "reason": "The book specifically references Lola wanting to wear her party dress to school; the clothing-item meaning matches this scene, though dress-up play with Julia is a secondary related scene"
+    },
+    {
+      "word": "castle",
+      "issue": "Could be depicted as a fairy-tale/royal castle or as a block/toy castle built during play",
+      "preferred": "block castle (toy/play structure)",
+      "reason": "In the book, castle-building is a group play activity at school, so the icon should show a toy/block castle, not a royal building"
+    }
+  ],
+  "character_images_needed": [
+    "Lola"
+  ],
+  "icon_search_terms": {
+    "backpack": "backpack",
+    "pencils": "pencils",
+    "water bottle": "water bottle",
+    "dress": "dress",
+    "cubby": "cubby shelf",
+    "kitty": "stuffed toy cat",
+    "teacher": "teacher woman",
+    "friend": "friend girl",
+    "castle": "toy castle blocks",
+    "snack": "snack",
+    "song": "singing song"
+  },
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-09-05",
+  "notes": "Demand candidate only. Complete Keyword Finder, rights, vocabulary, and icon review before production.",
+  "pub_year": "2019",
+  "book_summary": "Lola, a spirited young Black girl from the Lola Reads series, prepares for and experiences her first day of school. The night before she lays out her outfit and packs her backpack with pencils from Nana and a water bottle from Ty, and the next day she meets her teacher Miss Suzan, plays and reads with her friend Julia, builds a castle, has snack, sings during circle time, and is reunited with Mommy at pickup.",
+  "fringe_justifications": {
+    "backpack": "The night before school, Lola lays out her outfit and packs her bag with pencils and her water bottle; the backpack is central to her getting-ready routine.",
+    "pencils": "Nana gave Lola \"fun pencils\" for school, one of the specific gifts she packs and a recurring concrete object tied to the school-prep scene.",
+    "water bottle": "Ty gave Lola a water bottle for school, another named gift packed into her bag the night before her first day.",
+    "dress": "Lola wants to wear her party dress to school but Mommy says maybe not, leading her to choose her jumping pants and sunny top instead — a specific plot beat about her outfit choice.",
+    "cubby": "In the classroom, Miss Suzan shows Lola where to put her things in her cubby, marking her arrival and orientation to the new space.",
+    "kitty": "In the morning Lola tucks her stuffed kitty, Dinah, into her bag before posing for a photo — a specific comfort object referenced by name in the story.",
+    "teacher": "Miss Suzan is the teacher who greets Lola in the classroom and shows her around, a specific named adult character central to the school setting.",
+    "friend": "Lola spends time reading and playing dress-up with her friend Julia at school, a specific named peer character central to the classroom scenes.",
+    "castle": "During playtime at school, Lola takes part in a group activity building a castle, a specific concrete scene from her school day.",
+    "snack": "After playing, Lola has snack time at school, and later shares a snack with Mommy at home after being picked up — a recurring concrete scene.",
+    "song": "During circle time, Lola already knows the song and all the motions, a specific and central classroom activity in the story."
+  },
+  "grounded": true,
+  "grounding_note": "Confirmed via multiple search results (Goodreads, Bookshop.org, Penguin Random House, Publishers Weekly, Charlesbridge, Barnes & Noble) describing the same specific plot: Lola's first day of school, packing her backpack with pencils from Nana and a water bottle from Ty, her stuffed cat Dinah, teacher Miss Suzan, friend Julia, cubby, castle-building, snack, and circle-time song, ending with Mommy's pickup.",
+  "searches_used": 2,
+  "guardrail_warnings": []
+}

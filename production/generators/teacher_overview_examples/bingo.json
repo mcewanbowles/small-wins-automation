@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "product_name": "Differentiated Bingo",
+  "theme_name": "Llama Llama Red Pajama",
+  "product_code": "LLRP-BINGO-LAUNCH",
+  "version": "2026-09-05",
+  "source_build_result": "assets/themes/llama_llama_red_pajama/OUTPUT/LLRP-BINGO-LAUNCH_Bingo_BuildResult.json",
+  "page_counts": {
+    "color": 18,
+    "bw": 18
+  },
+  "formats": [
+    "Color",
+    "B&W"
+  ],
+  "levels": [
+    "Icons and labels",
+    "Icons",
+    "Larger grid",
+    "Printed words"
+  ],
+  "included": [
+    "Four differentiated Bingo levels",
+    "Four player boards per level",
+    "Eight unique reviewed concepts",
+    "One shared calling-card page"
+  ],
+  "best_for": [
+    "Vocabulary review",
+    "Small-group games",
+    "Visual and word recognition",
+    "Turn-taking practice"
+  ],
+  "access": [
+    "Entry level includes icons and labels",
+    "No repeated icons within a board",
+    "Progression from pictures to printed words"
+  ],
+  "preparation": {
+    "label": "Print one level and cut the calling cards",
+    "materials": "Paper or card stock; optional laminate and counters",
+    "time": "5–10 minutes"
+  },
+  "teaching_steps": [
+    {
+      "title": "Choose",
+      "detail": "Select one level for the group."
+    },
+    {
+      "title": "Call",
+      "detail": "Draw and name one reviewed concept."
+    },
+    {
+      "title": "Match",
+      "detail": "Cover the matching icon or printed word."
+    }
+  ],
+  "scarborough": {
+    "strands": [
+      "Vocabulary",
+      "Sight Recognition"
+    ],
+    "tier": "both",
+    "statement": "Reinforces rapid recognition of reviewed concepts through a turn-taking game."
+  },
+  "preview_image": "assets/themes/llama_llama_red_pajama/OUTPUT/LLRP-BINGO-LAUNCH_Bingo_COLOR.pdf",
+  "hero_image": "assets/themes/llama_llama_red_pajama/hero.png",
+  "pcs_used": true,
+  "book_companion": true,
+  "book_not_included": true
+}

@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "product_name": "Interactive Book Participation Pieces",
+  "theme_name": "Llama Llama Red Pajama",
+  "product_code": "LLRP-BPP-LAUNCH",
+  "version": "2026-09-05",
+  "source_build_result": "assets/themes/llama_llama_red_pajama/OUTPUT/LLRP-BPP-LAUNCH_BookParticipation_BuildResult.json",
+  "page_counts": {
+    "color": 9,
+    "bw": 9
+  },
+  "formats": [
+    "Color",
+    "B&W"
+  ],
+  "levels": [],
+  "included": [
+    "Eight approved book-vocabulary pieces",
+    "Four flexible question strips",
+    "Seven core reading-participation pieces",
+    "Hero-match pathway, teacher guide and storage mat"
+  ],
+  "best_for": [
+    "Interactive shared reading",
+    "AAC-supported participation",
+    "Physical trade-book adaptation",
+    "Special education classrooms"
+  ],
+  "access": [
+    "Edition-neutral placement",
+    "Pointing, placing, eye gaze, speech, sign or AAC",
+    "No rewritten or reproduced book pages"
+  ],
+  "preparation": {
+    "label": "Print, cut and attach beside relevant pages",
+    "materials": "Purchased trade book, card stock, laminate and removable fasteners",
+    "time": "15–25 minutes"
+  },
+  "teaching_steps": [
+    {
+      "title": "Prepare",
+      "detail": "Choose relevant pages and attach flexible prompts without covering book content."
+    },
+    {
+      "title": "Read",
+      "detail": "Pause and offer a vocabulary, question or participation piece."
+    },
+    {
+      "title": "Respond",
+      "detail": "Honor pointing, placing, speech, sign, gesture or AAC."
+    }
+  ],
+  "scarborough": {
+    "strands": [
+      "Vocabulary",
+      "Language Structures",
+      "Verbal Reasoning",
+      "Literacy Knowledge"
+    ],
+    "tier": "upper",
+    "statement": "Supports active shared reading without replacing the source book."
+  },
+  "preview_image": "assets/themes/llama_llama_red_pajama/OUTPUT/LLRP-BPP-LAUNCH_BookParticipation_COLOR.pdf",
+  "hero_image": "assets/themes/llama_llama_red_pajama/hero.png",
+  "pcs_used": true,
+  "book_companion": true,
+  "book_not_included": true
+}

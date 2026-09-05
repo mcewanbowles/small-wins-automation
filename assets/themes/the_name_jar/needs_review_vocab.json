@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "title": "The Name Jar",
+  "author": "Yangsook Choi",
+  "status": "demand_candidate",
+  "vocab_status": "pending_human_review",
+  "production_blocked": true,
+  "demand_candidate": {
+    "campaign": "september_back_to_school_2026",
+    "rank": 18,
+    "evidence_level": "public_tpt_and_seasonal_proxy",
+    "rationale": "Strong September name, identity, belonging, and classroom-community relevance with natural links to all-about-me and social-emotional activities.",
+    "tpt_keyword_finder_verified": false,
+    "rights_review": "required"
+  },
+  "hero": {
+    "name": "Unhei",
+    "description": "A young Korean girl who has just moved to America; carries a red pouch with a wooden name stamp engraved with her Korean name, given to her by her grandmother",
+    "search_term": "Unhei Name Jar girl character",
+    "needs_sourcing": true,
+    "source_note": "Named, culturally-specific human character tied to a real book cover — generic Boardmaker 'girl' clip art will not match her look or the pouch/stamp she carries; source from the book cover or TPT clip art."
+  },
+  "fringe_12": [
+    "Unhei",
+    "jar",
+    "stamp",
+    "pouch",
+    "bus",
+    "grandmother",
+    "Joey",
+    "kimchi",
+    "proud",
+    "laugh",
+    "missing",
+    "name"
+  ],
+  "fringe_11": [
+    "jar",
+    "stamp",
+    "pouch",
+    "bus",
+    "grandmother",
+    "Joey",
+    "kimchi",
+    "proud",
+    "laugh",
+    "missing",
+    "name"
+  ],
+  "activity_images": [
+    "jar",
+    "stamp",
+    "pouch",
+    "bus",
+    "grandmother",
+    "Joey"
+  ],
+  "aac_extras": [
+    "kimchi",
+    "proud",
+    "laugh",
+    "missing",
+    "name"
+  ],
+  "ambiguous": [
+    {
+      "word": "stamp",
+      "issue": "Could mean a postage stamp or a foot-stomping action instead of the Korean name/ink stamp used in the book",
+      "preferred": "name stamp / seal",
+      "reason": "In this book, 'stamp' refers to the wooden block with Unhei's name carved in Korean characters used with an ink pad, not mail or a stomping foot"
+    },
+    {
+      "word": "Joey",
+      "issue": "Could be interpreted as a baby kangaroo rather than the boy character's name",
+      "preferred": "Joey (boy character)",
+      "reason": "In this book Joey is Unhei's classmate and friend, not an animal"
+    },
+    {
+      "word": "pouch",
+      "issue": "Could be confused with a kangaroo's pouch in generic symbol libraries",
+      "preferred": "small drawstring bag/pouch",
+      "reason": "The pouch in this book is the red satin bag Unhei's grandmother gives her to hold the name stamp"
+    }
+  ],
+  "character_images_needed": [
+    "Unhei",
+    "Joey"
+  ],
+  "icon_search_terms": {
+    "jar": "glass jar with papers",
+    "stamp": "name stamp seal ink",
+    "pouch": "small drawstring pouch bag",
+    "bus": "school bus",
+    "grandmother": "grandmother",
+    "Joey": "boy student character",
+    "kimchi": "kimchi Korean food",
+    "proud": "proud face child",
+    "laugh": "children laughing",
+    "missing": "empty jar / disappeared",
+    "name": "name tag label"
+  },
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-09-05",
+  "notes": "Demand candidate only. Complete Keyword Finder, rights, vocabulary, and icon review before production.",
+  "pub_year": "2001",
+  "book_summary": "Unhei, a young girl who has just immigrated from Korea, is teased by children on the school bus for her name and decides not to tell her new class her name, saying she will pick one the following week. Her classmates fill a glass jar with American name suggestions (Suzy, Laura, Amanda) for her to choose from, but a new friend named Joey discovers her real Korean name and its meaning, and after the jar mysteriously disappears, Unhei decides to keep her own name and teach her classmates how to pronounce it.",
+  "fringe_justifications": {
+    "jar": "The glass jar filled with classmates' name suggestions is the book's central object and title image; it appears on Unhei's desk and later mysteriously disappears.",
+    "stamp": "Unhei's grandmother gives her a wooden block engraved with her name in Korean characters and an ink pad, which Joey later admires and asks to keep an imprint of.",
+    "pouch": "Unhei's grandmother hands her a red satin pouch containing the name stamp as a goodbye gift before she leaves Korea.",
+    "bus": "On her very first bus ride to her new school, other children ask Unhei her name and then mock and mispronounce it.",
+    "grandmother": "Unhei's grandmother, along with her mother, visited a name master to help choose her name, and gives her the keepsake pouch at their goodbye in Korea.",
+    "Joey": "Joey is the curious classmate who befriends Unhei, discovers her real name and its meaning, and is ultimately revealed to have taken the missing name jar because he wanted her to keep her Korean name.",
+    "kimchi": "Korean food such as kimchi is referenced in the story as part of the cultural details of Unhei's home life that contrast with her new American school.",
+    "proud": "By the end of the story Unhei embraces her Korean name and teaches her classmates to pronounce it, showing pride in her heritage instead of hiding it.",
+    "laugh": "The children on the school bus laugh at and mock Unhei's name when she first tells it to them, a key moment that triggers her wish to change it.",
+    "missing": "On the day Unhei is supposed to choose an American name, the name jar has mysteriously disappeared from her desk, a pivotal turning point in the plot.",
+    "name": "The entire plot revolves around whether Unhei will keep her own Korean name or pick a new American one from the jar."
+  },
+  "grounded": true,
+  "grounding_note": "Confirmed via multiple summaries and book reviews: Unhei, a Korean girl, moves to America, is teased for her name on the bus, her classmates fill a glass jar with American name suggestions, Joey discovers her Korean name and stamp, the jar disappears (Joey had taken it), and Unhei ultimately chooses to keep her own name, teaching classmates its pronunciation. Details on the grandmother's pouch/stamp and kimchi reference were corroborated across multiple independent sources.",
+  "searches_used": 2,
+  "guardrail_warnings": []
+}

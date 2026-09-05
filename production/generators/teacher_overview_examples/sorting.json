@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "product_name": "Reason & Sort: Category Sorting",
+  "theme_name": "Llama Llama Red Pajama",
+  "product_code": "LLRP-SORT-LAUNCH",
+  "version": "2026-09-05",
+  "source_build_result": "assets/themes/llama_llama_red_pajama/OUTPUT/LLRP-SORT-LAUNCH_Sorting_BuildResult.json",
+  "page_counts": {
+    "color": 11,
+    "bw": 11
+  },
+  "formats": [
+    "Color",
+    "B&W"
+  ],
+  "levels": [
+    "Guided",
+    "Header choice",
+    "Open sort",
+    "Create a rule"
+  ],
+  "included": [
+    "Two guided sorts with visual answer keys",
+    "Open two- and three-category mats",
+    "Twenty reusable sorting headers",
+    "Six blank create-your-own headers"
+  ],
+  "best_for": [
+    "Category reasoning",
+    "Vocabulary relationships",
+    "Flexible thinking",
+    "Small-group discussion"
+  ],
+  "access": [
+    "Large picture cards and placement targets",
+    "Teacher-selected or student-created rules",
+    "Pointing, placing, speech, sign or AAC"
+  ],
+  "preparation": {
+    "label": "Choose guided or open sorting materials",
+    "materials": "Paper or card stock; optional laminate and hook-and-loop",
+    "time": "5–10 minutes"
+  },
+  "teaching_steps": [
+    {
+      "title": "Choose",
+      "detail": "Use a guided rule, reusable headers or blank headers."
+    },
+    {
+      "title": "Sort",
+      "detail": "Place each picture under a selected category."
+    },
+    {
+      "title": "Explain",
+      "detail": "Explain or demonstrate why the rule works."
+    }
+  ],
+  "scarborough": {
+    "strands": [
+      "Vocabulary",
+      "Verbal Reasoning",
+      "Language Structures"
+    ],
+    "tier": "upper",
+    "statement": "Builds category knowledge, flexible reasoning and language for explaining relationships."
+  },
+  "preview_image": "assets/themes/llama_llama_red_pajama/OUTPUT/LLRP-SORT-LAUNCH_Sorting_COLOR.pdf",
+  "hero_image": "assets/themes/llama_llama_red_pajama/hero.png",
+  "pcs_used": true,
+  "book_companion": true,
+  "book_not_included": true
+}

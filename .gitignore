@@ -1,4 +1,4 @@
-# ============================================
+﻿# ============================================
 # Generated Outputs (DO NOT COMMIT)
 # ============================================
 # These directories contain generated PDFs, PNGs, ZIPs
@@ -55,6 +55,7 @@ Thumbs.db
 # ============================================
 .env
 .venv
+.studioforge_deps/
 env/
 venv/
 ENV/
@@ -104,6 +105,10 @@ review_pdfs_old/
 production/_audit_renders/
 assets/canva_templates/
 assets/themes/hungry_caterpillar/
+# Exception: allow tracking only the vocab JSON for Hungry Caterpillar
+!assets/themes/hungry_caterpillar/
+assets/themes/hungry_caterpillar/**/*
+!assets/themes/hungry_caterpillar/book_vocab.json
 
 Draft General Docs/Quick_Start_Guides/Quick_Start_Guide_Bingo.html
 Draft General Docs/Quick_Start_Guides/Quick_Start_Guide_Matching_Sampler.html

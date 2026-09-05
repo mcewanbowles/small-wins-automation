@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "title": "Back to School Rules",
+  "author": "Laurie Friedman",
+  "status": "demand_candidate",
+  "vocab_status": "pending_human_review",
+  "production_blocked": true,
+  "demand_candidate": {
+    "campaign": "september_back_to_school_2026",
+    "rank": 6,
+    "evidence_level": "public_tpt_and_seasonal_proxy",
+    "rationale": "Direct September classroom-routine and behaviour relevance with strong potential for visual rules, do-and-don't sorting, and AAC participation.",
+    "tpt_keyword_finder_verified": false,
+    "rights_review": "required"
+  },
+  "hero": {
+    "name": "Percy Isaac Gifford",
+    "description": "A confident, rosy-cheeked boy character created by illustrator Teresa Murfin; recurring 'Rules' series host who also appears in Thanksgiving Rules and Birthday Rules",
+    "search_term": "boy student cartoon",
+    "needs_sourcing": true,
+    "source_note": "Percy is a distinctive, recurring named character across Friedman's 'Rules' series with a specific illustrated look by Teresa Murfin — generic Boardmaker 'boy' or 'student' images won't match his appearance from the cover."
+  },
+  "fringe_12": [
+    "Percy Isaac Gifford",
+    "rules",
+    "late",
+    "run",
+    "spitball",
+    "bounce",
+    "ceiling",
+    "teacher",
+    "cry",
+    "trouble",
+    "school",
+    "halls"
+  ],
+  "fringe_11": [
+    "rules",
+    "late",
+    "run",
+    "spitball",
+    "bounce",
+    "ceiling",
+    "teacher",
+    "cry",
+    "trouble",
+    "school",
+    "halls"
+  ],
+  "activity_images": [
+    "rules",
+    "late",
+    "run",
+    "spitball",
+    "bounce",
+    "ceiling"
+  ],
+  "aac_extras": [
+    "teacher",
+    "cry",
+    "trouble",
+    "school",
+    "halls"
+  ],
+  "ambiguous": [
+    {
+      "word": "run",
+      "issue": "Could mean the action of running (locomotion) or a baseball 'run'/a run in stockings",
+      "preferred": "run (action, child running)",
+      "reason": "In this book it refers specifically to Percy's rule against running in the school halls, so the locomotion meaning is correct."
+    },
+    {
+      "word": "bounce",
+      "issue": "Could depict a bouncing ball object or the action of a person bouncing",
+      "preferred": "bounce (child bouncing off ceiling, action)",
+      "reason": "The book's rule is about a child bouncing off the ceiling, an exaggerated body action, not a ball."
+    },
+    {
+      "word": "cry",
+      "issue": "Could be confused with a baby crying image vs. a school-age child crying from frustration/sadness",
+      "preferred": "cry (child crying, sad face)",
+      "reason": "Percy's rule concerns a school-age child crying without reason during class, not an infant."
+    }
+  ],
+  "character_images_needed": [
+    "Percy Isaac Gifford"
+  ],
+  "icon_search_terms": {
+    "rules": "rules list chalkboard",
+    "late": "late clock running",
+    "run": "child running",
+    "spitball": "spitball paper straw",
+    "bounce": "bounce ceiling child",
+    "ceiling": "ceiling",
+    "teacher": "teacher classroom",
+    "cry": "child crying sad",
+    "trouble": "trouble mischief",
+    "school": "school building",
+    "halls": "school hallway"
+  },
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-09-05",
+  "notes": "Demand candidate only. Complete Keyword Finder, rights, vocabulary, and icon review before production.",
+  "pub_year": "2011",
+  "book_summary": "Percy Isaac Gifford, a rule-loving boy, guides readers through his ten simple rules for surviving school, mostly framed as things NOT to do — no spitballs, no running in the halls, no bouncing off the ceiling, no crazy scheming, don't be late, and don't contradict the teacher. The rhyming, illustrated picture book uses Percy's mock-serious advice and colorful classroom scenes to humorously teach school behavior expectations.",
+  "fringe_justifications": {
+    "rules": "Percy explains his ten simple rules for surviving school throughout the book — the title and entire structure of the story revolve around this word, as confirmed by the description noting Percy's 'ten simple rules' will make the grade a piece of cake.",
+    "late": "One of Percy's explicit numbered rules addresses arriving on time, as the Kirkus review notes rules like \"don't be late or impolite\".",
+    "run": "Percy states a direct rule, \"No running in the halls!\", making running a specific forbidden action depicted in the book.",
+    "spitball": "Percy's rule \"No spitballs!\" calls out this exact object as a named classroom no-no illustrated in the book.",
+    "bounce": "Percy's rule \"No bouncing off the ceiling!\" shows this exaggerated, silly action as one of his central warnings.",
+    "ceiling": "The same rule, \"No bouncing off the ceiling!\", makes the ceiling itself a memorable illustrated element of the forbidden antic.",
+    "teacher": "Percy's list of rules includes not contradicting the teacher, per the review noting rules like 'no contradicting the teacher', making the teacher a recurring authority figure.",
+    "cry": "A specific rule states not to cry without a reason, as the Kirkus review notes \"don't cry often or without a reason\", tying this emotion word to an exact scene.",
+    "trouble": "The book's own description promises to \"See what other trouble—and tips—Percy has in mind!\", directly naming trouble/mischief as a recurring theme alongside his rule list.",
+    "school": "The story opens with \"School's in session!\" and is entirely set at school as Percy delivers his survival guide for the building and its routines.",
+    "halls": "Percy's rule \"No running in the halls!\" specifically names the school hallway as the setting for one of his numbered warnings."
+  },
+  "grounded": true,
+  "grounding_note": "Confirmed via multiple sources (author's own website, Kirkus, Publishers Weekly, Barnes & Noble, Goodreads) that this is the 2011 picture book by Laurie Friedman, illustrated by Teresa Murfin, starring Percy Isaac Gifford, who lists ten mostly 'don't' rules for surviving school (no spitballs, no running in halls, no bouncing off ceiling, no crazy scheming, don't be late/impolite, don't contradict the teacher, don't cry without reason). This matches the expected content precisely.",
+  "searches_used": 2,
+  "guardrail_warnings": []
+}

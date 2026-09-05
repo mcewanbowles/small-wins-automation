@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "product_name": "Story Grammar & Retell",
+  "theme_name": "Llama Llama Red Pajama",
+  "product_code": "LLRP-SGM-LAUNCH",
+  "version": "2026-09-05",
+  "source_build_result": "assets/themes/llama_llama_red_pajama/OUTPUT/LLRP-SGM-LAUNCH_Story_Elements_Mat_BuildResult.json",
+  "page_counts": {
+    "color": 2,
+    "bw": 2
+  },
+  "formats": [
+    "Color",
+    "B&W"
+  ],
+  "levels": [],
+  "included": [
+    "Six-part story grammar mat",
+    "Characters and setting prompts",
+    "Problem, events and feelings prompts",
+    "Solution and retell support"
+  ],
+  "best_for": [
+    "Shared-reading discussion",
+    "Narrative-language intervention",
+    "Oral or written retell",
+    "Comprehension follow-up"
+  ],
+  "access": [
+    "Drawing, writing, speech, sign or AAC",
+    "Large response areas",
+    "Consistent six-part retell structure"
+  ],
+  "preparation": {
+    "label": "Print or display the retell mat",
+    "materials": "Paper and pencil or an alternative response mode",
+    "time": "Under 5 minutes"
+  },
+  "teaching_steps": [
+    {
+      "title": "Identify",
+      "detail": "Name the characters, setting and problem."
+    },
+    {
+      "title": "Organize",
+      "detail": "Record key events and character feelings."
+    },
+    {
+      "title": "Retell",
+      "detail": "Explain the solution in story order."
+    }
+  ],
+  "scarborough": {
+    "strands": [
+      "Literacy Knowledge",
+      "Language Structures",
+      "Verbal Reasoning"
+    ],
+    "tier": "upper",
+    "statement": "Supports narrative organization, retell language and reasoning about story events."
+  },
+  "preview_image": "assets/themes/llama_llama_red_pajama/OUTPUT/LLRP-SGM-LAUNCH_Story_Elements_Mat_COLOR.pdf",
+  "hero_image": "assets/themes/llama_llama_red_pajama/hero.png",
+  "pcs_used": true,
+  "book_companion": true,
+  "book_not_included": true
+}

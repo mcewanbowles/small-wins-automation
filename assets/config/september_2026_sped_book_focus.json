@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "campaign": "september_back_to_school_2026",
+  "status": "public_research_ranked_keyword_finder_pending",
+  "created_at": "2026-09-05",
+  "method": {
+    "signals": [
+      "Official TPT August-September-October opportunity themes",
+      "Visible TPT SPED and AAC book-companion listings",
+      "September classroom routine and SEL relevance",
+      "AAC and SPED instructional fit",
+      "Concrete icon feasibility",
+      "Bundle potential",
+      "Copyright and trademark risk"
+    ],
+    "limitation": "Public research cannot establish definitive TPT search volume. Validate each title in the logged-in TPT Keyword Finder before production."
+  },
+  "focus_books": [
+    {"rank": 1, "slug": "the_kissing_hand", "title": "The Kissing Hand", "author": "Audrey Penn", "theme_record": "existing", "evidence_strength": "strong_proxy", "keyword_queries": ["the kissing hand activities", "the kissing hand book companion", "separation anxiety school activities"]},
+    {"rank": 2, "slug": "pete_rocking_in_my_school_shoes", "title": "Pete the Cat: Rocking in My School Shoes", "author": "Eric Litwin", "theme_record": "existing_canonical_duplicate_review_needed", "evidence_strength": "strong_proxy", "keyword_queries": ["rocking in my school shoes activities", "school shoes book companion", "AAC back to school book companion"]},
+    {"rank": 3, "slug": "if_you_take_a_mouse_to_school", "title": "If You Take a Mouse to School", "author": "Laura Numeroff", "theme_record": "new_demand_candidate", "evidence_strength": "strong_proxy", "keyword_queries": ["if you take a mouse to school activities", "mouse to school book companion", "back to school sequencing"]},
+    {"rank": 4, "slug": "chrysanthemum", "title": "Chrysanthemum", "author": "Kevin Henkes", "theme_record": "existing", "evidence_strength": "strong_proxy", "keyword_queries": ["chrysanthemum activities", "chrysanthemum book companion", "name activities back to school"]},
+    {"rank": 5, "slug": "first_day_jitters", "title": "First Day Jitters", "author": "Julie Danneberg", "theme_record": "existing", "evidence_strength": "strong_proxy", "keyword_queries": ["first day jitters", "first day jitters activities", "back to school feelings activities"]},
+    {"rank": 6, "slug": "back_to_school_rules", "title": "Back to School Rules", "author": "Laurie Friedman", "theme_record": "new_demand_candidate", "evidence_strength": "moderate_proxy", "keyword_queries": ["back to school rules activities", "school rules book companion", "classroom rules visual supports"]},
+    {"rank": 7, "slug": "lola_goes_to_school", "title": "Lola Goes to School", "author": "Anna McQuinn", "theme_record": "new_demand_candidate", "evidence_strength": "moderate_proxy", "keyword_queries": ["lola goes to school activities", "first day preschool book companion", "visual back to school activities"]},
+    {"rank": 8, "slug": "time_for_school_little_blue_truck", "title": "Time for School, Little Blue Truck", "author": "Alice Schertle", "theme_record": "existing", "evidence_strength": "moderate_proxy", "keyword_queries": ["time for school little blue truck activities", "little blue truck school book companion", "AAC school vocabulary"]},
+    {"rank": 9, "slug": "there_was_an_old_lady_who_swallowed_some_books", "title": "There Was an Old Lady Who Swallowed Some Books!", "author": "Lucille Colandro", "theme_record": "new_demand_candidate", "evidence_strength": "moderate_proxy", "keyword_queries": ["old lady swallowed some books activities", "back to school sequencing book", "school vocabulary book companion"]},
+    {"rank": 10, "slug": "pigeon_has_to_go_to_school", "title": "The Pigeon HAS to Go to School!", "author": "Mo Willems", "theme_record": "existing", "evidence_strength": "strong_proxy", "keyword_queries": ["pigeon has to go to school activities", "school refusal book companion", "back to school AAC activities"]},
+    {"rank": 11, "slug": "llama_llama_back_to_school", "title": "Llama Llama Back to School", "author": "Anna Dewdney", "theme_record": "existing", "evidence_strength": "moderate_proxy", "keyword_queries": ["llama llama back to school activities", "back to school book companion", "school feelings AAC"]},
+    {"rank": 12, "slug": "wemberly_worried", "title": "Wemberly Worried", "author": "Kevin Henkes", "theme_record": "existing", "evidence_strength": "strong_proxy", "keyword_queries": ["wemberly worried activities", "school anxiety book companion", "worry activities special education"]},
+    {"rank": 13, "slug": "schools_first_day_of_school", "title": "School's First Day of School", "author": "Adam Rex", "theme_record": "new_demand_candidate", "evidence_strength": "moderate_proxy", "keyword_queries": ["schools first day of school activities", "first day school book companion", "school feelings activities"]},
+    {"rank": 14, "slug": "the_crayon_box_that_talked", "title": "The Crayon Box That Talked", "author": "Shane DeRolf", "theme_record": "new_demand_candidate", "evidence_strength": "moderate_proxy", "keyword_queries": ["crayon box that talked activities", "classroom community book companion", "diversity sorting activities"]},
+    {"rank": 15, "slug": "mouses_first_day_of_school", "title": "Mouse's First Day of School", "author": "Lauren Thompson", "theme_record": "new_demand_candidate", "evidence_strength": "moderate_proxy", "keyword_queries": ["mouse first day of school activities", "preschool school vocabulary", "first day visual activities"]},
+    {"rank": 16, "slug": "stick_and_stone", "title": "Stick and Stone", "author": "Beth Ferry", "theme_record": "new_demand_candidate", "evidence_strength": "moderate_proxy", "keyword_queries": ["stick and stone activities", "friendship book companion", "anti bullying visual activities"]},
+    {"rank": 17, "slug": "splat_the_cat", "title": "Splat the Cat", "author": "Rob Scotton", "theme_record": "new_demand_candidate", "evidence_strength": "moderate_proxy", "keyword_queries": ["splat the cat school activities", "splat the cat book companion", "first day school feelings"]},
+    {"rank": 18, "slug": "the_name_jar", "title": "The Name Jar", "author": "Yangsook Choi", "theme_record": "new_demand_candidate", "evidence_strength": "moderate_proxy", "keyword_queries": ["the name jar activities", "name identity book companion", "back to school belonging activities"]},
+    {"rank": 19, "slug": "my_mouth_is_a_volcano", "title": "My Mouth Is a Volcano!", "author": "Julia Cook", "theme_record": "existing", "evidence_strength": "moderate_proxy", "keyword_queries": ["my mouth is a volcano activities", "interrupting social story", "impulse control special education"]},
+    {"rank": 20, "slug": "the_day_you_begin", "title": "The Day You Begin", "author": "Jacqueline Woodson", "theme_record": "existing", "evidence_strength": "moderate_proxy", "keyword_queries": ["the day you begin activities", "belonging book companion", "back to school inclusion activities"]}
+  ],
+  "required_next_gate": {
+    "tool": "TPT Keyword Finder",
+    "fields": ["searches_last_30_days", "supply_range", "opportunity_rating", "related_keywords", "checked_at"],
+    "decision": "Retain and order the vocabulary batch only after recording current logged-in TPT evidence."
+  }
+}

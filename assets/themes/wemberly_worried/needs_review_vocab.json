@@ -1,0 +1,114 @@
+{
+  "title": "Wemberly Worried",
+  "author": "Kevin Henkes",
+  "hero": {
+    "name": "Wemberly",
+    "description": "A shy white mouse with gray spots who carries a rabbit doll named Petal everywhere; recognizable from the cover clutching her doll with a worried expression.",
+    "search_term": "Wemberly Worried mouse character",
+    "needs_sourcing": true,
+    "source_note": "Wemberly is a specific named, visually distinctive Henkes character (spotted mouse + signature doll); a generic Boardmaker mouse icon will not convey her identity, so custom/clip-art sourcing (e.g. from the book cover or licensed Henkes clip art) is recommended."
+  },
+  "fringe_12": [
+    "Wemberly",
+    "worried",
+    "doll",
+    "school",
+    "friend",
+    "teacher",
+    "juice",
+    "bathtub",
+    "snake",
+    "butterfly",
+    "parents",
+    "swing"
+  ],
+  "fringe_11": [
+    "worried",
+    "doll",
+    "school",
+    "friend",
+    "teacher",
+    "juice",
+    "bathtub",
+    "snake",
+    "butterfly",
+    "parents",
+    "swing"
+  ],
+  "activity_images": [
+    "worried",
+    "doll",
+    "school",
+    "friend",
+    "teacher",
+    "juice"
+  ],
+  "aac_extras": [
+    "bathtub",
+    "snake",
+    "butterfly",
+    "parents",
+    "swing"
+  ],
+  "ambiguous": [
+    {
+      "word": "swing",
+      "issue": "Could depict a playground swing (noun) or the action of swinging/golf swing",
+      "preferred": "playground swing",
+      "reason": "In the book, Wemberly specifically worries about the chains on the swings at the playground — the noun/object meaning is correct."
+    },
+    {
+      "word": "butterfly",
+      "issue": "Could depict the insect or Wemberly's Halloween costume",
+      "preferred": "child in butterfly costume",
+      "reason": "The scene in the book shows Wemberly dressed as a butterfly for Halloween worrying about the parade, not a real insect."
+    },
+    {
+      "word": "snake",
+      "issue": "Could depict a real/wild snake or convey a scary imagined creature",
+      "preferred": "snake (cartoon, non-scary)",
+      "reason": "In the book the snake is imaginary — Wemberly only fears there might be one inside the radiator; a simple friendly-style snake icon is more accurate than a realistic scary one."
+    }
+  ],
+  "character_images_needed": [
+    "Wemberly"
+  ],
+  "icon_search_terms": {
+    "worried": "worried",
+    "doll": "baby doll",
+    "school": "school",
+    "friend": "friend",
+    "teacher": "teacher",
+    "juice": "apple juice",
+    "bathtub": "bath",
+    "snake": "snake",
+    "butterfly": "butterfly costume",
+    "parents": "parents",
+    "swing": "swing"
+  },
+  "notes": "Wemberly Worried by Kevin Henkes focuses on anxiety about starting school. Key themes are worry, friendship, and reassurance. 'Worried' is the central emotion — use the 'afraid' Boardmaker symbol as the closest match. 'Okay' is important as a reassurance word throughout the book. 'Petal' (Wemberly's ragdoll) could replace 'doll' if a sourced image is available but 'doll' is more universally recognised in Boardmaker. Secondary character Jewel (the new friend at school) is not included as a fringe word but teachers may wish to add her name separately.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-09-05",
+  "pub_year": "2000",
+  "book_summary": "Wemberly is a young mouse who worries about everything — big things, little things, and things in between, including her rabbit doll Petal, whom she constantly clutches and rubs the ears of when anxious. Her biggest worry is starting nursery school, but on her first day her teacher, Miss Peachum, introduces her to Jewel, a fellow shy mouse who also carries a doll, and the two become fast friends, easing Wemberly's fears.",
+  "fringe_justifications": {
+    "worried": "Wemberly's defining trait — she is described as a mouse who feels nervous at home or away and worries about everything from morning to night.",
+    "doll": "Wemberly's rabbit doll, Petal, is her security object that she grips throughout the book and rubs the ears of when anxious.",
+    "school": "Wemberly's single biggest worry in the book is starting nursery school, which drives the story's main conflict.",
+    "friend": "Jewel is the fellow worried mouse Wemberly meets at school, and their new friendship is what finally eases her anxiety.",
+    "teacher": "Miss Peachum is Wemberly's nursery school teacher who greets her on the first day and introduces her to Jewel.",
+    "juice": "One of Wemberly's specific little worries is spilling grape juice on her toy rabbit, Petal.",
+    "bathtub": "Wemberly worries about a 'thing in between' — the fear that she might shrink in the bathtub.",
+    "snake": "Wemberly imagines a snake living inside the radiator whenever it makes noise, one of her recurring specific fears.",
+    "butterfly": "On Halloween, Wemberly dresses as a butterfly and worries there will be too many other butterflies in the parade — a specific illustrated scene.",
+    "parents": "Among Wemberly's 'big things' worries, she checks on her sleeping parents at night with a flashlight to make sure they are still there.",
+    "swing": "At the playground, Wemberly specifically worries about the chains on the swings, calling them 'too rusty, too loose, too high.'"
+  },
+  "grounded": true,
+  "grounding_note": "Confirmed via Publishers Weekly, Barnes & Noble, AbeBooks, TV Tropes, and the official Kevin Henkes site: the book is a 2000 picture book about a spotted mouse named Wemberly who worries constantly, carries a rabbit doll named Petal, and befriends a fellow worrier named Jewel on her first day of nursery school after her teacher Miss Peachum introduces them. Specific worry scenes (playground swings, juice spilling, bathtub shrinking, radiator snake, Halloween butterfly costume, checking on parents at night) were all corroborated across multiple independent sources.",
+  "searches_used": 2,
+  "guardrail_warnings": [],
+  "vocab_status": "pending_human_review"
+}

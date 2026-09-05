@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "title": "If You Take a Mouse to School",
+  "author": "Laura Numeroff",
+  "status": "demand_candidate",
+  "vocab_status": "pending_human_review",
+  "production_blocked": true,
+  "demand_candidate": {
+    "campaign": "september_back_to_school_2026",
+    "rank": 3,
+    "evidence_level": "public_tpt_and_seasonal_proxy",
+    "rationale": "Strong back-to-school buyer intent, predictable cause-and-effect structure, concrete school vocabulary, and excellent AAC sequencing potential.",
+    "tpt_keyword_finder_verified": false,
+    "rights_review": "required"
+  },
+  "hero": {
+    "name": "Mouse",
+    "description": "Small brown mouse wearing tiny blue overalls, the recurring star of the 'If You Give a Mouse' series, shown enthusiastically exploring the classroom",
+    "search_term": "mouse blue overalls",
+    "needs_sourcing": true,
+    "source_note": "This is the specific, recognizable 'If You Give a Mouse a Cookie' character in blue overalls — a generic Boardmaker mouse won't match; source dedicated clip art (e.g. TPT/Creative Fabrica 'If You Give a Mouse' sets) so students recognize the cover character."
+  },
+  "fringe_12": [
+    "Mouse",
+    "lunch box",
+    "sandwich",
+    "notebook",
+    "pencils",
+    "backpack",
+    "blackboard",
+    "experiment",
+    "blocks",
+    "clay",
+    "book",
+    "yo-yo"
+  ],
+  "fringe_11": [
+    "lunch box",
+    "sandwich",
+    "notebook",
+    "pencils",
+    "backpack",
+    "blackboard",
+    "experiment",
+    "blocks",
+    "clay",
+    "book",
+    "yo-yo"
+  ],
+  "activity_images": [
+    "lunch box",
+    "sandwich",
+    "notebook",
+    "pencils",
+    "backpack",
+    "blackboard"
+  ],
+  "aac_extras": [
+    "experiment",
+    "blocks",
+    "clay",
+    "book",
+    "yo-yo"
+  ],
+  "ambiguous": [
+    {
+      "word": "book",
+      "issue": "Could mean a generic reading book/story vs. the specific homemade book the mouse writes and illustrates in this story",
+      "preferred": "book (mouse writing/holding a small handmade book)",
+      "reason": "In this story 'book' refers to the object the mouse creates himself, not a generic library book"
+    },
+    {
+      "word": "blocks",
+      "issue": "Could mean building blocks/toy blocks vs. city blocks or ice blocks",
+      "preferred": "building blocks",
+      "reason": "The mouse uses classroom building blocks to construct his 'mouse house', so the toy-block meaning is correct"
+    },
+    {
+      "word": "clay",
+      "issue": "Could be confused with modeling clay vs. clay pottery/ground clay",
+      "preferred": "modeling clay",
+      "reason": "The mouse uses soft modeling clay to make furniture for his block house"
+    }
+  ],
+  "character_images_needed": [
+    "Mouse (blue overalls, from If You Give a Mouse series)"
+  ],
+  "icon_search_terms": {
+    "lunch box": "lunch box",
+    "sandwich": "sandwich",
+    "notebook": "notebook",
+    "pencils": "pencil",
+    "backpack": "backpack",
+    "blackboard": "blackboard",
+    "experiment": "science experiment",
+    "blocks": "building blocks",
+    "clay": "modeling clay",
+    "book": "book",
+    "yo-yo": "yo-yo"
+  },
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-09-05",
+  "notes": "Demand candidate only. Complete Keyword Finder, rights, vocabulary, and icon review before production.",
+  "pub_year": "2002",
+  "book_summary": "A boy brings his pet mouse (the same mouse from 'If You Give a Mouse a Cookie') to school for the day, and the mouse's escalating requests and antics — a lunch box, sandwich, notebook, pencils, and a spot in the backpack — lead him through a whirlwind of classroom activities including a science experiment, building a mouse house from blocks, and writing his own book. The story is circular, ending back where it began with the mouse asking for the lunch box again.",
+  "fringe_justifications": {
+    "lunch box": "The mouse's very first request when he arrives at school, and the story circles back to this same request at the end.",
+    "sandwich": "Once given the lunch box, the mouse immediately wants a sandwich to put inside it.",
+    "notebook": "After the sandwich, the mouse's next demand is a notebook to go with his school supplies.",
+    "pencils": "The mouse needs pencils alongside the notebook, and later uses pencils and paper to write his own book.",
+    "backpack": "The mouse wants to share the boy's backpack and is shown sitting inside it playing with a yo-yo.",
+    "blackboard": "The mouse is pictured hanging off the top corner of the blackboard spelling out big words like 'adrenaline'.",
+    "experiment": "The mouse conducts a science experiment in which purple matter erupts from his beaker, a signature classroom scene.",
+    "blocks": "The mouse builds an elaborate 'little mouse house' out of blocks during his classroom adventures.",
+    "clay": "After building the block house, the mouse fashions furniture for it out of clay.",
+    "book": "The mouse collects paper and pencils to write and illustrate his own book, 'Goodnight Mouse' by Mouse, which he wants to take home.",
+    "yo-yo": "While sitting inside the boy's open backpack, the mouse is shown playing with a yo-yo, a distinctive visual gag in the book."
+  },
+  "grounded": true,
+  "grounding_note": "Confirmed via multiple sources (Publishers Weekly review, School Library Journal review via Amazon/Beanstack, Barnes & Noble, HarperCollins listing) that this is the 2002 HarperCollins/Laura Geringer Books title by Laura Numeroff, illustrated by Felicia Bond, part of the 'If You Give...' series, in which the mouse from 'If You Give a Mouse a Cookie' spends a day at school. Scene details (lunch box, sandwich, notebook, pencils, backpack, blackboard spelling, science experiment, block-built mouse house, clay furniture, writing his own book, yo-yo in the backpack) are drawn directly from trade reviews describing the actual page content, so confidence is high.",
+  "searches_used": 4,
+  "guardrail_warnings": []
+}

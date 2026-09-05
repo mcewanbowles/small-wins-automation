@@ -1,0 +1,114 @@
+{
+  "title": "Chrysanthemum",
+  "author": "Kevin Henkes",
+  "hero": {
+    "name": "Chrysanthemum",
+    "description": "A young girl mouse in a pink/lavender dress, drawn in Kevin Henkes' signature pen-and-ink mouse style; she is the title character teased for her long, flower-inspired name",
+    "search_term": "Chrysanthemum mouse Kevin Henkes",
+    "needs_sourcing": true,
+    "source_note": "Distinctive Henkes mouse illustration style — generic Boardmaker mouse will not match the character children recognize from the cover; source from Kevin Henkes fan art / TPT clip art if available"
+  },
+  "fringe_12": [
+    "Chrysanthemum",
+    "name",
+    "school",
+    "tease",
+    "flower",
+    "sad",
+    "happy",
+    "teacher",
+    "wilt",
+    "blossom",
+    "petals",
+    "baby"
+  ],
+  "fringe_11": [
+    "name",
+    "school",
+    "tease",
+    "flower",
+    "sad",
+    "happy",
+    "teacher",
+    "wilt",
+    "blossom",
+    "petals",
+    "baby"
+  ],
+  "activity_images": [
+    "name",
+    "school",
+    "tease",
+    "flower",
+    "sad",
+    "happy"
+  ],
+  "aac_extras": [
+    "teacher",
+    "wilt",
+    "blossom",
+    "petals",
+    "baby"
+  ],
+  "ambiguous": [
+    {
+      "word": "wilt",
+      "issue": "Could depict a literal plant wilting or a character/emotional wilting (drooping posture, feeling crushed)",
+      "preferred": "mouse drooping/wilting posture",
+      "reason": "In the book it describes Chrysanthemum's emotional reaction to teasing, illustrated as her drooping like a flower — pair image should show the mouse character wilting, not a houseplant"
+    },
+    {
+      "word": "blossom",
+      "issue": "Could depict a flower blooming or a figurative 'blossoming' of confidence/happiness in a character",
+      "preferred": "mouse blossoming/glowing with confidence",
+      "reason": "The book uses 'blossomed' figuratively to describe Chrysanthemum's restored confidence after Mrs. Twinkle's support, not a literal plant"
+    },
+    {
+      "word": "petals",
+      "issue": "Could be interpreted as a real flower's petals vs. the fantastical image of petals sprouting from the character in her nightmare",
+      "preferred": "petals sprouting from mouse (nightmare scene)",
+      "reason": "In the book, petals appear specifically in Chrysanthemum's nightmare as parts of her own body, tied to the bullying threat to 'pluck' her"
+    }
+  ],
+  "character_images_needed": [
+    "Chrysanthemum"
+  ],
+  "icon_search_terms": {
+    "name": "name tag write",
+    "school": "school building",
+    "tease": "tease bully mock",
+    "flower": "chrysanthemum flower",
+    "sad": "sad mouse",
+    "happy": "happy mouse",
+    "teacher": "music teacher woman",
+    "wilt": "wilt droop sad flower",
+    "blossom": "flower bloom blossom",
+    "petals": "flower petals",
+    "baby": "newborn baby girl"
+  },
+  "notes": "Chrysanthemum is a Kevin Henkes mouse character — generic Boardmaker mouse will not match the distinctive illustrated style. Key themes are name identity, teasing/bullying, feeling sad then happy, and a loving teacher (Mrs. Twinkle). 'Tease' is central to the plot. 'Perfect' and 'special' are key story words used to reassure Chrysanthemum about her name. Several existing activity_images icons (flower, name tag, school, heart) align well with the fringe vocabulary. 'Name tag' can serve as the icon for 'name'.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-09-05",
+  "pub_year": "1991",
+  "book_summary": "Chrysanthemum is a young mouse who is <cite index=\"11-3,11-4,11-5\">a perfect baby, and she had a perfect name... When she was old enough to appreciate it, Chrysanthemum loved her name. And then she started school.</cite> Classmate <cite index=\"11-17,11-18\">Victoria, a particularly observant and mean-spirited classmate, announces that Chrysanthemum's name takes up 13 letters... \"That's half the letters in the alphabet!\"</cite> leading other kids to tease her, but everything changes when <cite index=\"11-12,11-13,11-14\">the students were introduced to their music teacher, Mrs. Twinkle. Mrs. Delphinium Twinkle. And suddenly, Chrysanthemum blossomed.</cite>",
+  "fringe_justifications": {
+    "name": "Central conflict of the whole book — Chrysanthemum loved her name until classmates mocked it; the story's plot literally revolves around her name.",
+    "school": "The teasing only begins once Chrysanthemum starts school, per the book's own turning point: 'And then she started school.'",
+    "tease": "Victoria, Jo, and Rita repeatedly tease Chrysanthemum about her name being 'too long' and 'named after a flower.'",
+    "flower": "Chrysanthemum is named after the chrysanthemum flower, which Victoria mocks by saying 'You're named after a flower' — the root of every taunt in the book.",
+    "sad": "Chrysanthemum feels sad and self-conscious each time Victoria and Jo tease her, deflating her earlier confidence.",
+    "happy": "Before starting school, Chrysanthemum was happy and proud of her name, per the opening pages describing her joy in it.",
+    "teacher": "Mrs. Twinkle, the new music teacher, is the character who ultimately helps Chrysanthemum feel proud of her name again.",
+    "wilt": "The book's exact recurring phrase 'Chrysanthemum wilted' describes her reaction each time she is teased about her name.",
+    "blossom": "The resolution line 'And suddenly, Chrysanthemum blossomed' marks the moment her confidence is restored by Mrs. Twinkle.",
+    "petals": "In her nightmare, Chrysanthemum sprouts petals like the flower she's named for, and Victoria picks them off one by one — a key fantastical scene in the book.",
+    "baby": "The book ends with Mrs. Twinkle giving birth to a baby girl whom she names Chrysanthemum, mirroring and validating the title character's name."
+  },
+  "grounded": true,
+  "grounding_note": "Confirmed via multiple sources including the publisher/author's own site and Wikipedia: the plot (Chrysanthemum teased by Victoria/Jo/Rita over her flower name, comforted by parents, nightmare about petals, rescued by music teacher Mrs. Delphinium Twinkle, resolution with Mrs. Twinkle's baby also named Chrysanthemum) matches consistently across sources, confirming the correct 1991 Kevin Henkes picture book.",
+  "searches_used": 2,
+  "guardrail_warnings": [],
+  "vocab_status": "pending_human_review"
+}

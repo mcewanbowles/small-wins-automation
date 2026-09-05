@@ -1,0 +1,112 @@
+{
+  "title": "Llama Llama Back To School",
+  "author": "Anna Dewdney",
+  "hero": {
+    "name": "Llama Llama",
+    "description": "A young llama character in overalls, the recurring protagonist of Anna Dewdney's Llama Llama series, feeling anxious about the first day of school",
+    "search_term": "llama_llama",
+    "needs_sourcing": false,
+    "source_note": "Already sourced and available as 'llama_llama' in existing activity_images library; no new sourcing needed."
+  },
+  "fringe_12": [
+    "Llama Llama",
+    "backpack",
+    "crayons",
+    "glue",
+    "rhino",
+    "scared",
+    "line",
+    "hand",
+    "cubby",
+    "coat",
+    "summer",
+    "share"
+  ],
+  "fringe_11": [
+    "backpack",
+    "crayons",
+    "glue",
+    "rhino",
+    "scared",
+    "line",
+    "hand",
+    "cubby",
+    "coat",
+    "summer",
+    "share"
+  ],
+  "activity_images": [
+    "backpack",
+    "crayons",
+    "glue",
+    "rhino",
+    "scared",
+    "line"
+  ],
+  "aac_extras": [
+    "hand",
+    "cubby",
+    "coat",
+    "summer",
+    "share"
+  ],
+  "ambiguous": [
+    {
+      "word": "hand",
+      "issue": "Could mean the body part or the action of raising one's hand",
+      "preferred": "raise hand",
+      "reason": "In the book, 'hand' refers specifically to the classroom rule 'Raise your hand,' so a raising-hand gesture image is correct."
+    },
+    {
+      "word": "line",
+      "issue": "Could mean a queue of children or a drawn line",
+      "preferred": "stand in line",
+      "reason": "The book uses 'line' in the rule 'Stand in line,' referring to children queuing up, not a drawn line."
+    },
+    {
+      "word": "coat",
+      "issue": "Could mean a piece of clothing or a layer/coat of paint",
+      "preferred": "coat (clothing) on hook",
+      "reason": "The book's rule 'Coats on hooks' refers to clothing being hung up in the classroom."
+    }
+  ],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "backpack": "backpack",
+    "crayons": "crayons",
+    "glue": "glue bottle",
+    "rhino": "rhino",
+    "scared": "scared",
+    "line": "stand in line",
+    "hand": "raise hand",
+    "cubby": "cubby",
+    "coat": "coat hook",
+    "summer": "summer",
+    "share": "share"
+  },
+  "notes": "Llama Llama Back To School centres on first-day anxiety and excitement about starting school. Key emotional vocabulary (nervous, happy) is important for supporting student self-expression about school feelings. 'Classroom' may not have a direct Boardmaker symbol — try 'class' or 'room' as alternates. 'Learn' may appear as 'learning' in some libraries. The book is by Anna Dewdney (not unknown); she is the established author of the Llama Llama series. Hero image must be sourced externally as the Llama Llama character has a very specific illustrated look not replicated in generic Boardmaker llama symbols.",
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-09-05",
+  "pub_year": "2022",
+  "book_summary": "As summer ends, Llama Llama isn't ready to give up backyard camping, picnics, and ice cream with friends, and he feels anxious about his first day back at school. Mama Llama takes him shopping for school supplies, and once the first day arrives Llama Llama learns the classroom rules (stand in line, raise your hand, coats on hooks) alongside his seasoned classmates. When a new young rhino student arrives feeling scared, Llama Llama shares his crayons and shows him how to use glue, helping the newcomer become part of the group.",
+  "fringe_justifications": {
+    "backpack": "Mama Llama takes Llama shopping for new school supplies before the first day, a key scene showing his reluctance to leave summer behind.",
+    "crayons": "Llama Llama shares his crayons with the scared new rhino student, the central helping act of the story.",
+    "glue": "Llama Llama shows the new rhino how to use glue in the classroom, part of the same befriending scene.",
+    "rhino": "A young rhino is the new student who arrives feeling scared, and becomes Llama Llama's new friend by the end of the book.",
+    "scared": "The new rhino student is described as feeling scared on his first day, the emotional turning point Llama Llama responds to.",
+    "line": "One of the classroom rules recited in the book is to 'stand in line,' part of the structured first-day-of-school routine.",
+    "hand": "Another classroom rule in the book is 'raise your hand,' directly tied to the teacher's instructions on the first day.",
+    "cubby": "The book specifically mentions 'lunch in cubbies' as part of the classroom routine Llama Llama must learn.",
+    "coat": "The book specifically mentions 'coats on hooks' as one of the first-day classroom routines.",
+    "summer": "The story opens with Llama Llama's summer full of backyard camping, picnics, and ice cream with friends, which he isn't ready to give up.",
+    "share": "Llama Llama's act of sharing crayons with the new rhino is how he helps the newcomer feel welcome and become part of the group."
+  },
+  "grounded": true,
+  "grounding_note": "Confirmed via multiple retailer/review sources (Penguin Random House, Barnes & Noble, Kirkus, Goodreads) that this is the 2022 Llama Llama book co-written by Anna Dewdney and Reed Duncan, illustrated by JT Morrow, about Llama Llama's reluctance to end summer and his first day of school, where he befriends a new, scared rhino student by sharing crayons and glue. Plot details (classroom rules, cubbies, coats on hooks, rhino character) come directly from the Barnes & Noble/Kirkus-sourced publisher description.",
+  "searches_used": 2,
+  "guardrail_warnings": [],
+  "vocab_status": "pending_human_review"
+}

@@ -1,0 +1,69 @@
+{
+  "product_name": "Print Detective: Letters, Words & First Sounds",
+  "theme_name": "Llama Llama Red Pajama",
+  "product_code": "LLRP-PD-LAUNCH",
+  "version": "1.0",
+  "page_counts": {
+    "color": 9,
+    "bw": 9
+  },
+  "formats": [
+    "Color PDF",
+    "B&W PDF"
+  ],
+  "levels": [
+    "Letter or Not a Letter",
+    "Letter or Word",
+    "First Sound Match",
+    "Reading Detective"
+  ],
+  "included": [
+    "2 sort mats (Letter/Not-a-Letter, Letter/Word)",
+    "2 cut-card sheets with theme vocabulary",
+    "First-sound match mat + 7 picture cards",
+    "Reading Detective page: directionality + concept of word",
+    "Answer key"
+  ],
+  "best_for": [
+    "print concepts",
+    "letter knowledge",
+    "emergent readers",
+    "AAC users"
+  ],
+  "access": [
+    "Point or place cards",
+    "AAC: 'letter', 'word', 'same'",
+    "Dry-erase marker for Level 4"
+  ],
+  "preparation": {
+    "label": "Print and cut",
+    "materials": "cardstock, scissors, laminator (optional)",
+    "time": "10 minutes"
+  },
+  "teaching_steps": [
+    {
+      "title": "Sort",
+      "detail": "Levels 1-2: student sorts each card and says the rule aloud."
+    },
+    {
+      "title": "Match",
+      "detail": "Level 3: say the picture name, stretch the first sound, place it under the letter."
+    },
+    {
+      "title": "Track",
+      "detail": "Level 4: follow the arrow, touch each word, find word boundaries."
+    }
+  ],
+  "scarborough": {
+    "strands": [
+      "Alphabetic Principle",
+      "Print Concepts"
+    ],
+    "statement": "Fills the suite gap between phonological awareness and decoding; all words and pictures reuse the reviewed LLRP vocabulary and icons.",
+    "tier": "lower"
+  },
+  "book_companion": true,
+  "book_not_included": true,
+  "pcs_used": true,
+  "preview_image": "assets/themes/llama_llama_red_pajama/OUTPUT/LLRP-PD-LAUNCH_PrintDetective_COLOR.pdf"
+}

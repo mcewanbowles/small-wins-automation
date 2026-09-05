@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "product_name": "Differentiated Word Search",
+  "theme_name": "Llama Llama Red Pajama",
+  "product_code": "LLRP-WS-LAUNCH",
+  "version": "2026-09-05",
+  "source_build_result": "assets/themes/llama_llama_red_pajama/OUTPUT/LLRP-WS-LAUNCH_WordSearch_BuildResult.json",
+  "page_counts": {
+    "color": 6,
+    "bw": 6
+  },
+  "formats": [
+    "Color",
+    "B&W"
+  ],
+  "levels": [
+    "Symbol background",
+    "Letters",
+    "Letters and diagonals",
+    "Independent reader"
+  ],
+  "included": [
+    "Four differentiated word-search grids",
+    "Six reviewed book-linked words",
+    "Picture-supported word lists",
+    "Four-level answer key"
+  ],
+  "best_for": [
+    "Visual scanning",
+    "Letter-sequence recognition",
+    "Vocabulary reinforcement",
+    "Independent literacy practice"
+  ],
+  "access": [
+    "Symbol background at the entry level",
+    "Picture and printed-word pairing",
+    "Progressive grid and direction complexity"
+  ],
+  "preparation": {
+    "label": "Print and select an appropriate grid level",
+    "materials": "Paper and pencil or optional laminate and marker",
+    "time": "Under 5 minutes"
+  },
+  "teaching_steps": [
+    {
+      "title": "Preview",
+      "detail": "Read the six words and identify their pictures."
+    },
+    {
+      "title": "Search",
+      "detail": "Scan across and down, adding diagonals at later levels."
+    },
+    {
+      "title": "Check",
+      "detail": "Compare completed grids with the answer key."
+    }
+  ],
+  "scarborough": {
+    "strands": [
+      "Sight Recognition",
+      "Vocabulary"
+    ],
+    "tier": "both",
+    "statement": "Reinforces recognition of familiar letter sequences and book-linked vocabulary."
+  },
+  "preview_image": "assets/themes/llama_llama_red_pajama/OUTPUT/LLRP-WS-LAUNCH_WordSearch_6Pages.pdf",
+  "hero_image": "assets/themes/llama_llama_red_pajama/hero.png",
+  "pcs_used": true,
+  "book_companion": true,
+  "book_not_included": true
+}

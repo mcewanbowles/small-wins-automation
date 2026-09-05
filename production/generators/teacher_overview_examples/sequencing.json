@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "product_name": "Story Sequencing",
+  "theme_name": "Llama Llama Red Pajama",
+  "product_code": "LLRP-SEQ-LAUNCH",
+  "version": "2026-09-05",
+  "source_build_result": "assets/themes/llama_llama_red_pajama/OUTPUT/LLRP-SEQ-LAUNCH_Sequencing_BuildResult.json",
+  "page_counts": {
+    "color": 5,
+    "bw": 5
+  },
+  "formats": [
+    "Color",
+    "B&W"
+  ],
+  "levels": [
+    "Supported",
+    "Developing",
+    "Independent"
+  ],
+  "included": [
+    "Four reviewed story events",
+    "First–next–then–last sequence",
+    "Three levels of support",
+    "One cut-out event-card page"
+  ],
+  "best_for": [
+    "Story retell",
+    "Temporal-language practice",
+    "Shared-reading follow-up",
+    "Small-group instruction"
+  ],
+  "access": [
+    "Large picture sequence boxes",
+    "Pointing, placing, speech, sign or AAC",
+    "Supported-to-independent progression"
+  ],
+  "preparation": {
+    "label": "Print, cut and choose a support level",
+    "materials": "Paper or card stock; optional laminate and hook-and-loop",
+    "time": "5–10 minutes"
+  },
+  "teaching_steps": [
+    {
+      "title": "Read",
+      "detail": "Read the source book and review the four events."
+    },
+    {
+      "title": "Order",
+      "detail": "Place each event under first, next, then or last."
+    },
+    {
+      "title": "Retell",
+      "detail": "Use temporal words to explain the sequence."
+    }
+  ],
+  "scarborough": {
+    "strands": [
+      "Language Structures",
+      "Literacy Knowledge"
+    ],
+    "tier": "upper",
+    "statement": "Supports temporal language and knowledge of narrative event order."
+  },
+  "preview_image": "assets/themes/llama_llama_red_pajama/OUTPUT/LLRP-SEQ-LAUNCH_Sequencing_COLOR.pdf",
+  "hero_image": "assets/themes/llama_llama_red_pajama/hero.png",
+  "pcs_used": true,
+  "book_companion": true,
+  "book_not_included": true
+}

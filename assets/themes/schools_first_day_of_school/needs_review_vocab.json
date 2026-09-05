@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "title": "School's First Day of School",
+  "author": "Adam Rex",
+  "status": "demand_candidate",
+  "vocab_status": "pending_human_review",
+  "production_blocked": true,
+  "demand_candidate": {
+    "campaign": "september_back_to_school_2026",
+    "rank": 13,
+    "evidence_level": "public_tpt_and_seasonal_proxy",
+    "rationale": "Distinctive school-building perspective supports first-day feelings, routines, places, and accessible school vocabulary with lower visible competition than leading classics.",
+    "tpt_keyword_finder_verified": false,
+    "rights_review": "required"
+  },
+  "hero": {
+    "name": "School (Frederick Douglass Elementary)",
+    "description": "An anthropomorphic school building with a subtle personified face, the newly-constructed main character who narrates his own worries and feelings about the first day of school",
+    "search_term": "personified school building character",
+    "needs_sourcing": true,
+    "source_note": "Generic Boardmaker 'school building' icons won't capture the personification/face that makes this character recognizable from the cover; source a custom image or TPT clip art showing a building with a face."
+  },
+  "fringe_12": [
+    "School (Frederick Douglass Elementary)",
+    "janitor",
+    "children",
+    "teacher",
+    "fire alarm",
+    "water fountain",
+    "nervous",
+    "scared",
+    "picture",
+    "glitter",
+    "hug",
+    "relieved"
+  ],
+  "fringe_11": [
+    "janitor",
+    "children",
+    "teacher",
+    "fire alarm",
+    "water fountain",
+    "nervous",
+    "scared",
+    "picture",
+    "glitter",
+    "hug",
+    "relieved"
+  ],
+  "activity_images": [
+    "janitor",
+    "children",
+    "teacher",
+    "fire alarm",
+    "water fountain",
+    "nervous"
+  ],
+  "aac_extras": [
+    "scared",
+    "picture",
+    "glitter",
+    "hug",
+    "relieved"
+  ],
+  "ambiguous": [
+    {
+      "word": "picture",
+      "issue": "Could mean a photograph, a drawing/artwork, or the verb 'to imagine'",
+      "preferred": "drawing/artwork",
+      "reason": "In the book it specifically refers to the crayon-and-glitter drawing the little girl makes of School at the end of the day"
+    },
+    {
+      "word": "fire alarm",
+      "issue": "Could be confused with a general 'alarm clock' or 'siren' icon",
+      "preferred": "fire alarm (wall-mounted pull station)",
+      "reason": "The scene specifically involves the building's fire alarm system accidentally triggering, not a clock or emergency vehicle siren"
+    }
+  ],
+  "character_images_needed": [
+    "School (Frederick Douglass Elementary) - personified building"
+  ],
+  "icon_search_terms": {
+    "janitor": "janitor",
+    "children": "children group",
+    "teacher": "teacher",
+    "fire alarm": "fire alarm",
+    "water fountain": "water fountain",
+    "nervous": "nervous worried",
+    "scared": "afraid scared",
+    "picture": "drawing picture crayon",
+    "glitter": "glitter",
+    "hug": "hug",
+    "relieved": "relieved relief"
+  },
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": "2026-09-05",
+  "notes": "Demand candidate only. Complete Keyword Finder, rights, vocabulary, and icon review before production.",
+  "pub_year": "2016",
+  "book_summary": "Told from the point of view of a newly-built school, this story follows Frederick Douglass Elementary as he nervously anticipates his first day filled with children. Despite an embarrassing accidental fire alarm and squirting a bullying child with a water fountain, School comes to feel proud and ready by the end of the day, especially after a scared little girl warms up to him and draws him a glittery picture.",
+  "fringe_justifications": {
+    "janitor": "The janitor visits School throughout the summer and reassures him children are coming soon; \"the janitor comes to visit him, but the janitor assures him others will be there soon.\"",
+    "children": "The whole plot centers on whether School will like \"being filled with children, even if they get everywhere and make messes.\"",
+    "teacher": "In the kindergarten classroom scene, several children are so frightened that \"the teacher must take special care to calm them.\"",
+    "fire alarm": "A key embarrassing plot event is when School's fire alarm accidentally goes off during the day.",
+    "water fountain": "In a specific comic scene, School squirts a bullying kid in the face using one of his water fountains, then immediately regrets it.",
+    "nervous": "The opening premise states \"everyone's just a little bit nervous, especially the school itself,\" setting up School's central emotional arc.",
+    "scared": "A specific character, \"a little girl with freckles,\" is scared of school and is a recurring figure School worries about winning over.",
+    "picture": "At the end of the book, the freckled girl makes School \"a beautiful picture of him,\" symbolizing her turnaround.",
+    "glitter": "The girl's picture of School is specifically described as \"complete with glitter,\" a distinct visual detail from the book's climax.",
+    "hug": "Reviewers note the illustrations make readers want to give the personified building \"a hug,\" reflecting the book's warm physical/emotional tone toward School.",
+    "relieved": "By day's end School feels a \"sigh of relief\" as he realizes \"she feels capable of being a school,\" resolving his opening anxiety."
+  },
+  "grounded": true,
+  "grounding_note": "Confirmed via multiple sources (Goodreads, Amazon, Macmillan, School Library Journal review excerpt, Publishers Weekly, and a detailed plot recap from kidsbookaday.com) that this is the 2016 Adam Rex / Christian Robinson picture book about a newly-built, personified school named Frederick Douglass Elementary experiencing first-day jitters, including the janitor, fire alarm incident, water fountain squirt scene, and the freckled girl's glittery drawing at the end.",
+  "searches_used": 2,
+  "guardrail_warnings": []
+}
