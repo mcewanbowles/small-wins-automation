@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Sight Recognition",
+    "Vocabulary"
+  ],
+  "teacher_review_required": true,
+  "words": [
+    {
+      "word": "worried",
+      "image_key": "worried",
+      "label": "Worried"
+    },
+    {
+      "word": "school",
+      "image_key": "school",
+      "label": "School"
+    },
+    {
+      "word": "mouse",
+      "image_key": "mouse",
+      "label": "Mouse"
+    },
+    {
+      "word": "doll",
+      "image_key": "doll",
+      "label": "Doll"
+    },
+    {
+      "word": "friend",
+      "image_key": "friend",
+      "label": "Friend"
+    },
+    {
+      "word": "scared",
+      "image_key": "scared",
+      "label": "Scared"
+    }
+  ]
+}

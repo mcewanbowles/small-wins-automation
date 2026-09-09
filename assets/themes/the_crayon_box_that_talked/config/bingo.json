@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "teacher_review_required": true,
+  "items": [
+    {
+      "image_key": "crayon",
+      "label": "Crayon"
+    },
+    {
+      "image_key": "box",
+      "label": "Box"
+    },
+    {
+      "image_key": "red",
+      "label": "Red"
+    },
+    {
+      "image_key": "blue",
+      "label": "Blue"
+    },
+    {
+      "image_key": "yellow",
+      "label": "Yellow"
+    },
+    {
+      "image_key": "green",
+      "label": "Green"
+    },
+    {
+      "image_key": "color",
+      "label": "Color"
+    },
+    {
+      "image_key": "draw",
+      "label": "Draw"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Sight Recognition",
+    "Vocabulary"
+  ],
+  "teacher_review_required": true,
+  "words": [
+    {
+      "word": "wait",
+      "image_key": "wait",
+      "label": "Wait"
+    },
+    {
+      "word": "talking",
+      "image_key": "talking",
+      "label": "Talking"
+    },
+    {
+      "word": "erupt",
+      "image_key": "erupt",
+      "label": "Erupt"
+    },
+    {
+      "word": "excited",
+      "image_key": "excited",
+      "label": "Excited"
+    }
+  ]
+}

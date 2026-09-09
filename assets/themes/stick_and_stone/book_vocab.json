@@ -1,0 +1,201 @@
+{
+  "schema_version": 1,
+  "title": "Stick and Stone",
+  "author": "Beth Ferry",
+  "status": "existing",
+  "vocab_status": "reviewed",
+  "production_blocked": true,
+  "demand_candidate": {
+    "campaign": "september_back_to_school_2026",
+    "rank": 16,
+    "evidence_level": "public_tpt_and_seasonal_proxy",
+    "rationale": "Short friendship and anti-bullying story with concrete object characters, simple emotions, and strong classroom-community bundle potential.",
+    "tpt_keyword_finder_verified": false,
+    "rights_review": "required"
+  },
+  "hero": {
+    "name": "Stick and Stone",
+    "description": "Stick and Stone characters from Beth Ferry's friendship story",
+    "search_term": "stick and stone",
+    "needs_sourcing": true,
+    "source_note": "Named characters - source stick and stone clip art with faces"
+  },
+  "fringe_12": [
+    "stick",
+    "stone",
+    "friend",
+    "play",
+    "pinecone",
+    "alone",
+    "together",
+    "help",
+    "kind",
+    "sad",
+    "happy",
+    "park"
+  ],
+  "fringe_11": [],
+  "activity_images": [
+    "stick",
+    "stone",
+    "friend",
+    "play",
+    "pinecone",
+    "alone",
+    "together",
+    "help",
+    "kind",
+    "sad",
+    "happy",
+    "park"
+  ],
+  "aac_extras": [],
+  "ambiguous": [],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "stick": "stick",
+    "stone": "stone",
+    "friend": "friend",
+    "play": "play",
+    "pinecone": "pinecone",
+    "alone": "alone",
+    "together": "together",
+    "help": "help",
+    "kind": "kind",
+    "sad": "sad",
+    "happy": "happy",
+    "park": "park"
+  },
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": null,
+  "notes": "Demand candidate only. Complete Keyword Finder, rights, vocabulary, and icon review before production.",
+  "required_icons": {
+    "aac_board": {
+      "min": 2,
+      "max": 12,
+      "note": "2 theme + 24 core + 10 global fringe"
+    },
+    "matching": {
+      "min": 4,
+      "max": 12,
+      "note": "Min 4 approved stems, no hard cap"
+    },
+    "book_participation": {
+      "min": 8,
+      "max": 8,
+      "note": "8 vocab + hero"
+    },
+    "sentence_strips": {
+      "min": 8,
+      "max": 12,
+      "note": "8 theme items + 5 core words"
+    },
+    "sequencing": {
+      "min": 4,
+      "max": 10,
+      "note": "Story sequence cards, capped at 10"
+    },
+    "yes_no": {
+      "min": 4,
+      "max": 12,
+      "note": "Yes/No question cards, 4 per page"
+    },
+    "inferencing": {
+      "min": 3,
+      "max": 4,
+      "note": "Exactly 4 reasoning cards"
+    },
+    "vocabulary_snap": {
+      "min": 6,
+      "max": 12,
+      "note": "Vocab cards, cap 12 unique words"
+    },
+    "syllable_cards": {
+      "min": 4,
+      "max": 20,
+      "note": "Syllable cards, expanded to 20"
+    },
+    "cvc_decode": {
+      "min": 9,
+      "max": 15,
+      "note": "3-5 groups x 3 CVC words (phonics, not theme icons)"
+    },
+    "story_grammar": {
+      "min": 1,
+      "max": 1,
+      "note": "Hero icon + 6 fixed story-element labels"
+    },
+    "word_search": {
+      "min": 4,
+      "max": 8,
+      "note": "4-8 words, length <= 8 letters"
+    },
+    "bingo": {
+      "min": 8,
+      "max": 8,
+      "note": "Exactly 8 calling cards"
+    },
+    "sorting": {
+      "min": 6,
+      "max": 12,
+      "note": "6-12 sort items across 2 sets"
+    },
+    "print_detective": {
+      "min": 5,
+      "max": 8,
+      "note": "5-8 first-sound picture pairs"
+    }
+  },
+  "max_theme_icons": 9,
+  "story_sequence": [
+    "alone",
+    "friend",
+    "help",
+    "happy"
+  ],
+  "story_event_captions": {
+    "alone": "Stick and Stone are alone and lonely.",
+    "friend": "Stick and Stone become friends.",
+    "help": "Stick helps Stone when Pinecone is mean.",
+    "happy": "Stick and Stone are happy together."
+  },
+  "yes_no_questions": [
+    {
+      "question": "Is this a stick?",
+      "answer": "yes",
+      "image_key": "stick"
+    },
+    {
+      "question": "Is this a stone?",
+      "answer": "yes",
+      "image_key": "stone"
+    },
+    {
+      "question": "Is this a pinecone?",
+      "answer": "yes",
+      "image_key": "pinecone"
+    },
+    {
+      "question": "Are they friends?",
+      "answer": "yes",
+      "image_key": "friend"
+    },
+    {
+      "question": "Is Stick sad?",
+      "answer": "no",
+      "image_key": "happy"
+    },
+    {
+      "question": "Is this about being kind?",
+      "answer": "yes",
+      "image_key": "kind"
+    },
+    {
+      "question": "Is this a park?",
+      "answer": "yes",
+      "image_key": "park"
+    }
+  ]
+}

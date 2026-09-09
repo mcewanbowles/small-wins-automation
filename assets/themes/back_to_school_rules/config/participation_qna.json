@@ -1,0 +1,83 @@
+{
+  "schema": "pp_qna.v1",
+  "book_slug": "back_to_school_rules",
+  "book_title": "Back to School Rules",
+  "pages": [
+    {
+      "page_num": 1,
+      "question": "Where does the character go?",
+      "choices": [
+        "school",
+        "rules",
+        "raise_hand"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        false,
+        false
+      ],
+      "context_mirror": {
+        "sentence": "Children arrive at school ready to learn.",
+        "scene_note": "Children arrive at school ready to learn."
+      }
+    },
+    {
+      "page_num": 2,
+      "question": "What do you see?",
+      "choices": [
+        "rules",
+        "school",
+        "raise_hand"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        false,
+        false
+      ],
+      "context_mirror": {
+        "sentence": "The class learns the school rules.",
+        "scene_note": "The class learns the school rules."
+      }
+    },
+    {
+      "page_num": 3,
+      "question": "What do you see?",
+      "choices": [
+        "listen",
+        "school",
+        "rules"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        false,
+        false
+      ],
+      "context_mirror": {
+        "sentence": "Everyone practices listening and raising hands.",
+        "scene_note": "Everyone practices listening and raising hands."
+      }
+    },
+    {
+      "page_num": 4,
+      "question": "Who does the character meet?",
+      "choices": [
+        "friend",
+        "school",
+        "rules"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        false,
+        false
+      ],
+      "context_mirror": {
+        "sentence": "Children are kind and make new friends.",
+        "scene_note": "Children are kind and make new friends."
+      }
+    }
+  ]
+}

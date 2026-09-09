@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "slug": "the_name_jar",
+  "icons_kit": [],
+  "hero_icon": null,
+  "qa": {
+    "status": "not_reviewed",
+    "reviewed_at": null,
+    "items": []
+  },
+  "build": {
+    "last_built_at": null,
+    "products_built": [],
+    "pack_code": "TNJ01"
+  }
+}

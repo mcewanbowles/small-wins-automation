@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Phonological Awareness"
+  ],
+  "teacher_review_required": true,
+  "items": [
+    {
+      "image_key": "worried",
+      "label": "Worried",
+      "count": 2,
+      "segmentation": "wo · rrie · d"
+    },
+    {
+      "image_key": "school",
+      "label": "School",
+      "count": 1,
+      "segmentation": "school"
+    },
+    {
+      "image_key": "mouse",
+      "label": "Mouse",
+      "count": 1,
+      "segmentation": "mouse"
+    },
+    {
+      "image_key": "doll",
+      "label": "Doll",
+      "count": 1,
+      "segmentation": "doll"
+    },
+    {
+      "image_key": "friend",
+      "label": "Friend",
+      "count": 1,
+      "segmentation": "friend"
+    },
+    {
+      "image_key": "scared",
+      "label": "Scared",
+      "count": 2,
+      "segmentation": "sca · re · d"
+    }
+  ]
+}

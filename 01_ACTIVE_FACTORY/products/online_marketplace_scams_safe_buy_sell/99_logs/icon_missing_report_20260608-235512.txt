@@ -1,0 +1,11 @@
+Missing icons report:
+
+- marketplace
+- buy
+- sell
+- payment
+- meet in public
+- fake account
+  suggested alternatives: deepfake (2), deepfake, 4 deepfake (2)
+- trusted adult
+- refund

@@ -1,0 +1,7 @@
+Missing icons report:
+
+- do not pay
+  suggested alternatives: dont_know, dont_like, do not reply, dont_go_with_strangers, down
+- evidence
+  suggested alternatives: evidence, video_evidence
+- pay

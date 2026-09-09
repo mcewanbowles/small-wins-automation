@@ -1,0 +1,20 @@
+BODY HYGIENE AND SELF-ADVOCACY: ASKING FOR HELP (Story Standalone)
+
+Upload files in this folder:
+- SWS_Ask_Help_Story_Printable.pdf
+- SWS_Ask_Help_Story_Match_Cutouts_Printable.pdf
+- SWS_Ask_Help_Engaging_Lesson_Printable.pdf
+- SWS_Ask_Help_Data_Collection_Printable.pdf
+- SWS_Ask_Help_Terms_of_Use.pdf
+- SWS_Ask_Help_Quick_Start.pdf
+- SWS_Ask_Help_Product_Overview.pdf
+
+Listing images (500x500):
+- listing_images/thumb_1_cover_500x500.png
+- listing_images/thumb_2_activity1_500x500.png
+- listing_images/thumb_3_activity2_500x500.png
+- listing_images/thumb_4_cutouts_500x500.png
+
+Asset edit paths (icons):
+- c:\Users\mcewa\small-wins-automation\assets\global\icons\ask_for_help_master\selected
+- c:\Users\mcewa\small-wins-automation\assets\global\aac_core

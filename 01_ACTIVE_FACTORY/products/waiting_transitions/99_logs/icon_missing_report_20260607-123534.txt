@@ -1,0 +1,9 @@
+Missing icons report:
+
+- transitions
+- timer
+- line up
+  suggested alternatives: ask_online, fun_online, illegal_online_content, online stranger, online
+- listen
+- transition
+- move

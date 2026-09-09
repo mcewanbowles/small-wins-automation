@@ -120,7 +120,7 @@ def _draw_matching_cutouts_header(c: canvas.Canvas, title: str, subtitle: str, p
     footer_y = border_margin + 0.3 * inch
     c.setFont('Helvetica', 9)
     c.setFillColorRGB(*_hex_to_rgb('#999999'))
-    footer_line2 = ' 2025 Small Wins Studio. PCS symbols used with active PCS Maker Personal License.'
+    footer_line2 = ' 2026 Small Wins Studio. PCS symbols used with active PCS Maker Personal License.'
     c.drawCentredString(width / 2, footer_y, footer_line2)
 
     c.setFillColorRGB(0, 0, 0)
@@ -187,7 +187,7 @@ def _draw_bonus_cover_page(c: canvas.Canvas, theme_name: str = 'Brown Bear', pac
     footer_y = border_margin + 0.3 * inch
     c.setFont('Helvetica', 9)
     c.setFillColorRGB(*_hex_to_rgb('#999999'))
-    footer_line2 = ' 2025 Small Wins Studio. PCS symbols used with active PCS Maker Personal License.'
+    footer_line2 = ' 2026 Small Wins Studio. PCS symbols used with active PCS Maker Personal License.'
     c.drawCentredString(width / 2, footer_y, footer_line2)
     c.setFont('Helvetica', 10)
     c.setFillColorRGB(0, 0, 0)

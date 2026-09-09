@@ -13,7 +13,9 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.utils import ImageReader
 
-from utils.sws_design import apply_small_wins_frame, generate_internal_cover_page, generate_teacher_cover_page, shrink_font_to_fit_with_pt, hex_to_rgb, NAVY_HEX, DPI
+from utils.sws_design import apply_small_wins_frame, generate_teacher_cover_page, shrink_font_to_fit_with_pt, hex_to_rgb, NAVY_HEX, DPI
+from utils.sws_design import safe_footer_inset_px
+from utils.inference_api import get_inference_prompts
 from utils.qa import assess_files
 
 
@@ -57,7 +59,7 @@ def _read_icons(images_folder: str) -> List[Tuple[str, Image.Image]]:
     return items
 
 
-def _draw_inferencing_cards_page(*, theme_name: str, pack_code: str, page_num: int, total_pages: int, index: int) -> Image.Image:
+def _draw_inferencing_cards_page(*, theme_name: str, pack_code: str, page_num: int, total_pages: int, index: int, items: List[Tuple[str, Image.Image]], header_left_icon: Image.Image | None) -> Image.Image:
     w = int(8.5 * DPI)
     h = int(11.0 * DPI)
     page = Image.new("RGB", (w, h), "white")
@@ -69,6 +71,12 @@ def _draw_inferencing_cards_page(*, theme_name: str, pack_code: str, page_num: i
         page_num=page_num,
         total_pages=total_pages,
         level=None,
+        draw_footer=True,
+        draw_subtitle=True,
+        header_left_icon=header_left_icon,
+        header_height_px=int(0.92 * DPI),
+        accent_margin_px=int(0.12 * DPI),
+        footer_y_offset_px=int(0.08 * DPI),
     )
     d = ImageDraw.Draw(page)
     instr = f"Use clues to infer: Card set {index}"
@@ -76,16 +84,118 @@ def _draw_inferencing_cards_page(*, theme_name: str, pack_code: str, page_num: i
     font, pt = shrink_font_to_fit_with_pt(instr, base_pt=20, max_width_px=usable_w, bold=True, brand="poppins", min_pt=12)
     tw, th = d.textbbox((0, 0), instr, font=font)[2:4]
     d.text(((w - tw) // 2, int(1.7 * DPI)), instr, fill=hex_to_rgb(NAVY_HEX), font=font)
-    # Two large card boxes
+    # Safe bounds below header and above footer
+    header_clear = int(1.80 * DPI)
+    footer_inset = safe_footer_inset_px()
+    top_y = max(int(2.2 * DPI), header_clear + int(12))
+    bottom_y = h - footer_inset - int(12)
+
+    # Two large card boxes with icon and prompts
     margin = int(0.9 * DPI)
     gap = int(0.35 * DPI)
     box_w = w - 2 * margin
-    box_h = int((h - int(3.2 * DPI) - margin - gap) / 2)
+    avail_h = max(1, (bottom_y - top_y))
+    box_h = int((avail_h - gap) / 2)
     x0 = margin
-    y0 = int(2.2 * DPI)
-    d.rectangle([x0, y0, x0 + box_w, y0 + box_h], outline=(0, 0, 0), width=int(2 * (DPI / 72)))
-    y1 = y0 + box_h + gap
-    d.rectangle([x0, y1, x0 + box_w, y1 + box_h], outline=(0, 0, 0), width=int(2 * (DPI / 72)))
+    y0 = top_y
+    inner_pad = int(0.2 * DPI)
+    lines_color = (0, 0, 0)
+
+    for i in range(2):
+        by0 = y0 + i * (box_h + gap)
+        d.rectangle([x0, by0, x0 + box_w, by0 + box_h], outline=lines_color, width=int(2 * (DPI / 72)))
+        # Icon zone ~60% height
+        icon_max_h = int(box_h * 0.6)
+        icon_max_w = box_w - 2 * inner_pad
+        if i < len(items):
+            label, im = items[i]
+            try:
+                im_rgba = im if im.mode == "RGBA" else im.convert("RGBA")
+                iw, ih = im_rgba.size
+                if iw > 0 and ih > 0:
+                    scale = min(icon_max_w / iw, icon_max_h / ih)
+                    nw, nh = max(1, int(iw * scale)), max(1, int(ih * scale))
+                    pim = im_rgba.resize((nw, nh), Image.Resampling.LANCZOS)
+                    px = x0 + (box_w - nw) // 2
+                    py = by0 + inner_pad + max(0, (icon_max_h - nh) // 2)
+                    page.paste(pim, (px, py), pim)
+            except Exception:
+                pass
+
+            # Prompts below icon
+            try:
+                prompts = get_inference_prompts(label) or []
+            except Exception:
+                prompts = []
+            if not prompts:
+                prompts = [
+                    "What can you infer?",
+                    "Which clues helped you?",
+                ]
+            # Draw up to 2 prompt lines, then add Write/Speak response areas
+            prompt_zone_top = by0 + inner_pad + icon_max_h + int(0.1 * DPI)
+            prompt_left = x0 + inner_pad
+            prompt_right = x0 + box_w - inner_pad
+            max_w = prompt_right - prompt_left
+            base_pt = 22
+            cur_y = prompt_zone_top
+            last_pth = int(0.14 * DPI)
+            for txt in prompts[:2]:
+                pfont, _ = shrink_font_to_fit_with_pt(txt, base_pt=base_pt, max_width_px=max_w, bold=False, brand="poppins", min_pt=12)
+                ptw, pth = d.textbbox((0, 0), txt, font=pfont)[2:4]
+                d.text((x0 + (box_w - ptw) // 2, cur_y), txt, fill=lines_color, font=pfont)
+                cur_y += pth + int(0.12 * DPI)
+                last_pth = pth
+
+            # Response areas (clamped to avoid negative geometry)
+            resp_top = cur_y + int(0.08 * DPI)
+            resp_bot = by0 + box_h - inner_pad
+            resp_h = max(0, resp_bot - resp_top)
+            if resp_h > int(0.6 * DPI):
+                write_h = int(resp_h * 0.45)
+                speak_h = resp_h - write_h - int(0.12 * DPI)
+            else:
+                write_h = max(0, int(resp_h * 0.5))
+                speak_h = max(0, resp_h - write_h)
+
+            # Write area: label + ruled lines
+            try:
+                wlabel = "Write your idea:"
+                wfont, _ = shrink_font_to_fit_with_pt(wlabel, base_pt=18, max_width_px=max_w, bold=False, brand="poppins", min_pt=12)
+            except Exception:
+                wfont = None
+            wy = resp_top
+            if write_h >= int(0.3 * DPI):
+                if wfont is not None:
+                    ltw, lth = d.textbbox((0, 0), wlabel, font=wfont)[2:4]
+                    d.text((x0 + (box_w - ltw) // 2, wy), wlabel, fill=lines_color, font=wfont)
+                    wy += lth + int(0.06 * DPI)
+                lines_area_h = max(0, write_h - (wy - resp_top))
+                gap_y = int(0.18 * DPI)
+                if lines_area_h >= gap_y:
+                    line_count = max(1, min(5, lines_area_h // gap_y))
+                    ly = wy
+                    for _ in range(line_count):
+                        d.line([x0 + inner_pad, ly, x0 + box_w - inner_pad, ly], fill=lines_color, width=1)
+                        ly += gap_y
+
+            # Speak area: label + rounded rectangle
+            sy = resp_top + write_h + int(0.12 * DPI)
+            if speak_h >= int(0.28 * DPI):
+                slabel = "Speak it:"
+                try:
+                    sfont, _ = shrink_font_to_fit_with_pt(slabel, base_pt=18, max_width_px=max_w, bold=False, brand="poppins", min_pt=12)
+                except Exception:
+                    sfont = None
+                if sfont is not None:
+                    stw, sth = d.textbbox((0, 0), slabel, font=sfont)[2:4]
+                    d.text((x0 + (box_w - stw) // 2, sy), slabel, fill=lines_color, font=sfont)
+                    sy += sth + int(0.06 * DPI)
+                speak_top = sy
+                speak_bot = min(resp_bot, speak_top + speak_h)
+                if speak_bot > speak_top + 4:
+                    rr = int(10 * (DPI / 72))
+                    d.rounded_rectangle([x0 + inner_pad, speak_top, x0 + box_w - inner_pad, speak_bot], radius=rr, outline=lines_color, width=int(2 * (DPI / 72)))
     return page
 
 
@@ -116,7 +226,7 @@ def generate_inferencing_cards_pack(images_folder: str, pack_code: str = "INF01"
         images_path = Path(images_folder).resolve()
         slug_guess = images_path.parent.name if images_path.parent.name else None
         if slug_guess:
-            tdir = Path(__file__).resolve().parents[1] / "assets" / "themes" / slug_guess
+            tdir = Path(__file__).resolve().parents[2] / "assets" / "themes" / slug_guess
             hero_candidates = [
                 tdir / "hero_header.png",
                 tdir / "heroes" / "hero_header.png",
@@ -148,16 +258,30 @@ def generate_inferencing_cards_pack(images_folder: str, pack_code: str = "INF01"
         hero_path_str = None
         book_cover_path_str = None
 
+    # Prepare header icon image (prefer hero path, fallback to first activity image)
+    header_icon_img = None
+    try:
+        if hero_path_str:
+            _im = Image.open(hero_path_str)
+            header_icon_img = _im.convert("RGBA") if _im.mode != "RGBA" else _im
+    except Exception:
+        header_icon_img = None
+    if header_icon_img is None and items:
+        try:
+            header_icon_img = items[0][1]
+        except Exception:
+            header_icon_img = None
+
     cover = generate_teacher_cover_page(
         theme_name=theme_name,
         pack_code=pack_code,
         product_name="Inferencing Cards",
         page_count=page_count,
         level_count=None,
-        hero_image=None,
+        hero_image=header_icon_img,
         hero_image_path=hero_path_str,
         book_cover_path=book_cover_path_str,
-        draw_footer=False,
+        draw_footer=True,
         whats_included=[
             "2 practice sets",
             "Symbol-supported prompts",
@@ -173,13 +297,18 @@ def generate_inferencing_cards_pack(images_folder: str, pack_code: str = "INF01"
             "Model think-aloud strategies.",
             "Fade prompts as independence grows.",
         ],
-        rope_strand="Word Recognition",
-        rope_skills="Decoding · Sight Words · Orthographic Mapping",
+        rope_strand="Language Comprehension",
+        rope_skills="Oral Language · Inference · Evidence",
         render_chips=False,
     )
+    # header_icon_img already prepared above (with fallback)
+
+    # Prepare items for two pages (2 boxes per page)
+    items_page1 = items[:2]
+    items_page2 = items[2:4]
     pages_content = [
-        _draw_inferencing_cards_page(theme_name=theme_name, pack_code=pack_code, page_num=2, total_pages=total_pages, index=1),
-        _draw_inferencing_cards_page(theme_name=theme_name, pack_code=pack_code, page_num=3, total_pages=total_pages, index=2),
+        _draw_inferencing_cards_page(theme_name=theme_name, pack_code=pack_code, page_num=2, total_pages=total_pages, index=1, items=items_page1, header_left_icon=header_icon_img),
+        _draw_inferencing_cards_page(theme_name=theme_name, pack_code=pack_code, page_num=3, total_pages=total_pages, index=2, items=items_page2, header_left_icon=header_icon_img),
     ]
     pages_color = [cover] + pages_content
 
@@ -284,11 +413,11 @@ def build_pdf(slug: str, book_title: str, pack_code: str) -> bool:
     (slug, book_title, pack_code) rather than a resolved images_folder path.
     """
     repo_root = Path(__file__).resolve().parents[2]
-    for folder in ("activity_images", "icons_colored", "icons"):
+    for folder in ("activity_images", "icons"):
         images_folder = repo_root / "assets" / "themes" / slug / folder
         if images_folder.exists():
             return generate_inferencing_cards_pack(str(images_folder), pack_code=pack_code, theme_name=book_title)
-    print(f"❌ No image folder found for slug '{slug}' (checked activity_images/icons_colored/icons)")
+    print(f"❌ No image folder found for slug '{slug}' (checked activity_images/icons)")
     return False
 
 

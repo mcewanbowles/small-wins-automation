@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "product_name": "Interactive Book Participation Pieces",
+  "source_book_required": true,
+  "edition_neutral": true,
+  "teacher_review_required": true,
+  "vocabulary_source": "reviewed book_vocab and approved local icons",
+  "vocabulary": [
+    {
+      "image_key": "old_lady",
+      "label": "old lady",
+      "review_status": "approved"
+    },
+    {
+      "image_key": "book",
+      "label": "book",
+      "review_status": "approved"
+    },
+    {
+      "image_key": "pencil",
+      "label": "pencil",
+      "review_status": "approved"
+    },
+    {
+      "image_key": "backpack",
+      "label": "backpack",
+      "review_status": "approved"
+    },
+    {
+      "image_key": "school",
+      "label": "school",
+      "review_status": "approved"
+    },
+    {
+      "image_key": "ruler",
+      "label": "ruler",
+      "review_status": "approved"
+    },
+    {
+      "image_key": "chalk",
+      "label": "chalk",
+      "review_status": "approved"
+    },
+    {
+      "image_key": "eraser",
+      "label": "eraser",
+      "review_status": "approved"
+    }
+  ],
+  "question_strips": [
+    {
+      "prompt": "Who is on this page?",
+      "response_type": "point",
+      "options": [
+        "old_lady",
+        "book",
+        "pencil"
+      ]
+    },
+    {
+      "prompt": "What do you see?",
+      "response_type": "point",
+      "options": [
+        "backpack",
+        "school",
+        "ruler"
+      ]
+    },
+    {
+      "prompt": "How does the character feel?",
+      "response_type": "point",
+      "options": []
+    }
+  ],
+  "participation_words": [
+    "see",
+    "more",
+    "finished",
+    "help",
+    "yes",
+    "no",
+    "turn_the_page"
+  ],
+  "early_access": {
+    "enabled": true,
+    "hero_image_key": "",
+    "hero_label": "",
+    "hero_piece_copies": 6,
+    "turn_page_piece_copies": 2,
+    "cue": "See . Match . Turn the page."
+  },
+  "reading_rope": [
+    "Vocabulary",
+    "Language Structures",
+    "Verbal Reasoning",
+    "Literacy Knowledge"
+  ]
+}

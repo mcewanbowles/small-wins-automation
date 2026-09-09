@@ -1,0 +1,4 @@
+Missing icons report:
+
+- tell parent
+  suggested alternatives: tell, tellpolice, tell_someon, tell_someone, 13 tell_someone

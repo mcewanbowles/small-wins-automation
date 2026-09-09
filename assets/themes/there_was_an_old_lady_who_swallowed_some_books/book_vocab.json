@@ -1,0 +1,201 @@
+{
+  "schema_version": 1,
+  "title": "There Was an Old Lady Who Swallowed Some Books!",
+  "author": "Lucille Colandro",
+  "status": "existing",
+  "vocab_status": "reviewed",
+  "production_blocked": true,
+  "demand_candidate": {
+    "campaign": "september_back_to_school_2026",
+    "rank": 9,
+    "evidence_level": "public_tpt_and_seasonal_proxy",
+    "rationale": "Cumulative school-themed structure is highly suitable for AAC prediction, sequencing, repeated participation, and concrete icon vocabulary.",
+    "tpt_keyword_finder_verified": false,
+    "rights_review": "required"
+  },
+  "hero": {
+    "name": "Old Lady",
+    "description": "Silly old lady character from Lucille Colandro's series",
+    "search_term": "old lady",
+    "needs_sourcing": true,
+    "source_note": "Named character from There Was an Old Lady series - source generic old lady clip art"
+  },
+  "fringe_12": [
+    "old_lady",
+    "book",
+    "pencil",
+    "backpack",
+    "school",
+    "ruler",
+    "chalk",
+    "eraser",
+    "folder",
+    "pen",
+    "lunch",
+    "read"
+  ],
+  "fringe_11": [],
+  "activity_images": [
+    "old_lady",
+    "book",
+    "pencil",
+    "backpack",
+    "school",
+    "ruler",
+    "chalk",
+    "eraser",
+    "folder",
+    "pen",
+    "lunch",
+    "read"
+  ],
+  "aac_extras": [],
+  "ambiguous": [],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "old_lady": "old lady",
+    "book": "book",
+    "pencil": "pencil",
+    "backpack": "backpack",
+    "school": "school",
+    "ruler": "ruler",
+    "chalk": "chalk",
+    "eraser": "eraser",
+    "folder": "folder",
+    "pen": "pen",
+    "lunch": "lunch",
+    "read": "read"
+  },
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": null,
+  "notes": "Demand candidate only. Complete Keyword Finder, rights, vocabulary, and icon review before production.",
+  "required_icons": {
+    "aac_board": {
+      "min": 2,
+      "max": 12,
+      "note": "2 theme + 24 core + 10 global fringe"
+    },
+    "matching": {
+      "min": 4,
+      "max": 12,
+      "note": "Min 4 approved stems, no hard cap"
+    },
+    "book_participation": {
+      "min": 8,
+      "max": 8,
+      "note": "8 vocab + hero"
+    },
+    "sentence_strips": {
+      "min": 8,
+      "max": 12,
+      "note": "8 theme items + 5 core words"
+    },
+    "sequencing": {
+      "min": 4,
+      "max": 10,
+      "note": "Story sequence cards, capped at 10"
+    },
+    "yes_no": {
+      "min": 4,
+      "max": 12,
+      "note": "Yes/No question cards, 4 per page"
+    },
+    "inferencing": {
+      "min": 3,
+      "max": 4,
+      "note": "Exactly 4 reasoning cards"
+    },
+    "vocabulary_snap": {
+      "min": 6,
+      "max": 12,
+      "note": "Vocab cards, cap 12 unique words"
+    },
+    "syllable_cards": {
+      "min": 4,
+      "max": 20,
+      "note": "Syllable cards, expanded to 20"
+    },
+    "cvc_decode": {
+      "min": 9,
+      "max": 15,
+      "note": "3-5 groups x 3 CVC words (phonics, not theme icons)"
+    },
+    "story_grammar": {
+      "min": 1,
+      "max": 1,
+      "note": "Hero icon + 6 fixed story-element labels"
+    },
+    "word_search": {
+      "min": 4,
+      "max": 8,
+      "note": "4-8 words, length <= 8 letters"
+    },
+    "bingo": {
+      "min": 8,
+      "max": 8,
+      "note": "Exactly 8 calling cards"
+    },
+    "sorting": {
+      "min": 6,
+      "max": 12,
+      "note": "6-12 sort items across 2 sets"
+    },
+    "print_detective": {
+      "min": 5,
+      "max": 8,
+      "note": "5-8 first-sound picture pairs"
+    }
+  },
+  "max_theme_icons": 9,
+  "story_sequence": [
+    "book",
+    "pencil",
+    "backpack",
+    "school"
+  ],
+  "story_event_captions": {
+    "book": "The old lady swallowed a book!",
+    "pencil": "The old lady swallowed a pencil.",
+    "backpack": "The old lady swallowed a backpack.",
+    "school": "The old lady goes to school."
+  },
+  "yes_no_questions": [
+    {
+      "question": "Is this a book?",
+      "answer": "yes",
+      "image_key": "book"
+    },
+    {
+      "question": "Is this a toy?",
+      "answer": "no",
+      "image_key": "book"
+    },
+    {
+      "question": "Is this a pencil?",
+      "answer": "yes",
+      "image_key": "pencil"
+    },
+    {
+      "question": "Is this a backpack?",
+      "answer": "yes",
+      "image_key": "backpack"
+    },
+    {
+      "question": "Is this a ruler?",
+      "answer": "yes",
+      "image_key": "ruler"
+    },
+    {
+      "question": "Is this a school?",
+      "answer": "yes",
+      "image_key": "school"
+    },
+    {
+      "question": "Did the old lady swallow a car?",
+      "answer": "no",
+      "image_key": "book"
+    }
+  ]
+}

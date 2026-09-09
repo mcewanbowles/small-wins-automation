@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Sight Recognition",
+    "Vocabulary"
+  ],
+  "teacher_review_required": true,
+  "words": [
+    {
+      "word": "lola",
+      "image_key": "lola",
+      "label": "Lola"
+    },
+    {
+      "word": "school",
+      "image_key": "school",
+      "label": "School"
+    },
+    {
+      "word": "backpack",
+      "image_key": "backpack",
+      "label": "Backpack"
+    },
+    {
+      "word": "book",
+      "image_key": "book",
+      "label": "Book"
+    },
+    {
+      "word": "teacher",
+      "image_key": "teacher",
+      "label": "Teacher"
+    },
+    {
+      "word": "friend",
+      "image_key": "friend",
+      "label": "Friend"
+    },
+    {
+      "word": "play",
+      "image_key": "play",
+      "label": "Play"
+    },
+    {
+      "word": "learn",
+      "image_key": "learn",
+      "label": "Learn"
+    }
+  ]
+}

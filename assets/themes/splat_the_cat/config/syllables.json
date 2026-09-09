@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Phonological Awareness"
+  ],
+  "teacher_review_required": true,
+  "items": [
+    {
+      "image_key": "splat",
+      "label": "Splat",
+      "count": 1,
+      "segmentation": "splat"
+    },
+    {
+      "image_key": "cat",
+      "label": "Cat",
+      "count": 1,
+      "segmentation": "cat"
+    },
+    {
+      "image_key": "school",
+      "label": "School",
+      "count": 1,
+      "segmentation": "school"
+    },
+    {
+      "image_key": "mouse",
+      "label": "Mouse",
+      "count": 1,
+      "segmentation": "mouse"
+    },
+    {
+      "image_key": "teacher",
+      "label": "Teacher",
+      "count": 2,
+      "segmentation": "teach · er"
+    },
+    {
+      "image_key": "friend",
+      "label": "Friend",
+      "count": 1,
+      "segmentation": "friend"
+    },
+    {
+      "image_key": "scared",
+      "label": "Scared",
+      "count": 2,
+      "segmentation": "scared"
+    },
+    {
+      "image_key": "learn",
+      "label": "Learn",
+      "count": 1,
+      "segmentation": "learn"
+    },
+    {
+      "image_key": "lunch",
+      "label": "Lunch",
+      "count": 1,
+      "segmentation": "lunch"
+    },
+    {
+      "image_key": "book",
+      "label": "Book",
+      "count": 1,
+      "segmentation": "book"
+    },
+    {
+      "image_key": "happy",
+      "label": "Happy",
+      "count": 2,
+      "segmentation": "hap · py"
+    },
+    {
+      "image_key": "pet",
+      "label": "Pet",
+      "count": 1,
+      "segmentation": "pet"
+    }
+  ]
+}

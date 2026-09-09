@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "book_title": "Llama Llama Red Pajama",
+  "pack_code": "LLRP-ADPT-LAUNCH",
+  "review_sentence": "Mama returns and Llama feels safe.",
+  "teacher_review_required": true,
+  "pages": [
+    {"page_num": 3, "image_word": "pajamas", "sentence": "Llama wears red pajamas.", "scene_note": "Opening bedtime clothing"},
+    {"page_num": 4, "image_word": "bed", "sentence": "Llama gets ready for bed.", "scene_note": "Bedtime begins"},
+    {"page_num": 5, "image_word": "mama", "sentence": "Mama says goodnight.", "scene_note": "Mama settles Llama"},
+    {"page_num": 6, "image_word": "stairs", "sentence": "Mama goes downstairs.", "scene_note": "Mama leaves the bedroom"},
+    {"page_num": 7, "image_word": "scared", "sentence": "Llama begins to feel scared.", "scene_note": "Llama worries while waiting"},
+    {"page_num": 8, "image_word": "cry", "sentence": "Llama cries and calls for Mama.", "scene_note": "Llama communicates distress"},
+    {"page_num": 9, "image_word": "night", "sentence": "It is still nighttime.", "scene_note": "The bedtime setting continues"},
+    {"page_num": 10, "image_word": "llama", "sentence": "Llama Llama is safe and snug.", "scene_note": "Comforting resolution"}
+  ]
+}

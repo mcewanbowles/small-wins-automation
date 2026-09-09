@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Language Structures",
+    "Vocabulary"
+  ],
+  "teacher_review_required": true,
+  "theme_items": [
+    {
+      "image_key": "school",
+      "label": "school"
+    },
+    {
+      "image_key": "rules",
+      "label": "rules"
+    },
+    {
+      "image_key": "raise_hand",
+      "label": "raise hand"
+    },
+    {
+      "image_key": "listen",
+      "label": "listen"
+    },
+    {
+      "image_key": "quiet",
+      "label": "quiet"
+    },
+    {
+      "image_key": "line_up",
+      "label": "line up"
+    },
+    {
+      "image_key": "share",
+      "label": "share"
+    },
+    {
+      "image_key": "kind",
+      "label": "kind"
+    }
+  ],
+  "patterns": [
+    {
+      "display": "I see ___",
+      "items": [
+        "school",
+        "rules",
+        "raise_hand",
+        "listen",
+        "quiet",
+        "line_up"
+      ]
+    },
+    {
+      "display": "I want ___",
+      "items": [
+        "rules",
+        "raise_hand",
+        "listen"
+      ]
+    },
+    {
+      "display": "I like ___",
+      "items": [
+        "school",
+        "rules",
+        "raise_hand",
+        "listen"
+      ]
+    }
+  ]
+}

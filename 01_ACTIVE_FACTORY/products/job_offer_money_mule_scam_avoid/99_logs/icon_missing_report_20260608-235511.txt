@@ -1,0 +1,9 @@
+Missing icons report:
+
+- job
+- job offer
+- bank account
+- transfer
+- say no
+- trusted adult
+- paycheck

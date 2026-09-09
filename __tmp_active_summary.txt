@@ -1,0 +1,135 @@
+Active files: 22
+
+## D:\Seagate\small-wins-automation\Studioforge\WINDSURF_TOOL_LAUNCHER.py
+  activity_images occurrences: 4 | remaining icons_colored: 0
+    L167: "tip": "Gated on 15 curated icons in activity_images. Use Icon Labeler first.",
+    L173: "tip": "Label and save chosen images into activity_images to count toward 15.",
+    L2320: cands = [base / "activity_images", base / "icons"]
+    L2965: p = THEMES_DIR / slug / "activity_images"
+
+## D:\Seagate\small-wins-automation\Studioforge\ICON_LABELER.py
+  activity_images occurrences: 4 | remaining icons_colored: 0
+    L103: has_assets = any((p / sub).exists() for sub in ("activity_images", "icons", "real_images", "aac_boards"))
+    L143: theme / "activity_images",
+    L202: dest = ASSETS / "themes" / book / "activity_images"
+    L237: dest = ASSETS / "themes" / book / "activity_images"
+
+## D:\Seagate\small-wins-automation\Studioforge\boardready\modules\qa_logic.py
+  activity_images occurrences: 5 | remaining icons_colored: 0
+    L111: has_assets = any((theme / sub).exists() for sub in ("activity_images", "icons", "aac_boards"))
+    L148: return ASSETS_DIR / "themes" / book_key / "activity_images"
+    L206: for sub in ("activity_images", "icons", "real_images"):
+    L258: for key in ("fringe_12", "fringe_11", "activity_images", "aac_extras"):
+    L276: for sub in ("activity_images", "icons"):
+
+## D:\Seagate\small-wins-automation\Studioforge\__qa_probe_icons.py
+  activity_images occurrences: 2 | remaining icons_colored: 0
+    L66: theme / 'activity_images',
+    L67: theme / 'activity_images',
+
+## D:\Seagate\small-wins-automation\Studioforge\__icon_smoke.ps1
+  activity_images occurrences: 1 | remaining icons_colored: 0
+    L58: $dst = Join-Path (Join-Path (Join-Path $repo 'assets\themes') $bk) (Join-Path 'activity_images' ($label + '.png'))
+
+## D:\Seagate\small-wins-automation\Studioforge\_patch_icon_labeler_endpoints.ps1
+  activity_images occurrences: 6 | remaining icons_colored: 0
+    L27: cands = [theme / "activity_images", theme / "activity_images", theme / "icons"]
+    L70: for d in [theme / "activity_images", theme / "activity_images", theme / "icons"]:
+    L133: dest = ASSETS / "themes" / slug / "activity_images"
+    L145: ASSETS / "themes" / slug / "activity_images",
+
+## D:\Seagate\small-wins-automation\Studioforge\scripts\generate_matching_minisample.py
+  activity_images occurrences: 1 | remaining icons_colored: 0
+    L30: base / "activity_images",
+
+## D:\Seagate\small-wins-automation\Studioforge\tools\diagnose_icon_resolution.py
+  activity_images occurrences: 3 | remaining icons_colored: 0
+    L28: images_dir = theme_dir / "activity_images"
+    L43: resolved = f"activity_images/{stem}.png"
+    L48: for folder in ("activity_images", "icons"):
+
+## D:\Seagate\small-wins-automation\Studioforge\tools\icon_readiness.py
+  activity_images occurrences: 3 | remaining icons_colored: 0
+    L112: td / "activity_images" / f"{lname}.png",
+    L114: td / "activity_images" / f"{lname}.png",
+    L151: return list(vocab_local.get("activity_images") or [])
+
+## D:\Seagate\small-wins-automation\Studioforge\tools\rebuild_matching_after_footer_fix.py
+  activity_images occurrences: 2 | remaining icons_colored: 0
+    L14: # Resolve an images folder with >=4 PNGs, preferring activity_images then fallbacks
+    L15: CANDIDATE_SUBFOLDERS = ["activity_images", "icons", "real_images"]
+
+## D:\Seagate\small-wins-automation\Studioforge\Accurate generators\ADAPTED_BOOK_GENERATOR.py
+  activity_images occurrences: 1 | remaining icons_colored: 0
+    L177: root / "activity_images",
+
+## D:\Seagate\small-wins-automation\Studioforge\Accurate generators\FIND_AND_COVER_GENERATOR.py
+  activity_images occurrences: 1 | remaining icons_colored: 0
+    L375: candidates = ["activity_images", "icons", "real_images"]
+
+## D:\Seagate\small-wins-automation\Studioforge\Accurate generators\GENERATE_ALL.py
+  activity_images occurrences: 6 | remaining icons_colored: 4
+    L422: Prefers the target theme's activity_images/icons_colored/icons if they have
+    L432: candidates = [base / "activity_images", base / "icons_colored", base / "icons", base / "real_images"]
+    L463: subs = ("activity_images", "icons_colored", "icons", "real_images")
+    L482: for sub in ("activity_images", "icons_colored", "icons", "characters", "aac_boards/previews"):
+    L516: # Fallback to the canonical theme activity_images path even if empty;
+    L522: fallback = repo / "assets" / "themes" / slug / "activity_images"
+
+## D:\Seagate\small-wins-automation\Studioforge\Accurate generators\generate_i_spy_count_brown_bear.py
+  activity_images occurrences: 8 | remaining icons_colored: 0
+    L150: activity_images_dir = root / "assets" / "themes" / "brown_bear" / "activity_images"
+    L152: icons_dir = activity_images_dir if activity_images_dir.exists() else legacy_icons_dir
+    L163: activity_images_dir = root / "assets" / "themes" / "brown_bear" / "activity_images"
+    L165: icons_dir = activity_images_dir if activity_images_dir.exists() else legacy_icons_dir
+
+## D:\Seagate\small-wins-automation\Studioforge\Accurate generators\generate_task_clip_cards_brown_bear.py
+  activity_images occurrences: 8 | remaining icons_colored: 0
+    L162: activity_images_dir = root / "assets" / "themes" / "brown_bear" / "activity_images"
+    L164: icons_dir = activity_images_dir if activity_images_dir.exists() else legacy_icons_dir
+    L207: activity_images_dir = root / "assets" / "themes" / "brown_bear" / "activity_images"
+    L209: icons_dir = activity_images_dir if activity_images_dir.exists() else legacy_icons_dir
+
+## D:\Seagate\small-wins-automation\Studioforge\Accurate generators\INFERENCING_CARDS.py
+  activity_images occurrences: 4 | remaining icons_colored: 0
+    L27: f"Images folder is inside the archived duplicate tree: {p}. Use assets/themes/<slug>/activity_images/."
+    L31: f"Inferencing Cards must not read from AAC core/global: {p}. Use assets/themes/<slug>/activity_images/."
+    L287: for folder in ("activity_images", "icons"):
+    L291: print(f"❌ No image folder found for slug '{slug}' (checked activity_images/icons)")
+
+## D:\Seagate\small-wins-automation\Studioforge\Accurate generators\SYLLABLE_CARDS.py
+  activity_images occurrences: 4 | remaining icons_colored: 0
+    L27: f"Images folder is inside the archived duplicate tree: {p}. Use assets/themes/<slug>/activity_images/."
+    L31: f"Syllable Cards must not read from AAC core/global: {p}. Use assets/themes/<slug>/activity_images/."
+    L290: for folder in ("activity_images", "icons"):
+    L294: print(f"❌ No image folder found for slug '{slug}' (checked activity_images/icons)")
+
+## D:\Seagate\small-wins-automation\Studioforge\Accurate generators\VOCAB_WORD_WALL.py
+  activity_images occurrences: 2 | remaining icons_colored: 0
+    L137: for folder in ["activity_images", "icons"]:
+    L160: for folder in ["activity_images", "icons"]:
+
+## D:\Seagate\small-wins-automation\Studioforge\Accurate generators\WORD_SEARCH_GENERATOR.py
+  activity_images occurrences: 7 | remaining icons_colored: 0
+    L21: 3. activity_images/ folder stems (auto-sorted by length)
+    L24: Loads from activity_images/ → activity_images/ → icons/
+    L284: for folder in ["activity_images", "icons"]:
+    L299: Priority: book_vocab.json word_search_words → vocab_words → activity_images/
+    L328: # Fall back to activity_images/ stems
+    L329: for folder in ["activity_images", "icons"]:
+
+## D:\Seagate\small-wins-automation\Studioforge\Accurate generators\YES_NO_GENERATOR.py
+  activity_images occurrences: 1 | remaining icons_colored: 0
+    L433: for folder in ["activity_images", "icons"]:
+
+## D:\Seagate\small-wins-automation\Generators\covers\generate_brown_bear_covers.py
+  activity_images occurrences: 8 | remaining icons_colored: 0
+    L137: activity_images_dir = root / "assets" / "themes" / "brown_bear" / "activity_images"
+    L139: icons_dir = activity_images_dir if activity_images_dir.exists() else legacy_icons_dir
+    L195: activity_images_dir = root / "assets" / "themes" / "brown_bear" / "activity_images"
+    L197: icons_dir = activity_images_dir if activity_images_dir.exists() else legacy_icons_dir
+
+## D:\Seagate\small-wins-automation\Generators\storage_labels\generate_storage_labels_brown_bear.py
+  activity_images occurrences: 4 | remaining icons_colored: 0
+    L31: activity_images_dir = root / "assets" / "themes" / "brown_bear" / "activity_images"
+    L33: icons_dir = activity_images_dir if activity_images_dir.exists() else legacy_icons_dir

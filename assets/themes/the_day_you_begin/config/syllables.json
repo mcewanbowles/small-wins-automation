@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Phonological Awareness"
+  ],
+  "teacher_review_required": true,
+  "items": [
+    {
+      "image_key": "school",
+      "label": "School",
+      "count": 1,
+      "segmentation": "school"
+    },
+    {
+      "image_key": "friend",
+      "label": "Friend",
+      "count": 1,
+      "segmentation": "friend"
+    },
+    {
+      "image_key": "different",
+      "label": "Different",
+      "count": 3,
+      "segmentation": "di · ffe · re · nt"
+    },
+    {
+      "image_key": "brave",
+      "label": "Brave",
+      "count": 1,
+      "segmentation": "brave"
+    },
+    {
+      "image_key": "story",
+      "label": "Story",
+      "count": 2,
+      "segmentation": "sto · ry"
+    },
+    {
+      "image_key": "share",
+      "label": "Share",
+      "count": 1,
+      "segmentation": "share"
+    }
+  ]
+}

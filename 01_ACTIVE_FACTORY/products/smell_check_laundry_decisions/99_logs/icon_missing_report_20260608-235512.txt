@@ -1,0 +1,17 @@
+Missing icons report:
+
+- sniff shirt
+- dirty clothes
+  suggested alternatives: throw_dirty_tampon_in_bin, wrap_dirty_tampon
+- laundry basket
+- washing machine
+- detergent
+- clean clothes
+  suggested alternatives: cleaning_crew, cleaning_supplies, cleaners, cleaning, clean (2)
+- drying rack
+- fold clothes
+- change clothes
+  suggested alternatives: body_changes_normal
+- smell check
+  suggested alternatives: smelly (2), smelly
+- hamper

@@ -1,0 +1,440 @@
+{
+  "mapped": {
+    "aac": "assets\\PCS Metafiles\\Alpha\\t\\talk.WMF",
+    "activity": "assets\\PCS Metafiles\\Alpha\\p\\play.WMF",
+    "address": "assets\\PCS Metafiles\\Alpha\\a\\address.WMF",
+    "adult": "assets\\PCS Metafiles\\Alpha\\a\\adults.WMF",
+    "and": "assets\\PCS Metafiles\\Alpha\\a\\and.WMF",
+    "appointment": "assets\\PCS Metafiles\\Alpha\\a\\appointment.WMF",
+    "ask": "assets\\PCS Metafiles\\Alpha\\a\\ask me a question.WMF",
+    "ask_adult": "assets\\PCS Metafiles\\Alpha\\a\\adults.WMF",
+    "ask_help": "assets\\PCS Metafiles\\Alpha\\h\\help.WMF",
+    "back": "assets\\PCS Metafiles\\Alpha\\b\\back.WMF",
+    "back_seat": "assets\\PCS Metafiles\\Alpha\\s\\seat belt.WMF",
+    "backpack": "assets\\PCS Metafiles\\Alpha\\b\\backpack.WMF",
+    "bag": "assets\\PCS Metafiles\\Alpha\\p\\purse.WMF",
+    "bathroom": "assets\\PCS Metafiles\\Alpha\\b\\bathroom.WMF",
+    "bedroom": "assets\\PCS Metafiles\\Alpha\\b\\bedroom.WMF",
+    "bin": "assets\\PCS Metafiles\\Alpha\\t\\trash.WMF",
+    "block": "assets\\PCS Metafiles\\Alpha\\b\\blocks.WMF",
+    "blood": "assets\\PCS Metafiles\\Alpha\\b\\blood.WMF",
+    "body": "assets\\PCS Metafiles\\Alpha\\b\\body.WMF",
+    "body_odor": "assets\\PCS Metafiles\\Alpha\\d\\deodorant.WMF",
+    "boundaries": "assets\\PCS Metafiles\\Alpha\\s\\stop.WMF",
+    "boundary": "assets\\PCS Metafiles\\Alpha\\s\\stop.WMF",
+    "bra": "assets\\PCS Metafiles\\Alpha\\b\\bra.WMF",
+    "break": "assets\\PCS Metafiles\\Alpha\\b\\break.WMF",
+    "bus": "assets\\PCS Metafiles\\Alpha\\b\\bus.WMF",
+    "buy_ticket": "assets\\PCS Metafiles\\Alpha\\t\\ticket.WMF",
+    "call": "assets\\PCS Metafiles\\Alpha\\p\\phone #.WMF",
+    "call_911": "assets\\PCS Metafiles\\Alpha\\p\\phone #.WMF",
+    "camera": "assets\\PCS Metafiles\\Alpha\\c\\camera.WMF",
+    "car": "assets\\PCS Metafiles\\Alpha\\c\\car.WMF",
+    "card": "assets\\PCS Metafiles\\Alpha\\c\\card.WMF",
+    "changes": "assets\\PCS Metafiles\\Alpha\\c\\change.WMF",
+    "check_plate": "assets\\PCS Metafiles\\Alpha\\c\\car.WMF",
+    "clean": "assets\\PCS Metafiles\\Alpha\\c\\clean.WMF",
+    "close": "assets\\PCS Metafiles\\Alpha\\c\\close.WMF",
+    "close_door": "assets\\PCS Metafiles\\Alpha\\d\\door.WMF",
+    "close_tab": "assets\\PCS Metafiles\\Alpha\\c\\close.WMF",
+    "clothes": "assets\\PCS Metafiles\\Alpha\\c\\clothes.WMF",
+    "clothes_on": "assets\\PCS Metafiles\\Alpha\\c\\clothes.WMF",
+    "computer": "assets\\PCS Metafiles\\Alpha\\p\\portable computer.WMF",
+    "control": "assets\\PCS Metafiles\\Alpha\\c\\control key.WMF",
+    "cuts": "assets\\PCS Metafiles\\Alpha\\c\\cut.WMF",
+    "dating": "assets\\PCS Metafiles\\Alpha\\d\\date.WMF",
+    "delete": "assets\\PCS Metafiles\\Alpha\\d\\delete.WMF",
+    "deodorant": "assets\\PCS Metafiles\\Alpha\\d\\deodorant.WMF",
+    "do_not_go": "assets\\PCS Metafiles\\Alpha\\n\\not.WMF",
+    "do_not_pay": "assets\\PCS Metafiles\\Alpha\\n\\not.WMF",
+    "do_not_send": "assets\\PCS Metafiles\\Alpha\\n\\not.WMF",
+    "do_not_share": "assets\\PCS Metafiles\\Alpha\\n\\not.WMF",
+    "doctor": "assets\\PCS Metafiles\\Alpha\\d\\doctor.WMF",
+    "door": "assets\\PCS Metafiles\\Alpha\\d\\door.WMF",
+    "door_closed": "assets\\PCS Metafiles\\Alpha\\d\\door.WMF",
+    "driver": "assets\\PCS Metafiles\\Alpha\\b\\bus driver.WMF",
+    "driver_name": "assets\\PCS Metafiles\\Alpha\\p\\person.WMF",
+    "dry_hands": "assets\\PCS Metafiles\\Alpha\\w\\wash hands.WMF",
+    "fake_friend": "assets\\PCS Metafiles\\Alpha\\f\\friend.WMF",
+    "fidget": "assets\\PCS Metafiles\\Alpha\\p\\play.WMF",
+    "fine": "assets\\PCS Metafiles\\Alpha\\m\\money.WMF",
+    "finished": "assets\\PCS Metafiles\\Alpha\\f\\finish.WMF",
+    "flush": "assets\\PCS Metafiles\\Alpha\\t\\toilet.WMF",
+    "friend": "assets\\PCS Metafiles\\Alpha\\f\\friend.WMF",
+    "friends": "assets\\PCS Metafiles\\Alpha\\f\\friend.WMF",
+    "gift": "assets\\PCS Metafiles\\Alpha\\p\\present.WMF",
+    "go": "assets\\PCS Metafiles\\Alpha\\g\\go.WMF",
+    "hall_pass": "assets\\PCS Metafiles\\Alpha\\p\\pass out cups.WMF",
+    "hands": "assets\\PCS Metafiles\\Alpha\\h\\hold hands.WMF",
+    "hands_busy": "assets\\PCS Metafiles\\Alpha\\p\\play.WMF",
+    "help": "assets\\PCS Metafiles\\Alpha\\h\\help.WMF",
+    "home": "assets\\PCS Metafiles\\Alpha\\h\\home.WMF",
+    "hr": "assets\\PCS Metafiles\\Alpha\\p\\person.WMF",
+    "hr/teacher": "assets\\PCS Metafiles\\Alpha\\t\\teacher.WMF",
+    "information": "assets\\PCS Metafiles\\Alpha\\i\\information.WMF",
+    "inspector": "assets\\PCS Metafiles\\Alpha\\p\\person.WMF",
+    "keep_ticket": "assets\\PCS Metafiles\\Alpha\\t\\ticket.WMF",
+    "keeping": "assets\\PCS Metafiles\\Alpha\\k\\keep.WMF",
+    "kissing": "assets\\PCS Metafiles\\Alpha\\k\\kiss.WMF",
+    "kit": "assets\\PCS Metafiles\\Alpha\\b\\backpack.WMF",
+    "laundry": "assets\\PCS Metafiles\\Alpha\\c\\clothes hamper.WMF",
+    "leave": "assets\\PCS Metafiles\\Alpha\\l\\leave.WMF",
+    "leave_group": "assets\\PCS Metafiles\\Alpha\\l\\leave.WMF",
+    "line_up": "assets\\PCS Metafiles\\Alpha\\l\\line.WMF",
+    "listen": "assets\\PCS Metafiles\\Alpha\\l\\listen.WMF",
+    "locker": "assets\\PCS Metafiles\\Alpha\\l\\locker.WMF",
+    "locker_room": "assets\\PCS Metafiles\\Alpha\\l\\locker.WMF",
+    "look": "assets\\PCS Metafiles\\Alpha\\l\\look.WMF",
+    "medicine": "assets\\PCS Metafiles\\Alpha\\m\\medicine.WMF",
+    "meet": "assets\\PCS Metafiles\\Alpha\\m\\meeting.WMF",
+    "meet_up": "assets\\PCS Metafiles\\Alpha\\m\\meeting.WMF",
+    "money": "assets\\PCS Metafiles\\Alpha\\m\\money.WMF",
+    "morning": "assets\\PCS Metafiles\\Alpha\\m\\morning.WMF",
+    "move": "assets\\PCS Metafiles\\Alpha\\m\\move.WMF",
+    "next": "assets\\PCS Metafiles\\Alpha\\n\\next.WMF",
+    "no": "assets\\PCS Metafiles\\Alpha\\n\\no.WMF",
+    "no_photos": "assets\\PCS Metafiles\\Alpha\\c\\camera.WMF",
+    "nurse": "assets\\PCS Metafiles\\Alpha\\n\\nurse.WMF",
+    "odor": "assets\\PCS Metafiles\\Alpha\\d\\deodorant.WMF",
+    "online": "assets\\PCS Metafiles\\Alpha\\c\\computer.WMF",
+    "outside": "assets\\PCS Metafiles\\Alpha\\o\\outside.WMF",
+    "pants": "assets\\PCS Metafiles\\Alpha\\p\\pants.WMF",
+    "parent": "assets\\PCS Metafiles\\Alpha\\p\\parents.WMF",
+    "pass": "assets\\PCS Metafiles\\Alpha\\p\\pass out cups.WMF",
+    "period": "assets\\PCS Metafiles\\Categories\\Sexual\\menstruation.WMF",
+    "period_kit": "assets\\PCS Metafiles\\Alpha\\b\\backpack.WMF",
+    "personal": "assets\\PCS Metafiles\\Alpha\\p\\person.WMF",
+    "phone": "assets\\PCS Metafiles\\Alpha\\p\\phone #.WMF",
+    "phone_away": "assets\\PCS Metafiles\\Alpha\\p\\phone #.WMF",
+    "phone_call": "assets\\PCS Metafiles\\Alpha\\p\\phone #.WMF",
+    "photo": "assets\\PCS Metafiles\\Alpha\\p\\picture.WMF",
+    "photos": "assets\\PCS Metafiles\\Alpha\\p\\picture.WMF",
+    "pin": "assets\\PCS Metafiles\\Alpha\\p\\pinch.WMF",
+    "plate": "assets\\PCS Metafiles\\Alpha\\p\\plate.WMF",
+    "police": "assets\\PCS Metafiles\\Alpha\\p\\police officer.WMF",
+    "private_information": "assets\\PCS Metafiles\\Alpha\\i\\information.WMF",
+    "pull_down_pants": "assets\\PCS Metafiles\\Alpha\\p\\pants.WMF",
+    "questions": "assets\\PCS Metafiles\\Alpha\\q\\question.WMF",
+    "quickly": "assets\\PCS Metafiles\\Alpha\\f\\fast.WMF",
+    "quiet": "assets\\PCS Metafiles\\Alpha\\q\\quiet.WMF",
+    "real_friend": "assets\\PCS Metafiles\\Alpha\\f\\friend.WMF",
+    "safe": "assets\\PCS Metafiles\\Alpha\\s\\safe.WMF",
+    "safe_activity": "assets\\PCS Metafiles\\Alpha\\p\\play.WMF",
+    "safe_adult": "assets\\PCS Metafiles\\Alpha\\a\\adults.WMF",
+    "safe_choice": "assets\\PCS Metafiles\\Alpha\\s\\safe.WMF",
+    "safe_place": "assets\\PCS Metafiles\\Alpha\\s\\safe.WMF",
+    "safe_stop": "assets\\PCS Metafiles\\Alpha\\s\\stop.WMF",
+    "safety": "assets\\PCS Metafiles\\Alpha\\s\\safe.WMF",
+    "say_no": "assets\\PCS Metafiles\\Alpha\\n\\no.WMF",
+    "saying": "assets\\PCS Metafiles\\Alpha\\t\\talk.WMF",
+    "school": "assets\\PCS Metafiles\\Alpha\\s\\school.WMF",
+    "school_rules": "assets\\PCS Metafiles\\Alpha\\s\\school.WMF",
+    "screenshot": "assets\\PCS Metafiles\\Alpha\\c\\camera.WMF",
+    "share": "assets\\PCS Metafiles\\Alpha\\s\\share.WMF",
+    "share_trip": "assets\\PCS Metafiles\\Alpha\\s\\share.WMF",
+    "shop_worker": "assets\\PCS Metafiles\\Alpha\\p\\person.WMF",
+    "show_adult": "assets\\PCS Metafiles\\Alpha\\a\\adults.WMF",
+    "showering": "assets\\PCS Metafiles\\Alpha\\s\\shower.WMF",
+    "sit": "assets\\PCS Metafiles\\Alpha\\s\\sit.WMF",
+    "soap": "assets\\PCS Metafiles\\Alpha\\s\\soap.WMF",
+    "space": "assets\\PCS Metafiles\\Alpha\\s\\space.WMF",
+    "spare_underwear": "assets\\PCS Metafiles\\Alpha\\p\\panties.WMF",
+    "sport": "assets\\PCS Metafiles\\Alpha\\s\\sport coat.WMF",
+    "staff": "assets\\PCS Metafiles\\Alpha\\t\\teacher.WMF",
+    "stall": "assets\\PCS Metafiles\\Alpha\\b\\bathroom.WMF",
+    "stay_with_group": "assets\\PCS Metafiles\\Alpha\\f\\friend.WMF",
+    "stop": "assets\\PCS Metafiles\\Alpha\\s\\stop.WMF",
+    "store": "assets\\PCS Metafiles\\Alpha\\s\\store.WMF",
+    "stranger": "assets\\PCS Metafiles\\Alpha\\s\\stranger.WMF",
+    "strangers": "assets\\PCS Metafiles\\Alpha\\s\\stranger.WMF",
+    "sweat": "assets\\PCS Metafiles\\Alpha\\s\\sweat shirt.WMF",
+    "tablet": "assets\\PCS Metafiles\\Alpha\\p\\portable computer.WMF",
+    "tampon": "assets\\PCS Metafiles\\Alpha\\t\\tampon.WMF",
+    "tap": "assets\\PCS Metafiles\\Alpha\\t\\tape 1.WMF",
+    "tap_card": "assets\\PCS Metafiles\\Alpha\\c\\card.WMF",
+    "teacher": "assets\\PCS Metafiles\\Alpha\\t\\teacher.WMF",
+    "tell_parent": "assets\\PCS Metafiles\\Alpha\\p\\parents.WMF",
+    "tell_teacher": "assets\\PCS Metafiles\\Alpha\\t\\teacher.WMF",
+    "text": "assets\\PCS Metafiles\\Alpha\\t\\text.WMF",
+    "ticket": "assets\\PCS Metafiles\\Alpha\\t\\ticket.WMF",
+    "time": "assets\\PCS Metafiles\\Alpha\\t\\time.WMF",
+    "timer": "assets\\PCS Metafiles\\Alpha\\t\\timer.WMF",
+    "toilet": "assets\\PCS Metafiles\\Alpha\\t\\toilet.WMF",
+    "touch": "assets\\PCS Metafiles\\Alpha\\t\\touch.WMF",
+    "train": "assets\\PCS Metafiles\\Alpha\\t\\train.WMF",
+    "transition": "assets\\PCS Metafiles\\Alpha\\m\\move.WMF",
+    "transitions": "assets\\PCS Metafiles\\Alpha\\m\\move.WMF",
+    "trusted_adult": "assets\\PCS Metafiles\\Alpha\\a\\adults.WMF",
+    "underwear": "assets\\PCS Metafiles\\Alpha\\p\\panties.WMF",
+    "unexpected": "assets\\PCS Metafiles\\Alpha\\s\\surprised dk.WMF",
+    "using": "assets\\PCS Metafiles\\Alpha\\u\\use.WMF",
+    "wait": "assets\\PCS Metafiles\\Alpha\\p\\please wait.WMF",
+    "waiting": "assets\\PCS Metafiles\\Alpha\\p\\please wait.WMF",
+    "walk": "assets\\PCS Metafiles\\Alpha\\w\\walk.WMF",
+    "walk_away": "assets\\PCS Metafiles\\Alpha\\w\\walk.WMF",
+    "wash": "assets\\PCS Metafiles\\Alpha\\w\\wash.WMF",
+    "wash_hands": "assets\\PCS Metafiles\\Alpha\\w\\wash hands.WMF",
+    "washing": "assets\\PCS Metafiles\\Alpha\\w\\wash.WMF",
+    "water": "assets\\PCS Metafiles\\Alpha\\w\\water.WMF",
+    "wipes": "assets\\PCS Metafiles\\Alpha\\t\\tissues.WMF",
+    "wiping": "assets\\PCS Metafiles\\Alpha\\w\\wipe.WMF",
+    "with": "assets\\PCS Metafiles\\Alpha\\w\\with.WMF",
+    "worried": "assets\\PCS Metafiles\\Alpha\\w\\worried.WMF"
+  },
+  "unmapped": {
+    "apologize": [
+      "bullying_others_stop_take_responsibility"
+    ],
+    "ask_for_help": [
+      "work_ready_part_time_job_basics"
+    ],
+    "calm": [
+      "waiting_transitions"
+    ],
+    "care": [
+      "blood_cuts_body_care"
+    ],
+    "change_clothes": [
+      "changing_clothes_privately",
+      "locker_room_privacy"
+    ],
+    "community": [
+      "community_bathroom_safety",
+      "public_private_body_rules",
+      "stranger_safe_adult"
+    ],
+    "consent": [
+      "consent_and_coercion_pg13_safety_respect",
+      "personal_space_consent"
+    ],
+    "consequence": [
+      "stealing_is_a_crime_peer_pressure"
+    ],
+    "counselor": [
+      "being_bullied_get_help"
+    ],
+    "cover": [
+      "public_private_body_rules"
+    ],
+    "cramps": [
+      "period_care_pad_change",
+      "period_kit_planner"
+    ],
+    "crime": [
+      "stealing_is_a_crime_peer_pressure"
+    ],
+    "dare": [
+      "peer_pressure_risky_dares_refusal_skills",
+      "stealing_is_a_crime_peer_pressure"
+    ],
+    "do_not_forward": [
+      "adult_content_exposure_online_pg13",
+      "dont_forward_inappropriate_images_illegal"
+    ],
+    "dry": [
+      "bathroom_privacy_school",
+      "body_odour_deodorant"
+    ],
+    "evidence": [
+      "online_predators_grooming_red_flags",
+      "sextortion_blackmail_online_safety_plan"
+    ],
+    "fake": [
+      "fake_vs_real_friends_safety_first"
+    ],
+    "forward": [
+      "dont_forward_inappropriate_images_illegal"
+    ],
+    "fresh": [
+      "body_odour_deodorant"
+    ],
+    "group": [
+      "staying_with_group",
+      "stranger_safe_adult"
+    ],
+    "heat_pack": [
+      "period_care_pad_change",
+      "period_kit_planner"
+    ],
+    "internet": [
+      "online_phone_safety_basics",
+      "online_private_information"
+    ],
+    "lost": [
+      "stranger_safe_adult"
+    ],
+    "message": [
+      "online_phone_safety_basics",
+      "online_private_information"
+    ],
+    "messages": [
+      "online_strangers_messages"
+    ],
+    "mute": [
+      "online_drama_cyberbullying_response"
+    ],
+    "pad": [
+      "period_care_pad_change",
+      "period_kit_planner",
+      "using_pad_or_period_privacy"
+    ],
+    "password": [
+      "online_private_information"
+    ],
+    "pay": [
+      "sextortion_blackmail_online_safety_plan"
+    ],
+    "pharmacy": [
+      "medical_visits_meds_management"
+    ],
+    "pressure": [
+      "consent_and_coercion_pg13_safety_respect",
+      "fake_vs_real_friends_safety_first"
+    ],
+    "privacy": [
+      "bathroom_privacy_school",
+      "changing_clothes_privately",
+      "locker_room_privacy",
+      "medical_visits_meds_management",
+      "period_care_pad_change",
+      "period_kit_planner",
+      "photo_privacy",
+      "using_pad_or_period_privacy"
+    ],
+    "private": [
+      "bathroom_wiping_clean",
+      "blood_cuts_body_care",
+      "bus_train_safety",
+      "clean_clothes_laundry",
+      "community_bathroom_safety",
+      "doctor_nurse_private_questions",
+      "hands_out_of_pants",
+      "keeping_clothes_on",
+      "kissing_dating_boundaries",
+      "no_phones_photos_private_places",
+      "online_phone_safety_basics",
+      "online_private_information",
+      "online_strangers_messages",
+      "personal_space_consent",
+      "photo_privacy",
+      "public_private_body_rules",
+      "safe_hands_body_control",
+      "saying_no_and_reporting",
+      "showering_body_washing",
+      "staying_with_group",
+      "unexpected_body_changes_puberty",
+      "using_pad_or_period_privacy",
+      "waiting_transitions",
+      "wearing_bra_or_singlet"
+    ],
+    "private_place": [
+      "no_phones_photos_private_places"
+    ],
+    "prize": [
+      "financial_exploitation_scams_protect_self"
+    ],
+    "puberty": [
+      "unexpected_body_changes_puberty"
+    ],
+    "public": [
+      "bathroom_wiping_clean",
+      "blood_cuts_body_care",
+      "bus_train_safety",
+      "clean_clothes_laundry",
+      "community_bathroom_safety",
+      "doctor_nurse_private_questions",
+      "hands_out_of_pants",
+      "keeping_clothes_on",
+      "kissing_dating_boundaries",
+      "online_strangers_messages",
+      "personal_space_consent",
+      "photo_privacy",
+      "public_private_body_rules",
+      "safe_hands_body_control",
+      "saying_no_and_reporting",
+      "showering_body_washing",
+      "staying_with_group",
+      "unexpected_body_changes_puberty",
+      "using_pad_or_period_privacy",
+      "waiting_transitions",
+      "wearing_bra_or_singlet"
+    ],
+    "real": [
+      "fake_vs_real_friends_safety_first"
+    ],
+    "refill": [
+      "medical_visits_meds_management"
+    ],
+    "refuse": [
+      "stealing_is_a_crime_peer_pressure"
+    ],
+    "report": [
+      "adult_content_exposure_online_pg13",
+      "being_bullied_get_help",
+      "bullying_others_stop_take_responsibility",
+      "dont_forward_inappropriate_images_illegal",
+      "no_phones_photos_private_places",
+      "online_drama_cyberbullying_response",
+      "online_phone_safety_basics",
+      "online_predators_grooming_red_flags",
+      "sextortion_blackmail_online_safety_plan",
+      "sexual_harassment_report"
+    ],
+    "reporting": [
+      "saying_no_and_reporting"
+    ],
+    "respect": [
+      "consent_and_coercion_pg13_safety_respect",
+      "fake_vs_real_friends_safety_first",
+      "hands_out_of_pants",
+      "public_private_body_rules"
+    ],
+    "rules": [
+      "public_transport_fare_evasion_pay_ticket"
+    ],
+    "seatbelt": [
+      "rideshare_transit_personal_safety"
+    ],
+    "secret": [
+      "online_predators_grooming_red_flags"
+    ],
+    "singlet": [
+      "wearing_bra_or_singlet"
+    ],
+    "staying": [
+      "staying_with_group"
+    ],
+    "tell": [
+      "being_bullied_get_help"
+    ],
+    "trust": [
+      "adult_content_exposure_online_pg13"
+    ],
+    "uncomfortable": [
+      "hands_out_of_pants"
+    ],
+    "under_arms": [
+      "body_odour_deodorant"
+    ],
+    "underarm": [
+      "body_odour_deodorant"
+    ],
+    "uniform": [
+      "work_ready_part_time_job_basics"
+    ],
+    "unsure": [
+      "public_private_body_rules"
+    ],
+    "wearing": [
+      "wearing_bra_or_singlet"
+    ],
+    "wrap_pad": [
+      "period_care_pad_change"
+    ]
+  },
+  "summary": {
+    "total_unique_icons": 237,
+    "mapped": 180,
+    "unmapped": 57
+  }
+}

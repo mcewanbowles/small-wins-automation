@@ -1,0 +1,26 @@
+{
+  "title": "AI Voice Clone & Fake Calls: Verify First",
+  "audience": "student_safe",
+  "icon_keywords": [
+    "phone",
+    "phone call",
+    "unknown caller",
+    "verify",
+    "code word",
+    "parent",
+    "teacher",
+    "trusted adult",
+    "hang up",
+    "block number",
+    "do not share info",
+    "scam",
+    "voice",
+    "caller id",
+    "report"
+  ],
+  "cue_cards": [],
+  "fringe_words": [],
+  "icon_aliases": {
+    "phone call": "Asking for Help\\boardmaker4_pdf\\phone.png"
+  }
+}

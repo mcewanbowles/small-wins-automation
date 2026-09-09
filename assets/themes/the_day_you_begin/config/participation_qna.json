@@ -1,0 +1,102 @@
+{
+  "schema": "pp_qna.v1",
+  "book_slug": "the_day_you_begin",
+  "book_title": "The Day You Begin",
+  "pages": [
+    {
+      "page_num": 1,
+      "question": "What do you see?",
+      "choices": [
+        "School",
+        "something else",
+        "nothing"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        true,
+        true
+      ],
+      "context_mirror": {
+        "sentence": "Angelina (Girl From Cover) sees school.",
+        "scene_note": "Scene with school."
+      }
+    },
+    {
+      "page_num": 2,
+      "question": "What do you see?",
+      "choices": [
+        "Friend",
+        "something else",
+        "nothing"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        true,
+        true
+      ],
+      "context_mirror": {
+        "sentence": "Angelina (Girl From Cover) sees friend.",
+        "scene_note": "Scene with friend."
+      }
+    },
+    {
+      "page_num": 3,
+      "question": "What do you see?",
+      "choices": [
+        "Different",
+        "something else",
+        "nothing"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        true,
+        true
+      ],
+      "context_mirror": {
+        "sentence": "Angelina (Girl From Cover) sees different.",
+        "scene_note": "Scene with different."
+      }
+    },
+    {
+      "page_num": 4,
+      "question": "What do you see?",
+      "choices": [
+        "Brave",
+        "something else",
+        "nothing"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        true,
+        true
+      ],
+      "context_mirror": {
+        "sentence": "Angelina (Girl From Cover) sees brave.",
+        "scene_note": "Scene with brave."
+      }
+    },
+    {
+      "page_num": 5,
+      "question": "Why might Angelina (Girl From Cover) feel better by the end?",
+      "choices": [
+        "made a friend",
+        "went home early",
+        "didn't do anything"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        true,
+        true,
+        true
+      ],
+      "context_mirror": {
+        "sentence": null,
+        "scene_note": "Inference question about how the story resolves."
+      }
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+Missing icons report:
+
+- clothes
+  suggested alternatives: clothes_on, clothes
+- laundry
+- basket
+- underwear
+- socks
+- shirt
+- fresh
+- ready
+- clean clothes
+  suggested alternatives: cleaning_crew, cleaning_supplies, cleaners, cleaning, clean (2)
+- dirty clothes
+  suggested alternatives: throw_dirty_tampon_in_bin, wrap_dirty_tampon
+- laundry basket
+- wet

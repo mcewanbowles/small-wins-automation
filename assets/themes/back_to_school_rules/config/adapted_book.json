@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "book_title": "Back to School Rules",
+  "pack_code": "AUTO-ADPT",
+  "review_sentence": "Children are kind and make new friends.",
+  "teacher_review_required": true,
+  "pages": [
+    {
+      "page_num": 3,
+      "image_word": "school",
+      "sentence": "Children arrive at school ready to learn.",
+      "scene_note": "Children arrive at school ready to learn."
+    },
+    {
+      "page_num": 4,
+      "image_word": "rules",
+      "sentence": "The class learns the school rules.",
+      "scene_note": "The class learns the school rules."
+    },
+    {
+      "page_num": 5,
+      "image_word": "listen",
+      "sentence": "Everyone practices listening and raising hands.",
+      "scene_note": "Everyone practices listening and raising hands."
+    },
+    {
+      "page_num": 6,
+      "image_word": "friend",
+      "sentence": "Children are kind and make new friends.",
+      "scene_note": "Children are kind and make new friends."
+    }
+  ]
+}

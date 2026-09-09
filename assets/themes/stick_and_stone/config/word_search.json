@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Sight Recognition",
+    "Vocabulary"
+  ],
+  "teacher_review_required": true,
+  "words": [
+    {
+      "word": "stick",
+      "image_key": "stick",
+      "label": "Stick"
+    },
+    {
+      "word": "stone",
+      "image_key": "stone",
+      "label": "Stone"
+    },
+    {
+      "word": "friend",
+      "image_key": "friend",
+      "label": "Friend"
+    },
+    {
+      "word": "play",
+      "image_key": "play",
+      "label": "Play"
+    },
+    {
+      "word": "pinecone",
+      "image_key": "pinecone",
+      "label": "Pinecone"
+    },
+    {
+      "word": "alone",
+      "image_key": "alone",
+      "label": "Alone"
+    },
+    {
+      "word": "together",
+      "image_key": "together",
+      "label": "Together"
+    },
+    {
+      "word": "help",
+      "image_key": "help",
+      "label": "Help"
+    }
+  ]
+}

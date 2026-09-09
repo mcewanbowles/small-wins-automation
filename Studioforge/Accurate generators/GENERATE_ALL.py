@@ -64,6 +64,8 @@ PRODUCTS = [
     ("aac_board",    "AAC Board",                  "BOARD",  "AAC_BOARD_GENERATOR",         "main"),
     ("sorting",      "Sorting Cards",             "SORT",   "SORTING_CARDS",               "generate_sorting_cards"),
     ("bingo",        "Bingo",                     "BINGO",  "BINGO_GENERATOR",             "generate_bingo_pack"),
+    ("snap",         "Snap Card Game",            "SNAP",   "SNAP_CARD_GAME",              "generate_snap_pack"),
+    ("participation","Participation Pieces — Sentence Builder", "PARTS", "PARTICIPATION_PIECES", "generate_participation_pieces_sentence_builder"),
     ("spin",         "Spin & Cover",              "SC",     "SPIN_COVER_GENERATOR",        "generate_spin_cover_pack"),
     ("yes_no",       "Yes/No Questions",          "YN",     "YES_NO_GENERATOR",            "generate_yes_no_pack"),
     ("sequencing",   "Sequencing Cards",          "SEQ",    "STORY_STRIPS_SEQUENCE",       "generate_story_strips"),
@@ -88,7 +90,7 @@ PRODUCTS = [
 ]
 
 # Products whose function signature is build_pdf(slug, book_title, pack_code)
-BUILD_PDF_PRODUCTS = {"adapted", "syllable", "scarborough", "inferencing", "word_wall", "phoneme", "rhyme"}
+BUILD_PDF_PRODUCTS = {"adapted", "syllable", "scarborough", "inferencing", "word_wall", "phoneme", "rhyme", "participation", "snap"}
 
 # Products skipped by default (run with --all to include, or name explicitly)
 # NOTE: "storage" is excluded here (not "advanced", just genuinely broken) —
@@ -151,13 +153,41 @@ def run_generator(key, display_name, pack_suffix, module_name, func_name,
                 else:
                     raise
         else:
-            mod = importlib.import_module(module_name)
+            try:
+                mod = importlib.import_module(module_name)
+            except Exception:
+                if key == "participation":
+                    acc_path = Path(__file__).resolve().parents[1] / "Accurate generators" / "PARTICIPATION_PIECES.py"
+                    if acc_path.exists():
+                        spec = importlib.util.spec_from_file_location("_SWS_PARTICIPATION_ACCURATE", str(acc_path))
+                        if spec and spec.loader:
+                            alt_mod = importlib.util.module_from_spec(spec)
+                            spec.loader.exec_module(alt_mod)
+                            mod = alt_mod
+                        else:
+                            raise
+                    else:
+                        raise
+                else:
+                    raise
             if key == "matching":
                 # Force Accurate generators version for Matching
                 try:
                     acc_path = Path(__file__).resolve().parents[1] / "Accurate generators" / "MATCHING_GENERATOR.py"
                     if acc_path.exists():
                         spec = importlib.util.spec_from_file_location("_SWS_MATCHING_ACCURATE", str(acc_path))
+                        if spec and spec.loader:
+                            alt_mod = importlib.util.module_from_spec(spec)
+                            spec.loader.exec_module(alt_mod)
+                            mod = alt_mod
+                except Exception:
+                    pass
+            elif key == "aac_board":
+                # Prefer Studioforge wrapper for AAC Board which delegates to BoardReady
+                try:
+                    acc_path = Path(__file__).resolve().parents[1] / "AAC_BOARD_GENERATOR.py"
+                    if acc_path.exists():
+                        spec = importlib.util.spec_from_file_location("_SWS_AAC_BOARD_WRAPPER", str(acc_path))
                         if spec and spec.loader:
                             alt_mod = importlib.util.module_from_spec(spec)
                             spec.loader.exec_module(alt_mod)
@@ -248,12 +278,48 @@ def run_generator(key, display_name, pack_suffix, module_name, func_name,
                             mod = alt_mod
                 except Exception:
                     pass
+            elif key == "snap":
+                # Prefer Accurate Snap Card Game
+                try:
+                    acc_path = Path(__file__).resolve().parents[1] / "Accurate generators" / "SNAP_CARD_GAME.py"
+                    if acc_path.exists():
+                        spec = importlib.util.spec_from_file_location("_SWS_SNAP_ACCURATE", str(acc_path))
+                        if spec and spec.loader:
+                            alt_mod = importlib.util.module_from_spec(spec)
+                            spec.loader.exec_module(alt_mod)
+                            mod = alt_mod
+                except Exception:
+                    pass
             elif key == "word_wall":
                 # Prefer Accurate Vocab Word Wall
                 try:
                     acc_path = Path(__file__).resolve().parents[1] / "Accurate generators" / "VOCAB_WORD_WALL.py"
                     if acc_path.exists():
                         spec = importlib.util.spec_from_file_location("_SWS_WORD_WALL_ACCURATE", str(acc_path))
+                        if spec and spec.loader:
+                            alt_mod = importlib.util.module_from_spec(spec)
+                            spec.loader.exec_module(alt_mod)
+                            mod = alt_mod
+                except Exception:
+                    pass
+            elif key == "grammar_mat":
+                # Prefer ARCHIVE Story Grammar Mat if production module missing
+                try:
+                    acc_path = Path(__file__).resolve().parents[2] / "Generators" / "ARCHIVE generators" / "STORY_GRAMMAR_MAT.py"
+                    if acc_path.exists():
+                        spec = importlib.util.spec_from_file_location("_SWS_GRAMMAR_MAT_ARCHIVE", str(acc_path))
+                        if spec and spec.loader:
+                            alt_mod = importlib.util.module_from_spec(spec)
+                            spec.loader.exec_module(alt_mod)
+                            mod = alt_mod
+                except Exception:
+                    pass
+            elif key == "participation":
+                # Prefer Accurate Participation Pieces — Sentence Builder
+                try:
+                    acc_path = Path(__file__).resolve().parents[1] / "Accurate generators" / "PARTICIPATION_PIECES.py"
+                    if acc_path.exists():
+                        spec = importlib.util.spec_from_file_location("_SWS_PARTICIPATION_ACCURATE", str(acc_path))
                         if spec and spec.loader:
                             alt_mod = importlib.util.module_from_spec(spec)
                             spec.loader.exec_module(alt_mod)
@@ -309,6 +375,9 @@ def run_generator(key, display_name, pack_suffix, module_name, func_name,
         elif key == "word_search":
             result = fn(slug, book_title, pack_code)
         elif key == "word_wall":
+            result = fn(slug, book_title, pack_code)
+        # grammar mat takes (slug, book_title, pack_code) — archive module signature
+        elif key == "grammar_mat":
             result = fn(slug, book_title, pack_code)
         # rhyme takes (slug, book_title, pack_code)
         elif key == "rhyme":
@@ -378,7 +447,7 @@ def _count_icons(path: Path) -> int:
 def resolve_images_folder(slug: str, *, min_icons: int = 6) -> tuple[Path | None, int]:
     """Return a usable images folder for generators that need icons.
 
-    Prefers the target theme's activity_images/icons_colored/icons if they have
+    Prefers the target theme's activity_images/icons if they have
     at least min_icons; otherwise, falls back to the richest available theme
     folder across assets/themes/*.
     """
@@ -388,7 +457,7 @@ def resolve_images_folder(slug: str, *, min_icons: int = 6) -> tuple[Path | None
     except Exception:
         repo = Path(__file__).resolve().parents[2]
     base = repo / "assets" / "themes" / slug
-    candidates = [base / "activity_images", base / "icons_colored", base / "icons", base / "real_images"]
+    candidates = [base / "activity_images", base / "icons", base / "real_images"]
     for p in candidates:
         if p.exists():
             n = _count_icons(p)
@@ -419,7 +488,7 @@ def resolve_images_folder(slug: str, *, min_icons: int = 6) -> tuple[Path | None
                     # Only consider global libs that look topic-relevant
                     continue
                 # Consider common subfolders; if none exist, allow the folder itself
-                subs = ("activity_images", "icons_colored", "icons", "real_images")
+                subs = ("activity_images", "icons", "real_images")
                 cands = [d / s for s in subs if (d / s).exists()] or [d]
                 for cand in cands:
                     n = _count_icons(cand)
@@ -438,7 +507,7 @@ def resolve_images_folder(slug: str, *, min_icons: int = 6) -> tuple[Path | None
         for t in themes.iterdir():
             if not t.is_dir():
                 continue
-            for sub in ("activity_images", "icons_colored", "icons", "characters", "aac_boards/previews"):
+            for sub in ("activity_images", "icons", "characters", "aac_boards/previews"):
                 cand = t / sub
                 if cand.exists():
                     n = _count_icons(cand)

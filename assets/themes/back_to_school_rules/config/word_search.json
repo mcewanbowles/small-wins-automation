@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Sight Recognition",
+    "Vocabulary"
+  ],
+  "teacher_review_required": true,
+  "words": [
+    {
+      "word": "school",
+      "image_key": "school",
+      "label": "School"
+    },
+    {
+      "word": "rules",
+      "image_key": "rules",
+      "label": "Rules"
+    },
+    {
+      "word": "listen",
+      "image_key": "listen",
+      "label": "Listen"
+    },
+    {
+      "word": "quiet",
+      "image_key": "quiet",
+      "label": "Quiet"
+    },
+    {
+      "word": "lineup",
+      "image_key": "line_up",
+      "label": "Line Up"
+    },
+    {
+      "word": "share",
+      "image_key": "share",
+      "label": "Share"
+    },
+    {
+      "word": "kind",
+      "image_key": "kind",
+      "label": "Kind"
+    },
+    {
+      "word": "safe",
+      "image_key": "safe",
+      "label": "Safe"
+    }
+  ]
+}

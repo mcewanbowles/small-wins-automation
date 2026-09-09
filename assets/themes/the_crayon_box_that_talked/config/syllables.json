@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Phonological Awareness"
+  ],
+  "teacher_review_required": true,
+  "items": [
+    {
+      "image_key": "crayon",
+      "label": "Crayon",
+      "count": 2,
+      "segmentation": "cray · on"
+    },
+    {
+      "image_key": "box",
+      "label": "Box",
+      "count": 1,
+      "segmentation": "box"
+    },
+    {
+      "image_key": "red",
+      "label": "Red",
+      "count": 1,
+      "segmentation": "red"
+    },
+    {
+      "image_key": "blue",
+      "label": "Blue",
+      "count": 1,
+      "segmentation": "blue"
+    },
+    {
+      "image_key": "yellow",
+      "label": "Yellow",
+      "count": 2,
+      "segmentation": "yel · low"
+    },
+    {
+      "image_key": "green",
+      "label": "Green",
+      "count": 1,
+      "segmentation": "green"
+    },
+    {
+      "image_key": "color",
+      "label": "Color",
+      "count": 2,
+      "segmentation": "col · or"
+    },
+    {
+      "image_key": "draw",
+      "label": "Draw",
+      "count": 1,
+      "segmentation": "draw"
+    },
+    {
+      "image_key": "together",
+      "label": "Together",
+      "count": 3,
+      "segmentation": "to · geth · er"
+    },
+    {
+      "image_key": "different",
+      "label": "Different",
+      "count": 3,
+      "segmentation": "dif · fer · ent"
+    },
+    {
+      "image_key": "friend",
+      "label": "Friend",
+      "count": 1,
+      "segmentation": "friend"
+    },
+    {
+      "image_key": "picture",
+      "label": "Picture",
+      "count": 2,
+      "segmentation": "pic · ture"
+    }
+  ]
+}

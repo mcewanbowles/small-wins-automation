@@ -1,0 +1,77 @@
+GROCERY LIFE SKILLS GENERATOR – V0.1 BUILD SPEC
+
+Project Goal: Build a minimal, stable Python-based PDF generator that
+creates a teen-appropriate Grocery Store Life Skills Maths pack with 3
+differentiated levels.
+
+This is V0.1 and must: - Be simple - Be stable - Avoid overengineering -
+Produce clean printable A4 PDFs - Contain no QR functionality - Contain
+no editable teacher interface - Use hardcoded grocery item list for now
+
+TECH REQUIREMENTS Language: Python 3.11+ Libraries: - reportlab (PDF
+generation) - random - os - math - pathlib
+
+Do NOT add: - Web hosting - QR libraries - Excel parsing - Complex
+dependencies
+
+FILE STRUCTURE
+
+grocery_life_skills/ │ ├── generator.py ├── data.py ├── layouts.py ├──
+output/
+
+HARDCODED GROCERY ITEM LIST (data.py)
+
+Milk – 3.50 Bread – 2.40 Cheese – 5.20 Yogurt – 4.10 Apples – 3.80
+Bananas – 2.60 Carrots – 2.20 Lettuce – 3.10 Rice – 4.00 Pasta – 2.75
+Cereal – 5.90 Canned Beans – 1.90 Chicken – 8.50 Eggs – 4.80 Toothpaste
+– 3.60 Soap – 2.30 Laundry Detergent – 9.20 Juice – 3.40 Chips – 4.10
+Water Bottle – 1.50
+
+GENERATOR OUTPUT
+
+Running: python generator.py
+
+Must create: output/grocery_life_skills_v0_1.pdf
+
+PDF STRUCTURE
+
+A4 portrait. Margins: 20mm all sides. Large clean sans-serif font. White
+background. Teen appropriate.
+
+SECTIONS
+
+Cover Page Title: Grocery Store Life Skills Maths – Levels 1–3 Subtitle:
+Functional Maths • Independent Learning • Transition Skills Level
+colours: Level 1 (Green) Level 2 (Blue) Level 3 (Purple)
+
+LEVEL 1 – ERRORLESS MATCHING (10 tasks) - Display 3 grocery items (name
+only) - Instruction: Find these items and count how many. - No prices
+shown. - No duplicate combinations.
+
+LEVEL 2 – WHOLE NUMBER ADDITION (15 tasks) - Select 3 random items -
+Round prices to nearest whole dollar - Display formatted prices -
+Instruction: Add the total cost. - Include answer key at end.
+
+LEVEL 3 – DECIMAL ADDITION (15 tasks) - Select 3–4 random items - Use
+full 2 decimal pricing - Instruction: Add the total cost. - Include
+answer key at end.
+
+RANDOMISATION RULES - No duplicate task combinations - Ensure price
+variety - Deterministic seed option for reproducibility
+
+ANSWER KEY SECTION Clear heading: Answer Key List: Level 2 Task X – $X
+Level 3 Task X – $X.XX
+
+CODE STRUCTURE Modular functions: - generate_level_1() -
+generate_level_2() - generate_level_3()
+
+Separate layout logic from data logic. Include clear comments.
+
+FUTURE PLACEHOLDERS (DO NOT IMPLEMENT NOW) - QR system - Editable CSV
+import - Budget scenarios - Level 4–5 logic
+
+SUCCESS CRITERIA - PDF generates without error - Totals correct - No
+duplicate task sets - Clean layout - Answer key matches calculations
+
+Final instruction: Focus on stability, simplicity, clean structure,
+readable output. Do not overbuild. This is V0.1 foundation only.

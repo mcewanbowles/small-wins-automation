@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "teacher_review_required": true,
+  "items": [
+    {
+      "image_key": "stick",
+      "label": "Stick"
+    },
+    {
+      "image_key": "stone",
+      "label": "Stone"
+    },
+    {
+      "image_key": "friend",
+      "label": "Friend"
+    },
+    {
+      "image_key": "play",
+      "label": "Play"
+    },
+    {
+      "image_key": "pinecone",
+      "label": "Pinecone"
+    },
+    {
+      "image_key": "alone",
+      "label": "Alone"
+    },
+    {
+      "image_key": "together",
+      "label": "Together"
+    },
+    {
+      "image_key": "help",
+      "label": "Help"
+    }
+  ]
+}

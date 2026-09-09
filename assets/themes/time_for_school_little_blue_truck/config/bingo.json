@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "teacher_review_required": true,
+  "items": [
+    {
+      "image_key": "school",
+      "label": "School"
+    },
+    {
+      "image_key": "bus",
+      "label": "Bus"
+    },
+    {
+      "image_key": "truck",
+      "label": "Truck"
+    },
+    {
+      "image_key": "backpack",
+      "label": "Backpack"
+    },
+    {
+      "image_key": "friends",
+      "label": "Friends"
+    },
+    {
+      "image_key": "wave",
+      "label": "Wave"
+    }
+  ]
+}

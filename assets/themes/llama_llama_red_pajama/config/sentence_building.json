@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": ["Language Structures", "Vocabulary"],
+  "teacher_review_required": true,
+  "theme_items": [
+    {"image_key": "bed", "label": "bed"},
+    {"image_key": "cry", "label": "crying"},
+    {"image_key": "llama", "label": "Llama"},
+    {"image_key": "mama", "label": "Mama"},
+    {"image_key": "night", "label": "nighttime"},
+    {"image_key": "pajamas", "label": "pajamas"},
+    {"image_key": "scared", "label": "scared"},
+    {"image_key": "stairs", "label": "stairs"},
+    {"image_key": "hug", "label": "hug"}
+  ],
+  "patterns": [
+    {"display": "I see ___", "items": ["bed", "llama", "mama", "night", "pajamas", "stairs"]},
+    {"display": "I want ___", "items": ["bed", "mama", "pajamas"]},
+    {"display": "I like ___", "items": ["bed", "llama", "mama", "pajamas"]},
+    {"display": "I don't like ___", "items": ["night", "stairs"]},
+    {"display": "I am ___", "items": ["scared", "cry", "llama"]},
+    {"display": "I feel ___", "items": ["scared", "cry", "hug"]}
+  ]
+}

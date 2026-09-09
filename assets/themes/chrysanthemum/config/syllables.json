@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Phonological Awareness"
+  ],
+  "teacher_review_required": true,
+  "items": [
+    {
+      "image_key": "flower",
+      "label": "Flower",
+      "count": 2,
+      "segmentation": "flo · we · r"
+    },
+    {
+      "image_key": "name",
+      "label": "Name",
+      "count": 1,
+      "segmentation": "name"
+    },
+    {
+      "image_key": "school",
+      "label": "School",
+      "count": 1,
+      "segmentation": "school"
+    },
+    {
+      "image_key": "tease",
+      "label": "Tease",
+      "count": 1,
+      "segmentation": "tease"
+    },
+    {
+      "image_key": "sad",
+      "label": "Sad",
+      "count": 1,
+      "segmentation": "sad"
+    },
+    {
+      "image_key": "happy",
+      "label": "Happy",
+      "count": 2,
+      "segmentation": "ha · ppy"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+Missing icons report:
+
+- grab
+- touch
+- lap
+- gentle
+- upset
+- safe hands
+  suggested alternatives: e-safety, keep details safe, unsafe, unsafe_contact, unsafe_message
+- hands to self
+  suggested alternatives: wash_hands, keep_hands_off
+- play

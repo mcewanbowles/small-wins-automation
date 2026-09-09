@@ -1,0 +1,291 @@
+{
+  "schema_version": 1,
+  "slug": "llama_llama_back_to_school",
+  "icons_kit": [
+    "backpack.png",
+    "classroom.png",
+    "coat.png",
+    "crayons.png",
+    "cubby.png",
+    "friend.png",
+    "glue.png",
+    "hand.png",
+    "happy.png",
+    "learn.png",
+    "line.png",
+    "llama_llama.png",
+    "nervous.png",
+    "new.png",
+    "pencil.png",
+    "scared.png",
+    "school.png",
+    "share.png",
+    "sit.png",
+    "teacher.png"
+  ],
+  "hero_icon": "llama_llama.png",
+  "qa": {
+    "status": "in_progress",
+    "reviewed_at": "2026-09-07T16:42:34",
+    "items": [
+      {
+        "filename": "backpack.png",
+        "decision": "accepted",
+        "replacement": null,
+        "confidence": 0.9
+      },
+      {
+        "filename": "classroom.png",
+        "decision": "accepted",
+        "replacement": null,
+        "confidence": 0.9
+      },
+      {
+        "filename": "coat.png",
+        "decision": "unreviewed",
+        "replacement": null,
+        "confidence": 0.0,
+        "notes": "auto-detected from activity_images"
+      },
+      {
+        "filename": "crayons.png",
+        "decision": "unreviewed",
+        "replacement": null,
+        "confidence": 0.0,
+        "notes": "auto-detected from activity_images"
+      },
+      {
+        "filename": "cubby.png",
+        "decision": "unreviewed",
+        "replacement": null,
+        "confidence": 0.0,
+        "notes": "auto-detected from activity_images"
+      },
+      {
+        "filename": "friend.png",
+        "decision": "accepted",
+        "replacement": null,
+        "confidence": 0.9
+      },
+      {
+        "filename": "glue.png",
+        "decision": "unreviewed",
+        "replacement": null,
+        "confidence": 0.0,
+        "notes": "auto-detected from activity_images"
+      },
+      {
+        "filename": "hand.png",
+        "decision": "unreviewed",
+        "replacement": null,
+        "confidence": 0.0,
+        "notes": "auto-detected from activity_images"
+      },
+      {
+        "filename": "happy.png",
+        "decision": "accepted",
+        "replacement": null,
+        "confidence": 0.9
+      },
+      {
+        "filename": "learn.png",
+        "decision": "accepted",
+        "replacement": null,
+        "confidence": 0.9
+      },
+      {
+        "filename": "line.png",
+        "decision": "unreviewed",
+        "replacement": null,
+        "confidence": 0.0,
+        "notes": "auto-detected from activity_images"
+      },
+      {
+        "filename": "llama_llama.png",
+        "decision": "accepted",
+        "replacement": null,
+        "confidence": 0.9
+      },
+      {
+        "filename": "nervous.png",
+        "decision": "accepted",
+        "replacement": null,
+        "confidence": 0.9
+      },
+      {
+        "filename": "new.png",
+        "decision": "accepted",
+        "replacement": null,
+        "confidence": 0.9
+      },
+      {
+        "filename": "pencil.png",
+        "decision": "accepted",
+        "replacement": null,
+        "confidence": 0.9
+      },
+      {
+        "filename": "scared.png",
+        "decision": "unreviewed",
+        "replacement": null,
+        "confidence": 0.0,
+        "notes": "auto-detected from activity_images"
+      },
+      {
+        "filename": "school.png",
+        "decision": "accepted",
+        "replacement": null,
+        "confidence": 0.9
+      },
+      {
+        "filename": "share.png",
+        "decision": "unreviewed",
+        "replacement": null,
+        "confidence": 0.0,
+        "notes": "auto-detected from activity_images"
+      },
+      {
+        "filename": "sit.png",
+        "decision": "accepted",
+        "replacement": null,
+        "confidence": 0.9
+      },
+      {
+        "filename": "teacher.png",
+        "decision": "accepted",
+        "replacement": null,
+        "confidence": 0.9
+      }
+    ]
+  },
+  "build": {
+    "last_built_at": "08/09/2026 16:55",
+    "products_built": [
+      {
+        "name": "Book Participation Pieces",
+        "built_at": "08/09/2026 16:46"
+      },
+      {
+        "name": "Matching",
+        "built_at": "08/09/2026 16:48"
+      },
+      {
+        "name": "Find & Cover",
+        "built_at": "08/09/2026 16:50"
+      },
+      {
+        "name": "Word Search",
+        "built_at": "08/09/2026 16:51"
+      },
+      {
+        "name": "AAC Sentence Building",
+        "built_at": "08/09/2026 16:51"
+      },
+      {
+        "name": "AAC Board",
+        "built_at": "08/09/2026 16:52"
+      },
+      {
+        "name": "Sequencing",
+        "built_at": "08/09/2026 16:52"
+      },
+      {
+        "name": "Sorting Cards",
+        "built_at": "08/09/2026 16:53"
+      },
+      {
+        "name": "Bingo",
+        "built_at": "08/09/2026 16:55"
+      },
+      {
+        "name": "Yes/No Questions",
+        "built_at": "08/09/2026 16:55"
+      }
+    ],
+    "pack_code": "LLB01",
+    "matching_icons": []
+  },
+  "icon_decisions": {
+    "friend": {
+      "status": "approved",
+      "filename": "friend.png",
+      "label": "friend",
+      "source_path": "D:\\Seagate\\small-wins-automation\\assets\\symbols\\png\\Categories\\People\\General\\friend.png",
+      "updated_at": "2026-09-07T09:20:08"
+    },
+    "teacher": {
+      "status": "skipped",
+      "updated_at": "2026-09-07T09:25:18"
+    },
+    "nervous": {
+      "status": "approved",
+      "filename": "nervous.png",
+      "label": "nervous",
+      "source_path": "D:\\Seagate\\small-wins-automation\\assets\\symbols\\png\\Alpha\\n\\nervous.png",
+      "updated_at": "2026-09-07T09:20:09"
+    },
+    "learn": {
+      "status": "approved",
+      "filename": "learn.png",
+      "label": "learn",
+      "source_path": "D:\\Seagate\\small-wins-automation\\assets\\symbols\\png\\Alpha\\l\\learn.png",
+      "updated_at": "2026-09-07T09:20:09"
+    },
+    "happy": {
+      "status": "approved",
+      "filename": "happy.png",
+      "label": "happy",
+      "source_path": "D:\\Seagate\\small-wins-automation\\assets\\symbols\\png\\Categories\\Descriptive\\Feelings\\happy.png",
+      "updated_at": "2026-09-07T09:20:09"
+    },
+    "sit": {
+      "status": "approved",
+      "filename": "sit.png",
+      "label": "sit",
+      "source_path": "D:\\Seagate\\small-wins-automation\\assets\\symbols\\png\\Categories\\Verbs\\General\\sit.png",
+      "updated_at": "2026-09-07T09:20:09"
+    },
+    "new": {
+      "status": "approved",
+      "filename": "new.png",
+      "label": "new",
+      "source_path": "D:\\Seagate\\small-wins-automation\\assets\\symbols\\png\\Categories\\Descriptive\\General\\new.png",
+      "updated_at": "2026-09-07T09:25:25"
+    },
+    "llama_llama": {
+      "status": "approved",
+      "filename": "llama_llama.png",
+      "label": "llama_llama",
+      "source_path": "D:\\Seagate\\small-wins-automation\\assets\\themes\\llama_llama_back_to_school\\activity_images\\llama_llama.png",
+      "updated_at": "2026-09-07T09:52:01"
+    },
+    "crayons": {
+      "status": "approved",
+      "filename": "crayons.png",
+      "label": "crayons",
+      "source_path": "D:\\Seagate\\small-wins-automation\\assets\\themes\\llama_llama_back_to_school\\activity_images\\crayons.png",
+      "updated_at": "2026-09-09T08:23:42"
+    },
+    "glue": {
+      "status": "approved",
+      "filename": "glue.png",
+      "label": "glue",
+      "source_path": "D:\\Seagate\\small-wins-automation\\assets\\themes\\llama_llama_back_to_school\\activity_images\\glue.png",
+      "updated_at": "2026-09-09T08:23:42"
+    },
+    "cubby": {
+      "status": "approved",
+      "filename": "cubby.png",
+      "label": "cubby",
+      "source_path": "D:\\Seagate\\small-wins-automation\\assets\\themes\\llama_llama_back_to_school\\activity_images\\cubby.png",
+      "updated_at": "2026-09-09T08:23:42"
+    },
+    "scared": {
+      "status": "approved",
+      "filename": "scared.png",
+      "label": "scared",
+      "source_path": "D:\\Seagate\\small-wins-automation\\assets\\themes\\llama_llama_back_to_school\\activity_images\\scared.png",
+      "updated_at": "2026-09-09T08:23:42"
+    }
+  }
+}

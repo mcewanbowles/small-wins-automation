@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "book_title": "The Kissing Hand",
+  "pack_code": "AUTO-ADPT",
+  "review_sentence": "Chester Raccoon has a good day.",
+  "teacher_review_required": true,
+  "pages": [
+    {
+      "page_num": 3,
+      "image_word": "kiss",
+      "sentence": "Chester Raccoon and the kiss.",
+      "scene_note": "Scene featuring kiss"
+    },
+    {
+      "page_num": 4,
+      "image_word": "hand",
+      "sentence": "Chester Raccoon and the hand.",
+      "scene_note": "Scene featuring hand"
+    },
+    {
+      "page_num": 5,
+      "image_word": "heart",
+      "sentence": "Chester Raccoon and the heart.",
+      "scene_note": "Scene featuring heart"
+    },
+    {
+      "page_num": 6,
+      "image_word": "mama",
+      "sentence": "Chester Raccoon and the mama.",
+      "scene_note": "Scene featuring mama"
+    },
+    {
+      "page_num": 7,
+      "image_word": "school",
+      "sentence": "Chester Raccoon and the school.",
+      "scene_note": "Scene featuring school"
+    },
+    {
+      "page_num": 8,
+      "image_word": "scared",
+      "sentence": "Chester Raccoon and the scared.",
+      "scene_note": "Scene featuring scared"
+    }
+  ]
+}

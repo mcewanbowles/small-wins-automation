@@ -6,10 +6,10 @@
     "description": "Young llama character in red pajamas, distinctive Anna Dewdney illustration style",
     "search_term": "llama llama red pajama",
     "needs_sourcing": true,
-    "source_note": "Named character \u2014 source from Creative Fabrica or TPT clip art; must show llama in red pajamas to match cover recognition"
+    "source_note": "Named character — source from Creative Fabrica or TPT clip art; must show llama in red pajamas to match cover recognition"
   },
   "fringe_12": [
-    "Llama Llama",
+    "llama",
     "pajamas",
     "bed",
     "mama",
@@ -36,11 +36,18 @@
     "stairs"
   ],
   "activity_images": [
-    "pajamas",
     "bed",
-    "mama",
-    "dark",
+    "comfort",
     "cry",
+    "dark",
+    "hug",
+    "lamp",
+    "llama",
+    "mama",
+    "night",
+    "pajamas",
+    "scared",
+    "stairs",
     "wait"
   ],
   "aac_extras": [
@@ -80,7 +87,7 @@
     "lamp": "lamp",
     "stairs": "stairs"
   },
-  "notes": "Core emotional vocabulary (scared, cry, wait, hug) is especially important for this book as the story centres on separation anxiety at bedtime. 'Mama' is the child's primary communication target \u2014 llama calls for mama throughout. 'Red' was considered as a fringe word given the title, but the colour core button already covers colour labelling and the 11 slots are better used for narrative and emotional words. Existing activity_images already include llama, pajamas, bed, lamp, stairs, mama, dark \u2014 these can be reused directly.",
+  "notes": "Core emotional vocabulary (scared, cry, wait, hug) is especially important for this book as the story centres on separation anxiety at bedtime. 'Mama' is the child's primary communication target — llama calls for mama throughout. 'Red' was considered as a fringe word given the title, but the colour core button already covers colour labelling and the 11 slots are better used for narrative and emotional words. Existing activity_images already include llama, pajamas, bed, lamp, stairs, mama, dark — these can be reused directly.",
   "characters": [],
   "code": "",
   "board_format": "6x6_LETTER_hero_fringe",
@@ -178,7 +185,7 @@
       "category": "Bedtime Items",
       "items": [
         "bed",
-        "pajama"
+        "pajamas"
       ],
       "grounded": true,
       "grounding_note": "Bedtime setting and pajama theme confirmed by title and review.",
@@ -229,39 +236,9 @@
     }
   ],
   "adapted_book_sentences": [
-    {
-      "sentence": "Llama Llama wears red pajamas.",
-      "grounded": true,
-      "grounding_note": "Directly reflects book title 'Red Pajama'.",
-      "citations": [
-        0
-      ]
-    },
-    {
-      "sentence": "Mama Llama puts Llama Llama to bed.",
-      "grounded": true,
-      "grounding_note": "Bedtime story setup confirmed by review.",
-      "citations": [
-        1
-      ]
-    },
-    {
-      "sentence": "Llama Llama calls for Mama.",
-      "grounded": true,
-      "grounding_note": "Reflects central bedtime blues conflict.",
-      "citations": [
-        0,
-        1
-      ]
-    },
-    {
-      "sentence": "Mama Llama comes back to help.",
-      "grounded": true,
-      "grounding_note": "Story resolves with Mama returning to comfort Llama, consistent with theme description.",
-      "citations": [
-        0
-      ]
-    }
+    "Llama goes to bed.",
+    "Mama hugs Llama.",
+    "Llama waits for Mama."
   ],
   "wh_questions": [
     {
@@ -291,51 +268,75 @@
   ],
   "yes_no_questions": [
     {
-      "question": "Does Llama Llama wear red pajamas?",
+      "question": "Is this a bed?",
       "answer": "yes",
+      "image_key": "bed",
       "grounded": true,
-      "grounding_note": "Confirmed by book title.",
-      "citations": [
-        0
-      ]
+      "grounding_note": "Visual question matched to the approved bed symbol.",
+      "citations": []
     },
     {
-      "question": "Is this a story about going to sleep?",
-      "answer": "yes",
-      "grounded": true,
-      "grounding_note": "Described as a bedtime story.",
-      "citations": [
-        1
-      ]
-    },
-    {
-      "question": "Does Llama Llama wait a very long time, like all night, before Mama comes?",
+      "question": "Is Llama Llama crying?",
       "answer": "no",
+      "image_key": "cry",
       "grounded": true,
-      "grounding_note": "Reddit review notes the wait was actually short (less than five minutes), not all night.",
-      "citations": [
-        2
-      ]
-    }
-  ],
-  "aac_fringe_vocab": [
-    {
-      "word": "upset",
-      "grounded": true,
-      "grounding_note": "Reddit source references Llama becoming upset while waiting.",
-      "citations": [
-        2
-      ]
+      "grounding_note": "Visual question matched to the approved crying symbol.",
+      "citations": []
     },
     {
-      "word": "comforted",
+      "question": "Does this picture show Llama Llama?",
+      "answer": "yes",
+      "image_key": "llama",
       "grounded": true,
-      "grounding_note": "Consistent with 'face the bedtime blues' resolution described by publisher.",
+      "grounding_note": "Confirmed by the book title and approved character symbol.",
       "citations": [
         0
       ]
+    },
+    {
+      "question": "Is this Mama Llama?",
+      "answer": "yes",
+      "image_key": "mama",
+      "grounded": true,
+      "grounding_note": "Visual question matched to the approved Mama symbol.",
+      "citations": []
+    },
+    {
+      "question": "Is it daytime in this picture?",
+      "answer": "no",
+      "image_key": "night",
+      "grounded": true,
+      "grounding_note": "Visual question matched to the approved nighttime symbol.",
+      "citations": []
+    },
+    {
+      "question": "Are these red pajamas?",
+      "answer": "yes",
+      "image_key": "pajamas",
+      "grounded": true,
+      "grounding_note": "The approved pajamas symbol is red.",
+      "citations": [
+        0
+      ]
+    },
+    {
+      "question": "Does this person look scared?",
+      "answer": "yes",
+      "image_key": "scared",
+      "grounded": true,
+      "grounding_note": "Visual question matched to the approved scared symbol.",
+      "citations": []
+    },
+    {
+      "question": "Is this a bed?",
+      "answer": "no",
+      "image_key": "stairs",
+      "grounded": true,
+      "grounding_note": "Visual question contrasts a bed with the approved stairs symbol.",
+      "citations": []
     }
   ],
+  "aac_fringe_vocab": [],
   "inferencing_questions": [
     {
       "question": "Why might Llama Llama feel scared when Mama leaves the room?",
@@ -353,5 +354,132 @@
         0
       ]
     }
-  ]
+  ],
+  "sentence_frames": [
+    "I see {item}.",
+    "I found {item}."
+  ],
+  "story_sequence": [
+    "bed",
+    "stairs",
+    "cry",
+    "mama"
+  ],
+  "story_event_captions": {
+    "bed": "Llama gets ready for bed.",
+    "mama": "Mama returns and Llama feels safe.",
+    "stairs": "Mama goes downstairs.",
+    "scared": "Llama begins to feel worried.",
+    "cry": "Llama cries and calls for Mama.",
+    "llama": "Llama Llama is the main character."
+  },
+  "adapted_piece_sets": [
+    {
+      "title": "Story Pieces",
+      "items": [
+        "bed",
+        "stairs",
+        "cry",
+        "llama"
+      ]
+    }
+  ],
+  "include_sorting": false,
+  "sorting_sets": [],
+  "hero_image": "hero.png",
+  "hero_image_optional": true,
+  "adapted_companion_review_required": true,
+  "vocab_words": [
+    "bed",
+    "comfort",
+    "cry",
+    "dark",
+    "hug",
+    "lamp",
+    "llama",
+    "mama",
+    "night",
+    "pajamas",
+    "scared",
+    "stairs",
+    "wait"
+  ],
+  "required_icons": {
+    "aac_board": {
+      "min": 2,
+      "max": 12,
+      "note": "2 theme + 24 core + 10 global fringe"
+    },
+    "matching": {
+      "min": 4,
+      "max": 12,
+      "note": "Min 4 approved stems, no hard cap"
+    },
+    "book_participation": {
+      "min": 8,
+      "max": 8,
+      "note": "8 vocab + hero"
+    },
+    "sentence_strips": {
+      "min": 8,
+      "max": 12,
+      "note": "8 theme items + 5 core words"
+    },
+    "sequencing": {
+      "min": 4,
+      "max": 10,
+      "note": "Story sequence cards, capped at 10"
+    },
+    "yes_no": {
+      "min": 4,
+      "max": 12,
+      "note": "Yes/No question cards, 4 per page"
+    },
+    "inferencing": {
+      "min": 3,
+      "max": 4,
+      "note": "Exactly 4 reasoning cards"
+    },
+    "vocabulary_snap": {
+      "min": 6,
+      "max": 12,
+      "note": "Vocab cards, cap 12 unique words"
+    },
+    "syllable_cards": {
+      "min": 4,
+      "max": 20,
+      "note": "Syllable cards, expanded to 20"
+    },
+    "cvc_decode": {
+      "min": 9,
+      "max": 15,
+      "note": "3-5 groups x 3 CVC words (phonics, not theme icons)"
+    },
+    "story_grammar": {
+      "min": 1,
+      "max": 1,
+      "note": "Hero icon + 6 fixed story-element labels"
+    },
+    "word_search": {
+      "min": 4,
+      "max": 8,
+      "note": "4-8 words, length <= 8 letters"
+    },
+    "bingo": {
+      "min": 8,
+      "max": 8,
+      "note": "Exactly 8 calling cards"
+    },
+    "sorting": {
+      "min": 6,
+      "max": 12,
+      "note": "6-12 sort items across 2 sets"
+    },
+    "print_detective": {
+      "min": 5,
+      "max": 8,
+      "note": "5-8 first-sound picture pairs"
+    }
+  },
+  "max_theme_icons": 13
 }

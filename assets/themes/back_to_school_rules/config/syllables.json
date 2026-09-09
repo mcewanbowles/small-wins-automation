@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Phonological Awareness"
+  ],
+  "teacher_review_required": true,
+  "items": [
+    {
+      "image_key": "school",
+      "label": "School",
+      "count": 1,
+      "segmentation": "school"
+    },
+    {
+      "image_key": "rules",
+      "label": "Rules",
+      "count": 1,
+      "segmentation": "rules"
+    },
+    {
+      "image_key": "raise_hand",
+      "label": "Raise Hand",
+      "count": 1,
+      "segmentation": "raise hand"
+    },
+    {
+      "image_key": "listen",
+      "label": "Listen",
+      "count": 2,
+      "segmentation": "lis · ten"
+    },
+    {
+      "image_key": "quiet",
+      "label": "Quiet",
+      "count": 2,
+      "segmentation": "qui · et"
+    },
+    {
+      "image_key": "line_up",
+      "label": "Line Up",
+      "count": 2,
+      "segmentation": "line up"
+    },
+    {
+      "image_key": "share",
+      "label": "Share",
+      "count": 1,
+      "segmentation": "share"
+    },
+    {
+      "image_key": "kind",
+      "label": "Kind",
+      "count": 1,
+      "segmentation": "kind"
+    },
+    {
+      "image_key": "safe",
+      "label": "Safe",
+      "count": 1,
+      "segmentation": "safe"
+    },
+    {
+      "image_key": "respect",
+      "label": "Respect",
+      "count": 2,
+      "segmentation": "re · spect"
+    },
+    {
+      "image_key": "try",
+      "label": "Try",
+      "count": 1,
+      "segmentation": "try"
+    },
+    {
+      "image_key": "friend",
+      "label": "Friend",
+      "count": 1,
+      "segmentation": "friend"
+    }
+  ]
+}

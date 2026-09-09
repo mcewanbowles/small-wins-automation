@@ -1,6 +1,7 @@
 ﻿#!/usr/bin/env python3
 from __future__ import annotations
 
+import hashlib
 import io
 import json
 import sys
@@ -29,7 +30,7 @@ try:
                 sys.path.insert(0, _p_str)
 except Exception:
     pass
-from utils.sws_design import generate_internal_cover_page, shrink_font_to_fit_with_pt, normalize_text, apply_small_wins_frame
+from utils.sws_design import generate_internal_cover_page, generate_teacher_cover_page, shrink_font_to_fit_with_pt, normalize_text, apply_small_wins_frame
 from utils.logs import write_log, prune_logs
 from utils.qa import assess_files
 from utils.preview import make_preview_pdf_from_images, save_thumbnails_from_images
@@ -121,7 +122,7 @@ def generate_story_via_api(title: str, vocab_words: list[str], aac_extras: list[
         load_dotenv()
         api_key = os.getenv("ANTHROPIC_API_KEY")
         if not api_key:
-            print("âš  ANTHROPIC_API_KEY not set â€” skipping AI story generation")
+            print(" ANTHROPIC_API_KEY not set -- skipping AI story generation")
             return None
         import anthropic
         client = anthropic.Anthropic(api_key=api_key)
@@ -133,7 +134,7 @@ def generate_story_via_api(title: str, vocab_words: list[str], aac_extras: list[
         prompt = (
             f"Create adapted book for: \"{title}\"\n"
             f"Vocabulary: {' | '.join((vocab_words or [])[:12])}\n"
-            "Select 8 words, order as narrative: intro â†’ events â†’ conclusion.\n\n"
+            "Select 8 words, order as narrative: intro -> events -> conclusion.\n\n"
             "Return exactly this JSON:\n{\n  \"pages\": [\n    {\"page_num\": 3, \"image_word\": \"word\", \"sentence\": \"Simple sentence.\", \"aac_prompt\": \"Question?\"}\n  ],\n  \"review_sentence\": \"One sentence summary (max 10 words).\"\n}"
         )
         resp = client.messages.create(
@@ -150,7 +151,7 @@ def generate_story_via_api(title: str, vocab_words: list[str], aac_extras: list[
         return _json.loads(txt)
     except Exception as e:
         try:
-            print(f"âš  AI story generation unavailable: {e}")
+            print(f" AI story generation unavailable: {e}")
         except Exception:
             pass
         return None
@@ -175,7 +176,6 @@ def _images_dir_candidates(slug: str) -> list[Path]:
     root = Path("assets") / "themes" / slug
     return [
         root / "activity_images",
-        root / "icons_colored",
         root / "icons",
         root / "images",
     ]
@@ -276,9 +276,9 @@ def _howto_page() -> Image.Image:
     fonts = load_fonts()
     _header_stripe(page, text="HOW TO USE THIS BOOK")
     steps = [
-        ("â‘ ", "Before reading â€” Talk about the cover. 'What do you see?'"),
-        ("â‘¡", "During reading â€” Place matching piece in the box."),
-        ("â‘¢", "After reading â€” Use Review page to retell the story."),
+        ("1.", "Before reading -- Talk about the cover. 'What do you see?'"),
+        ("2.", "During reading -- Place matching piece in the box."),
+        ("3.", "After reading -- Use Review page to retell the story."),
     ]
     y = int(1.2 * DPI)
     for circ, text in steps:
@@ -288,7 +288,7 @@ def _howto_page() -> Image.Image:
         y += int(0.85 * DPI)
     inst_box = [int(0.5 * DPI), y + int(0.2 * DPI), PAGE_W - int(0.5 * DPI), y + int(1.2 * DPI)]
     d.rounded_rectangle(inst_box, radius=10, outline=hex_to_rgb(NAVY_BLUE), width=2, fill=hex_to_rgb(VELCRO_BOX_BG))
-    d.text((inst_box[0] + int(0.25 * DPI), inst_box[1] + int(0.20 * DPI)), "CUT OUT page 13 Â· LAMINATE Â· STORE in a zip bag.", fill=hex_to_rgb(STEEL_BLUE), font=fonts["instruction"])
+    d.text((inst_box[0] + int(0.25 * DPI), inst_box[1] + int(0.20 * DPI)), "CUT OUT page 13 - LAMINATE - STORE in a zip bag.", fill=hex_to_rgb(STEEL_BLUE), font=fonts["instruction"])
     return page
 
 
@@ -308,7 +308,7 @@ def _story_page(
     # Running header
     head_h = int(0.32 * DPI)
     d.text((int(0.30 * DPI), int(0.10 * DPI)), title, fill=hex_to_rgb(TITLE_BLUE), font=fonts["page_header"])
-    right = f"Adapted Book Â· pg {page_num}/{total_pages}"
+    right = f"Adapted Book - pg {page_num}/{total_pages}"
     tw, th = _text_size(d, right, fonts["page_header"])
     d.text((PAGE_W - tw - int(0.30 * DPI), int(0.10 * DPI)), right, fill=hex_to_rgb(STEEL_BLUE), font=fonts["page_header"])
     d.line([(0, head_h), (PAGE_W, head_h)], fill=hex_to_rgb(LIGHT_GRAY), width=1)
@@ -345,7 +345,7 @@ def _story_page(
     if fit_warnings is not None and chosen_pt <= 16:
         fit_warnings.append(f"Story sentence shrunk to {chosen_pt}pt on page {page_num}: '{sent[:60]}...'")
     # Velcro zone
-    d.text((PAGE_W // 2 - int(1.8 * DPI), int(5.2 * DPI)), "PLACE THE MATCHING PIECE HERE â†“", fill=hex_to_rgb(STEEL_BLUE), font=fonts["instruction"])
+    d.text((PAGE_W // 2 - int(1.8 * DPI), int(5.2 * DPI)), "PLACE THE MATCHING PIECE HERE", fill=hex_to_rgb(STEEL_BLUE), font=fonts["instruction"])
     left_box = [int(0.52 * DPI), int(5.5 * DPI), int(2.4 * DPI), int(7.4 * DPI)]
     right = [int(4.0 * DPI), int(5.5 * DPI), int(5.88 * DPI), int(7.4 * DPI)]
     d.rounded_rectangle(left_box, radius=12, outline=hex_to_rgb(TITLE_BLUE), width=3, fill=(255, 255, 255))
@@ -355,7 +355,7 @@ def _story_page(
     d.text((left_box[0] + (left_box[2] - left_box[0] - lw) // 2, left_box[3] - lh - int(0.10 * DPI)), wl, fill=hex_to_rgb(NAVY_BLUE), font=fonts["word_label"])
     # dashed right box
     d.rounded_rectangle(right, radius=12, outline=hex_to_rgb(TITLE_BLUE), width=2, fill=hex_to_rgb(VELCRO_BOX_BG))
-    d.text((right[0] + int(0.22 * DPI), right[1] + int(0.75 * DPI)), "place piece here âœ‚", fill=hex_to_rgb(STEEL_BLUE), font=fonts["instruction"])
+    d.text((right[0] + int(0.22 * DPI), right[1] + int(0.75 * DPI)), "place piece here", fill=hex_to_rgb(STEEL_BLUE), font=fonts["instruction"])
     return page
 
 
@@ -419,7 +419,7 @@ def _cutout_page(slug: str, words: list[str]) -> Image.Image:
     d = ImageDraw.Draw(page)
     fonts = load_fonts()
     _header_stripe(page, text="CUT-OUT PIECES")
-    d.text((PAGE_W // 2 - int(1.8 * DPI), int(0.95 * DPI)), "âœ‚ Print Â· Laminate Â· Cut", fill=hex_to_rgb(STEEL_BLUE), font=fonts["instruction"]) 
+    d.text((PAGE_W // 2 - int(1.8 * DPI), int(0.95 * DPI)), "Print - Laminate - Cut", fill=hex_to_rgb(STEEL_BLUE), font=fonts["instruction"])
     cols, rows = 4, 2
     outer_w, outer_h = int(1.1 * DPI), int(1.27 * DPI)
     inner_w, inner_h = outer_w - int(0.27 * DPI), outer_h - int(0.27 * DPI)
@@ -476,8 +476,8 @@ def _storage_page(slug: str, title: str, pack_code: str, words: list[str]) -> Im
             ix = x + (cell - ic.width) // 2
             iy = y + (cell - ic.height) // 2
             page.paste(ic.convert("RGBA"), (ix, iy), ic.convert("RGBA"))
-    d.text((box[0] + int(0.22 * DPI), box[3] - int(0.38 * DPI)), f"{title} Â· {pack_code}", fill=hex_to_rgb(STEEL_BLUE), font=fonts["storage_pack"]) 
-    d.text((int(0.40 * DPI), int(2.90 * DPI)), "âœ‚ Cut out and tape to storage bin.", fill=hex_to_rgb(STEEL_BLUE), font=fonts["instruction"]) 
+    d.text((box[0] + int(0.22 * DPI), box[3] - int(0.38 * DPI)), f"{title} - {pack_code}", fill=hex_to_rgb(STEEL_BLUE), font=fonts["storage_pack"]) 
+    d.text((int(0.40 * DPI), int(2.90 * DPI)), "Cut out and tape to storage bin.", fill=hex_to_rgb(STEEL_BLUE), font=fonts["instruction"])
     return page
 
 
@@ -518,8 +518,8 @@ def _compose_story_2up(slug: str, title: str, left_meta: dict, right_meta: dict 
         product_title=f"{title} | Adapted Book",
         subtitle=f"Page {left_idx}/{total_story_pages}",
         pack_code=pack_code,
-        page_num=left_idx,
-        total_pages=total_story_pages,
+        page_num=0,
+        total_pages=0,
         level=None,
         footer_title=f"{title} | Adapted Book",
     )
@@ -553,8 +553,8 @@ def _compose_story_2up(slug: str, title: str, left_meta: dict, right_meta: dict 
             product_title=f"{title} | Adapted Book",
             subtitle=f"Page {(right_idx or left_idx + 1)}/{total_story_pages}",
             pack_code=pack_code,
-            page_num=(right_idx or left_idx + 1),
-            total_pages=total_story_pages,
+            page_num=0,
+            total_pages=0,
             level=None,
             footer_title=f"{title} | Adapted Book",
         )
@@ -584,39 +584,48 @@ def build_pdf(slug: str, title: str, pack_code: str) -> tuple[Path, Path]:
     out_dir = Path(f"assets/themes/{slug}/OUTPUT")
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    cache = _read_cache(slug) or {"pages": [], "review_sentence": "The end."}
+    source_path = Path(f"assets/themes/{slug}/config/adapted_book.json")
+    cache = _read_cache(slug)
+    if not cache:
+        raise ValueError(f"Missing reviewed adapted-book config: {source_path}")
     pages_meta = cache.get("pages", [])
-    words = [str(p.get("image_word", "")).strip() for p in pages_meta if str(p.get("image_word", "")).strip()]
+    if not isinstance(pages_meta, list) or len(pages_meta) != 8:
+        raise ValueError("Adapted-book config must contain exactly eight reviewed pages")
+    for index, entry in enumerate(pages_meta, start=1):
+        word = str(entry.get("image_word") or "").strip()
+        sentence = str(entry.get("sentence") or "").strip()
+        if not word or not sentence or _load_image_for_word(slug, word) is None:
+            raise ValueError(f"Invalid adapted-book page {index}: reviewed sentence and local image are required")
+    words = [str(p.get("image_word", "")).strip() for p in pages_meta]
 
     pages: list[Image.Image] = []
     text_fit_warnings: list[str] = []
 
-    # Internal product cover (portrait) centered on landscape
+    # Teacher cover (replaces old internal cover + custom cover + how-to page)
     hero = _load_image_for_word(slug, title)
     content_pages_after_cover = 9
-    icov = generate_internal_cover_page(
+    icov = generate_teacher_cover_page(
         theme_name=title,
         pack_code=pack_code,
-        product_name="Adapted Book",
+        product_name="Adapted Reading Companion",
         page_count=content_pages_after_cover,
         level_count=None,
         hero_image=hero,
-        draw_footer=False,
-        howto_bullets=[
+        top_tips=[
             "Print in landscape and laminate sheets for durability.",
             "Read each page; place the matching piece in the velcro box.",
             "Use the review page to retell the story with all 8 images.",
         ],
+        whats_included=[
+            "8-page adapted story with matching pieces",
+            "Review page for story retell",
+            "Cut-out pieces sheet and storage label",
+            "Boardmaker PCS symbols throughout",
+        ],
     )
     pages.append(_to_landscape(icov))
 
-    # Simple product cover + How to Use (centered on landscape)
-    pages.append(_to_landscape(_cover_page(slug, title)))
-    pages.append(_to_landscape(_howto_page()))
-
     # Ensure 8 story entries
-    while len(pages_meta) < 8:
-        pages_meta.append({"page_num": len(pages_meta) + 1, "image_word": (words[len(pages_meta) % len(words)] if words else ""), "sentence": "I see the picture."})
 
     # Create 2-up story sheets (4 sheets total)
     story_total = 8
@@ -723,10 +732,16 @@ def build_pdf(slug: str, title: str, pack_code: str) -> tuple[Path, Path]:
             pass
 
         manifest = {
-            "product_name": "Adapted Book",
+            "schema_version": 1,
+            "status": "pilot_review",
+            "product_name": "Adapted Reading Companion",
             "slug": slug,
             "pack_code": pack_code,
             "page_count": len(pages),
+            "reading_rope": ["Vocabulary", "Language Structures", "Literacy Knowledge"],
+            "teacher_review_required": bool(cache.get("teacher_review_required", True)),
+            "source": str(source_path),
+            "source_sha256": hashlib.sha256(source_path.read_bytes()).hexdigest(),
             "files": {
                 "color_pdf": str(out_color),
                 "bw_pdf": str(out_bw),

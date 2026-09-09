@@ -1,0 +1,18 @@
+{
+  "text message": [
+    "text"
+  ],
+  "link": [],
+  "do not click": [
+    "dont_know",
+    "dont_like",
+    "do not reply",
+    "dont_go_with_strangers",
+    "down"
+  ],
+  "spam": [],
+  "phishing": [],
+  "delete": [],
+  "reply? no": [],
+  "trusted adult": []
+}

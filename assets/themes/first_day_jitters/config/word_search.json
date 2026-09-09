@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Sight Recognition",
+    "Vocabulary"
+  ],
+  "teacher_review_required": true,
+  "words": [
+    {
+      "word": "school",
+      "image_key": "school",
+      "label": "School"
+    },
+    {
+      "word": "nervous",
+      "image_key": "nervous",
+      "label": "Nervous"
+    },
+    {
+      "word": "new",
+      "image_key": "new",
+      "label": "New"
+    },
+    {
+      "word": "teacher",
+      "image_key": "teacher",
+      "label": "Teacher"
+    },
+    {
+      "word": "friend",
+      "image_key": "friend",
+      "label": "Friend"
+    }
+  ]
+}

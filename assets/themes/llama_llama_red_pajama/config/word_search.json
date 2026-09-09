@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": ["Sight Recognition", "Vocabulary"],
+  "teacher_review_required": true,
+  "words": [
+    {"word": "bed", "image_key": "bed", "label": "Bed"},
+    {"word": "cry", "image_key": "cry", "label": "Crying"},
+    {"word": "llama", "image_key": "llama", "label": "Llama"},
+    {"word": "mama", "image_key": "mama", "label": "Mama"},
+    {"word": "night", "image_key": "night", "label": "Night"},
+    {"word": "stairs", "image_key": "stairs", "label": "Stairs"}
+  ]
+}

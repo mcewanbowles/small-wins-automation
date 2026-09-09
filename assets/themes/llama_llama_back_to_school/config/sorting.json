@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": ["Vocabulary", "Verbal Reasoning", "Language Structures"],
+  "teacher_review_required": true,
+  "sets": [
+    {
+      "title": "Who or What/Where?",
+      "left": {"label": "WHO?", "items": ["llama_llama", "friend", "teacher"]},
+      "right": {"label": "WHAT OR WHERE?", "items": ["school", "classroom", "backpack", "pencil"]}
+    },
+    {
+      "title": "Feeling or Action?",
+      "left": {"label": "FEELING", "items": ["nervous", "happy"]},
+      "right": {"label": "ACTION", "items": ["sit", "learn"]}
+    }
+  ],
+  "header_bank": [
+    "Character", "Object", "Place", "Action", "Feeling", "Who?", "What?", "Where?",
+    "Same", "Different", "One syllable", "Two syllables", "Three or more syllables",
+    "Same first sound", "Different first sound", "My group 1", "My group 2", "I like", "I don't like", "My rule"
+  ],
+  "header_bank_rules": {
+    "objective_answer_key": ["Character", "Object", "Place", "Action", "Feeling", "Who?", "What?", "Where?", "One syllable", "Two syllables", "Three or more syllables", "Same first sound", "Different first sound"],
+    "student_directed_no_answer_key": ["Same", "Different", "My group 1", "My group 2", "I like", "I don't like", "My rule"]
+  },
+  "labels": {"llama_llama": "Llama", "friend": "Friend", "teacher": "Teacher", "school": "School", "classroom": "Classroom", "backpack": "Backpack", "pencil": "Pencil", "sit": "Sit", "learn": "Learn", "nervous": "Nervous", "happy": "Happy"}
+}

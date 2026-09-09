@@ -1,0 +1,296 @@
+{
+  "slug": "the_kissing_hand",
+  "grid_size": "6x6",
+  "approved": false,
+  "approved_at": null,
+  "cells": [
+    {
+      "row": 0,
+      "col": 0,
+      "symbol_filename": "i.png",
+      "label": "I",
+      "locked": true,
+      "core": true
+    },
+    {
+      "row": 0,
+      "col": 1,
+      "symbol_filename": "you.png",
+      "label": "you",
+      "locked": true,
+      "core": true
+    },
+    {
+      "row": 0,
+      "col": 2,
+      "symbol_filename": "want.png",
+      "label": "want",
+      "locked": true,
+      "core": true
+    },
+    {
+      "row": 0,
+      "col": 3,
+      "symbol_filename": "see.png",
+      "label": "see",
+      "locked": true,
+      "core": true
+    },
+    {
+      "row": 0,
+      "col": 4,
+      "symbol_filename": "yes.png",
+      "label": "yes",
+      "locked": true,
+      "core": true
+    },
+    {
+      "row": 0,
+      "col": 5,
+      "symbol_filename": "no.png",
+      "label": "no",
+      "locked": true,
+      "core": true
+    },
+    {
+      "row": 1,
+      "col": 0,
+      "symbol_filename": "same.png",
+      "label": "same",
+      "locked": true,
+      "core": true
+    },
+    {
+      "row": 1,
+      "col": 1,
+      "symbol_filename": "different.png",
+      "label": "different",
+      "locked": true,
+      "core": true
+    },
+    {
+      "row": 1,
+      "col": 2,
+      "symbol_filename": "more.png",
+      "label": "more",
+      "locked": true,
+      "core": true
+    },
+    {
+      "row": 1,
+      "col": 3,
+      "symbol_filename": "help.png",
+      "label": "help",
+      "locked": true,
+      "core": true
+    },
+    {
+      "row": 1,
+      "col": 4,
+      "symbol_filename": "like.png",
+      "label": "like",
+      "locked": true,
+      "core": true
+    },
+    {
+      "row": 1,
+      "col": 5,
+      "symbol_filename": "dont_like.png",
+      "label": "don't like",
+      "locked": true,
+      "core": true
+    },
+    {
+      "row": 2,
+      "col": 0,
+      "symbol_filename": null,
+      "label": "",
+      "locked": false,
+      "core": false
+    },
+    {
+      "row": 2,
+      "col": 1,
+      "symbol_filename": null,
+      "label": "",
+      "locked": false,
+      "core": false
+    },
+    {
+      "row": 2,
+      "col": 2,
+      "symbol_filename": null,
+      "label": "",
+      "locked": false,
+      "core": false
+    },
+    {
+      "row": 2,
+      "col": 3,
+      "symbol_filename": null,
+      "label": "",
+      "locked": false,
+      "core": false
+    },
+    {
+      "row": 2,
+      "col": 4,
+      "symbol_filename": null,
+      "label": "",
+      "locked": false,
+      "core": false
+    },
+    {
+      "row": 2,
+      "col": 5,
+      "symbol_filename": null,
+      "label": "",
+      "locked": false,
+      "core": false
+    },
+    {
+      "row": 3,
+      "col": 0,
+      "symbol_filename": null,
+      "label": "",
+      "locked": false,
+      "core": false
+    },
+    {
+      "row": 3,
+      "col": 1,
+      "symbol_filename": null,
+      "label": "",
+      "locked": false,
+      "core": false
+    },
+    {
+      "row": 3,
+      "col": 2,
+      "symbol_filename": null,
+      "label": "",
+      "locked": false,
+      "core": false
+    },
+    {
+      "row": 3,
+      "col": 3,
+      "symbol_filename": null,
+      "label": "",
+      "locked": false,
+      "core": false
+    },
+    {
+      "row": 3,
+      "col": 4,
+      "symbol_filename": null,
+      "label": "",
+      "locked": false,
+      "core": false
+    },
+    {
+      "row": 3,
+      "col": 5,
+      "symbol_filename": null,
+      "label": "",
+      "locked": false,
+      "core": false
+    },
+    {
+      "row": 4,
+      "col": 0,
+      "symbol_filename": null,
+      "label": "",
+      "locked": false,
+      "core": false
+    },
+    {
+      "row": 4,
+      "col": 1,
+      "symbol_filename": null,
+      "label": "",
+      "locked": false,
+      "core": false
+    },
+    {
+      "row": 4,
+      "col": 2,
+      "symbol_filename": null,
+      "label": "",
+      "locked": false,
+      "core": false
+    },
+    {
+      "row": 4,
+      "col": 3,
+      "symbol_filename": null,
+      "label": "",
+      "locked": false,
+      "core": false
+    },
+    {
+      "row": 4,
+      "col": 4,
+      "symbol_filename": null,
+      "label": "",
+      "locked": false,
+      "core": false
+    },
+    {
+      "row": 4,
+      "col": 5,
+      "symbol_filename": null,
+      "label": "",
+      "locked": false,
+      "core": false
+    },
+    {
+      "row": 5,
+      "col": 0,
+      "symbol_filename": "uh_oh.png",
+      "label": "uh oh",
+      "locked": true,
+      "core": true
+    },
+    {
+      "row": 5,
+      "col": 1,
+      "symbol_filename": "what.png",
+      "label": "what",
+      "locked": true,
+      "core": true
+    },
+    {
+      "row": 5,
+      "col": 2,
+      "symbol_filename": "where.png",
+      "label": "where",
+      "locked": true,
+      "core": true
+    },
+    {
+      "row": 5,
+      "col": 3,
+      "symbol_filename": "why.png",
+      "label": "why",
+      "locked": true,
+      "core": true
+    },
+    {
+      "row": 5,
+      "col": 4,
+      "symbol_filename": "i_dont_know.png",
+      "label": "I don't know",
+      "locked": true,
+      "core": true
+    },
+    {
+      "row": 5,
+      "col": 5,
+      "symbol_filename": "finished.png",
+      "label": "finished",
+      "locked": true,
+      "core": true
+    }
+  ]
+}

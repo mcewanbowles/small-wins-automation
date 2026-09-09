@@ -1,0 +1,83 @@
+{
+  "schema": "pp_qna.v1",
+  "book_slug": "splat_the_cat",
+  "book_title": "Splat the Cat",
+  "pages": [
+    {
+      "page_num": 1,
+      "question": "Where does the character go?",
+      "choices": [
+        "school",
+        "splat",
+        "cat"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        false,
+        false
+      ],
+      "context_mirror": {
+        "sentence": "Splat the Cat goes to school for the first time.",
+        "scene_note": "Splat the Cat goes to school for the first time."
+      }
+    },
+    {
+      "page_num": 2,
+      "question": "How does the character feel?",
+      "choices": [
+        "scared",
+        "splat",
+        "cat"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        false,
+        false
+      ],
+      "context_mirror": {
+        "sentence": "Splat feels scared about starting school.",
+        "scene_note": "Splat feels scared about starting school."
+      }
+    },
+    {
+      "page_num": 3,
+      "question": "What do you see?",
+      "choices": [
+        "mouse",
+        "splat",
+        "cat"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        false,
+        false
+      ],
+      "context_mirror": {
+        "sentence": "Splat brings his pet mouse to school.",
+        "scene_note": "Splat brings his pet mouse to school."
+      }
+    },
+    {
+      "page_num": 4,
+      "question": "What do you see?",
+      "choices": [
+        "happy",
+        "splat",
+        "cat"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        false,
+        false
+      ],
+      "context_mirror": {
+        "sentence": "Splat makes friends and feels happy at school.",
+        "scene_note": "Splat makes friends and feels happy at school."
+      }
+    }
+  ]
+}

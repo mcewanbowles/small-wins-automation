@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "product_name": "Interactive Book Participation Pieces",
+  "source_book_required": true,
+  "edition_neutral": true,
+  "teacher_review_required": true,
+  "vocabulary_source": "reviewed book_vocab and approved local icons",
+  "vocabulary": [
+    {
+      "image_key": "school",
+      "label": "School",
+      "review_status": "approved"
+    },
+    {
+      "image_key": "nervous",
+      "label": "Nervous",
+      "review_status": "approved"
+    },
+    {
+      "image_key": "new",
+      "label": "New",
+      "review_status": "approved"
+    },
+    {
+      "image_key": "teacher",
+      "label": "Teacher",
+      "review_status": "approved"
+    },
+    {
+      "image_key": "friend",
+      "label": "Friend",
+      "review_status": "approved"
+    },
+    {
+      "image_key": "classroom",
+      "label": "Classroom",
+      "review_status": "approved"
+    }
+  ],
+  "question_strips": [
+    {
+      "prompt": "Who is on this page?",
+      "response": "Choose or place a character piece."
+    },
+    {
+      "prompt": "What is happening?",
+      "response": "Choose or place an action or object piece."
+    },
+    {
+      "prompt": "How does the character feel?",
+      "response": "Choose or place a feeling piece."
+    },
+    {
+      "prompt": "What might happen next?",
+      "response": "Predict using speech, sign, AAC or a piece."
+    }
+  ],
+  "participation_words": [
+    "see",
+    "more",
+    "finished",
+    "help",
+    "yes",
+    "no",
+    "turn_the_page"
+  ],
+  "early_access": {
+    "enabled": true,
+    "hero_image_key": "sarah_jane_hartwell",
+    "hero_label": "Sarah Jane Hartwell",
+    "hero_piece_copies": 6,
+    "turn_page_piece_copies": 2,
+    "cue": "See Sarah Jane Hartwell. Match Sarah Jane Hartwell. Turn the page."
+  },
+  "reading_rope": [
+    "Vocabulary",
+    "Language Structures",
+    "Verbal Reasoning",
+    "Literacy Knowledge"
+  ]
+}

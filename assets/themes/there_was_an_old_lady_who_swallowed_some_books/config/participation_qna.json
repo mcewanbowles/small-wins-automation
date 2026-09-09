@@ -1,0 +1,83 @@
+{
+  "schema": "pp_qna.v1",
+  "book_slug": "there_was_an_old_lady_who_swallowed_some_books",
+  "book_title": "There Was an Old Lady Who Swallowed Some Books!",
+  "pages": [
+    {
+      "page_num": 1,
+      "question": "What do you see?",
+      "choices": [
+        "book",
+        "old_lady",
+        "pencil"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        false,
+        false
+      ],
+      "context_mirror": {
+        "sentence": "The old lady swallowed a book!",
+        "scene_note": "The old lady swallowed a book!"
+      }
+    },
+    {
+      "page_num": 2,
+      "question": "What do you see?",
+      "choices": [
+        "pencil",
+        "old_lady",
+        "book"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        false,
+        false
+      ],
+      "context_mirror": {
+        "sentence": "The old lady swallowed a pencil.",
+        "scene_note": "The old lady swallowed a pencil."
+      }
+    },
+    {
+      "page_num": 3,
+      "question": "What do you see?",
+      "choices": [
+        "backpack",
+        "old_lady",
+        "book"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        false,
+        false
+      ],
+      "context_mirror": {
+        "sentence": "The old lady swallowed a backpack.",
+        "scene_note": "The old lady swallowed a backpack."
+      }
+    },
+    {
+      "page_num": 4,
+      "question": "Where does the character go?",
+      "choices": [
+        "school",
+        "old_lady",
+        "book"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        false,
+        false
+      ],
+      "context_mirror": {
+        "sentence": "The old lady goes to school.",
+        "scene_note": "The old lady goes to school."
+      }
+    }
+  ]
+}

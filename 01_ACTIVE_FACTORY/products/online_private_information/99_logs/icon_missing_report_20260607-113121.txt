@@ -1,0 +1,10 @@
+Missing icons report:
+
+- share
+- tablet
+- private information
+  suggested alternatives: private, private_02, private (2), private (3), private_space
+- show adult
+  suggested alternatives: show_me_again, showme (2), showme
+- do not share
+  suggested alternatives: dont_know, dont_like, do not reply, dont_go_with_strangers, down

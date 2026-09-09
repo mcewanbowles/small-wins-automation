@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Phonological Awareness"
+  ],
+  "teacher_review_required": true,
+  "items": [
+    {
+      "image_key": "stick",
+      "label": "Stick",
+      "count": 1,
+      "segmentation": "stick"
+    },
+    {
+      "image_key": "stone",
+      "label": "Stone",
+      "count": 1,
+      "segmentation": "stone"
+    },
+    {
+      "image_key": "friend",
+      "label": "Friend",
+      "count": 1,
+      "segmentation": "friend"
+    },
+    {
+      "image_key": "play",
+      "label": "Play",
+      "count": 1,
+      "segmentation": "play"
+    },
+    {
+      "image_key": "pinecone",
+      "label": "Pinecone",
+      "count": 2,
+      "segmentation": "pine · cone"
+    },
+    {
+      "image_key": "alone",
+      "label": "Alone",
+      "count": 2,
+      "segmentation": "a · lone"
+    },
+    {
+      "image_key": "together",
+      "label": "Together",
+      "count": 3,
+      "segmentation": "to · geth · er"
+    },
+    {
+      "image_key": "help",
+      "label": "Help",
+      "count": 1,
+      "segmentation": "help"
+    },
+    {
+      "image_key": "kind",
+      "label": "Kind",
+      "count": 1,
+      "segmentation": "kind"
+    },
+    {
+      "image_key": "sad",
+      "label": "Sad",
+      "count": 1,
+      "segmentation": "sad"
+    },
+    {
+      "image_key": "happy",
+      "label": "Happy",
+      "count": 2,
+      "segmentation": "hap · py"
+    },
+    {
+      "image_key": "park",
+      "label": "Park",
+      "count": 1,
+      "segmentation": "park"
+    }
+  ]
+}

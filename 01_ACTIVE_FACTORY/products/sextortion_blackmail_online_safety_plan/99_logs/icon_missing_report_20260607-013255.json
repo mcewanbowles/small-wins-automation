@@ -1,0 +1,14 @@
+{
+  "do not pay": [
+    "dont_know",
+    "dont_like",
+    "do not reply",
+    "dont_go_with_strangers",
+    "down"
+  ],
+  "evidence": [
+    "evidence",
+    "video_evidence"
+  ],
+  "pay": []
+}

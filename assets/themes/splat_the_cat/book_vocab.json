@@ -1,0 +1,201 @@
+{
+  "schema_version": 1,
+  "title": "Splat the Cat",
+  "author": "Rob Scotton",
+  "status": "existing",
+  "vocab_status": "reviewed",
+  "production_blocked": true,
+  "demand_candidate": {
+    "campaign": "september_back_to_school_2026",
+    "rank": 17,
+    "evidence_level": "public_tpt_and_seasonal_proxy",
+    "rationale": "Recognisable first-day story with anxiety, friendship, and school routines; suitable for visual feelings supports and sequencing but carries higher character-brand risk.",
+    "tpt_keyword_finder_verified": false,
+    "rights_review": "required"
+  },
+  "hero": {
+    "name": "Splat",
+    "description": "Black cat character from Rob Scotton's Splat the Cat series",
+    "search_term": "splat the cat",
+    "needs_sourcing": true,
+    "source_note": "Named character from Splat the Cat series - source generic black cat clip art"
+  },
+  "fringe_12": [
+    "splat",
+    "cat",
+    "school",
+    "mouse",
+    "teacher",
+    "friend",
+    "scared",
+    "learn",
+    "lunch",
+    "book",
+    "happy",
+    "pet"
+  ],
+  "fringe_11": [],
+  "activity_images": [
+    "splat",
+    "cat",
+    "school",
+    "mouse",
+    "teacher",
+    "friend",
+    "scared",
+    "learn",
+    "lunch",
+    "book",
+    "happy",
+    "pet"
+  ],
+  "aac_extras": [],
+  "ambiguous": [],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "splat": "cat",
+    "cat": "cat",
+    "school": "school",
+    "mouse": "mouse",
+    "teacher": "teacher",
+    "friend": "friend",
+    "scared": "scared",
+    "learn": "learn",
+    "lunch": "lunch",
+    "book": "book",
+    "happy": "happy",
+    "pet": "pet"
+  },
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": null,
+  "notes": "Demand candidate only. Complete Keyword Finder, rights, vocabulary, and icon review before production.",
+  "required_icons": {
+    "aac_board": {
+      "min": 2,
+      "max": 12,
+      "note": "2 theme + 24 core + 10 global fringe"
+    },
+    "matching": {
+      "min": 4,
+      "max": 12,
+      "note": "Min 4 approved stems, no hard cap"
+    },
+    "book_participation": {
+      "min": 8,
+      "max": 8,
+      "note": "8 vocab + hero"
+    },
+    "sentence_strips": {
+      "min": 8,
+      "max": 12,
+      "note": "8 theme items + 5 core words"
+    },
+    "sequencing": {
+      "min": 4,
+      "max": 10,
+      "note": "Story sequence cards, capped at 10"
+    },
+    "yes_no": {
+      "min": 4,
+      "max": 12,
+      "note": "Yes/No question cards, 4 per page"
+    },
+    "inferencing": {
+      "min": 3,
+      "max": 4,
+      "note": "Exactly 4 reasoning cards"
+    },
+    "vocabulary_snap": {
+      "min": 6,
+      "max": 12,
+      "note": "Vocab cards, cap 12 unique words"
+    },
+    "syllable_cards": {
+      "min": 4,
+      "max": 20,
+      "note": "Syllable cards, expanded to 20"
+    },
+    "cvc_decode": {
+      "min": 9,
+      "max": 15,
+      "note": "3-5 groups x 3 CVC words (phonics, not theme icons)"
+    },
+    "story_grammar": {
+      "min": 1,
+      "max": 1,
+      "note": "Hero icon + 6 fixed story-element labels"
+    },
+    "word_search": {
+      "min": 4,
+      "max": 8,
+      "note": "4-8 words, length <= 8 letters"
+    },
+    "bingo": {
+      "min": 8,
+      "max": 8,
+      "note": "Exactly 8 calling cards"
+    },
+    "sorting": {
+      "min": 6,
+      "max": 12,
+      "note": "6-12 sort items across 2 sets"
+    },
+    "print_detective": {
+      "min": 5,
+      "max": 8,
+      "note": "5-8 first-sound picture pairs"
+    }
+  },
+  "max_theme_icons": 9,
+  "story_sequence": [
+    "school",
+    "scared",
+    "mouse",
+    "happy"
+  ],
+  "story_event_captions": {
+    "school": "Splat the Cat goes to school for the first time.",
+    "scared": "Splat feels scared about starting school.",
+    "mouse": "Splat brings his pet mouse to school.",
+    "happy": "Splat makes friends and feels happy at school."
+  },
+  "yes_no_questions": [
+    {
+      "question": "Is this a cat?",
+      "answer": "yes",
+      "image_key": "cat"
+    },
+    {
+      "question": "Is this a dog?",
+      "answer": "no",
+      "image_key": "cat"
+    },
+    {
+      "question": "Is this a school?",
+      "answer": "yes",
+      "image_key": "school"
+    },
+    {
+      "question": "Is this a mouse?",
+      "answer": "yes",
+      "image_key": "mouse"
+    },
+    {
+      "question": "Is this a teacher?",
+      "answer": "yes",
+      "image_key": "teacher"
+    },
+    {
+      "question": "Is Splat scared?",
+      "answer": "yes",
+      "image_key": "scared"
+    },
+    {
+      "question": "Is Splat happy?",
+      "answer": "yes",
+      "image_key": "happy"
+    }
+  ]
+}

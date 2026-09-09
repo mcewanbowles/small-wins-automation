@@ -1,0 +1,30 @@
+BODY HYGIENE ASKING FOR HELP - FULL SERIES (UPLOAD READY)
+
+Primary upload PDFs in this folder:
+1) SWS_Ask_Help_Story_Printable.pdf
+2) SWS_Ask_Help_Story_Match_Cutouts_Printable.pdf
+3) SWS_Ask_Help_Pocket_Cards_Printable.pdf
+4) SWS_Ask_Help_Routine_Strips_Printable.pdf
+5) SWS_Ask_Help_Useful_Book_Ring_Printable.pdf
+6) SWS_Ask_Help_Useful_Book_Wallet_Printable.pdf
+7) SWS_Ask_Help_Cutouts_Printable.pdf
+8) SWS_Ask_Help_AAC_Board_Printable.pdf
+9) SWS_Ask_Help_My_Routine_Reminders_Printable.pdf
+10) SWS_Ask_Help_Engaging_Lesson_Printable.pdf
+11) SWS_Ask_Help_Data_Collection_Printable.pdf
+
+Also include:
+- SWS_Ask_Help_Terms_of_Use.pdf
+- SWS_Ask_Help_Quick_Start.pdf
+- SWS_Ask_Help_Product_Overview.pdf
+- SWS_Ask_Help_Pinterest_Freebie_Taster.pdf (optional lead magnet preview)
+
+Design updates applied:
+- Story-match target box updated (taller and narrower)
+- Header text constrained to stay inside border
+- Icon fallback resolution expanded to body hygiene / asking for help sources
+
+If you want to replace any icons before upload:
+- assets/global/icons/ask_for_help_master/selected
+- assets/social_stories/body hygiene/png_raw
+- assets/social_stories/Asking for Help/png_raw

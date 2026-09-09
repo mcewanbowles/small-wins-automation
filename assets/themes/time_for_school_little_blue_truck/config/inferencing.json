@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Verbal Reasoning",
+    "Background Knowledge"
+  ],
+  "teacher_review_required": true,
+  "cards": [
+    {
+      "clue_image_key": "school",
+      "question": "Why does the teacher help Little Blue Truck?",
+      "choices": [
+        "She wants to make school feel safe and welcoming",
+        "She wants him to leave"
+      ],
+      "answer_hint": "Teachers help new students feel included."
+    },
+    {
+      "clue_image_key": "bus",
+      "question": "What might Little Blue Truck do with this?",
+      "choices": [
+        "Use it to learn and play",
+        "Ignore it"
+      ],
+      "answer_hint": "At school, we use things to learn and grow."
+    },
+    {
+      "clue_image_key": "truck",
+      "question": "What might Little Blue Truck do with this?",
+      "choices": [
+        "Use it to learn and play",
+        "Ignore it"
+      ],
+      "answer_hint": "At school, we use things to learn and grow."
+    },
+    {
+      "clue_image_key": "backpack",
+      "question": "What might Little Blue Truck do with this?",
+      "choices": [
+        "Use it to learn and play",
+        "Ignore it"
+      ],
+      "answer_hint": "At school, we use things to learn and grow."
+    }
+  ]
+}

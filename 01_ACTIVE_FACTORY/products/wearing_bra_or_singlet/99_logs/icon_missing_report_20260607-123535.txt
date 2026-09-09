@@ -1,0 +1,13 @@
+Missing icons report:
+
+- bra
+- singlet
+- crop top
+- grow
+- support
+- comfortable
+- tight
+- clothes
+  suggested alternatives: clothes_on, clothes
+- too tight
+  suggested alternatives: get_toothbrush, put_toothpaste_on_brush, rinse_toothbrush

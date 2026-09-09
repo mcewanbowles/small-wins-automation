@@ -1,0 +1,12 @@
+Missing icons report:
+
+- touch
+- uncomfortable
+- move away
+- AAC
+- my body
+  suggested alternatives: brush_my_teeth, color when  i get my period social story us_p01_i001, color when  i get my period social story us_p02_i002, color when  i get my period social story us_p03_i003, color when  i get my period social story us_p04_i004
+- tell adult
+  suggested alternatives: tell, tellpolice, tell_someon, tell_someone, 13 tell_someone
+- keep telling
+  suggested alternatives: keep details safe, keep_hands_off

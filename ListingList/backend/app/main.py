@@ -45,6 +45,8 @@ async def keywords_endpoint(payload: KeywordsRequest) -> KeywordsResponse:
             gold_only=payload.gold_only,
             store_level=payload.store_level,
             winnable_only=payload.winnable_only,
+            expand=payload.expand,
+            letters_expand=payload.letters_expand,
         )
     except Exception as exc:
         raise HTTPException(status_code=502, detail=f"Keyword lookup failed: {exc}") from exc

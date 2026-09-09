@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Sight Recognition",
+    "Vocabulary"
+  ],
+  "teacher_review_required": true,
+  "words": [
+    {
+      "word": "mouse",
+      "image_key": "mouse",
+      "label": "Mouse"
+    },
+    {
+      "word": "school",
+      "image_key": "school",
+      "label": "School"
+    },
+    {
+      "word": "door",
+      "image_key": "door",
+      "label": "Door"
+    },
+    {
+      "word": "teacher",
+      "image_key": "teacher",
+      "label": "Teacher"
+    },
+    {
+      "word": "book",
+      "image_key": "book",
+      "label": "Book"
+    },
+    {
+      "word": "pencil",
+      "image_key": "pencil",
+      "label": "Pencil"
+    },
+    {
+      "word": "crayon",
+      "image_key": "crayon",
+      "label": "Crayon"
+    },
+    {
+      "word": "paper",
+      "image_key": "paper",
+      "label": "Paper"
+    }
+  ]
+}

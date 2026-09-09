@@ -1,0 +1,201 @@
+{
+  "schema_version": 1,
+  "title": "Lola Goes to School",
+  "author": "Anna McQuinn",
+  "status": "existing",
+  "vocab_status": "reviewed",
+  "production_blocked": true,
+  "demand_candidate": {
+    "campaign": "september_back_to_school_2026",
+    "rank": 7,
+    "evidence_level": "public_tpt_and_seasonal_proxy",
+    "rationale": "Simple preschool first-day narrative, diverse representation, concrete routines, and confirmed inclusion in existing SPED back-to-school companion offers.",
+    "tpt_keyword_finder_verified": false,
+    "rights_review": "required"
+  },
+  "hero": {
+    "name": "Lola",
+    "description": "Young girl character from Anna McQuinn's Lola series",
+    "search_term": "lola",
+    "needs_sourcing": true,
+    "source_note": "Named character from Lola series - source generic young girl clip art"
+  },
+  "fringe_12": [
+    "lola",
+    "school",
+    "backpack",
+    "book",
+    "teacher",
+    "friend",
+    "play",
+    "learn",
+    "lunch",
+    "crayon",
+    "happy",
+    "read"
+  ],
+  "fringe_11": [],
+  "activity_images": [
+    "lola",
+    "school",
+    "backpack",
+    "book",
+    "teacher",
+    "friend",
+    "play",
+    "learn",
+    "lunch",
+    "crayon",
+    "happy",
+    "read"
+  ],
+  "aac_extras": [],
+  "ambiguous": [],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "lola": "girl",
+    "school": "school",
+    "backpack": "backpack",
+    "book": "book",
+    "teacher": "teacher",
+    "friend": "friend",
+    "play": "play",
+    "learn": "learn",
+    "lunch": "lunch",
+    "crayon": "crayon",
+    "happy": "happy",
+    "read": "read"
+  },
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": null,
+  "notes": "Demand candidate only. Complete Keyword Finder, rights, vocabulary, and icon review before production.",
+  "required_icons": {
+    "aac_board": {
+      "min": 2,
+      "max": 12,
+      "note": "2 theme + 24 core + 10 global fringe"
+    },
+    "matching": {
+      "min": 4,
+      "max": 12,
+      "note": "Min 4 approved stems, no hard cap"
+    },
+    "book_participation": {
+      "min": 8,
+      "max": 8,
+      "note": "8 vocab + hero"
+    },
+    "sentence_strips": {
+      "min": 8,
+      "max": 12,
+      "note": "8 theme items + 5 core words"
+    },
+    "sequencing": {
+      "min": 4,
+      "max": 10,
+      "note": "Story sequence cards, capped at 10"
+    },
+    "yes_no": {
+      "min": 4,
+      "max": 12,
+      "note": "Yes/No question cards, 4 per page"
+    },
+    "inferencing": {
+      "min": 3,
+      "max": 4,
+      "note": "Exactly 4 reasoning cards"
+    },
+    "vocabulary_snap": {
+      "min": 6,
+      "max": 12,
+      "note": "Vocab cards, cap 12 unique words"
+    },
+    "syllable_cards": {
+      "min": 4,
+      "max": 20,
+      "note": "Syllable cards, expanded to 20"
+    },
+    "cvc_decode": {
+      "min": 9,
+      "max": 15,
+      "note": "3-5 groups x 3 CVC words (phonics, not theme icons)"
+    },
+    "story_grammar": {
+      "min": 1,
+      "max": 1,
+      "note": "Hero icon + 6 fixed story-element labels"
+    },
+    "word_search": {
+      "min": 4,
+      "max": 8,
+      "note": "4-8 words, length <= 8 letters"
+    },
+    "bingo": {
+      "min": 8,
+      "max": 8,
+      "note": "Exactly 8 calling cards"
+    },
+    "sorting": {
+      "min": 6,
+      "max": 12,
+      "note": "6-12 sort items across 2 sets"
+    },
+    "print_detective": {
+      "min": 5,
+      "max": 8,
+      "note": "5-8 first-sound picture pairs"
+    }
+  },
+  "max_theme_icons": 9,
+  "story_sequence": [
+    "school",
+    "book",
+    "play",
+    "happy"
+  ],
+  "story_event_captions": {
+    "school": "Lola gets ready for her first day of school.",
+    "book": "Lola reads books with her teacher.",
+    "play": "Lola plays with new friends.",
+    "happy": "Lola feels happy at school."
+  },
+  "yes_no_questions": [
+    {
+      "question": "Is this a school?",
+      "answer": "yes",
+      "image_key": "school"
+    },
+    {
+      "question": "Is this a toy store?",
+      "answer": "no",
+      "image_key": "school"
+    },
+    {
+      "question": "Is this a book?",
+      "answer": "yes",
+      "image_key": "book"
+    },
+    {
+      "question": "Is this a teacher?",
+      "answer": "yes",
+      "image_key": "teacher"
+    },
+    {
+      "question": "Is this a friend?",
+      "answer": "yes",
+      "image_key": "friend"
+    },
+    {
+      "question": "Is Lola happy?",
+      "answer": "yes",
+      "image_key": "happy"
+    },
+    {
+      "question": "Is this a crayon?",
+      "answer": "yes",
+      "image_key": "crayon"
+    }
+  ]
+}

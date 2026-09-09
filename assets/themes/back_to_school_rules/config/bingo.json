@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "teacher_review_required": true,
+  "items": [
+    {
+      "image_key": "school",
+      "label": "School"
+    },
+    {
+      "image_key": "rules",
+      "label": "Rules"
+    },
+    {
+      "image_key": "raise_hand",
+      "label": "Raise Hand"
+    },
+    {
+      "image_key": "listen",
+      "label": "Listen"
+    },
+    {
+      "image_key": "quiet",
+      "label": "Quiet"
+    },
+    {
+      "image_key": "line_up",
+      "label": "Line Up"
+    },
+    {
+      "image_key": "share",
+      "label": "Share"
+    },
+    {
+      "image_key": "kind",
+      "label": "Kind"
+    }
+  ]
+}

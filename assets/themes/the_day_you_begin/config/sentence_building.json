@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Language Structures",
+    "Vocabulary"
+  ],
+  "teacher_review_required": true,
+  "theme_items": [
+    {
+      "image_key": "school",
+      "label": "School"
+    },
+    {
+      "image_key": "friend",
+      "label": "Friend"
+    },
+    {
+      "image_key": "different",
+      "label": "Different"
+    },
+    {
+      "image_key": "brave",
+      "label": "Brave"
+    },
+    {
+      "image_key": "story",
+      "label": "Story"
+    },
+    {
+      "image_key": "share",
+      "label": "Share"
+    }
+  ],
+  "patterns": [
+    {
+      "display": "I see ___",
+      "items": [
+        "school",
+        "friend",
+        "different",
+        "brave",
+        "story",
+        "share"
+      ]
+    },
+    {
+      "display": "I want ___",
+      "items": [
+        "school",
+        "friend",
+        "different",
+        "brave"
+      ]
+    },
+    {
+      "display": "I like ___",
+      "items": [
+        "school",
+        "friend",
+        "different",
+        "brave",
+        "story"
+      ]
+    },
+    {
+      "display": "I don't like ___",
+      "items": [
+        "school",
+        "friend",
+        "different"
+      ]
+    }
+  ]
+}

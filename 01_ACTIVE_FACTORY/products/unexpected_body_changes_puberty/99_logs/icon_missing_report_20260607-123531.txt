@@ -1,0 +1,11 @@
+Missing icons report:
+
+- grow
+- pimples
+- sweat
+- odor
+- feelings
+- questions
+- body hair
+  suggested alternatives: body_changes_normal
+- trusted adult

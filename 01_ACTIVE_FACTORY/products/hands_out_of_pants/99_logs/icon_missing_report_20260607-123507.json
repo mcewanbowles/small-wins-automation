@@ -1,0 +1,27 @@
+{
+  "outside": [],
+  "clothes": [
+    "clothes_on",
+    "clothes"
+  ],
+  "uncomfortable": [],
+  "AAC": [],
+  "hands out": [
+    "wash_hands",
+    "keep_hands_off"
+  ],
+  "private bathroom": [
+    "private",
+    "private_02",
+    "private (2)",
+    "private (3)",
+    "private_space"
+  ],
+  "safe body": [
+    "e-safety",
+    "keep details safe",
+    "unsafe",
+    "unsafe_contact",
+    "unsafe_message"
+  ]
+}

@@ -1,0 +1,12 @@
+Missing icons report:
+
+- doctor
+- nurse
+- health
+- question
+- uncomfortable
+- AAC
+- answer
+- private question
+  suggested alternatives: private, private_02, private (2), private (3), private_space
+- trusted adult

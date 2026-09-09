@@ -1,0 +1,1171 @@
+{
+  "resource_type": "social_story",
+  "topic_id": "hands_out_of_pants",
+  "display_title": "I Keep My Hands Outside My Pants in Public",
+  "bundle": "Body Safety & Boundaries",
+  "audience": "non-verbal and minimally speaking teens with autism, AAC users, life-skills classes",
+  "tone": "respectful, clear, age-neutral, non-shaming, not babyish",
+  "real_world_context": "Body Safety & Boundaries — private touching / masturbation in public",
+  "demand_signal": "High: TPT has specific private parts/touching-public social stories but none with AAC, lanyards, routine strips, choice boards, or data sheets. Major differentiation gap.",
+  "design_philosophy": "TOOLKIT WITH OPTIONS — not prescriptions. Teachers select which pages, cards, and strips are appropriate for their specific student and context. Every replacement behavior has multiple options because one-answer products fail real students (e.g. telling a student 'do it at home' created a new problem of wanting to go home).",
+  "story_pages": [
+    "My body belongs to me.",
+    "Some parts of my body are private parts.",
+    "Private parts are the parts I cover with my underwear or my swimsuit.",
+    "It is okay to touch my own private parts. This is normal.",
+    "But I can only touch my private parts in a private place.",
+    "Public means other people can see me, like in the classroom, hallway, playground, bus or shops.",
+    "Private means I am alone with the door closed, like my bedroom at home.",
+    "At school and in the community, I keep my hands outside my pants.",
+    "If I want to touch my private parts in public, I wait.",
+    "I can keep my hands busy instead. I can hold a fidget, put my hands on my desk, or squeeze my hands together.",
+    "If I need to fix my clothes, I can go to the bathroom.",
+    "If I am unsure, I can ask a safe adult.",
+    "I can use words, pictures or AAC to say 'I need help' or 'I need a break.'",
+    "No one else should touch my private parts. I can say 'no' and tell a safe adult.",
+    "If I forget the rule, that is okay. I can try again next time.",
+    "Keeping my hands outside my pants in public helps me stay safe and respectful."
+  ],
+  "story_teacher_note": "The social story uses 'my bedroom at home' as the example private place. This is the safest default because it is clearly home-only and does not risk generalizing to public restrooms (TACA guidance). However, some families and schools choose bathroom instead. If your team chooses bathroom, modify page 5 to say 'my bedroom or the bathroom at home with the door closed' and add explicit discrimination training about WHICH bathrooms are okay. The story is a starting point — adapt it to your student's context.",
+  "story_optional_context_pages": {
+    "school": [
+      "At school, my hands stay outside my pants in class, in the hallway, and at lunch.",
+      "If I feel uncomfortable at school, I can ask for a break or use a fidget.",
+      "My teacher can help me remember.",
+      "Private body care is for home — in the private place my family chooses."
+    ],
+    "home": [
+      "At home, I have a private place for private body care — with the door closed.",
+      "My family will show me which place is my private place.",
+      "At home, I can ask a trusted adult if I need help or have questions.",
+      "I wash my hands when I am finished."
+    ],
+    "community": [
+      "In the community — shops, bus, park — my hands stay outside my pants.",
+      "Private body care is for home, not for public places.",
+      "If I feel uncomfortable, I can use a fidget or ask for a break."
+    ],
+    "note_for_teachers": "Print only the context pages relevant to your student. The home page deliberately says 'my family will show me which place is my private place' rather than naming a specific room — because different families choose different places (bedroom, bathroom, or both). Adapt the home page to name the specific place your student's family has chosen. See the alternative behavior options sheet for considerations about bedroom vs bathroom."
+  },
+  "mini_book": {
+    "title": "My Hands Stay Outside My Pants",
+    "source": "Same content as story_pages — smaller print size for portability.",
+    "print_format": "Print at reduced size, cut, staple, or hole-punch for a ring. Fits in a bag or pocket. Student can carry between settings (school to home).",
+    "note": "No separate content — uses the same story_pages as the social story, just rendered at a smaller page size."
+  },
+  "story_layout_versions": {
+    "picture_main": {
+      "description": "Large image fills 50-65% of the page. Short text at top — one sentence per page. Matches published Small Wins Studio format (Private Parts are Private, How to Change a Pad). Best for non-verbal students and visual learners who need the image to carry the meaning.",
+      "image_coverage_pct": "50-65",
+      "text_position": "top",
+      "text_font_size": 20,
+      "max_words_per_page": 12
+    },
+    "text_main": {
+      "description": "Smaller image (30-40% of page) with more text room. Same story_pages content but allows for longer sentences or additional context. Best for students who read or are learning to read, and for teacher reference.",
+      "image_coverage_pct": "30-40",
+      "text_position": "top",
+      "text_font_size": 16,
+      "max_words_per_page": 25
+    },
+    "note_for_teachers": "TWO layout versions are provided. Print the one that suits your student. Picture-main matches the published Small Wins Studio format — the image carries the meaning and the text is a single short sentence. Text-main has a smaller image with more room for text — use this for students who read or for your own reference. Both versions use the SAME story content."
+  },
+  "cut_out_pieces": {
+    "title": "Cut-Out Pieces",
+    "description": "ONE set of cut-out pieces used across multiple components: lanyards, participation matching, and routine strips. Teacher prints and cuts the pieces, then deploys them as needed. Includes both bedroom and bathroom pieces so the teacher can select based on their student's plan.",
+    "pieces": [
+      {
+        "text": "My body",
+        "icon": "body",
+        "use_in": [
+          "participation"
+        ]
+      },
+      {
+        "text": "Hands out",
+        "icon": "stop",
+        "use_in": [
+          "lanyard",
+          "participation",
+          "routine"
+        ]
+      },
+      {
+        "text": "I need a break",
+        "icon": "break",
+        "use_in": [
+          "lanyard",
+          "participation",
+          "routine"
+        ]
+      },
+      {
+        "text": "Hands busy",
+        "icon": "fidget",
+        "use_in": [
+          "lanyard",
+          "participation",
+          "routine"
+        ]
+      },
+      {
+        "text": "Help please",
+        "icon": "help",
+        "use_in": [
+          "lanyard",
+          "participation",
+          "routine"
+        ]
+      },
+      {
+        "text": "Use a fidget",
+        "icon": "fidget",
+        "use_in": [
+          "lanyard",
+          "routine"
+        ]
+      },
+      {
+        "text": "Squeeze hands",
+        "icon": "hands",
+        "use_in": [
+          "lanyard",
+          "routine"
+        ]
+      },
+      {
+        "text": "Public",
+        "icon": "public",
+        "use_in": [
+          "participation",
+          "routine"
+        ]
+      },
+      {
+        "text": "Private",
+        "icon": "private",
+        "use_in": [
+          "participation",
+          "routine"
+        ]
+      },
+      {
+        "text": "Door closed",
+        "icon": "door",
+        "use_in": [
+          "participation",
+          "routine"
+        ]
+      },
+      {
+        "text": "My bedroom",
+        "icon": "bedroom",
+        "use_in": [
+          "participation",
+          "routine"
+        ]
+      },
+      {
+        "text": "Bathroom",
+        "icon": "bathroom",
+        "use_in": [
+          "lanyard",
+          "participation",
+          "routine"
+        ]
+      },
+      {
+        "text": "Touch",
+        "icon": "touch",
+        "use_in": [
+          "participation"
+        ]
+      },
+      {
+        "text": "Safe",
+        "icon": "safe",
+        "use_in": [
+          "participation"
+        ]
+      },
+      {
+        "text": "Clothes",
+        "icon": "clothes",
+        "use_in": [
+          "participation",
+          "routine"
+        ]
+      },
+      {
+        "text": "Ask an adult",
+        "icon": "staff",
+        "use_in": [
+          "participation"
+        ]
+      },
+      {
+        "text": "Wash hands",
+        "icon": "wash_hands",
+        "use_in": [
+          "routine"
+        ]
+      },
+      {
+        "text": "Finished",
+        "icon": "finished",
+        "use_in": [
+          "routine"
+        ]
+      }
+    ],
+    "deployment": {
+      "participation": "Use all pieces. Student matches each cut-out to the correct social story page during or after reading. For non-verbal students: teacher reads the page, student finds and places the matching piece.",
+      "routine_strip": "Select 3-5 pieces. Teacher places them on the standard routine strip template to build a location-specific routine."
+    },
+    "note_for_teachers": "Print one sheet of cut-out pieces. Cut them up. Use the SAME pieces for story matching and routine strips. Not every student needs every piece — select what works for your student. Both 'My bedroom' and 'Bathroom' pieces are included so you can select based on your student's plan. If you use the bathroom piece, pair it with explicit discrimination training about WHICH bathrooms are okay. See the alternative behavior options sheet for considerations. NOTE: For lanyard use, see the Visual Support Cards product — it uses the same card content in a small lanyard format."
+  },
+  "routine_strip_template": {
+    "title": "Routine Strip Template",
+    "description": "Standard blank template with the format: '___ behaviour is for ___ location/time'. Teacher selects cut-out pieces and places them on the template to build a location-specific routine. Different students and families will choose different private places — build the routine that matches your student's plan.",
+    "template_format": "[BEHAVIOUR PIECE] is for [LOCATION/TIME PIECE]",
+    "examples": [
+      {
+        "behavior": "Hands out",
+        "location": "classroom",
+        "result": "Hands out is for classroom"
+      },
+      {
+        "behavior": "Hands busy",
+        "location": "at my desk",
+        "result": "Hands busy is for at my desk"
+      },
+      {
+        "behavior": "Ask for a break",
+        "location": "when I feel uncomfortable",
+        "result": "Ask for a break is for when I feel uncomfortable"
+      },
+      {
+        "behavior": "Use a fidget",
+        "location": "when my hands want to touch",
+        "result": "Use a fidget is for when my hands want to touch"
+      },
+      {
+        "behavior": "Private body care",
+        "location": "my bedroom at home, door closed",
+        "result": "Private body care is for my bedroom at home, door closed"
+      },
+      {
+        "behavior": "Private body care",
+        "location": "the bathroom at home, door closed",
+        "result": "Private body care is for the bathroom at home, door closed"
+      },
+      {
+        "behavior": "Wash hands",
+        "location": "when I am finished",
+        "result": "Wash hands is for when I am finished"
+      }
+    ],
+    "standard_template_text": "___ is for ___",
+    "placement_locations": [
+      {
+        "location": "Desk",
+        "description": "Tape to desk or place inside desk folder"
+      },
+      {
+        "location": "Bedroom door",
+        "description": "Hang on bedroom door or inside bedroom wall — for home use"
+      },
+      {
+        "location": "Bathroom door",
+        "description": "Hang inside bathroom door — for home use, if bathroom is the chosen private place"
+      },
+      {
+        "location": "Bag",
+        "description": "Keep in student bag or pocket for portable reference"
+      }
+    ],
+    "note_for_teachers": "Print the blank template. Select the cut-out pieces that match your student's context and routine. Place them on the template. Laminate. Not every student needs the same routine — build what works for THIS student in THIS setting. Both bedroom and bathroom examples are included — choose the one that matches your student's plan. If you use bathroom, pair it with explicit discrimination training about WHICH bathrooms are okay."
+  },
+  "alternative_behavior_options": {
+    "title": "Alternative Behavior Options — Teacher Selection Sheet",
+    "description": "A generic page of alternative behavior icons. Teacher selects which options are appropriate for their student, behavior, or phase. This is a SELECTION sheet, not a prescription. Different students, families, and schools will choose different options based on their context, values, and the function of the behavior.",
+    "research_basis": [
+      "Matched stimulation: provide sensory items that meet the same sensory need (Piazza et al., 1998)",
+      "RIRD: redirect to physical activities using both hands — moving chairs, touching toes (research-proven for public masturbation)",
+      "Functional communication training: teach requesting break/help via AAC (Davis et al., 2015)",
+      "Deep pressure: weighted vest, compression clothing, lap pad — for body sensory input",
+      "Movement breaks: walking laps, trampoline, climbing — for proprioceptive seekers",
+      "Discrimination training: teach public vs private (Vanderbilt Kennedy Center, CSESA, ASERT)",
+      "Function-based: replacement must match WHY the behavior occurs (ASAT, Autism NZ)",
+      "Non-shaming: don't label behavior as 'bad' — teach WHERE not just 'stop' (TACA, Vanderbilt, Autism Speaks)"
+    ],
+    "options": [
+      {
+        "text": "Ask for a break",
+        "icon": "break",
+        "function": "Escape from sensory overload or task demand",
+        "evidence": "FCT — escape function",
+        "setting": "school"
+      },
+      {
+        "text": "Use a fidget tool",
+        "icon": "fidget",
+        "function": "Hands busy with sensory item — matched stimulation",
+        "evidence": "Matched stimulation",
+        "setting": "school + home"
+      },
+      {
+        "text": "Squeeze my hands together",
+        "icon": "hands",
+        "function": "Proprioceptive input, no tool needed",
+        "evidence": "Deep pressure / proprioception",
+        "setting": "anywhere"
+      },
+      {
+        "text": "Do a hands-busy activity",
+        "icon": "activity",
+        "function": "Drawing, putty, Lego, zip board — both hands occupied",
+        "evidence": "RIRD — both hands busy",
+        "setting": "school + home"
+      },
+      {
+        "text": "Press my feet to the floor",
+        "icon": "body",
+        "function": "Body pressure instead of touching",
+        "evidence": "Deep pressure",
+        "setting": "anywhere"
+      },
+      {
+        "text": "Wall pushes",
+        "icon": "body",
+        "function": "Heavy work / proprioceptive input",
+        "evidence": "Movement break / deep pressure",
+        "setting": "school + home"
+      },
+      {
+        "text": "Ask for the quiet space",
+        "icon": "quiet",
+        "function": "Calm/sensory room if available",
+        "evidence": "Sensory break",
+        "setting": "school"
+      },
+      {
+        "text": "Compression vest or lap pad",
+        "icon": "body",
+        "function": "Deep pressure without touching",
+        "evidence": "Deep pressure therapy",
+        "setting": "school + home"
+      },
+      {
+        "text": "Movement break",
+        "icon": "activity",
+        "function": "Walk laps, trampoline, climbing",
+        "evidence": "Movement break / proprioception",
+        "setting": "school + home"
+      },
+      {
+        "text": "Ask for help",
+        "icon": "help",
+        "function": "Tell a trusted adult",
+        "evidence": "FCT — help-seeking",
+        "setting": "anywhere"
+      },
+      {
+        "text": "Use my bedroom at home (door closed)",
+        "icon": "bedroom",
+        "function": "Private place at home for private body care",
+        "evidence": "Discrimination training",
+        "setting": "home only",
+        "considerations": "TACA recommends bedroom as the private place because it is clearly home-only and does not risk generalizing to public restrooms. Some families and practitioners prefer this approach."
+      },
+      {
+        "text": "Use the bathroom at home (door closed)",
+        "icon": "bathroom",
+        "function": "Private place at home for private body care — some families prefer bathroom",
+        "evidence": "Discrimination training",
+        "setting": "home only",
+        "considerations": "Some families and practitioners use the bathroom at home successfully. TACA warns this can generalize to ALL bathrooms including public restrooms — if you choose this option, pair it with explicit discrimination training about WHICH bathrooms are okay (home bathroom only, not school or public)."
+      },
+      {
+        "text": "Use the bathroom at school (door closed)",
+        "icon": "bathroom",
+        "function": "Private place at school — some schools permit this",
+        "evidence": "Discrimination training",
+        "setting": "school",
+        "considerations": "Some schools and practitioners use the school bathroom as a private place. TACA warns about generalization risk. If you choose this option, pair it with explicit discrimination training: THIS bathroom at school, not ALL bathrooms. Discuss with your school team and BCBA."
+      },
+      {
+        "text": "Scheduled private time at home",
+        "icon": "bedroom",
+        "function": "Visual timer — 'private time in 30 minutes' — for teens who need to know when they can have privacy",
+        "evidence": "Antecedent strategy + FCT",
+        "setting": "home only"
+      }
+    ],
+    "note_for_teachers": "This is a SELECTION sheet, not a prescription. Different students, families, and schools will choose different options. Print the page. Cut out the options that work for YOUR student in YOUR setting and YOUR values. Laminate and add Velcro to the choice board. Not every option is available in every classroom or home. Not every option works for every student. The FUNCTION of the behavior determines which replacement will work — if the behavior is sensory-seeking, try fidget/compression/movement. If it's escape, try break/help. If it's automatic reinforcement, try matched stimulation. Consult your BCBA or OT for individualized recommendations. IMPORTANT NOTES: (1) The bedroom vs bathroom decision is a family/school choice — both options are included. TACA recommends bedroom to avoid generalization to public restrooms. Some practitioners use bathroom successfully with explicit discrimination training. We present both options and let you decide. (2) Whatever private place you choose, pair it with explicit teaching about WHICH specific places are okay — do not assume the student will generalize correctly. (3) Check medical causes (yeast, histamine) if behavior is new or suddenly increased — consult a doctor. (4) Never shame or punish — this can make the behavior worse and drive it underground."
+  },
+  "visual_support_cards": {
+    "title": "Visual Support Cards",
+    "description": "ONE set of visual cards used multiple ways: large format for classroom display and instruction (cue cards), small format for lanyard/bag/desk (lanyard cards). Same cards, different print sizes and deployment options. Teacher selects the cards and format that work for their student.",
+    "cards": [
+      {
+        "text": "My body",
+        "icon": "body",
+        "purpose": "Body ownership — my body belongs to me"
+      },
+      {
+        "text": "Hands out",
+        "icon": "stop",
+        "purpose": "Gentle in-the-moment reminder"
+      },
+      {
+        "text": "I need a break",
+        "icon": "break",
+        "purpose": "Request sensory break"
+      },
+      {
+        "text": "Hands busy",
+        "icon": "fidget",
+        "purpose": "Redirect to replacement behavior"
+      },
+      {
+        "text": "Help please",
+        "icon": "help",
+        "purpose": "Ask for adult support"
+      },
+      {
+        "text": "Use a fidget",
+        "icon": "fidget",
+        "purpose": "Hands-busy with sensory item"
+      },
+      {
+        "text": "Squeeze hands",
+        "icon": "hands",
+        "purpose": "Proprioceptive input, no tool"
+      },
+      {
+        "text": "Public",
+        "icon": "public",
+        "purpose": "Concept card — public places"
+      },
+      {
+        "text": "Private",
+        "icon": "private",
+        "purpose": "Concept card — private places"
+      },
+      {
+        "text": "Door closed",
+        "icon": "door",
+        "purpose": "Concept card — private means door closed"
+      },
+      {
+        "text": "My bedroom",
+        "icon": "bedroom",
+        "purpose": "Concept card — private place at home"
+      },
+      {
+        "text": "Bathroom",
+        "icon": "bathroom",
+        "purpose": "Concept card — for toileting/fixing clothes"
+      },
+      {
+        "text": "Touch",
+        "icon": "touch",
+        "purpose": "Concept card — the action of touching"
+      },
+      {
+        "text": "Safe",
+        "icon": "safe",
+        "purpose": "Concept card — keeping my body safe"
+      },
+      {
+        "text": "Clothes",
+        "icon": "clothes",
+        "purpose": "Concept card — fixing clothes in bathroom"
+      },
+      {
+        "text": "Ask an adult",
+        "icon": "staff",
+        "purpose": "Concept card — help-seeking"
+      },
+      {
+        "text": "Wash hands",
+        "icon": "wash_hands",
+        "purpose": "Concept card — hygiene after private body care"
+      },
+      {
+        "text": "Finished",
+        "icon": "finished",
+        "purpose": "Concept card — routine complete"
+      }
+    ],
+    "print_formats": [
+      {
+        "format": "Large — 2x3 grid",
+        "use": "Classroom display, flashcard size, instruction. Print full set. Use during teaching to build vocabulary."
+      },
+      {
+        "format": "Large — 3x3 grid",
+        "use": "Classroom display, wall display. Print full set. Visual reference on classroom wall."
+      },
+      {
+        "format": "Small — lanyard size",
+        "use": "Select 4-6 cards. Laminate and hole-punch. Wear on teacher lanyard for discreet prompting, attach to student bag, or keep in desk folder."
+      }
+    ],
+    "deployment_options": [
+      {
+        "option": "Teacher lanyard",
+        "description": "Select 4-6 action cards. Wear on lanyard for quick prompting during instruction. Discreet flash to student."
+      },
+      {
+        "option": "Student bag",
+        "description": "Attach to student's bag or belt loop. Student can self-refer by pointing."
+      },
+      {
+        "option": "Classroom wall",
+        "description": "Print full set in 3x3 grid. Display on wall as visual reference during instruction."
+      },
+      {
+        "option": "Desk folder",
+        "description": "Keep inside student's desk folder for self-check before work begins."
+      },
+      {
+        "option": "Instruction",
+        "description": "Use large format during teaching. Teacher holds up card, student identifies or matches."
+      }
+    ],
+    "note_for_teachers": "ONE set of cards, multiple uses. Print large for instruction and classroom display. Print small for lanyard and portable use. Not every student needs every card — select what works for your student. For lanyard use, choose 4-6 action cards (Hands out, I need a break, Help please, etc.). For instruction, use the full set to build vocabulary."
+  },
+  "aac_board": {
+    "title": "My Body Communication Board",
+    "generator": "BoardReady",
+    "structure": "6x6 grid — 24 fixed core words (rows 1,2,5,6) + 12 topic-specific fringe words (rows 3,4). Core words are canonical from core_profile.json and never change. Only the fringe words change per topic.",
+    "core_words_fixed": [
+      "I",
+      "you",
+      "want",
+      "see",
+      "yes",
+      "no",
+      "same",
+      "different",
+      "more",
+      "help",
+      "like",
+      "dont_like",
+      "go",
+      "stop",
+      "choose",
+      "turn_the_page",
+      "read",
+      "think",
+      "uh_oh",
+      "what",
+      "where",
+      "why",
+      "dont_know",
+      "finished"
+    ],
+    "fringe_12": [
+      "private",
+      "public",
+      "hands",
+      "pants",
+      "body",
+      "touch",
+      "break",
+      "fidget",
+      "door",
+      "bedroom",
+      "bathroom",
+      "safe"
+    ],
+    "discussion_phrases": [
+      "I need help",
+      "I want break",
+      "I dont like this",
+      "I want private",
+      "Not here",
+      "I want stop",
+      "I want bedroom",
+      "I want bathroom",
+      "I feel safe",
+      "I dont feel safe"
+    ],
+    "note": "Uses the BoardReady 6x6 structure with canonical core words. Only the 12 fringe words (rows 3-4) are topic-specific. Board is for non-verbal and minimally speaking students to communicate about this topic. 'touch' and 'safe' replace 'uncomfortable' and 'wash_hands' because they are more concrete and essential for this topic — 'uncomfortable' can be communicated with core words ('body' + 'dont_like') and 'wash_hands' with ('go' + 'bathroom'). Both 'bedroom' and 'bathroom' are included so the student can communicate about whichever private place their family has chosen. 'I feel safe' and 'I dont feel safe' added for body safety communication. Autism New Zealand recommends adding 'penis/vagina', 'naked', 'clothes on/clothes off' to the student's full AAC system — these are not on this topic board but should be added to the student's personal device."
+  },
+  "scenario_sort": {
+    "title": "Public or Private? — Where Does This Happen?",
+    "description": "Students sort scenarios into PUBLIC or PRIVATE. Teaches discrimination — WHERE the behavior is appropriate. TWO versions are provided: a simple 2-mat version with clear boundaries, and an advanced 3-mat version with IT DEPENDS for students who can handle nuance. Teacher selects the version appropriate for their student.",
+    "version_simple": {
+      "description": "2 sorting mats: PUBLIC and PRIVATE. Clear boundaries, no ambiguity. For students who need clear rules. The teacher pre-selects the private place based on the student's plan, so all bathroom scenarios are sorted based on that decision.",
+      "sorting_mats": [
+        "PUBLIC",
+        "PRIVATE"
+      ],
+      "scenarios": [
+        {
+          "scenario": "I am in the classroom.",
+          "category": "public"
+        },
+        {
+          "scenario": "I am on the school bus.",
+          "category": "public"
+        },
+        {
+          "scenario": "I am in my bedroom at home with the door closed.",
+          "category": "private"
+        },
+        {
+          "scenario": "I am at lunch in the cafeteria.",
+          "category": "public"
+        },
+        {
+          "scenario": "I am in the hallway between classes.",
+          "category": "public"
+        },
+        {
+          "scenario": "I am in a shop with my family.",
+          "category": "public"
+        },
+        {
+          "scenario": "I am at recess on the playground.",
+          "category": "public"
+        },
+        {
+          "scenario": "I am in a public bathroom at the shops.",
+          "category": "public"
+        },
+        {
+          "scenario": "I am in a changing room at the pool.",
+          "category": "public"
+        },
+        {
+          "scenario": "Someone else tries to touch my private parts.",
+          "category": "public",
+          "note": "This is never okay — tell an adult right away. My body belongs to me."
+        }
+      ],
+      "note_for_teachers": "This version has clear PUBLIC and PRIVATE categories only — no ambiguity. The private place scenarios only include bedroom (the safest default). A body safety scenario about someone ELSE touching is included as PUBLIC (never okay) — this is a clear boundary, not context-dependent. If your student's plan includes bathroom as a private place, add a bathroom card to the PRIVATE mat manually and ensure your student has explicit discrimination training about WHICH bathrooms are private. Remove any scenarios that are not relevant to your student's context."
+    },
+    "version_advanced": {
+      "description": "3 sorting mats: PUBLIC, PRIVATE, and IT DEPENDS. For students who can handle discussion about context and different family/school choices. The IT DEPENDS mat is for scenarios where the answer depends on the family's or school's plan.",
+      "sorting_mats": [
+        "PUBLIC",
+        "PRIVATE",
+        "IT DEPENDS"
+      ],
+      "scenarios": [
+        {
+          "scenario": "I am in the classroom.",
+          "category": "public",
+          "correct_action": "Keep hands out, use fidget or ask for break"
+        },
+        {
+          "scenario": "I am on the school bus.",
+          "category": "public",
+          "correct_action": "Keep hands out, squeeze hands or use fidget"
+        },
+        {
+          "scenario": "I am in my bedroom at home with the door closed.",
+          "category": "private",
+          "correct_action": "This is a private place — okay here"
+        },
+        {
+          "scenario": "I am at lunch in the cafeteria.",
+          "category": "public",
+          "correct_action": "Keep hands out, ask for break if uncomfortable"
+        },
+        {
+          "scenario": "I am in the hallway between classes.",
+          "category": "public",
+          "correct_action": "Keep hands out, use fidget or squeeze hands"
+        },
+        {
+          "scenario": "I am in a shop with my family.",
+          "category": "public",
+          "correct_action": "Keep hands out, use fidget"
+        },
+        {
+          "scenario": "I am at recess on the playground.",
+          "category": "public",
+          "correct_action": "Keep hands out, ask for break or fidget"
+        },
+        {
+          "scenario": "I am in a public bathroom at the shops.",
+          "category": "public",
+          "correct_action": "Keep hands out — public bathrooms are public places"
+        },
+        {
+          "scenario": "I am in the bathroom at home with the door closed.",
+          "category": "depends",
+          "correct_action": "Depends on what your family has chosen — bathroom or bedroom"
+        },
+        {
+          "scenario": "I am in the school bathroom.",
+          "category": "depends",
+          "correct_action": "Depends on what your school has decided"
+        },
+        {
+          "scenario": "I am in a changing room at the pool.",
+          "category": "public",
+          "correct_action": "Keep hands out — changing room is for changing clothes"
+        },
+        {
+          "scenario": "Someone else tries to touch my private parts.",
+          "category": "public",
+          "correct_action": "This is never okay — say 'no' and tell an adult right away. My body belongs to me."
+        }
+      ],
+      "note_for_teachers": "This version includes IT DEPENDS for students who can handle discussion about context. Use the IT DEPENDS cards to discuss why different families and schools make different choices. The body safety scenario about someone ELSE touching is PUBLIC (never okay) — this is a clear boundary, not context-dependent. If the student finds IT DEPENDS too confusing, switch to the simple version."
+    },
+    "note_for_teachers": "TWO versions are provided. Start with the simple version (PUBLIC/PRIVATE only) for students who need clear boundaries. Move to the advanced version (PUBLIC/PRIVATE/IT DEPENDS) only if the student can handle discussion about context and different choices. Many non-verbal students need the clear boundaries of the simple version — do not assume the advanced version is better."
+  },
+  "yes_no_sometimes_cards": {
+    "title": "Is This Okay? — Discussion Cards",
+    "description": "TWO versions are provided: a simple YES/NO version with clear boundaries, and an advanced YES/NO/SOMETIMES version for students who can handle discussion about context. Teacher selects the version appropriate for their student. Based on Vanderbilt Kennedy Center and ASERT public/private behavior guidance.",
+    "version_simple": {
+      "description": "2 response cards: YES and NO. Clear boundaries, no ambiguity. For students who need clear rules. Bathroom questions are excluded because the answer depends on the family's/school's plan — including them would create ambiguity.",
+      "response_cards": [
+        "YES",
+        "NO"
+      ],
+      "questions": [
+        {
+          "question": "Is it okay to touch my body in the classroom?",
+          "answer": "no",
+          "discussion": "Classroom is public. What can you do instead?"
+        },
+        {
+          "question": "Is it okay to touch my body on the bus?",
+          "answer": "no",
+          "discussion": "Bus is public. What can you do instead?"
+        },
+        {
+          "question": "Is it okay to touch my body in my bedroom at home with the door closed?",
+          "answer": "yes",
+          "discussion": "Bedroom with door closed is a private place. This is okay."
+        },
+        {
+          "question": "Is it okay to have body feelings?",
+          "answer": "yes",
+          "discussion": "Everyone has body feelings. The rule is about WHERE, not about stopping."
+        },
+        {
+          "question": "Should I ask for help if I feel uncomfortable?",
+          "answer": "yes",
+          "discussion": "Who can you ask?"
+        },
+        {
+          "question": "Is it okay to touch my body at lunch?",
+          "answer": "no",
+          "discussion": "Cafeteria is public. What can you do instead?"
+        },
+        {
+          "question": "If I need to fix my clothes, can I go to the bathroom?",
+          "answer": "yes",
+          "discussion": "Bathroom is for fixing clothes and toileting."
+        },
+        {
+          "question": "Is the playground a private place?",
+          "answer": "no",
+          "discussion": "Playground is public. Other people can see me."
+        },
+        {
+          "question": "Can I use a fidget or hands-busy activity instead of touching?",
+          "answer": "yes",
+          "discussion": "What fidgets work for you?"
+        },
+        {
+          "question": "If I am not sure if a place is public or private, should I ask?",
+          "answer": "yes",
+          "discussion": "Who can you ask?"
+        },
+        {
+          "question": "Is it okay for someone else to touch my private parts?",
+          "answer": "no",
+          "discussion": "My body belongs to me. Who can I tell if this happens?"
+        },
+        {
+          "question": "Can I say 'no' if someone touches me in a way I don't like?",
+          "answer": "yes",
+          "discussion": "My body belongs to me. I can say 'no' and tell an adult."
+        },
+        {
+          "question": "If I forget the rule, can I try again next time?",
+          "answer": "yes",
+          "discussion": "Everyone forgets sometimes. I can try again."
+        },
+        {
+          "question": "Is it okay to touch my body in a public bathroom at the shops?",
+          "answer": "no",
+          "discussion": "Public bathrooms are public places. Private body care is for home."
+        },
+        {
+          "question": "Should I wash my hands after private body care?",
+          "answer": "yes",
+          "discussion": "Always wash hands when finished."
+        }
+      ],
+      "note_for_teachers": "This version has clear YES and NO answers only — no ambiguity. Bathroom-at-home and school-bathroom questions are excluded because the answer depends on the family's/school's plan. Body safety questions about OTHER people touching are included because the answer is always NO — this is a clear boundary, not a context-dependent one. If your student's plan is clear (e.g. bedroom only), you can add a question like 'Is it okay to touch my body in the bathroom at home?' with the answer NO. If your student's plan includes bathroom, add it with the answer YES."
+    },
+    "version_advanced": {
+      "description": "3 response cards: YES, NO, and SOMETIMES. For students who can handle discussion about context and different family/school choices. The SOMETIMES cards are for discussion about how different people make different choices.",
+      "response_cards": [
+        "YES",
+        "NO",
+        "SOMETIMES"
+      ],
+      "questions": [
+        {
+          "question": "Is it okay to touch my body in the classroom?",
+          "answer": "no",
+          "discussion": "Classroom is public. What can you do instead?"
+        },
+        {
+          "question": "Is it okay to touch my body on the bus?",
+          "answer": "no",
+          "discussion": "Bus is public. What can you do instead?"
+        },
+        {
+          "question": "Is it okay to touch my body in my bedroom at home with the door closed?",
+          "answer": "yes",
+          "discussion": "Bedroom with door closed is a private place. This is okay."
+        },
+        {
+          "question": "Is it okay to have body feelings?",
+          "answer": "yes",
+          "discussion": "Everyone has body feelings. The rule is about WHERE, not about stopping."
+        },
+        {
+          "question": "Is it okay to touch my body in the bathroom at home with the door closed?",
+          "answer": "sometimes",
+          "discussion": "It depends on what your family has decided. Some families choose bathroom, some choose bedroom. What has your family decided?"
+        },
+        {
+          "question": "Is it okay to touch my body in the school bathroom?",
+          "answer": "sometimes",
+          "discussion": "It depends on what your school has decided. Some schools permit this, some do not. What has your school decided?"
+        },
+        {
+          "question": "Should I ask for help if I feel uncomfortable?",
+          "answer": "yes",
+          "discussion": "Who can you ask?"
+        },
+        {
+          "question": "Is it okay to touch my body at lunch?",
+          "answer": "no",
+          "discussion": "Cafeteria is public. What can you do instead?"
+        },
+        {
+          "question": "If I need to fix my clothes, can I go to the bathroom?",
+          "answer": "yes",
+          "discussion": "Bathroom is for fixing clothes and toileting."
+        },
+        {
+          "question": "Is the playground a private place?",
+          "answer": "no",
+          "discussion": "Playground is public. Other people can see me."
+        },
+        {
+          "question": "Can I use a fidget or hands-busy activity instead of touching?",
+          "answer": "yes",
+          "discussion": "What fidgets work for you?"
+        },
+        {
+          "question": "If I am not sure if a place is public or private, should I ask?",
+          "answer": "yes",
+          "discussion": "Who can you ask?"
+        },
+        {
+          "question": "Is it okay for someone else to touch my private parts?",
+          "answer": "no",
+          "discussion": "My body belongs to me. Who can I tell if this happens?"
+        },
+        {
+          "question": "Can I say 'no' if someone touches me in a way I don't like?",
+          "answer": "yes",
+          "discussion": "My body belongs to me. I can say 'no' and tell an adult."
+        },
+        {
+          "question": "If I forget the rule, can I try again next time?",
+          "answer": "yes",
+          "discussion": "Everyone forgets sometimes. I can try again."
+        },
+        {
+          "question": "Is it okay to touch my body in a public bathroom at the shops?",
+          "answer": "no",
+          "discussion": "Public bathrooms are public places. Private body care is for home."
+        },
+        {
+          "question": "Should I wash my hands after private body care?",
+          "answer": "yes",
+          "discussion": "Always wash hands when finished."
+        }
+      ],
+      "note_for_teachers": "This version includes SOMETIMES for students who can handle discussion about context. Use the SOMETIMES cards to discuss why different families and schools make different choices. Body safety questions about OTHER people touching are included with clear NO answers — these are not context-dependent. If the student finds SOMETIMES too confusing, switch to the simple version."
+    },
+    "note_for_teachers": "TWO versions are provided. Start with the simple version (YES/NO only) for students who need clear boundaries — many non-verbal students need this clarity. Move to the advanced version (YES/NO/SOMETIMES) only if the student can handle discussion about context and different choices. Do not assume the advanced version is better — clear boundaries are essential for many learners."
+  },
+  "reward_chart": {
+    "title": "I Am Working For ___ — Token Board",
+    "description": "Token board / reward chart for reinforcing use of replacement behaviors. Same format as existing 'I am working for XMAS' product. Teacher selects the reward and the behavior being reinforced.",
+    "format": "I am working for [REWARD]. I earn a token when I [BEHAVIOR]. When I get [N] tokens, I get my reward.",
+    "template": "Standard 'I am working for ___' template with blank token spaces. Teacher writes or places a picture of the reward. Student earns tokens for using replacement behaviors.",
+    "behaviors_to_reinforce": [
+      "Used a replacement strategy instead of touching in public",
+      "Asked for a break when uncomfortable",
+      "Used a fidget or hands-busy activity",
+      "Kept hands outside pants in class",
+      "Used AAC or pictures to communicate about body or feelings",
+      "Told an adult about feeling uncomfortable or unsafe",
+      "Went to a private place without being told",
+      "Said 'no' or told an adult when someone touched them inappropriately"
+    ],
+    "reward_options": [
+      "Computer time",
+      "Preferred activity",
+      "Snack",
+      "Music",
+      "Walk",
+      "Free choice",
+      "Teacher selects — individualize for student"
+    ],
+    "token_count_options": [
+      3,
+      5,
+      10
+    ],
+    "note_for_teachers": "Print the token board. Write or place a picture of the student's preferred reward. Select the behavior being reinforced — not all behaviors at once. Start with one behavior and a low token count (3). Increase as the student becomes consistent. This is the same format as the 'I am working for' charts you may already use."
+  },
+  "iep_data_sheet": {
+    "title": "IEP Goals & Data Collection — Private Touching / Public Behavior",
+    "goals": [
+      {
+        "goal": "Given a visual prompt (lanyard card or routine strip), STUDENT will keep hands outside pants in public settings (classroom, hallway, cafeteria) for ___ consecutive minutes with ___ prompts in a ___ minute observation period.",
+        "measurement": "Frequency count of incidents + prompt level (independent, verbal, visual, physical)",
+        "baseline": "___ incidents per ___ minute observation",
+        "target": "___ incidents or fewer per ___ minute observation"
+      },
+      {
+        "goal": "Given the alternative behavior options sheet, STUDENT will select an appropriate replacement behavior (break, fidget, hands-busy, squeeze hands) when prompted during an uncomfortable body sensation, in ___ of ___ opportunities.",
+        "measurement": "Opportunity-based: number of correct selections / total opportunities",
+        "baseline": "___ of ___ opportunities",
+        "target": "___ of ___ opportunities"
+      },
+      {
+        "goal": "Given a public/private scenario card, STUDENT will correctly sort the scenario as public or private with ___ accuracy across ___ consecutive sessions.",
+        "measurement": "Percentage correct per session",
+        "baseline": "___% accuracy",
+        "target": "___% accuracy"
+      },
+      {
+        "goal": "STUDENT will independently request a break or help using AAC, words, or pictures when experiencing body discomfort in a public setting, in ___ of ___ opportunities.",
+        "measurement": "Opportunity-based: independent requests / total discomfort episodes",
+        "baseline": "___ of ___ opportunities",
+        "target": "___ of ___ opportunities"
+      },
+      {
+        "goal": "Given a body safety scenario (someone else touching), STUDENT will indicate 'no' or tell an adult using AAC, words, or pictures in ___ of ___ opportunities.",
+        "measurement": "Opportunity-based: correct safety response / total safety scenarios presented",
+        "baseline": "___ of ___ opportunities",
+        "target": "___ of ___ opportunities"
+      }
+    ],
+    "data_columns": [
+      "Date",
+      "Setting",
+      "Incident (Y/N)",
+      "Prompt level",
+      "Replacement used",
+      "Duration",
+      "Notes"
+    ],
+    "prompt_levels": [
+      "Independent",
+      "Visual prompt",
+      "Verbal prompt",
+      "Physical prompt",
+      "Full physical assistance"
+    ],
+    "replacement_options_track": [
+      "Break",
+      "Fidget",
+      "Hands-busy activity",
+      "Squeeze hands",
+      "Wall pushes",
+      "Compression",
+      "Movement break",
+      "Help",
+      "Bathroom (if in plan)",
+      "Bedroom (if in plan)",
+      "Other: ___"
+    ]
+  },
+  "fringe_words": [
+    "hands",
+    "pants",
+    "outside",
+    "public",
+    "private",
+    "bathroom",
+    "bedroom",
+    "clothes",
+    "body",
+    "help",
+    "stop",
+    "safe",
+    "respect",
+    "uncomfortable",
+    "ask",
+    "fidget",
+    "break",
+    "door closed",
+    "hands busy"
+  ],
+  "ai_slots": [
+    {
+      "word": "uncomfortable",
+      "type": "emotion"
+    },
+    {
+      "word": "private",
+      "type": "descriptor"
+    },
+    {
+      "word": "ask",
+      "type": "verb"
+    },
+    {
+      "word": "bathroom",
+      "type": "noun"
+    },
+    {
+      "word": "fidget",
+      "type": "noun"
+    },
+    {
+      "word": "break",
+      "type": "noun"
+    }
+  ],
+  "icon_keywords": [
+    "hands",
+    "pants",
+    "outside",
+    "public",
+    "private",
+    "bathroom",
+    "bedroom",
+    "clothes",
+    "body",
+    "help",
+    "stop",
+    "safe",
+    "respect",
+    "uncomfortable",
+    "ask",
+    "fidget",
+    "break",
+    "door closed",
+    "hands busy",
+    "AAC",
+    "staff",
+    "quiet"
+  ],
+  "fixed_social_words": [
+    "uh oh",
+    "I don't know",
+    "finished",
+    "bathroom please",
+    "I need help",
+    "I need a break"
+  ],
+  "sensitive_topic": true,
+  "content_warning": "This product addresses private touching / masturbation in public settings for non-verbal and minimally speaking teens with autism. Content is dignity-centered, non-shaming, and teaches WHERE behaviors are appropriate rather than prohibiting them entirely. All content must be reviewed by a classroom practitioner before publishing.",
+  "research_sources": [
+    {
+      "source": "Vanderbilt Kennedy Center — Healthy Bodies Toolkit",
+      "url": "https://vkc.vumc.org/healthybodies/",
+      "key_guidance": "Don't shame/punish. Teach WHERE. Use visuals. Set ground rules. Use social narratives. Start early. Use correct anatomical terms."
+    },
+    {
+      "source": "Vanderbilt Kennedy Center — Navigating Puberty, Sex & Sexuality",
+      "url": "https://vkc.vumc.org/assets/files/resources/sexuality.pdf",
+      "key_guidance": "Autistic people have inherent sexual rights. Use visuals and real-world experiences. Provide private location rather than only saying stop."
+    },
+    {
+      "source": "TACA — Puberty",
+      "url": "https://tacanow.org/family-resources/puberty/",
+      "key_guidance": "Don't label as 'bad' — drives behavior underground. Teach bedroom (NOT bathroom) as private place to avoid generalization to public restrooms. Check medical causes (yeast, histamine). Consult OT/BCBA."
+    },
+    {
+      "source": "ASERT (PA) — Be Safe: Public and Private Places Social Story",
+      "url": "https://paautism.org/resource/be-safe-public-and-private-places/",
+      "key_guidance": "Public vs private behavior social stories in visual format. Public = eating, talking, hugging. Private = adjusting underwear, touching private parts."
+    },
+    {
+      "source": "ASERT (PA) — Be Safe Resource Collection",
+      "url": "https://paautism.org/resource/be-safe/",
+      "key_guidance": "Social stories + visual resources for abuse prevention and body safety. Focus on who can/can't touch, how to say no, how to ask for help."
+    },
+    {
+      "source": "Autism New Zealand — Inappropriate Sexual Behaviour",
+      "url": "https://autismnz.org.nz/wp-content/uploads/2024/09/Inappropriate-sexual-behaviour-1.pdf",
+      "key_guidance": "Use correct anatomical terms. Add AAC words (penis/vagina, naked, clothes on/off). Use neutral colors NOT red for private parts. Frame as rules/politeness, not shame. List every private space explicitly."
+    },
+    {
+      "source": "Autism Speaks — ATN/AIR-P Puberty and Adolescence Resource",
+      "url": "https://www.autismspeaks.org/tool-kit/atnair-p-puberty-and-adolescence-resource",
+      "key_guidance": "For less verbal children: adjust language and add visual supports. Masturbation is normal — issue is when/where. Visual supports toolkit available."
+    },
+    {
+      "source": "CSESA — Puberty for Adolescents with ASD",
+      "url": "https://csesa.fpg.unc.edu/sites/csesa.fpg.unc.edu/files/Puberty%20for%20Adolescents%20with%20ASD.pdf",
+      "key_guidance": "Teach public/private behaviors. Students may not understand context-dependent rules. Use visual and concrete examples. Reduces bullying and abuse risk."
+    },
+    {
+      "source": "ASAT — Targeting Sexuality",
+      "url": "https://asatonline.org/research-treatment/clinical-corner/autism-and-sexuality/",
+      "key_guidance": "The desire is not wrong — issue is when/where. Shape behavior, don't suppress. Highly individualized. Assess what individual is interested in and teach safe/appropriate ways."
+    },
+    {
+      "source": "Academic — Systematic Review of Interventions for Inappropriate Masturbation (ASD/DD)",
+      "url": "https://doi.org/10.1007/s40489-019-00192-9",
+      "key_guidance": "RIRD and RI both effective. Function-based intervention recommended. Reinforcement-based before punishment-based."
+    },
+    {
+      "source": "Academic — Reducing Public Masturbation (RIRD vs RI)",
+      "url": "https://doi.org/10.1177/0145445518824277",
+      "key_guidance": "RIRD: redirect to physical activities using both hands. RI: interrupt with verbal/physical prompts. Both effective, RI requires fewer resources."
+    },
+    {
+      "source": "Academic — Matched Stimulation Meta-Analysis",
+      "url": "https://link.springer.com/article/10.1007/s40617-025-01140-2",
+      "key_guidance": "Matched stimulation produces statistically significant decrease in automatically maintained challenging behavior. Provide sensory items meeting the same need."
+    },
+    {
+      "source": "Sex Ed Rescue — Replacement Behaviour for Inappropriate Touching",
+      "url": "https://sexedrescue.com/replacement-behaviour-for-inappropriate-touching-in-autism/",
+      "key_guidance": "Saying 'stop' often doesn't work because behavior meets a need. Identify function first. Supports: fidgets, compression, movement breaks, visual reminders, hands-busy, body boundary teaching, scheduled private time."
+    }
+  ],
+  "components_included": [
+    "Social story (full-size story + mini book same content smaller print + cut-out participation pieces)",
+    "Visual support cards (cue cards for instruction + lanyard cards for prompting — same cards, multiple print formats and deployment options)",
+    "Routine strip template (standard blank template — teacher adds cut-out pieces: '___ is for ___')",
+    "AAC/discussion board (BoardReady 6x6 — 24 fixed core + 12 topic fringe words)",
+    "Choice board (alternative behavior options sheet — evidence-based replacement options with considerations. Same format as existing 'When I feel frustrated I can ___' product)",
+    "Scenario sort (2 versions: simple PUBLIC/PRIVATE + advanced with IT DEPENDS)",
+    "Yes/no cards (2 versions: simple YES/NO + advanced YES/NO/SOMETIMES)",
+    "Reward chart / token board ('I am working for ___' format — same as existing XMAS token board. Reinforces replacement behaviors)",
+    "IEP/data sheet (4 topic-specific goals + data collection template)"
+  ],
+  "existing_assets_to_reuse": [
+    "Previous Products/Master When I am frustrated I can ....pdf — same 'when I feel ___ I can ___' format, adapt for this topic",
+    "Previous Products/Calming strategies/ — 21 calming strategy PNG images + Calming Toolbox PDF, can be used as visual options",
+    "Previous Products/I am working for XMAS/ — token board template, adapt for replacement behavior reinforcement",
+    "Previous Products/Holiday & Christmas Packs/Christmas Tokens and Rewards/ — token pack format"
+  ]
+}

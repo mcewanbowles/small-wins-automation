@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "product_name": "Interactive Book Participation Pieces",
+  "source_book_required": true,
+  "edition_neutral": true,
+  "teacher_review_required": true,
+  "vocabulary_source": "reviewed book_vocab and approved local icons",
+  "vocabulary": [
+    {
+      "image_key": "school",
+      "label": "school",
+      "review_status": "approved"
+    },
+    {
+      "image_key": "door",
+      "label": "door",
+      "review_status": "approved"
+    },
+    {
+      "image_key": "bell",
+      "label": "bell",
+      "review_status": "approved"
+    },
+    {
+      "image_key": "teacher",
+      "label": "teacher",
+      "review_status": "approved"
+    },
+    {
+      "image_key": "student",
+      "label": "student",
+      "review_status": "approved"
+    },
+    {
+      "image_key": "desk",
+      "label": "desk",
+      "review_status": "approved"
+    },
+    {
+      "image_key": "book",
+      "label": "book",
+      "review_status": "approved"
+    },
+    {
+      "image_key": "pencil",
+      "label": "pencil",
+      "review_status": "approved"
+    }
+  ],
+  "question_strips": [
+    {
+      "prompt": "Who is on this page?",
+      "response_type": "point",
+      "options": [
+        "school",
+        "door",
+        "bell"
+      ]
+    },
+    {
+      "prompt": "What do you see?",
+      "response_type": "point",
+      "options": [
+        "teacher",
+        "student",
+        "desk"
+      ]
+    },
+    {
+      "prompt": "How does the character feel?",
+      "response_type": "point",
+      "options": []
+    }
+  ],
+  "participation_words": [
+    "see",
+    "more",
+    "finished",
+    "help",
+    "yes",
+    "no",
+    "turn_the_page"
+  ],
+  "early_access": {
+    "enabled": true,
+    "hero_image_key": "",
+    "hero_label": "",
+    "hero_piece_copies": 6,
+    "turn_page_piece_copies": 2,
+    "cue": "See . Match . Turn the page."
+  },
+  "reading_rope": [
+    "Vocabulary",
+    "Language Structures",
+    "Verbal Reasoning",
+    "Literacy Knowledge"
+  ]
+}

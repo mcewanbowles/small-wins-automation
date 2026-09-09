@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Language Structures",
+    "Vocabulary"
+  ],
+  "teacher_review_required": true,
+  "theme_items": [
+    {
+      "image_key": "lola",
+      "label": "lola"
+    },
+    {
+      "image_key": "school",
+      "label": "school"
+    },
+    {
+      "image_key": "backpack",
+      "label": "backpack"
+    },
+    {
+      "image_key": "book",
+      "label": "book"
+    },
+    {
+      "image_key": "teacher",
+      "label": "teacher"
+    },
+    {
+      "image_key": "friend",
+      "label": "friend"
+    },
+    {
+      "image_key": "play",
+      "label": "play"
+    },
+    {
+      "image_key": "learn",
+      "label": "learn"
+    }
+  ],
+  "patterns": [
+    {
+      "display": "I see ___",
+      "items": [
+        "lola",
+        "school",
+        "backpack",
+        "book",
+        "teacher",
+        "friend"
+      ]
+    },
+    {
+      "display": "I want ___",
+      "items": [
+        "school",
+        "backpack",
+        "book"
+      ]
+    },
+    {
+      "display": "I like ___",
+      "items": [
+        "lola",
+        "school",
+        "backpack",
+        "book"
+      ]
+    }
+  ]
+}

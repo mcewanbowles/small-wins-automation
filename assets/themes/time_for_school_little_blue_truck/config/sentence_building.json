@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Language Structures",
+    "Vocabulary"
+  ],
+  "teacher_review_required": true,
+  "theme_items": [
+    {
+      "image_key": "school",
+      "label": "School"
+    },
+    {
+      "image_key": "bus",
+      "label": "Bus"
+    },
+    {
+      "image_key": "truck",
+      "label": "Truck"
+    },
+    {
+      "image_key": "backpack",
+      "label": "Backpack"
+    },
+    {
+      "image_key": "friends",
+      "label": "Friends"
+    },
+    {
+      "image_key": "wave",
+      "label": "Wave"
+    }
+  ],
+  "patterns": [
+    {
+      "display": "I see ___",
+      "items": [
+        "school",
+        "bus",
+        "truck",
+        "backpack",
+        "friends",
+        "wave"
+      ]
+    },
+    {
+      "display": "I want ___",
+      "items": [
+        "school",
+        "bus",
+        "truck",
+        "backpack"
+      ]
+    },
+    {
+      "display": "I like ___",
+      "items": [
+        "school",
+        "bus",
+        "truck",
+        "backpack",
+        "friends"
+      ]
+    },
+    {
+      "display": "I don't like ___",
+      "items": [
+        "school",
+        "bus",
+        "truck"
+      ]
+    }
+  ]
+}

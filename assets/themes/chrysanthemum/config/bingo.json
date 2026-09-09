@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "teacher_review_required": true,
+  "items": [
+    {
+      "image_key": "flower",
+      "label": "Flower"
+    },
+    {
+      "image_key": "name",
+      "label": "Name"
+    },
+    {
+      "image_key": "school",
+      "label": "School"
+    },
+    {
+      "image_key": "tease",
+      "label": "Tease"
+    },
+    {
+      "image_key": "sad",
+      "label": "Sad"
+    },
+    {
+      "image_key": "happy",
+      "label": "Happy"
+    }
+  ]
+}

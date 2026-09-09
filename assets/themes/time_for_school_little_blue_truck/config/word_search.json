@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Sight Recognition",
+    "Vocabulary"
+  ],
+  "teacher_review_required": true,
+  "words": [
+    {
+      "word": "school",
+      "image_key": "school",
+      "label": "School"
+    },
+    {
+      "word": "bus",
+      "image_key": "bus",
+      "label": "Bus"
+    },
+    {
+      "word": "truck",
+      "image_key": "truck",
+      "label": "Truck"
+    },
+    {
+      "word": "backpack",
+      "image_key": "backpack",
+      "label": "Backpack"
+    },
+    {
+      "word": "friends",
+      "image_key": "friends",
+      "label": "Friends"
+    },
+    {
+      "word": "wave",
+      "image_key": "wave",
+      "label": "Wave"
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Verbal Reasoning",
+    "Background Knowledge"
+  ],
+  "teacher_review_required": true,
+  "cards": [
+    {
+      "clue_image_key": "sad",
+      "question": "Why might Chrysanthemum feel sad?",
+      "choices": [
+        "Something new or unfamiliar is happening",
+        "He wants to go home"
+      ],
+      "answer_hint": "New experiences can make us feel sad."
+    },
+    {
+      "clue_image_key": "school",
+      "question": "Why does the teacher help Chrysanthemum?",
+      "choices": [
+        "She wants to make school feel safe and welcoming",
+        "She wants him to leave"
+      ],
+      "answer_hint": "Teachers help new students feel included."
+    },
+    {
+      "clue_image_key": "happy",
+      "question": "Why might Chrysanthemum feel happy at the end?",
+      "choices": [
+        "He made a friend and enjoyed the day",
+        "He didn't have to do anything"
+      ],
+      "answer_hint": "When worries pass and we connect with others, we feel good."
+    },
+    {
+      "clue_image_key": "tease",
+      "question": "What might Chrysanthemum do with this?",
+      "choices": [
+        "Use it to learn and play",
+        "Ignore it"
+      ],
+      "answer_hint": "At school, we use things to learn and grow."
+    }
+  ]
+}

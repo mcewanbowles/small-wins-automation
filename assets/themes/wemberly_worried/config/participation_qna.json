@@ -1,0 +1,102 @@
+{
+  "schema": "pp_qna.v1",
+  "book_slug": "wemberly_worried",
+  "book_title": "Wemberly Worried",
+  "pages": [
+    {
+      "page_num": 1,
+      "question": "What do you see?",
+      "choices": [
+        "Worried",
+        "something else",
+        "nothing"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        true,
+        true
+      ],
+      "context_mirror": {
+        "sentence": "Wemberly sees worried.",
+        "scene_note": "Scene with worried."
+      }
+    },
+    {
+      "page_num": 2,
+      "question": "What do you see?",
+      "choices": [
+        "School",
+        "something else",
+        "nothing"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        true,
+        true
+      ],
+      "context_mirror": {
+        "sentence": "Wemberly sees school.",
+        "scene_note": "Scene with school."
+      }
+    },
+    {
+      "page_num": 3,
+      "question": "What do you see?",
+      "choices": [
+        "Mouse",
+        "something else",
+        "nothing"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        true,
+        true
+      ],
+      "context_mirror": {
+        "sentence": "Wemberly sees mouse.",
+        "scene_note": "Scene with mouse."
+      }
+    },
+    {
+      "page_num": 4,
+      "question": "What do you see?",
+      "choices": [
+        "Doll",
+        "something else",
+        "nothing"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        true,
+        true
+      ],
+      "context_mirror": {
+        "sentence": "Wemberly sees doll.",
+        "scene_note": "Scene with doll."
+      }
+    },
+    {
+      "page_num": 5,
+      "question": "Why might Wemberly feel better by the end?",
+      "choices": [
+        "made a friend",
+        "went home early",
+        "didn't do anything"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        true,
+        true,
+        true
+      ],
+      "context_mirror": {
+        "sentence": null,
+        "scene_note": "Inference question about how the story resolves."
+      }
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": ["Phonological Awareness"],
+  "teacher_review_required": true,
+  "items": [
+    {"image_key": "school", "label": "School", "count": 1, "segmentation": "school"},
+    {"image_key": "friend", "label": "Friend", "count": 1, "segmentation": "friend"},
+    {"image_key": "pencil", "label": "Pencil", "count": 2, "segmentation": "pen · cil"},
+    {"image_key": "happy", "label": "Happy", "count": 2, "segmentation": "hap · py"},
+    {"image_key": "backpack", "label": "Backpack", "count": 2, "segmentation": "back · pack"},
+    {"image_key": "teacher", "label": "Teacher", "count": 2, "segmentation": "teach · er"},
+    {"image_key": "classroom", "label": "Classroom", "count": 2, "segmentation": "class · room"},
+    {"image_key": "nervous", "label": "Nervous", "count": 2, "segmentation": "ner · vous"},
+    {"image_key": "learn", "label": "Learn", "count": 1, "segmentation": "learn"},
+    {"image_key": "sit", "label": "Sit", "count": 1, "segmentation": "sit"}
+  ]
+}

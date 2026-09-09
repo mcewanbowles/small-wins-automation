@@ -1,0 +1,5 @@
+Missing icons report:
+
+- doctor
+- nurse
+- questions

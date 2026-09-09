@@ -1,0 +1,102 @@
+{
+  "schema": "pp_qna.v1",
+  "book_slug": "llama_llama_red_pajama",
+  "book_title": "Llama Llama Red Pajama",
+  "pages": [
+    {
+      "page_num": 1,
+      "question": "What is Llama Llama wearing?",
+      "choices": [
+        "red pajamas",
+        "blue shirt",
+        "yellow hat"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        false,
+        false
+      ],
+      "context_mirror": {
+        "sentence": "Llama Llama wears red pajamas.",
+        "scene_note": "Bedtime scene showing Llama Llama dressed for sleep."
+      }
+    },
+    {
+      "page_num": 2,
+      "question": "Who puts Llama Llama to bed?",
+      "choices": [
+        "Mama Llama",
+        "Papa Llama",
+        "Baby Llama"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        false,
+        false
+      ],
+      "context_mirror": {
+        "sentence": "Mama Llama puts Llama Llama to bed.",
+        "scene_note": "Mama tucking Llama Llama into bed at night."
+      }
+    },
+    {
+      "page_num": 3,
+      "question": "What does Llama Llama do after Mama leaves?",
+      "choices": [
+        "call for Mama",
+        "go outside",
+        "eat dinner"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        false,
+        false
+      ],
+      "context_mirror": {
+        "sentence": "Llama Llama calls for Mama.",
+        "scene_note": "Llama Llama alone in bed, calling out."
+      }
+    },
+    {
+      "page_num": 4,
+      "question": "What happens after Llama Llama waits?",
+      "choices": [
+        "Mama comes back",
+        "Llama goes to school",
+        "It starts raining"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        false,
+        false
+      ],
+      "context_mirror": {
+        "sentence": "Mama Llama comes back to help.",
+        "scene_note": "Mama returning to comfort Llama Llama in the bedroom."
+      }
+    },
+    {
+      "page_num": 5,
+      "question": "Why might Llama Llama call out for Mama at night?",
+      "choices": [
+        "feels alone",
+        "wants a snack",
+        "hears music"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        true,
+        true,
+        true
+      ],
+      "context_mirror": {
+        "sentence": null,
+        "scene_note": "Inference question about why Llama Llama seeks Mama during bedtime."
+      }
+    }
+  ]
+}

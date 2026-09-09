@@ -1,0 +1,83 @@
+{
+  "schema": "pp_qna.v1",
+  "book_slug": "schools_first_day_of_school",
+  "book_title": "School's First Day of School",
+  "pages": [
+    {
+      "page_num": 1,
+      "question": "Where does the character go?",
+      "choices": [
+        "school",
+        "door",
+        "bell"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        false,
+        false
+      ],
+      "context_mirror": {
+        "sentence": "It is the first day of school for Frederick Douglass Elementary.",
+        "scene_note": "It is the first day of school for Frederick Douglass Elementary."
+      }
+    },
+    {
+      "page_num": 2,
+      "question": "What do you see?",
+      "choices": [
+        "bell",
+        "school",
+        "door"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        false,
+        false
+      ],
+      "context_mirror": {
+        "sentence": "The school bell rings and children arrive.",
+        "scene_note": "The school bell rings and children arrive."
+      }
+    },
+    {
+      "page_num": 3,
+      "question": "What do you see?",
+      "choices": [
+        "student",
+        "school",
+        "door"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        false,
+        false
+      ],
+      "context_mirror": {
+        "sentence": "The school meets the new students.",
+        "scene_note": "The school meets the new students."
+      }
+    },
+    {
+      "page_num": 4,
+      "question": "Who does the character meet?",
+      "choices": [
+        "friend",
+        "school",
+        "door"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        false,
+        false
+      ],
+      "context_mirror": {
+        "sentence": "The school and children become friends.",
+        "scene_note": "The school and children become friends."
+      }
+    }
+  ]
+}

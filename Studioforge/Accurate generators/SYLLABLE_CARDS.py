@@ -4,6 +4,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import List, Tuple
 from datetime import datetime
+import hashlib
 import io
 import json
 import os
@@ -13,7 +14,8 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.utils import ImageReader
 
-from utils.sws_design import apply_small_wins_frame, generate_internal_cover_page, generate_teacher_cover_page, shrink_font_to_fit_with_pt, hex_to_rgb, NAVY_HEX, DPI
+from utils.sws_design import apply_small_wins_frame, shrink_font_to_fit_with_pt, hex_to_rgb, NAVY_HEX, DPI, safe_footer_inset_px
+from utils.syllable_api import get_syllable_info
 from utils.qa import assess_files
 
 
@@ -57,7 +59,54 @@ def _read_icons(images_folder: str) -> List[Tuple[str, Image.Image]]:
     return items
 
 
-def _draw_syllable_cards_page(*, theme_name: str, pack_code: str, page_num: int, total_pages: int, index: int) -> Image.Image:
+def _theme_dir_for_images(images_folder: str) -> Path:
+    path = Path(images_folder).resolve()
+    if path.name == "icons" and path.parent.name == ".sf_build":
+        return path.parent.parent
+    return path.parent
+
+
+def _prepare_icon(image: Image.Image) -> Image.Image:
+    icon = image.convert("RGBA")
+    edge = max(2, int(icon.width * 0.02))
+    icon = icon.crop((edge, edge, icon.width - edge, icon.height - edge))
+    pixels = []
+    source = icon.get_flattened_data() if hasattr(icon, "get_flattened_data") else icon.getdata()
+    for red, green, blue, alpha in source:
+        neutral = max(red, green, blue) - min(red, green, blue) < 12 and (red + green + blue) / 3 > 150
+        pixels.append((red, green, blue, 0 if neutral else alpha))
+    icon.putdata(pixels)
+    bounds = icon.getchannel("A").getbbox()
+    return icon.crop(bounds) if bounds else icon
+
+
+def _load_reviewed_items(images_folder: str) -> tuple[List[Tuple[str, Image.Image, int, str]], Path]:
+    theme_dir = _theme_dir_for_images(images_folder)
+    source = theme_dir / "config" / "syllables.json"
+    if not source.exists():
+        raise FileNotFoundError(f"Missing reviewed syllable data: {source}")
+    data = json.loads(source.read_text(encoding="utf-8"))
+    if data.get("reading_rope") != ["Phonological Awareness"]:
+        raise ValueError("Syllable data must claim only Phonological Awareness")
+    images = Path(images_folder)
+    reviewed = []
+    for entry in data.get("items") or []:
+        key = str(entry.get("image_key") or "").strip()
+        label = str(entry.get("label") or "").strip()
+        count = entry.get("count")
+        segmentation = str(entry.get("segmentation") or "").strip()
+        path = images / f"{key}.png"
+        if not path.exists() or not label or not isinstance(count, int) or count < 1 or not segmentation:
+            raise ValueError(f"Invalid reviewed syllable item: {key or label or '(blank)'}")
+        image = _prepare_icon(Image.open(path))
+        reviewed.append((label, image, count, segmentation))
+    if len(reviewed) < 4:
+        raise ValueError("At least four reviewed syllable items are required")
+    # Use all reviewed items (capped at 20) so the activity is not too small.
+    return reviewed[:20], source
+
+
+def _draw_syllable_cards_page(*, theme_name: str, pack_code: str, page_num: int, total_pages: int, index: int, items: List[Tuple[str, Image.Image, int, str]], header_left_icon: Image.Image | None) -> Image.Image:
     w = int(8.5 * DPI)
     h = int(11.0 * DPI)
     page = Image.new("RGB", (w, h), "white")
@@ -69,6 +118,12 @@ def _draw_syllable_cards_page(*, theme_name: str, pack_code: str, page_num: int,
         page_num=page_num,
         total_pages=total_pages,
         level=None,
+        draw_footer=True,
+        draw_subtitle=True,
+        header_left_icon=header_left_icon,
+        header_height_px=int(0.92 * DPI),
+        accent_margin_px=int(0.12 * DPI),
+        footer_y_offset_px=int(0.08 * DPI),
     )
     d = ImageDraw.Draw(page)
     instr = f"Clap the syllables: Set {index}"
@@ -76,18 +131,69 @@ def _draw_syllable_cards_page(*, theme_name: str, pack_code: str, page_num: int,
     font, pt = shrink_font_to_fit_with_pt(instr, base_pt=20, max_width_px=usable_w, bold=True, brand="poppins", min_pt=12)
     tw, th = d.textbbox((0, 0), instr, font=font)[2:4]
     d.text(((w - tw) // 2, int(1.7 * DPI)), instr, fill=hex_to_rgb(NAVY_HEX), font=font)
-    # Four card boxes per page (2x2)
+
+    # Safe content bounds below header and above footer
+    header_clear = int(1.80 * DPI)
+    footer_inset = safe_footer_inset_px()
+    top_y = max(int(2.2 * DPI), header_clear + int(12))
+    bottom_y = h - footer_inset - int(12)
+
+    # Four card boxes per page (2x2) with icons and segmented labels
     margin = int(0.8 * DPI)
     gap = int(0.35 * DPI)
     box_w = (w - (2 * margin) - gap) // 2
-    box_h = int((h - int(3.2 * DPI) - margin - gap) / 2)
+    # Fit two rows between top_y and bottom_y
+    avail_h = max(1, (bottom_y - top_y))
+    box_h = int((avail_h - gap) / 2)
     x0 = margin
-    y0 = int(2.2 * DPI)
+    y0 = top_y
+    inner_pad = int(0.18 * DPI)
+
     for r in range(2):
         for c in range(2):
             bx0 = x0 + c * (box_w + gap)
             by0 = y0 + r * (box_h + gap)
+            # Box border
             d.rectangle([bx0, by0, bx0 + box_w, by0 + box_h], outline=(0, 0, 0), width=int(2 * (DPI / 72)))
+
+            idx = r * 2 + c
+            if idx < len(items):
+                label, im, count, seg_text = items[idx]
+                # Place icon
+                try:
+                    im_rgba = im if im.mode == "RGBA" else im.convert("RGBA")
+                    img_max_w = box_w - 2 * inner_pad
+                    img_max_h = int(box_h * 0.6)
+                    iw, ih = im_rgba.size
+                    if iw > 0 and ih > 0:
+                        scale = min(img_max_w / iw, img_max_h / ih)
+                        nw, nh = max(1, int(iw * scale)), max(1, int(ih * scale))
+                        pim = im_rgba.resize((nw, nh), Image.Resampling.LANCZOS)
+                        px = bx0 + (box_w - nw) // 2
+                        py = by0 + inner_pad + max(0, (img_max_h - nh) // 2)
+                        page.paste(pim, (px, py), pim)
+                except Exception:
+                    pass
+
+                # Syllable info
+                # Segmented label at bottom of box
+                lab_max_w = box_w - 2 * inner_pad
+                lab_y = by0 + box_h - inner_pad - int(0.2 * DPI)
+                lab_font, _ = shrink_font_to_fit_with_pt(seg_text, base_pt=28, max_width_px=lab_max_w, bold=True, brand="poppins", min_pt=14)
+                ltw, lth = d.textbbox((0, 0), seg_text, font=lab_font)[2:4]
+                d.text((bx0 + (box_w - ltw) // 2, lab_y - lth), seg_text, fill=(0, 0, 0), font=lab_font)
+
+                # Syllable count chip in top-right of box
+                if count and isinstance(count, int) and count > 0:
+                    diam = int(0.42 * DPI)
+                    cx0 = bx0 + box_w - inner_pad - diam
+                    cy0 = by0 + inner_pad
+                    d.ellipse([cx0, cy0, cx0 + diam, cy0 + diam], fill=hex_to_rgb(NAVY_HEX))
+                    txt = str(count)
+                    chip_font, _ = shrink_font_to_fit_with_pt(txt, base_pt=26, max_width_px=diam - int(0.16 * DPI), bold=True, brand="poppins", min_pt=12)
+                    bounds = d.textbbox((0, 0), txt, font=chip_font)
+                    ttw, tth = bounds[2] - bounds[0], bounds[3] - bounds[1]
+                    d.text((cx0 + (diam - ttw) // 2 - bounds[0], cy0 + (diam - tth) // 2 - bounds[1]), txt, fill=(255, 255, 255), font=chip_font)
     return page
 
 
@@ -97,91 +203,75 @@ def generate_syllable_cards_pack(images_folder: str, pack_code: str = "SYL01", t
     except Exception as e:
         print(f"❌ ERROR: {e}")
         return False
-    items = _read_icons(images_folder)
+    try:
+        items, syllable_source = _load_reviewed_items(images_folder)
+    except Exception as e:
+        print(f"❌ ERROR: {e}")
+        return False
     # Guardrailed output path: Studioforge/OUTPUT/{pack_code}
-    repo_root = Path(__file__).resolve().parents[2]
-    output_dir = repo_root / "Studioforge" / "OUTPUT" / pack_code
+    theme_dir = _theme_dir_for_images(images_folder)
+    output_dir = theme_dir / "OUTPUT"
     if "_TLOT_ARCHIVED_DUPLICATE" in str(output_dir):
         print(f"❌ ERROR: Output path points into archived duplicate: {output_dir}")
         return False
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    page_count = 2
-    total_pages = page_count + 1
+    # Split items into pages of up to 4 cards each (2x2 grid per page).
+    ITEMS_PER_PAGE = 4
+    page_count = max(1, (len(items) + ITEMS_PER_PAGE - 1) // ITEMS_PER_PAGE)
+    total_pages = page_count  # no teacher cover page
 
-    # Resolve hero/book assets for teacher cover
+    # Resolve hero icon for the page header
     hero_path_str = None
-    book_cover_path_str = None
     try:
         images_path = Path(images_folder).resolve()
-        slug_guess = images_path.parent.name if images_path.parent.name else None
-        if slug_guess:
-            tdir = Path(__file__).resolve().parents[1] / "assets" / "themes" / slug_guess
-            hero_candidates = [
-                tdir / "hero_header.png",
-                tdir / "heroes" / "hero_header.png",
-                tdir / "characters" / "hero_header.png",
-                tdir / "hero.png",
-                tdir / "heroes" / "hero.png",
-                tdir / "characters" / "hero.png",
-                tdir / "header_icon.png",
-            ]
-            for hp in hero_candidates:
-                if hp.exists():
-                    hero_path_str = str(hp)
-                    break
-            cover_names = ["book_cover", "cover", "front_cover", "bookfront", "book", "cover_reference"]
-            cover_subdirs = [tdir, tdir / "covers", tdir / "images", tdir / "marketing", tdir / "book"]
-            exts = ["png", "jpg", "jpeg", "webp"]
-            for sd in cover_subdirs:
-                for nm in cover_names:
-                    for ex in exts:
-                        fp = sd / f"{nm}.{ex}"
-                        if fp.exists():
-                            book_cover_path_str = str(fp)
-                            break
-                    if book_cover_path_str:
-                        break
-                if book_cover_path_str:
-                    break
+        tdir = theme_dir
+        hero_candidates = [
+            tdir / "hero_header.png",
+            tdir / "heroes" / "hero_header.png",
+            tdir / "characters" / "hero_header.png",
+            tdir / "hero.png",
+            tdir / "heroes" / "hero.png",
+            tdir / "characters" / "hero.png",
+            tdir / "header_icon.png",
+        ]
+        for hp in hero_candidates:
+            if hp.exists():
+                hero_path_str = str(hp)
+                break
     except Exception:
         hero_path_str = None
-        book_cover_path_str = None
 
-    cover = generate_teacher_cover_page(
-        theme_name=theme_name,
-        pack_code=pack_code,
-        product_name="Syllable Cards",
-        page_count=page_count,
-        level_count=None,
-        hero_image=None,
-        hero_image_path=hero_path_str,
-        book_cover_path=book_cover_path_str,
-        draw_footer=False,
-        whats_included=[
-            "2 practice pages",
-            "Symbol-supported prompts",
-            "Colour + black & white versions",
-        ],
-        also_included=[
-            "Quick Start Guide",
-            "Terms of Use",
-            "B&W version",
-        ],
-        top_tips=[
-            "Clap and count syllables together.",
-            "Use picture cues to support decoding.",
-            "Mix easy and harder words for challenge.",
-        ],
-        rope_strand="Word Recognition",
-        rope_skills="Decoding · Sight Words · Orthographic Mapping",
-        render_chips=False,
-    )
-    pages_content = [
-        _draw_syllable_cards_page(theme_name=theme_name, pack_code=pack_code, page_num=2, total_pages=total_pages, index=1),
-        _draw_syllable_cards_page(theme_name=theme_name, pack_code=pack_code, page_num=3, total_pages=total_pages, index=2),
-    ]
-    pages_color = [cover] + pages_content
+    # Prepare header icon image (fallback to first activity image if no hero found)
+    header_icon_img = None
+    try:
+        if hero_path_str:
+            _im = Image.open(hero_path_str)
+            header_icon_img = _prepare_icon(_im)
+    except Exception:
+        header_icon_img = None
+    if header_icon_img is None and items:
+        try:
+            header_icon_img = items[0][1]
+        except Exception:
+            header_icon_img = None
+
+    # Build one content page per chunk of up to 4 items.
+    pages_content = []
+    for i in range(page_count):
+        chunk = items[i * ITEMS_PER_PAGE:(i + 1) * ITEMS_PER_PAGE]
+        pages_content.append(
+            _draw_syllable_cards_page(
+                theme_name=theme_name,
+                pack_code=pack_code,
+                page_num=i + 1,  # content only, no cover
+                total_pages=total_pages,
+                index=i + 1,
+                items=chunk,
+                header_left_icon=header_icon_img,
+            )
+        )
+    pages_color = pages_content
 
     # COLOR
     color_pdf = output_dir / f"{pack_code}_Syllable_Cards_COLOR.pdf"
@@ -254,10 +344,16 @@ def generate_syllable_cards_pack(images_folder: str, pack_code: str = "SYL01", t
         except Exception:
             warnings = []
         manifest = {
-            "product_name": "Syllable Cards",
-            "slug": images_path.parent.name,
+            "schema_version": 1,
+            "status": "pilot_review",
+            "product_name": "Syllable Awareness Cards",
+            "slug": theme_dir.name,
             "pack_code": pack_code,
             "page_count": len(pages_color),
+            "reading_rope": ["Phonological Awareness"],
+            "teacher_review_required": True,
+            "source": str(syllable_source),
+            "source_sha256": hashlib.sha256(syllable_source.read_bytes()).hexdigest(),
             "files": {
                 "color_pdf": str(color_pdf),
                 "bw_pdf": str(bw_pdf),
@@ -287,11 +383,11 @@ def build_pdf(slug: str, book_title: str, pack_code: str) -> bool:
     """
     # Resolve via absolute repo root to avoid CWD issues
     repo_root = Path(__file__).resolve().parents[2]
-    for folder in ("activity_images", "icons_colored", "icons"):
+    for folder in ("activity_images", "icons"):
         images_folder = repo_root / "assets" / "themes" / slug / folder
         if images_folder.exists():
             return generate_syllable_cards_pack(str(images_folder), pack_code=pack_code, theme_name=book_title)
-    print(f"❌ No image folder found for slug '{slug}' (checked activity_images/icons_colored/icons)")
+    print(f"❌ No image folder found for slug '{slug}' (checked activity_images/icons)")
     return False
 
 

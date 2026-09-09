@@ -1,0 +1,12 @@
+Missing icons report:
+
+- charity
+- donate
+- verify
+- website
+- trusted adult
+- receipt
+- fake account
+  suggested alternatives: deepfake (2), deepfake, 4 deepfake (2)
+- check url
+  suggested alternatives: checklist, check_mirror, check_self

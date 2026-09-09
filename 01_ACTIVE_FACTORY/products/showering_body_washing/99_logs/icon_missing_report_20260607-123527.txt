@@ -1,0 +1,9 @@
+Missing icons report:
+
+- shower
+- washcloth
+- soap
+- shampoo
+- underarms
+- feet
+- dry

@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "teacher_review_required": true,
+  "items": [
+    {
+      "image_key": "school",
+      "label": "School"
+    },
+    {
+      "image_key": "friend",
+      "label": "Friend"
+    },
+    {
+      "image_key": "different",
+      "label": "Different"
+    },
+    {
+      "image_key": "brave",
+      "label": "Brave"
+    },
+    {
+      "image_key": "story",
+      "label": "Story"
+    },
+    {
+      "image_key": "share",
+      "label": "Share"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+Missing icons report:
+
+- locker
+- combination
+- spin dial
+- code
+- keep private
+  suggested alternatives: keep details safe, keep_hands_off
+- do not share
+  suggested alternatives: dont_know, dont_like, do not reply, dont_go_with_strangers, down
+- cover keypad
+  suggested alternatives: sws calm choices icon, cover, read me & tou us -colour_p01_i001, sws calm choices icon, cover, read me & tou us -colour_p02_i002, sws calm choices icon, cover, read me & tou us -colour_p03_i003, sws calm choices icon, cover, read me & tou us -colour_p04_i004, sws calm choices icon, cover, read me & tou us -colour_p05_i005
+- PE locker
+  suggested alternatives: personal_information, repeat, 1 personal_information, 6personal information, computer_helper

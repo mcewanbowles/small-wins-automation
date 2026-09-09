@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Phonological Awareness"
+  ],
+  "teacher_review_required": true,
+  "items": [
+    {
+      "image_key": "school",
+      "label": "School",
+      "count": 1,
+      "segmentation": "school"
+    },
+    {
+      "image_key": "door",
+      "label": "Door",
+      "count": 1,
+      "segmentation": "door"
+    },
+    {
+      "image_key": "bell",
+      "label": "Bell",
+      "count": 1,
+      "segmentation": "bell"
+    },
+    {
+      "image_key": "teacher",
+      "label": "Teacher",
+      "count": 2,
+      "segmentation": "teach · er"
+    },
+    {
+      "image_key": "student",
+      "label": "Student",
+      "count": 2,
+      "segmentation": "stu · dent"
+    },
+    {
+      "image_key": "desk",
+      "label": "Desk",
+      "count": 1,
+      "segmentation": "desk"
+    },
+    {
+      "image_key": "book",
+      "label": "Book",
+      "count": 1,
+      "segmentation": "book"
+    },
+    {
+      "image_key": "pencil",
+      "label": "Pencil",
+      "count": 2,
+      "segmentation": "pen · cil"
+    },
+    {
+      "image_key": "playground",
+      "label": "Playground",
+      "count": 3,
+      "segmentation": "play · ground"
+    },
+    {
+      "image_key": "lunch",
+      "label": "Lunch",
+      "count": 1,
+      "segmentation": "lunch"
+    },
+    {
+      "image_key": "friend",
+      "label": "Friend",
+      "count": 1,
+      "segmentation": "friend"
+    },
+    {
+      "image_key": "learn",
+      "label": "Learn",
+      "count": 1,
+      "segmentation": "learn"
+    }
+  ]
+}

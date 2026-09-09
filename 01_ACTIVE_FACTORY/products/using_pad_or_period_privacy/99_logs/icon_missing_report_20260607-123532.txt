@@ -1,0 +1,6 @@
+Missing icons report:
+
+- underwear
+- trusted adult
+- change pad
+  suggested alternatives: body_changes_normal

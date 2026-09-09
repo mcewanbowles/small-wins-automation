@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Phonological Awareness"
+  ],
+  "teacher_review_required": true,
+  "items": [
+    {
+      "image_key": "unhei",
+      "label": "Unhei",
+      "count": 2,
+      "segmentation": "unhei"
+    },
+    {
+      "image_key": "name",
+      "label": "Name",
+      "count": 1,
+      "segmentation": "name"
+    },
+    {
+      "image_key": "school",
+      "label": "School",
+      "count": 1,
+      "segmentation": "school"
+    },
+    {
+      "image_key": "friend",
+      "label": "Friend",
+      "count": 1,
+      "segmentation": "friend"
+    },
+    {
+      "image_key": "jar",
+      "label": "Jar",
+      "count": 1,
+      "segmentation": "jar"
+    },
+    {
+      "image_key": "korea",
+      "label": "Korea",
+      "count": 2,
+      "segmentation": "ko · re · a"
+    },
+    {
+      "image_key": "new",
+      "label": "New",
+      "count": 1,
+      "segmentation": "new"
+    },
+    {
+      "image_key": "shy",
+      "label": "Shy",
+      "count": 1,
+      "segmentation": "shy"
+    },
+    {
+      "image_key": "stamp",
+      "label": "Stamp",
+      "count": 1,
+      "segmentation": "stamp"
+    },
+    {
+      "image_key": "letter",
+      "label": "Letter",
+      "count": 2,
+      "segmentation": "let · ter"
+    },
+    {
+      "image_key": "happy",
+      "label": "Happy",
+      "count": 2,
+      "segmentation": "hap · py"
+    },
+    {
+      "image_key": "choose",
+      "label": "Choose",
+      "count": 1,
+      "segmentation": "choose"
+    }
+  ]
+}

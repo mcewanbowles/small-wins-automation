@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Language Structures",
+    "Vocabulary"
+  ],
+  "teacher_review_required": true,
+  "theme_items": [
+    {
+      "image_key": "unhei",
+      "label": "unhei"
+    },
+    {
+      "image_key": "name",
+      "label": "name"
+    },
+    {
+      "image_key": "school",
+      "label": "school"
+    },
+    {
+      "image_key": "friend",
+      "label": "friend"
+    },
+    {
+      "image_key": "jar",
+      "label": "jar"
+    },
+    {
+      "image_key": "korea",
+      "label": "korea"
+    },
+    {
+      "image_key": "new",
+      "label": "new"
+    },
+    {
+      "image_key": "shy",
+      "label": "shy"
+    }
+  ],
+  "patterns": [
+    {
+      "display": "I see ___",
+      "items": [
+        "unhei",
+        "name",
+        "school",
+        "friend",
+        "jar",
+        "korea"
+      ]
+    },
+    {
+      "display": "I want ___",
+      "items": [
+        "name",
+        "school",
+        "friend"
+      ]
+    },
+    {
+      "display": "I like ___",
+      "items": [
+        "unhei",
+        "name",
+        "school",
+        "friend"
+      ]
+    }
+  ]
+}

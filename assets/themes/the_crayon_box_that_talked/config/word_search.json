@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Sight Recognition",
+    "Vocabulary"
+  ],
+  "teacher_review_required": true,
+  "words": [
+    {
+      "word": "crayon",
+      "image_key": "crayon",
+      "label": "Crayon"
+    },
+    {
+      "word": "box",
+      "image_key": "box",
+      "label": "Box"
+    },
+    {
+      "word": "red",
+      "image_key": "red",
+      "label": "Red"
+    },
+    {
+      "word": "blue",
+      "image_key": "blue",
+      "label": "Blue"
+    },
+    {
+      "word": "yellow",
+      "image_key": "yellow",
+      "label": "Yellow"
+    },
+    {
+      "word": "green",
+      "image_key": "green",
+      "label": "Green"
+    },
+    {
+      "word": "color",
+      "image_key": "color",
+      "label": "Color"
+    },
+    {
+      "word": "draw",
+      "image_key": "draw",
+      "label": "Draw"
+    }
+  ]
+}

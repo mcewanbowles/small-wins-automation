@@ -1,0 +1,102 @@
+{
+  "schema": "pp_qna.v1",
+  "book_slug": "the_kissing_hand",
+  "book_title": "The Kissing Hand",
+  "pages": [
+    {
+      "page_num": 1,
+      "question": "What do you see?",
+      "choices": [
+        "Kiss",
+        "something else",
+        "nothing"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        true,
+        true
+      ],
+      "context_mirror": {
+        "sentence": "Chester Raccoon sees kiss.",
+        "scene_note": "Scene with kiss."
+      }
+    },
+    {
+      "page_num": 2,
+      "question": "What do you see?",
+      "choices": [
+        "Hand",
+        "something else",
+        "nothing"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        true,
+        true
+      ],
+      "context_mirror": {
+        "sentence": "Chester Raccoon sees hand.",
+        "scene_note": "Scene with hand."
+      }
+    },
+    {
+      "page_num": 3,
+      "question": "What do you see?",
+      "choices": [
+        "Heart",
+        "something else",
+        "nothing"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        true,
+        true
+      ],
+      "context_mirror": {
+        "sentence": "Chester Raccoon sees heart.",
+        "scene_note": "Scene with heart."
+      }
+    },
+    {
+      "page_num": 4,
+      "question": "What do you see?",
+      "choices": [
+        "Mama",
+        "something else",
+        "nothing"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        true,
+        true
+      ],
+      "context_mirror": {
+        "sentence": "Chester Raccoon sees mama.",
+        "scene_note": "Scene with mama."
+      }
+    },
+    {
+      "page_num": 5,
+      "question": "Why might Chester Raccoon feel better by the end?",
+      "choices": [
+        "made a friend",
+        "went home early",
+        "didn't do anything"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        true,
+        true,
+        true
+      ],
+      "context_mirror": {
+        "sentence": null,
+        "scene_note": "Inference question about how the story resolves."
+      }
+    }
+  ]
+}

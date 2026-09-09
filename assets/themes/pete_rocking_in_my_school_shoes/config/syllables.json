@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Phonological Awareness"
+  ],
+  "teacher_review_required": true,
+  "items": [
+    {
+      "image_key": "school",
+      "label": "School",
+      "count": 1,
+      "segmentation": "school"
+    },
+    {
+      "image_key": "shoes",
+      "label": "Shoes",
+      "count": 1,
+      "segmentation": "shoes"
+    },
+    {
+      "image_key": "rock",
+      "label": "Rock",
+      "count": 1,
+      "segmentation": "rock"
+    },
+    {
+      "image_key": "sing",
+      "label": "Sing",
+      "count": 1,
+      "segmentation": "sing"
+    },
+    {
+      "image_key": "lunch",
+      "label": "Lunch",
+      "count": 1,
+      "segmentation": "lunch"
+    },
+    {
+      "image_key": "bus",
+      "label": "Bus",
+      "count": 1,
+      "segmentation": "bus"
+    }
+  ]
+}

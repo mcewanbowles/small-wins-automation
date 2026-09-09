@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Language Structures",
+    "Vocabulary"
+  ],
+  "teacher_review_required": true,
+  "theme_items": [
+    {
+      "image_key": "school",
+      "label": "School"
+    },
+    {
+      "image_key": "shoes",
+      "label": "Shoes"
+    },
+    {
+      "image_key": "rock",
+      "label": "Rock"
+    },
+    {
+      "image_key": "sing",
+      "label": "Sing"
+    },
+    {
+      "image_key": "lunch",
+      "label": "Lunch"
+    },
+    {
+      "image_key": "bus",
+      "label": "Bus"
+    }
+  ],
+  "patterns": [
+    {
+      "display": "I see ___",
+      "items": [
+        "school",
+        "shoes",
+        "rock",
+        "sing",
+        "lunch",
+        "bus"
+      ]
+    },
+    {
+      "display": "I want ___",
+      "items": [
+        "school",
+        "shoes",
+        "rock",
+        "sing"
+      ]
+    },
+    {
+      "display": "I like ___",
+      "items": [
+        "school",
+        "shoes",
+        "rock",
+        "sing",
+        "lunch"
+      ]
+    },
+    {
+      "display": "I don't like ___",
+      "items": [
+        "school",
+        "shoes",
+        "rock"
+      ]
+    }
+  ]
+}

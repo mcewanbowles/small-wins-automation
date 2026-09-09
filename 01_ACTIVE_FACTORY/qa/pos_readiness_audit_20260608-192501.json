@@ -1,0 +1,1509 @@
+[
+  {
+    "product_id": "adult_content_exposure_online_pg13",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 0,
+    "latest_missing_count": 1,
+    "latest_missing_terms": [
+      "trust"
+    ],
+    "recommendations": [
+      "Resolve missing icons/aliases: trust."
+    ]
+  },
+  {
+    "product_id": "bathroom_privacy_school",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 7,
+    "latest_missing_count": 1,
+    "latest_missing_terms": [
+      "dry"
+    ],
+    "recommendations": [
+      "Resolve missing icons/aliases: dry."
+    ]
+  },
+  {
+    "product_id": "bathroom_wiping_clean",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 0,
+    "latest_missing_count": 1,
+    "latest_missing_terms": [
+      "wiping"
+    ],
+    "recommendations": [
+      "Resolve missing icons/aliases: wiping."
+    ]
+  },
+  {
+    "product_id": "being_bullied_get_help",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 0,
+    "latest_missing_count": 3,
+    "latest_missing_terms": [
+      "parent",
+      "screenshot",
+      "tell parent"
+    ],
+    "recommendations": [
+      "Resolve missing icons/aliases: parent, screenshot, tell parent."
+    ]
+  },
+  {
+    "product_id": "blood_cuts_body_care",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 0,
+    "latest_missing_count": 1,
+    "latest_missing_terms": [
+      "cuts"
+    ],
+    "recommendations": [
+      "Resolve missing icons/aliases: cuts."
+    ]
+  },
+  {
+    "product_id": "body_odour_deodorant",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 7,
+    "latest_missing_count": 11,
+    "latest_missing_terms": [
+      "body odor",
+      "deodorant",
+      "dry",
+      "fresh",
+      "morning",
+      "odor",
+      "soap",
+      "sport",
+      "sweat",
+      "under arms",
+      "underarm"
+    ],
+    "recommendations": [
+      "Resolve missing icons/aliases: body odor, deodorant, dry, fresh, morning…."
+    ]
+  },
+  {
+    "product_id": "bullying_others_stop_take_responsibility",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 0,
+    "latest_missing_count": 1,
+    "latest_missing_terms": [
+      "apologize"
+    ],
+    "recommendations": [
+      "Resolve missing icons/aliases: apologize."
+    ]
+  },
+  {
+    "product_id": "bus_train_safety",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 2,
+    "latest_missing_count": 6,
+    "latest_missing_terms": [
+      "group",
+      "hold on",
+      "my stop",
+      "quiet voice",
+      "road",
+      "safe body"
+    ],
+    "recommendations": [
+      "Resolve missing icons/aliases: group, hold on, my stop, quiet voice, road…."
+    ]
+  },
+  {
+    "product_id": "changing_clothes_privately",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 7,
+    "latest_missing_count": 1,
+    "latest_missing_terms": [
+      "quickly"
+    ],
+    "recommendations": [
+      "Resolve missing icons/aliases: quickly."
+    ]
+  },
+  {
+    "product_id": "clean_clothes_laundry",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 0,
+    "latest_missing_count": 1,
+    "latest_missing_terms": [
+      "laundry"
+    ],
+    "recommendations": [
+      "Resolve missing icons/aliases: laundry."
+    ]
+  },
+  {
+    "product_id": "community_bathroom_safety",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 2,
+    "latest_missing_count": 4,
+    "latest_missing_terms": [
+      "group",
+      "public bathroom",
+      "return",
+      "stall"
+    ],
+    "recommendations": [
+      "Resolve missing icons/aliases: group, public bathroom, return, stall."
+    ]
+  },
+  {
+    "product_id": "consent_and_coercion_pg13_safety_respect",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 0,
+    "latest_missing_count": 2,
+    "latest_missing_terms": [
+      "consent",
+      "pressure"
+    ],
+    "recommendations": [
+      "Resolve missing icons/aliases: consent, pressure."
+    ]
+  },
+  {
+    "product_id": "doctor_nurse_private_questions",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 0,
+    "latest_missing_count": 3,
+    "latest_missing_terms": [
+      "doctor",
+      "nurse",
+      "questions"
+    ],
+    "recommendations": [
+      "Resolve missing icons/aliases: doctor, nurse, questions."
+    ]
+  },
+  {
+    "product_id": "dont_forward_inappropriate_images_illegal",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 0,
+    "latest_missing_count": 1,
+    "latest_missing_terms": [
+      "forward"
+    ],
+    "recommendations": [
+      "Resolve missing icons/aliases: forward."
+    ]
+  },
+  {
+    "product_id": "fake_vs_real_friends_safety_first",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 0,
+    "latest_missing_count": 5,
+    "latest_missing_terms": [
+      "fake friend",
+      "friend",
+      "pressure",
+      "real",
+      "real friend"
+    ],
+    "recommendations": [
+      "Resolve missing icons/aliases: fake friend, friend, pressure, real, real friend."
+    ]
+  },
+  {
+    "product_id": "financial_exploitation_scams_protect_self",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 0,
+    "latest_missing_count": 1,
+    "latest_missing_terms": [
+      "prize"
+    ],
+    "recommendations": [
+      "Resolve missing icons/aliases: prize."
+    ]
+  },
+  {
+    "product_id": "hands_out_of_pants",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 2,
+    "latest_missing_count": 7,
+    "latest_missing_terms": [
+      "AAC",
+      "clothes",
+      "hands out",
+      "outside",
+      "private bathroom",
+      "safe body",
+      "uncomfortable"
+    ],
+    "recommendations": [
+      "Resolve missing icons/aliases: AAC, clothes, hands out, outside, private bathroom…."
+    ]
+  },
+  {
+    "product_id": "keeping_clothes_on",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 0,
+    "latest_missing_count": 1,
+    "latest_missing_terms": [
+      "keeping"
+    ],
+    "recommendations": [
+      "Resolve missing icons/aliases: keeping."
+    ]
+  },
+  {
+    "product_id": "kissing_dating_boundaries",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 0,
+    "latest_missing_count": 3,
+    "latest_missing_terms": [
+      "boundaries",
+      "dating",
+      "kissing"
+    ],
+    "recommendations": [
+      "Resolve missing icons/aliases: boundaries, dating, kissing."
+    ]
+  },
+  {
+    "product_id": "locker_room_privacy",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 8,
+    "latest_missing_count": 0,
+    "latest_missing_terms": [],
+    "recommendations": []
+  },
+  {
+    "product_id": "medical_visits_meds_management",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 7,
+    "latest_missing_count": 0,
+    "latest_missing_terms": [],
+    "recommendations": []
+  },
+  {
+    "product_id": "no_phones_photos_private_places",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 0,
+    "latest_missing_count": 4,
+    "latest_missing_terms": [
+      "locker",
+      "locker room",
+      "no photos",
+      "nurse"
+    ],
+    "recommendations": [
+      "Resolve missing icons/aliases: locker, locker room, no photos, nurse."
+    ]
+  },
+  {
+    "product_id": "online_drama_cyberbullying_response",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 0,
+    "latest_missing_count": 2,
+    "latest_missing_terms": [
+      "safe activity",
+      "screenshot"
+    ],
+    "recommendations": [
+      "Resolve missing icons/aliases: safe activity, screenshot."
+    ]
+  },
+  {
+    "product_id": "online_phone_safety_basics",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 9,
+    "latest_missing_count": 1,
+    "latest_missing_terms": [
+      "school rules"
+    ],
+    "recommendations": [
+      "Resolve missing icons/aliases: school rules."
+    ]
+  },
+  {
+    "product_id": "online_predators_grooming_red_flags",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 0,
+    "latest_missing_count": 4,
+    "latest_missing_terms": [
+      "evidence",
+      "gift",
+      "meet",
+      "meet up"
+    ],
+    "recommendations": [
+      "Resolve missing icons/aliases: evidence, gift, meet, meet up."
+    ]
+  },
+  {
+    "product_id": "online_private_information",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 0,
+    "latest_missing_count": 4,
+    "latest_missing_terms": [
+      "do not share",
+      "private information",
+      "share",
+      "show adult"
+    ],
+    "recommendations": [
+      "Resolve missing icons/aliases: do not share, private information, share, show adult."
+    ]
+  },
+  {
+    "product_id": "online_strangers_messages",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 0,
+    "latest_missing_count": 1,
+    "latest_missing_terms": [
+      "messages"
+    ],
+    "recommendations": [
+      "Resolve missing icons/aliases: messages."
+    ]
+  },
+  {
+    "product_id": "peer_pressure_risky_dares_refusal_skills",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 0,
+    "latest_missing_count": 3,
+    "latest_missing_terms": [
+      "dare",
+      "friend",
+      "friends"
+    ],
+    "recommendations": [
+      "Resolve missing icons/aliases: dare, friend, friends."
+    ]
+  },
+  {
+    "product_id": "period_care_pad_change",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 9,
+    "latest_missing_count": 1,
+    "latest_missing_terms": [
+      "underwear"
+    ],
+    "recommendations": [
+      "Resolve missing icons/aliases: underwear."
+    ]
+  },
+  {
+    "product_id": "period_kit_planner",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 7,
+    "latest_missing_count": 3,
+    "latest_missing_terms": [
+      "kit",
+      "period kit",
+      "underwear"
+    ],
+    "recommendations": [
+      "Resolve missing icons/aliases: kit, period kit, underwear."
+    ]
+  },
+  {
+    "product_id": "personal_space_consent",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 10,
+    "latest_missing_count": 1,
+    "latest_missing_terms": [
+      "consent"
+    ],
+    "recommendations": [
+      "Resolve missing icons/aliases: consent."
+    ]
+  },
+  {
+    "product_id": "photo_privacy",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 2,
+    "latest_missing_count": 4,
+    "latest_missing_terms": [
+      "ask first",
+      "camera",
+      "delete",
+      "share"
+    ],
+    "recommendations": [
+      "Resolve missing icons/aliases: ask first, camera, delete, share."
+    ]
+  },
+  {
+    "product_id": "public_private_body_rules",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 4,
+    "latest_missing_count": 2,
+    "latest_missing_terms": [
+      "bedroom",
+      "clothes"
+    ],
+    "recommendations": [
+      "Resolve missing icons/aliases: bedroom, clothes."
+    ]
+  },
+  {
+    "product_id": "public_transport_fare_evasion_pay_ticket",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 0,
+    "latest_missing_count": 3,
+    "latest_missing_terms": [
+      "fine",
+      "keep ticket",
+      "rules"
+    ],
+    "recommendations": [
+      "Resolve missing icons/aliases: fine, keep ticket, rules."
+    ]
+  },
+  {
+    "product_id": "rideshare_transit_personal_safety",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 0,
+    "latest_missing_count": 2,
+    "latest_missing_terms": [
+      "seatbelt",
+      "share"
+    ],
+    "recommendations": [
+      "Resolve missing icons/aliases: seatbelt, share."
+    ]
+  },
+  {
+    "product_id": "safe_hands_body_control",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 0,
+    "latest_missing_count": 1,
+    "latest_missing_terms": [
+      "control"
+    ],
+    "recommendations": [
+      "Resolve missing icons/aliases: control."
+    ]
+  },
+  {
+    "product_id": "saying_no_and_reporting",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 0,
+    "latest_missing_count": 2,
+    "latest_missing_terms": [
+      "reporting",
+      "saying"
+    ],
+    "recommendations": [
+      "Resolve missing icons/aliases: reporting, saying."
+    ]
+  },
+  {
+    "product_id": "sextortion_blackmail_online_safety_plan",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 0,
+    "latest_missing_count": 4,
+    "latest_missing_terms": [
+      "do not pay",
+      "evidence",
+      "pay",
+      "screenshot"
+    ],
+    "recommendations": [
+      "Resolve missing icons/aliases: do not pay, evidence, pay, screenshot."
+    ]
+  },
+  {
+    "product_id": "sexual_harassment_report",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 0,
+    "latest_missing_count": 1,
+    "latest_missing_terms": [
+      "boundary"
+    ],
+    "recommendations": [
+      "Resolve missing icons/aliases: boundary."
+    ]
+  },
+  {
+    "product_id": "showering_body_washing",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 0,
+    "latest_missing_count": 2,
+    "latest_missing_terms": [
+      "showering",
+      "washing"
+    ],
+    "recommendations": [
+      "Resolve missing icons/aliases: showering, washing."
+    ]
+  },
+  {
+    "product_id": "staying_with_group",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 0,
+    "latest_missing_count": 2,
+    "latest_missing_terms": [
+      "group",
+      "staying"
+    ],
+    "recommendations": [
+      "Resolve missing icons/aliases: group, staying."
+    ]
+  },
+  {
+    "product_id": "stealing_is_a_crime_peer_pressure",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 0,
+    "latest_missing_count": 6,
+    "latest_missing_terms": [
+      "camera",
+      "consequence",
+      "crime",
+      "dare",
+      "friend",
+      "refuse"
+    ],
+    "recommendations": [
+      "Resolve missing icons/aliases: camera, consequence, crime, dare, friend…."
+    ]
+  },
+  {
+    "product_id": "stranger_safe_adult",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 0,
+    "latest_missing_count": 5,
+    "latest_missing_terms": [
+      "ask help",
+      "do not go",
+      "group",
+      "shop worker",
+      "stay with group"
+    ],
+    "recommendations": [
+      "Resolve missing icons/aliases: ask help, do not go, group, shop worker, stay with group."
+    ]
+  },
+  {
+    "product_id": "unexpected_body_changes_puberty",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 0,
+    "latest_missing_count": 2,
+    "latest_missing_terms": [
+      "puberty",
+      "unexpected"
+    ],
+    "recommendations": [
+      "Resolve missing icons/aliases: puberty, unexpected."
+    ]
+  },
+  {
+    "product_id": "using_pad_or_period_privacy",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 0,
+    "latest_missing_count": 1,
+    "latest_missing_terms": [
+      "using"
+    ],
+    "recommendations": [
+      "Resolve missing icons/aliases: using."
+    ]
+  },
+  {
+    "product_id": "waiting_transitions",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 0,
+    "latest_missing_count": 6,
+    "latest_missing_terms": [
+      "line up",
+      "listen",
+      "move",
+      "timer",
+      "transition",
+      "transitions"
+    ],
+    "recommendations": [
+      "Resolve missing icons/aliases: line up, listen, move, timer, transition…."
+    ]
+  },
+  {
+    "product_id": "wearing_bra_or_singlet",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 0,
+    "latest_missing_count": 3,
+    "latest_missing_terms": [
+      "bra",
+      "singlet",
+      "wearing"
+    ],
+    "recommendations": [
+      "Resolve missing icons/aliases: bra, singlet, wearing."
+    ]
+  },
+  {
+    "product_id": "work_ready_part_time_job_basics",
+    "cover_preview_ok": true,
+    "components_ok": {
+      "02_social_story": true,
+      "03_mini_book": true,
+      "04_lanyards": true,
+      "05_cue_cards": true,
+      "06_routine_strip": true,
+      "07_yes_no_cards": true,
+      "08_task_cards": true
+    },
+    "extras_ok": {
+      "09_extras/01_sequencing": true,
+      "09_extras/02_matching": true,
+      "09_extras/03_scenario_sort": true,
+      "09_extras/04_choice_board": true,
+      "09_extras/05_quick_checks": true,
+      "09_extras/06_family_pack": true,
+      "09_extras/07_data_iep": true
+    },
+    "pass_logs": 9,
+    "latest_missing_count": 0,
+    "latest_missing_terms": [],
+    "recommendations": []
+  }
+]

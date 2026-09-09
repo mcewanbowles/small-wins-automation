@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "book_title": "Pigeon Has To Go To School",
+  "pack_code": "AUTO-ADPT",
+  "review_sentence": "Pigeon has a good day.",
+  "teacher_review_required": true,
+  "pages": [
+    {
+      "page_num": 3,
+      "image_word": "school",
+      "sentence": "Pigeon and the school.",
+      "scene_note": "Scene featuring school"
+    },
+    {
+      "page_num": 4,
+      "image_word": "nervous",
+      "sentence": "Pigeon and the nervous.",
+      "scene_note": "Scene featuring nervous"
+    },
+    {
+      "page_num": 5,
+      "image_word": "learn",
+      "sentence": "Pigeon and the learn.",
+      "scene_note": "Scene featuring learn"
+    },
+    {
+      "page_num": 6,
+      "image_word": "teacher",
+      "sentence": "Pigeon and the teacher.",
+      "scene_note": "Scene featuring teacher"
+    },
+    {
+      "page_num": 7,
+      "image_word": "bus",
+      "sentence": "Pigeon and the bus.",
+      "scene_note": "Scene featuring bus"
+    },
+    {
+      "page_num": 8,
+      "image_word": "friend",
+      "sentence": "Pigeon and the friend.",
+      "scene_note": "Scene featuring friend"
+    }
+  ]
+}

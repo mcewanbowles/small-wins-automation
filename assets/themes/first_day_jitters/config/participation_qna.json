@@ -1,0 +1,102 @@
+{
+  "schema": "pp_qna.v1",
+  "book_slug": "first_day_jitters",
+  "book_title": "First Day Jitters",
+  "pages": [
+    {
+      "page_num": 1,
+      "question": "What do you see?",
+      "choices": [
+        "School",
+        "something else",
+        "nothing"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        true,
+        true
+      ],
+      "context_mirror": {
+        "sentence": "Sarah Jane Hartwell sees school.",
+        "scene_note": "Scene with school."
+      }
+    },
+    {
+      "page_num": 2,
+      "question": "What do you see?",
+      "choices": [
+        "Nervous",
+        "something else",
+        "nothing"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        true,
+        true
+      ],
+      "context_mirror": {
+        "sentence": "Sarah Jane Hartwell sees nervous.",
+        "scene_note": "Scene with nervous."
+      }
+    },
+    {
+      "page_num": 3,
+      "question": "What do you see?",
+      "choices": [
+        "New",
+        "something else",
+        "nothing"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        true,
+        true
+      ],
+      "context_mirror": {
+        "sentence": "Sarah Jane Hartwell sees new.",
+        "scene_note": "Scene with new."
+      }
+    },
+    {
+      "page_num": 4,
+      "question": "What do you see?",
+      "choices": [
+        "Teacher",
+        "something else",
+        "nothing"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        true,
+        true
+      ],
+      "context_mirror": {
+        "sentence": "Sarah Jane Hartwell sees teacher.",
+        "scene_note": "Scene with teacher."
+      }
+    },
+    {
+      "page_num": 5,
+      "question": "Why might Sarah Jane Hartwell feel better by the end?",
+      "choices": [
+        "made a friend",
+        "went home early",
+        "didn't do anything"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        true,
+        true,
+        true
+      ],
+      "context_mirror": {
+        "sentence": null,
+        "scene_note": "Inference question about how the story resolves."
+      }
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Sight Recognition",
+    "Vocabulary"
+  ],
+  "teacher_review_required": true,
+  "words": [
+    {
+      "word": "unhei",
+      "image_key": "unhei",
+      "label": "Unhei"
+    },
+    {
+      "word": "name",
+      "image_key": "name",
+      "label": "Name"
+    },
+    {
+      "word": "school",
+      "image_key": "school",
+      "label": "School"
+    },
+    {
+      "word": "friend",
+      "image_key": "friend",
+      "label": "Friend"
+    },
+    {
+      "word": "jar",
+      "image_key": "jar",
+      "label": "Jar"
+    },
+    {
+      "word": "korea",
+      "image_key": "korea",
+      "label": "Korea"
+    },
+    {
+      "word": "new",
+      "image_key": "new",
+      "label": "New"
+    },
+    {
+      "word": "shy",
+      "image_key": "shy",
+      "label": "Shy"
+    }
+  ]
+}

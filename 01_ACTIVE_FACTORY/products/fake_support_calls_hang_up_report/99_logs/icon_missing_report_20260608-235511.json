@@ -1,0 +1,26 @@
+{
+  "support call": [],
+  "gift card": [],
+  "payment": [],
+  "remote access": [],
+  "code": [],
+  "OTP": [],
+  "hang up": [
+    "body_changes_normal"
+  ],
+  "do not pay": [
+    "dont_know",
+    "dont_like",
+    "do not reply",
+    "dont_go_with_strangers",
+    "down"
+  ],
+  "do not share info": [
+    "dont_know",
+    "dont_like",
+    "do not reply",
+    "dont_go_with_strangers",
+    "down"
+  ],
+  "trusted adult": []
+}

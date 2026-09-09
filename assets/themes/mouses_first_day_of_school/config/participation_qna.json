@@ -1,0 +1,83 @@
+{
+  "schema": "pp_qna.v1",
+  "book_slug": "mouses_first_day_of_school",
+  "book_title": "Mouse's First Day of School",
+  "pages": [
+    {
+      "page_num": 1,
+      "question": "Where does the character go?",
+      "choices": [
+        "school",
+        "mouse",
+        "door"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        false,
+        false
+      ],
+      "context_mirror": {
+        "sentence": "Mouse goes to school for the first time.",
+        "scene_note": "Mouse goes to school for the first time."
+      }
+    },
+    {
+      "page_num": 2,
+      "question": "What do you see?",
+      "choices": [
+        "book",
+        "mouse",
+        "school"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        false,
+        false
+      ],
+      "context_mirror": {
+        "sentence": "Mouse discovers books in the classroom.",
+        "scene_note": "Mouse discovers books in the classroom."
+      }
+    },
+    {
+      "page_num": 3,
+      "question": "What do you see?",
+      "choices": [
+        "crayon",
+        "mouse",
+        "school"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        false,
+        false
+      ],
+      "context_mirror": {
+        "sentence": "Mouse tries using crayons to draw.",
+        "scene_note": "Mouse tries using crayons to draw."
+      }
+    },
+    {
+      "page_num": 4,
+      "question": "Who does the character meet?",
+      "choices": [
+        "friend",
+        "mouse",
+        "school"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        false,
+        false
+      ],
+      "context_mirror": {
+        "sentence": "Mouse makes a new friend at school.",
+        "scene_note": "Mouse makes a new friend at school."
+      }
+    }
+  ]
+}

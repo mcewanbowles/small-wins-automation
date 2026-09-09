@@ -1,0 +1,7 @@
+Missing icons report:
+
+- gift
+- meet up
+- evidence
+  suggested alternatives: evidence, video_evidence
+- meet

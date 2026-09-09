@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "book_title": "Pete the Cat: Rocking in My School Shoes",
+  "pack_code": "AUTO-ADPT",
+  "review_sentence": "Pete The Cat has a good day.",
+  "teacher_review_required": true,
+  "pages": [
+    {
+      "page_num": 3,
+      "image_word": "school",
+      "sentence": "Pete The Cat and the school.",
+      "scene_note": "Scene featuring school"
+    },
+    {
+      "page_num": 4,
+      "image_word": "shoes",
+      "sentence": "Pete The Cat and the shoes.",
+      "scene_note": "Scene featuring shoes"
+    },
+    {
+      "page_num": 5,
+      "image_word": "rock",
+      "sentence": "Pete The Cat and the rock.",
+      "scene_note": "Scene featuring rock"
+    },
+    {
+      "page_num": 6,
+      "image_word": "sing",
+      "sentence": "Pete The Cat and the sing.",
+      "scene_note": "Scene featuring sing"
+    },
+    {
+      "page_num": 7,
+      "image_word": "lunch",
+      "sentence": "Pete The Cat and the lunch.",
+      "scene_note": "Scene featuring lunch"
+    },
+    {
+      "page_num": 8,
+      "image_word": "bus",
+      "sentence": "Pete The Cat and the bus.",
+      "scene_note": "Scene featuring bus"
+    }
+  ]
+}

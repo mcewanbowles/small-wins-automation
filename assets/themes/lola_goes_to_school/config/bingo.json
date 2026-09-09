@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "teacher_review_required": true,
+  "items": [
+    {
+      "image_key": "lola",
+      "label": "Lola"
+    },
+    {
+      "image_key": "school",
+      "label": "School"
+    },
+    {
+      "image_key": "backpack",
+      "label": "Backpack"
+    },
+    {
+      "image_key": "book",
+      "label": "Book"
+    },
+    {
+      "image_key": "teacher",
+      "label": "Teacher"
+    },
+    {
+      "image_key": "friend",
+      "label": "Friend"
+    },
+    {
+      "image_key": "play",
+      "label": "Play"
+    },
+    {
+      "image_key": "learn",
+      "label": "Learn"
+    }
+  ]
+}

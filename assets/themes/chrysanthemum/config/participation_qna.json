@@ -1,0 +1,102 @@
+{
+  "schema": "pp_qna.v1",
+  "book_slug": "chrysanthemum",
+  "book_title": "Chrysanthemum",
+  "pages": [
+    {
+      "page_num": 1,
+      "question": "What do you see?",
+      "choices": [
+        "Flower",
+        "something else",
+        "nothing"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        true,
+        true
+      ],
+      "context_mirror": {
+        "sentence": "Chrysanthemum sees flower.",
+        "scene_note": "Scene with flower."
+      }
+    },
+    {
+      "page_num": 2,
+      "question": "What do you see?",
+      "choices": [
+        "Name",
+        "something else",
+        "nothing"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        true,
+        true
+      ],
+      "context_mirror": {
+        "sentence": "Chrysanthemum sees name.",
+        "scene_note": "Scene with name."
+      }
+    },
+    {
+      "page_num": 3,
+      "question": "What do you see?",
+      "choices": [
+        "School",
+        "something else",
+        "nothing"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        true,
+        true
+      ],
+      "context_mirror": {
+        "sentence": "Chrysanthemum sees school.",
+        "scene_note": "Scene with school."
+      }
+    },
+    {
+      "page_num": 4,
+      "question": "What do you see?",
+      "choices": [
+        "Tease",
+        "something else",
+        "nothing"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        true,
+        true
+      ],
+      "context_mirror": {
+        "sentence": "Chrysanthemum sees tease.",
+        "scene_note": "Scene with tease."
+      }
+    },
+    {
+      "page_num": 5,
+      "question": "Why might Chrysanthemum feel better by the end?",
+      "choices": [
+        "made a friend",
+        "went home early",
+        "didn't do anything"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        true,
+        true,
+        true
+      ],
+      "context_mirror": {
+        "sentence": null,
+        "scene_note": "Inference question about how the story resolves."
+      }
+    }
+  ]
+}

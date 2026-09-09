@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Language Structures",
+    "Vocabulary"
+  ],
+  "teacher_review_required": true,
+  "theme_items": [
+    {
+      "image_key": "interrupt",
+      "label": "Interrupt"
+    },
+    {
+      "image_key": "wait",
+      "label": "Wait"
+    },
+    {
+      "image_key": "talking",
+      "label": "Talking"
+    },
+    {
+      "image_key": "listening",
+      "label": "Listening"
+    },
+    {
+      "image_key": "erupt",
+      "label": "Erupt"
+    },
+    {
+      "image_key": "excited",
+      "label": "Excited"
+    }
+  ],
+  "patterns": [
+    {
+      "display": "I see ___",
+      "items": [
+        "interrupt",
+        "wait",
+        "talking",
+        "listening",
+        "erupt",
+        "excited"
+      ]
+    },
+    {
+      "display": "I want ___",
+      "items": [
+        "interrupt",
+        "wait",
+        "talking",
+        "listening"
+      ]
+    },
+    {
+      "display": "I like ___",
+      "items": [
+        "interrupt",
+        "wait",
+        "talking",
+        "listening",
+        "erupt"
+      ]
+    },
+    {
+      "display": "I feel ___",
+      "items": [
+        "excited"
+      ]
+    },
+    {
+      "display": "I am ___",
+      "items": [
+        "excited"
+      ]
+    },
+    {
+      "display": "I don't like ___",
+      "items": [
+        "interrupt",
+        "wait",
+        "talking"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "schema": "pp_qna.v1",
+  "book_slug": "the_crayon_box_that_talked",
+  "book_title": "The Crayon Box That Talked",
+  "pages": [
+    {
+      "page_num": 1,
+      "question": "What do you see?",
+      "choices": [
+        "crayon",
+        "box",
+        "red"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        false,
+        false
+      ],
+      "context_mirror": {
+        "sentence": "The crayons in the box do not get along.",
+        "scene_note": "The crayons in the box do not get along."
+      }
+    },
+    {
+      "page_num": 2,
+      "question": "What do you see?",
+      "choices": [
+        "different",
+        "crayon",
+        "box"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        false,
+        false
+      ],
+      "context_mirror": {
+        "sentence": "Each crayon is different and special.",
+        "scene_note": "Each crayon is different and special."
+      }
+    },
+    {
+      "page_num": 3,
+      "question": "What do you see?",
+      "choices": [
+        "together",
+        "crayon",
+        "box"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        false,
+        false
+      ],
+      "context_mirror": {
+        "sentence": "The crayons learn to work together.",
+        "scene_note": "The crayons learn to work together."
+      }
+    },
+    {
+      "page_num": 4,
+      "question": "What do you see?",
+      "choices": [
+        "picture",
+        "crayon",
+        "box"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        false,
+        false
+      ],
+      "context_mirror": {
+        "sentence": "Together the crayons make a beautiful picture.",
+        "scene_note": "Together the crayons make a beautiful picture."
+      }
+    }
+  ]
+}

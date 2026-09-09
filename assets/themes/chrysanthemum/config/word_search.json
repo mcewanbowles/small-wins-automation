@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Sight Recognition",
+    "Vocabulary"
+  ],
+  "teacher_review_required": true,
+  "words": [
+    {
+      "word": "flower",
+      "image_key": "flower",
+      "label": "Flower"
+    },
+    {
+      "word": "name",
+      "image_key": "name",
+      "label": "Name"
+    },
+    {
+      "word": "school",
+      "image_key": "school",
+      "label": "School"
+    },
+    {
+      "word": "tease",
+      "image_key": "tease",
+      "label": "Tease"
+    },
+    {
+      "word": "sad",
+      "image_key": "sad",
+      "label": "Sad"
+    },
+    {
+      "word": "happy",
+      "image_key": "happy",
+      "label": "Happy"
+    }
+  ]
+}

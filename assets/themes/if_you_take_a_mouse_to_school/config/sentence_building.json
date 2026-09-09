@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Language Structures",
+    "Vocabulary"
+  ],
+  "teacher_review_required": true,
+  "theme_items": [
+    {
+      "image_key": "mouse",
+      "label": "mouse"
+    },
+    {
+      "image_key": "school",
+      "label": "school"
+    },
+    {
+      "image_key": "backpack",
+      "label": "backpack"
+    },
+    {
+      "image_key": "lunchbox",
+      "label": "lunchbox"
+    },
+    {
+      "image_key": "pencil",
+      "label": "pencil"
+    },
+    {
+      "image_key": "book",
+      "label": "book"
+    },
+    {
+      "image_key": "cookie",
+      "label": "cookie"
+    },
+    {
+      "image_key": "milk",
+      "label": "milk"
+    }
+  ],
+  "patterns": [
+    {
+      "display": "I see ___",
+      "items": [
+        "mouse",
+        "school",
+        "backpack",
+        "lunchbox",
+        "pencil",
+        "book"
+      ]
+    },
+    {
+      "display": "I want ___",
+      "items": [
+        "school",
+        "backpack",
+        "lunchbox"
+      ]
+    },
+    {
+      "display": "I like ___",
+      "items": [
+        "mouse",
+        "school",
+        "backpack",
+        "lunchbox"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Language Structures",
+    "Vocabulary"
+  ],
+  "teacher_review_required": true,
+  "theme_items": [
+    {
+      "image_key": "flower",
+      "label": "Flower"
+    },
+    {
+      "image_key": "name",
+      "label": "Name"
+    },
+    {
+      "image_key": "school",
+      "label": "School"
+    },
+    {
+      "image_key": "tease",
+      "label": "Tease"
+    },
+    {
+      "image_key": "sad",
+      "label": "Sad"
+    },
+    {
+      "image_key": "happy",
+      "label": "Happy"
+    }
+  ],
+  "patterns": [
+    {
+      "display": "I see ___",
+      "items": [
+        "flower",
+        "name",
+        "school",
+        "tease",
+        "sad",
+        "happy"
+      ]
+    },
+    {
+      "display": "I want ___",
+      "items": [
+        "flower",
+        "name",
+        "school",
+        "tease"
+      ]
+    },
+    {
+      "display": "I like ___",
+      "items": [
+        "flower",
+        "name",
+        "school",
+        "tease",
+        "sad"
+      ]
+    },
+    {
+      "display": "I feel ___",
+      "items": [
+        "sad",
+        "happy"
+      ]
+    },
+    {
+      "display": "I am ___",
+      "items": [
+        "sad",
+        "happy"
+      ]
+    },
+    {
+      "display": "I don't like ___",
+      "items": [
+        "flower",
+        "name",
+        "school"
+      ]
+    }
+  ]
+}

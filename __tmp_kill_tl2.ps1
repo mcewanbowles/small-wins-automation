@@ -1,0 +1,2 @@
+Get-WmiObject Win32_Process -Filter "Name='python3.13.exe' OR Name='python3.13'" | Where-Object { $_.CommandLine -Like '*WINDSURF_TOOL_LAUNCHER.py*' } | ForEach-Object { try { Stop-Process -Id $_.ProcessId -Force } catch {} }
+Get-Process cmd -ErrorAction SilentlyContinue | Where-Object { $_.MainWindowTitle -Like '*WINDSURF_TOOL_LAUNCHER*' } | ForEach-Object { try { Stop-Process -Id $_.Id -Force } catch {} }

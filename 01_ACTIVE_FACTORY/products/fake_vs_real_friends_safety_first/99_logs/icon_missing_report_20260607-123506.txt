@@ -1,0 +1,8 @@
+Missing icons report:
+
+- real friend
+- fake friend
+  suggested alternatives: deepfake (2), deepfake, 4 deepfake (2)
+- pressure
+- friend
+- real

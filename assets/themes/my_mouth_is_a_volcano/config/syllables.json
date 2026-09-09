@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Phonological Awareness"
+  ],
+  "teacher_review_required": true,
+  "items": [
+    {
+      "image_key": "interrupt",
+      "label": "Interrupt",
+      "count": 3,
+      "segmentation": "i · nte · rru · pt"
+    },
+    {
+      "image_key": "wait",
+      "label": "Wait",
+      "count": 1,
+      "segmentation": "wait"
+    },
+    {
+      "image_key": "talking",
+      "label": "Talking",
+      "count": 2,
+      "segmentation": "ta · lki · ng"
+    },
+    {
+      "image_key": "listening",
+      "label": "Listening",
+      "count": 3,
+      "segmentation": "li · ste · ni · ng"
+    },
+    {
+      "image_key": "erupt",
+      "label": "Erupt",
+      "count": 2,
+      "segmentation": "e · ru · pt"
+    },
+    {
+      "image_key": "excited",
+      "label": "Excited",
+      "count": 3,
+      "segmentation": "e · xci · te · d"
+    }
+  ]
+}

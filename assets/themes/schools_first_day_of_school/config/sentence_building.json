@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Language Structures",
+    "Vocabulary"
+  ],
+  "teacher_review_required": true,
+  "theme_items": [
+    {
+      "image_key": "school",
+      "label": "school"
+    },
+    {
+      "image_key": "door",
+      "label": "door"
+    },
+    {
+      "image_key": "bell",
+      "label": "bell"
+    },
+    {
+      "image_key": "teacher",
+      "label": "teacher"
+    },
+    {
+      "image_key": "student",
+      "label": "student"
+    },
+    {
+      "image_key": "desk",
+      "label": "desk"
+    },
+    {
+      "image_key": "book",
+      "label": "book"
+    },
+    {
+      "image_key": "pencil",
+      "label": "pencil"
+    }
+  ],
+  "patterns": [
+    {
+      "display": "I see ___",
+      "items": [
+        "school",
+        "door",
+        "bell",
+        "teacher",
+        "student",
+        "desk"
+      ]
+    },
+    {
+      "display": "I want ___",
+      "items": [
+        "door",
+        "bell",
+        "teacher"
+      ]
+    },
+    {
+      "display": "I like ___",
+      "items": [
+        "school",
+        "door",
+        "bell",
+        "teacher"
+      ]
+    }
+  ]
+}

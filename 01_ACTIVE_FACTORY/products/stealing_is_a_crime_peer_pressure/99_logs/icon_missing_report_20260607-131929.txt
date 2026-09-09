@@ -1,0 +1,8 @@
+Missing icons report:
+
+- camera
+- crime
+- friend
+- dare
+- refuse
+- consequence

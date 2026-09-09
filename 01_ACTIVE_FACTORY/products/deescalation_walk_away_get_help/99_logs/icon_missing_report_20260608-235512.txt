@@ -1,0 +1,10 @@
+Missing icons report:
+
+- count to 10
+- walk away
+  suggested alternatives: crosswalk, walkaway, walk
+- quiet space
+  suggested alternatives: quiet_place, quiet (2), quiet, quietspace, quiet_blue
+- trusted adult
+- pause
+- reset

@@ -1,0 +1,25 @@
+{
+  "phone call": [
+    "phone"
+  ],
+  "unknown caller": [],
+  "verify": [],
+  "code word": [],
+  "parent": [],
+  "trusted adult": [],
+  "hang up": [
+    "body_changes_normal"
+  ],
+  "block number": [
+    "block"
+  ],
+  "do not share info": [
+    "dont_know",
+    "dont_like",
+    "do not reply",
+    "dont_go_with_strangers",
+    "down"
+  ],
+  "voice": [],
+  "caller id": []
+}

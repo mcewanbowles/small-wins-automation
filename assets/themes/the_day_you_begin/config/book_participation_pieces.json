@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "product_name": "Interactive Book Participation Pieces",
+  "source_book_required": true,
+  "edition_neutral": true,
+  "teacher_review_required": true,
+  "vocabulary_source": "reviewed book_vocab and approved local icons",
+  "vocabulary": [
+    {
+      "image_key": "school",
+      "label": "School",
+      "review_status": "approved"
+    },
+    {
+      "image_key": "friend",
+      "label": "Friend",
+      "review_status": "approved"
+    },
+    {
+      "image_key": "different",
+      "label": "Different",
+      "review_status": "approved"
+    },
+    {
+      "image_key": "brave",
+      "label": "Brave",
+      "review_status": "approved"
+    },
+    {
+      "image_key": "story",
+      "label": "Story",
+      "review_status": "approved"
+    },
+    {
+      "image_key": "share",
+      "label": "Share",
+      "review_status": "approved"
+    }
+  ],
+  "question_strips": [
+    {
+      "prompt": "Who is on this page?",
+      "response": "Choose or place a character piece."
+    },
+    {
+      "prompt": "What is happening?",
+      "response": "Choose or place an action or object piece."
+    },
+    {
+      "prompt": "How does the character feel?",
+      "response": "Choose or place a feeling piece."
+    },
+    {
+      "prompt": "What might happen next?",
+      "response": "Predict using speech, sign, AAC or a piece."
+    }
+  ],
+  "participation_words": [
+    "see",
+    "more",
+    "finished",
+    "help",
+    "yes",
+    "no",
+    "turn_the_page"
+  ],
+  "early_access": {
+    "enabled": true,
+    "hero_image_key": "angelina_(girl_from_cover)",
+    "hero_label": "Angelina (Girl From Cover)",
+    "hero_piece_copies": 6,
+    "turn_page_piece_copies": 2,
+    "cue": "See Angelina (Girl From Cover). Match Angelina (Girl From Cover). Turn the page."
+  },
+  "reading_rope": [
+    "Vocabulary",
+    "Language Structures",
+    "Verbal Reasoning",
+    "Literacy Knowledge"
+  ]
+}

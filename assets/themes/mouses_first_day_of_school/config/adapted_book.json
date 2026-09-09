@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "book_title": "Mouse's First Day of School",
+  "pack_code": "AUTO-ADPT",
+  "review_sentence": "Mouse makes a new friend at school.",
+  "teacher_review_required": true,
+  "pages": [
+    {
+      "page_num": 3,
+      "image_word": "school",
+      "sentence": "Mouse goes to school for the first time.",
+      "scene_note": "Mouse goes to school for the first time."
+    },
+    {
+      "page_num": 4,
+      "image_word": "book",
+      "sentence": "Mouse discovers books in the classroom.",
+      "scene_note": "Mouse discovers books in the classroom."
+    },
+    {
+      "page_num": 5,
+      "image_word": "crayon",
+      "sentence": "Mouse tries using crayons to draw.",
+      "scene_note": "Mouse tries using crayons to draw."
+    },
+    {
+      "page_num": 6,
+      "image_word": "friend",
+      "sentence": "Mouse makes a new friend at school.",
+      "scene_note": "Mouse makes a new friend at school."
+    }
+  ]
+}

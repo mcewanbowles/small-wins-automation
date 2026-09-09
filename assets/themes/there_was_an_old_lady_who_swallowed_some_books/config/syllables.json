@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Phonological Awareness"
+  ],
+  "teacher_review_required": true,
+  "items": [
+    {
+      "image_key": "old_lady",
+      "label": "Old Lady",
+      "count": 3,
+      "segmentation": "old lady"
+    },
+    {
+      "image_key": "book",
+      "label": "Book",
+      "count": 1,
+      "segmentation": "book"
+    },
+    {
+      "image_key": "pencil",
+      "label": "Pencil",
+      "count": 2,
+      "segmentation": "pen · cil"
+    },
+    {
+      "image_key": "backpack",
+      "label": "Backpack",
+      "count": 2,
+      "segmentation": "back · pack"
+    },
+    {
+      "image_key": "school",
+      "label": "School",
+      "count": 1,
+      "segmentation": "school"
+    },
+    {
+      "image_key": "ruler",
+      "label": "Ruler",
+      "count": 2,
+      "segmentation": "ru · ler"
+    },
+    {
+      "image_key": "chalk",
+      "label": "Chalk",
+      "count": 1,
+      "segmentation": "chalk"
+    },
+    {
+      "image_key": "eraser",
+      "label": "Eraser",
+      "count": 3,
+      "segmentation": "e · ras · er"
+    },
+    {
+      "image_key": "folder",
+      "label": "Folder",
+      "count": 2,
+      "segmentation": "fol · der"
+    },
+    {
+      "image_key": "pen",
+      "label": "Pen",
+      "count": 1,
+      "segmentation": "pen"
+    },
+    {
+      "image_key": "lunch",
+      "label": "Lunch",
+      "count": 1,
+      "segmentation": "lunch"
+    },
+    {
+      "image_key": "read",
+      "label": "Read",
+      "count": 1,
+      "segmentation": "read"
+    }
+  ]
+}

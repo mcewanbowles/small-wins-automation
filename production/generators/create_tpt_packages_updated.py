@@ -111,7 +111,7 @@ def generate_quick_start(level_num, level_name):
         
         # Footer
         can.setFont("Helvetica", 10)
-        can.drawString(72, 50, "© 2025 Small Wins Studio. All rights reserved.")
+        can.drawString(72, 50, "© 2026 Small Wins Studio. All rights reserved.")
         
         can.save()
         

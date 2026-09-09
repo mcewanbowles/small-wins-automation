@@ -1,0 +1,270 @@
+{
+  "schema_version": 1,
+  "slug": "llama_llama_red_pajama",
+  "icons_kit": [
+    "bed.png",
+    "comfort.png",
+    "cry.png",
+    "dark.png",
+    "hug.png",
+    "lamp.png",
+    "llama.png",
+    "mama.png",
+    "night.png",
+    "pajamas.png",
+    "scared.png",
+    "stairs.png",
+    "wait.png"
+  ],
+  "hero_icon": "llama.png",
+  "qa": {
+    "status": "in_progress",
+    "saved_at": "2026-09-07T07:00:32",
+    "items": [
+      {
+        "filename": "bed.png",
+        "decision": "accepted",
+        "replacement": null,
+        "confidence": 0.9
+      },
+      {
+        "filename": "comfort.png",
+        "decision": "accepted",
+        "replacement": null,
+        "confidence": 0.9
+      },
+      {
+        "filename": "cry.png",
+        "decision": "accepted",
+        "replacement": null,
+        "confidence": 0.9
+      },
+      {
+        "filename": "dark.png",
+        "decision": "accepted",
+        "replacement": null,
+        "confidence": 0.9
+      },
+      {
+        "filename": "hug.png",
+        "decision": "accepted",
+        "replacement": null,
+        "confidence": 0.9
+      },
+      {
+        "filename": "lamp.png",
+        "decision": "accepted",
+        "replacement": null,
+        "confidence": 0.9
+      },
+      {
+        "filename": "llama.png",
+        "decision": "accepted",
+        "replacement": null,
+        "confidence": 0.9
+      },
+      {
+        "filename": "mama.png",
+        "decision": "accepted",
+        "replacement": null,
+        "confidence": 0.9
+      },
+      {
+        "filename": "night.png",
+        "decision": "accepted",
+        "replacement": null,
+        "confidence": 0.9
+      },
+      {
+        "filename": "pajamas.png",
+        "decision": "accepted",
+        "replacement": null,
+        "confidence": 0.9
+      },
+      {
+        "filename": "scared.png",
+        "decision": "accepted",
+        "replacement": null,
+        "confidence": 0.9
+      },
+      {
+        "filename": "stairs.png",
+        "decision": "accepted",
+        "replacement": null,
+        "confidence": 0.9
+      },
+      {
+        "filename": "wait.png",
+        "decision": "accepted",
+        "replacement": null,
+        "confidence": 0.9
+      }
+    ]
+  },
+  "build": {
+    "last_built_at": "07/09/2026 05:57",
+    "products_built": [
+      {
+        "name": "Vocabulary Snap",
+        "built_at": "07/09/2026 04:59"
+      },
+      {
+        "name": "Syllable Awareness",
+        "built_at": "07/09/2026 04:59"
+      },
+      {
+        "name": "Print Detective",
+        "built_at": "07/09/2026 04:59"
+      },
+      {
+        "name": "CVC Decode & Build",
+        "built_at": "07/09/2026 05:00"
+      },
+      {
+        "name": "Story Grammar & Retell",
+        "built_at": "07/09/2026 05:00"
+      },
+      {
+        "name": "Book Participation Pieces",
+        "built_at": "07/09/2026 05:52"
+      },
+      {
+        "name": "Matching",
+        "built_at": "07/09/2026 05:53"
+      },
+      {
+        "name": "Word Search",
+        "built_at": "07/09/2026 05:54"
+      },
+      {
+        "name": "AAC Sentence Building",
+        "built_at": "07/09/2026 05:54"
+      },
+      {
+        "name": "AAC Board",
+        "built_at": "07/09/2026 05:54"
+      },
+      {
+        "name": "Sequencing",
+        "built_at": "07/09/2026 05:54"
+      },
+      {
+        "name": "Sorting Cards",
+        "built_at": "07/09/2026 05:55"
+      },
+      {
+        "name": "Bingo",
+        "built_at": "07/09/2026 05:56"
+      },
+      {
+        "name": "Yes/No Questions",
+        "built_at": "07/09/2026 05:56"
+      },
+      {
+        "name": "Inferencing Cards",
+        "built_at": "07/09/2026 05:57"
+      }
+    ],
+    "pack_code": "LLR01"
+  },
+  "icon_decisions": {
+    "dark": {
+      "status": "approved",
+      "filename": "dark.png",
+      "label": "dark",
+      "source_path": "D:\\Seagate\\small-wins-automation\\assets\\symbols\\png\\Alpha\\d\\dark_2.png",
+      "updated_at": "2026-09-06T18:42:29"
+    },
+    "Llama Llama": {
+      "status": "approved",
+      "filename": "llama.png",
+      "label": "llama",
+      "source_path": "D:\\Seagate\\small-wins-automation\\assets\\symbols\\png\\Alpha\\l\\llama_llama.png",
+      "updated_at": "2026-09-07T06:36:31"
+    },
+    "pajamas": {
+      "status": "approved",
+      "filename": "pajamas.png",
+      "label": "pajamas",
+      "source_path": "D:\\Seagate\\small-wins-automation\\assets\\symbols\\png\\Alpha\\p\\pyjamas.png",
+      "updated_at": "2026-09-06T18:45:36"
+    },
+    "cry": {
+      "status": "approved",
+      "filename": "cry.png",
+      "label": "cry",
+      "source_path": "D:\\Seagate\\small-wins-automation\\assets\\symbols\\png\\Alpha\\c\\cry_2.png",
+      "updated_at": "2026-09-06T18:46:11"
+    },
+    "scared": {
+      "status": "approved",
+      "filename": "scared.png",
+      "label": "scared",
+      "source_path": "D:\\Seagate\\small-wins-automation\\assets\\themes\\llama_llama_red_pajama\\activity_images\\scared.png",
+      "updated_at": "2026-09-06T18:47:27"
+    },
+    "hug": {
+      "status": "approved",
+      "filename": "hug.png",
+      "label": "hug",
+      "source_path": "D:\\Seagate\\small-wins-automation\\assets\\symbols\\png\\Alpha\\h\\hug_2.png",
+      "updated_at": "2026-09-06T18:48:08"
+    },
+    "lamp": {
+      "status": "approved",
+      "filename": "lamp.png",
+      "label": "lamp",
+      "source_path": "D:\\Seagate\\small-wins-automation\\assets\\symbols\\png\\Alpha\\l\\lamp_2.png",
+      "updated_at": "2026-09-06T18:50:33"
+    },
+    "wait": {
+      "status": "approved",
+      "filename": "wait.png",
+      "label": "wait",
+      "source_path": "D:\\Seagate\\small-wins-automation\\assets\\symbols\\png\\Categories\\Verbs\\General\\wait.png",
+      "updated_at": "2026-09-06T20:29:12"
+    },
+    "mama": {
+      "status": "approved",
+      "filename": "mama.png",
+      "label": "mama",
+      "source_path": "D:\\Seagate\\small-wins-automation\\assets\\themes\\llama_llama_red_pajama\\activity_images\\mama.png",
+      "updated_at": "2026-09-06T22:04:32"
+    },
+    "night": {
+      "status": "approved",
+      "filename": "night.png",
+      "label": "night",
+      "source_path": "D:\\Seagate\\small-wins-automation\\assets\\themes\\llama_llama_red_pajama\\activity_images\\night.png",
+      "updated_at": "2026-09-06T22:04:33"
+    },
+    "stairs": {
+      "status": "approved",
+      "filename": "stairs.png",
+      "label": "stairs",
+      "source_path": "D:\\Seagate\\small-wins-automation\\assets\\themes\\llama_llama_red_pajama\\activity_images\\stairs.png",
+      "updated_at": "2026-09-06T22:04:33"
+    },
+    "comfort": {
+      "status": "approved",
+      "filename": "comfort.png",
+      "label": "comfort",
+      "source_path": "D:\\Seagate\\small-wins-automation\\assets\\themes\\llama_llama_red_pajama\\activity_images\\comfort.png",
+      "updated_at": "2026-09-07T06:28:51"
+    },
+    "llama": {
+      "status": "approved",
+      "filename": "llama.png",
+      "label": "llama",
+      "source_path": "D:\\Seagate\\small-wins-automation\\assets\\symbols\\png\\Alpha\\l\\llama.png",
+      "updated_at": "2026-09-07T06:39:30"
+    },
+    "bed": {
+      "status": "approved",
+      "filename": "bed.png",
+      "label": "bed",
+      "source_path": "D:\\Seagate\\small-wins-automation\\assets\\themes\\llama_llama_red_pajama\\activity_images\\bed.png",
+      "updated_at": "2026-09-07T07:11:32"
+    }
+  }
+}

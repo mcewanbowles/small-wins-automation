@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 from typing import Any
 
 from anthropic import Anthropic
@@ -250,6 +251,46 @@ def audit_listing(payload: AuditListingRequest) -> AuditListingResponse:
     )
 
 
+def _suggest_price(payload: GenerateListingRequest) -> tuple[float, str]:
+    """Deterministic price suggestion for TPT SPED/literacy products.
+
+    Heuristic based on niche norms: single printable activities cluster at
+    $2.75-$6.50; bundles are priced ~25-30% below the sum of their parts.
+    """
+    text = " ".join((payload.product_description or "").lower().split())
+    niche = (payload.niche or "").lower()
+
+    is_bundle = any(marker in text for marker in ["bundle", "mega pack", "full set", "complete set"])
+    if is_bundle:
+        return 9.99, (
+            "Bundle detected. Price bundles at roughly 25-30% below the sum of the "
+            "individual products inside it (e.g. ~$53 of parts -> ~$39.99)."
+        )
+
+    price = 3.50
+    reasons = ["single-activity SPED/literacy listings typically sit at $2.75-$6.50"]
+
+    pages_match = re.search(r"(\d+)\s*(?:pages|page pack)", text)
+    pages = int(pages_match.group(1)) if pages_match else 0
+    if pages >= 15:
+        price += 1.00
+        reasons.append(f"{pages} pages justifies the upper band")
+    elif pages >= 8:
+        price += 0.50
+        reasons.append(f"{pages} pages supports a mid-band price")
+
+    if any(marker in text for marker in ["differentiated", "4 levels", "multiple levels"]):
+        price += 0.50
+        reasons.append("differentiated/levelled content commands a premium")
+
+    if any(marker in text + " " + niche for marker in ["aac", "autism", "special education", "sped"]):
+        price += 0.25
+        reasons.append("SPED/AAC niche tolerates slightly higher pricing")
+
+    price = max(2.75, min(6.50, round(price * 4) / 4))
+    return price, "; ".join(reasons) + ". Sanity-check against 3-4 comparable listings."
+
+
 def generate_listing(payload: GenerateListingRequest) -> GenerateListingResponse:
     platform_key = payload.platform.lower()
     rules = PLATFORM_RULES.get(platform_key)
@@ -292,6 +333,7 @@ def generate_listing(payload: GenerateListingRequest) -> GenerateListingResponse
         full_description = description_opener
     keyword_angles = _as_list(data.get("keyword_angles", []))[:5]
     gap_opportunities = _as_list(data.get("gap_opportunities", []))[:3]
+    suggested_price, price_reason = _suggest_price(payload)
 
     return GenerateListingResponse(
         title=title,
@@ -305,4 +347,6 @@ def generate_listing(payload: GenerateListingRequest) -> GenerateListingResponse
         full_description=full_description,
         keyword_angles=keyword_angles,
         gap_opportunities=gap_opportunities,
+        suggested_price=suggested_price,
+        price_reason=price_reason,
     )

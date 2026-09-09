@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Sight Recognition",
+    "Vocabulary"
+  ],
+  "teacher_review_required": true,
+  "words": [
+    {
+      "word": "oldlady",
+      "image_key": "old_lady",
+      "label": "Old Lady"
+    },
+    {
+      "word": "book",
+      "image_key": "book",
+      "label": "Book"
+    },
+    {
+      "word": "pencil",
+      "image_key": "pencil",
+      "label": "Pencil"
+    },
+    {
+      "word": "backpack",
+      "image_key": "backpack",
+      "label": "Backpack"
+    },
+    {
+      "word": "school",
+      "image_key": "school",
+      "label": "School"
+    },
+    {
+      "word": "ruler",
+      "image_key": "ruler",
+      "label": "Ruler"
+    },
+    {
+      "word": "chalk",
+      "image_key": "chalk",
+      "label": "Chalk"
+    },
+    {
+      "word": "eraser",
+      "image_key": "eraser",
+      "label": "Eraser"
+    }
+  ]
+}

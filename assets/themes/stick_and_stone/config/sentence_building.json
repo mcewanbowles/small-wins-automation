@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Language Structures",
+    "Vocabulary"
+  ],
+  "teacher_review_required": true,
+  "theme_items": [
+    {
+      "image_key": "stick",
+      "label": "stick"
+    },
+    {
+      "image_key": "stone",
+      "label": "stone"
+    },
+    {
+      "image_key": "friend",
+      "label": "friend"
+    },
+    {
+      "image_key": "play",
+      "label": "play"
+    },
+    {
+      "image_key": "pinecone",
+      "label": "pinecone"
+    },
+    {
+      "image_key": "alone",
+      "label": "alone"
+    },
+    {
+      "image_key": "together",
+      "label": "together"
+    },
+    {
+      "image_key": "help",
+      "label": "help"
+    }
+  ],
+  "patterns": [
+    {
+      "display": "I see ___",
+      "items": [
+        "stick",
+        "stone",
+        "friend",
+        "play",
+        "pinecone",
+        "alone"
+      ]
+    },
+    {
+      "display": "I want ___",
+      "items": [
+        "stone",
+        "friend",
+        "play"
+      ]
+    },
+    {
+      "display": "I like ___",
+      "items": [
+        "stick",
+        "stone",
+        "friend",
+        "play"
+      ]
+    }
+  ]
+}

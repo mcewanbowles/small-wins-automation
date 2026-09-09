@@ -1,0 +1,95 @@
+{
+  "per_book": {
+    "a_seed_is_sleepy": {
+      "scope_label": "Garden / Plants only",
+      "block_beverages": true,
+      "grid_cols": 6,
+      "results_limit": 36,
+      "cur_group": true,
+      "cur_rel_only": false,
+      "cur_recent_days": 0,
+      "cur_text_filter": "",
+      "cur_sort": "az"
+    },
+    "tiny_seed": {
+      "scope_label": "Garden / Plants only",
+      "grid_cols": 6,
+      "results_limit": 36,
+      "cur_group": true,
+      "cur_rel_only": false,
+      "cur_recent_days": 0,
+      "cur_sort": "az",
+      "cur_text_filter": ""
+    },
+    "from_seed_to_plant": {
+      "scope_label": "Garden / Plants only",
+      "grid_cols": 6,
+      "results_limit": 36
+    },
+    "curious_garden": {
+      "scope_label": "Garden / Plants only",
+      "grid_cols": 6,
+      "results_limit": 36,
+      "cur_group": true,
+      "cur_rel_only": false,
+      "cur_recent_days": 0,
+      "cur_sort": "az"
+    },
+    "a_bad_case_of_stripes": {
+      "scope_label": "Garden / Plants only",
+      "grid_cols": 6,
+      "results_limit": 36,
+      "cur_group": true,
+      "cur_rel_only": false,
+      "cur_recent_days": 0,
+      "cur_sort": "az"
+    },
+    "dont_let_the_pigeon_drive_the_bus": {
+      "scope_label": "Smart (default)",
+      "grid_cols": 6,
+      "results_limit": 36,
+      "cur_group": true,
+      "cur_rel_only": false,
+      "cur_recent_days": 0,
+      "cur_sort": "az"
+    },
+    "pigeon_finds_a_hot_dog": {
+      "scope_label": "Garden / Plants only",
+      "grid_cols": 6,
+      "results_limit": 36,
+      "cur_group": true,
+      "cur_rel_only": false,
+      "cur_recent_days": 0,
+      "cur_sort": "az"
+    },
+    "pete_cat": {
+      "scope_label": "Smart (default)",
+      "grid_cols": 6,
+      "results_limit": 36,
+      "cur_group": true,
+      "cur_rel_only": false,
+      "cur_recent_days": 0,
+      "cur_sort": "az"
+    }
+  },
+  "ui": {
+    "readable_width": true,
+    "large_text": false,
+    "high_contrast": false,
+    "show_tips": true,
+    "home_planning": false
+  },
+  "pipeline": {
+    "now": "Color Monster",
+    "next": ""
+  },
+  "last_tool": "settings",
+  "last_book": "llama_llama_back_to_school",
+  "recent_books": [
+    "llama_llama_back_to_school",
+    "llama_llama_red_pajama",
+    "pete_rocking_in_my_school_shoes",
+    "llama_back_to_school",
+    "the_name_jar"
+  ]
+}

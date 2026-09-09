@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Verbal Reasoning",
+    "Background Knowledge"
+  ],
+  "teacher_review_required": true,
+  "cards": [
+    {
+      "clue_image_key": "worried",
+      "question": "Why might Wemberly feel worried?",
+      "choices": [
+        "Something new or unfamiliar is happening",
+        "He wants to go home"
+      ],
+      "answer_hint": "New experiences can make us feel worried."
+    },
+    {
+      "clue_image_key": "school",
+      "question": "Why does the teacher help Wemberly?",
+      "choices": [
+        "She wants to make school feel safe and welcoming",
+        "She wants him to leave"
+      ],
+      "answer_hint": "Teachers help new students feel included."
+    },
+    {
+      "clue_image_key": "friend",
+      "question": "How might making a friend change Wemberly's day?",
+      "choices": [
+        "He feels happier and less alone",
+        "He feels more worried"
+      ],
+      "answer_hint": "Friends make new situations feel easier."
+    },
+    {
+      "clue_image_key": "doll",
+      "question": "What might Wemberly do with this?",
+      "choices": [
+        "Use it to learn and play",
+        "Ignore it"
+      ],
+      "answer_hint": "At school, we use things to learn and grow."
+    }
+  ]
+}

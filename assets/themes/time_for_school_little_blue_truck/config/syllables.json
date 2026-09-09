@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Phonological Awareness"
+  ],
+  "teacher_review_required": true,
+  "items": [
+    {
+      "image_key": "school",
+      "label": "School",
+      "count": 1,
+      "segmentation": "school"
+    },
+    {
+      "image_key": "bus",
+      "label": "Bus",
+      "count": 1,
+      "segmentation": "bus"
+    },
+    {
+      "image_key": "truck",
+      "label": "Truck",
+      "count": 1,
+      "segmentation": "truck"
+    },
+    {
+      "image_key": "backpack",
+      "label": "Backpack",
+      "count": 2,
+      "segmentation": "ba · ckpa · ck"
+    },
+    {
+      "image_key": "friends",
+      "label": "Friends",
+      "count": 1,
+      "segmentation": "friends"
+    },
+    {
+      "image_key": "wave",
+      "label": "Wave",
+      "count": 1,
+      "segmentation": "wave"
+    }
+  ]
+}

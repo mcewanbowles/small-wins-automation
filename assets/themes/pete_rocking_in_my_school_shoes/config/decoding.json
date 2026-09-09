@@ -1,0 +1,162 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "title": "CVC Decode and Build",
+  "scope_note": "A phonics extension using explicit CVC words; it does not reproduce text from the source book.",
+  "reading_rope": [
+    "Decoding"
+  ],
+  "teacher_review_required": true,
+  "sets": [
+    {
+      "label": "Short a — at family",
+      "pattern": "CVC",
+      "words": [
+        {
+          "word": "cat",
+          "graphemes": [
+            "c",
+            "a",
+            "t"
+          ]
+        },
+        {
+          "word": "mat",
+          "graphemes": [
+            "m",
+            "a",
+            "t"
+          ]
+        },
+        {
+          "word": "sat",
+          "graphemes": [
+            "s",
+            "a",
+            "t"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Short e",
+      "pattern": "CVC",
+      "words": [
+        {
+          "word": "bed",
+          "graphemes": [
+            "b",
+            "e",
+            "d"
+          ]
+        },
+        {
+          "word": "red",
+          "graphemes": [
+            "r",
+            "e",
+            "d"
+          ]
+        },
+        {
+          "word": "pen",
+          "graphemes": [
+            "p",
+            "e",
+            "n"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Short i — sit family",
+      "pattern": "CVC",
+      "words": [
+        {
+          "word": "sit",
+          "graphemes": [
+            "s",
+            "i",
+            "t"
+          ]
+        },
+        {
+          "word": "hit",
+          "graphemes": [
+            "h",
+            "i",
+            "t"
+          ]
+        },
+        {
+          "word": "fit",
+          "graphemes": [
+            "f",
+            "i",
+            "t"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Short u",
+      "pattern": "CVC",
+      "words": [
+        {
+          "word": "bus",
+          "graphemes": [
+            "b",
+            "u",
+            "s"
+          ]
+        },
+        {
+          "word": "cup",
+          "graphemes": [
+            "c",
+            "u",
+            "p"
+          ]
+        },
+        {
+          "word": "mug",
+          "graphemes": [
+            "m",
+            "u",
+            "g"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Short o",
+      "pattern": "CVC",
+      "words": [
+        {
+          "word": "dog",
+          "graphemes": [
+            "d",
+            "o",
+            "g"
+          ]
+        },
+        {
+          "word": "log",
+          "graphemes": [
+            "l",
+            "o",
+            "g"
+          ]
+        },
+        {
+          "word": "top",
+          "graphemes": [
+            "t",
+            "o",
+            "p"
+          ]
+        }
+      ]
+    }
+  ]
+}

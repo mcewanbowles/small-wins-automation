@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Language Structures",
+    "Vocabulary"
+  ],
+  "teacher_review_required": true,
+  "theme_items": [
+    {
+      "image_key": "crayon",
+      "label": "crayon"
+    },
+    {
+      "image_key": "box",
+      "label": "box"
+    },
+    {
+      "image_key": "red",
+      "label": "red"
+    },
+    {
+      "image_key": "blue",
+      "label": "blue"
+    },
+    {
+      "image_key": "yellow",
+      "label": "yellow"
+    },
+    {
+      "image_key": "green",
+      "label": "green"
+    },
+    {
+      "image_key": "color",
+      "label": "color"
+    },
+    {
+      "image_key": "draw",
+      "label": "draw"
+    }
+  ],
+  "patterns": [
+    {
+      "display": "I see ___",
+      "items": [
+        "crayon",
+        "box",
+        "red",
+        "blue",
+        "yellow",
+        "green"
+      ]
+    },
+    {
+      "display": "I want ___",
+      "items": [
+        "box",
+        "red",
+        "blue"
+      ]
+    },
+    {
+      "display": "I like ___",
+      "items": [
+        "crayon",
+        "box",
+        "red",
+        "blue"
+      ]
+    }
+  ]
+}

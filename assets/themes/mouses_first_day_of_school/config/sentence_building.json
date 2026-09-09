@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Language Structures",
+    "Vocabulary"
+  ],
+  "teacher_review_required": true,
+  "theme_items": [
+    {
+      "image_key": "mouse",
+      "label": "mouse"
+    },
+    {
+      "image_key": "school",
+      "label": "school"
+    },
+    {
+      "image_key": "door",
+      "label": "door"
+    },
+    {
+      "image_key": "teacher",
+      "label": "teacher"
+    },
+    {
+      "image_key": "book",
+      "label": "book"
+    },
+    {
+      "image_key": "pencil",
+      "label": "pencil"
+    },
+    {
+      "image_key": "crayon",
+      "label": "crayon"
+    },
+    {
+      "image_key": "paper",
+      "label": "paper"
+    }
+  ],
+  "patterns": [
+    {
+      "display": "I see ___",
+      "items": [
+        "mouse",
+        "school",
+        "door",
+        "teacher",
+        "book",
+        "pencil"
+      ]
+    },
+    {
+      "display": "I want ___",
+      "items": [
+        "school",
+        "door",
+        "teacher"
+      ]
+    },
+    {
+      "display": "I like ___",
+      "items": [
+        "mouse",
+        "school",
+        "door",
+        "teacher"
+      ]
+    }
+  ]
+}

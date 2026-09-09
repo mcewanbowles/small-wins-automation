@@ -21,7 +21,7 @@ WORD SELECTION — different words per level:
     3. activity_images/ folder stems (auto-sorted by length)
 
 ICON DISPLAY — image shown next to each word in the word list below the grid.
-  Loads from activity_images/ → icons_colored/ → icons/
+  Loads from activity_images/ → icons/
   If no icon found for a word, shows word text only (no crash).
 
 FIXED (vs old generator):
@@ -163,10 +163,10 @@ def select_words_for_level(all_words: list[str], level: int) -> list[str]:
     sorted_by_len = sorted(clean, key=len)
 
     brackets = {
-        1: (2, 4,  3, 5),   # min_len, max_len, min_words, max_words
+        1: (2, 4,  3, 5),    # min_len, max_len, min_words, max_words
         2: (4, 6,  4, 6),
-        3: (5, 8,  4, 6),
-        4: (2, 20, 5, 8),   # all lengths, longest first for L4
+        3: (5, 8,  4, 10),
+        4: (2, 20, 5, 10),   # all lengths, longest first for L4
     }
 
     min_len, max_len, min_words, max_words = brackets[level]
@@ -281,7 +281,7 @@ def build_grid(words: list[str], grid_size: int,
 # ── Icon loader ───────────────────────────────────────────────────────────────
 
 def load_icon(slug: str, raw_stem: str) -> Image.Image | None:
-    for folder in ["activity_images", "icons_colored", "icons"]:
+    for folder in ["activity_images", "icons"]:
         p = REPO_ROOT / "assets" / "themes" / slug / folder / f"{raw_stem}.png"
         if p.exists():
             try:
@@ -326,7 +326,7 @@ def load_vocab(slug: str) -> list[str]:
             pass
 
     # Fall back to activity_images/ stems
-    for folder in ["activity_images", "icons_colored", "icons"]:
+    for folder in ["activity_images", "icons"]:
         img_dir = REPO_ROOT / "assets" / "themes" / slug / folder
         if img_dir.exists():
             stems = []
@@ -349,7 +349,8 @@ def load_vocab(slug: str) -> list[str]:
 def create_word_search_page(slug, book_title, words_raw, level,
                             page_num, total_pages, pack_code,
                             grid_size, use_symbols, allow_diagonal,
-                            fonts, scale) -> tuple:
+                            fonts, scale,
+                            header_left_icon_img=None) -> tuple:
     """
     One word search page.
     words_raw: list of lowercase word stems (used for grid AND icon lookup)
@@ -365,8 +366,8 @@ def create_word_search_page(slug, book_title, words_raw, level,
     level_descs = {
         1: "Symbols only  ·  Horizontal & Vertical",
         2: "Letters  ·  Horizontal & Vertical",
-        3: "Letters  ·  Includes Diagonal",
-        4: "Letters  ·  Full Diagonal  ·  Longest Words",
+        3: "Letters  ·  Horizontal & Vertical",
+        4: "Letters  ·  Horizontal & Vertical  ·  Longest Words",
     }
     subtitle = level_descs.get(level, f"Level {level}")
 
@@ -381,6 +382,10 @@ def create_word_search_page(slug, book_title, words_raw, level,
         total_pages=total_pages,
         level=level,
         show_data_strip=False,
+        header_left_icon=header_left_icon_img,
+        header_height_px=int(0.92 * DPI),
+        accent_margin_px=int(0.12 * DPI),
+        footer_y_offset_px=int(0.08 * DPI),
     )
 
     # Reserve space similar to other generators using the frame
@@ -416,9 +421,11 @@ def create_word_search_page(slug, book_title, words_raw, level,
 
     # Outer border
     bw = int(3 * scale)
-    draw.rectangle(
+    draw.rounded_rectangle(
         [grid_x - bw, grid_y - bw, grid_x + grid_px_w + bw, grid_y + grid_px_h + bw],
-        outline=level_colour, width=bw
+        radius=int(12 * scale),
+        outline=level_colour, width=bw,
+        fill=None
     )
 
     # Cells
@@ -426,9 +433,10 @@ def create_word_search_page(slug, book_title, words_raw, level,
         for col in range(grid_size):
             cx = grid_x + col * cell_size
             cy = grid_y + row * cell_size
-            draw.rectangle([cx, cy, cx + cell_size, cy + cell_size],
-                           outline=hex_to_rgb(GRID_LINE),
-                           fill='white', width=1)
+            draw.rounded_rectangle([cx, cy, cx + cell_size, cy + cell_size],
+                                   radius=int(6 * scale),
+                                   outline=hex_to_rgb(GRID_LINE),
+                                   fill='white', width=1)
             ch = grid[row][col]
             cb = draw.textbbox((0, 0), ch, font=grid_font)
             cw = cb[2] - cb[0]; cht = cb[3] - cb[1]
@@ -458,30 +466,44 @@ def create_word_search_page(slug, book_title, words_raw, level,
     for i, word in enumerate(words_raw):
         col = i % COLS
         row = i // COLS
-        ex  = margin_x + col * entry_w
+        col_left = margin_x + col * entry_w
         ey  = wl_top + row * entry_h
 
         if ey + entry_h > wl_bottom:
             break   # no room — skip overflow words
 
-        # Checkbox
+        # Measure components for centering
         cb_sz = int(14 * scale)
-        cb_y  = ey + (icon_sz - cb_sz) // 2
-        draw.rectangle([ex, cb_y, ex + cb_sz, cb_y + cb_sz],
-                       outline=hex_to_rgb(SWS_NAVY), fill='white', width=2)
+        gap_cb_icon = int(6 * scale)
+        gap_icon_text = int(8 * scale)
+        display = clean_label(word)
+        wt_bb = draw.textbbox((0, 0), display.upper(), font=fonts["word_list"])
+        text_w = wt_bb[2] - wt_bb[0]
 
-        # Icon
         icon = load_icon(slug, word)
-        icon_x = ex + cb_sz + int(6 * scale)
+        ic = None
+        icon_w = 0
         if icon:
             ic = icon.copy()
             ic.thumbnail((icon_sz, icon_sz), Image.Resampling.LANCZOS)
+            icon_w = ic.width
+
+        group_w = cb_sz + gap_cb_icon + icon_w + gap_icon_text + text_w
+        start_x = col_left + max(0, (entry_w - group_w) // 2)
+
+        # Checkbox
+        cb_x = start_x
+        cb_y = ey + (icon_sz - cb_sz) // 2
+        draw.rectangle([cb_x, cb_y, cb_x + cb_sz, cb_y + cb_sz],
+                       outline=hex_to_rgb(SWS_NAVY), fill='white', width=2)
+
+        # Icon
+        icon_x = cb_x + cb_sz + gap_cb_icon
+        if ic is not None:
             page.paste(ic, (icon_x, ey + (icon_sz - ic.height) // 2), ic)
 
         # Word text
-        display = clean_label(word)
-        wt_x = icon_x + icon_sz + int(8 * scale)
-        wt_bb = draw.textbbox((0, 0), display.upper(), font=fonts["word_list"])
+        wt_x = icon_x + icon_w + gap_icon_text
         draw.text((wt_x, ey + (icon_sz - (wt_bb[3] - wt_bb[1])) // 2),
                   display.upper(), fill=hex_to_rgb(SWS_NAVY), font=fonts["word_list"])
 
@@ -492,7 +514,8 @@ def create_word_search_page(slug, book_title, words_raw, level,
 
 def create_answer_key_page(all_words_per_level, all_grids, all_positions,
                            book_title, pack_code, total_pages,
-                           fonts, scale) -> Image.Image:
+                           fonts, scale,
+                           header_left_icon_img=None) -> Image.Image:
     """4 mini grids side-by-side with highlighted answer cells."""
     img_w = int(PAGE_WIDTH  * DPI / 72)
     img_h = int(PAGE_HEIGHT * DPI / 72)
@@ -509,6 +532,10 @@ def create_answer_key_page(all_words_per_level, all_grids, all_positions,
         level=None,
         footer_title="Word Search — Answer Key (all 4 levels)",
         show_data_strip=False,
+        header_left_icon=header_left_icon_img,
+        header_height_px=int(0.92 * DPI),
+        accent_margin_px=int(0.12 * DPI),
+        footer_y_offset_px=int(0.08 * DPI),
     )
     hh = int(1.8 * DPI)
     fh = int(1.0 * DPI)
@@ -542,9 +569,9 @@ def create_answer_key_page(all_words_per_level, all_grids, all_positions,
         # Highlight set
         highlighted = {pos for pos_list in positions.values() for pos in pos_list}
 
-        # Border
-        draw.rectangle([gx - 2, gy - 2, gx + actual_px + 2, gy + actual_px + 2],
-                       outline=lc, width=2)
+        # Rounded border
+        draw.rounded_rectangle([gx - 2, gy - 2, gx + actual_px + 2, gy + actual_px + 2],
+                               radius=int(10 * scale), outline=lc, width=2)
 
         # Cells
         for r in range(gs):
@@ -552,8 +579,9 @@ def create_answer_key_page(all_words_per_level, all_grids, all_positions,
                 cx = gx + c * cell
                 cy = gy + r * cell
                 fill = hex_to_rgb(HIGHLIGHT_YELLOW) if (r, c) in highlighted else (255, 255, 255)
-                draw.rectangle([cx, cy, cx + cell, cy + cell],
-                               outline=hex_to_rgb(GRID_LINE), fill=fill, width=1)
+                draw.rounded_rectangle([cx, cy, cx + cell, cy + cell],
+                                       radius=int(6 * scale),
+                                       outline=hex_to_rgb(GRID_LINE), fill=fill, width=1)
                 ch = grid[r][c]
                 if ch not in PADDING_SYMBOLS:
                     fs = max(6, cell // 7)
@@ -618,13 +646,17 @@ def generate_word_search(slug: str, book_title: str,
     levels_config = [
         {"level": 1, "grid_size": 8,  "use_symbols": True,  "allow_diagonal": False},
         {"level": 2, "grid_size": 9,  "use_symbols": False, "allow_diagonal": False},
-        {"level": 3, "grid_size": 10, "use_symbols": False, "allow_diagonal": True},
-        {"level": 4, "grid_size": 11, "use_symbols": False, "allow_diagonal": True},
+        {"level": 3, "grid_size": 10, "use_symbols": False, "allow_diagonal": False},
+        {"level": 4, "grid_size": 11, "use_symbols": False, "allow_diagonal": False},
     ]
 
     words_per_level = []
     for cfg in levels_config:
-        lvl_words = select_words_for_level(all_words, cfg["level"])
+        lvl = cfg["level"]
+        lvl_words = select_words_for_level(all_words, lvl)
+        # Cap to 10 words for Levels 3 and 4 per brief
+        if lvl in (3, 4):
+            lvl_words = lvl_words[:10]
         words_per_level.append(lvl_words)
         print(f"  Level {cfg['level']} words ({len(lvl_words)}): "
               f"{', '.join(w.upper() for w in lvl_words)}")
@@ -643,9 +675,12 @@ def generate_word_search(slug: str, book_title: str,
     all_positions   = []
 
     # ── Insert universal teacher cover (Page 1) ──────────────────────────────
+    header_icon_img = None
     try:
-        repo_root = Path(__file__).resolve().parents[1]
-        tdir = repo_root / "assets" / "themes" / slug
+        assets_base = Path(__file__).resolve().parents[1] / "assets"
+        if not assets_base.exists():
+            assets_base = Path(__file__).resolve().parents[2] / "assets"
+        tdir = assets_base / "themes" / slug
         hero_path_str = None
         book_cover_path_str = None
         hero_candidates = [
@@ -675,6 +710,14 @@ def generate_word_search(slug: str, book_title: str,
                     break
             if book_cover_path_str:
                 break
+        # Load header icon image once
+        try:
+            if hero_path_str:
+                _im = Image.open(hero_path_str)
+                header_icon_img = _im.convert("RGBA") if _im.mode != "RGBA" else _im
+        except Exception:
+            header_icon_img = None
+
         cov = generate_teacher_cover_page(
             theme_name=book_title,
             pack_code=pack_code,
@@ -707,7 +750,7 @@ def generate_word_search(slug: str, book_title: str,
         )
         saved_pages.append(cov)
     except Exception:
-        pass
+        header_icon_img = None
 
     # ── Generate 4 level pages ────────────────────────────────────────────────
     for i, cfg in enumerate(levels_config):
@@ -719,7 +762,8 @@ def generate_word_search(slug: str, book_title: str,
             slug, book_title, words_raw, level,
             i + 2, TOTAL, pack_code,
             cfg["grid_size"], cfg["use_symbols"], cfg["allow_diagonal"],
-            fonts, scale
+            fonts, scale,
+            header_left_icon_img=header_icon_img
         )
         saved_pages.append(page)
         all_grids.append(grid)
@@ -729,7 +773,8 @@ def generate_word_search(slug: str, book_title: str,
     print("  Generating Answer Key ...")
     answer = create_answer_key_page(
         words_per_level, all_grids, all_positions,
-        book_title, pack_code, TOTAL, fonts, scale
+        book_title, pack_code, TOTAL, fonts, scale,
+        header_left_icon_img=header_icon_img
     )
     saved_pages.append(answer)
 

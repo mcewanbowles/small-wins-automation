@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "book_title": "Wemberly Worried",
+  "pack_code": "AUTO-ADPT",
+  "review_sentence": "Wemberly has a good day.",
+  "teacher_review_required": true,
+  "pages": [
+    {
+      "page_num": 3,
+      "image_word": "worried",
+      "sentence": "Wemberly and the worried.",
+      "scene_note": "Scene featuring worried"
+    },
+    {
+      "page_num": 4,
+      "image_word": "school",
+      "sentence": "Wemberly and the school.",
+      "scene_note": "Scene featuring school"
+    },
+    {
+      "page_num": 5,
+      "image_word": "mouse",
+      "sentence": "Wemberly and the mouse.",
+      "scene_note": "Scene featuring mouse"
+    },
+    {
+      "page_num": 6,
+      "image_word": "doll",
+      "sentence": "Wemberly and the doll.",
+      "scene_note": "Scene featuring doll"
+    },
+    {
+      "page_num": 7,
+      "image_word": "friend",
+      "sentence": "Wemberly and the friend.",
+      "scene_note": "Scene featuring friend"
+    },
+    {
+      "page_num": 8,
+      "image_word": "scared",
+      "sentence": "Wemberly and the scared.",
+      "scene_note": "Scene featuring scared"
+    }
+  ]
+}

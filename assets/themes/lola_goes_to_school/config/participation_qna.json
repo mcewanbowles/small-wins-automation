@@ -1,0 +1,83 @@
+{
+  "schema": "pp_qna.v1",
+  "book_slug": "lola_goes_to_school",
+  "book_title": "Lola Goes to School",
+  "pages": [
+    {
+      "page_num": 1,
+      "question": "Where does the character go?",
+      "choices": [
+        "school",
+        "lola",
+        "backpack"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        false,
+        false
+      ],
+      "context_mirror": {
+        "sentence": "Lola gets ready for her first day of school.",
+        "scene_note": "Lola gets ready for her first day of school."
+      }
+    },
+    {
+      "page_num": 2,
+      "question": "What do you see?",
+      "choices": [
+        "book",
+        "lola",
+        "school"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        false,
+        false
+      ],
+      "context_mirror": {
+        "sentence": "Lola reads books with her teacher.",
+        "scene_note": "Lola reads books with her teacher."
+      }
+    },
+    {
+      "page_num": 3,
+      "question": "What do you see?",
+      "choices": [
+        "play",
+        "lola",
+        "school"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        false,
+        false
+      ],
+      "context_mirror": {
+        "sentence": "Lola plays with new friends.",
+        "scene_note": "Lola plays with new friends."
+      }
+    },
+    {
+      "page_num": 4,
+      "question": "What do you see?",
+      "choices": [
+        "happy",
+        "lola",
+        "school"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        false,
+        false
+      ],
+      "context_mirror": {
+        "sentence": "Lola feels happy at school.",
+        "scene_note": "Lola feels happy at school."
+      }
+    }
+  ]
+}

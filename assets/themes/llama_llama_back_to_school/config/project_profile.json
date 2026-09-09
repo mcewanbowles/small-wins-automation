@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "slug": "llama_llama_back_to_school",
+  "title": "Llama Llama Back To School",
+  "pathway": "book_companion",
+  "topic": "",
+  "age_band": "Book-dependent",
+  "instructional_reading_level": "Emergent to functional literacy",
+  "communication_modes": [
+    "Speech",
+    "AAC",
+    "Pointing"
+  ],
+  "support_level": "Differentiated",
+  "learning_targets": [],
+  "curriculum_framework": "",
+  "sensitive_content": false,
+  "sensitive_review_notes": "",
+  "seed_keywords": [],
+  "content_review": {
+    "status": "grandfathered"
+  },
+  "boardready_review": {
+    "status": "approved",
+    "reviewed_at": "2026-09-07T09:30:54",
+    "fringe_12": [
+      "Llama Llama",
+      "school",
+      "backpack",
+      "friend",
+      "teacher",
+      "nervous",
+      "new",
+      "learn",
+      "classroom",
+      "pencil",
+      "happy",
+      "sit"
+    ],
+    "layout": "6x6",
+    "preserve_core_positions": true,
+    "outputs": []
+  }
+}

@@ -1,0 +1,7 @@
+Missing icons report:
+
+- public bathroom
+  suggested alternatives: public_staff
+- stall
+- return
+- group

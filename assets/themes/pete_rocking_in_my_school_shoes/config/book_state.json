@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "slug": "pete_rocking_in_my_school_shoes",
+  "icons_kit": [
+    "school.png"
+  ],
+  "hero_icon": "school.png",
+  "qa": {
+    "status": "not_reviewed",
+    "reviewed_at": null,
+    "items": []
+  },
+  "build": {
+    "last_built_at": null,
+    "products_built": [],
+    "pack_code": "PRI01"
+  },
+  "icon_decisions": {
+    "school": {
+      "status": "approved",
+      "filename": "school.png",
+      "label": "school",
+      "source_path": "D:\\Seagate\\small-wins-automation\\assets\\symbols\\png\\Categories\\Nouns\\Places\\School\\school 1.png",
+      "updated_at": "2026-09-06T18:11:24"
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Phonological Awareness"
+  ],
+  "teacher_review_required": true,
+  "items": [
+    {
+      "image_key": "kiss",
+      "label": "Kiss",
+      "count": 1,
+      "segmentation": "kiss"
+    },
+    {
+      "image_key": "hand",
+      "label": "Hand",
+      "count": 1,
+      "segmentation": "hand"
+    },
+    {
+      "image_key": "heart",
+      "label": "Heart",
+      "count": 1,
+      "segmentation": "heart"
+    },
+    {
+      "image_key": "mama",
+      "label": "Mama",
+      "count": 2,
+      "segmentation": "ma · ma"
+    },
+    {
+      "image_key": "school",
+      "label": "School",
+      "count": 1,
+      "segmentation": "school"
+    },
+    {
+      "image_key": "scared",
+      "label": "Scared",
+      "count": 2,
+      "segmentation": "sca · re · d"
+    }
+  ]
+}

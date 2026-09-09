@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "teacher_review_required": true,
+  "items": [
+    {
+      "image_key": "unhei",
+      "label": "Unhei"
+    },
+    {
+      "image_key": "name",
+      "label": "Name"
+    },
+    {
+      "image_key": "school",
+      "label": "School"
+    },
+    {
+      "image_key": "friend",
+      "label": "Friend"
+    },
+    {
+      "image_key": "jar",
+      "label": "Jar"
+    },
+    {
+      "image_key": "korea",
+      "label": "Korea"
+    },
+    {
+      "image_key": "new",
+      "label": "New"
+    },
+    {
+      "image_key": "shy",
+      "label": "Shy"
+    }
+  ]
+}

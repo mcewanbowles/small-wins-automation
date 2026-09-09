@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Sight Recognition",
+    "Vocabulary"
+  ],
+  "teacher_review_required": true,
+  "words": [
+    {
+      "word": "mouse",
+      "image_key": "mouse",
+      "label": "Mouse"
+    },
+    {
+      "word": "school",
+      "image_key": "school",
+      "label": "School"
+    },
+    {
+      "word": "backpack",
+      "image_key": "backpack",
+      "label": "Backpack"
+    },
+    {
+      "word": "lunchbox",
+      "image_key": "lunchbox",
+      "label": "Lunchbox"
+    },
+    {
+      "word": "pencil",
+      "image_key": "pencil",
+      "label": "Pencil"
+    },
+    {
+      "word": "book",
+      "image_key": "book",
+      "label": "Book"
+    },
+    {
+      "word": "cookie",
+      "image_key": "cookie",
+      "label": "Cookie"
+    },
+    {
+      "word": "milk",
+      "image_key": "milk",
+      "label": "Milk"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "sniff shirt": [],
+  "dirty clothes": [
+    "throw_dirty_tampon_in_bin",
+    "wrap_dirty_tampon"
+  ],
+  "laundry basket": [],
+  "washing machine": [],
+  "detergent": [],
+  "clean clothes": [
+    "cleaning_crew",
+    "cleaning_supplies",
+    "cleaners",
+    "cleaning",
+    "clean (2)"
+  ],
+  "drying rack": [],
+  "fold clothes": [],
+  "change clothes": [
+    "body_changes_normal"
+  ],
+  "smell check": [
+    "smelly (2)",
+    "smelly"
+  ],
+  "hamper": []
+}

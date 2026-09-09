@@ -1,0 +1,10 @@
+Missing icons report:
+
+- unknown
+- link
+- known person
+- unknown person
+- do not click
+  suggested alternatives: dont_know, dont_like, do not reply, dont_go_with_strangers, down
+- show adult
+  suggested alternatives: show_me_again, showme (2), showme

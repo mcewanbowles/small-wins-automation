@@ -1,0 +1,10 @@
+Missing icons report:
+
+- floss
+- mouthwash
+- gums
+- timer
+- bad breath check
+  suggested alternatives: name_badge, name_badge_02
+- dentist
+- smile

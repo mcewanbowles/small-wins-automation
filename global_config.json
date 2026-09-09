@@ -1,0 +1,109 @@
+{
+  "version": "2.2",
+  "last_updated": "2026-06-26",
+
+  "level_colours": {
+    "L1": {
+      "name": "Supported",
+      "hex": "#7C3AED",
+      "rgb": [124, 58, 237],
+      "description": "Violet — Supported level across all products"
+    },
+    "L2": {
+      "name": "Developing",
+      "hex": "#0284C7",
+      "rgb": [2, 132, 199],
+      "description": "Ocean — Developing level across all products"
+    },
+    "L3": {
+      "name": "Independent",
+      "hex": "#059669",
+      "rgb": [5, 150, 105],
+      "description": "Emerald — Independent level across all products"
+    },
+    "L4": {
+      "name": "Extended",
+      "hex": "#E11D48",
+      "rgb": [225, 29, 72],
+      "description": "Rose — Extended level across all products"
+    }
+  },
+
+  "branding": {
+    "company_name": "Small Wins Studio",
+    "copyright_year": 2026,
+    "copyright_text": "© 2026 Small Wins Studio. All rights reserved.",
+    "pcs_notice": "PCS symbols used with active PCS Maker Personal License.",
+    "footer_full": "PCS symbols used with active PCS Maker Personal License.  |  © Small Wins Studio 2026",
+    "footer_compact": "PCS symbols used with active PCS Maker Personal License. | © Small Wins Studio 2026",
+    "logos": {
+      "with_text": {
+        "file": "assets/branding/logos/small_wins_logo_with_text.png",
+        "description": "Shooting star with 'SMALL WINS STUDIO' text",
+        "transparent": true,
+        "use_for": ["covers", "instructions", "credits"]
+      },
+      "star_icon": {
+        "file": "assets/branding/logos/star.png",
+        "description": "Shooting star icon only (no text)",
+        "transparent": true,
+        "use_for": ["thumbnails", "watermarks", "border decoration", "small spaces"]
+      }
+    },
+    "brand_colours": {
+      "teal":  "#31A8A0",
+      "navy":  "#0D2545",
+      "gold":  "#E1B42D"
+    }
+  },
+
+  "typography": {
+    "primary_font": "Comic Sans MS",
+    "title_font": "Comic Sans MS",
+    "body_font": "Comic Sans MS",
+    "fallback_fonts": ["Arial Rounded MT Bold", "Arial", "sans-serif"],
+    "title_colour": "#0D2545",
+    "subtitle_colour": "#666666",
+    "body_colour": "#000000",
+    "footer_colour": "#999999",
+    "font_note": "Comic Sans MS is accessible for students with learning differences. Use consistently across all products."
+  },
+
+  "page_layout": {
+    "page_size": "US Letter",
+    "page_width_inches": 8.5,
+    "page_height_inches": 11,
+    "margin_inches": 0.5,
+    "border_stroke_px": 2,
+    "border_corner_radius_inches": 0.12,
+    "border_colour": "#0D2545",
+    "accent_stripe_height_inches": 0.55,
+    "accent_stripe_padding_inches": 0.12
+  },
+
+  "aac_board": {
+    "page_size": "US Letter landscape",
+    "grid": "6 columns x 6 rows",
+    "layout": {
+      "row_1": "I / you / want / see / YES / NO",
+      "row_2": "same / different / more / help / like / don't like",
+      "row_3": "HERO + fringe words 1-5",
+      "row_4": "fringe words 6-11",
+      "row_5": "go / stop / choose / colour / read / think",
+      "row_6": "uh oh / what / where / why / I don't know / finished"
+    },
+    "cell_colours": {
+      "yes_bg":      "#4CAF50",
+      "no_bg":       "#F44336",
+      "core_tint":   "#EBF5FF",
+      "fringe_tint": "#FFFDE7",
+      "cell_border": "#CCCCCC"
+    }
+  },
+
+  "products": {
+    "matching":   { "has_levels": true,  "level_count": 4 },
+    "find_cover": { "has_levels": true,  "level_count": 4 },
+    "aac":        { "has_levels": false, "type": "standard" }
+  }
+}

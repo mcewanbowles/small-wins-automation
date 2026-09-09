@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Vocabulary",
+    "Verbal Reasoning",
+    "Language Structures"
+  ],
+  "teacher_review_required": true,
+  "sets": [
+    {
+      "title": "Who or What/Where?",
+      "left": {
+        "label": "WHO?",
+        "items": [
+          "old_lady",
+          "book",
+          "pencil"
+        ]
+      },
+      "right": {
+        "label": "WHAT OR WHERE?",
+        "items": [
+          "backpack",
+          "school",
+          "ruler",
+          "chalk",
+          "eraser",
+          "folder"
+        ]
+      }
+    },
+    {
+      "title": "Feeling or Object?",
+      "left": {
+        "label": "FEELING",
+        "items": [
+          "pen",
+          "lunch"
+        ]
+      },
+      "right": {
+        "label": "OBJECT OR PLACE",
+        "items": [
+          "backpack",
+          "school",
+          "ruler",
+          "chalk"
+        ]
+      }
+    }
+  ],
+  "header_bank": [
+    "Character",
+    "Object",
+    "Place",
+    "Action",
+    "Feeling",
+    "Who?",
+    "What?",
+    "Where?",
+    "Same",
+    "Different",
+    "One syllable",
+    "Two syllables",
+    "Three or more syllables",
+    "Same first sound",
+    "Different first sound",
+    "My group 1",
+    "My group 2",
+    "I like",
+    "I don't like",
+    "My rule"
+  ],
+  "header_bank_rules": {
+    "objective_answer_key": [
+      "Character",
+      "Object",
+      "Place",
+      "Action",
+      "Feeling",
+      "Who?",
+      "What?",
+      "Where?",
+      "One syllable",
+      "Two syllables",
+      "Three or more syllables",
+      "Same first sound",
+      "Different first sound"
+    ],
+    "student_directed_no_answer_key": [
+      "Same",
+      "Different",
+      "My group 1",
+      "My group 2",
+      "I like",
+      "I don't like",
+      "My rule"
+    ]
+  },
+  "labels": {
+    "old_lady": "Old Lady",
+    "book": "Book",
+    "pencil": "Pencil",
+    "backpack": "Backpack",
+    "school": "School",
+    "ruler": "Ruler",
+    "chalk": "Chalk",
+    "eraser": "Eraser",
+    "folder": "Folder",
+    "pen": "Pen",
+    "lunch": "Lunch",
+    "read": "Read"
+  }
+}

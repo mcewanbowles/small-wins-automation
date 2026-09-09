@@ -1,0 +1,149 @@
+{
+  "activity_icons": [
+    "car racing",
+    "driver",
+    "finish",
+    "flag",
+    "garage",
+    "gas",
+    "gloves",
+    "helmet",
+    "hose",
+    "pit lane",
+    "radio",
+    "screwdriver",
+    "steering wheel",
+    "timer",
+    "tire",
+    "traffic light",
+    "wrench"
+  ],
+  "aac_core_words": [
+    "I",
+    "see",
+    "want",
+    "like",
+    "more",
+    "help",
+    "finished"
+  ],
+  "aac_fringe_words": [],
+  "sentence_strip_verbs": [
+    "see",
+    "want",
+    "like"
+  ],
+  "sorting_categories": [
+    {
+      "label": "can fly",
+      "icons": [
+        "car racing",
+        "finish",
+        "garage",
+        "gloves",
+        "hose",
+        "radio",
+        "steering wheel",
+        "tire",
+        "wrench"
+      ],
+      "feature": ""
+    },
+    {
+      "label": "cannot fly",
+      "icons": [
+        "driver",
+        "flag",
+        "gas",
+        "helmet",
+        "pit lane",
+        "screwdriver",
+        "timer",
+        "traffic light"
+      ],
+      "feature": ""
+    }
+  ],
+  "sequence_order": [
+    "car racing",
+    "driver",
+    "finish",
+    "flag",
+    "garage",
+    "gas",
+    "gloves",
+    "helmet",
+    "hose",
+    "pit lane",
+    "radio",
+    "screwdriver",
+    "steering wheel",
+    "timer",
+    "tire",
+    "traffic light",
+    "wrench"
+  ],
+  "word_search_words": [
+    "gas",
+    "flag",
+    "hose",
+    "tire"
+  ],
+  "adapted_book_sentences": [
+    {
+      "text": "I see the car racing.",
+      "image_word": "car racing",
+      "page": 1
+    },
+    {
+      "text": "I see the driver.",
+      "image_word": "driver",
+      "page": 2
+    },
+    {
+      "text": "I see the finish.",
+      "image_word": "finish",
+      "page": 3
+    }
+  ],
+  "syllable_counts": {},
+  "inferencing_questions": {
+    "why": [],
+    "next": [],
+    "know": []
+  },
+  "yes_no_questions": [
+    {
+      "question": "Is there a car racing in Topic F1 Pit Stops | Adapted Activities Bundle?",
+      "answer": true,
+      "image_word": "car racing"
+    },
+    {
+      "question": "Is there a driver in Topic F1 Pit Stops | Adapted Activities Bundle?",
+      "answer": false,
+      "image_word": "driver"
+    },
+    {
+      "question": "Is there a finish in Topic F1 Pit Stops | Adapted Activities Bundle?",
+      "answer": true,
+      "image_word": "finish"
+    },
+    {
+      "question": "Is there a flag in Topic F1 Pit Stops | Adapted Activities Bundle?",
+      "answer": false,
+      "image_word": "flag"
+    },
+    {
+      "question": "Is there a garage in Topic F1 Pit Stops | Adapted Activities Bundle?",
+      "answer": true,
+      "image_word": "garage"
+    },
+    {
+      "question": "Is there a gas in Topic F1 Pit Stops | Adapted Activities Bundle?",
+      "answer": false,
+      "image_word": "gas"
+    }
+  ],
+  "bingo_call_phrases": [],
+  "lesson_slides_vocab": []
+}

@@ -247,7 +247,7 @@ def draw_copyright_footer(draw: ImageDraw.ImageDraw, page_width: int, page_heigh
         copyright_text: Custom copyright text (uses default if None)
     """
     if copyright_text is None:
-        copyright_text = "© 2026 Small Wins Studio • PCS® symbols used with active PCS Maker Personal Licence — For classroom use only"
+        copyright_text = "© 2026 Small Wins Studio. PCS® symbols used with active PCS Maker Personal License"
     
     try:
         font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", font_size)

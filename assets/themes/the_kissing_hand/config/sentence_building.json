@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Language Structures",
+    "Vocabulary"
+  ],
+  "teacher_review_required": true,
+  "theme_items": [
+    {
+      "image_key": "kiss",
+      "label": "Kiss"
+    },
+    {
+      "image_key": "hand",
+      "label": "Hand"
+    },
+    {
+      "image_key": "heart",
+      "label": "Heart"
+    },
+    {
+      "image_key": "mama",
+      "label": "Mama"
+    },
+    {
+      "image_key": "school",
+      "label": "School"
+    },
+    {
+      "image_key": "scared",
+      "label": "Scared"
+    }
+  ],
+  "patterns": [
+    {
+      "display": "I see ___",
+      "items": [
+        "kiss",
+        "hand",
+        "heart",
+        "mama",
+        "school",
+        "scared"
+      ]
+    },
+    {
+      "display": "I want ___",
+      "items": [
+        "kiss",
+        "hand",
+        "heart",
+        "mama"
+      ]
+    },
+    {
+      "display": "I like ___",
+      "items": [
+        "kiss",
+        "hand",
+        "heart",
+        "mama",
+        "school"
+      ]
+    },
+    {
+      "display": "I feel ___",
+      "items": [
+        "scared"
+      ]
+    },
+    {
+      "display": "I am ___",
+      "items": [
+        "scared"
+      ]
+    },
+    {
+      "display": "I don't like ___",
+      "items": [
+        "kiss",
+        "hand",
+        "heart"
+      ]
+    }
+  ]
+}

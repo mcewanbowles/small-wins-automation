@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Phonological Awareness"
+  ],
+  "teacher_review_required": true,
+  "items": [
+    {
+      "image_key": "mouse",
+      "label": "Mouse",
+      "count": 1,
+      "segmentation": "mouse"
+    },
+    {
+      "image_key": "school",
+      "label": "School",
+      "count": 1,
+      "segmentation": "school"
+    },
+    {
+      "image_key": "backpack",
+      "label": "Backpack",
+      "count": 2,
+      "segmentation": "back · pack"
+    },
+    {
+      "image_key": "lunchbox",
+      "label": "Lunchbox",
+      "count": 2,
+      "segmentation": "lunch · box"
+    },
+    {
+      "image_key": "pencil",
+      "label": "Pencil",
+      "count": 2,
+      "segmentation": "pen · cil"
+    },
+    {
+      "image_key": "book",
+      "label": "Book",
+      "count": 1,
+      "segmentation": "book"
+    },
+    {
+      "image_key": "cookie",
+      "label": "Cookie",
+      "count": 2,
+      "segmentation": "cook · ie"
+    },
+    {
+      "image_key": "milk",
+      "label": "Milk",
+      "count": 1,
+      "segmentation": "milk"
+    },
+    {
+      "image_key": "scissors",
+      "label": "Scissors",
+      "count": 2,
+      "segmentation": "scis · sors"
+    },
+    {
+      "image_key": "glue",
+      "label": "Glue",
+      "count": 1,
+      "segmentation": "glue"
+    },
+    {
+      "image_key": "crayon",
+      "label": "Crayon",
+      "count": 2,
+      "segmentation": "cray · on"
+    },
+    {
+      "image_key": "friend",
+      "label": "Friend",
+      "count": 1,
+      "segmentation": "friend"
+    }
+  ]
+}

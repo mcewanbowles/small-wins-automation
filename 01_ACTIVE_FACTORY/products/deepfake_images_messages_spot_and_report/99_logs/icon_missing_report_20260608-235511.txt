@@ -1,0 +1,11 @@
+Missing icons report:
+
+- edited
+- red flag
+  suggested alternatives: red, scared, symbol_0001_red, symbol_0006_red, symbol_0007_red
+- think first
+  suggested alternatives: think
+- share
+- do not forward
+  suggested alternatives: dont_know, dont_like, do not reply, dont_go_with_strangers, down
+- trusted adult

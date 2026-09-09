@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Phonological Awareness"
+  ],
+  "teacher_review_required": true,
+  "items": [
+    {
+      "image_key": "lola",
+      "label": "Lola",
+      "count": 2,
+      "segmentation": "lo · la"
+    },
+    {
+      "image_key": "school",
+      "label": "School",
+      "count": 1,
+      "segmentation": "school"
+    },
+    {
+      "image_key": "backpack",
+      "label": "Backpack",
+      "count": 2,
+      "segmentation": "back · pack"
+    },
+    {
+      "image_key": "book",
+      "label": "Book",
+      "count": 1,
+      "segmentation": "book"
+    },
+    {
+      "image_key": "teacher",
+      "label": "Teacher",
+      "count": 2,
+      "segmentation": "teach · er"
+    },
+    {
+      "image_key": "friend",
+      "label": "Friend",
+      "count": 1,
+      "segmentation": "friend"
+    },
+    {
+      "image_key": "play",
+      "label": "Play",
+      "count": 1,
+      "segmentation": "play"
+    },
+    {
+      "image_key": "learn",
+      "label": "Learn",
+      "count": 1,
+      "segmentation": "learn"
+    },
+    {
+      "image_key": "lunch",
+      "label": "Lunch",
+      "count": 1,
+      "segmentation": "lunch"
+    },
+    {
+      "image_key": "crayon",
+      "label": "Crayon",
+      "count": 2,
+      "segmentation": "cray · on"
+    },
+    {
+      "image_key": "happy",
+      "label": "Happy",
+      "count": 2,
+      "segmentation": "hap · py"
+    },
+    {
+      "image_key": "read",
+      "label": "Read",
+      "count": 1,
+      "segmentation": "read"
+    }
+  ]
+}

@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import asyncio
 import re
+import string
 from urllib.parse import quote_plus
 
 import httpx
@@ -8,7 +10,11 @@ import httpx
 from .models import KeywordResult
 
 GOOGLE_SUGGEST_URL = "https://suggestqueries.google.com/complete/search?client=firefox&q={query}"
-TPT_SEARCH_URL = "https://www.teacherspayteachers.com/search?search={query}"
+# TPT moved search results to /browse; /search 404s. The result count is
+# available as the first "totalCount" value in the page JSON payload.
+TPT_SEARCH_URL = "https://www.teacherspayteachers.com/browse?search={query}"
+# NOTE: TPT no longer exposes a working public autocomplete endpoint; the
+# function below fails gracefully to [] so Google remains the demand source.
 TPT_AUTOCOMPLETE_URL = "https://www.teacherspayteachers.com/autocomplete?term={query}"
 STORE_LEVEL_THRESHOLDS = {
     "new_store": 5,
@@ -16,6 +22,26 @@ STORE_LEVEL_THRESHOLDS = {
     "established": 100,
     "authority": 10**9,
 }
+
+# Buyer-intent modifiers used to expand a seed into long-tail variants.
+# Each modifier becomes one extra autocomplete query (seed + modifier).
+EXPANSION_MODIFIERS = [
+    "activities",
+    "worksheets",
+    "printable",
+    "free",
+    "special education",
+    "autism",
+    "speech therapy",
+    "bundle",
+    "task cards",
+    "lesson plan",
+    "centers",
+    "adapted book",
+]
+
+# Cap on how many phrases get the (expensive) TPT supply + review lookups.
+MAX_SUPPLY_CHECKS = 30
 
 SUPPLY_TARGETS = {
     "new_store": {"ideal": 40, "stretch": 120},
@@ -69,6 +95,7 @@ async def _tpt_supply_count(phrase: str) -> int | None:
     html = response.text
 
     patterns = [
+        r'"totalCount"\s*:\s*"?(\d+)',  # first totalCount on /browse = results
         r"([\d,]+)\s+results",
         r"results\s*\(([\d,]+)\)",
         r"of\s*([\d,]+)\s*results",
@@ -104,6 +131,7 @@ async def _tpt_review_metrics(phrase: str) -> tuple[float | None, int | None]:
     reviews = []
 
     patterns = [
+        r"based on\s+([\d,]+)\s+reviews?",  # /browse listing cards
         r'"reviewCount"\s*:\s*"?(\d+)"?',
         r'"ratingCount"\s*:\s*"?(\d+)"?',
         r"(\d+)\s+ratings?",
@@ -188,32 +216,53 @@ def _demand_label(score: int) -> str:
     return "Low"
 
 
-def _demand_score(phrase: str, seed: str) -> int:
+INTENT_MARKERS = [
+    "bundle",
+    "worksheets",
+    "activities",
+    "task cards",
+    "no prep",
+    "printable",
+    "editable",
+    "lesson",
+]
+
+
+def _tail_type(phrase: str) -> str:
+    """Classify a phrase as short-tail (<=2 words), mid (3) or long-tail (4+)."""
+    tokens = len([t for t in phrase.split() if t])
+    if tokens <= 2:
+        return "short"
+    if tokens == 3:
+        return "mid"
+    return "long"
+
+
+def _demand_score(
+    phrase: str,
+    seed: str,
+    sources: set[str],
+    best_rank: int | None,
+    surface_count: int,
+) -> int:
+    """Demand proxy built from real search behaviour:
+
+    - presence in BOTH Google and TPT autocomplete (cross-source = stronger)
+    - autocomplete rank position (earlier suggestions = searched more often)
+    - surface_count: how many distinct queries surfaced this phrase —
+      phrases that appear under several expansions are reliably in demand
+    - buyer-intent markers as a small nudge
+    """
     text = phrase.lower()
-    token_count = len([t for t in text.split() if t])
     score = 1
-
-    if token_count >= 3:
+    if len(sources) >= 2:
         score += 1
-    if token_count >= 4:
+    if best_rank is not None and best_rank <= 3:
         score += 1
-
-    intent_markers = [
-        "bundle",
-        "worksheets",
-        "activities",
-        "task cards",
-        "no prep",
-        "printable",
-        "editable",
-        "lesson",
-    ]
-    if any(marker in text for marker in intent_markers):
+    if surface_count >= 2:
         score += 1
-
-    if seed.lower() in text:
+    if surface_count >= 4 or any(marker in text for marker in INTENT_MARKERS):
         score += 1
-
     return max(1, min(5, score))
 
 
@@ -317,39 +366,96 @@ def _recommendation(
     return label, reason, [step_1, step_2, step_3]
 
 
+async def _expand_queries(seed: str, expand: bool, letters_expand: bool) -> list[str]:
+    """Build the query set: seed + buyer-intent modifiers (+ optional a-z).
+
+    Alphabet-soup expansion is the standard Publisher-Rocket technique, but it
+    is 26x2 autocomplete calls, so it is opt-in via letters_expand.
+    """
+    queries = [seed]
+    if expand:
+        queries += [f"{seed} {m}" for m in EXPANSION_MODIFIERS]
+    if letters_expand:
+        queries += [f"{seed} {c}" for c in string.ascii_lowercase]
+    return queries
+
+
+async def _gather_suggestions(queries: list[str]) -> dict[str, dict]:
+    """Query Google + TPT autocomplete for every query and aggregate per phrase.
+
+    Returns {phrase_lower: {text, sources, best_rank, queries}} where best_rank
+    is the best 1-based position the phrase held in any suggestion list and
+    queries is the set of input queries that surfaced it (surface_count).
+    Autocomplete ordering is popularity-ranked, so rank and repeat surfacing
+    are the strongest free demand signals available.
+    """
+    found: dict[str, dict] = {}
+
+    for query in queries:
+        google, tpt = await asyncio.gather(
+            _google_autocomplete(query),
+            _tpt_autocomplete(query),
+        )
+        for source, suggestions in (("google", google), ("tpt", tpt)):
+            for rank, raw in enumerate(suggestions, start=1):
+                normalized = " ".join(raw.split()).strip()
+                if not normalized:
+                    continue
+                key = normalized.lower()
+                entry = found.setdefault(
+                    key,
+                    {"text": normalized, "sources": set(), "best_rank": None, "queries": set()},
+                )
+                entry["sources"].add(source)
+                entry["queries"].add(query.lower())
+                if entry["best_rank"] is None or rank < entry["best_rank"]:
+                    entry["best_rank"] = rank
+        # Be polite to the suggestion endpoints.
+        await asyncio.sleep(0.3)
+
+    return found
+
+
 async def find_keywords(
     seed: str,
     gold_only: bool = False,
     store_level: str = "new_store",
     winnable_only: bool = True,
+    expand: bool = True,
+    letters_expand: bool = False,
 ) -> list[KeywordResult]:
-    google_suggestions = await _google_autocomplete(seed)
-    tpt_suggestions = await _tpt_autocomplete(seed)
+    queries = await _expand_queries(seed, expand=expand, letters_expand=letters_expand)
+    found = await _gather_suggestions(queries)
 
-    suggestions: list[str] = []
-    source_map: dict[str, set[str]] = {}
-
-    def add_suggestion(text: str, source: str) -> None:
-        normalized = " ".join(text.split()).strip()
-        if not normalized:
-            return
-        key = normalized.lower()
-        if key not in source_map:
-            source_map[key] = set()
-            suggestions.append(normalized)
-        source_map[key].add(source)
-
-    for phrase in google_suggestions:
-        add_suggestion(phrase, "google")
-    for phrase in tpt_suggestions:
-        add_suggestion(phrase, "tpt")
+    # Pre-rank phrases so only the most promising get the expensive
+    # supply/review lookups on TPT search pages.
+    candidates = sorted(
+        found.values(),
+        key=lambda e: (-len(e["queries"]), e["best_rank"] or 99),
+    )
 
     items: list[KeywordResult] = []
-    for phrase in suggestions:
-        demand_score = _demand_score(phrase=phrase, seed=seed)
-        source_hits = sorted(source_map.get(phrase.lower(), {"google"}))
-        supply_count = await _tpt_supply_count(phrase)
-        avg_reviews, low_reviews = await _tpt_review_metrics(phrase)
+    checked = 0
+    for entry in candidates:
+        phrase = entry["text"]
+        sources = entry["sources"]
+        best_rank = entry["best_rank"]
+        surface_count = len(entry["queries"])
+        source_hits = sorted(sources)
+        demand_score = _demand_score(
+            phrase=phrase,
+            seed=seed,
+            sources=sources,
+            best_rank=best_rank,
+            surface_count=surface_count,
+        )
+
+        if checked < MAX_SUPPLY_CHECKS and (demand_score >= 2 or "tpt" in sources):
+            supply_count = await _tpt_supply_count(phrase)
+            avg_reviews, low_reviews = await _tpt_review_metrics(phrase)
+            checked += 1
+        else:
+            supply_count, avg_reviews, low_reviews = None, None, None
         winnable_now = _is_winnable(avg_top5_reviews=avg_reviews, store_level=store_level)
         competition_score = _competition_score(
             supply_count=supply_count,
@@ -376,10 +482,13 @@ async def find_keywords(
 
         item = KeywordResult(
             phrase=phrase,
+            tail_type=_tail_type(phrase),
             demand_label=_demand_label(demand_score),
             demand_score=demand_score,
             opportunity_score=opportunity_score,
             source_hits=source_hits,
+            surface_count=surface_count,
+            best_rank=best_rank,
             tpt_supply_count=supply_count,
             avg_top5_reviews=avg_reviews,
             lowest_page1_reviews=low_reviews,

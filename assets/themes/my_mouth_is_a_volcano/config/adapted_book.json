@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "book_title": "My Mouth Is a Volcano!",
+  "pack_code": "AUTO-ADPT",
+  "review_sentence": "Louis has a good day.",
+  "teacher_review_required": true,
+  "pages": [
+    {
+      "page_num": 3,
+      "image_word": "interrupt",
+      "sentence": "Louis and the interrupt.",
+      "scene_note": "Scene featuring interrupt"
+    },
+    {
+      "page_num": 4,
+      "image_word": "wait",
+      "sentence": "Louis and the wait.",
+      "scene_note": "Scene featuring wait"
+    },
+    {
+      "page_num": 5,
+      "image_word": "talking",
+      "sentence": "Louis and the talking.",
+      "scene_note": "Scene featuring talking"
+    },
+    {
+      "page_num": 6,
+      "image_word": "listening",
+      "sentence": "Louis and the listening.",
+      "scene_note": "Scene featuring listening"
+    },
+    {
+      "page_num": 7,
+      "image_word": "erupt",
+      "sentence": "Louis and the erupt.",
+      "scene_note": "Scene featuring erupt"
+    },
+    {
+      "page_num": 8,
+      "image_word": "excited",
+      "sentence": "Louis and the excited.",
+      "scene_note": "Scene featuring excited"
+    }
+  ]
+}

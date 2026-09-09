@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Vocabulary",
+    "Verbal Reasoning",
+    "Language Structures"
+  ],
+  "teacher_review_required": true,
+  "sets": [
+    {
+      "title": "Who or What/Where?",
+      "left": {
+        "label": "WHO?",
+        "items": [
+          "school",
+          "rules",
+          "raise_hand"
+        ]
+      },
+      "right": {
+        "label": "WHAT OR WHERE?",
+        "items": [
+          "listen",
+          "quiet",
+          "line_up",
+          "share",
+          "kind",
+          "safe"
+        ]
+      }
+    },
+    {
+      "title": "Feeling or Object?",
+      "left": {
+        "label": "FEELING",
+        "items": [
+          "kind"
+        ]
+      },
+      "right": {
+        "label": "OBJECT OR PLACE",
+        "items": [
+          "listen",
+          "quiet",
+          "line_up",
+          "share"
+        ]
+      }
+    }
+  ],
+  "header_bank": [
+    "Character",
+    "Object",
+    "Place",
+    "Action",
+    "Feeling",
+    "Who?",
+    "What?",
+    "Where?",
+    "Same",
+    "Different",
+    "One syllable",
+    "Two syllables",
+    "Three or more syllables",
+    "Same first sound",
+    "Different first sound",
+    "My group 1",
+    "My group 2",
+    "I like",
+    "I don't like",
+    "My rule"
+  ],
+  "header_bank_rules": {
+    "objective_answer_key": [
+      "Character",
+      "Object",
+      "Place",
+      "Action",
+      "Feeling",
+      "Who?",
+      "What?",
+      "Where?",
+      "One syllable",
+      "Two syllables",
+      "Three or more syllables",
+      "Same first sound",
+      "Different first sound"
+    ],
+    "student_directed_no_answer_key": [
+      "Same",
+      "Different",
+      "My group 1",
+      "My group 2",
+      "I like",
+      "I don't like",
+      "My rule"
+    ]
+  },
+  "labels": {
+    "school": "School",
+    "rules": "Rules",
+    "raise_hand": "Raise Hand",
+    "listen": "Listen",
+    "quiet": "Quiet",
+    "line_up": "Line Up",
+    "share": "Share",
+    "kind": "Kind",
+    "safe": "Safe",
+    "respect": "Respect",
+    "try": "Try",
+    "friend": "Friend"
+  }
+}

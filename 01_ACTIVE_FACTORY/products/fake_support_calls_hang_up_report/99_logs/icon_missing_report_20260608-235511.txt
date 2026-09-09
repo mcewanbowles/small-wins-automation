@@ -1,0 +1,15 @@
+Missing icons report:
+
+- support call
+- gift card
+- payment
+- remote access
+- code
+- OTP
+- hang up
+  suggested alternatives: body_changes_normal
+- do not pay
+  suggested alternatives: dont_know, dont_like, do not reply, dont_go_with_strangers, down
+- do not share info
+  suggested alternatives: dont_know, dont_like, do not reply, dont_go_with_strangers, down
+- trusted adult

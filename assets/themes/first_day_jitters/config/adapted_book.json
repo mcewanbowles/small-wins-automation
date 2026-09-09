@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "book_title": "First Day Jitters",
+  "pack_code": "AUTO-ADPT",
+  "review_sentence": "Sarah Jane Hartwell has a good day.",
+  "teacher_review_required": true,
+  "pages": [
+    {
+      "page_num": 3,
+      "image_word": "school",
+      "sentence": "Sarah Jane Hartwell and the school.",
+      "scene_note": "Scene featuring school"
+    },
+    {
+      "page_num": 4,
+      "image_word": "nervous",
+      "sentence": "Sarah Jane Hartwell and the nervous.",
+      "scene_note": "Scene featuring nervous"
+    },
+    {
+      "page_num": 5,
+      "image_word": "new",
+      "sentence": "Sarah Jane Hartwell and the new.",
+      "scene_note": "Scene featuring new"
+    },
+    {
+      "page_num": 6,
+      "image_word": "teacher",
+      "sentence": "Sarah Jane Hartwell and the teacher.",
+      "scene_note": "Scene featuring teacher"
+    },
+    {
+      "page_num": 7,
+      "image_word": "friend",
+      "sentence": "Sarah Jane Hartwell and the friend.",
+      "scene_note": "Scene featuring friend"
+    },
+    {
+      "page_num": 8,
+      "image_word": "classroom",
+      "sentence": "Sarah Jane Hartwell and the classroom.",
+      "scene_note": "Scene featuring classroom"
+    }
+  ]
+}

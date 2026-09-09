@@ -1,0 +1,8 @@
+Missing icons report:
+
+- cut
+- rash
+- swelling
+- nurse
+- tell adult
+  suggested alternatives: tell, tellpolice, tell_someon, tell_someone, 13 tell_someone

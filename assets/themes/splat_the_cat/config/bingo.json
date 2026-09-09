@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "teacher_review_required": true,
+  "items": [
+    {
+      "image_key": "splat",
+      "label": "Splat"
+    },
+    {
+      "image_key": "cat",
+      "label": "Cat"
+    },
+    {
+      "image_key": "school",
+      "label": "School"
+    },
+    {
+      "image_key": "mouse",
+      "label": "Mouse"
+    },
+    {
+      "image_key": "teacher",
+      "label": "Teacher"
+    },
+    {
+      "image_key": "friend",
+      "label": "Friend"
+    },
+    {
+      "image_key": "scared",
+      "label": "Scared"
+    },
+    {
+      "image_key": "learn",
+      "label": "Learn"
+    }
+  ]
+}

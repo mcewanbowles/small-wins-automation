@@ -6,8 +6,8 @@
   "version": "2026-09-05",
   "source_build_result": "assets/themes/llama_llama_red_pajama/OUTPUT/LLRP-DEC-LAUNCH_Decoding_BuildResult.json",
   "page_counts": {
-    "color": 6,
-    "bw": 6
+    "color": 7,
+    "bw": 7
   },
   "formats": [
     "Color",
@@ -15,8 +15,8 @@
   ],
   "levels": [],
   "included": [
-    "Eight explicitly mapped CVC words",
-    "Four short-vowel practice sets",
+    "Fifteen explicitly mapped CVC words",
+    "Five short-vowel practice sets",
     "Sound, blend and write routine",
     "Teacher grapheme check"
   ],

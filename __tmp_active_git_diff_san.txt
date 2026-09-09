@@ -1,0 +1,398 @@
+diff --git a/Studioforge/Accurate generators/ADAPTED_BOOK_GENERATOR.py b/Studioforge/Accurate generators/ADAPTED_BOOK_GENERATOR.py
+
+index 7bf6940..9b8ed4b 100644
+
+--- a/Studioforge/Accurate generators/ADAPTED_BOOK_GENERATOR.py	
+
++++ b/Studioforge/Accurate generators/ADAPTED_BOOK_GENERATOR.py	
+
+@@ -175,7 +175,6 @@ def _images_dir_candidates(slug: str) -> list[Path]:
+
+     root = Path("assets") / "themes" / slug
+
+     return [
+
+         root / "activity_images",
+
+-        root / "icons_colored",
+
+         root / "icons",
+
+         root / "images",
+
+     ]
+
+diff --git a/Studioforge/Accurate generators/GENERATE_ALL.py b/Studioforge/Accurate generators/GENERATE_ALL.py
+
+index 18863ee..d9d3ce4 100644
+
+--- a/Studioforge/Accurate generators/GENERATE_ALL.py	
+
++++ b/Studioforge/Accurate generators/GENERATE_ALL.py	
+
+@@ -64,6 +64,7 @@ PRODUCTS = [
+
+     ("aac_board",    "AAC Board",                  "BOARD",  "AAC_BOARD_GENERATOR",         "main"),
+
+     ("sorting",      "Sorting Cards",             "SORT",   "SORTING_CARDS",               "generate_sorting_cards"),
+
+     ("bingo",        "Bingo",                     "BINGO",  "BINGO_GENERATOR",             "generate_bingo_pack"),
+
++    ("participation","Participation Pieces  Sentence Builder", "PARTS", "PARTICIPATION_PIECES", "generate_participation_pieces_sentence_builder"),
+
+     ("spin",         "Spin & Cover",              "SC",     "SPIN_COVER_GENERATOR",        "generate_spin_cover_pack"),
+
+     ("yes_no",       "Yes/No Questions",          "YN",     "YES_NO_GENERATOR",            "generate_yes_no_pack"),
+
+     ("sequencing",   "Sequencing Cards",          "SEQ",    "STORY_STRIPS_SEQUENCE",       "generate_story_strips"),
+
+@@ -88,7 +89,7 @@ PRODUCTS = [
+
+ ]
+
+ 
+
+ # Products whose function signature is build_pdf(slug, book_title, pack_code)
+
+-BUILD_PDF_PRODUCTS = {"adapted", "syllable", "scarborough", "inferencing", "word_wall", "phoneme", "rhyme"}
+
++BUILD_PDF_PRODUCTS = {"adapted", "syllable", "scarborough", "inferencing", "word_wall", "phoneme", "rhyme", "participation"}
+
+ 
+
+ # Products skipped by default (run with --all to include, or name explicitly)
+
+ # NOTE: "storage" is excluded here (not "advanced", just genuinely broken) 
+
+@@ -151,7 +152,23 @@ def run_generator(key, display_name, pack_suffix, module_name, func_name,
+
+                 else:
+
+                     raise
+
+         else:
+
+-            mod = importlib.import_module(module_name)
+
++            try:
+
++                mod = importlib.import_module(module_name)
+
++            except Exception:
+
++                if key == "participation":
+
++                    acc_path = Path(__file__).resolve().parents[1] / "Accurate generators" / "PARTICIPATION_PIECES.py"
+
++                    if acc_path.exists():
+
++                        spec = importlib.util.spec_from_file_location("_SWS_PARTICIPATION_ACCURATE", str(acc_path))
+
++                        if spec and spec.loader:
+
++                            alt_mod = importlib.util.module_from_spec(spec)
+
++                            spec.loader.exec_module(alt_mod)
+
++                            mod = alt_mod
+
++                        else:
+
++                            raise
+
++                    else:
+
++                        raise
+
++                else:
+
++                    raise
+
+             if key == "matching":
+
+                 # Force Accurate generators version for Matching
+
+                 try:
+
+@@ -164,6 +181,18 @@ def run_generator(key, display_name, pack_suffix, module_name, func_name,
+
+                             mod = alt_mod
+
+                 except Exception:
+
+                     pass
+
++            elif key == "aac_board":
+
++                # Prefer Studioforge wrapper for AAC Board which delegates to BoardReady
+
++                try:
+
++                    acc_path = Path(__file__).resolve().parents[1] / "AAC_BOARD_GENERATOR.py"
+
++                    if acc_path.exists():
+
++                        spec = importlib.util.spec_from_file_location("_SWS_AAC_BOARD_WRAPPER", str(acc_path))
+
++                        if spec and spec.loader:
+
++                            alt_mod = importlib.util.module_from_spec(spec)
+
++                            spec.loader.exec_module(alt_mod)
+
++                            mod = alt_mod
+
++                except Exception:
+
++                    pass
+
+             elif key == "word_search":
+
+                 # Prefer Accurate Word Search (updated cover template)
+
+                 try:
+
+@@ -260,6 +289,18 @@ def run_generator(key, display_name, pack_suffix, module_name, func_name,
+
+                             mod = alt_mod
+
+                 except Exception:
+
+                     pass
+
++            elif key == "participation":
+
++                # Prefer Accurate Participation Pieces  Sentence Builder
+
++                try:
+
++                    acc_path = Path(__file__).resolve().parents[1] / "Accurate generators" / "PARTICIPATION_PIECES.py"
+
++                    if acc_path.exists():
+
++                        spec = importlib.util.spec_from_file_location("_SWS_PARTICIPATION_ACCURATE", str(acc_path))
+
++                        if spec and spec.loader:
+
++                            alt_mod = importlib.util.module_from_spec(spec)
+
++                            spec.loader.exec_module(alt_mod)
+
++                            mod = alt_mod
+
++                except Exception:
+
++                    pass
+
+         # Special-case: storage labels  production module may not expose generate_storage_labels
+
+         if key == "storage" and not hasattr(mod, func_name):
+
+             alt_path = Path(__file__).resolve().parents[2] / "Generators" / "ARCHIVE generators" / "STORAGE_LABELS.py"
+
+@@ -378,7 +419,7 @@ def _count_icons(path: Path) -> int:
+
+ def resolve_images_folder(slug: str, *, min_icons: int = 6) -> tuple[Path | None, int]:
+
+     """Return a usable images folder for generators that need icons.
+
+ 
+
+-    Prefers the target theme's activity_images/icons_colored/icons if they have
+
++    Prefers the target theme's activity_images/icons if they have
+
+     at least min_icons; otherwise, falls back to the richest available theme
+
+     folder across assets/themes/*.
+
+     """
+
+@@ -388,7 +429,7 @@ def resolve_images_folder(slug: str, *, min_icons: int = 6) -> tuple[Path | None
+
+     except Exception:
+
+         repo = Path(__file__).resolve().parents[2]
+
+     base = repo / "assets" / "themes" / slug
+
+-    candidates = [base / "activity_images", base / "icons_colored", base / "icons", base / "real_images"]
+
++    candidates = [base / "activity_images", base / "icons", base / "real_images"]
+
+     for p in candidates:
+
+         if p.exists():
+
+             n = _count_icons(p)
+
+@@ -419,7 +460,7 @@ def resolve_images_folder(slug: str, *, min_icons: int = 6) -> tuple[Path | None
+
+                     # Only consider global libs that look topic-relevant
+
+                     continue
+
+                 # Consider common subfolders; if none exist, allow the folder itself
+
+-                subs = ("activity_images", "icons_colored", "icons", "real_images")
+
++                subs = ("activity_images", "icons", "real_images")
+
+                 cands = [d / s for s in subs if (d / s).exists()] or [d]
+
+                 for cand in cands:
+
+                     n = _count_icons(cand)
+
+@@ -438,7 +479,7 @@ def resolve_images_folder(slug: str, *, min_icons: int = 6) -> tuple[Path | None
+
+         for t in themes.iterdir():
+
+             if not t.is_dir():
+
+                 continue
+
+-            for sub in ("activity_images", "icons_colored", "icons", "characters", "aac_boards/previews"):
+
++            for sub in ("activity_images", "icons", "characters", "aac_boards/previews"):
+
+                 cand = t / sub
+
+                 if cand.exists():
+
+                     n = _count_icons(cand)
+
+diff --git a/Studioforge/Accurate generators/INFERENCING_CARDS.py b/Studioforge/Accurate generators/INFERENCING_CARDS.py
+
+index 3eca879..3b5cbb6 100644
+
+--- a/Studioforge/Accurate generators/INFERENCING_CARDS.py	
+
++++ b/Studioforge/Accurate generators/INFERENCING_CARDS.py	
+
+@@ -284,11 +284,11 @@ def build_pdf(slug: str, book_title: str, pack_code: str) -> bool:
+
+     (slug, book_title, pack_code) rather than a resolved images_folder path.
+
+     """
+
+     repo_root = Path(__file__).resolve().parents[2]
+
+-    for folder in ("activity_images", "icons_colored", "icons"):
+
++    for folder in ("activity_images", "icons"):
+
+         images_folder = repo_root / "assets" / "themes" / slug / folder
+
+         if images_folder.exists():
+
+             return generate_inferencing_cards_pack(str(images_folder), pack_code=pack_code, theme_name=book_title)
+
+-    print(f" No image folder found for slug '{slug}' (checked activity_images/icons_colored/icons)")
+
++    print(f" No image folder found for slug '{slug}' (checked activity_images/icons)")
+
+     return False
+
+ 
+
+ 
+
+diff --git a/Studioforge/Accurate generators/SYLLABLE_CARDS.py b/Studioforge/Accurate generators/SYLLABLE_CARDS.py
+
+index 87039ee..288e6d7 100644
+
+--- a/Studioforge/Accurate generators/SYLLABLE_CARDS.py	
+
++++ b/Studioforge/Accurate generators/SYLLABLE_CARDS.py	
+
+@@ -287,11 +287,11 @@ def build_pdf(slug: str, book_title: str, pack_code: str) -> bool:
+
+     """
+
+     # Resolve via absolute repo root to avoid CWD issues
+
+     repo_root = Path(__file__).resolve().parents[2]
+
+-    for folder in ("activity_images", "icons_colored", "icons"):
+
++    for folder in ("activity_images", "icons"):
+
+         images_folder = repo_root / "assets" / "themes" / slug / folder
+
+         if images_folder.exists():
+
+             return generate_syllable_cards_pack(str(images_folder), pack_code=pack_code, theme_name=book_title)
+
+-    print(f" No image folder found for slug '{slug}' (checked activity_images/icons_colored/icons)")
+
++    print(f" No image folder found for slug '{slug}' (checked activity_images/icons)")
+
+     return False
+
+ 
+
+ 
+
+diff --git a/Studioforge/Accurate generators/WORD_SEARCH_GENERATOR.py b/Studioforge/Accurate generators/WORD_SEARCH_GENERATOR.py
+
+index f76d0b7..51282e2 100644
+
+--- a/Studioforge/Accurate generators/WORD_SEARCH_GENERATOR.py	
+
++++ b/Studioforge/Accurate generators/WORD_SEARCH_GENERATOR.py	
+
+@@ -21,7 +21,7 @@ WORD SELECTION  different words per level:
+
+     3. activity_images/ folder stems (auto-sorted by length)
+
+ 
+
+ ICON DISPLAY  image shown next to each word in the word list below the grid.
+
+-  Loads from activity_images/  icons_colored/  icons/
+
++  Loads from activity_images/  icons/
+
+   If no icon found for a word, shows word text only (no crash).
+
+ 
+
+ FIXED (vs old generator):
+
+@@ -281,7 +281,7 @@ def build_grid(words: list[str], grid_size: int,
+
+ #  Icon loader 
+
+ 
+
+ def load_icon(slug: str, raw_stem: str) -> Image.Image | None:
+
+-    for folder in ["activity_images", "icons_colored", "icons"]:
+
++    for folder in ["activity_images", "icons"]:
+
+         p = REPO_ROOT / "assets" / "themes" / slug / folder / f"{raw_stem}.png"
+
+         if p.exists():
+
+             try:
+
+@@ -326,7 +326,7 @@ def load_vocab(slug: str) -> list[str]:
+
+             pass
+
+ 
+
+     # Fall back to activity_images/ stems
+
+-    for folder in ["activity_images", "icons_colored", "icons"]:
+
++    for folder in ["activity_images", "icons"]:
+
+         img_dir = REPO_ROOT / "assets" / "themes" / slug / folder
+
+         if img_dir.exists():
+
+             stems = []
+

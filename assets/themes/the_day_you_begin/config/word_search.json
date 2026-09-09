@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Sight Recognition",
+    "Vocabulary"
+  ],
+  "teacher_review_required": true,
+  "words": [
+    {
+      "word": "school",
+      "image_key": "school",
+      "label": "School"
+    },
+    {
+      "word": "friend",
+      "image_key": "friend",
+      "label": "Friend"
+    },
+    {
+      "word": "brave",
+      "image_key": "brave",
+      "label": "Brave"
+    },
+    {
+      "word": "story",
+      "image_key": "story",
+      "label": "Story"
+    },
+    {
+      "word": "share",
+      "image_key": "share",
+      "label": "Share"
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "schema": "pp_qna.v1",
+  "book_slug": "if_you_take_a_mouse_to_school",
+  "book_title": "If You Take a Mouse to School",
+  "pages": [
+    {
+      "page_num": 1,
+      "question": "Where does the character go?",
+      "choices": [
+        "school",
+        "mouse",
+        "backpack"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        false,
+        false
+      ],
+      "context_mirror": {
+        "sentence": "Mouse goes to school for the first time.",
+        "scene_note": "Mouse goes to school for the first time."
+      }
+    },
+    {
+      "page_num": 2,
+      "question": "What do you see?",
+      "choices": [
+        "backpack",
+        "mouse",
+        "school"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        false,
+        false
+      ],
+      "context_mirror": {
+        "sentence": "Mouse asks for a backpack and school supplies.",
+        "scene_note": "Mouse asks for a backpack and school supplies."
+      }
+    },
+    {
+      "page_num": 3,
+      "question": "What do you see?",
+      "choices": [
+        "cookie",
+        "mouse",
+        "school"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        false,
+        false
+      ],
+      "context_mirror": {
+        "sentence": "Mouse wants a cookie and a glass of milk.",
+        "scene_note": "Mouse wants a cookie and a glass of milk."
+      }
+    },
+    {
+      "page_num": 4,
+      "question": "Who does the character meet?",
+      "choices": [
+        "friend",
+        "mouse",
+        "school"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        false,
+        false
+      ],
+      "context_mirror": {
+        "sentence": "Mouse makes a new friend at school.",
+        "scene_note": "Mouse makes a new friend at school."
+      }
+    }
+  ]
+}

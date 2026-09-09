@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Language Structures",
+    "Vocabulary"
+  ],
+  "teacher_review_required": true,
+  "theme_items": [
+    {
+      "image_key": "school",
+      "label": "School"
+    },
+    {
+      "image_key": "nervous",
+      "label": "Nervous"
+    },
+    {
+      "image_key": "new",
+      "label": "New"
+    },
+    {
+      "image_key": "teacher",
+      "label": "Teacher"
+    },
+    {
+      "image_key": "friend",
+      "label": "Friend"
+    },
+    {
+      "image_key": "classroom",
+      "label": "Classroom"
+    }
+  ],
+  "patterns": [
+    {
+      "display": "I see ___",
+      "items": [
+        "school",
+        "nervous",
+        "new",
+        "teacher",
+        "friend",
+        "classroom"
+      ]
+    },
+    {
+      "display": "I want ___",
+      "items": [
+        "school",
+        "new",
+        "teacher",
+        "friend"
+      ]
+    },
+    {
+      "display": "I like ___",
+      "items": [
+        "school",
+        "nervous",
+        "new",
+        "teacher",
+        "friend"
+      ]
+    },
+    {
+      "display": "I feel ___",
+      "items": [
+        "nervous"
+      ]
+    },
+    {
+      "display": "I am ___",
+      "items": [
+        "nervous"
+      ]
+    },
+    {
+      "display": "I don't like ___",
+      "items": [
+        "school",
+        "new",
+        "teacher"
+      ]
+    }
+  ]
+}

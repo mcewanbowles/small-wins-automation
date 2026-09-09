@@ -1,0 +1,38 @@
+Ask for Help icon filenames (PNG) expected by generator
+
+Place these files in:
+assets/social_stories/ask_for_help/icons
+
+Story pages:
+- ask_for_help.png
+- body_private.png
+- body_changes_normal.png
+- see_blood_stay_calm.png
+- ask_trusted_adult.png
+- i_need_help.png
+
+Choice cards:
+- toilet.png
+- pad.png
+- breathe.png
+- stay_calm.png
+- period_kit.png
+- talk.png
+- stop.png
+- thumbs_up.png
+- where_question.png
+- trusted_adult.png
+- checklist.png
+- walk_to_toilet.png
+- bathroom.png
+- phone_home.png
+
+Routine strips:
+- remove_pad.png
+- roll_pad.png
+- wrap_pad.png
+- bin.png
+- new_pad.png
+- pull_up_underwear.png
+- wash_hands.png
+- back_to_class.png

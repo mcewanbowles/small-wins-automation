@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "book_title": "The Crayon Box That Talked",
+  "pack_code": "AUTO-ADPT",
+  "review_sentence": "Together the crayons make a beautiful picture.",
+  "teacher_review_required": true,
+  "pages": [
+    {
+      "page_num": 3,
+      "image_word": "crayon",
+      "sentence": "The crayons in the box do not get along.",
+      "scene_note": "The crayons in the box do not get along."
+    },
+    {
+      "page_num": 4,
+      "image_word": "different",
+      "sentence": "Each crayon is different and special.",
+      "scene_note": "Each crayon is different and special."
+    },
+    {
+      "page_num": 5,
+      "image_word": "together",
+      "sentence": "The crayons learn to work together.",
+      "scene_note": "The crayons learn to work together."
+    },
+    {
+      "page_num": 6,
+      "image_word": "picture",
+      "sentence": "Together the crayons make a beautiful picture.",
+      "scene_note": "Together the crayons make a beautiful picture."
+    }
+  ]
+}

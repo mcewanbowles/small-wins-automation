@@ -1,0 +1,13 @@
+Missing icons report:
+
+- outside
+- clothes
+  suggested alternatives: clothes_on, clothes
+- uncomfortable
+- AAC
+- hands out
+  suggested alternatives: wash_hands, keep_hands_off
+- private bathroom
+  suggested alternatives: private, private_02, private (2), private (3), private_space
+- safe body
+  suggested alternatives: e-safety, keep details safe, unsafe, unsafe_contact, unsafe_message

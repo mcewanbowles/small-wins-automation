@@ -1,4 +1,4 @@
-from __future__ import annotations
+Wfrom __future__ import annotations
 
 from pydantic import BaseModel, Field
 
@@ -9,14 +9,19 @@ class KeywordsRequest(BaseModel):
     gold_only: bool = Field(default=False)
     store_level: str = Field(default="new_store")
     winnable_only: bool = Field(default=True)
+    expand: bool = Field(default=True)
+    letters_expand: bool = Field(default=False)
 
 
 class KeywordResult(BaseModel):
     phrase: str
+    tail_type: str
     demand_label: str
     demand_score: int
     opportunity_score: int
     source_hits: list[str]
+    surface_count: int
+    best_rank: int | None
     tpt_supply_count: int | None
     avg_top5_reviews: float | None
     lowest_page1_reviews: int | None
@@ -75,6 +80,8 @@ class GenerateListingResponse(BaseModel):
     full_description: str
     keyword_angles: list[str]
     gap_opportunities: list[str]
+    suggested_price: float
+    price_reason: str
 
 
 class AuditListingRequest(BaseModel):

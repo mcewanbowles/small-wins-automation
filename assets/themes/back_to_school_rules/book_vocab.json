@@ -1,0 +1,201 @@
+{
+  "schema_version": 1,
+  "title": "Back to School Rules",
+  "author": "Laurie Friedman",
+  "status": "existing",
+  "vocab_status": "reviewed",
+  "production_blocked": true,
+  "demand_candidate": {
+    "campaign": "september_back_to_school_2026",
+    "rank": 6,
+    "evidence_level": "public_tpt_and_seasonal_proxy",
+    "rationale": "Direct September classroom-routine and behaviour relevance with strong potential for visual rules, do-and-don't sorting, and AAC participation.",
+    "tpt_keyword_finder_verified": false,
+    "rights_review": "required"
+  },
+  "hero": {
+    "name": "School Boy",
+    "description": "Young boy character following school rules",
+    "search_term": "school boy",
+    "needs_sourcing": true,
+    "source_note": "Generic school child character - source from Boardmaker or clip art"
+  },
+  "fringe_12": [
+    "school",
+    "rules",
+    "raise_hand",
+    "listen",
+    "quiet",
+    "line_up",
+    "share",
+    "kind",
+    "safe",
+    "respect",
+    "try",
+    "friend"
+  ],
+  "fringe_11": [],
+  "activity_images": [
+    "school",
+    "rules",
+    "raise_hand",
+    "listen",
+    "quiet",
+    "line_up",
+    "share",
+    "kind",
+    "safe",
+    "respect",
+    "try",
+    "friend"
+  ],
+  "aac_extras": [],
+  "ambiguous": [],
+  "character_images_needed": [],
+  "icon_search_terms": {
+    "school": "school",
+    "rules": "rules",
+    "raise_hand": "raise hand",
+    "listen": "listen",
+    "quiet": "quiet",
+    "line_up": "line up",
+    "share": "share",
+    "kind": "kind",
+    "safe": "safe",
+    "respect": "respect",
+    "try": "try your best",
+    "friend": "friend"
+  },
+  "characters": [],
+  "code": "",
+  "board_format": "6x6_LETTER_hero_fringe",
+  "vocab_generated": null,
+  "notes": "Demand candidate only. Complete Keyword Finder, rights, vocabulary, and icon review before production.",
+  "required_icons": {
+    "aac_board": {
+      "min": 2,
+      "max": 12,
+      "note": "2 theme + 24 core + 10 global fringe"
+    },
+    "matching": {
+      "min": 4,
+      "max": 12,
+      "note": "Min 4 approved stems, no hard cap"
+    },
+    "book_participation": {
+      "min": 8,
+      "max": 8,
+      "note": "8 vocab + hero"
+    },
+    "sentence_strips": {
+      "min": 8,
+      "max": 12,
+      "note": "8 theme items + 5 core words"
+    },
+    "sequencing": {
+      "min": 4,
+      "max": 10,
+      "note": "Story sequence cards, capped at 10"
+    },
+    "yes_no": {
+      "min": 4,
+      "max": 12,
+      "note": "Yes/No question cards, 4 per page"
+    },
+    "inferencing": {
+      "min": 3,
+      "max": 4,
+      "note": "Exactly 4 reasoning cards"
+    },
+    "vocabulary_snap": {
+      "min": 6,
+      "max": 12,
+      "note": "Vocab cards, cap 12 unique words"
+    },
+    "syllable_cards": {
+      "min": 4,
+      "max": 20,
+      "note": "Syllable cards, expanded to 20"
+    },
+    "cvc_decode": {
+      "min": 9,
+      "max": 15,
+      "note": "3-5 groups x 3 CVC words (phonics, not theme icons)"
+    },
+    "story_grammar": {
+      "min": 1,
+      "max": 1,
+      "note": "Hero icon + 6 fixed story-element labels"
+    },
+    "word_search": {
+      "min": 4,
+      "max": 8,
+      "note": "4-8 words, length <= 8 letters"
+    },
+    "bingo": {
+      "min": 8,
+      "max": 8,
+      "note": "Exactly 8 calling cards"
+    },
+    "sorting": {
+      "min": 6,
+      "max": 12,
+      "note": "6-12 sort items across 2 sets"
+    },
+    "print_detective": {
+      "min": 5,
+      "max": 8,
+      "note": "5-8 first-sound picture pairs"
+    }
+  },
+  "max_theme_icons": 9,
+  "story_sequence": [
+    "school",
+    "rules",
+    "listen",
+    "friend"
+  ],
+  "story_event_captions": {
+    "school": "Children arrive at school ready to learn.",
+    "rules": "The class learns the school rules.",
+    "listen": "Everyone practices listening and raising hands.",
+    "friend": "Children are kind and make new friends."
+  },
+  "yes_no_questions": [
+    {
+      "question": "Is this a school?",
+      "answer": "yes",
+      "image_key": "school"
+    },
+    {
+      "question": "Is this a park?",
+      "answer": "no",
+      "image_key": "school"
+    },
+    {
+      "question": "Should you raise your hand?",
+      "answer": "yes",
+      "image_key": "raise_hand"
+    },
+    {
+      "question": "Should you be loud in class?",
+      "answer": "no",
+      "image_key": "quiet"
+    },
+    {
+      "question": "Is this about sharing?",
+      "answer": "yes",
+      "image_key": "share"
+    },
+    {
+      "question": "Should you be kind?",
+      "answer": "yes",
+      "image_key": "kind"
+    },
+    {
+      "question": "Should you run in the hallway?",
+      "answer": "no",
+      "image_key": "safe"
+    }
+  ]
+}

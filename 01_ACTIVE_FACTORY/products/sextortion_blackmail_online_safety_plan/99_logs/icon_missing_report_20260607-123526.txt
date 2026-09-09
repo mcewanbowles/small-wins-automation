@@ -1,0 +1,9 @@
+Missing icons report:
+
+- do not pay
+  suggested alternatives: dont_know, dont_like, do not reply, dont_go_with_strangers, down
+- screenshot
+  suggested alternatives: screenshot, 17 screenshot, screenshot 2026-03-05 222847, screenshot 2026-03-05 230204
+- evidence
+  suggested alternatives: evidence, video_evidence
+- pay

@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Verbal Reasoning",
+    "Background Knowledge"
+  ],
+  "teacher_review_required": true,
+  "cards": [
+    {
+      "clue_image_key": "school",
+      "question": "What might happen next?",
+      "choices": [
+        "Something good",
+        "Something bad"
+      ],
+      "answer_hint": "Stories usually have a happy ending."
+    },
+    {
+      "clue_image_key": "school",
+      "question": "What might happen next?",
+      "choices": [
+        "Something good",
+        "Something bad"
+      ],
+      "answer_hint": "Stories usually have a happy ending."
+    },
+    {
+      "clue_image_key": "school",
+      "question": "What might happen next?",
+      "choices": [
+        "Something good",
+        "Something bad"
+      ],
+      "answer_hint": "Stories usually have a happy ending."
+    },
+    {
+      "clue_image_key": "school",
+      "question": "What might happen next?",
+      "choices": [
+        "Something good",
+        "Something bad"
+      ],
+      "answer_hint": "Stories usually have a happy ending."
+    }
+  ]
+}

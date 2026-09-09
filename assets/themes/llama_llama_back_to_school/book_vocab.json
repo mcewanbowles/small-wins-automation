@@ -1,6 +1,8 @@
 {
   "title": "Llama Llama Back To School",
-  "author": "Anna Dewdney",
+  "author": "Anna Dewdney, Reed Duncan",
+  "pub_year": "2022",
+  "book_summary": "As summer ends, Llama Llama isn't ready to give up backyard camping, picnics, and ice cream with friends, and he feels anxious about his first day back at school. Mama Llama takes him shopping for school supplies, and once the first day arrives Llama Llama learns the classroom rules (stand in line, raise your hand, coats on hooks) alongside his seasoned classmates. When a new young rhino student arrives feeling scared, Llama Llama shares his crayons and shows him how to use glue, helping the newcomer become part of the group.",
   "hero": {
     "name": "Llama Llama",
     "description": "Young llama character with large ears and expressive face, Anna Dewdney's distinctive illustrated style",
@@ -8,8 +10,52 @@
     "needs_sourcing": true,
     "source_note": "Named/branded character — source from Creative Fabrica, TPT, or official Llama Llama clip art"
   },
+  "vocab_words": [
+    "llama_llama",
+    "school",
+    "backpack",
+    "friend",
+    "teacher",
+    "nervous",
+    "new",
+    "learn",
+    "classroom",
+    "pencil",
+    "happy",
+    "sit",
+    "crayons",
+    "glue",
+    "share",
+    "scared",
+    "line",
+    "hand",
+    "cubby",
+    "coat"
+  ],
+  "vocab_source_map": {
+    "llama_llama": "primary",
+    "school": "primary",
+    "backpack": "primary",
+    "friend": "primary",
+    "teacher": "primary",
+    "nervous": "primary",
+    "new": "primary",
+    "learn": "primary",
+    "classroom": "primary",
+    "pencil": "primary",
+    "happy": "primary",
+    "sit": "primary",
+    "crayons": "extended",
+    "glue": "extended",
+    "share": "extended",
+    "scared": "extended",
+    "line": "extended",
+    "hand": "extended",
+    "cubby": "extended",
+    "coat": "extended"
+  },
   "fringe_12": [
-    "Llama Llama",
+    "llama_llama",
     "school",
     "backpack",
     "friend",
@@ -36,19 +82,40 @@
     "sit"
   ],
   "activity_images": [
-    "school",
     "backpack",
+    "classroom",
+    "coat",
+    "crayons",
+    "cubby",
     "friend",
-    "teacher",
+    "glue",
+    "hand",
+    "happy",
+    "learn",
+    "line",
+    "llama_llama",
     "nervous",
-    "new"
+    "new",
+    "pencil",
+    "share",
+    "scared",
+    "school",
+    "sit",
+    "teacher"
   ],
   "aac_extras": [
     "learn",
     "classroom",
     "pencil",
     "happy",
-    "sit"
+    "sit",
+    "crayons",
+    "glue",
+    "hand",
+    "line",
+    "cubby",
+    "coat",
+    "scared"
   ],
   "ambiguous": [
     {
@@ -56,6 +123,24 @@
       "issue": "Could be interpreted abstractly; in this context means unfamiliar/first-time experience",
       "preferred": "new",
       "reason": "Central concept of the book — first day at school, everything is new; use Boardmaker 'new' symbol showing novelty/first"
+    },
+    {
+      "word": "hand",
+      "issue": "Could mean the body part or the action of raising one's hand",
+      "preferred": "raise hand",
+      "reason": "In the book, 'hand' refers specifically to the classroom rule 'Raise your hand,' so a raising-hand gesture image is correct."
+    },
+    {
+      "word": "line",
+      "issue": "Could mean a queue of children or a drawn line",
+      "preferred": "stand in line",
+      "reason": "The book uses 'line' in the rule 'Stand in line,' referring to children queuing up, not a drawn line."
+    },
+    {
+      "word": "coat",
+      "issue": "Could mean a piece of clothing or a layer/coat of paint",
+      "preferred": "coat (clothing) on hook",
+      "reason": "The book's rule 'Coats on hooks' refers to clothing being hung up in the classroom."
     }
   ],
   "character_images_needed": [
@@ -72,11 +157,135 @@
     "classroom": "classroom",
     "pencil": "pencil",
     "happy": "happy",
-    "sit": "sit"
+    "sit": "sit",
+    "crayons": "crayons",
+    "glue": "glue bottle",
+    "share": "share",
+    "scared": "scared",
+    "line": "stand in line",
+    "hand": "raise hand",
+    "cubby": "cubby",
+    "coat": "coat hook"
   },
-  "notes": "Llama Llama Back To School centres on first-day anxiety and excitement about starting school. Key emotional vocabulary (nervous, happy) is important for supporting student self-expression about school feelings. 'Classroom' may not have a direct Boardmaker symbol — try 'class' or 'room' as alternates. 'Learn' may appear as 'learning' in some libraries. The book is by Anna Dewdney (not unknown); she is the established author of the Llama Llama series. Hero image must be sourced externally as the Llama Llama character has a very specific illustrated look not replicated in generic Boardmaker llama symbols.",
+  "fringe_justifications": {
+    "backpack": "Mama Llama takes Llama shopping for new school supplies before the first day, a key scene showing his reluctance to leave summer behind.",
+    "crayons": "Llama Llama shares his crayons with the scared new student, the central helping act of the story.",
+    "glue": "Llama Llama shows the new student how to use glue in the classroom, part of the same befriending scene.",
+    "share": "Llama Llama's act of sharing crayons with the new student is how he helps the newcomer feel welcome and become part of the group.",
+    "scared": "The new student is described as feeling scared on his first day, the emotional turning point Llama Llama responds to.",
+    "line": "One of the classroom rules recited in the book is to 'stand in line,' part of the structured first-day-of-school routine.",
+    "hand": "Another classroom rule in the book is 'raise your hand,' directly tied to the teacher's instructions on the first day.",
+    "cubby": "The book specifically mentions 'lunch in cubbies' as part of the classroom routine Llama Llama must learn.",
+    "coat": "The book specifically mentions 'coats on hooks' as one of the first-day classroom routines."
+  },
+  "notes": "Llama Llama Back To School centres on first-day anxiety and excitement about starting school. Key emotional vocabulary (nervous, happy, scared) is important for supporting student self-expression about school feelings. The book is by Anna Dewdney and Reed Duncan (2022), illustrated by JT Morrow. Hero image must be sourced externally as the Llama Llama character has a very specific illustrated look not replicated in generic Boardmaker llama symbols. Vocabulary expanded to 20 words: 12 primary + 8 extended (book-specific). Extended words are tagged with source:extended in vocab_source_map.",
   "characters": [],
-  "code": "",
+  "code": "LLB01",
   "board_format": "6x6_LETTER_hero_fringe",
-  "vocab_generated": "2026-08-01"
+  "vocab_generated": "2026-09-05",
+  "vocab_status": "finalized_20_words",
+  "grounded": true,
+  "grounding_note": "Confirmed via multiple retailer/review sources (Penguin Random House, Barnes & Noble, Kirkus, Goodreads) that this is the 2022 Llama Llama book co-written by Anna Dewdney and Reed Duncan, illustrated by JT Morrow, about Llama Llama's reluctance to end summer and his first day of school, where he befriends a new, scared rhino student by sharing crayons and glue. Plot details (classroom rules, cubbies, coats on hooks, rhino character) come directly from the Barnes & Noble/Kirkus-sourced publisher description.",
+  "required_icons": {
+    "aac_board": {
+      "min": 2,
+      "max": 20,
+      "note": "2 theme + 24 core + 10 global fringe"
+    },
+    "matching": {
+      "min": 4,
+      "max": 20,
+      "note": "Min 4 approved stems, no hard cap"
+    },
+    "book_participation": {
+      "min": 8,
+      "max": 8,
+      "note": "8 vocab + hero"
+    },
+    "sentence_strips": {
+      "min": 8,
+      "max": 20,
+      "note": "8 theme items + 5 core words"
+    },
+    "sequencing": {
+      "min": 4,
+      "max": 10,
+      "note": "Story sequence cards, capped at 10"
+    },
+    "yes_no": {
+      "min": 4,
+      "max": 20,
+      "note": "Yes/No question cards, 4 per page"
+    },
+    "inferencing": {
+      "min": 3,
+      "max": 4,
+      "note": "Exactly 4 reasoning cards"
+    },
+    "vocabulary_snap": {
+      "min": 6,
+      "max": 20,
+      "note": "Vocab cards, cap 20 unique words"
+    },
+    "syllable_cards": {
+      "min": 4,
+      "max": 20,
+      "note": "Syllable cards, expanded to 20"
+    },
+    "story_elements": {
+      "min": 1,
+      "max": 1,
+      "note": "Hero icon + 6 fixed story-element labels"
+    },
+    "word_search": {
+      "min": 4,
+      "max": 8,
+      "note": "4-8 words, length <= 8 letters"
+    },
+    "bingo": {
+      "min": 8,
+      "max": 8,
+      "note": "Exactly 8 calling cards"
+    },
+    "sorting": {
+      "min": 6,
+      "max": 12,
+      "note": "6-12 sort items across 2 sets"
+    },
+    "print_detective": {
+      "min": 5,
+      "max": 8,
+      "note": "5-8 first-sound picture pairs"
+    }
+  },
+  "max_theme_icons": 20,
+  "story_sequence": ["school", "nervous", "friend", "happy"],
+  "story_event_captions": {
+    "school": "Llama Llama goes to school for the first time.",
+    "nervous": "Llama Llama feels nervous about the new classroom.",
+    "friend": "Llama Llama makes a new friend.",
+    "happy": "Llama Llama feels happy at school."
+  },
+  "yes_no_questions": [
+    {"question": "Is this a school?", "answer": "yes", "image_key": "school"},
+    {"question": "Is this a backpack?", "answer": "yes", "image_key": "backpack"},
+    {"question": "Is this a friend?", "answer": "yes", "image_key": "friend"},
+    {"question": "Is this a teacher?", "answer": "yes", "image_key": "teacher"},
+    {"question": "Does Llama Llama look nervous?", "answer": "yes", "image_key": "nervous"},
+    {"question": "Is this a pencil?", "answer": "yes", "image_key": "pencil"},
+    {"question": "Does Llama Llama look happy?", "answer": "yes", "image_key": "happy"},
+    {"question": "Is this a classroom?", "answer": "yes", "image_key": "classroom"},
+    {"question": "Can Llama Llama learn at school?", "answer": "yes", "image_key": "learn"},
+    {"question": "Is this Llama Llama?", "answer": "yes", "image_key": "llama_llama"},
+    {"question": "Is Llama Llama new at school?", "answer": "yes", "image_key": "new"},
+    {"question": "Can Llama Llama sit with friends?", "answer": "yes", "image_key": "sit"},
+    {"question": "Are these crayons?", "answer": "yes", "image_key": "crayons"},
+    {"question": "Is this glue?", "answer": "yes", "image_key": "glue"},
+    {"question": "Can Llama Llama share with friends?", "answer": "yes", "image_key": "share"},
+    {"question": "Does the new student look scared?", "answer": "yes", "image_key": "scared"},
+    {"question": "Can you stand in a line?", "answer": "yes", "image_key": "line"},
+    {"question": "Should you raise your hand?", "answer": "yes", "image_key": "hand"},
+    {"question": "Is this a cubby?", "answer": "yes", "image_key": "cubby"},
+    {"question": "Is this a coat?", "answer": "yes", "image_key": "coat"}
+  ]
 }

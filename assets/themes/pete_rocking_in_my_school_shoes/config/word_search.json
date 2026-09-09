@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Sight Recognition",
+    "Vocabulary"
+  ],
+  "teacher_review_required": true,
+  "words": [
+    {
+      "word": "school",
+      "image_key": "school",
+      "label": "School"
+    },
+    {
+      "word": "shoes",
+      "image_key": "shoes",
+      "label": "Shoes"
+    },
+    {
+      "word": "rock",
+      "image_key": "rock",
+      "label": "Rock"
+    },
+    {
+      "word": "sing",
+      "image_key": "sing",
+      "label": "Sing"
+    },
+    {
+      "word": "lunch",
+      "image_key": "lunch",
+      "label": "Lunch"
+    },
+    {
+      "word": "bus",
+      "image_key": "bus",
+      "label": "Bus"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "grab": [],
+  "touch": [],
+  "lap": [],
+  "gentle": [],
+  "upset": [],
+  "safe hands": [
+    "e-safety",
+    "keep details safe",
+    "unsafe",
+    "unsafe_contact",
+    "unsafe_message"
+  ],
+  "hands to self": [
+    "wash_hands",
+    "keep_hands_off"
+  ],
+  "play": []
+}

@@ -1,0 +1,18 @@
+{
+  "bra": [],
+  "singlet": [],
+  "crop top": [],
+  "grow": [],
+  "support": [],
+  "comfortable": [],
+  "tight": [],
+  "clothes": [
+    "clothes_on",
+    "clothes"
+  ],
+  "too tight": [
+    "get_toothbrush",
+    "put_toothpaste_on_brush",
+    "rinse_toothbrush"
+  ]
+}

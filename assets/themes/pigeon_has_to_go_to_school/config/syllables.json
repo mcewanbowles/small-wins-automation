@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Phonological Awareness"
+  ],
+  "teacher_review_required": true,
+  "items": [
+    {
+      "image_key": "school",
+      "label": "School",
+      "count": 1,
+      "segmentation": "school"
+    },
+    {
+      "image_key": "nervous",
+      "label": "Nervous",
+      "count": 2,
+      "segmentation": "ne · rvou · s"
+    },
+    {
+      "image_key": "learn",
+      "label": "Learn",
+      "count": 1,
+      "segmentation": "learn"
+    },
+    {
+      "image_key": "teacher",
+      "label": "Teacher",
+      "count": 2,
+      "segmentation": "tea · che · r"
+    },
+    {
+      "image_key": "bus",
+      "label": "Bus",
+      "count": 1,
+      "segmentation": "bus"
+    },
+    {
+      "image_key": "friend",
+      "label": "Friend",
+      "count": 1,
+      "segmentation": "friend"
+    }
+  ]
+}

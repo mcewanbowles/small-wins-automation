@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Vocabulary",
+    "Verbal Reasoning",
+    "Language Structures"
+  ],
+  "teacher_review_required": true,
+  "sets": [
+    {
+      "title": "Who or What/Where?",
+      "left": {
+        "label": "WHO?",
+        "items": [
+          "crayon",
+          "box",
+          "red"
+        ]
+      },
+      "right": {
+        "label": "WHAT OR WHERE?",
+        "items": [
+          "blue",
+          "yellow",
+          "green",
+          "color",
+          "draw",
+          "together"
+        ]
+      }
+    },
+    {
+      "title": "Feeling or Object?",
+      "left": {
+        "label": "FEELING",
+        "items": [
+          "different",
+          "friend"
+        ]
+      },
+      "right": {
+        "label": "OBJECT OR PLACE",
+        "items": [
+          "blue",
+          "yellow",
+          "green",
+          "color"
+        ]
+      }
+    }
+  ],
+  "header_bank": [
+    "Character",
+    "Object",
+    "Place",
+    "Action",
+    "Feeling",
+    "Who?",
+    "What?",
+    "Where?",
+    "Same",
+    "Different",
+    "One syllable",
+    "Two syllables",
+    "Three or more syllables",
+    "Same first sound",
+    "Different first sound",
+    "My group 1",
+    "My group 2",
+    "I like",
+    "I don't like",
+    "My rule"
+  ],
+  "header_bank_rules": {
+    "objective_answer_key": [
+      "Character",
+      "Object",
+      "Place",
+      "Action",
+      "Feeling",
+      "Who?",
+      "What?",
+      "Where?",
+      "One syllable",
+      "Two syllables",
+      "Three or more syllables",
+      "Same first sound",
+      "Different first sound"
+    ],
+    "student_directed_no_answer_key": [
+      "Same",
+      "Different",
+      "My group 1",
+      "My group 2",
+      "I like",
+      "I don't like",
+      "My rule"
+    ]
+  },
+  "labels": {
+    "crayon": "Crayon",
+    "box": "Box",
+    "red": "Red",
+    "blue": "Blue",
+    "yellow": "Yellow",
+    "green": "Green",
+    "color": "Color",
+    "draw": "Draw",
+    "together": "Together",
+    "different": "Different",
+    "friend": "Friend",
+    "picture": "Picture"
+  }
+}

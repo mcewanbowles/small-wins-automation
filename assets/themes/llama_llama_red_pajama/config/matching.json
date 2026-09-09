@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "product": "Matching",
+  "status": "canonical_locked",
+  "approved_stems": [
+    "bed",
+    "cry",
+    "llama",
+    "mama"
+  ],
+  "levels": [
+    {"level": 1, "name": "Errorless", "targets": 5, "distractors": 0},
+    {"level": 2, "name": "Easy", "targets": 4, "distractors": 1},
+    {"level": 3, "name": "Medium", "targets": 3, "distractors": 2},
+    {"level": 4, "name": "Hard", "targets": 1, "distractors": 4}
+  ],
+  "teacher_cover_in_activity_core": false,
+  "branding": {
+    "hero_in_header": true,
+    "level_location": "subtitle",
+    "level_in_footer": false
+  },
+  "source_reference": "Studioforge/_CANONICAL_LOCKED/Matching_p1_LOCKED.png"
+}

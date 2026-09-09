@@ -1,0 +1,99 @@
+[
+  {
+    "theme": "a_big_guy_took_my_ball",
+    "icons_colored": 1,
+    "activity_images": 0,
+    "unique_to_icons_colored": 1,
+    "unique_files": [
+      "smoketest_20260813144012.png"
+    ]
+  },
+  {
+    "theme": "brown_bear",
+    "icons_colored": 0,
+    "activity_images": 6,
+    "unique_to_icons_colored": 0,
+    "unique_files": []
+  },
+  {
+    "theme": "david_gets_in_trouble",
+    "icons_colored": 8,
+    "activity_images": 0,
+    "unique_to_icons_colored": 8,
+    "unique_files": [
+      "accident.png",
+      "ball.png",
+      "break.png",
+      "cry.png",
+      "run.png",
+      "school.png",
+      "sorry.png",
+      "trouble.png"
+    ]
+  },
+  {
+    "theme": "llama_llama_time_to_share",
+    "icons_colored": 4,
+    "activity_images": 12,
+    "unique_to_icons_colored": 4,
+    "unique_files": [
+      "cry.png",
+      "friend.png",
+      "play.png",
+      "take_turns.png"
+    ]
+  },
+  {
+    "theme": "Rainbow Fish",
+    "icons_colored": 5,
+    "activity_images": 0,
+    "unique_to_icons_colored": 5,
+    "unique_files": [
+      "blue.png",
+      "friend.png",
+      "give.png",
+      "share.png",
+      "swim.png"
+    ]
+  },
+  {
+    "theme": "rainbow_fish",
+    "icons_colored": 5,
+    "activity_images": 0,
+    "unique_to_icons_colored": 5,
+    "unique_files": [
+      "blue.png",
+      "friend.png",
+      "give.png",
+      "share.png",
+      "swim.png"
+    ]
+  },
+  {
+    "theme": "stella_luna",
+    "icons_colored": 2,
+    "activity_images": 12,
+    "unique_to_icons_colored": 0,
+    "unique_files": []
+  },
+  {
+    "theme": "stellaluna",
+    "icons_colored": 2,
+    "activity_images": 12,
+    "unique_to_icons_colored": 0,
+    "unique_files": []
+  },
+  {
+    "theme": "the_rainbow_fish",
+    "icons_colored": 5,
+    "activity_images": 0,
+    "unique_to_icons_colored": 5,
+    "unique_files": [
+      "blue.png",
+      "friend.png",
+      "give.png",
+      "share.png",
+      "swim.png"
+    ]
+  }
+]

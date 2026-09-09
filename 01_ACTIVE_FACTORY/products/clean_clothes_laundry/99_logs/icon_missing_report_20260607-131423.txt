@@ -1,0 +1,5 @@
+Missing icons report:
+
+- clothes
+  suggested alternatives: clothes_on, clothes
+- laundry

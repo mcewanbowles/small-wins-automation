@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": ["Language Structures", "Vocabulary"],
+  "teacher_review_required": true,
+  "theme_items": [
+    {"image_key": "school", "label": "school"},
+    {"image_key": "backpack", "label": "backpack"},
+    {"image_key": "friend", "label": "friend"},
+    {"image_key": "teacher", "label": "teacher"},
+    {"image_key": "nervous", "label": "nervous"},
+    {"image_key": "happy", "label": "happy"},
+    {"image_key": "classroom", "label": "classroom"},
+    {"image_key": "pencil", "label": "pencil"}
+  ],
+  "patterns": [
+    {"display": "I see ___", "items": ["school", "backpack", "friend", "teacher", "classroom", "pencil"]},
+    {"display": "I want ___", "items": ["backpack", "pencil", "friend"]},
+    {"display": "I like ___", "items": ["school", "friend", "teacher", "pencil"]},
+    {"display": "I don't like ___", "items": ["nervous", "pencil", "backpack", "classroom"]},
+    {"display": "I am ___", "items": ["nervous", "happy", "llama_llama"]},
+    {"display": "I feel ___", "items": ["nervous", "happy"]}
+  ]
+}

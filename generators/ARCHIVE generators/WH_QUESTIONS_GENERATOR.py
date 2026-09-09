@@ -57,10 +57,11 @@ from PIL import Image, ImageDraw, ImageFont
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.utils import ImageReader
 from reportlab.pdfgen import canvas as rl_canvas
+from utils.sws_design import apply_small_wins_frame, DPI as SWS_DPI, generate_teacher_cover_page, safe_footer_inset_px
 
 # ── Page / DPI ────────────────────────────────────────────────────────────────
 PAGE_WIDTH_PT, PAGE_HEIGHT_PT = letter
-DPI = 300
+DPI = SWS_DPI
 PAGE_W = int(PAGE_WIDTH_PT  * DPI / 72)
 PAGE_H = int(PAGE_HEIGHT_PT * DPI / 72)
 
@@ -172,7 +173,7 @@ def _load_icon(slug: str, word: str) -> Image.Image | None:
     stems = [word.lower(), word.lower().replace(" ", "_")]
     for stem in stems:
         for folder in ["activity_images", "icons_colored", "icons"]:
-            p = Path(__file__).resolve().parents[2] / "assets" / "themes" / slug / folder / f"{stem}.png"
+            p = Path(f"assets/themes/{slug}/{folder}/{stem}.png")
             if p.exists():
                 try:
                     return Image.open(p).convert("RGBA")
@@ -181,75 +182,112 @@ def _load_icon(slug: str, word: str) -> Image.Image | None:
     return None
 
 
+def _resolve_hero_and_cover_paths(slug: str) -> tuple[str | None, str | None]:
+    hero_path_str = None
+    book_cover_path_str = None
+    try:
+        base = Path(f"assets/themes/{slug}")
+        hero_candidates = [
+            base / "hero_header.png",
+            base / "heroes" / "hero_header.png",
+            base / "characters" / "hero_header.png",
+            base / "hero.png",
+            base / "heroes" / "hero.png",
+            base / "characters" / "hero.png",
+            base / "header_icon.png",
+        ]
+        for hp in hero_candidates:
+            if hp.exists():
+                hero_path_str = str(hp)
+                break
+        for sd in [base, base / "covers", base / "images", base / "marketing", base / "book"]:
+            for nm in ["book_cover", "cover", "front_cover", "book", "cover_reference"]:
+                for ex in ["png", "jpg", "jpeg", "webp"]:
+                    fp = sd / f"{nm}.{ex}"
+                    if fp.exists():
+                        book_cover_path_str = str(fp)
+                        raise StopIteration
+    except StopIteration:
+        pass
+    except Exception:
+        pass
+    return hero_path_str, book_cover_path_str
+
+
+def _load_wh_core_icon(slug: str, wh_word: str) -> Image.Image | None:
+    key = str(wh_word).strip().lower()
+    bases = [
+        Path(f"assets/themes/{slug}/aac_core/{key}.png"),
+        Path(f"assets/global/aac_core/{key}.png"),
+        Path(f"assets/themes/{slug}/icons_colored/{key}.png"),
+        Path(f"assets/themes/{slug}/icons/{key}.png"),
+    ]
+    for p in bases:
+        if p.exists():
+            try:
+                return Image.open(p).convert("RGBA")
+            except Exception:
+                continue
+    return None
+def _load_hero(slug: str) -> Image.Image | None:
+    try:
+        base = Path(f"assets/themes/{slug}")
+        cands = [
+            base / "hero_header.png",
+            base / "heroes" / "hero_header.png",
+            base / "characters" / "hero_header.png",
+            base / "hero_header.jpg",
+            base / "heroes" / "hero_header.jpg",
+            base / "characters" / "hero_header.jpg",
+            base / "characters" / "llama_llama.png",
+            base / "characters" / "main.png",
+            base / "characters" / "mama_llama.png",
+            base / "characters" / "llama_llama.jpg",
+            base / "characters" / "main.jpg",
+            base / "characters" / "mama_llama.jpg",
+            base / "hero.png",
+            base / "heroes" / "hero.png",
+            base / "characters" / "hero.png",
+            base / "hero.jpg",
+            base / "heroes" / "hero.jpg",
+            base / "characters" / "hero.jpg",
+            base / "header_icon.png",
+            base / "header_icon.jpg",
+        ]
+        for hp in cands:
+            if hp.exists():
+                try:
+                    im = Image.open(hp)
+                    return im.convert("RGBA") if im.mode != "RGBA" else im
+                except Exception:
+                    continue
+    except Exception:
+        pass
+    return None
+
+
 def _load_vocab(slug: str) -> list[str]:
-    vp = Path(__file__).resolve().parents[2] / "assets" / "themes" / slug / "book_vocab.json"
+    vp = Path(f"assets/themes/{slug}/config/book_vocab.json")
     if vp.exists():
         try:
-            data = json.loads(vp.read_text(encoding="utf-8", errors="ignore"))
-            words = data.get("vocab_words", data.get("all_words", []))
-            out = [str(w).strip().lower() for w in words if str(w).strip()]
-            if out:
-                return out
-        except Exception:
-            pass
-    vp = Path(__file__).resolve().parents[2] / "assets" / "themes" / slug / "config" / "book_vocab.json"
-    if vp.exists():
-        try:
-            data = json.loads(vp.read_text(encoding="utf-8", errors="ignore"))
-            # Only return vocab words from config; do not return wh_questions here
+            data = json.loads(vp.read_text())
+
+            # Check for explicit wh_questions field
+            wh = data.get("wh_questions")
+            if wh:
+                return wh  # pre-generated question list
+
             words = data.get("vocab_words", data.get("all_words", []))
             return [str(w).strip().lower() for w in words if str(w).strip()]
         except Exception:
             pass
 
     for folder in ["activity_images", "icons_colored", "icons"]:
-        img_dir = Path(__file__).resolve().parents[2] / "assets" / "themes" / slug / folder
+        img_dir = Path(f"assets/themes/{slug}/{folder}")
         if img_dir.exists():
             return [re.sub(r'_\d+$', '', f.stem.lower())
                     for f in sorted(img_dir.glob("*.png"))]
     return []
-
-
-def _load_wh_from_config(slug: str) -> list[dict]:
-    data = None
-    # Prefer top-level book_vocab.json, fallback to config/book_vocab.json
-    for vp in [
-        Path(__file__).resolve().parents[2] / "assets" / "themes" / slug / "book_vocab.json",
-        Path(__file__).resolve().parents[2] / "assets" / "themes" / slug / "config" / "book_vocab.json",
-    ]:
-        if not vp.exists():
-            continue
-        try:
-            cand = json.loads(vp.read_text(encoding="utf-8", errors="ignore"))
-        except Exception:
-            cand = None
-        if cand and cand.get("wh_questions"):
-            data = cand
-            break
-    if not data:
-        return []
-    wh = data.get("wh_questions")
-    if not wh:
-        return []
-    out: list[dict] = []
-    for item in wh:
-        if isinstance(item, dict):
-            w = str(item.get("wh") or "").strip().upper()
-            q = str(item.get("question") or "").strip()
-            a = str(item.get("answer") or "").strip()
-            ih = str(item.get("icon_hint") or item.get("icon") or "").strip()
-            if q:
-                out.append({"wh": (w or "WHAT"), "question": q, "answer": a, "icon_hint": ih})
-        elif isinstance(item, str):
-            q = item.strip()
-            if q:
-                out.append({"wh": "", "question": q, "answer": "", "icon_hint": ""})
-    return out
-
-
-def _allow_wh_ai() -> bool:
-    v = os.getenv("SWS_ALLOW_WH_AI", "").strip().lower()
-    return v in {"1", "true", "yes", "y"}
 
 
 def _generate_questions_ai(book_title: str, vocab: list[str]) -> list[dict] | None:
@@ -309,14 +347,10 @@ Rules:
         return None
 
 
-def _build_question_list(slug: str, book_title: str, vocab: list[str],
-                          use_ai: bool = False) -> list[dict]:
-    """Get WH question list — prefer grounded config; optional AI; else templates."""
-    cfg = _load_wh_from_config(slug)
-    if cfg:
-        print(f"  ✓ Using grounded wh_questions from config: {len(cfg)} items")
-        return cfg
-    if use_ai and _allow_wh_ai():
+def _build_question_list(book_title: str, vocab: list[str],
+                          use_ai: bool = True) -> list[dict]:
+    """Get WH question list — AI first, template fallback."""
+    if use_ai:
         questions = _generate_questions_ai(book_title, vocab)
         if questions:
             print(f"  ✓ AI generated {len(questions)} questions")
@@ -332,7 +366,7 @@ def _build_question_list(slug: str, book_title: str, vocab: list[str],
             vocab_0=clean_label(vocab_safe[0]) if vocab_safe else "the character"
         )
         a = a_template
-        icon = icon_hint if _load_icon(slug, icon_hint) else (vocab_safe[0] if vocab_safe else "")
+        icon = icon_hint if _load_icon("", icon_hint) else (vocab_safe[0] if vocab_safe else "")
         questions.append({
             "wh": wh, "question": q, "answer": a,
             "icon_hint": vocab_safe[0] if vocab_safe else ""
@@ -342,14 +376,26 @@ def _build_question_list(slug: str, book_title: str, vocab: list[str],
 
 # ── Header / Footer ───────────────────────────────────────────────────────────
 
-def draw_header(page, draw, fonts, scale, book_title, subtitle="", level=None):
+def draw_header(page, draw, fonts, scale, book_title, subtitle="", level=None, hero: Image.Image | None = None):
     hh = int(80 * scale)
     draw.rectangle([0, 0, PAGE_W, hh], fill=hex_to_rgb(SWS_TEAL))
-    draw.text((int(18 * scale), int(10 * scale)),
+    tx = int(18 * scale)
+    if hero is not None:
+        try:
+            h_pad = int(8 * scale)
+            h_h = hh - 2 * h_pad
+            h_w = max(1, int(h_h * 1.1))
+            hero_copy = hero.copy()
+            hero_copy.thumbnail((h_w, h_h), Image.Resampling.LANCZOS)
+            page.paste(hero_copy, (h_pad, h_pad), hero_copy)
+            tx = h_pad + hero_copy.width + int(12 * scale)
+        except Exception:
+            pass
+    draw.text((tx, int(10 * scale)),
               f"{book_title}  ·  WH Questions",
               fill=(255, 255, 255), font=fonts["title"])
     if subtitle:
-        draw.text((int(18 * scale), int(48 * scale)),
+        draw.text((tx, int(48 * scale)),
                   subtitle, fill=(210, 240, 238), font=fonts["subtitle"])
 
     if level is not None:
@@ -375,6 +421,10 @@ def draw_footer(page, draw, fonts, scale,
 
     draw.rectangle([0, fy, PAGE_W, PAGE_H], fill=hex_to_rgb(FOOTER_GREY))
     draw.rectangle([0, fy, PAGE_W, fy + int(3 * scale)], fill=lc)
+    try:
+        draw.line([(0, fy), (PAGE_W, fy)], fill=lc, width=max(1, int(2 * scale)))
+    except Exception:
+        pass
     y_mid = fy + fh // 2
 
     draw.text((int(14 * scale), y_mid - int(8 * scale)),
@@ -421,18 +471,41 @@ def _draw_question_card(page, draw, fonts, scale,
         outline=wh_color, width=int(3 * scale)
     )
 
-    # WH badge top-left
-    badge_w = int(cw * 0.25)
+    badge_w = int(cw * 0.30)
     badge_h = int(ch * 0.18)
-    draw.rounded_rectangle(
-        [cx + int(3 * scale), cy + int(3 * scale),
-         cx + badge_w, cy + badge_h],
-        radius=int(8 * scale), fill=wh_color
-    )
+    pill_pad = int(10 * scale)
+    bx1, by1 = cx + pill_pad, cy + pill_pad
+    bx2, by2 = bx1 + badge_w, by1 + badge_h
+    draw.rounded_rectangle([bx1, by1, bx2, by2], radius=int(8 * scale), fill=wh_color)
+    inner_pad = int(6 * scale)
+    icon_box = [bx1 + inner_pad, by1 + inner_pad, bx1 + inner_pad + (badge_h - 2 * inner_pad), by2 - inner_pad]
+    wh_icon = _load_wh_core_icon(slug, wh)
+    if wh_icon is not None:
+        ic = wh_icon.copy()
+        iw = max(1, icon_box[2] - icon_box[0])
+        ih = max(1, icon_box[3] - icon_box[1])
+        ic.thumbnail((iw, ih), Image.Resampling.LANCZOS)
+        ix = icon_box[0] + (iw - ic.width) // 2
+        iy = icon_box[1] + (ih - ic.height) // 2
+        page.paste(ic, (ix, iy), ic)
+        text_x = icon_box[2] + inner_pad
+    else:
+        text_x = bx1 + inner_pad
     wb = draw.textbbox((0, 0), wh, font=fonts["wh_badge"])
-    draw.text((cx + int(3 * scale) + (badge_w - int(3 * scale) - (wb[2] - wb[0])) // 2,
-               cy + int(3 * scale) + (badge_h - int(3 * scale) - (wb[3] - wb[1])) // 2),
-              wh, fill=(255, 255, 255), font=fonts["wh_badge"])
+    tw, th = wb[2] - wb[0], wb[3] - wb[1]
+    tx = min(bx2 - inner_pad - tw, max(text_x, bx1 + inner_pad))
+    ty = by1 + (badge_h - th) // 2
+    draw.text((tx, ty), wh, fill=(255, 255, 255), font=fonts["wh_badge"])
+    try:
+        r = max(2, int(6 * scale))
+        pad = int(8 * scale)
+        corner_fill = wh_color if color else (120, 120, 120)
+        draw.ellipse([cx + pad, cy + pad, cx + pad + 2 * r, cy + pad + 2 * r], fill=corner_fill)
+        draw.ellipse([cx + cw - pad - 2 * r, cy + pad, cx + cw - pad, cy + pad + 2 * r], fill=corner_fill)
+        draw.ellipse([cx + pad, cy + ch - pad - 2 * r, cx + pad + 2 * r, cy + ch - pad], fill=corner_fill)
+        draw.ellipse([cx + cw - pad - 2 * r, cy + ch - pad - 2 * r, cx + cw - pad, cy + ch - pad], fill=corner_fill)
+    except Exception:
+        pass
 
     # Icon (top right)
     icon_zone_w = int(cw * 0.28)
@@ -508,20 +581,14 @@ def _draw_question_card(page, draw, fonts, scale,
             ay += alh
     else:
         # Writing lines
-        n_lines = max(2, int((ch - (ans_top - cy) - int(16 * scale)) / int(22 * scale)))
-        line_y  = ans_top + int(12 * scale)
-        line_h2 = int(22 * scale)
+        n_lines = 3
+        line_y  = ans_top + int(14 * scale)
+        line_h2 = int(24 * scale)
         for _ in range(min(n_lines, 3)):
             draw.line([(cx + int(16 * scale), line_y),
                        (cx + cw - int(16 * scale), line_y)],
-                      fill=(190, 190, 190), width=int(1 * scale))
+                      fill=(160, 160, 160), width=max(1, int(2 * scale)))
             line_y += line_h2
-
-        if level == 1 and (not answer):
-            warn = "Answer needed"
-            tx = cx + int(16 * scale)
-            ty = ans_top - int(14 * scale)
-            draw.text((tx, ty), warn, fill=(180, 60, 60), font=fonts["small"])
 
 
 # ── Page builder ──────────────────────────────────────────────────────────────
@@ -530,28 +597,36 @@ def _make_questions_page(slug, book_title, pack_code,
                           questions_chunk: list[dict],
                           level: int,
                           page_num: int, total_pages: int,
-                          color: bool) -> Image.Image:
+                          color: bool, hero_img: Image.Image | None) -> Image.Image:
     scale = DPI / 72
     fonts = load_fonts(scale)
 
     level_subs = {
-        1: "Supported — answer shown (model with student)",
+        1: "Supported",
         2: "Guided — write your answer",
         3: "Independent — text only, no picture clue",
     }
 
-    page = Image.new("RGB", (PAGE_W, PAGE_H), PAGE_CREAM)
+    page = Image.new("RGB", (PAGE_W, PAGE_H), "white")
+    apply_small_wins_frame(
+        page,
+        product_title="WH Questions",
+        subtitle=level_subs.get(level, ""),
+        pack_code=pack_code,
+        page_num=page_num,
+        total_pages=total_pages,
+        level=None,
+        draw_footer=True,
+        draw_subtitle=True,
+        header_left_icon=hero_img,
+        header_height_px=int(0.92 * DPI),
+        accent_margin_px=int(0.12 * DPI),
+        footer_y_offset_px=int(0.08 * DPI),
+    )
     draw = ImageDraw.Draw(page)
 
-    hh = draw_header(page, draw, fonts, scale,
-                     book_title,
-                     subtitle=level_subs.get(level, ""),
-                     level=level)
-    fh = draw_footer(page, draw, fonts, scale,
-                     book_title, pack_code, page_num, total_pages, level)
-
-    content_top    = hh + int(12 * scale)
-    content_bottom = PAGE_H - fh - int(12 * scale)
+    content_top    = int(1.65 * DPI)
+    content_bottom = PAGE_H - safe_footer_inset_px()
     margin         = int(24 * scale)
     gap            = int(12 * scale)
     inner_w        = PAGE_W - 2 * margin
@@ -577,7 +652,7 @@ def _make_questions_page(slug, book_title, pack_code,
 
 def generate_wh_questions(slug: str, book_title: str,
                             pack_code: str = "STEL-WH",
-                            use_ai: bool = False) -> bool:
+                            use_ai: bool = True) -> bool:
     """
     Generate WH Questions pack.
 
@@ -592,14 +667,7 @@ def generate_wh_questions(slug: str, book_title: str,
     print(f"{'='*70}\n")
 
     vocab     = _load_vocab(slug)
-    if _load_wh_from_config(slug):
-        questions = _load_wh_from_config(slug)
-    elif use_ai and _allow_wh_ai():
-        questions = _generate_questions_ai(book_title, vocab) or []
-        if not questions:
-            questions = _build_question_list(slug, book_title, vocab, use_ai=False)
-    else:
-        questions = _build_question_list(slug, book_title, vocab, use_ai=False)
+    questions = _build_question_list(book_title, vocab, use_ai=use_ai)
 
     print(f"  Questions: {len(questions)}")
     for q in questions[:6]:
@@ -612,17 +680,42 @@ def generate_wh_questions(slug: str, book_title: str,
     import math
     LEVELS      = [1, 2, 3]
     pages_per_l = math.ceil(len(questions) / CARDS_PER_PAGE)
-    TOTAL_PAGES = len(LEVELS) * pages_per_l + 1   # +1 IEP tracker
+    hints = []
+    for q in questions:
+        h = str(q.get("icon_hint", "")).strip().lower()
+        if h:
+            hints.append(h)
+    uniq_hints = []
+    seen_h = set()
+    for h in hints:
+        if h not in seen_h:
+            seen_h.add(h)
+            uniq_hints.append(h)
+    cut_pages = math.ceil(len(uniq_hints) / 20) if uniq_hints else 0
+    TOTAL_PAGES = len(LEVELS) * pages_per_l + 1 + cut_pages
+    hero_img = _load_hero(slug)
+    hero_path_str, book_cover_path_str = _resolve_hero_and_cover_paths(slug)
 
     def build(color: bool) -> list[Image.Image]:
         pages    = []
         page_num = 1
+        cover = generate_teacher_cover_page(
+            theme_name=book_title,
+            pack_code=pack_code,
+            product_name="WH Questions",
+            page_count=1 + TOTAL_PAGES,
+            level_count=len(LEVELS),
+            hero_image=None,
+            hero_image_path=hero_path_str,
+            book_cover_path=book_cover_path_str,
+        )
+        pages.append(cover)
         for level in LEVELS:
             for i in range(pages_per_l):
                 chunk = questions[i * CARDS_PER_PAGE:(i + 1) * CARDS_PER_PAGE]
                 pages.append(_make_questions_page(
                     slug, book_title, pack_code, chunk,
-                    level, page_num, TOTAL_PAGES, color
+                    level, page_num, TOTAL_PAGES, color, hero_img
                 ))
                 page_num += 1
 
@@ -635,6 +728,58 @@ def generate_wh_questions(slug: str, book_title: str,
             ))
         except ImportError:
             pages.append(Image.new("RGB", (PAGE_W, PAGE_H), PAGE_CREAM))
+        page_num += 1
+        if uniq_hints:
+            cols, rows = 4, 5
+            per = cols * rows
+            icon_list = []
+            for nm in uniq_hints:
+                im = _load_icon(slug, nm)
+                if im is not None:
+                    icon_list.append((nm, im))
+            total_sets = math.ceil(len(icon_list) / per) if icon_list else 0
+            scale = DPI / 72
+            fonts = load_fonts(scale)
+            for si in range(total_sets):
+                pg = Image.new("RGB", (PAGE_W, PAGE_H), "white")
+                apply_small_wins_frame(
+                    pg,
+                    product_title="WH Questions",
+                    subtitle="Cut-out Icons",
+                    pack_code=pack_code,
+                    page_num=page_num,
+                    total_pages=TOTAL_PAGES,
+                    level=None,
+                    draw_footer=True,
+                    draw_subtitle=True,
+                    header_left_icon=hero_img,
+                    header_height_px=int(0.92 * DPI),
+                    accent_margin_px=int(0.12 * DPI),
+                    footer_y_offset_px=int(0.08 * DPI),
+                )
+                dr = ImageDraw.Draw(pg)
+                content_top = int(1.65 * DPI)
+                content_bottom = PAGE_H - safe_footer_inset_px()
+                margin = int(24 * scale)
+                gap = int(10 * scale)
+                inner_w = PAGE_W - 2 * margin
+                tile_w = (inner_w - (cols - 1) * gap) // cols
+                tile_h = (content_bottom - content_top - (rows - 1) * gap) // rows
+                start_x = margin
+                start_y = content_top
+                subset = icon_list[si * per:(si + 1) * per]
+                for i, pair in enumerate(subset):
+                    c = i % cols
+                    r = i // cols
+                    x = start_x + c * (tile_w + gap)
+                    y = start_y + r * (tile_h + gap)
+                    dr.rounded_rectangle([x, y, x + tile_w, y + tile_h], radius=int(10 * scale), fill=(255, 255, 255), outline=hex_to_rgb(SWS_NAVY), width=int(2 * scale))
+                    ic = pair[1].copy()
+                    pad = int(8 * scale)
+                    ic.thumbnail((tile_w - 2 * pad, tile_h - 2 * pad), Image.Resampling.LANCZOS)
+                    pg.paste(ic, (x + (tile_w - ic.width) // 2, y + (tile_h - ic.height) // 2), ic)
+                pages.append(pg)
+                page_num += 1
 
         return pages
 
@@ -675,9 +820,9 @@ def generate_wh_questions(slug: str, book_title: str,
 if __name__ == "__main__":
     import sys
     if len(sys.argv) < 3:
-        print("Usage: python WH_QUESTIONS_GENERATOR.py <slug> <book_title> [pack_code] [--use-ai]")
+        print("Usage: python WH_QUESTIONS_GENERATOR.py <slug> <book_title> [pack_code] [--no-ai]")
         sys.exit(1)
-    use_ai = "--use-ai" in sys.argv
+    use_ai = "--no-ai" not in sys.argv
     ok = generate_wh_questions(
         sys.argv[1], sys.argv[2],
         sys.argv[3] if len(sys.argv) > 3 and not sys.argv[3].startswith("--") else "WH",

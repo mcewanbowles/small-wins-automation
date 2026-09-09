@@ -1097,17 +1097,27 @@ def apply_small_wins_frame(
 
         # Keep the footer visually close to the bottom border while ensuring it never
 
-        # touches the border stroke. Some products (e.g., Bingo) may need this nudged
-
-        # upward further.
-
-        # Enforce minimum clearance from inner border edge
+        # touches the border stroke. y1/y2 are TEXT-TOP coordinates (PIL default
+        # anchor), so the line height must be subtracted — otherwise the text
+        # bottom edge, not the top, ends up at the clearance point.
 
         clearance_px = int(max(FOOTER_BORDER_CLEARANCE, 12) * (DPI / 72))
 
-        y2 = h - border_margin - clearance_px - int(footer_y_offset_px)
+        # Footer fonts: top 9pt bold, bottom 8pt regular — measure before
+        # positioning so clearance is enforced on the rendered glyph bounds.
+        footer1_font = _brand_font_pt(9, bold=True, brand="poppins")
 
-        y1 = y2 - int(0.14 * DPI)
+        footer2_font = _brand_font_pt(8, bold=False, brand="poppins")
+
+        fw1, fh1 = _text_size(d, footer_line_1, footer1_font)
+
+        fw2, fh2 = _text_size(d, footer_line_2, footer2_font)
+
+        # Bottom line: its BOTTOM edge sits clearance_px above the inner border.
+        y2 = h - border_margin - clearance_px - fh2 - int(footer_y_offset_px)
+
+        # Top line: bottom edge sits one small gap above line 2's top.
+        y1 = y2 - fh1 - int(0.04 * DPI)
 
 
 
@@ -1161,31 +1171,8 @@ def apply_small_wins_frame(
 
 
 
-        # Footer fonts: top 9pt bold, bottom 8pt regular
-
-        footer1_font = _brand_font_pt(9, bold=True, brand="poppins")
-
-        footer2_font = _brand_font_pt(8, bold=False, brand="poppins")
-
-        fw1, fh1 = _text_size(d, footer_line_1, footer1_font)
-
-        fw2, fh2 = _text_size(d, footer_line_2, footer2_font)
-
-        # Load logo once for potential use beside the bottom PCS/brand line
-        logo = None
-        try:
-            logo_candidates = [
-                Path(__file__).resolve().parents[1] / "assets" / "branding" / "logos" / "logo_transparent.png",
-                Path(__file__).resolve().parents[1] / "assets" / "branding" / "logos" / "small_wins_logo_with_text.png",
-                Path(__file__).resolve().parents[1] / "Studioforge" / "Accurate generators" / "Internal covers" / "logo_transparent.png",
-            ]
-            for _lp in logo_candidates:
-                if _lp.exists():
-                    iml = Image.open(str(_lp))
-                    logo = iml.convert("RGBA") if iml.mode != "RGBA" else iml
-                    break
-        except Exception:
-            logo = None
+        # No footer logo: the copyright line already prints "Small Wins Studio",
+        # so a logo (which contains the same wordmark) duplicates the brand.
 
         page_text = None
 
@@ -1237,7 +1224,7 @@ def apply_small_wins_frame(
 
             lw, lh = _text_size(d, lbl, _lbl_font)
 
-            d.text((pill_x1 + (pill_x2 - pill_x1 - lw) // 2, pill_y + (pill_h - lh) // 2), lbl, fill=(255, 255, 255), font=_lbl_font)
+            d.text((pill_x1 + (pill_x2 - pill_x1 - lw) // 2, pill_y + (pill_h - lh) // 2), lbl, fill=(255, 255, 255), font=_lbl_font) 
 
 
 
@@ -1260,66 +1247,41 @@ def apply_small_wins_frame(
         else:
 
             # Top line: product/code only, centered text (no logo here)
-            d.text(((w - fw1) // 2, y1), footer_line_1, fill=footer_grey, font=footer1_font)
+            # Shrink-to-fit for narrow panes (e.g., 2-up adapted book sheets)
+            max_footer_w = w - 2 * border_margin - int(0.10 * DPI)
+            if fw1 > max_footer_w:
+                f1_fit, _ = shrink_font_to_fit_with_pt(footer_line_1, base_pt=9, max_width_px=max_footer_w, bold=True, brand="poppins", min_pt=6)
+                fw1, fh1 = _text_size(d, footer_line_1, f1_fit)
+                y1 = y2 - fh1 - int(0.04 * DPI)
+                d.text(((w - fw1) // 2, y1), footer_line_1, fill=footer_grey, font=f1_fit)
+            else:
+                d.text(((w - fw1) // 2, y1), footer_line_1, fill=footer_grey, font=footer1_font)
 
-            # Bottom line: PCS + © Small Wins Studio — place logo immediately to the RIGHT of the brand phrase; center as a group
+            # Bottom line: PCS + © Small Wins Studio — single centered text line,
+            # no logo (the wordmark would duplicate the brand name).
             if draw_pcs_line and footer_line_2:
-                gap_fx = int(0.02 * DPI)
-                if logo is not None:
-                    lg = logo.copy()
-                    tgt_h = max(1, int(fh2 * 2.3))
-                    try:
-                        lg.thumbnail((tgt_h * 3, tgt_h), Image.Resampling.LANCZOS)
-                    except Exception:
-                        pass
-                    lw, lh = lg.size
-                    brand_phrase = "Small Wins Studio"
-                    idx = footer_line_2.lower().find(brand_phrase.lower())
-                    if idx >= 0:
-                        pre = footer_line_2[:idx]
-                        brand_txt = footer_line_2[idx: idx + len(brand_phrase)]
-                        post = footer_line_2[idx + len(brand_phrase):]
-                        pre_w, _ = _text_size(d, pre, footer2_font)
-                        brand_w, _ = _text_size(d, brand_txt, footer2_font)
-                        post_w, _ = _text_size(d, post, footer2_font)
-                        total_w_grp = pre_w + brand_w + gap_fx + lw + post_w
-                        gx = (w - total_w_grp) // 2
-                        # Draw prefix
-                        d.text((gx, y2), pre, fill=footer_grey, font=footer2_font)
-                        # Draw brand phrase immediately after prefix
-                        bx = gx + pre_w
-                        d.text((bx, y2), brand_txt, fill=footer_grey, font=footer2_font)
-                        # Draw logo immediately to the right of 'Small Wins Studio'
-                        gy = y2 + int((fh2 - lh) // 2)
-                        try:
-                            page.paste(lg, (bx + brand_w + gap_fx, gy), lg)
-                        except Exception:
-                            pass
-                        # Draw suffix after logo
-                        sx = bx + brand_w + gap_fx + lw
-                        d.text((sx, y2), post, fill=footer_grey, font=footer2_font)
-                    else:
-                        # Fallback: draw entire line text, then logo to the right
-                        total_w_grp = fw2 + gap_fx + lw
-                        gx = (w - total_w_grp) // 2
-                        d.text((gx, y2), footer_line_2, fill=footer_grey, font=footer2_font)
-                        gy = y2 + int((fh2 - lh) // 2)
-                        try:
-                            page.paste(lg, (gx + fw2 + gap_fx, gy), lg)
-                        except Exception:
-                            pass
+                if fw2 > max_footer_w:
+                    f2_fit, _ = shrink_font_to_fit_with_pt(footer_line_2, base_pt=8, max_width_px=max_footer_w, bold=False, brand="poppins", min_pt=5)
+                    fw2_fit, fh2_fit = _text_size(d, footer_line_2, f2_fit)
+                    d.text(((w - fw2_fit) // 2, y2), footer_line_2, fill=footer_grey, font=f2_fit)
                 else:
                     d.text(((w - fw2) // 2, y2), footer_line_2, fill=footer_grey, font=footer2_font)
 
-        # Page number placed bottom-right with extra horizontal inset to avoid clipping
-
+        # Page number: right-aligned on the TOP footer line so it shares the row
+        # with product/code (aligned baselines), with a guard against overlap
+        # when the centered line is unusually wide.
         if page_text:
 
             pw, ph = _text_size(d, page_text, footer2_font)
 
             right_inset = max(clearance_px, int(0.12 * DPI))  # allow for double digits and corner radius
 
-            d.text((w - border_margin - right_inset - pw, y2), page_text, fill=footer_grey, font=footer2_font)
+            page_x = w - border_margin - right_inset - pw
+            line1_right = (w + fw1) // 2
+            if page_x > line1_right + int(0.10 * DPI):
+                d.text((page_x, y1), page_text, fill=footer_grey, font=footer2_font)
+            else:
+                d.text((page_x, y2), page_text, fill=footer_grey, font=footer2_font)
 
 
 
@@ -1746,7 +1708,7 @@ def generate_internal_cover_page(
 
         for label in cfg_perfect:
 
-            lw, lh = _text_size(d, label, fonts["body"])
+            lw, lh = _text_size(d, label, fonts["body"]) 
 
             pill_w = lw + tag_pad_x * 2
 
@@ -1764,7 +1726,7 @@ def generate_internal_cover_page(
 
             d.rounded_rectangle([tx, ty, tx + pill_w, ty + pill_h], radius=int(pill_h * 0.4), fill=hex_to_rgb(DEFAULT_ACCENT_TEAL_HEX))
 
-            d.text((tx + tag_pad_x, ty + tag_pad_y), label, fill=(255, 255, 255), font=fonts["body"])
+            d.text((tx + tag_pad_x, ty + tag_pad_y), label, fill=(255, 255, 255), font=fonts["body"]) 
 
             tx += pill_w + tag_gap
 
@@ -1868,6 +1830,126 @@ def generate_internal_cover_page(
 
 
 
+
+
+def generate_storage_label_page(
+    *,
+    product_title: str,
+    theme_name: str,
+    pack_code: str,
+    page_num: int,
+    total_pages: int,
+    labels: list[dict] | None = None,
+    instruction: str = "Cut out and tape to storage bin.",
+    footer_title: str | None = None,
+) -> Image.Image:
+    """Generate a branded storage-label page for card-based activities.
+
+    Each entry in *labels* is a dict with:
+        - ``header``: large label title (e.g. "Sequencing Cards")
+        - ``subtitle``: smaller descriptor (e.g. "Story Picture Cards")
+    If *labels* is omitted, a single label using *product_title* is generated.
+    """
+    from reportlab.lib.pagesizes import letter as _letter
+
+    _PW, _PH = _letter
+    img_w = int(_PW * DPI / 72)
+    img_h = int(_PH * DPI / 72)
+    page = Image.new("RGB", (img_w, img_h), "white")
+    d = ImageDraw.Draw(page)
+    scale = DPI / 72
+
+    # Default: single label from product_title
+    if not labels:
+        labels = [{"header": product_title, "subtitle": theme_name}]
+
+    # ── Label cells (1 or 2, stacked vertically) ──
+    label_margin = int(0.55 * DPI)
+    label_w = img_w - 2 * label_margin
+    label_h = int(1.6 * DPI) if len(labels) <= 1 else int(1.25 * DPI)
+    gap = int(0.25 * DPI)
+    start_y = int(1.45 * DPI)
+
+    label_fill = (235, 244, 242)   # #EBF4F2 light teal
+    label_outline = hex_to_rgb(DEFAULT_ACCENT_TEAL_HEX)
+    navy = hex_to_rgb(NAVY_HEX)
+    grey = (102, 102, 102)
+
+    for i, lbl in enumerate(labels[:2]):
+        ly = start_y + i * (label_h + gap)
+        # Rounded label box
+        d.rounded_rectangle(
+            [label_margin, ly, label_margin + label_w, ly + label_h],
+            radius=int(0.10 * DPI),
+            fill=label_fill,
+            outline=label_outline,
+            width=int(3 * scale),
+        )
+        # Header text
+        header = str(lbl.get("header") or product_title)
+        hf, hpt = shrink_font_to_fit_with_pt(
+            header, base_pt=28, max_width_px=label_w - int(0.4 * DPI),
+            bold=True, brand="poppins", min_pt=16,
+        )
+        hb = d.textbbox((0, 0), header, font=hf)
+        hw = hb[2] - hb[0]
+        hx = label_margin + (label_w - hw) // 2
+        hy = ly + int(0.20 * DPI)
+        d.text((hx, hy), header, fill=navy, font=hf)
+
+        # Subtitle
+        sub = str(lbl.get("subtitle") or "")
+        if sub:
+            sf, spt = shrink_font_to_fit_with_pt(
+                sub, base_pt=14, max_width_px=label_w - int(0.4 * DPI),
+                bold=False, brand="poppins", min_pt=10,
+            )
+            sb = d.textbbox((0, 0), sub, font=sf)
+            sw = sb[2] - sb[0]
+            sx = label_margin + (label_w - sw) // 2
+            sy = hy + (hb[3] - hb[1]) + int(0.08 * DPI)
+            d.text((sx, sy), sub, fill=grey, font=sf)
+
+        # Pack code line
+        pack_text = f"{theme_name}  |  {pack_code}"
+        pf = _brand_font_pt(11, bold=False, brand="poppins")
+        pb = d.textbbox((0, 0), pack_text, font=pf)
+        pw = pb[2] - pb[0]
+        px = label_margin + (label_w - pw) // 2
+        py = ly + label_h - int(0.22 * DPI)
+        d.text((px, py), pack_text, fill=grey, font=pf)
+
+    # ── Instruction ──
+    instr_y = start_y + len(labels[:2]) * (label_h + gap) + int(0.05 * DPI)
+    instr_font = _brand_font_pt(12, bold=False, brand="poppins")
+    ib = d.textbbox((0, 0), instruction, font=instr_font)
+    iw = ib[2] - ib[0]
+    d.text(((img_w - iw) // 2, instr_y), instruction, fill=grey, font=instr_font)
+
+    # ── Cut guide (text-based, no emoji to avoid tofu glyphs) ──
+    cut_text = "- - -  Cut along dashed line  - - -"
+    cut_font = _brand_font_pt(9, bold=False, brand="poppins")
+    cb = d.textbbox((0, 0), cut_text, font=cut_font)
+    cw = cb[2] - cb[0]
+    d.text(((img_w - cw) // 2, instr_y + int(0.30 * DPI)), cut_text, fill=grey, font=cut_font)
+
+    # ── Universal frame ──
+    apply_small_wins_frame(
+        page,
+        product_title="Storage Labels",
+        subtitle=product_title,
+        pack_code=pack_code,
+        page_num=page_num,
+        total_pages=total_pages,
+        level=None,
+        draw_accent_strip=True,
+        draw_header=True,
+        draw_subtitle=True,
+        draw_footer=True,
+        footer_title=footer_title or f"{theme_name} | {product_title}",
+    )
+
+    return page
 
 
 def generate_teacher_cover_page(
@@ -2427,13 +2509,13 @@ def generate_teacher_cover_page(
 
                     break
 
-                _, lh = _text_size(d, label, left_tx)
+                _, lh = _text_size(d, label, left_tx) 
 
                 cy = ly + lh // 2
 
                 d.ellipse([lx, cy - bullet_r, lx + bullet_r * 2, cy + bullet_r], fill=hex_to_rgb(DEFAULT_ACCENT_TEAL_HEX))
 
-                d.text((lx + indent, ly), label, fill=(60, 75, 85), font=left_tx)
+                d.text((lx + indent, ly), label, fill=(60, 75, 85), font=left_tx) 
 
                 ly += lh + bullet_gap
 
@@ -2864,6 +2946,10 @@ def generate_teacher_cover_page(
 
         diag_est_h = int(rope_img.height * _scale)
 
+        # Cap the estimate so the card doesn't demand more space than available —
+        # the actual image is scaled to fit whatever height remains in the card.
+        diag_est_h = min(diag_est_h, int(80 * scale150))
+
     else:
 
         # Estimate height for braided fallback so the card sizes to content
@@ -2948,12 +3034,16 @@ def generate_teacher_cover_page(
 
     # Rope diagram + legend per brief (now actually render inside the sized card)
 
-    if rope_img is not None:
+    # Minimum height for the diagram area — if the card is too compressed,
+    # use the braided fallback (drawn directly) instead of pasting a tiny image
+    min_diag_h = int(10 * scale150)
+
+    avail_h = max(0, (y + scar_h) - yy - int(12 * scale150))
+
+    if rope_img is not None and avail_h >= min_diag_h:
 
         # Allow the diagram to occupy more of the card while keeping a small visual margin
         fit_pad_px = int(8 * scale150)
-
-        avail_h = max(1, (y + scar_h) - yy - int(12 * scale150))
 
         _scale2 = min(
             1.0,
@@ -2961,12 +3051,11 @@ def generate_teacher_cover_page(
             max(1, (avail_h - fit_pad_px)) / max(1, rope_img.height),
         )
 
-        new_w2 = int(rope_img.width * _scale2)
+        new_w2 = max(1, int(rope_img.width * _scale2))
 
-        new_h2 = int(rope_img.height * _scale2)
+        new_h2 = max(1, int(rope_img.height * _scale2))
 
         if new_w2 != rope_img.width or new_h2 != rope_img.height:
-
             rope_img = rope_img.resize((new_w2, new_h2), Image.Resampling.LANCZOS)
 
         ox = x0 + max(0, (usable_w - rope_img.width) // 2)
@@ -2975,45 +3064,47 @@ def generate_teacher_cover_page(
 
         diagram_h = rope_img.height
 
-        legend_y = min(yy + diagram_h - int(18 * scale150), y + scar_h - int(12 * scale150))
-
-        first_label = f"{scar_strand} (this pack)"
-
-        f_leg = _brand_font_pt(13, bold=False, brand="poppins")
-
-        d.ellipse([x0, legend_y + 4, x0 + 10, legend_y + 14], fill=hex_to_rgb(DEFAULT_ACCENT_TEAL_HEX))
-
-        d.text((x0 + 16, legend_y), first_label, font=f_leg, fill=hex_to_rgb(NAVY_HEX))
-
-        l1w, l1h = _text_size(d, first_label, f_leg)
-
-        other_strand = ("Language Comprehension" if scar_strand == "Word Recognition" else "Word Recognition")
-
-        safe_x_max = rx + right_w - int(12 * scale150)
-
-        legend2_x = x0 + 16 + l1w + int(40 * scale150)
-
-        l2w, l2h = _text_size(d, other_strand, f_leg)
-
-        req_right = legend2_x + 10 + 16 + l2w
-
-        if req_right > safe_x_max:
-
-            legend2_x = x0
-
-            legend_y = legend_y + l1h + int(8 * scale150)
-
-        d.ellipse([legend2_x, legend_y + 4, legend2_x + 10, legend_y + 14], fill=(169, 201, 198))
-
-        d.text((legend2_x + 16, legend_y), other_strand, font=f_leg, fill=(120, 130, 140))
-
     else:
 
-        # Draw braided fallback when no accurate asset found
+        # Draw braided fallback when no accurate asset found or card too compressed
+        fallback_h = int(min(110 * scale150, max(1, avail_h)))
+        if fallback_h < min_diag_h:
+            fallback_h = min_diag_h
+        _draw_scarborough_rope(d, x=x0, y=yy, w=usable_w, h=fallback_h, highlighted_strand=scar_strand, teal=hex_to_rgb(DEFAULT_ACCENT_TEAL_HEX), muted=(169, 201, 198))
+        diagram_h = fallback_h
 
-        _draw_scarborough_rope(d, x=x0, y=yy, w=usable_w, h=int(min(110 * scale150, max(1, (y + scar_h) - yy - int(12 * scale150)))), highlighted_strand=scar_strand, teal=hex_to_rgb(DEFAULT_ACCENT_TEAL_HEX), muted=(169, 201, 198))
+    # Legend — always BELOW the diagram with a minimum gap to prevent text overlap
+    legend_y = max(yy + diagram_h + int(10 * scale150), y + scar_h - int(12 * scale150))
 
-        diagram_h = int(min(110 * scale150, max(1, (y + scar_h) - yy - int(12 * scale150))))
+    first_label = f"{scar_strand} (this pack)"
+
+    f_leg = _brand_font_pt(13, bold=False, brand="poppins")
+
+    d.ellipse([x0, legend_y + 4, x0 + 10, legend_y + 14], fill=hex_to_rgb(DEFAULT_ACCENT_TEAL_HEX))
+
+    d.text((x0 + 16, legend_y), first_label, font=f_leg, fill=hex_to_rgb(NAVY_HEX))
+
+    l1w, l1h = _text_size(d, first_label, f_leg)
+
+    other_strand = ("Language Comprehension" if scar_strand == "Word Recognition" else "Word Recognition")
+
+    safe_x_max = rx + right_w - int(12 * scale150)
+
+    legend2_x = x0 + 16 + l1w + int(40 * scale150)
+
+    l2w, l2h = _text_size(d, other_strand, f_leg)
+
+    req_right = legend2_x + 10 + 16 + l2w
+
+    if req_right > safe_x_max:
+
+        legend2_x = x0
+
+        legend_y = legend_y + l1h + int(8 * scale150)
+
+    d.ellipse([legend2_x, legend_y + 4, legend2_x + 10, legend_y + 14], fill=(169, 201, 198))
+
+    d.text((legend2_x + 16, legend_y), other_strand, font=f_leg, fill=(120, 130, 140))
 
     y += scar_h + between_card_and_why
 
@@ -3542,8 +3633,9 @@ def draw_aac_strip(page: Image.Image, *, words: list[str], bg_hex: str | None = 
 
             lw, lh = _text_size(d, lbl, fonts["small_bold"])  # bold small
 
-            d.text((x + (icon_px - lw) // 2, y1 + int(0.10 * DPI) + (pill_h - lh) // 2), lbl, fill=hex_to_rgb(NAVY_HEX), font=fonts["small_bold"])
+            d.text((x + (icon_px - lw) // 2, y1 + int(0.10 * DPI) + (pill_h - lh) // 2), lbl, fill=hex_to_rgb(NAVY_HEX), font=fonts["small_bold"]) 
 
 
 
         x += icon_px + gap_x
+

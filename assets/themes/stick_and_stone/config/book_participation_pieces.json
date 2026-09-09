@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "product_name": "Interactive Book Participation Pieces",
+  "source_book_required": true,
+  "edition_neutral": true,
+  "teacher_review_required": true,
+  "vocabulary_source": "reviewed book_vocab and approved local icons",
+  "vocabulary": [
+    {
+      "image_key": "stick",
+      "label": "stick",
+      "review_status": "approved"
+    },
+    {
+      "image_key": "stone",
+      "label": "stone",
+      "review_status": "approved"
+    },
+    {
+      "image_key": "friend",
+      "label": "friend",
+      "review_status": "approved"
+    },
+    {
+      "image_key": "play",
+      "label": "play",
+      "review_status": "approved"
+    },
+    {
+      "image_key": "pinecone",
+      "label": "pinecone",
+      "review_status": "approved"
+    },
+    {
+      "image_key": "alone",
+      "label": "alone",
+      "review_status": "approved"
+    },
+    {
+      "image_key": "together",
+      "label": "together",
+      "review_status": "approved"
+    },
+    {
+      "image_key": "help",
+      "label": "help",
+      "review_status": "approved"
+    }
+  ],
+  "question_strips": [
+    {
+      "prompt": "Who is on this page?",
+      "response_type": "point",
+      "options": [
+        "stick",
+        "stone",
+        "friend"
+      ]
+    },
+    {
+      "prompt": "What do you see?",
+      "response_type": "point",
+      "options": [
+        "play",
+        "pinecone",
+        "alone"
+      ]
+    },
+    {
+      "prompt": "How does the character feel?",
+      "response_type": "point",
+      "options": []
+    }
+  ],
+  "participation_words": [
+    "see",
+    "more",
+    "finished",
+    "help",
+    "yes",
+    "no",
+    "turn_the_page"
+  ],
+  "early_access": {
+    "enabled": true,
+    "hero_image_key": "",
+    "hero_label": "",
+    "hero_piece_copies": 6,
+    "turn_page_piece_copies": 2,
+    "cue": "See . Match . Turn the page."
+  },
+  "reading_rope": [
+    "Vocabulary",
+    "Language Structures",
+    "Verbal Reasoning",
+    "Literacy Knowledge"
+  ]
+}

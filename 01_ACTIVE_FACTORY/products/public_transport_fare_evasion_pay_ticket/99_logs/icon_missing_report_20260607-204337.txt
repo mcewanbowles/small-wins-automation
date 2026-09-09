@@ -1,0 +1,6 @@
+Missing icons report:
+
+- fine
+- rules
+- keep ticket
+  suggested alternatives: keep details safe, keep_hands_off

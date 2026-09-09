@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Verbal Reasoning",
+    "Background Knowledge"
+  ],
+  "teacher_review_required": true,
+  "cards": [
+    {
+      "clue_image_key": "excited",
+      "question": "Why might Louis feel excited?",
+      "choices": [
+        "Something new or unfamiliar is happening",
+        "He wants to go home"
+      ],
+      "answer_hint": "New experiences can make us feel excited."
+    },
+    {
+      "clue_image_key": "wait",
+      "question": "What might Louis do with this?",
+      "choices": [
+        "Use it to learn and play",
+        "Ignore it"
+      ],
+      "answer_hint": "At school, we use things to learn and grow."
+    },
+    {
+      "clue_image_key": "talking",
+      "question": "What might Louis do with this?",
+      "choices": [
+        "Use it to learn and play",
+        "Ignore it"
+      ],
+      "answer_hint": "At school, we use things to learn and grow."
+    },
+    {
+      "clue_image_key": "listening",
+      "question": "What might Louis do with this?",
+      "choices": [
+        "Use it to learn and play",
+        "Ignore it"
+      ],
+      "answer_hint": "At school, we use things to learn and grow."
+    }
+  ]
+}

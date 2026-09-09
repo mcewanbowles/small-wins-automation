@@ -1,0 +1,14 @@
+Missing icons report:
+
+- comb
+- hair brush
+  suggested alternatives: hairy_leg
+- conditioner
+- trim nails
+- nail clippers
+- clean nails
+  suggested alternatives: cleaning_crew, cleaning_supplies, cleaners, cleaning, clean (2)
+- hair tie
+  suggested alternatives: hairy_leg
+- gel
+- appearance check

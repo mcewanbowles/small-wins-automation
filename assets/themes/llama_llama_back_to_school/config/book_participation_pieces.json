@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "product_name": "Interactive Book Participation Pieces",
+  "source_book_required": true,
+  "edition_neutral": true,
+  "teacher_review_required": true,
+  "vocabulary_source": "reviewed book_vocab and approved local icons",
+  "vocabulary": [
+    {"image_key": "school", "label": "school", "review_status": "approved"},
+    {"image_key": "backpack", "label": "backpack", "review_status": "approved"},
+    {"image_key": "friend", "label": "friend", "review_status": "approved"},
+    {"image_key": "teacher", "label": "teacher", "review_status": "approved"},
+    {"image_key": "nervous", "label": "nervous", "review_status": "approved"},
+    {"image_key": "happy", "label": "happy", "review_status": "approved"},
+    {"image_key": "classroom", "label": "classroom", "review_status": "approved"},
+    {"image_key": "pencil", "label": "pencil", "review_status": "approved"},
+    {"image_key": "learn", "label": "learn", "review_status": "approved"},
+    {"image_key": "llama_llama", "label": "llama llama", "review_status": "approved"},
+    {"image_key": "new", "label": "new", "review_status": "approved"},
+    {"image_key": "sit", "label": "sit", "review_status": "approved"}
+  ],
+  "question_strips": [
+    {"prompt": "Who is on this page?", "response": "Choose or place a character piece."},
+    {"prompt": "What is happening at school?", "response": "Choose or place an action or object piece."},
+    {"prompt": "How does Llama Llama feel?", "response": "Choose or place a feeling piece."},
+    {"prompt": "What might happen next?", "response": "Predict using speech, sign, AAC or a piece."}
+  ],
+  "participation_words": ["see", "more", "finished", "help", "yes", "no", "turn_the_page"],
+  "early_access": {
+    "enabled": true,
+    "hero_image_key": "llama_llama",
+    "hero_label": "Llama Llama",
+    "hero_piece_copies": 6,
+    "turn_page_piece_copies": 2,
+    "cue": "See Llama Llama. Match Llama Llama. Turn the page."
+  },
+  "reading_rope": ["Vocabulary", "Language Structures", "Verbal Reasoning", "Literacy Knowledge"]
+}

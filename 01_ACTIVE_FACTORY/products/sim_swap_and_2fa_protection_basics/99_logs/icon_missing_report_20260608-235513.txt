@@ -1,0 +1,11 @@
+Missing icons report:
+
+- SIM
+- 2FA
+- code
+- OTP
+- do not share code
+  suggested alternatives: dont_know, dont_like, do not reply, dont_go_with_strangers, down
+- account
+- settings
+- trusted adult

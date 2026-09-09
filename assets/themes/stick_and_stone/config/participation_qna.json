@@ -1,0 +1,83 @@
+{
+  "schema": "pp_qna.v1",
+  "book_slug": "stick_and_stone",
+  "book_title": "Stick and Stone",
+  "pages": [
+    {
+      "page_num": 1,
+      "question": "What do you see?",
+      "choices": [
+        "alone",
+        "stick",
+        "stone"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        false,
+        false
+      ],
+      "context_mirror": {
+        "sentence": "Stick and Stone are alone and lonely.",
+        "scene_note": "Stick and Stone are alone and lonely."
+      }
+    },
+    {
+      "page_num": 2,
+      "question": "Who does the character meet?",
+      "choices": [
+        "friend",
+        "stick",
+        "stone"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        false,
+        false
+      ],
+      "context_mirror": {
+        "sentence": "Stick and Stone become friends.",
+        "scene_note": "Stick and Stone become friends."
+      }
+    },
+    {
+      "page_num": 3,
+      "question": "What do you see?",
+      "choices": [
+        "help",
+        "stick",
+        "stone"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        false,
+        false
+      ],
+      "context_mirror": {
+        "sentence": "Stick helps Stone when Pinecone is mean.",
+        "scene_note": "Stick helps Stone when Pinecone is mean."
+      }
+    },
+    {
+      "page_num": 4,
+      "question": "What do you see?",
+      "choices": [
+        "happy",
+        "stick",
+        "stone"
+      ],
+      "correct_index": 0,
+      "choices_text_only": [
+        false,
+        false,
+        false
+      ],
+      "context_mirror": {
+        "sentence": "Stick and Stone are happy together.",
+        "scene_note": "Stick and Stone are happy together."
+      }
+    }
+  ]
+}

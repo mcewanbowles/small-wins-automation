@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "product_name": "Interactive Book Participation Pieces",
+  "source_book_required": true,
+  "edition_neutral": true,
+  "teacher_review_required": true,
+  "vocabulary_source": "reviewed book_vocab and approved local icons",
+  "vocabulary": [
+    {
+      "image_key": "crayon",
+      "label": "crayon",
+      "review_status": "approved"
+    },
+    {
+      "image_key": "box",
+      "label": "box",
+      "review_status": "approved"
+    },
+    {
+      "image_key": "red",
+      "label": "red",
+      "review_status": "approved"
+    },
+    {
+      "image_key": "blue",
+      "label": "blue",
+      "review_status": "approved"
+    },
+    {
+      "image_key": "yellow",
+      "label": "yellow",
+      "review_status": "approved"
+    },
+    {
+      "image_key": "green",
+      "label": "green",
+      "review_status": "approved"
+    },
+    {
+      "image_key": "color",
+      "label": "color",
+      "review_status": "approved"
+    },
+    {
+      "image_key": "draw",
+      "label": "draw",
+      "review_status": "approved"
+    }
+  ],
+  "question_strips": [
+    {
+      "prompt": "Who is on this page?",
+      "response_type": "point",
+      "options": [
+        "crayon",
+        "box",
+        "red"
+      ]
+    },
+    {
+      "prompt": "What do you see?",
+      "response_type": "point",
+      "options": [
+        "blue",
+        "yellow",
+        "green"
+      ]
+    },
+    {
+      "prompt": "How does the character feel?",
+      "response_type": "point",
+      "options": []
+    }
+  ],
+  "participation_words": [
+    "see",
+    "more",
+    "finished",
+    "help",
+    "yes",
+    "no",
+    "turn_the_page"
+  ],
+  "early_access": {
+    "enabled": true,
+    "hero_image_key": "",
+    "hero_label": "",
+    "hero_piece_copies": 6,
+    "turn_page_piece_copies": 2,
+    "cue": "See . Match . Turn the page."
+  },
+  "reading_rope": [
+    "Vocabulary",
+    "Language Structures",
+    "Verbal Reasoning",
+    "Literacy Knowledge"
+  ]
+}

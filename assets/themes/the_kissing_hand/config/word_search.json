@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Sight Recognition",
+    "Vocabulary"
+  ],
+  "teacher_review_required": true,
+  "words": [
+    {
+      "word": "kiss",
+      "image_key": "kiss",
+      "label": "Kiss"
+    },
+    {
+      "word": "hand",
+      "image_key": "hand",
+      "label": "Hand"
+    },
+    {
+      "word": "heart",
+      "image_key": "heart",
+      "label": "Heart"
+    },
+    {
+      "word": "mama",
+      "image_key": "mama",
+      "label": "Mama"
+    },
+    {
+      "word": "school",
+      "image_key": "school",
+      "label": "School"
+    },
+    {
+      "word": "scared",
+      "image_key": "scared",
+      "label": "Scared"
+    }
+  ]
+}

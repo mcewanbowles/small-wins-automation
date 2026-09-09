@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "teacher_review_required": true,
+  "items": [
+    {"image_key": "school", "label": "School"},
+    {"image_key": "backpack", "label": "Backpack"},
+    {"image_key": "friend", "label": "Friend"},
+    {"image_key": "teacher", "label": "Teacher"},
+    {"image_key": "nervous", "label": "Nervous"},
+    {"image_key": "happy", "label": "Happy"},
+    {"image_key": "classroom", "label": "Classroom"},
+    {"image_key": "pencil", "label": "Pencil"}
+  ]
+}

@@ -1,0 +1,1700 @@
+ICON MANIFEST — Small Wins Studio
+Generated: 2026-09-07 22:04
+Total unique icons: 237
+Already have: 0
+Need to source: 237
+Topics scanned: 48
+
+================================================================================
+ICONS TO SOURCE (237) — sorted by usage count
+================================================================================
+
+safe  (used by 37 topics)
+  - adult_content_exposure_online_pg13
+  - bathroom_wiping_clean
+  - being_bullied_get_help
+  - blood_cuts_body_care
+  - bullying_others_stop_take_responsibility
+  - bus_train_safety
+  - clean_clothes_laundry
+  - community_bathroom_safety
+  - doctor_nurse_private_questions
+  - dont_forward_inappropriate_images_illegal
+  - fake_vs_real_friends_safety_first
+  - financial_exploitation_scams_protect_self
+  - hands_out_of_pants
+  - keeping_clothes_on
+  - kissing_dating_boundaries
+  - medical_visits_meds_management
+  - no_phones_photos_private_places
+  - online_drama_cyberbullying_response
+  - online_predators_grooming_red_flags
+  - online_strangers_messages
+  - peer_pressure_risky_dares_refusal_skills
+  - personal_space_consent
+  - photo_privacy
+  - public_private_body_rules
+  - public_transport_fare_evasion_pay_ticket
+  - safe_hands_body_control
+  - saying_no_and_reporting
+  - sextortion_blackmail_online_safety_plan
+  - sexual_harassment_report
+  - showering_body_washing
+  - staying_with_group
+  - stealing_is_a_crime_peer_pressure
+  - unexpected_body_changes_puberty
+  - using_pad_or_period_privacy
+  - waiting_transitions
+  - wearing_bra_or_singlet
+  - work_ready_part_time_job_basics
+
+private  (used by 24 topics)
+  - bathroom_wiping_clean
+  - blood_cuts_body_care
+  - bus_train_safety
+  - clean_clothes_laundry
+  - community_bathroom_safety
+  - doctor_nurse_private_questions
+  - hands_out_of_pants
+  - keeping_clothes_on
+  - kissing_dating_boundaries
+  - no_phones_photos_private_places
+  - online_phone_safety_basics
+  - online_private_information
+  - online_strangers_messages
+  - personal_space_consent
+  - photo_privacy
+  - public_private_body_rules
+  - safe_hands_body_control
+  - saying_no_and_reporting
+  - showering_body_washing
+  - staying_with_group
+  - unexpected_body_changes_puberty
+  - using_pad_or_period_privacy
+  - waiting_transitions
+  - wearing_bra_or_singlet
+
+door_closed  (used by 21 topics)
+  - bathroom_wiping_clean
+  - blood_cuts_body_care
+  - bus_train_safety
+  - clean_clothes_laundry
+  - community_bathroom_safety
+  - doctor_nurse_private_questions
+  - hands_out_of_pants
+  - keeping_clothes_on
+  - kissing_dating_boundaries
+  - online_strangers_messages
+  - personal_space_consent
+  - photo_privacy
+  - public_private_body_rules
+  - safe_hands_body_control
+  - saying_no_and_reporting
+  - showering_body_washing
+  - staying_with_group
+  - unexpected_body_changes_puberty
+  - using_pad_or_period_privacy
+  - waiting_transitions
+  - wearing_bra_or_singlet
+
+public  (used by 21 topics)
+  - bathroom_wiping_clean
+  - blood_cuts_body_care
+  - bus_train_safety
+  - clean_clothes_laundry
+  - community_bathroom_safety
+  - doctor_nurse_private_questions
+  - hands_out_of_pants
+  - keeping_clothes_on
+  - kissing_dating_boundaries
+  - online_strangers_messages
+  - personal_space_consent
+  - photo_privacy
+  - public_private_body_rules
+  - safe_hands_body_control
+  - saying_no_and_reporting
+  - showering_body_washing
+  - staying_with_group
+  - unexpected_body_changes_puberty
+  - using_pad_or_period_privacy
+  - waiting_transitions
+  - wearing_bra_or_singlet
+
+ask_adult  (used by 20 topics)
+  - bathroom_wiping_clean
+  - blood_cuts_body_care
+  - bus_train_safety
+  - clean_clothes_laundry
+  - community_bathroom_safety
+  - doctor_nurse_private_questions
+  - keeping_clothes_on
+  - kissing_dating_boundaries
+  - online_strangers_messages
+  - personal_space_consent
+  - photo_privacy
+  - public_private_body_rules
+  - safe_hands_body_control
+  - saying_no_and_reporting
+  - showering_body_washing
+  - staying_with_group
+  - unexpected_body_changes_puberty
+  - using_pad_or_period_privacy
+  - waiting_transitions
+  - wearing_bra_or_singlet
+
+clothes_on  (used by 20 topics)
+  - bathroom_wiping_clean
+  - blood_cuts_body_care
+  - bus_train_safety
+  - clean_clothes_laundry
+  - community_bathroom_safety
+  - doctor_nurse_private_questions
+  - keeping_clothes_on
+  - kissing_dating_boundaries
+  - online_strangers_messages
+  - personal_space_consent
+  - photo_privacy
+  - public_private_body_rules
+  - safe_hands_body_control
+  - saying_no_and_reporting
+  - showering_body_washing
+  - staying_with_group
+  - unexpected_body_changes_puberty
+  - using_pad_or_period_privacy
+  - waiting_transitions
+  - wearing_bra_or_singlet
+
+trusted_adult  (used by 15 topics)
+  - adult_content_exposure_online_pg13
+  - being_bullied_get_help
+  - bullying_others_stop_take_responsibility
+  - consent_and_coercion_pg13_safety_respect
+  - dont_forward_inappropriate_images_illegal
+  - fake_vs_real_friends_safety_first
+  - financial_exploitation_scams_protect_self
+  - no_phones_photos_private_places
+  - online_drama_cyberbullying_response
+  - online_predators_grooming_red_flags
+  - peer_pressure_risky_dares_refusal_skills
+  - rideshare_transit_personal_safety
+  - sextortion_blackmail_online_safety_plan
+  - sexual_harassment_report
+  - stealing_is_a_crime_peer_pressure
+
+adult  (used by 14 topics)
+  - adult_content_exposure_online_pg13
+  - being_bullied_get_help
+  - bullying_others_stop_take_responsibility
+  - consent_and_coercion_pg13_safety_respect
+  - dont_forward_inappropriate_images_illegal
+  - fake_vs_real_friends_safety_first
+  - financial_exploitation_scams_protect_self
+  - no_phones_photos_private_places
+  - online_drama_cyberbullying_response
+  - online_predators_grooming_red_flags
+  - peer_pressure_risky_dares_refusal_skills
+  - rideshare_transit_personal_safety
+  - sextortion_blackmail_online_safety_plan
+  - sexual_harassment_report
+
+help  (used by 11 topics)
+  - body_odour_deodorant
+  - changing_clothes_privately
+  - hands_out_of_pants
+  - locker_room_privacy
+  - medical_visits_meds_management
+  - online_phone_safety_basics
+  - period_care_pad_change
+  - period_kit_planner
+  - public_private_body_rules
+  - stranger_safe_adult
+  - work_ready_part_time_job_basics
+
+report  (used by 10 topics)
+  - adult_content_exposure_online_pg13
+  - being_bullied_get_help
+  - bullying_others_stop_take_responsibility
+  - dont_forward_inappropriate_images_illegal
+  - no_phones_photos_private_places
+  - online_drama_cyberbullying_response
+  - online_phone_safety_basics
+  - online_predators_grooming_red_flags
+  - sextortion_blackmail_online_safety_plan
+  - sexual_harassment_report
+
+bathroom  (used by 8 topics)
+  - bathroom_privacy_school
+  - bathroom_wiping_clean
+  - community_bathroom_safety
+  - hands_out_of_pants
+  - no_phones_photos_private_places
+  - period_care_pad_change
+  - period_kit_planner
+  - public_private_body_rules
+
+privacy  (used by 8 topics)
+  - bathroom_privacy_school
+  - changing_clothes_privately
+  - locker_room_privacy
+  - medical_visits_meds_management
+  - period_care_pad_change
+  - period_kit_planner
+  - photo_privacy
+  - using_pad_or_period_privacy
+
+block  (used by 7 topics)
+  - adult_content_exposure_online_pg13
+  - being_bullied_get_help
+  - dont_forward_inappropriate_images_illegal
+  - online_drama_cyberbullying_response
+  - online_phone_safety_basics
+  - online_predators_grooming_red_flags
+  - sextortion_blackmail_online_safety_plan
+
+stop  (used by 7 topics)
+  - bullying_others_stop_take_responsibility
+  - consent_and_coercion_pg13_safety_respect
+  - hands_out_of_pants
+  - online_private_information
+  - rideshare_transit_personal_safety
+  - sexual_harassment_report
+  - stranger_safe_adult
+
+body  (used by 6 topics)
+  - blood_cuts_body_care
+  - hands_out_of_pants
+  - public_private_body_rules
+  - safe_hands_body_control
+  - showering_body_washing
+  - unexpected_body_changes_puberty
+
+clothes  (used by 6 topics)
+  - changing_clothes_privately
+  - clean_clothes_laundry
+  - hands_out_of_pants
+  - keeping_clothes_on
+  - locker_room_privacy
+  - public_private_body_rules
+
+phone  (used by 6 topics)
+  - financial_exploitation_scams_protect_self
+  - medical_visits_meds_management
+  - no_phones_photos_private_places
+  - online_phone_safety_basics
+  - online_private_information
+  - work_ready_part_time_job_basics
+
+safe_choice  (used by 6 topics)
+  - bullying_others_stop_take_responsibility
+  - fake_vs_real_friends_safety_first
+  - financial_exploitation_scams_protect_self
+  - peer_pressure_risky_dares_refusal_skills
+  - public_transport_fare_evasion_pay_ticket
+  - stealing_is_a_crime_peer_pressure
+
+clean  (used by 5 topics)
+  - bathroom_wiping_clean
+  - body_odour_deodorant
+  - clean_clothes_laundry
+  - period_care_pad_change
+  - work_ready_part_time_job_basics
+
+door  (used by 5 topics)
+  - bathroom_privacy_school
+  - changing_clothes_privately
+  - hands_out_of_pants
+  - locker_room_privacy
+  - public_private_body_rules
+
+bin  (used by 4 topics)
+  - bathroom_privacy_school
+  - period_care_pad_change
+  - period_kit_planner
+  - work_ready_part_time_job_basics
+
+break  (used by 4 topics)
+  - hands_out_of_pants
+  - online_phone_safety_basics
+  - waiting_transitions
+  - work_ready_part_time_job_basics
+
+close_door  (used by 4 topics)
+  - bathroom_privacy_school
+  - changing_clothes_privately
+  - locker_room_privacy
+  - period_care_pad_change
+
+no  (used by 4 topics)
+  - consent_and_coercion_pg13_safety_respect
+  - fake_vs_real_friends_safety_first
+  - peer_pressure_risky_dares_refusal_skills
+  - sextortion_blackmail_online_safety_plan
+
+photo  (used by 4 topics)
+  - no_phones_photos_private_places
+  - online_predators_grooming_red_flags
+  - online_private_information
+  - photo_privacy
+
+respect  (used by 4 topics)
+  - consent_and_coercion_pg13_safety_respect
+  - fake_vs_real_friends_safety_first
+  - hands_out_of_pants
+  - public_private_body_rules
+
+safety  (used by 4 topics)
+  - bus_train_safety
+  - community_bathroom_safety
+  - consent_and_coercion_pg13_safety_respect
+  - work_ready_part_time_job_basics
+
+say_no  (used by 4 topics)
+  - fake_vs_real_friends_safety_first
+  - peer_pressure_risky_dares_refusal_skills
+  - public_transport_fare_evasion_pay_ticket
+  - stealing_is_a_crime_peer_pressure
+
+teacher  (used by 4 topics)
+  - being_bullied_get_help
+  - public_private_body_rules
+  - sexual_harassment_report
+  - waiting_transitions
+
+wash_hands  (used by 4 topics)
+  - bathroom_privacy_school
+  - hands_out_of_pants
+  - period_care_pad_change
+  - work_ready_part_time_job_basics
+
+bag  (used by 3 topics)
+  - changing_clothes_privately
+  - locker_room_privacy
+  - medical_visits_meds_management
+
+community  (used by 3 topics)
+  - community_bathroom_safety
+  - public_private_body_rules
+  - stranger_safe_adult
+
+friend  (used by 3 topics)
+  - fake_vs_real_friends_safety_first
+  - peer_pressure_risky_dares_refusal_skills
+  - stealing_is_a_crime_peer_pressure
+
+online  (used by 3 topics)
+  - online_phone_safety_basics
+  - online_private_information
+  - online_strangers_messages
+
+pad  (used by 3 topics)
+  - period_care_pad_change
+  - period_kit_planner
+  - using_pad_or_period_privacy
+
+period  (used by 3 topics)
+  - period_care_pad_change
+  - period_kit_planner
+  - using_pad_or_period_privacy
+
+police  (used by 3 topics)
+  - sextortion_blackmail_online_safety_plan
+  - stealing_is_a_crime_peer_pressure
+  - stranger_safe_adult
+
+safe_activity  (used by 3 topics)
+  - adult_content_exposure_online_pg13
+  - dont_forward_inappropriate_images_illegal
+  - online_drama_cyberbullying_response
+
+safe_adult  (used by 3 topics)
+  - online_private_information
+  - public_private_body_rules
+  - stranger_safe_adult
+
+screenshot  (used by 3 topics)
+  - being_bullied_get_help
+  - online_drama_cyberbullying_response
+  - sextortion_blackmail_online_safety_plan
+
+stranger  (used by 3 topics)
+  - online_phone_safety_basics
+  - online_private_information
+  - stranger_safe_adult
+
+walk_away  (used by 3 topics)
+  - bullying_others_stop_take_responsibility
+  - peer_pressure_risky_dares_refusal_skills
+  - stealing_is_a_crime_peer_pressure
+
+ask  (used by 2 topics)
+  - hands_out_of_pants
+  - public_private_body_rules
+
+bedroom  (used by 2 topics)
+  - hands_out_of_pants
+  - public_private_body_rules
+
+change_clothes  (used by 2 topics)
+  - changing_clothes_privately
+  - locker_room_privacy
+
+consent  (used by 2 topics)
+  - consent_and_coercion_pg13_safety_respect
+  - personal_space_consent
+
+cramps  (used by 2 topics)
+  - period_care_pad_change
+  - period_kit_planner
+
+dare  (used by 2 topics)
+  - peer_pressure_risky_dares_refusal_skills
+  - stealing_is_a_crime_peer_pressure
+
+do_not_forward  (used by 2 topics)
+  - adult_content_exposure_online_pg13
+  - dont_forward_inappropriate_images_illegal
+
+dry  (used by 2 topics)
+  - bathroom_privacy_school
+  - body_odour_deodorant
+
+evidence  (used by 2 topics)
+  - online_predators_grooming_red_flags
+  - sextortion_blackmail_online_safety_plan
+
+group  (used by 2 topics)
+  - staying_with_group
+  - stranger_safe_adult
+
+hands  (used by 2 topics)
+  - hands_out_of_pants
+  - safe_hands_body_control
+
+heat_pack  (used by 2 topics)
+  - period_care_pad_change
+  - period_kit_planner
+
+home  (used by 2 topics)
+  - online_phone_safety_basics
+  - public_private_body_rules
+
+internet  (used by 2 topics)
+  - online_phone_safety_basics
+  - online_private_information
+
+leave  (used by 2 topics)
+  - online_drama_cyberbullying_response
+  - peer_pressure_risky_dares_refusal_skills
+
+locker_room  (used by 2 topics)
+  - locker_room_privacy
+  - no_phones_photos_private_places
+
+medicine  (used by 2 topics)
+  - medical_visits_meds_management
+  - period_kit_planner
+
+message  (used by 2 topics)
+  - online_phone_safety_basics
+  - online_private_information
+
+nurse  (used by 2 topics)
+  - doctor_nurse_private_questions
+  - no_phones_photos_private_places
+
+pressure  (used by 2 topics)
+  - consent_and_coercion_pg13_safety_respect
+  - fake_vs_real_friends_safety_first
+
+safe_place  (used by 2 topics)
+  - being_bullied_get_help
+  - sexual_harassment_report
+
+school  (used by 2 topics)
+  - online_phone_safety_basics
+  - public_private_body_rules
+
+share  (used by 2 topics)
+  - online_private_information
+  - rideshare_transit_personal_safety
+
+time  (used by 2 topics)
+  - medical_visits_meds_management
+  - work_ready_part_time_job_basics
+
+underwear  (used by 2 topics)
+  - period_care_pad_change
+  - period_kit_planner
+
+wait  (used by 2 topics)
+  - stranger_safe_adult
+  - waiting_transitions
+
+wash  (used by 2 topics)
+  - bathroom_privacy_school
+  - body_odour_deodorant
+
+aac  (used by 1 topics)
+  - hands_out_of_pants
+
+activity  (used by 1 topics)
+  - hands_out_of_pants
+
+address  (used by 1 topics)
+  - online_private_information
+
+and  (used by 1 topics)
+  - saying_no_and_reporting
+
+apologize  (used by 1 topics)
+  - bullying_others_stop_take_responsibility
+
+appointment  (used by 1 topics)
+  - medical_visits_meds_management
+
+ask_for_help  (used by 1 topics)
+  - work_ready_part_time_job_basics
+
+ask_help  (used by 1 topics)
+  - stranger_safe_adult
+
+back  (used by 1 topics)
+  - rideshare_transit_personal_safety
+
+back_seat  (used by 1 topics)
+  - rideshare_transit_personal_safety
+
+backpack  (used by 1 topics)
+  - period_kit_planner
+
+blood  (used by 1 topics)
+  - blood_cuts_body_care
+
+body_odor  (used by 1 topics)
+  - body_odour_deodorant
+
+boundaries  (used by 1 topics)
+  - kissing_dating_boundaries
+
+boundary  (used by 1 topics)
+  - sexual_harassment_report
+
+bra  (used by 1 topics)
+  - wearing_bra_or_singlet
+
+bus  (used by 1 topics)
+  - bus_train_safety
+
+buy_ticket  (used by 1 topics)
+  - public_transport_fare_evasion_pay_ticket
+
+call  (used by 1 topics)
+  - rideshare_transit_personal_safety
+
+call_911  (used by 1 topics)
+  - rideshare_transit_personal_safety
+
+calm  (used by 1 topics)
+  - waiting_transitions
+
+camera  (used by 1 topics)
+  - stealing_is_a_crime_peer_pressure
+
+car  (used by 1 topics)
+  - stranger_safe_adult
+
+card  (used by 1 topics)
+  - financial_exploitation_scams_protect_self
+
+care  (used by 1 topics)
+  - blood_cuts_body_care
+
+changes  (used by 1 topics)
+  - unexpected_body_changes_puberty
+
+check_plate  (used by 1 topics)
+  - rideshare_transit_personal_safety
+
+close  (used by 1 topics)
+  - adult_content_exposure_online_pg13
+
+close_tab  (used by 1 topics)
+  - adult_content_exposure_online_pg13
+
+computer  (used by 1 topics)
+  - online_private_information
+
+consequence  (used by 1 topics)
+  - stealing_is_a_crime_peer_pressure
+
+control  (used by 1 topics)
+  - safe_hands_body_control
+
+counselor  (used by 1 topics)
+  - being_bullied_get_help
+
+cover  (used by 1 topics)
+  - public_private_body_rules
+
+crime  (used by 1 topics)
+  - stealing_is_a_crime_peer_pressure
+
+cuts  (used by 1 topics)
+  - blood_cuts_body_care
+
+dating  (used by 1 topics)
+  - kissing_dating_boundaries
+
+delete  (used by 1 topics)
+  - dont_forward_inappropriate_images_illegal
+
+deodorant  (used by 1 topics)
+  - body_odour_deodorant
+
+do_not_go  (used by 1 topics)
+  - stranger_safe_adult
+
+do_not_pay  (used by 1 topics)
+  - sextortion_blackmail_online_safety_plan
+
+do_not_send  (used by 1 topics)
+  - sextortion_blackmail_online_safety_plan
+
+do_not_share  (used by 1 topics)
+  - online_private_information
+
+doctor  (used by 1 topics)
+  - doctor_nurse_private_questions
+
+driver  (used by 1 topics)
+  - rideshare_transit_personal_safety
+
+driver_name  (used by 1 topics)
+  - rideshare_transit_personal_safety
+
+dry_hands  (used by 1 topics)
+  - bathroom_privacy_school
+
+fake  (used by 1 topics)
+  - fake_vs_real_friends_safety_first
+
+fake_friend  (used by 1 topics)
+  - fake_vs_real_friends_safety_first
+
+fidget  (used by 1 topics)
+  - hands_out_of_pants
+
+fine  (used by 1 topics)
+  - public_transport_fare_evasion_pay_ticket
+
+finished  (used by 1 topics)
+  - hands_out_of_pants
+
+flush  (used by 1 topics)
+  - bathroom_privacy_school
+
+forward  (used by 1 topics)
+  - dont_forward_inappropriate_images_illegal
+
+fresh  (used by 1 topics)
+  - body_odour_deodorant
+
+friends  (used by 1 topics)
+  - peer_pressure_risky_dares_refusal_skills
+
+gift  (used by 1 topics)
+  - online_predators_grooming_red_flags
+
+go  (used by 1 topics)
+  - stranger_safe_adult
+
+hall_pass  (used by 1 topics)
+  - period_kit_planner
+
+hands_busy  (used by 1 topics)
+  - hands_out_of_pants
+
+hr  (used by 1 topics)
+  - sexual_harassment_report
+
+hr/teacher  (used by 1 topics)
+  - sexual_harassment_report
+
+information  (used by 1 topics)
+  - online_private_information
+
+inspector  (used by 1 topics)
+  - public_transport_fare_evasion_pay_ticket
+
+keep_ticket  (used by 1 topics)
+  - public_transport_fare_evasion_pay_ticket
+
+keeping  (used by 1 topics)
+  - keeping_clothes_on
+
+kissing  (used by 1 topics)
+  - kissing_dating_boundaries
+
+kit  (used by 1 topics)
+  - period_kit_planner
+
+laundry  (used by 1 topics)
+  - clean_clothes_laundry
+
+leave_group  (used by 1 topics)
+  - online_drama_cyberbullying_response
+
+line_up  (used by 1 topics)
+  - waiting_transitions
+
+listen  (used by 1 topics)
+  - waiting_transitions
+
+locker  (used by 1 topics)
+  - no_phones_photos_private_places
+
+look  (used by 1 topics)
+  - waiting_transitions
+
+lost  (used by 1 topics)
+  - stranger_safe_adult
+
+meet  (used by 1 topics)
+  - online_predators_grooming_red_flags
+
+meet_up  (used by 1 topics)
+  - online_predators_grooming_red_flags
+
+messages  (used by 1 topics)
+  - online_strangers_messages
+
+money  (used by 1 topics)
+  - financial_exploitation_scams_protect_self
+
+morning  (used by 1 topics)
+  - body_odour_deodorant
+
+move  (used by 1 topics)
+  - waiting_transitions
+
+mute  (used by 1 topics)
+  - online_drama_cyberbullying_response
+
+next  (used by 1 topics)
+  - waiting_transitions
+
+no_photos  (used by 1 topics)
+  - no_phones_photos_private_places
+
+odor  (used by 1 topics)
+  - body_odour_deodorant
+
+outside  (used by 1 topics)
+  - hands_out_of_pants
+
+pants  (used by 1 topics)
+  - hands_out_of_pants
+
+parent  (used by 1 topics)
+  - being_bullied_get_help
+
+pass  (used by 1 topics)
+  - public_transport_fare_evasion_pay_ticket
+
+password  (used by 1 topics)
+  - online_private_information
+
+pay  (used by 1 topics)
+  - sextortion_blackmail_online_safety_plan
+
+period_kit  (used by 1 topics)
+  - period_kit_planner
+
+personal  (used by 1 topics)
+  - personal_space_consent
+
+pharmacy  (used by 1 topics)
+  - medical_visits_meds_management
+
+phone_away  (used by 1 topics)
+  - no_phones_photos_private_places
+
+phone_call  (used by 1 topics)
+  - financial_exploitation_scams_protect_self
+
+photos  (used by 1 topics)
+  - online_predators_grooming_red_flags
+
+pin  (used by 1 topics)
+  - financial_exploitation_scams_protect_self
+
+plate  (used by 1 topics)
+  - rideshare_transit_personal_safety
+
+private_information  (used by 1 topics)
+  - online_private_information
+
+private_place  (used by 1 topics)
+  - no_phones_photos_private_places
+
+prize  (used by 1 topics)
+  - financial_exploitation_scams_protect_self
+
+puberty  (used by 1 topics)
+  - unexpected_body_changes_puberty
+
+pull_down_pants  (used by 1 topics)
+  - period_care_pad_change
+
+questions  (used by 1 topics)
+  - doctor_nurse_private_questions
+
+quickly  (used by 1 topics)
+  - changing_clothes_privately
+
+quiet  (used by 1 topics)
+  - hands_out_of_pants
+
+real  (used by 1 topics)
+  - fake_vs_real_friends_safety_first
+
+real_friend  (used by 1 topics)
+  - fake_vs_real_friends_safety_first
+
+refill  (used by 1 topics)
+  - medical_visits_meds_management
+
+refuse  (used by 1 topics)
+  - stealing_is_a_crime_peer_pressure
+
+reporting  (used by 1 topics)
+  - saying_no_and_reporting
+
+rules  (used by 1 topics)
+  - public_transport_fare_evasion_pay_ticket
+
+safe_stop  (used by 1 topics)
+  - rideshare_transit_personal_safety
+
+saying  (used by 1 topics)
+  - saying_no_and_reporting
+
+school_rules  (used by 1 topics)
+  - online_phone_safety_basics
+
+seatbelt  (used by 1 topics)
+  - rideshare_transit_personal_safety
+
+secret  (used by 1 topics)
+  - online_predators_grooming_red_flags
+
+share_trip  (used by 1 topics)
+  - rideshare_transit_personal_safety
+
+shop_worker  (used by 1 topics)
+  - stranger_safe_adult
+
+show_adult  (used by 1 topics)
+  - online_private_information
+
+showering  (used by 1 topics)
+  - showering_body_washing
+
+singlet  (used by 1 topics)
+  - wearing_bra_or_singlet
+
+sit  (used by 1 topics)
+  - waiting_transitions
+
+soap  (used by 1 topics)
+  - body_odour_deodorant
+
+space  (used by 1 topics)
+  - personal_space_consent
+
+spare_underwear  (used by 1 topics)
+  - period_kit_planner
+
+sport  (used by 1 topics)
+  - body_odour_deodorant
+
+staff  (used by 1 topics)
+  - hands_out_of_pants
+
+stall  (used by 1 topics)
+  - bathroom_privacy_school
+
+stay_with_group  (used by 1 topics)
+  - stranger_safe_adult
+
+staying  (used by 1 topics)
+  - staying_with_group
+
+store  (used by 1 topics)
+  - stealing_is_a_crime_peer_pressure
+
+strangers  (used by 1 topics)
+  - online_strangers_messages
+
+sweat  (used by 1 topics)
+  - body_odour_deodorant
+
+tablet  (used by 1 topics)
+  - online_private_information
+
+tampon  (used by 1 topics)
+  - period_kit_planner
+
+tap  (used by 1 topics)
+  - public_transport_fare_evasion_pay_ticket
+
+tap_card  (used by 1 topics)
+  - public_transport_fare_evasion_pay_ticket
+
+tell  (used by 1 topics)
+  - being_bullied_get_help
+
+tell_parent  (used by 1 topics)
+  - being_bullied_get_help
+
+tell_teacher  (used by 1 topics)
+  - being_bullied_get_help
+
+text  (used by 1 topics)
+  - financial_exploitation_scams_protect_self
+
+ticket  (used by 1 topics)
+  - public_transport_fare_evasion_pay_ticket
+
+timer  (used by 1 topics)
+  - waiting_transitions
+
+toilet  (used by 1 topics)
+  - bathroom_privacy_school
+
+touch  (used by 1 topics)
+  - hands_out_of_pants
+
+train  (used by 1 topics)
+  - bus_train_safety
+
+transition  (used by 1 topics)
+  - waiting_transitions
+
+transitions  (used by 1 topics)
+  - waiting_transitions
+
+trust  (used by 1 topics)
+  - adult_content_exposure_online_pg13
+
+uncomfortable  (used by 1 topics)
+  - hands_out_of_pants
+
+under_arms  (used by 1 topics)
+  - body_odour_deodorant
+
+underarm  (used by 1 topics)
+  - body_odour_deodorant
+
+unexpected  (used by 1 topics)
+  - unexpected_body_changes_puberty
+
+uniform  (used by 1 topics)
+  - work_ready_part_time_job_basics
+
+unsure  (used by 1 topics)
+  - public_private_body_rules
+
+using  (used by 1 topics)
+  - using_pad_or_period_privacy
+
+waiting  (used by 1 topics)
+  - waiting_transitions
+
+walk  (used by 1 topics)
+  - bullying_others_stop_take_responsibility
+
+washing  (used by 1 topics)
+  - showering_body_washing
+
+water  (used by 1 topics)
+  - body_odour_deodorant
+
+wearing  (used by 1 topics)
+  - wearing_bra_or_singlet
+
+wipes  (used by 1 topics)
+  - period_kit_planner
+
+wiping  (used by 1 topics)
+  - bathroom_wiping_clean
+
+with  (used by 1 topics)
+  - staying_with_group
+
+worried  (used by 1 topics)
+  - stranger_safe_adult
+
+wrap_pad  (used by 1 topics)
+  - period_care_pad_change
+
+================================================================================
+ICONS ALREADY AVAILABLE (0)
+================================================================================
+
+
+================================================================================
+PER-TOPIC BREAKDOWN
+================================================================================
+
+adult_content_exposure_online_pg13 (10 icons)
+  [NEED] adult
+  [NEED] block
+  [NEED] close
+  [NEED] close_tab
+  [NEED] do_not_forward
+  [NEED] report
+  [NEED] safe
+  [NEED] safe_activity
+  [NEED] trust
+  [NEED] trusted_adult
+
+bathroom_privacy_school (12 icons)
+  [NEED] bathroom
+  [NEED] bin
+  [NEED] close_door
+  [NEED] door
+  [NEED] dry
+  [NEED] dry_hands
+  [NEED] flush
+  [NEED] privacy
+  [NEED] stall
+  [NEED] toilet
+  [NEED] wash
+  [NEED] wash_hands
+
+bathroom_wiping_clean (9 icons)
+  [NEED] ask_adult
+  [NEED] bathroom
+  [NEED] clean
+  [NEED] clothes_on
+  [NEED] door_closed
+  [NEED] private
+  [NEED] public
+  [NEED] safe
+  [NEED] wiping
+
+being_bullied_get_help (13 icons)
+  [NEED] adult
+  [NEED] block
+  [NEED] counselor
+  [NEED] parent
+  [NEED] report
+  [NEED] safe
+  [NEED] safe_place
+  [NEED] screenshot
+  [NEED] teacher
+  [NEED] tell
+  [NEED] tell_parent
+  [NEED] tell_teacher
+  [NEED] trusted_adult
+
+blood_cuts_body_care (10 icons)
+  [NEED] ask_adult
+  [NEED] blood
+  [NEED] body
+  [NEED] care
+  [NEED] clothes_on
+  [NEED] cuts
+  [NEED] door_closed
+  [NEED] private
+  [NEED] public
+  [NEED] safe
+
+body_odour_deodorant (15 icons)
+  [NEED] body_odor
+  [NEED] clean
+  [NEED] deodorant
+  [NEED] dry
+  [NEED] fresh
+  [NEED] help
+  [NEED] morning
+  [NEED] odor
+  [NEED] soap
+  [NEED] sport
+  [NEED] sweat
+  [NEED] under_arms
+  [NEED] underarm
+  [NEED] wash
+  [NEED] water
+
+bullying_others_stop_take_responsibility (9 icons)
+  [NEED] adult
+  [NEED] apologize
+  [NEED] report
+  [NEED] safe
+  [NEED] safe_choice
+  [NEED] stop
+  [NEED] trusted_adult
+  [NEED] walk
+  [NEED] walk_away
+
+bus_train_safety (9 icons)
+  [NEED] ask_adult
+  [NEED] bus
+  [NEED] clothes_on
+  [NEED] door_closed
+  [NEED] private
+  [NEED] public
+  [NEED] safe
+  [NEED] safety
+  [NEED] train
+
+changing_clothes_privately (8 icons)
+  [NEED] bag
+  [NEED] change_clothes
+  [NEED] close_door
+  [NEED] clothes
+  [NEED] door
+  [NEED] help
+  [NEED] privacy
+  [NEED] quickly
+
+clean_clothes_laundry (9 icons)
+  [NEED] ask_adult
+  [NEED] clean
+  [NEED] clothes
+  [NEED] clothes_on
+  [NEED] door_closed
+  [NEED] laundry
+  [NEED] private
+  [NEED] public
+  [NEED] safe
+
+community_bathroom_safety (9 icons)
+  [NEED] ask_adult
+  [NEED] bathroom
+  [NEED] clothes_on
+  [NEED] community
+  [NEED] door_closed
+  [NEED] private
+  [NEED] public
+  [NEED] safe
+  [NEED] safety
+
+consent_and_coercion_pg13_safety_respect (8 icons)
+  [NEED] adult
+  [NEED] consent
+  [NEED] no
+  [NEED] pressure
+  [NEED] respect
+  [NEED] safety
+  [NEED] stop
+  [NEED] trusted_adult
+
+doctor_nurse_private_questions (9 icons)
+  [NEED] ask_adult
+  [NEED] clothes_on
+  [NEED] doctor
+  [NEED] door_closed
+  [NEED] nurse
+  [NEED] private
+  [NEED] public
+  [NEED] questions
+  [NEED] safe
+
+dont_forward_inappropriate_images_illegal (9 icons)
+  [NEED] adult
+  [NEED] block
+  [NEED] delete
+  [NEED] do_not_forward
+  [NEED] forward
+  [NEED] report
+  [NEED] safe
+  [NEED] safe_activity
+  [NEED] trusted_adult
+
+fake_vs_real_friends_safety_first (13 icons)
+  [NEED] adult
+  [NEED] fake
+  [NEED] fake_friend
+  [NEED] friend
+  [NEED] no
+  [NEED] pressure
+  [NEED] real
+  [NEED] real_friend
+  [NEED] respect
+  [NEED] safe
+  [NEED] safe_choice
+  [NEED] say_no
+  [NEED] trusted_adult
+
+financial_exploitation_scams_protect_self (11 icons)
+  [NEED] adult
+  [NEED] card
+  [NEED] money
+  [NEED] phone
+  [NEED] phone_call
+  [NEED] pin
+  [NEED] prize
+  [NEED] safe
+  [NEED] safe_choice
+  [NEED] text
+  [NEED] trusted_adult
+
+hands_out_of_pants (27 icons)
+  [NEED] aac
+  [NEED] activity
+  [NEED] ask
+  [NEED] bathroom
+  [NEED] bedroom
+  [NEED] body
+  [NEED] break
+  [NEED] clothes
+  [NEED] door
+  [NEED] door_closed
+  [NEED] fidget
+  [NEED] finished
+  [NEED] hands
+  [NEED] hands_busy
+  [NEED] help
+  [NEED] outside
+  [NEED] pants
+  [NEED] private
+  [NEED] public
+  [NEED] quiet
+  [NEED] respect
+  [NEED] safe
+  [NEED] staff
+  [NEED] stop
+  [NEED] touch
+  [NEED] uncomfortable
+  [NEED] wash_hands
+
+keeping_clothes_on (8 icons)
+  [NEED] ask_adult
+  [NEED] clothes
+  [NEED] clothes_on
+  [NEED] door_closed
+  [NEED] keeping
+  [NEED] private
+  [NEED] public
+  [NEED] safe
+
+kissing_dating_boundaries (9 icons)
+  [NEED] ask_adult
+  [NEED] boundaries
+  [NEED] clothes_on
+  [NEED] dating
+  [NEED] door_closed
+  [NEED] kissing
+  [NEED] private
+  [NEED] public
+  [NEED] safe
+
+locker_room_privacy (8 icons)
+  [NEED] bag
+  [NEED] change_clothes
+  [NEED] close_door
+  [NEED] clothes
+  [NEED] door
+  [NEED] help
+  [NEED] locker_room
+  [NEED] privacy
+
+medical_visits_meds_management (10 icons)
+  [NEED] appointment
+  [NEED] bag
+  [NEED] help
+  [NEED] medicine
+  [NEED] pharmacy
+  [NEED] phone
+  [NEED] privacy
+  [NEED] refill
+  [NEED] safe
+  [NEED] time
+
+no_phones_photos_private_places (14 icons)
+  [NEED] adult
+  [NEED] bathroom
+  [NEED] locker
+  [NEED] locker_room
+  [NEED] no_photos
+  [NEED] nurse
+  [NEED] phone
+  [NEED] phone_away
+  [NEED] photo
+  [NEED] private
+  [NEED] private_place
+  [NEED] report
+  [NEED] safe
+  [NEED] trusted_adult
+
+online_drama_cyberbullying_response (10 icons)
+  [NEED] adult
+  [NEED] block
+  [NEED] leave
+  [NEED] leave_group
+  [NEED] mute
+  [NEED] report
+  [NEED] safe
+  [NEED] safe_activity
+  [NEED] screenshot
+  [NEED] trusted_adult
+
+online_phone_safety_basics (13 icons)
+  [NEED] block
+  [NEED] break
+  [NEED] help
+  [NEED] home
+  [NEED] internet
+  [NEED] message
+  [NEED] online
+  [NEED] phone
+  [NEED] private
+  [NEED] report
+  [NEED] school
+  [NEED] school_rules
+  [NEED] stranger
+
+online_predators_grooming_red_flags (12 icons)
+  [NEED] adult
+  [NEED] block
+  [NEED] evidence
+  [NEED] gift
+  [NEED] meet
+  [NEED] meet_up
+  [NEED] photo
+  [NEED] photos
+  [NEED] report
+  [NEED] safe
+  [NEED] secret
+  [NEED] trusted_adult
+
+online_private_information (18 icons)
+  [NEED] address
+  [NEED] computer
+  [NEED] do_not_share
+  [NEED] information
+  [NEED] internet
+  [NEED] message
+  [NEED] online
+  [NEED] password
+  [NEED] phone
+  [NEED] photo
+  [NEED] private
+  [NEED] private_information
+  [NEED] safe_adult
+  [NEED] share
+  [NEED] show_adult
+  [NEED] stop
+  [NEED] stranger
+  [NEED] tablet
+
+online_strangers_messages (9 icons)
+  [NEED] ask_adult
+  [NEED] clothes_on
+  [NEED] door_closed
+  [NEED] messages
+  [NEED] online
+  [NEED] private
+  [NEED] public
+  [NEED] safe
+  [NEED] strangers
+
+peer_pressure_risky_dares_refusal_skills (11 icons)
+  [NEED] adult
+  [NEED] dare
+  [NEED] friend
+  [NEED] friends
+  [NEED] leave
+  [NEED] no
+  [NEED] safe
+  [NEED] safe_choice
+  [NEED] say_no
+  [NEED] trusted_adult
+  [NEED] walk_away
+
+period_care_pad_change (14 icons)
+  [NEED] bathroom
+  [NEED] bin
+  [NEED] clean
+  [NEED] close_door
+  [NEED] cramps
+  [NEED] heat_pack
+  [NEED] help
+  [NEED] pad
+  [NEED] period
+  [NEED] privacy
+  [NEED] pull_down_pants
+  [NEED] underwear
+  [NEED] wash_hands
+  [NEED] wrap_pad
+
+period_kit_planner (17 icons)
+  [NEED] backpack
+  [NEED] bathroom
+  [NEED] bin
+  [NEED] cramps
+  [NEED] hall_pass
+  [NEED] heat_pack
+  [NEED] help
+  [NEED] kit
+  [NEED] medicine
+  [NEED] pad
+  [NEED] period
+  [NEED] period_kit
+  [NEED] privacy
+  [NEED] spare_underwear
+  [NEED] tampon
+  [NEED] underwear
+  [NEED] wipes
+
+personal_space_consent (9 icons)
+  [NEED] ask_adult
+  [NEED] clothes_on
+  [NEED] consent
+  [NEED] door_closed
+  [NEED] personal
+  [NEED] private
+  [NEED] public
+  [NEED] safe
+  [NEED] space
+
+photo_privacy (8 icons)
+  [NEED] ask_adult
+  [NEED] clothes_on
+  [NEED] door_closed
+  [NEED] photo
+  [NEED] privacy
+  [NEED] private
+  [NEED] public
+  [NEED] safe
+
+public_private_body_rules (21 icons)
+  [NEED] ask
+  [NEED] ask_adult
+  [NEED] bathroom
+  [NEED] bedroom
+  [NEED] body
+  [NEED] clothes
+  [NEED] clothes_on
+  [NEED] community
+  [NEED] cover
+  [NEED] door
+  [NEED] door_closed
+  [NEED] help
+  [NEED] home
+  [NEED] private
+  [NEED] public
+  [NEED] respect
+  [NEED] safe
+  [NEED] safe_adult
+  [NEED] school
+  [NEED] teacher
+  [NEED] unsure
+
+public_transport_fare_evasion_pay_ticket (12 icons)
+  [NEED] buy_ticket
+  [NEED] fine
+  [NEED] inspector
+  [NEED] keep_ticket
+  [NEED] pass
+  [NEED] rules
+  [NEED] safe
+  [NEED] safe_choice
+  [NEED] say_no
+  [NEED] tap
+  [NEED] tap_card
+  [NEED] ticket
+
+rideshare_transit_personal_safety (15 icons)
+  [NEED] adult
+  [NEED] back
+  [NEED] back_seat
+  [NEED] call
+  [NEED] call_911
+  [NEED] check_plate
+  [NEED] driver
+  [NEED] driver_name
+  [NEED] plate
+  [NEED] safe_stop
+  [NEED] seatbelt
+  [NEED] share
+  [NEED] share_trip
+  [NEED] stop
+  [NEED] trusted_adult
+
+safe_hands_body_control (9 icons)
+  [NEED] ask_adult
+  [NEED] body
+  [NEED] clothes_on
+  [NEED] control
+  [NEED] door_closed
+  [NEED] hands
+  [NEED] private
+  [NEED] public
+  [NEED] safe
+
+saying_no_and_reporting (9 icons)
+  [NEED] and
+  [NEED] ask_adult
+  [NEED] clothes_on
+  [NEED] door_closed
+  [NEED] private
+  [NEED] public
+  [NEED] reporting
+  [NEED] safe
+  [NEED] saying
+
+sextortion_blackmail_online_safety_plan (12 icons)
+  [NEED] adult
+  [NEED] block
+  [NEED] do_not_pay
+  [NEED] do_not_send
+  [NEED] evidence
+  [NEED] no
+  [NEED] pay
+  [NEED] police
+  [NEED] report
+  [NEED] safe
+  [NEED] screenshot
+  [NEED] trusted_adult
+
+sexual_harassment_report (10 icons)
+  [NEED] adult
+  [NEED] boundary
+  [NEED] hr
+  [NEED] hr/teacher
+  [NEED] report
+  [NEED] safe
+  [NEED] safe_place
+  [NEED] stop
+  [NEED] teacher
+  [NEED] trusted_adult
+
+showering_body_washing (9 icons)
+  [NEED] ask_adult
+  [NEED] body
+  [NEED] clothes_on
+  [NEED] door_closed
+  [NEED] private
+  [NEED] public
+  [NEED] safe
+  [NEED] showering
+  [NEED] washing
+
+staying_with_group (9 icons)
+  [NEED] ask_adult
+  [NEED] clothes_on
+  [NEED] door_closed
+  [NEED] group
+  [NEED] private
+  [NEED] public
+  [NEED] safe
+  [NEED] staying
+  [NEED] with
+
+stealing_is_a_crime_peer_pressure (13 icons)
+  [NEED] camera
+  [NEED] consequence
+  [NEED] crime
+  [NEED] dare
+  [NEED] friend
+  [NEED] police
+  [NEED] refuse
+  [NEED] safe
+  [NEED] safe_choice
+  [NEED] say_no
+  [NEED] store
+  [NEED] trusted_adult
+  [NEED] walk_away
+
+stranger_safe_adult (16 icons)
+  [NEED] ask_help
+  [NEED] car
+  [NEED] community
+  [NEED] do_not_go
+  [NEED] go
+  [NEED] group
+  [NEED] help
+  [NEED] lost
+  [NEED] police
+  [NEED] safe_adult
+  [NEED] shop_worker
+  [NEED] stay_with_group
+  [NEED] stop
+  [NEED] stranger
+  [NEED] wait
+  [NEED] worried
+
+unexpected_body_changes_puberty (10 icons)
+  [NEED] ask_adult
+  [NEED] body
+  [NEED] changes
+  [NEED] clothes_on
+  [NEED] door_closed
+  [NEED] private
+  [NEED] puberty
+  [NEED] public
+  [NEED] safe
+  [NEED] unexpected
+
+using_pad_or_period_privacy (10 icons)
+  [NEED] ask_adult
+  [NEED] clothes_on
+  [NEED] door_closed
+  [NEED] pad
+  [NEED] period
+  [NEED] privacy
+  [NEED] private
+  [NEED] public
+  [NEED] safe
+  [NEED] using
+
+waiting_transitions (20 icons)
+  [NEED] ask_adult
+  [NEED] break
+  [NEED] calm
+  [NEED] clothes_on
+  [NEED] door_closed
+  [NEED] line_up
+  [NEED] listen
+  [NEED] look
+  [NEED] move
+  [NEED] next
+  [NEED] private
+  [NEED] public
+  [NEED] safe
+  [NEED] sit
+  [NEED] teacher
+  [NEED] timer
+  [NEED] transition
+  [NEED] transitions
+  [NEED] wait
+  [NEED] waiting
+
+wearing_bra_or_singlet (9 icons)
+  [NEED] ask_adult
+  [NEED] bra
+  [NEED] clothes_on
+  [NEED] door_closed
+  [NEED] private
+  [NEED] public
+  [NEED] safe
+  [NEED] singlet
+  [NEED] wearing
+
+work_ready_part_time_job_basics (11 icons)
+  [NEED] ask_for_help
+  [NEED] bin
+  [NEED] break
+  [NEED] clean
+  [NEED] help
+  [NEED] phone
+  [NEED] safe
+  [NEED] safety
+  [NEED] time
+  [NEED] uniform
+  [NEED] wash_hands
+

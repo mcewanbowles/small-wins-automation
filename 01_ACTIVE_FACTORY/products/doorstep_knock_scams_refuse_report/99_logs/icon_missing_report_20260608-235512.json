@@ -1,0 +1,35 @@
+{
+  "knock": [],
+  "do not open": [
+    "dont_know",
+    "dont_like",
+    "do not reply",
+    "dont_go_with_strangers",
+    "down"
+  ],
+  "refuse": [],
+  "ID check": [
+    "grid_preview",
+    "evidence",
+    "identity_theft",
+    "video_evidence",
+    "8identity_theft"
+  ],
+  "call parent": [
+    "call_dr",
+    "call_home",
+    "call_home_02",
+    "call_police",
+    "call_someone"
+  ],
+  "no thanks": [
+    "dont_know",
+    "no",
+    "ask_for_help_community_and_schoolnolabel_p03_i008",
+    "ask_for_help_community_and_schoolnolabel_p05_i003",
+    "ask_for_help_community_and_schoolnolabel_p05_i004"
+  ],
+  "safety first": [
+    "e-safety"
+  ]
+}

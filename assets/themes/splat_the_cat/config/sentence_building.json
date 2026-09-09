@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Language Structures",
+    "Vocabulary"
+  ],
+  "teacher_review_required": true,
+  "theme_items": [
+    {
+      "image_key": "splat",
+      "label": "splat"
+    },
+    {
+      "image_key": "cat",
+      "label": "cat"
+    },
+    {
+      "image_key": "school",
+      "label": "school"
+    },
+    {
+      "image_key": "mouse",
+      "label": "mouse"
+    },
+    {
+      "image_key": "teacher",
+      "label": "teacher"
+    },
+    {
+      "image_key": "friend",
+      "label": "friend"
+    },
+    {
+      "image_key": "scared",
+      "label": "scared"
+    },
+    {
+      "image_key": "learn",
+      "label": "learn"
+    }
+  ],
+  "patterns": [
+    {
+      "display": "I see ___",
+      "items": [
+        "splat",
+        "cat",
+        "school",
+        "mouse",
+        "teacher",
+        "friend"
+      ]
+    },
+    {
+      "display": "I want ___",
+      "items": [
+        "cat",
+        "school",
+        "mouse"
+      ]
+    },
+    {
+      "display": "I like ___",
+      "items": [
+        "splat",
+        "cat",
+        "school",
+        "mouse"
+      ]
+    }
+  ]
+}

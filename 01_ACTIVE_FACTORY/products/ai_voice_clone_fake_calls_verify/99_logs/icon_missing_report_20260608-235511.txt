@@ -1,0 +1,17 @@
+Missing icons report:
+
+- phone call
+  suggested alternatives: phone
+- unknown caller
+- verify
+- code word
+- parent
+- trusted adult
+- hang up
+  suggested alternatives: body_changes_normal
+- block number
+  suggested alternatives: block
+- do not share info
+  suggested alternatives: dont_know, dont_like, do not reply, dont_go_with_strangers, down
+- voice
+- caller id

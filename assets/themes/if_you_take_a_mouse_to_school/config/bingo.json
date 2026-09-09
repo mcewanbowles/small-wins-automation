@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "teacher_review_required": true,
+  "items": [
+    {
+      "image_key": "mouse",
+      "label": "Mouse"
+    },
+    {
+      "image_key": "school",
+      "label": "School"
+    },
+    {
+      "image_key": "backpack",
+      "label": "Backpack"
+    },
+    {
+      "image_key": "lunchbox",
+      "label": "Lunchbox"
+    },
+    {
+      "image_key": "pencil",
+      "label": "Pencil"
+    },
+    {
+      "image_key": "book",
+      "label": "Book"
+    },
+    {
+      "image_key": "cookie",
+      "label": "Cookie"
+    },
+    {
+      "image_key": "milk",
+      "label": "Milk"
+    }
+  ]
+}

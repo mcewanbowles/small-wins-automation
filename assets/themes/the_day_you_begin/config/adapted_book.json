@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "book_title": "The Day You Begin",
+  "pack_code": "AUTO-ADPT",
+  "review_sentence": "Angelina (Girl From Cover) has a good day.",
+  "teacher_review_required": true,
+  "pages": [
+    {
+      "page_num": 3,
+      "image_word": "school",
+      "sentence": "Angelina (Girl From Cover) and the school.",
+      "scene_note": "Scene featuring school"
+    },
+    {
+      "page_num": 4,
+      "image_word": "friend",
+      "sentence": "Angelina (Girl From Cover) and the friend.",
+      "scene_note": "Scene featuring friend"
+    },
+    {
+      "page_num": 5,
+      "image_word": "different",
+      "sentence": "Angelina (Girl From Cover) and the different.",
+      "scene_note": "Scene featuring different"
+    },
+    {
+      "page_num": 6,
+      "image_word": "brave",
+      "sentence": "Angelina (Girl From Cover) and the brave.",
+      "scene_note": "Scene featuring brave"
+    },
+    {
+      "page_num": 7,
+      "image_word": "story",
+      "sentence": "Angelina (Girl From Cover) and the story.",
+      "scene_note": "Scene featuring story"
+    },
+    {
+      "page_num": 8,
+      "image_word": "share",
+      "sentence": "Angelina (Girl From Cover) and the share.",
+      "scene_note": "Scene featuring share"
+    }
+  ]
+}

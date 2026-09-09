@@ -1,0 +1,26 @@
+{
+  "dating": [],
+  "boundary": [],
+  "consent": [],
+  "trusted adult": [],
+  "school rules": [
+    "ask_for_help_community_and_schoolnolabel_p03_i008",
+    "ask_for_help_community_and_schoolnolabel_p05_i003",
+    "ask_for_help_community_and_schoolnolabel_p05_i004",
+    "ask_for_help_community_and_schoolnolabel_p05_i012",
+    "ask_for_help_community_and_schoolnolabel_p07_i010"
+  ],
+  "relationship": [],
+  "listen": [],
+  "like someone": [
+    "dont_like",
+    "like"
+  ],
+  "private talk": [
+    "private",
+    "private_02",
+    "private (2)",
+    "private (3)",
+    "private_space"
+  ]
+}

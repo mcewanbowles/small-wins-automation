@@ -1,0 +1,17 @@
+TLOT Comparison Report -- generated 2026-06-20T21:33:35.564371
+Root  : D:\Seagate\small-wins-automation\TPT_LINE_OF_TRUTH
+Nested: D:\Seagate\small-wins-automation\Studioforge\TPT_LINE_OF_TRUTH
+
+Root file count   : 51186
+Nested file count : 26614
+
+IDENTICAL (safe to archive)   : 26614
+DIFFERENT (needs your review) : 0
+NESTED_ONLY (would be lost!)  : 0
+ROOT_ONLY (informational)     : 24572
+
+----------------------------------------------------------------------
+CLEAN RESULT: every nested file matches an identical file at root.
+Nothing unique exists only in the nested copy.
+Safe to run: python tlot_dedupe.py --confirm-archive
+----------------------------------------------------------------------

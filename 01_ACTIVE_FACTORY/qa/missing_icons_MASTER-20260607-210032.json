@@ -1,0 +1,595 @@
+{
+  "trust": {
+    "count": 1,
+    "topics": [
+      "adult_content_exposure_online_pg13"
+    ],
+    "suggestions": []
+  },
+  "wiping": {
+    "count": 1,
+    "topics": [
+      "bathroom_wiping_clean"
+    ],
+    "suggestions": []
+  },
+  "tell parent": {
+    "count": 1,
+    "topics": [
+      "being_bullied_get_help"
+    ],
+    "suggestions": [
+      "13 tell_someone",
+      "tell",
+      "tell_someon",
+      "tell_someone",
+      "tellpolice"
+    ]
+  },
+  "screenshot": {
+    "count": 3,
+    "topics": [
+      "being_bullied_get_help",
+      "online_drama_cyberbullying_response",
+      "sextortion_blackmail_online_safety_plan"
+    ],
+    "suggestions": [
+      "17 screenshot",
+      "screenshot",
+      "screenshot 2026-03-05 222847",
+      "screenshot 2026-03-05 230204"
+    ]
+  },
+  "parent": {
+    "count": 1,
+    "topics": [
+      "being_bullied_get_help"
+    ],
+    "suggestions": []
+  },
+  "cuts": {
+    "count": 1,
+    "topics": [
+      "blood_cuts_body_care"
+    ],
+    "suggestions": []
+  },
+  "apologize": {
+    "count": 1,
+    "topics": [
+      "bullying_others_stop_take_responsibility"
+    ],
+    "suggestions": []
+  },
+  "laundry": {
+    "count": 1,
+    "topics": [
+      "clean_clothes_laundry"
+    ],
+    "suggestions": []
+  },
+  "consent": {
+    "count": 1,
+    "topics": [
+      "consent_and_coercion_pg13_safety_respect"
+    ],
+    "suggestions": []
+  },
+  "pressure": {
+    "count": 2,
+    "topics": [
+      "consent_and_coercion_pg13_safety_respect",
+      "fake_vs_real_friends_safety_first"
+    ],
+    "suggestions": []
+  },
+  "doctor": {
+    "count": 1,
+    "topics": [
+      "doctor_nurse_private_questions"
+    ],
+    "suggestions": []
+  },
+  "nurse": {
+    "count": 2,
+    "topics": [
+      "doctor_nurse_private_questions",
+      "no_phones_photos_private_places"
+    ],
+    "suggestions": []
+  },
+  "questions": {
+    "count": 1,
+    "topics": [
+      "doctor_nurse_private_questions"
+    ],
+    "suggestions": []
+  },
+  "forward": {
+    "count": 1,
+    "topics": [
+      "dont_forward_inappropriate_images_illegal"
+    ],
+    "suggestions": []
+  },
+  "real friend": {
+    "count": 1,
+    "topics": [
+      "fake_vs_real_friends_safety_first"
+    ],
+    "suggestions": []
+  },
+  "fake friend": {
+    "count": 1,
+    "topics": [
+      "fake_vs_real_friends_safety_first"
+    ],
+    "suggestions": [
+      "4 deepfake (2)",
+      "deepfake",
+      "deepfake (2)"
+    ]
+  },
+  "friend": {
+    "count": 3,
+    "topics": [
+      "fake_vs_real_friends_safety_first",
+      "peer_pressure_risky_dares_refusal_skills",
+      "stealing_is_a_crime_peer_pressure"
+    ],
+    "suggestions": []
+  },
+  "real": {
+    "count": 1,
+    "topics": [
+      "fake_vs_real_friends_safety_first"
+    ],
+    "suggestions": []
+  },
+  "prize": {
+    "count": 1,
+    "topics": [
+      "financial_exploitation_scams_protect_self"
+    ],
+    "suggestions": []
+  },
+  "keeping": {
+    "count": 1,
+    "topics": [
+      "keeping_clothes_on"
+    ],
+    "suggestions": []
+  },
+  "kissing": {
+    "count": 1,
+    "topics": [
+      "kissing_dating_boundaries"
+    ],
+    "suggestions": []
+  },
+  "dating": {
+    "count": 1,
+    "topics": [
+      "kissing_dating_boundaries"
+    ],
+    "suggestions": []
+  },
+  "boundaries": {
+    "count": 1,
+    "topics": [
+      "kissing_dating_boundaries"
+    ],
+    "suggestions": []
+  },
+  "no photos": {
+    "count": 1,
+    "topics": [
+      "no_phones_photos_private_places"
+    ],
+    "suggestions": [
+      "ask_for_help_community_and_schoolnolabel_p03_i008",
+      "ask_for_help_community_and_schoolnolabel_p05_i003",
+      "ask_for_help_community_and_schoolnolabel_p05_i004",
+      "dont_know",
+      "no"
+    ]
+  },
+  "locker room": {
+    "count": 1,
+    "topics": [
+      "no_phones_photos_private_places"
+    ],
+    "suggestions": []
+  },
+  "locker": {
+    "count": 1,
+    "topics": [
+      "no_phones_photos_private_places"
+    ],
+    "suggestions": []
+  },
+  "safe activity": {
+    "count": 1,
+    "topics": [
+      "online_drama_cyberbullying_response"
+    ],
+    "suggestions": [
+      "e-safety",
+      "keep details safe",
+      "unsafe",
+      "unsafe_contact",
+      "unsafe_message"
+    ]
+  },
+  "gift": {
+    "count": 1,
+    "topics": [
+      "online_predators_grooming_red_flags"
+    ],
+    "suggestions": []
+  },
+  "meet up": {
+    "count": 1,
+    "topics": [
+      "online_predators_grooming_red_flags"
+    ],
+    "suggestions": []
+  },
+  "evidence": {
+    "count": 2,
+    "topics": [
+      "online_predators_grooming_red_flags",
+      "sextortion_blackmail_online_safety_plan"
+    ],
+    "suggestions": [
+      "evidence",
+      "video_evidence"
+    ]
+  },
+  "meet": {
+    "count": 1,
+    "topics": [
+      "online_predators_grooming_red_flags"
+    ],
+    "suggestions": []
+  },
+  "share": {
+    "count": 2,
+    "topics": [
+      "online_private_information",
+      "rideshare_transit_personal_safety"
+    ],
+    "suggestions": []
+  },
+  "private information": {
+    "count": 1,
+    "topics": [
+      "online_private_information"
+    ],
+    "suggestions": [
+      "private",
+      "private (2)",
+      "private (3)",
+      "private_02",
+      "private_space"
+    ]
+  },
+  "show adult": {
+    "count": 1,
+    "topics": [
+      "online_private_information"
+    ],
+    "suggestions": [
+      "show_me_again",
+      "showme",
+      "showme (2)"
+    ]
+  },
+  "do not share": {
+    "count": 1,
+    "topics": [
+      "online_private_information"
+    ],
+    "suggestions": [
+      "do not reply",
+      "dont_go_with_strangers",
+      "dont_know",
+      "dont_like",
+      "down"
+    ]
+  },
+  "messages": {
+    "count": 1,
+    "topics": [
+      "online_strangers_messages"
+    ],
+    "suggestions": []
+  },
+  "dare": {
+    "count": 2,
+    "topics": [
+      "peer_pressure_risky_dares_refusal_skills",
+      "stealing_is_a_crime_peer_pressure"
+    ],
+    "suggestions": []
+  },
+  "friends": {
+    "count": 1,
+    "topics": [
+      "peer_pressure_risky_dares_refusal_skills"
+    ],
+    "suggestions": []
+  },
+  "fine": {
+    "count": 1,
+    "topics": [
+      "public_transport_fare_evasion_pay_ticket"
+    ],
+    "suggestions": []
+  },
+  "rules": {
+    "count": 1,
+    "topics": [
+      "public_transport_fare_evasion_pay_ticket"
+    ],
+    "suggestions": []
+  },
+  "keep ticket": {
+    "count": 1,
+    "topics": [
+      "public_transport_fare_evasion_pay_ticket"
+    ],
+    "suggestions": [
+      "keep details safe",
+      "keep_hands_off"
+    ]
+  },
+  "seatbelt": {
+    "count": 1,
+    "topics": [
+      "rideshare_transit_personal_safety"
+    ],
+    "suggestions": []
+  },
+  "control": {
+    "count": 1,
+    "topics": [
+      "safe_hands_body_control"
+    ],
+    "suggestions": []
+  },
+  "saying": {
+    "count": 1,
+    "topics": [
+      "saying_no_and_reporting"
+    ],
+    "suggestions": []
+  },
+  "reporting": {
+    "count": 1,
+    "topics": [
+      "saying_no_and_reporting"
+    ],
+    "suggestions": []
+  },
+  "do not pay": {
+    "count": 1,
+    "topics": [
+      "sextortion_blackmail_online_safety_plan"
+    ],
+    "suggestions": [
+      "do not reply",
+      "dont_go_with_strangers",
+      "dont_know",
+      "dont_like",
+      "down"
+    ]
+  },
+  "pay": {
+    "count": 1,
+    "topics": [
+      "sextortion_blackmail_online_safety_plan"
+    ],
+    "suggestions": []
+  },
+  "boundary": {
+    "count": 1,
+    "topics": [
+      "sexual_harassment_report"
+    ],
+    "suggestions": []
+  },
+  "showering": {
+    "count": 1,
+    "topics": [
+      "showering_body_washing"
+    ],
+    "suggestions": []
+  },
+  "washing": {
+    "count": 1,
+    "topics": [
+      "showering_body_washing"
+    ],
+    "suggestions": []
+  },
+  "staying": {
+    "count": 1,
+    "topics": [
+      "staying_with_group"
+    ],
+    "suggestions": []
+  },
+  "group": {
+    "count": 2,
+    "topics": [
+      "staying_with_group",
+      "stranger_safe_adult"
+    ],
+    "suggestions": []
+  },
+  "camera": {
+    "count": 1,
+    "topics": [
+      "stealing_is_a_crime_peer_pressure"
+    ],
+    "suggestions": []
+  },
+  "crime": {
+    "count": 1,
+    "topics": [
+      "stealing_is_a_crime_peer_pressure"
+    ],
+    "suggestions": []
+  },
+  "refuse": {
+    "count": 1,
+    "topics": [
+      "stealing_is_a_crime_peer_pressure"
+    ],
+    "suggestions": []
+  },
+  "consequence": {
+    "count": 1,
+    "topics": [
+      "stealing_is_a_crime_peer_pressure"
+    ],
+    "suggestions": []
+  },
+  "shop worker": {
+    "count": 1,
+    "topics": [
+      "stranger_safe_adult"
+    ],
+    "suggestions": [
+      "shop",
+      "shopping",
+      "shopping_02",
+      "shopping_bags",
+      "shopping_list"
+    ]
+  },
+  "stay with group": {
+    "count": 1,
+    "topics": [
+      "stranger_safe_adult"
+    ],
+    "suggestions": []
+  },
+  "ask help": {
+    "count": 1,
+    "topics": [
+      "stranger_safe_adult"
+    ],
+    "suggestions": [
+      "ask_for_help_community_and_schoolnolabel_p03_i008",
+      "ask_for_help_community_and_schoolnolabel_p05_i003",
+      "ask_for_help_community_and_schoolnolabel_p05_i004",
+      "ask_for_help_community_and_schoolnolabel_p05_i012",
+      "ask_for_help_community_and_schoolnolabel_p07_i010"
+    ]
+  },
+  "do not go": {
+    "count": 1,
+    "topics": [
+      "stranger_safe_adult"
+    ],
+    "suggestions": [
+      "do not reply",
+      "dont_go_with_strangers",
+      "dont_know",
+      "dont_like",
+      "down"
+    ]
+  },
+  "unexpected": {
+    "count": 1,
+    "topics": [
+      "unexpected_body_changes_puberty"
+    ],
+    "suggestions": []
+  },
+  "puberty": {
+    "count": 1,
+    "topics": [
+      "unexpected_body_changes_puberty"
+    ],
+    "suggestions": []
+  },
+  "using": {
+    "count": 1,
+    "topics": [
+      "using_pad_or_period_privacy"
+    ],
+    "suggestions": []
+  },
+  "transitions": {
+    "count": 1,
+    "topics": [
+      "waiting_transitions"
+    ],
+    "suggestions": []
+  },
+  "timer": {
+    "count": 1,
+    "topics": [
+      "waiting_transitions"
+    ],
+    "suggestions": []
+  },
+  "line up": {
+    "count": 1,
+    "topics": [
+      "waiting_transitions"
+    ],
+    "suggestions": [
+      "ask_online",
+      "fun_online",
+      "illegal_online_content",
+      "online",
+      "online stranger"
+    ]
+  },
+  "listen": {
+    "count": 1,
+    "topics": [
+      "waiting_transitions"
+    ],
+    "suggestions": []
+  },
+  "transition": {
+    "count": 1,
+    "topics": [
+      "waiting_transitions"
+    ],
+    "suggestions": []
+  },
+  "move": {
+    "count": 1,
+    "topics": [
+      "waiting_transitions"
+    ],
+    "suggestions": []
+  },
+  "wearing": {
+    "count": 1,
+    "topics": [
+      "wearing_bra_or_singlet"
+    ],
+    "suggestions": []
+  },
+  "bra": {
+    "count": 1,
+    "topics": [
+      "wearing_bra_or_singlet"
+    ],
+    "suggestions": []
+  },
+  "singlet": {
+    "count": 1,
+    "topics": [
+      "wearing_bra_or_singlet"
+    ],
+    "suggestions": []
+  }
+}

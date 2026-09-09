@@ -1,0 +1,8 @@
+Missing icons report:
+
+- toilet paper
+  suggested alternatives: toilet (2), toilet
+- soap
+- dry
+- clothes up
+  suggested alternatives: clothes_on, clothes

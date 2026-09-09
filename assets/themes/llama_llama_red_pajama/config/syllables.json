@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": ["Phonological Awareness"],
+  "teacher_review_required": true,
+  "items": [
+    {"image_key": "bed", "label": "Bed", "count": 1, "segmentation": "bed"},
+    {"image_key": "cry", "label": "Cry", "count": 1, "segmentation": "cry"},
+    {"image_key": "llama", "label": "Llama Llama", "count": 4, "segmentation": "Lla · ma   Lla · ma"},
+    {"image_key": "mama", "label": "Mama", "count": 2, "segmentation": "Ma · ma"},
+    {"image_key": "night", "label": "Night", "count": 1, "segmentation": "night"},
+    {"image_key": "pajamas", "label": "Pajamas", "count": 3, "segmentation": "pa · ja · mas"},
+    {"image_key": "scared", "label": "Scared", "count": 1, "segmentation": "scared"},
+    {"image_key": "stairs", "label": "Stairs", "count": 1, "segmentation": "stairs"}
+  ]
+}

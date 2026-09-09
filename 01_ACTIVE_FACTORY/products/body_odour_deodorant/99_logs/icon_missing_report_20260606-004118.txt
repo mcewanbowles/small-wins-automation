@@ -1,0 +1,15 @@
+Missing icons report:
+
+- sweat
+- body odor
+  suggested alternatives: body_changes_normal
+- deodorant
+- underarm
+- soap
+- dry
+- fresh
+- sport
+- morning
+- under arms
+  suggested alternatives: under
+- odor

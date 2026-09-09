@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "teacher_review_required": true,
+  "items": [
+    {
+      "image_key": "interrupt",
+      "label": "Interrupt"
+    },
+    {
+      "image_key": "wait",
+      "label": "Wait"
+    },
+    {
+      "image_key": "talking",
+      "label": "Talking"
+    },
+    {
+      "image_key": "listening",
+      "label": "Listening"
+    },
+    {
+      "image_key": "erupt",
+      "label": "Erupt"
+    },
+    {
+      "image_key": "excited",
+      "label": "Excited"
+    }
+  ]
+}

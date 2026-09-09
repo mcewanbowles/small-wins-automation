@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "reading_rope": [
+    "Sight Recognition",
+    "Vocabulary"
+  ],
+  "teacher_review_required": true,
+  "words": [
+    {
+      "word": "school",
+      "image_key": "school",
+      "label": "School"
+    },
+    {
+      "word": "door",
+      "image_key": "door",
+      "label": "Door"
+    },
+    {
+      "word": "bell",
+      "image_key": "bell",
+      "label": "Bell"
+    },
+    {
+      "word": "teacher",
+      "image_key": "teacher",
+      "label": "Teacher"
+    },
+    {
+      "word": "student",
+      "image_key": "student",
+      "label": "Student"
+    },
+    {
+      "word": "desk",
+      "image_key": "desk",
+      "label": "Desk"
+    },
+    {
+      "word": "book",
+      "image_key": "book",
+      "label": "Book"
+    },
+    {
+      "word": "pencil",
+      "image_key": "pencil",
+      "label": "Pencil"
+    }
+  ]
+}

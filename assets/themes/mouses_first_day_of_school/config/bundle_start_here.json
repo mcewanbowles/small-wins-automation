@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "title": "Mouse's First Day of School Literacy & Communication Bundle",
+  "source_book_required": true,
+  "products": [
+    {
+      "name": "AAC Communication Board",
+      "group": "Communication access",
+      "prep": "Print or display"
+    },
+    {
+      "name": "Book Participation Pieces",
+      "group": "Communication access",
+      "prep": "Print, cut, laminate, attach"
+    },
+    {
+      "name": "Matching Cards",
+      "group": "Vocabulary practice",
+      "prep": "Print, cut, optional laminate"
+    },
+    {
+      "name": "Vocabulary Snap",
+      "group": "Vocabulary game",
+      "prep": "Print and cut"
+    },
+    {
+      "name": "Differentiated Bingo",
+      "group": "Vocabulary game",
+      "prep": "Print boards and cut calling cards"
+    },
+    {
+      "name": "Find & Cover",
+      "group": "Vocabulary practice",
+      "prep": "Print and cut target cards"
+    },
+    {
+      "name": "Reason & Sort",
+      "group": "Category reasoning",
+      "prep": "Print and cut"
+    },
+    {
+      "name": "Syllable Awareness",
+      "group": "Phonological awareness",
+      "prep": "Print"
+    },
+    {
+      "name": "CVC Decode & Build",
+      "group": "Decoding",
+      "prep": "Print"
+    },
+    {
+      "name": "Differentiated Word Search",
+      "group": "Word recognition",
+      "prep": "Print"
+    },
+    {
+      "name": "AAC Sentence Building",
+      "group": "Language structures",
+      "prep": "Print and cut pieces"
+    },
+    {
+      "name": "Yes/No Questions",
+      "group": "Literal comprehension",
+      "prep": "Print; optional cut tokens"
+    },
+    {
+      "name": "Clue - Think - Infer",
+      "group": "Verbal reasoning",
+      "prep": "Print"
+    },
+    {
+      "name": "Story Sequencing",
+      "group": "Narrative order",
+      "prep": "Print and cut"
+    },
+    {
+      "name": "Story Grammar & Retell",
+      "group": "Literacy knowledge",
+      "prep": "Print"
+    }
+  ],
+  "five_day_sequence": [
+    {
+      "day": "Day 1",
+      "focus": "Access and vocabulary",
+      "products": [
+        "AAC Board",
+        "Book Participation",
+        "Vocabulary Snap"
+      ]
+    },
+    {
+      "day": "Day 2",
+      "focus": "Sounds and decoding",
+      "products": [
+        "Syllable Awareness",
+        "CVC Decode & Build"
+      ]
+    },
+    {
+      "day": "Day 3",
+      "focus": "Sentence and literal comprehension",
+      "products": [
+        "AAC Sentence Building",
+        "Yes/No Questions"
+      ]
+    },
+    {
+      "day": "Day 4",
+      "focus": "Reasoning and categories",
+      "products": [
+        "Clue - Think - Infer",
+        "Reason & Sort"
+      ]
+    },
+    {
+      "day": "Day 5",
+      "focus": "Sequence, retell and review",
+      "products": [
+        "Story Sequencing",
+        "Story Grammar",
+        "Bingo or Word Search"
+      ]
+    }
+  ],
+  "reading_rope": {
+    "strong": [
+      "Vocabulary",
+      "Language Structures",
+      "Verbal Reasoning",
+      "Literacy Knowledge",
+      "Sight Recognition"
+    ],
+    "developing": [
+      "Phonological Awareness",
+      "Decoding"
+    ],
+    "not_claimed": [
+      "Comprehensive phonemic-awareness instruction",
+      "Connected-text fluency instruction"
+    ]
+  }
+}

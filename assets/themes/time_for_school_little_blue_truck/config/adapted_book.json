@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "book_title": "Time For School Little Blue Truck",
+  "pack_code": "AUTO-ADPT",
+  "review_sentence": "Little Blue Truck has a good day.",
+  "teacher_review_required": true,
+  "pages": [
+    {
+      "page_num": 3,
+      "image_word": "school",
+      "sentence": "Little Blue Truck and the school.",
+      "scene_note": "Scene featuring school"
+    },
+    {
+      "page_num": 4,
+      "image_word": "bus",
+      "sentence": "Little Blue Truck and the bus.",
+      "scene_note": "Scene featuring bus"
+    },
+    {
+      "page_num": 5,
+      "image_word": "truck",
+      "sentence": "Little Blue Truck and the truck.",
+      "scene_note": "Scene featuring truck"
+    },
+    {
+      "page_num": 6,
+      "image_word": "backpack",
+      "sentence": "Little Blue Truck and the backpack.",
+      "scene_note": "Scene featuring backpack"
+    },
+    {
+      "page_num": 7,
+      "image_word": "friends",
+      "sentence": "Little Blue Truck and the friends.",
+      "scene_note": "Scene featuring friends"
+    },
+    {
+      "page_num": 8,
+      "image_word": "wave",
+      "sentence": "Little Blue Truck and the wave.",
+      "scene_note": "Scene featuring wave"
+    }
+  ]
+}

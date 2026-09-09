@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "status": "pilot_review",
+  "book_title": "Chrysanthemum",
+  "pack_code": "AUTO-ADPT",
+  "review_sentence": "Chrysanthemum has a good day.",
+  "teacher_review_required": true,
+  "pages": [
+    {
+      "page_num": 3,
+      "image_word": "flower",
+      "sentence": "Chrysanthemum and the flower.",
+      "scene_note": "Scene featuring flower"
+    },
+    {
+      "page_num": 4,
+      "image_word": "name",
+      "sentence": "Chrysanthemum and the name.",
+      "scene_note": "Scene featuring name"
+    },
+    {
+      "page_num": 5,
+      "image_word": "school",
+      "sentence": "Chrysanthemum and the school.",
+      "scene_note": "Scene featuring school"
+    },
+    {
+      "page_num": 6,
+      "image_word": "tease",
+      "sentence": "Chrysanthemum and the tease.",
+      "scene_note": "Scene featuring tease"
+    },
+    {
+      "page_num": 7,
+      "image_word": "sad",
+      "sentence": "Chrysanthemum and the sad.",
+      "scene_note": "Scene featuring sad"
+    },
+    {
+      "page_num": 8,
+      "image_word": "happy",
+      "sentence": "Chrysanthemum and the happy.",
+      "scene_note": "Scene featuring happy"
+    }
+  ]
+}

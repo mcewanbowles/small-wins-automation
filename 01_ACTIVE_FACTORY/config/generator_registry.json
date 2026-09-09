@@ -1,0 +1,62 @@
+{
+  "aac_board": {
+    "script_path": "BoardReady",
+    "status": "working_external",
+    "notes": "BoardReady Option B already generates AAC board PDFs. Link PDFs; do not re-render here."
+  },
+  "social_story": {
+    "script_path": "tools/bundle_adapters/social_story_adapter.py",
+    "status": "candidate_working",
+    "notes": "Use topic_json.story_pages as source when implemented."
+  },
+  "mini_book": {
+    "script_path": "tools/bundle_adapters/mini_book_adapter.py",
+    "status": "candidate_working",
+    "notes": "Quarter-page / 4-to-a-page variant based on story_pages."
+  },
+  "lanyards": {
+    "script_path": "tools/bundle_adapters/lanyard_adapter.py",
+    "status": "candidate_working",
+    "notes": "Small symbol-over-label cards from cue_cards."
+  },
+  "cue_cards": {
+    "script_path": "tools/bundle_adapters/cue_card_adapter.py",
+    "status": "candidate_working",
+    "notes": "2x3 or 3x3 cards from cue_cards."
+  },
+  "routine_strip": {
+    "script_path": "tools/bundle_adapters/routine_strip_adapter.py",
+    "status": "candidate_working",
+    "notes": "First/Next/Then/Finished or numbered steps from routine_steps."
+  },
+  "yes_no_cards": {
+    "script_path": "tools/bundle_adapters/yes_no_adapter.py",
+    "status": "candidate_working",
+    "notes": "Question cards from yes_no_questions."
+  },
+  "task_cards": {
+    "script_path": "tools/bundle_adapters/task_cards_adapter.py",
+    "status": "candidate_working",
+    "notes": "Scenario prompts with optional answer key from task_cards."
+  },
+  "parent_guide": {
+    "script_path": "",
+    "status": "missing_or_candidate",
+    "notes": "Parent/Educator guidance PDF."
+  },
+  "cover_preview": {
+    "script_path": "tools/bundle_adapters/cover_preview_adapter.py",
+    "status": "candidate_working",
+    "notes": "Cover PNG + preview PDF + thumbnail PNG."
+  },
+  "tpt_listing": {
+    "script_path": "",
+    "status": "missing_or_candidate",
+    "notes": "Description, keywords, titles."
+  },
+  "zip_packager": {
+    "script_path": "",
+    "status": "missing_or_candidate",
+    "notes": "Upload-ready packaging, only after approval."
+  }
+}
