@@ -21,7 +21,7 @@ As of Oct 2026 TPT replaced Premium with two tiers:
 
 So "selling elsewhere" isn't banned — it *costs ~22% of every sale* to keep the top rate. Multi-marketplace sellers have simply accepted the Basic rate; it's a math decision, not a moral one.
 
-**Decision rule for the Strategist:** while weekly revenue < ~$500/wk, stay on whichever tier you're on and do NOT spend upload-hours duplicating listings elsewhere — your bottleneck is throughput, not platform fees. Revisit when TPT revenue is proven; compare "lost 22% payout" vs "hours to upload + fees on platform B".
+**Decision rule for the Strategist:** Fiona is on **Exclusive until Jan 1, 2027** — no digital-resource listings on other marketplaces before then (TeacherStore.io, TGM, Classful all gated). On Jan 1: if she stays Exclusive, competitors stay off the table entirely; if she drops to Basic (55%), run cheap tests on TeacherStore.io + TGM using their free/bulk upload — one sitting each, then hands-off. Do NOT spend upload-hours duplicating listings while weekly revenue < ~$500/wk — throughput is the bottleneck, not platform fees.
 
 ## 3. TPT competitors — who they are and whether it's worth your time
 
@@ -31,6 +31,7 @@ So "selling elsewhere" isn't banned — it *costs ~22% of every sale* to keep th
 | **Etsy** | Works for classroom decor/planners, not AAC/special-ed — your buyers don't shop there. Skip. |
 | **Payhip / own storefront** | ~85% payout + you own the customer list. This is the long-game move, not a marketplace play. Needs its own traffic (Pinterest + email). Phase 2, not now. |
 | **Tes Resources** | UK curriculum — possible later for UK-aligned resources; your content is US/sped. Skip for now. |
+| **TeacherStore.io** | Relaunched Oct 15-25, 2026; ~3,200 founding sellers. 80% payout, no transaction fees, non-exclusive, 6-month free trial then ~$49/yr, bulk uploader in beta. **Verdict: promising but unproven (launch cohort). Bookmark; test cheaply in January — see TPT tier gate below.** |
 | **Teachers Global Marketplace (TGM)** | Australian platform; marketplace is a side feature (main product is classroom displays/widgets) → low buyer traffic. BUT near-zero cost to test: free Standard seller (70% payout, $0.15/sale), non-exclusive, and **free bulk-upload assistance** — they'll help port the catalogue, removing the upload-time objection. Pro tier (90%, ~$50/yr) only if sales prove out. **Verdict: worth one sitting — free account + bulk-upload enquiry for 5-10 evergreen packs, then hands-off.** Caveat: not allowed if on TPT Exclusive tier. |
 
 ## 4. AI search ("stipe"/GEO services) — will people buy through AI?
