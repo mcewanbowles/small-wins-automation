@@ -31,6 +31,7 @@ So "selling elsewhere" isn't banned — it *costs ~22% of every sale* to keep th
 | **Etsy** | Works for classroom decor/planners, not AAC/special-ed — your buyers don't shop there. Skip. |
 | **Payhip / own storefront** | ~85% payout + you own the customer list. This is the long-game move, not a marketplace play. Needs its own traffic (Pinterest + email). Phase 2, not now. |
 | **Tes Resources** | UK curriculum — possible later for UK-aligned resources; your content is US/sped. Skip for now. |
+| **Teachers Global Marketplace (TGM)** | Australian platform; marketplace is a side feature (main product is classroom displays/widgets) → low buyer traffic. BUT near-zero cost to test: free Standard seller (70% payout, $0.15/sale), non-exclusive, and **free bulk-upload assistance** — they'll help port the catalogue, removing the upload-time objection. Pro tier (90%, ~$50/yr) only if sales prove out. **Verdict: worth one sitting — free account + bulk-upload enquiry for 5-10 evergreen packs, then hands-off.** Caveat: not allowed if on TPT Exclusive tier. |
 
 ## 4. AI search ("stipe"/GEO services) — will people buy through AI?
 
