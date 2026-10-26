@@ -30,6 +30,12 @@ python -m strategist.plan stats          # wins, streak, ramp numbers
 - `strategist/research.py` — market scans (Serper/Tavily keys if present; manual checklist otherwise).
 - `strategist/plan.py` — the CLI/render layer. The studioforge-next **Today** screen should call `brain.build_day_plan()` + `state.load()` directly — this file is just the terminal view.
 
+## Market position (Oct 2026 — see docs/MARKET_RESEARCH_2026-10.md)
+
+- TPT bans AI-**generated** resources but not AI-**assisted** ones with real human review — our pipeline's review gate is the compliant pattern and your quality moat. Never ship unreviewed.
+- TPT Basic (55%, sell anywhere) vs Exclusive (77.5–80%, TPT-only for digital ed resources): multi-marketplace is a math decision — skip duplicate uploads until TPT revenue justifies it.
+- AI-search ("GEO") services aren't worth it; one own-domain storefront page + Pinterest is the cheap version of being findable by ChatGPT/Perplexity — that's the Phase-2 hedge.
+
 ## Wiring still to do (next steps)
 
 - Feed `state["pipeline"]["pending_reviews"]` / `["ready_to_upload"]` from the real review/upload state so "upload day" detection is automatic.

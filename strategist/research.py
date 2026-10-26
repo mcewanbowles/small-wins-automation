@@ -19,9 +19,16 @@ MANUAL_CHECKLIST = [
     "Search TPT for this week's season hook; sort by 'Most Recent' AND 'Best Sellers' — note the top 5.",
     "For each: price, page count, preview style, # of reviews. Where's the gap (format, age band, AAC)?",
     "Check TPT's own homepage/newsletter for pushed themes (e.g. new policy pushes, featured categories).",
-    "Glance at Etsy + Amazon KDP for the same niche — what formats sell there that TPT lacks?",
+    "Skim seller forums/Facebook groups for TPT policy chatter (AI enforcement, payout changes) — 5 min max.",
     "Write ONE line in strategist_state.json → research.findings: what to build next and why.",
 ]
+
+# From docs/MARKET_RESEARCH_2026-10.md — keep these in mind when scanning:
+# - AI-*generated* resources are banned on TPT (Oct 2026); AI-*assisted*
+#   with real human review is the compliant pattern. Never ship unreviewed.
+# - Don't spend upload-hours duplicating listings to Made by Teachers /
+#   Classful / Etsy until TPT revenue justifies it — throughput is the cap.
+# - Etsy suits decor/planners, not special-ed/AAC. Skip it for our niche.
 
 
 def api_available() -> str | None:
