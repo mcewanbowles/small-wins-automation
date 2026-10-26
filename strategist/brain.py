@@ -165,6 +165,14 @@ def build_day_plan(state: dict, today: date | None = None,
         t("qa-upload", f"QA + upload {ready} ready product(s) to TPT",
           "upload", 30, "Nothing earns until it's live")
 
+    # 2b. One-off marketplace test (until done): TeacherStore.io bulk upload.
+    tests = state.get("marketplace_tests") or {}
+    if not tests.get("teacherstore_done"):
+        t("teacherstore-test",
+          "TeacherStore.io test: sign up + free bulk upload of 5-10 evergreen packs",
+          "sprint", 40,
+          "Free upload while you're not exclusive — cheap diversification data for the Jan 1 tier decision")
+
     # 3. The main build sprint — seasonal first while inside the window,
     #    evergreen otherwise.
     seasonal_open = season.end >= (today.month, today.day)

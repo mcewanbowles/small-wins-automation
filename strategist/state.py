@@ -96,6 +96,8 @@ def mark_done(state: dict, task_id: str) -> tuple[dict, dict | None]:
             task["done"] = True
             task["done_at"] = datetime.now().isoformat(timespec="seconds")
             record_win(state, task_id, task["label"])
+            if task_id == "teacherstore-test":
+                state.setdefault("marketplace_tests", {})["teacherstore_done"] = True
             save(state)
             return state, task
     save(state)

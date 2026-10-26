@@ -21,7 +21,7 @@ As of Oct 2026 TPT replaced Premium with two tiers:
 
 So "selling elsewhere" isn't banned — it *costs ~22% of every sale* to keep the top rate. Multi-marketplace sellers have simply accepted the Basic rate; it's a math decision, not a moral one.
 
-**Decision rule for the Strategist:** Fiona is on **Exclusive until Jan 1, 2027** — no digital-resource listings on other marketplaces before then (TeacherStore.io, TGM, Classful all gated). On Jan 1: if she stays Exclusive, competitors stay off the table entirely; if she drops to Basic (55%), run cheap tests on TeacherStore.io + TGM using their free/bulk upload — one sitting each, then hands-off. Do NOT spend upload-hours duplicating listings while weekly revenue < ~$500/wk — throughput is the bottleneck, not platform fees.
+**Decision rule for the Strategist:** Fiona is on the current Premium terms until Jan 1, 2027 — exclusivity does NOT apply yet (confirmed by her), so other marketplaces are open **now**. Cheapest tests first: TeacherStore.io (bulk uploader beta, free 6-month trial) and TGM (free bulk-upload assistance) — one sitting each for 5-10 evergreen packs, then hands-off. The Jan 1 decision (Basic 55% sell-anywhere vs Exclusive ~77.5% TPT-only) should use real test results: if a competitor produces sales by then, Basic pays for itself. Still no heavy upload-hours on duplication while weekly revenue < ~$500/wk — throughput is the bottleneck.
 
 ## 3. TPT competitors — who they are and whether it's worth your time
 

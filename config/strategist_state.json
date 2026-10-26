@@ -33,21 +33,20 @@
     "date": "2026-10-26",
     "tasks": [
       {
-        "done": true,
-        "done_at": "2026-10-26T02:26:28",
+        "done": false,
+        "est_min": 40,
+        "id": "teacherstore-test",
+        "kind": "sprint",
+        "label": "TeacherStore.io test: sign up + free bulk upload of 5-10 evergreen packs",
+        "why": "Free upload while you're not exclusive \u2014 cheap diversification data for the Jan 1 tier decision"
+      },
+      {
+        "done": false,
         "est_min": 45,
         "id": "build-seasonal",
         "kind": "sprint",
         "label": "Build 1 Fall / Halloween pack \u2014 hook: fall leaves (must be live by early September)",
         "why": "In-season window: Fall / Halloween"
-      },
-      {
-        "done": false,
-        "est_min": 20,
-        "id": "tailwind-ads",
-        "kind": "sprint",
-        "label": "Create 3 Tailwind/Pinterest pins for live listings",
-        "why": "Pinterest drives external TPT traffic"
       }
     ]
   },
