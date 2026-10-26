@@ -1,0 +1,62 @@
+{
+  "goal": {
+    "baseline_weekly_revenue": 0.0,
+    "currency": "USD",
+    "deadline_weeks": 26,
+    "started_on": "2026-10-26",
+    "weekly_revenue_target": 2000.0
+  },
+  "research": {
+    "findings": [
+      {
+        "checklist": [
+          "Search TPT for this week's season hook; sort by 'Most Recent' AND 'Best Sellers' \u2014 note the top 5.",
+          "For each: price, page count, preview style, # of reviews. Where's the gap (format, age band, AAC)?",
+          "Check TPT's own homepage/newsletter for pushed themes (e.g. new policy pushes, featured categories).",
+          "Glance at Etsy + Amazon KDP for the same niche \u2014 what formats sell there that TPT lacks?",
+          "Write ONE line in strategist_state.json \u2192 research.findings: what to build next and why."
+        ],
+        "date": "2026-10-26",
+        "mode": "manual",
+        "topic": "halloween wh questions"
+      }
+    ],
+    "last_run": "2026-10-26"
+  },
+  "schema_version": 1,
+  "streak": {
+    "best": 1,
+    "current": 1,
+    "last_win_date": "2026-10-26"
+  },
+  "today": {
+    "date": "2026-10-26",
+    "tasks": [
+      {
+        "done": true,
+        "done_at": "2026-10-26T02:26:28",
+        "est_min": 45,
+        "id": "build-seasonal",
+        "kind": "sprint",
+        "label": "Build 1 Fall / Halloween pack \u2014 hook: fall leaves (must be live by early September)",
+        "why": "In-season window: Fall / Halloween"
+      },
+      {
+        "done": false,
+        "est_min": 20,
+        "id": "tailwind-ads",
+        "kind": "sprint",
+        "label": "Create 3 Tailwind/Pinterest pins for live listings",
+        "why": "Pinterest drives external TPT traffic"
+      }
+    ]
+  },
+  "uploads": [],
+  "wins": [
+    {
+      "date": "2026-10-26",
+      "label": "Build 1 Fall / Halloween pack \u2014 hook: fall leaves (must be live by early September)",
+      "task_id": "build-seasonal"
+    }
+  ]
+}
